@@ -1,7 +1,7 @@
 NAME = ./42sh
 
 CORE = main.c
-MOD = strings.c exp.c extra.c built_ins.c built_in_cd_exit.c
+MOD = strings.c extra.c built_ins.c built_in_cd_exit.c
 
 OBJ = $(addprefix obj/, $(addprefix core/, $(CORE:.c=.o)) $(addprefix mod/, $(MOD:.c=.o)))
 
