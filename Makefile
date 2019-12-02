@@ -6,6 +6,7 @@ FLAGS += -g
 SOURCES =	main.c \
 			terminal_input_changes.c \
 			readline.c \
+			str_edit.c \
 			ft_realloc.c
 
 DIR_O = objs

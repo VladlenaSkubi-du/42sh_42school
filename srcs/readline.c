@@ -28,9 +28,10 @@ char	*readline(void)
 			write(1, "BLYAT!\n", 7);// Escape sequence process
 		else
 			ft_isprint(temp) ? write(1, &temp, 1) : 0;
-		if (char_add(temp, i))
+		if (temp == 127)
+			backspace_process(&i);
+		else if (char_add(temp, &i))
 			return (0);
-		i++;
 	}
 	return (g_cmd);
 }
