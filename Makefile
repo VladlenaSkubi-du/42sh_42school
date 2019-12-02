@@ -1,40 +1,45 @@
-NAME = ./42sh
+NAME = readline
 
-CORE = main.c
-MOD = strings.c extra.c built_ins.c built_in_cd_exit.c
+FLAGS = -Wall #-Werror -Wextra
+FLAGS += -g
 
-OBJ = $(addprefix obj/, $(addprefix core/, $(CORE:.c=.o)) $(addprefix mod/, $(MOD:.c=.o)))
+SOURCES =	main.c \
+			terminal_input_changes.c \
+			readline.c \
+			ft_realloc.c
 
-all: $(NAME)
+DIR_O = objs
 
-$(NAME): libft obj/ $(OBJ)
-	@gcc -g -L libft/ -lft $(OBJ) -o ./$(NAME)
+DIR_S = srcs
 
-obj/%.o: %.c
-	@gcc -Wall -Wextra -Werror -g -I libft/includes -I includes -c $< -o $@
-	@echo "msh–> new obj created: $@"
+SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
-obj/:
-	@mkdir obj
-	@mkdir obj/core
-	@mkdir obj/mod
+OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 
-libft:
-	@git submodule init
-	@git submodule update --remote --merge
-	@make -C libft
+LIBFT = libft/libft.a
+
+all:	$(NAME)
+
+$(NAME): $(OBJS)
+	@make -C ./libft
+	@echo "\x1b[32;01mCompiling readline...\x1b[0m"
+	@gcc $(FLAGS) $(OBJS) -o $(NAME) libft/libft.a -ltermcap
+	@echo "\x1b[32;01mReadline is ready\x1b[0m"
+
+$(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/readline.h
+	@mkdir -p $(DIR_O)
+	gcc $(FLAGS) -c -I includes -o $@ $<
 
 clean:
-	@make -C libft clean
-	@rm -rf obj
-	@echo "msh–> objs cleaned!"
+	@echo "\033[34mDeleting ft_select o-files\033[0m"
+	@/bin/rm -Rf $(DIR_O)
+	@make clean --directory ./libft
 
 fclean: clean
-	@rm -rf $(NAME) $(NAME).dSYM
-	@make -C libft fclean
-	@echo "msh–> full cleaned!"
+	@echo "\033[34mDeleting ft_select binary\033[0m"
+	@/bin/rm -f $(NAME)
+	@make fclean --directory ./libft
 
-re: fclean all
+re:		fclean all
 
-
-.PHONY: libft all clean fclean re
+.PHONY: all fclean clean re
