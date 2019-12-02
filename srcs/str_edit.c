@@ -12,7 +12,18 @@ int		str_shift(char *str, int shift)
 	return (0);
 }
 
-int		char_add(char c, size_t pos)
+void	backspace_process(size_t *pos)
+{
+	if (*pos != 0)
+	{
+		ft_strcpy(g_cmd + *pos - 1, g_cmd + *pos);
+		write(1, "\b \b", 3);
+		(*pos)--;
+	}
+}
+
+
+int		char_add(char c, size_t *pos)
 {
 	static size_t	size_max = BUFF_SIZE + 1;
 	static size_t	size = 0;
@@ -23,12 +34,13 @@ int		char_add(char c, size_t pos)
 			return (-1);
 		size_max += BUFF_SIZE;
 	}
-	if (g_cmd[pos] != '\0')
+	if (g_cmd[*pos] != '\0')
 	{
-		if(str_shift(g_cmd + pos, 1))
+		if(str_shift(g_cmd + *pos, 1))
 			return (-1);
 	}
-	g_cmd[pos] = c;
+	g_cmd[*pos] = c;
+	(*pos)++;
 	size++;
 	return (0);
 }

@@ -26,8 +26,8 @@ char				*readline(void);
 /*
 ** File str_edit.c
 */
-
-int		char_add(char c, size_t pos);
+void	backspace_process(size_t *pos);
+int		char_add(char c, size_t *pos);
 int		str_shift(char *str, int shift);
 
 /*
