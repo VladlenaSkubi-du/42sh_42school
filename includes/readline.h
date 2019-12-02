@@ -22,13 +22,8 @@ char				*g_cmd;
 */
 
 char				*readline(void);
-
-/*
-** File str_edit.c
-*/
-void	backspace_process(size_t *pos);
-int		char_add(char c, size_t *pos);
-int		str_shift(char *str, int shift);
+int					display_promt(void);
+int					readline_choice(char sy, size_t pos);
 
 /*
 ** File terminal_input_changes.c
@@ -37,6 +32,19 @@ int		str_shift(char *str, int shift);
 int					set_noncanonical_input(void);
 int					reset_canonical_input(void);
 int					back_to_noncanonical_input(void);
+
+/*
+** File ctrl_str_changes.c
+*/
+
+int					ctrl_key(char sy, size_t pos);
+
+/*
+** File str_edit.c
+*/
+void				backspace_process(size_t *pos);
+int					char_add(char c, size_t *pos);
+int					str_shift(char *str, int shift);
 
 /*
 ** File termcap_usage.c
@@ -51,5 +59,11 @@ int					printc(int c);
 
 void				*ft_realloc(void *subj, size_t len_subj,
 						size_t len, size_t len_needed);
+
+/*
+** File ft_xmalloc.c
+*/
+
+void				*ft_xmalloc(size_t size);
 
 #endif

@@ -1,4 +1,4 @@
-#include "readline.c"
+#include "readline.h"
 
 int		printc(int c)
 {
