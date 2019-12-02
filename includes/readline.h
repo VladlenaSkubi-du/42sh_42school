@@ -15,12 +15,20 @@
 
 struct termios		g_tty;
 struct termios		g_backup_tty;
+char				*g_cmd;
 
 /*
 ** File readline.c
 */
 
 char				*readline(void);
+
+/*
+** File str_edit.c
+*/
+
+int		char_add(char c, size_t pos);
+int		str_shift(char *str, int shift);
 
 /*
 ** File terminal_input_changes.c
@@ -36,5 +44,12 @@ int					back_to_noncanonical_input(void);
 
 int					putcap(char *cap);
 int					printc(int c);
+
+/*
+** File ft_realloc.c
+*/
+
+void				*ft_realloc(void *subj, size_t len_subj,
+						size_t len, size_t len_needed);
 
 #endif
