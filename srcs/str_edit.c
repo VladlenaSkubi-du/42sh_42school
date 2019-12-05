@@ -12,35 +12,36 @@ int		str_shift(char *str, int shift)
 	return (0);
 }
 
-void	backspace_process(size_t *pos)
+void	backspace_process(void)
 {
-	if (*pos != 0)
+	if (g_rline.pos != 0)
 	{
-		ft_strcpy(g_cmd + *pos - 1, g_cmd + *pos);
+		ft_strcpy(g_rline.cmd + g_rline.pos - 1, g_rline.cmd + g_rline.pos);
 		write(1, "\b \b", 3);
-		(*pos)--;
+		g_rline.pos--;
 	}
 }
 
 
-int		char_add(char c, size_t *pos)
+int		char_add(char c)
 {
-	static size_t	size_max = BUFF_SIZE + 1;
-	static size_t	size = 0;
+	static size_t	sz_max = CMD_SIZE + 1;
+	static size_t	sz = 0;
 
-	if (size >= size_max)
+	if (sz >= sz_max)
 	{
-		if (!(g_cmd = (char *)ft_realloc(g_cmd, size_max, size_max, size_max + BUFF_SIZE)))
+		if (!(g_rline.cmd = (char *)ft_realloc(g_rline.cmd, sz_max, sz_max,
+			sz_max + CMD_SIZE)))
 			return (-1);
-		size_max += BUFF_SIZE;
+		sz_max += CMD_SIZE;
 	}
-	if (g_cmd[*pos] != '\0')
+	if (g_rline.cmd[g_rline.pos] != '\0')
 	{
-		if(str_shift(g_cmd + *pos, 1))
+		if(str_shift(g_rline.cmd + g_rline.pos, 1))
 			return (-1);
 	}
-	g_cmd[*pos] = c;
-	(*pos)++;
-	size++;
+	g_rline.cmd[g_rline.pos] = c;
+	g_rline.pos++;
+	sz++;
 	return (0);
 }
