@@ -13,9 +13,18 @@
 # include "ft_printf.h"
 # include "get_next_line.h"
 
+# define CMD_SIZE 1024
+
+typedef struct		s_rline
+{
+	char			*cmd;
+	size_t			pos;
+	size_t			str_num;
+}					t_rline;
+
+t_rline				g_rline;
 struct termios		g_tty;
 struct termios		g_backup_tty;
-char				*g_cmd;
 
 /*
 ** File readline.c
@@ -23,7 +32,7 @@ char				*g_cmd;
 
 char				*readline(void);
 int					display_promt(void);
-int					readline_choice(char sy, size_t pos);
+int					readline_choice(char sy);
 
 /*
 ** File terminal_input_changes.c
@@ -37,13 +46,13 @@ int					back_to_noncanonical_input(void);
 ** File ctrl_str_changes.c
 */
 
-int					ctrl_key(char sy, size_t pos);
+int					ctrl_key(char sy);
 
 /*
 ** File str_edit.c
 */
-void				backspace_process(size_t *pos);
-int					char_add(char c, size_t *pos);
+void				backspace_process(void);
+int					char_add(char c);
 int					str_shift(char *str, int shift);
 
 /*
@@ -65,5 +74,20 @@ void				*ft_realloc(void *subj, size_t len_subj,
 */
 
 void				*ft_xmalloc(size_t size);
+
+/*
+** File escape.c
+*/
+
+int					escape_init(void);
+
+/*
+** File arrow_keys.c
+*/
+
+int		key_right_proc(void);
+int		key_up_proc(void);
+int		key_left_proc(void);
+int		key_down_proc(void);
 
 #endif

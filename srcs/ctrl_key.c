@@ -16,7 +16,7 @@
 ** Ctrl: Ctrl-k, ctrl-t, ctrl-u (ctrl-w) is here (I take)
 */
 
-int			ctrl_key(char sy, size_t pos)
+int			ctrl_key(char sy)
 {
 	if (sy == '\013')
 		write(STDERR_FILENO, "Ctrl-K\n", 8);
@@ -24,5 +24,7 @@ int			ctrl_key(char sy, size_t pos)
 		write(STDERR_FILENO, "Ctrl-T\n", 8);
 	else if (sy == '\025' || sy == '\027')
 		write(STDERR_FILENO, "Ctrl-U(W)\n", 11);
+	else if (sy == 127)
+		backspace_process();
 	return (0);
 }
