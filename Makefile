@@ -9,10 +9,11 @@ SOURCES =	main.c \
 			ctrl_key.c \
 			termcap_usage.c \
 			str_edit.c \
+			escape.c \
+			arrow_keys.c \
 			ft_xmalloc.c \
 			ft_realloc.c \
-			escape.c \
-			arrow_keys.c
+			swap_chars.c
 
 DIR_O = objs
 

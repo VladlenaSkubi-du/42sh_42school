@@ -5,11 +5,11 @@
 ** Function pointer array, should return function call
 */
 
-static int		sequence_process(int sequence_num)
+int				sequence_process(int sequence_num)
 {
-	int		(*seq_action[ESC_NUM])(void);
-
-	seq_action[0] = key_right_proc;
+	int				(*seq_action[ESC_NUM])(void);
+	
+	seq_action[0] = key_right_proc;	
 	seq_action[1] = key_up_proc;
 	seq_action[2] = key_left_proc;
 	seq_action[3] = key_down_proc;
@@ -17,17 +17,16 @@ static int		sequence_process(int sequence_num)
 }
 
 /*
-** Should beep and do nothing
+** Should beep and do nothing - bell
 */
 
-static int		incorrect_sequence(void)
+int				incorrect_sequence(void)
 {
+	putcap("bl");
 	return (0);
 }
 
-
-
-static int		escape_check(char **seq_base)
+int				escape_check(char **seq_base)
 {
 	size_t	i;
 	char	buff[16];
