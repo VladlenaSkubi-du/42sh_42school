@@ -2,7 +2,6 @@
 
 /*
 ** @sy is symbol
-** @pos is position in the line
 */
 
 int		readline_choice(char sy)
@@ -21,7 +20,14 @@ int		readline_choice(char sy)
 
 int		display_promt(void)
 {
-	write(STDOUT_FILENO, "\033[1;31m42sh\033[0m> ", 18);
+	char	*prompt;
+
+	prompt = "42sh";
+	ft_putstr_fd("\033[1;31m", 1);
+	ft_putstr_fd(prompt, 1);
+	ft_putstr_fd("\033[0m", 1);
+	ft_putstr_fd("> ", 1);
+	g_rline.prompt_len = ft_strlen(prompt) + 2;
 	return (0);
 }
 
@@ -29,12 +35,9 @@ char	*readline(void)
 {
 	char	temp;
 
-	// if (!(g_cmd = (char *)ft_xmalloc(BUFF_SIZE + 1)))
-	// 	return (0);
-	// ft_bzero(g_cmd, BUFF_SIZE + 1);
-
 	g_rline.cmd = (char *)ft_xmalloc(CMD_SIZE + 1);
 	g_rline.pos = 0;
+	g_rline.str_num = 0;
 	if (set_noncanonical_input() == -1)
 	{
 		ft_putendl_fd("Terminal can't be changed", 2); //исправить
@@ -46,7 +49,6 @@ char	*readline(void)
 	{
 		if (readline_choice(temp) < 0)
 			return (NULL);
-//		i++;
 	}
 	reset_canonical_input(); // Add error
 	return (g_rline.cmd);

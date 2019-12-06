@@ -4,8 +4,7 @@ int		str_shift(char *str, int shift)
 {
 	char	*buff;
 
-	if (!(buff = (char *)malloc(ft_strlen(str))))
-		return (-1);
+	buff = (char *)ft_xmalloc(ft_strlen(str));
 	ft_strcpy(buff, str);
 	ft_strcpy(str + shift, buff);
 	free(buff);
@@ -21,7 +20,6 @@ void	backspace_process(void)
 		g_rline.pos--;
 	}
 }
-
 
 int		char_add(char c)
 {
@@ -43,5 +41,21 @@ int		char_add(char c)
 	g_rline.cmd[g_rline.pos] = c;
 	g_rline.pos++;
 	sz++;
+	g_rline.str_num = count_str_num(); //put it if only we catch the signal SIGWINCH
 	return (0);
+}
+
+int		count_str_num(void)
+{
+	struct winsize	screen;
+	unsigned int	i;
+
+	i = 1;
+	ioctl(1, TIOCGWINSZ, &screen);
+	if ((ft_strlen(g_rline.cmd) + g_rline.prompt_len) > screen.ws_col)
+	{
+		while ((ft_strlen(g_rline.cmd) + g_rline.prompt_len) > screen.ws_col * i)
+			i++;
+	}
+	return (i);
 }
