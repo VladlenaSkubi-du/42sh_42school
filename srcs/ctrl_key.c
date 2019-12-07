@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 19:03:25 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/06 20:53:21 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/07 18:49:51 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,39 +31,28 @@ int			ctrl_key(char sy)
 
 int			make_ctrl_k(void)
 {
-	position_cursor("DC", 0, ft_strlen(g_rline.cmd + g_rline.pos));
+	putcap("ce");
 	ft_bzero(g_rline.cmd + g_rline.pos, ft_strlen(g_rline.cmd + g_rline.pos));
 	return (0);
 }
 
 int			make_ctrl_t(void)
 {
-	// int			first;
-	// int			second;
-	// size_t		len;
+	size_t		len;
 	
-	// len = ft_strlen(g_rline.cmd);
-	// if (len == 1)
-	// {
-	// 	putcap("bl");
-	// 	return (0);
-	// }
-	// if (g_rline.pos == 0)
-	// {
-	// 	first = g_rline.pos + 1;
-	// 	second = g_rline.pos;
-	// }
-	// else if (g_rline.pos == len)
-	// {
-	// 	first = g_rline.pos - 2;
-	// 	second = g_rline.pos - 1;
-	// }
-	// else
-	// {
-	// 	first = g_rline.pos;
-	// 	second = g_rline.pos - 1;
-	// }
-	// swap_chars(g_rline.cmd, first, second);
+	len = ft_strlen(g_rline.cmd);
+	if (len == 1)
+	{
+		putcap("bl");
+		return (0);
+	}
+	if (g_rline.pos == 0)
+		swap_chars(g_rline.cmd, g_rline.pos + 1, g_rline.pos);
+	else if (g_rline.pos == len)
+		swap_chars(g_rline.cmd, g_rline.pos - 1, g_rline.pos - 2);
+	else
+		swap_chars(g_rline.cmd, g_rline.pos, g_rline.pos - 1);
+	cursor_till_word_begginning();
 	// if (g_rline.pos == len)
 	// 	sequence_process(2);
 	// sequence_process(2);

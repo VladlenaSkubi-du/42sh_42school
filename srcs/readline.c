@@ -1,6 +1,7 @@
 #include "readline.h"
 
 /*
+** Readline_choice is a router to analyse what was pushed by the user
 ** @sy is symbol
 */
 

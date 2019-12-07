@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 17:55:26 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/06 20:38:45 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/07 18:49:29 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ int		key_right_proc(void)
 		return (0);
 	}
 	if (g_rline.str_num > 1)
-	{
-		while (g_rline.pos + g_rline.prompt_len >= sz.ws_col * i)
-			i++;
-	}
+		i = on_which_line(g_rline.pos + g_rline.prompt_len, sz.ws_col);
 	if (g_rline.pos + g_rline.prompt_len < sz.ws_col * i - 1)
 		putcap("nd");
 	else if (g_rline.pos + g_rline.prompt_len ==
