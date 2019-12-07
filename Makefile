@@ -4,12 +4,13 @@ FLAGS = -Wall #-Werror -Wextra
 FLAGS += -g
 
 SOURCES =	main.c \
-			terminal_input_changes.c \
 			readline.c \
-			ctrl_key.c \
+			terminal_input_changes.c \
 			termcap_usage.c \
 			str_edit.c \
+			str_processing.c \
 			escape.c \
+			ctrl_key.c \
 			arrow_keys.c \
 			ft_xmalloc.c \
 			ft_realloc.c \

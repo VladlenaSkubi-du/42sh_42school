@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   readline.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/07 17:18:10 by sschmele          #+#    #+#             */
+/*   Updated: 2019/12/07 17:54:44 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef READLINE_H
 # define READLINE_H
 
@@ -16,6 +28,13 @@
 
 # define CMD_SIZE 1024
 
+/*
+** @cmd is a command string printed by the user
+** @pos - position of the cursor in the command-string
+** @str_num - number of lines the command-string consists of
+** @prompt_len - length of the prompt (invitation to enter the command)
+*/
+
 typedef struct		s_rline
 {
 	char			*cmd;
@@ -29,7 +48,7 @@ struct termios		g_tty;
 struct termios		g_backup_tty;
 
 /*
-** File readline.c
+** File readline.c - the beginning of the work with readline
 */
 
 char				*readline(void);
@@ -45,23 +64,7 @@ int					reset_canonical_input(void);
 int					back_to_noncanonical_input(void);
 
 /*
-** File ctrl_str_changes.c
-*/
-
-int					ctrl_key(char sy);
-int					make_ctrl_k(void);
-int					make_ctrl_t(void);
-
-/*
-** File str_edit.c
-*/
-void				backspace_process(void);
-int					char_add(char c);
-int					str_shift(char *str, int shift);
-int					count_str_num(void);
-
-/*
-** File termcap_usage.c
+** File termcap_usage.c - library of functions to use termcap easily
 */
 
 int					putcap(char *cap);
@@ -69,7 +72,18 @@ int					printc(int c);
 int					position_cursor(char *cap, int x, int y);
 
 /*
-** File escape.c
+** File str_edit.c - universal functions for changing the main command-string
+** and dealing with other global-parameters of the command string
+*/
+
+int					char_add(char c);
+int					str_shift(char *str, int shift);
+int					count_str_num(void);
+void				backspace_process(void); //to put it to the other file
+
+/*
+** File escape.c - router to the functions performing actions with
+** escape-sequences
 */
 
 int					escape_init(void);
@@ -77,6 +91,17 @@ int					escape_check(char **seq_base);
 int					incorrect_sequence(void);
 int					sequence_process(int sequence_num);
 
+/*
+** File str_processing.c - operations with command-string for actions
+** performance
+*/
+
+unsigned int		on_which_line(size_t cmd_pos, unsigned short col);
+int					cursor_till_word_begginning(void);
+
+/*
+** Actions ____________________________________________________________________
+*/
 
 /*
 ** File arrow_keys.c
@@ -88,27 +113,20 @@ int					key_left_proc(void);
 int					key_down_proc(void);
 
 /*
-** Should be included in libft ________________________________________________________________________________________
+** File ctrl_str_changes.c
 */
 
+int					ctrl_key(char sy);
+int					make_ctrl_k(void);
+int					make_ctrl_t(void);
+
 /*
-** File ft_realloc.c
+** Should be included in libft ________________________________________________
 */
 
 void				*ft_realloc(void *subj, size_t len_subj,
 						size_t len, size_t len_needed);
-
-/*
-** File ft_xmalloc.c
-*/
-
 void				*ft_xmalloc(size_t size);
-
-
-/*
-** File swap_chars.c
-*/
-
 void				swap_chars(char *cmd, int b, int a);
 
 #endif

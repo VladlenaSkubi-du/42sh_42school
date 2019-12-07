@@ -1,6 +1,6 @@
 #include "readline.h"
 
-int		printc(int c)
+int				printc(int c)
 {
 	return (write(1, &c, 1));
 }
