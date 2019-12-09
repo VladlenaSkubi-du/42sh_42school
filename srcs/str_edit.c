@@ -16,8 +16,12 @@ void	backspace_process(void)
 	if (g_rline.pos != 0)
 	{
 		ft_strcpy(g_rline.cmd + g_rline.pos - 1, g_rline.cmd + g_rline.pos);
-		write(1, "\b \b", 3);
+		write(1, "\b", 1);
 		g_rline.pos--;
+		putcap("sc");
+		ft_putstr( g_rline.cmd + g_rline.pos);
+		write(1, " \b", 2);
+		putcap("rc");
 	}
 }
 
@@ -40,6 +44,9 @@ int		char_add(char c)
 	}
 	g_rline.cmd[g_rline.pos] = c;
 	g_rline.pos++;
+	putcap("sc");
+	ft_putstr( g_rline.cmd + g_rline.pos);
+	putcap("rc");
 	sz++;
 	g_rline.str_num = count_str_num(); //put it if only we catch the signal SIGWINCH
 	return (0);
