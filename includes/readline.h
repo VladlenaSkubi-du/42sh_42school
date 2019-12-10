@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:18:10 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/07 17:54:44 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/10 16:14:45 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,13 @@ typedef struct		s_rline
 	size_t			str_num;
 	size_t			prompt_len;
 }					t_rline;
+
+typedef struct		s_action_stack
+{
+	char			*cmd_b;
+	size_t			pos_b;
+	size_t			num_b;
+}					t_action_stack;
 
 t_rline				g_rline;
 struct termios		g_tty;
