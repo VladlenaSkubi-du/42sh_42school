@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:18:10 by sschmele          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/12/10 16:27:23 by sschmele         ###   ########.fr       */
+=======
+/*   Updated: 2019/12/10 16:21:25 by hshawand         ###   ########.fr       */
+>>>>>>> refs/remotes/origin/readline
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +41,7 @@
 
 typedef struct		s_rline
 {
+<<<<<<< HEAD
 	char			*cmd;
 	size_t			pos;
 	size_t			str_num;
@@ -48,62 +53,100 @@ t_rline				g_rline;
 struct termios		g_tty;
 struct termios		g_backup_tty;
 struct winsize		g_screen;
+=======
+	char						*cmd;
+	size_t						pos;
+	size_t						str_num;
+	size_t						prompt_len;
+}								t_rline;
+
+typedef struct					s_action_stack
+{
+	char						*cmd_b;
+	size_t						pos_b;
+	size_t						num_b;
+	struct s_action_stack		*next;
+	struct s_action_stack		*prev;
+}								t_action_stack;
+
+t_rline							g_rline;
+struct termios					g_tty;
+struct termios					g_backup_tty;
+>>>>>>> refs/remotes/origin/readline
 
 /*
 ** File readline.c - the beginning of the work with readline
 */
 
+<<<<<<< HEAD
 char				*readline(void);
 void				init_readline(void);
 int					display_promt(void);
 int					readline_choice(char sy);
+=======
+char							*readline(void);
+int								display_promt(void);
+int								readline_choice(char sy);
+>>>>>>> refs/remotes/origin/readline
 
 /*
 ** File terminal_input_changes.c
 */
 
-int					set_noncanonical_input(void);
-int					reset_canonical_input(void);
-int					back_to_noncanonical_input(void);
+int								set_noncanonical_input(void);
+int								reset_canonical_input(void);
+int								back_to_noncanonical_input(void);
 
 /*
 ** File termcap_usage.c - library of functions to use termcap easily
 */
 
-int					putcap(char *cap);
-int					printc(int c);
-int					position_cursor(char *cap, int x, int y);
+int								putcap(char *cap);
+int								printc(int c);
+int								position_cursor(char *cap, int x, int y);
 
 /*
 ** File str_edit.c - universal functions for changing the main command-string
 ** and dealing with other global-parameters of the command string
 */
 
+<<<<<<< HEAD
 int					char_add(char c);
 int					str_shift(char *str, int shift);
 int					count_str_num(void);
 void				backspace_process(void); //to put it to the other file
 int					insert_within_string_termcap(char c);
+=======
+int								char_add(char c);
+int								str_shift(char *str, int shift);
+int								count_str_num(void);
+void							backspace_process(void); //to put it to the other file
+>>>>>>> refs/remotes/origin/readline
 
 /*
 ** File escape.c - router to the functions performing actions with
 ** escape-sequences
 */
 
-int					escape_init(void);
-int					escape_check(char **seq_base);
-int					incorrect_sequence(void);
-int					sequence_process(int sequence_num);
+int								escape_init(void);
+int								escape_check(char **seq_base);
+int								incorrect_sequence(void);
+int								sequence_process(int sequence_num);
 
 /*
 ** File str_processing.c - operations with command-string for actions
 ** performance
 */
 
+<<<<<<< HEAD
 unsigned int		on_which_line(size_t cmd_pos, unsigned short col);
 int					cursor_till_word_begginning(void);
 int					position_relative(unsigned short *x,
 						unsigned short *y, size_t analyse);
+=======
+unsigned int					on_which_line(size_t cmd_pos, unsigned short col);
+int								cursor_till_word_begginning(void);
+>>>>>>> refs/remotes/origin/readline
 
 /*
 ** Actions ____________________________________________________________________
@@ -113,27 +156,40 @@ int					position_relative(unsigned short *x,
 ** File arrow_keys.c
 */
 
-int					key_right_proc(void);
-int					key_up_proc(void);
-int					key_left_proc(void);
-int					key_down_proc(void);
+int								key_right_proc(void);
+int								key_up_proc(void);
+int								key_left_proc(void);
+int								key_down_proc(void);
 
 /*
 ** File ctrl_str_changes.c
 */
 
+<<<<<<< HEAD
 int					ctrl_key(char sy);
 int					make_ctrl_k(void);
 int					make_ctrl_t(void);
 int					make_ctrl_u(void);
+=======
+int								ctrl_key(char sy);
+int								make_ctrl_k(void);
+int								make_ctrl_t(void);
+
+/*
+** File undo.c
+*/
+
+int								undo(int mode);
+void							action_alloc_management(t_action_stack *start);
+>>>>>>> refs/remotes/origin/readline
 
 /*
 ** Should be included in libft ________________________________________________
 */
 
-void				*ft_realloc(void *subj, size_t len_subj,
-						size_t len, size_t len_needed);
-void				*ft_xmalloc(size_t size);
-void				swap_chars(char *cmd, int b, int a);
+void							*ft_realloc(void *subj, size_t len_subj,
+								size_t len, size_t len_needed);
+void							*ft_xmalloc(size_t size);
+void							swap_chars(char *cmd, int b, int a);
 
 #endif
