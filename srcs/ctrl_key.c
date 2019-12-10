@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 19:03:25 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/07 18:49:51 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/10 17:59:50 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ int			ctrl_key(char sy)
 	else if (sy == '\024')
 		make_ctrl_t();
 	else if (sy == '\025' || sy == '\027')
-		write(STDERR_FILENO, "Ctrl-U(W)\n", 11);
-	else if (sy == 127)
+		make_ctrl_u();
+	else if (sy == '\027')
+		write(STDERR_FILENO, "Ctrl-W\n", 11);
+	else if (sy == 127 || sy == '\010')
 		backspace_process();
 	return (0);
 }
@@ -38,7 +40,7 @@ int			make_ctrl_k(void)
 
 int			make_ctrl_t(void)
 {
-	size_t		len;
+	size_t			len;
 	
 	len = ft_strlen(g_rline.cmd);
 	if (len == 1)
@@ -53,10 +55,22 @@ int			make_ctrl_t(void)
 	else
 		swap_chars(g_rline.cmd, g_rline.pos, g_rline.pos - 1);
 	cursor_till_word_begginning();
-	// if (g_rline.pos == len)
-	// 	sequence_process(2);
-	// sequence_process(2);
-	// ft_putchar_fd(g_rline.cmd[second], 1);
-	// ft_putchar_fd(g_rline.cmd[first], 1);
+	//till the end - will be done
+	return (0);
+}
+
+int			make_ctrl_u(void)
+{
+	unsigned short	end_x;
+	unsigned short	end_y;
+
+	if (position_relative(&end_x, &end_y, ft_strlen(g_rline.cmd)))
+		return (-1);
+	position_cursor("ch", 0, g_rline.prompt_len);
+	if (end_y > 1)
+		position_cursor("UP", 0, end_y - 1);
+	putcap("cd");
+	free(g_rline.cmd);
+	init_readline();
 	return (0);
 }
