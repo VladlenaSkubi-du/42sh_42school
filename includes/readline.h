@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:18:10 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/07 17:54:44 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/10 16:27:23 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,20 @@ typedef struct		s_rline
 	size_t			pos;
 	size_t			str_num;
 	size_t			prompt_len;
+	short			flag;
 }					t_rline;
 
 t_rline				g_rline;
 struct termios		g_tty;
 struct termios		g_backup_tty;
+struct winsize		g_screen;
 
 /*
 ** File readline.c - the beginning of the work with readline
 */
 
 char				*readline(void);
+void				init_readline(void);
 int					display_promt(void);
 int					readline_choice(char sy);
 
@@ -80,6 +83,7 @@ int					char_add(char c);
 int					str_shift(char *str, int shift);
 int					count_str_num(void);
 void				backspace_process(void); //to put it to the other file
+int					insert_within_string_termcap(char c);
 
 /*
 ** File escape.c - router to the functions performing actions with
@@ -98,6 +102,8 @@ int					sequence_process(int sequence_num);
 
 unsigned int		on_which_line(size_t cmd_pos, unsigned short col);
 int					cursor_till_word_begginning(void);
+int					position_relative(unsigned short *x,
+						unsigned short *y, size_t analyse);
 
 /*
 ** Actions ____________________________________________________________________
@@ -119,6 +125,7 @@ int					key_down_proc(void);
 int					ctrl_key(char sy);
 int					make_ctrl_k(void);
 int					make_ctrl_t(void);
+int					make_ctrl_u(void);
 
 /*
 ** Should be included in libft ________________________________________________

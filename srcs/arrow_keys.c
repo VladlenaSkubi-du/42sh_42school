@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 17:55:26 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/07 18:49:29 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/10 18:09:20 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,12 @@ int		key_right_proc(void)
 int		key_left_proc(void)
 {
 	struct winsize	sz;
+	unsigned short	new_x;
+	unsigned short	new_y;
 
 	ioctl(1, TIOCGWINSZ, &sz);
+	if (position_relative(&new_x, &new_y, g_rline.pos))
+		return(-1);
 	if (g_rline.pos == 0)
 	{
 		putcap("bl");
@@ -65,10 +69,10 @@ int		key_left_proc(void)
 	}
 	if (g_rline.pos > 0)
 		putcap("le");
-	else if ((g_rline.pos + g_rline.prompt_len) % (sz.ws_col + 1) == 0)
+	if (new_x == 0)
 	{
-		putcap("up");
-		position_cursor("ch", 0, sz.ws_col);
+		position_cursor("ch", 0, sz.ws_col - 1);
+		(g_rline.flag == 1) ? g_rline.flag = 0 : position_cursor("UP", 0, 0);
 	}
 	g_rline.pos--;
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:07:05 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/07 18:49:52 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/10 14:09:56 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,42 @@
 /*
 ** @num_space - counts on which line is space found
 ** @num_pos - counts on which line is position found
+** @beg - beginning of the word, its column
+**
+** We need the following: the line cursor is on (pos), the line space is on
+** the column space is on (get it from i). And we have 3 variants:
+** 1) pos and space are on the same line
+** 2) pos and space are on the lines one after another (we clear from pos
+** till the beginning of line and from the end of previous line till the space)
+** 3) pos and space have several lines between them - we need to clear them too
 */
 
-int			cursor_till_word_begginning(void)
+int					cursor_till_word_begginning(void)
 {
 	size_t			i;
+	size_t			p;
 	unsigned int	num_space;
 	unsigned int	num_pos;
-	struct winsize	sz;
 
 	i = g_rline.pos;
-	ioctl(1, TIOCGWINSZ, &sz);
+	num_space = 1;
+	num_pos = 1;
 	while (g_rline.cmd[i] != ' ' && i != 0)
 		i--;
-	num_space = on_which_line(g_rline.prompt_len + i, sz.ws_col);
-	// // if (g_rline.str_num > 1)
-	// // {
-	// // 	while (g_rline.pos + g_rline.prompt_len >= sz.ws_col * i)
-	// // 		i++;
-	// // }
-	// printf("HERE %s\n", g_rline.cmd + i);
+	if (g_rline.str_num > 1)
+	{
+		num_space = on_which_line(g_rline.prompt_len + i, g_screen.ws_col);
+		if (g_rline.prompt_len + i == g_screen.ws_col)
+			num_space++;
+		num_pos = on_which_line(g_rline.prompt_len + g_rline.pos,  g_screen.ws_col);
+	}
+	i = (i + g_rline.prompt_len - 1) %  g_screen.ws_col;
+	p = (g_rline.pos + g_rline.prompt_len - 1) % g_screen.ws_col;
+	// if (num_space == num_pos)
+	// {
+
+	// }
+	printf("SPACE %zu - POS %zu\n", i, p);
 	return (0);
 }
 
@@ -46,4 +62,20 @@ unsigned int		on_which_line(size_t cmd_pos, unsigned short col)
 	while (cmd_pos >= col * i)
 		i++;
 	return (i);
+}
+
+int					position_relative(unsigned short *x,
+						unsigned short *y, size_t analyse)
+{
+	if (g_rline.prompt_len + analyse < g_screen.ws_col)
+	{
+		(x) ? *x = g_rline.prompt_len + analyse : 0;
+		(y) ? *y = 1 : 0;
+	}
+	else
+	{
+		(x) ? *x = (g_rline.prompt_len + analyse) % g_screen.ws_col : 0;
+		(y) ? *y = on_which_line(g_rline.prompt_len + analyse, g_screen.ws_col) : 0;
+	}
+	return (0);
 }

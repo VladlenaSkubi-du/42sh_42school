@@ -12,7 +12,7 @@ int		readline_choice(char sy)
 		escape_init(); // Escape sequence process
 	else if (ft_isprint(sy))
 	{
-		write(1, &sy, 1);
+		write(STDOUT_FILENO, &sy, 1);
 		if (char_add(sy))
 			return (-1);
 	}
@@ -21,7 +21,7 @@ int		readline_choice(char sy)
 
 int		display_promt(void)
 {
-	char	*prompt;
+	char		*prompt;
 
 	prompt = "42sh";
 	ft_putstr_fd("\033[1;31m", 1);
@@ -34,11 +34,9 @@ int		display_promt(void)
 
 char	*readline(void)
 {
-	char	temp;
+	char			temp;
 
-	g_rline.cmd = (char *)ft_xmalloc(CMD_SIZE + 1);
-	g_rline.pos = 0;
-	g_rline.str_num = 0;
+	init_readline();
 	if (set_noncanonical_input() == -1)
 	{
 		ft_putendl_fd("Terminal can't be changed", 2); //исправить
@@ -48,9 +46,18 @@ char	*readline(void)
 		return (NULL);
 	while (read(1, &temp, 1) && temp != '\n')
 	{
+		ioctl(1, TIOCGWINSZ, &g_screen);
 		if (readline_choice(temp) < 0)
 			return (NULL);
 	}
 	reset_canonical_input(); // Add error
 	return (g_rline.cmd);
+}
+
+void	init_readline(void)
+{
+	g_rline.cmd = (char *)ft_xmalloc(CMD_SIZE + 1);
+	g_rline.pos = 0;
+	g_rline.str_num = 0;
+	g_rline.flag = 0;
 }
