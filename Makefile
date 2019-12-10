@@ -14,7 +14,8 @@ SOURCES =	main.c \
 			arrow_keys.c \
 			ft_xmalloc.c \
 			ft_realloc.c \
-			swap_chars.c
+			swap_chars.c \
+			undo.c
 
 DIR_O = objs
 
