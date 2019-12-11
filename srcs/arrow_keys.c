@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 17:55:26 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/10 18:09:20 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/11 15:32:27 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@
 
 int		key_right_proc(void)
 {
-	struct winsize	sz;
 	unsigned int	i;
 
-	ioctl(1, TIOCGWINSZ, &sz);
 	i = 1;
 	if (g_rline.pos >= ft_strlen(g_rline.cmd))
 	{
@@ -40,11 +38,11 @@ int		key_right_proc(void)
 		return (0);
 	}
 	if (g_rline.str_num > 1)
-		i = on_which_line(g_rline.pos + g_rline.prompt_len, sz.ws_col);
-	if (g_rline.pos + g_rline.prompt_len < sz.ws_col * i - 1)
+		i = on_which_line(g_rline.pos + g_rline.prompt_len, g_screen.ws_col);
+	if (g_rline.pos + g_rline.prompt_len < g_screen.ws_col * i - 1)
 		putcap("nd");
 	else if (g_rline.pos + g_rline.prompt_len ==
-				sz.ws_col * i - 1)
+				g_screen.ws_col * i - 1)
 	{
 		putcap("cr");
 		putcap("do");
@@ -55,12 +53,9 @@ int		key_right_proc(void)
 
 int		key_left_proc(void)
 {
-	struct winsize	sz;
 	unsigned short	new_x;
-	unsigned short	new_y;
 
-	ioctl(1, TIOCGWINSZ, &sz);
-	if (position_relative(&new_x, &new_y, g_rline.pos))
+	if (position_relative(&new_x, 0, g_rline.pos))
 		return(-1);
 	if (g_rline.pos == 0)
 	{
@@ -71,8 +66,10 @@ int		key_left_proc(void)
 		putcap("le");
 	if (new_x == 0)
 	{
-		position_cursor("ch", 0, sz.ws_col - 1);
-		(g_rline.flag == 1) ? g_rline.flag = 0 : position_cursor("UP", 0, 0);
+		while (new_x++ < g_screen.ws_col)
+			putcap("nd");
+		// position_cursor("ch", 0, sz.ws_col - 1);
+		putcap("up");
 	}
 	g_rline.pos--;
 	return (0);

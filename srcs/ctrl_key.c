@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 19:03:25 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/10 17:59:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/11 15:46:19 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int			ctrl_key(char sy)
 		make_ctrl_k();
 	else if (sy == '\024')
 		make_ctrl_t();
-	else if (sy == '\025' || sy == '\027')
+	else if (sy == '\025')
 		make_ctrl_u();
 	else if (sy == '\027')
 		write(STDERR_FILENO, "Ctrl-W\n", 11);
@@ -63,12 +63,33 @@ int			make_ctrl_u(void)
 {
 	unsigned short	end_x;
 	unsigned short	end_y;
+	size_t			i;
 
+	i = 0;
 	if (position_relative(&end_x, &end_y, ft_strlen(g_rline.cmd)))
 		return (-1);
-	position_cursor("ch", 0, g_rline.prompt_len);
+	if (end_x < g_rline.prompt_len)
+	{
+		while (end_x++ < g_rline.prompt_len)
+			putcap("nd");
+	}
+	else if (end_x > g_rline.prompt_len - 1)
+	{
+		while (end_x-- > g_rline.prompt_len)
+			putcap("le");
+	}
+
+	// position_cursor("ch", 0, g_rline.prompt_len);
+
 	if (end_y > 1)
-		position_cursor("UP", 0, end_y - 1);
+	{
+		while (i++ < end_y - 1)
+			putcap("up");
+	}
+
+	// if (end_y > 1)
+		// position_cursor("UP", 0, end_y - 1);
+		
 	putcap("cd");
 	free(g_rline.cmd);
 	init_readline();

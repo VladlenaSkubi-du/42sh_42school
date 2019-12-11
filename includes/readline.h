@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/07 17:18:10 by sschmele          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/12/10 16:27:23 by sschmele         ###   ########.fr       */
-=======
-/*   Updated: 2019/12/10 16:21:25 by hshawand         ###   ########.fr       */
->>>>>>> refs/remotes/origin/readline
+/*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
+/*   Updated: 2019/12/11 15:24:33 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +37,11 @@
 
 typedef struct		s_rline
 {
-<<<<<<< HEAD
-	char			*cmd;
-	size_t			pos;
-	size_t			str_num;
-	size_t			prompt_len;
-	short			flag;
-}					t_rline;
-
-t_rline				g_rline;
-struct termios		g_tty;
-struct termios		g_backup_tty;
-struct winsize		g_screen;
-=======
 	char						*cmd;
 	size_t						pos;
 	size_t						str_num;
 	size_t						prompt_len;
+	short						flag;
 }								t_rline;
 
 typedef struct					s_action_stack
@@ -70,24 +54,18 @@ typedef struct					s_action_stack
 }								t_action_stack;
 
 t_rline							g_rline;
+struct winsize					g_screen;
 struct termios					g_tty;
 struct termios					g_backup_tty;
->>>>>>> refs/remotes/origin/readline
 
 /*
 ** File readline.c - the beginning of the work with readline
 */
 
-<<<<<<< HEAD
-char				*readline(void);
-void				init_readline(void);
-int					display_promt(void);
-int					readline_choice(char sy);
-=======
 char							*readline(void);
+void							init_readline(void);
 int								display_promt(void);
 int								readline_choice(char sy);
->>>>>>> refs/remotes/origin/readline
 
 /*
 ** File terminal_input_changes.c
@@ -110,18 +88,11 @@ int								position_cursor(char *cap, int x, int y);
 ** and dealing with other global-parameters of the command string
 */
 
-<<<<<<< HEAD
-int					char_add(char c);
-int					str_shift(char *str, int shift);
-int					count_str_num(void);
-void				backspace_process(void); //to put it to the other file
-int					insert_within_string_termcap(char c);
-=======
 int								char_add(char c);
 int								str_shift(char *str, int shift);
 int								count_str_num(void);
 void							backspace_process(void); //to put it to the other file
->>>>>>> refs/remotes/origin/readline
+int								insert_within_string_termcap(char c);
 
 /*
 ** File escape.c - router to the functions performing actions with
@@ -138,15 +109,10 @@ int								sequence_process(int sequence_num);
 ** performance
 */
 
-<<<<<<< HEAD
-unsigned int		on_which_line(size_t cmd_pos, unsigned short col);
-int					cursor_till_word_begginning(void);
-int					position_relative(unsigned short *x,
-						unsigned short *y, size_t analyse);
-=======
 unsigned int					on_which_line(size_t cmd_pos, unsigned short col);
 int								cursor_till_word_begginning(void);
->>>>>>> refs/remotes/origin/readline
+int								position_relative(unsigned short *x,
+									unsigned short *y, size_t analyse);
 
 /*
 ** Actions ____________________________________________________________________
@@ -162,26 +128,19 @@ int								key_left_proc(void);
 int								key_down_proc(void);
 
 /*
+** File esc_undo_completion_transpose.c
+*/
+
+int								esc_r(void);
+
+/*
 ** File ctrl_str_changes.c
 */
 
-<<<<<<< HEAD
-int					ctrl_key(char sy);
-int					make_ctrl_k(void);
-int					make_ctrl_t(void);
-int					make_ctrl_u(void);
-=======
 int								ctrl_key(char sy);
 int								make_ctrl_k(void);
 int								make_ctrl_t(void);
-
-/*
-** File undo.c
-*/
-
-int								undo(int mode);
-void							action_alloc_management(t_action_stack *start);
->>>>>>> refs/remotes/origin/readline
+int								make_ctrl_u(void);
 
 /*
 ** Should be included in libft ________________________________________________
