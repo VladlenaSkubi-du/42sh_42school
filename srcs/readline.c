@@ -51,6 +51,7 @@ char	*readline(void)
 			return (NULL);
 	}
 	reset_canonical_input(); // Add error
+	action_alloc_management(0, 1);
 	return (g_rline.cmd);
 }
 

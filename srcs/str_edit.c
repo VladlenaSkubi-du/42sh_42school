@@ -30,6 +30,7 @@ int				char_add(char c)
 	static size_t	sz_max = CMD_SIZE + 1;
 	static size_t	sz = 0;
 
+	undo(0);
 	if (sz >= sz_max)
 	{
 		if (!(g_rline.cmd = (char *)ft_realloc(g_rline.cmd, sz_max, sz_max,

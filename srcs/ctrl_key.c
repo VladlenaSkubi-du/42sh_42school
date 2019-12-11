@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ctrl_key.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 19:03:25 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/11 15:46:19 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/11 15:58:50 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 /*
 ** Ctrl: Ctrl-k, ctrl-t, ctrl-u (ctrl-w) is here (I take)
 */
+
+int			make_ctrl_x(void)
+{
+	char	next;
+
+	read(1, &next, 1);
+	if (next == '\025')
+		undo(1);
+	else
+		incorrect_sequence();
+	return (0);
+}
 
 int			ctrl_key(char sy)
 {
@@ -28,6 +40,8 @@ int			ctrl_key(char sy)
 		write(STDERR_FILENO, "Ctrl-W\n", 11);
 	else if (sy == 127 || sy == '\010')
 		backspace_process();
+	else if (sy == 24)
+		make_ctrl_x();
 	return (0);
 }
 

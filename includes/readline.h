@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/11 15:24:33 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/11 16:39:32 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,13 @@ unsigned int					on_which_line(size_t cmd_pos, unsigned short col);
 int								cursor_till_word_begginning(void);
 int								position_relative(unsigned short *x,
 									unsigned short *y, size_t analyse);
+
+/*
+** File undo.c
+*/
+
+void			action_alloc_management(t_action_stack *start, int mode);
+int				undo(int mode);
 
 /*
 ** Actions ____________________________________________________________________
