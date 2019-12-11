@@ -13,7 +13,6 @@ int				str_shift(char *str, int shift)
 
 void			backspace_process(void)
 {
-<<<<<<< HEAD
 	// if (g_rline.pos != 0)
 	// {
 	// 	ft_strcpy(g_rline.cmd + g_rline.pos - 1, g_rline.cmd + g_rline.pos);
@@ -24,18 +23,6 @@ void			backspace_process(void)
 	// 	write(1, " \b", 2);
 	// 	putcap("rc");
 	// }
-=======
-	if (g_rline.pos != 0)
-	{
-		ft_strcpy(g_rline.cmd + g_rline.pos - 1, g_rline.cmd + g_rline.pos);
-		write(1, "\b", 1);
-		g_rline.pos--;
-		putcap("sc");
-		ft_putstr( g_rline.cmd + g_rline.pos);
-		write(1, " \b", 2);
-		putcap("rc");
-	}
->>>>>>> refs/remotes/origin/readline
 }
 
 int				char_add(char c)

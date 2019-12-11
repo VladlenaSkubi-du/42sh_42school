@@ -12,10 +12,11 @@ SOURCES =	main.c \
 			escape.c \
 			ctrl_key.c \
 			arrow_keys.c \
+			esc_undo_completion_transpose.c \
 			ft_xmalloc.c \
 			ft_realloc.c \
-			swap_chars.c \
-			undo.c
+			swap_chars.c 
+			# undo.c
 
 DIR_O = objs
 
