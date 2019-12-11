@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ctrl_key.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 19:03:25 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/11 15:58:50 by hshawand         ###   ########.fr       */
+/*   Updated: 2019/12/11 17:05:35 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,35 +75,8 @@ int			make_ctrl_t(void)
 
 int			make_ctrl_u(void)
 {
-	unsigned short	end_x;
-	unsigned short	end_y;
-	size_t			i;
-
-	i = 0;
-	if (position_relative(&end_x, &end_y, ft_strlen(g_rline.cmd)))
-		return (-1);
-	if (end_x < g_rline.prompt_len)
-	{
-		while (end_x++ < g_rline.prompt_len)
-			putcap("nd");
-	}
-	else if (end_x > g_rline.prompt_len - 1)
-	{
-		while (end_x-- > g_rline.prompt_len)
-			putcap("le");
-	}
-
-	// position_cursor("ch", 0, g_rline.prompt_len);
-
-	if (end_y > 1)
-	{
-		while (i++ < end_y - 1)
-			putcap("up");
-	}
-
-	// if (end_y > 1)
-		// position_cursor("UP", 0, end_y - 1);
-		
+	while (g_rline.pos)
+		key_left_proc();
 	putcap("cd");
 	free(g_rline.cmd);
 	init_readline();

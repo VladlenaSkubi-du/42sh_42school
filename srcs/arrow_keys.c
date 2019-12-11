@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 17:55:26 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/11 15:32:27 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/11 17:12:05 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		key_right_proc(void)
 	unsigned int	i;
 
 	i = 1;
-	if (g_rline.pos >= ft_strlen(g_rline.cmd))
+	if (g_rline.pos == 0 || g_rline.pos >= ft_strlen(g_rline.cmd))
 	{
 		putcap("bl");
 		return (0);
@@ -68,7 +68,6 @@ int		key_left_proc(void)
 	{
 		while (new_x++ < g_screen.ws_col)
 			putcap("nd");
-		// position_cursor("ch", 0, sz.ws_col - 1);
 		putcap("up");
 	}
 	g_rline.pos--;
