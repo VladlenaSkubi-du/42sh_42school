@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 17:55:26 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/13 16:03:13 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/13 17:13:13 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ int		key_left_proc(void)
 	else if (new_x == 0)
 	{
 		position_cursor("ch", 0, g_screen.ws_col - 1);
-		// while (new_x++ < g_screen.ws_col)
-		// 	putcap("nd");
 		putcap("up");
 	}
 	g_rline.pos--;

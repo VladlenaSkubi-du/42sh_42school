@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   undo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:50:21 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/13 17:12:52 by hshawand         ###   ########.fr       */
+/*   Updated: 2019/12/13 17:26:42 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ t_action_stack	*action_new(void)
 	return (new);
 }
 
-int				action_add(t_action_stack **start, t_action_stack **end, size_t
-								*num)
+int				action_add(t_action_stack **start, t_action_stack **end,
+					size_t *num)
 {
 	t_action_stack			*new;
 

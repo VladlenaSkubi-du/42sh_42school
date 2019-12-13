@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 19:03:25 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/13 15:58:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/13 17:22:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,49 +38,21 @@ int			ctrl_key(char sy)
 		make_ctrl_u();
 	else if (sy == '\027')
 		write(STDERR_FILENO, "Ctrl-W\n", 11);
+	else if (sy == '\001')
+		make_ctrl_a();
+	else if (sy == '\005')
+		make_ctrl_e();
+	else if (sy == '\002')
+		key_left_proc();
+	else if (sy == '\006')
+		key_right_proc();
+	else if (sy == '\004')
+		delete_process();
 	else if (sy == 127 || sy == '\010')
 		backspace_process();
-	else if (sy == 4)
-		delete_process();
-	else if (sy == 24)//'\028'
+	else if (sy == '\030')
 		make_ctrl_x();
-	return (0);
-}
-
-int			make_ctrl_k(void)
-{
-	putcap("ce");
-	ft_bzero(g_rline.cmd + g_rline.pos, ft_strlen(g_rline.cmd + g_rline.pos));
-	return (0);
-}
-
-int			make_ctrl_t(void)
-{
-	size_t			len;
-
-	len = ft_strlen(g_rline.cmd);
-	if (len == 1)
-	{
-		putcap("bl");
-		return (0);
-	}
-	if (g_rline.pos == 0)
-		swap_chars(g_rline.cmd, g_rline.pos + 1, g_rline.pos);
-	else if (g_rline.pos == len)
-		swap_chars(g_rline.cmd, g_rline.pos - 1, g_rline.pos - 2);
-	else
-		swap_chars(g_rline.cmd, g_rline.pos, g_rline.pos - 1);
-	cursor_till_word_begginning();
-	//till the end - will be done
-	return (0);
-}
-
-int			make_ctrl_u(void)
-{
-	while (g_rline.pos)
-		key_left_proc();
-	putcap("cd");
-	free(g_rline.cmd);
-	init_readline();
+	else if (sy == '\037')
+		undo(1);
 	return (0);
 }

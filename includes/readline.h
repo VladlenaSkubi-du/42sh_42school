@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/13 16:39:29 by hshawand         ###   ########.fr       */
+/*   Updated: 2019/12/13 17:38:38 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,13 @@ int								incorrect_sequence(void);
 int								sequence_process(int sequence_num);
 
 /*
+** File ctrl_key.c
+*/
+
+int								ctrl_key(char sy);
+int								make_ctrl_x(void);
+
+/*
 ** File str_processing.c - operations with command-string for actions
 ** performance
 */
@@ -118,8 +125,12 @@ int								move_cursor_back_after_print(void);
 ** File undo.c
 */
 
-void			action_alloc_management(t_action_stack *start, int mode);
-int				undo(int mode);
+int								undo(int mode);
+void							action_pull(t_action_stack **start, size_t *num);
+void							action_alloc_management(t_action_stack *start, int mode);
+int								action_add(t_action_stack **start, t_action_stack **end,
+									size_t *num);
+t_action_stack					*action_new(void);
 
 /*
 ** Actions ____________________________________________________________________
@@ -149,13 +160,21 @@ int								undo_redraw(void);
 int								esc_r(void);
 
 /*
-** File ctrl_str_changes.c
+** File esc_cursor_ccp.c
 */
 
-int								ctrl_key(char sy);
+int								word_left_proc(void);
+int								word_right_proc(void);
+
+/*
+** File ctrl_ktuae.c
+*/
+
 int								make_ctrl_k(void);
 int								make_ctrl_t(void);
 int								make_ctrl_u(void);
+int								make_ctrl_a(void);
+int								make_ctrl_e(void);
 
 /*
 ** Should be included in libft ________________________________________________

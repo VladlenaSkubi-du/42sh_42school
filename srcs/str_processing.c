@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:07:05 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/13 15:49:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/13 17:32:13 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,13 @@
 int					cursor_till_word_begginning(void)
 {
 	size_t			i;
-	size_t			p;
-	unsigned int	num_space;
-	unsigned int	num_pos;
+	unsigned short	space_x;
+	unsigned short	space_y;
 
 	i = g_rline.pos;
-	num_space = 1;
-	num_pos = 1;
 	while (g_rline.cmd[i] != ' ' && i != 0)
 		i--;
-	if (g_rline.str_num > 1)
-	{
-		num_space = on_which_line(g_rline.prompt_len + i, g_screen.ws_col);
-		if (g_rline.prompt_len + i == g_screen.ws_col)
-			num_space++;
-		num_pos = on_which_line(g_rline.prompt_len + g_rline.pos,
-			g_screen.ws_col);
-	}
-	i = (i + g_rline.prompt_len - 1) % g_screen.ws_col;
-	p = (g_rline.pos + g_rline.prompt_len - 1) % g_screen.ws_col;
-	// if (num_space == num_pos)
-	// {
-	// }
-	printf("SPACE %zu - POS %zu\n", i, p);
+	
 	return (0);
 }
 
