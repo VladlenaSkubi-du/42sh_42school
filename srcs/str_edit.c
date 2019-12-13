@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_edit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:16:46 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/13 15:52:36 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/13 16:14:49 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int				char_add(char c)
 			sz_max + CMD_SIZE)))
 			return (-1);
 		sz_max += CMD_SIZE;
-		sz++;
 	}
+	sz++;
 	insert_char(c);
 	return (0);
 }
