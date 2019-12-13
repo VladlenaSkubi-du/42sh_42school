@@ -1,5 +1,5 @@
 #include "readline.h"
-#define ESC_NUM 5
+#define ESC_NUM 6
 
 /*
 ** Function pointer array, should return function call
@@ -14,6 +14,7 @@ int				sequence_process(int sequence_num)
 	seq_action[2] = key_left_proc;
 	seq_action[3] = key_down_proc;
 	seq_action[4] = esc_r;
+	seq_action[5] = delete_process;
 	return ((*seq_action[sequence_num])());
 }
 
@@ -70,6 +71,7 @@ int				escape_init(void)
 	seq_base[2] = "[D";
 	seq_base[3] = "[B";
 	seq_base[4] = "r";
+	seq_base[5] = "[3~";
 	escape_check(seq_base);
 	return (0);
 }
