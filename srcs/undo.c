@@ -6,7 +6,7 @@
 /*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:50:21 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/13 16:39:05 by hshawand         ###   ########.fr       */
+/*   Updated: 2019/12/13 17:12:52 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ t_action_stack	*action_new(void)
 	return (new);
 }
 
-int				action_add(t_action_stack **start, t_action_stack **end)
+int				action_add(t_action_stack **start, t_action_stack **end, size_t
+								*num)
 {
 	t_action_stack			*new;
 
@@ -41,6 +42,7 @@ int				action_add(t_action_stack **start, t_action_stack **end)
 	(*start)->prev = new;
 	new->next = *start;
 	*start = new;
+	(*num)++;
 	return (0);
 }
 
@@ -63,7 +65,7 @@ void			action_alloc_management(t_action_stack *start, int mode)
 	}
 }
 
-void			action_pull(t_action_stack **start)
+void			action_pull(t_action_stack **start, size_t *num)
 {
 	t_action_stack			*temp;
 
@@ -77,6 +79,8 @@ void			action_pull(t_action_stack **start)
 		*start ? (*start)->prev = 0 : 0;
 		free(temp->cmd_b);
 		free(temp);
+		(*num)--;
+		undo_redraw();
 	}
 }
 
@@ -87,16 +91,11 @@ int				undo(int mode)
 	static size_t			actions_num = 0;
 
 	if (!mode)
-	{
-		action_add(&actions, &end);
-		actions_num++;
-	}
+		action_add(&actions, &end, &actions_num);
 	else if (actions_num)
-	{
-		action_pull(&actions);
-		actions_num--;
-		undo_redraw();
-	}
+		action_pull(&actions, &actions_num);
+	else
+		incorrect_sequence();
 	action_alloc_management(actions, 0);
 	if (actions_num > ACTIONS_MAX)
 	{
