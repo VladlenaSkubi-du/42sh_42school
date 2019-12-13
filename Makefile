@@ -12,7 +12,9 @@ SOURCES =	main.c \
 			non_printable.c \
 			escape.c \
 			ctrl_key.c \
+			ctrl_ktuae.c \
 			arrow_keys.c \
+			esc_cursor_ccp.c \
 			esc_undo_completion_transpose.c \
 			ft_xmalloc.c \
 			ft_realloc.c \

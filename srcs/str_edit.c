@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_edit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:16:46 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/13 16:14:49 by hshawand         ###   ########.fr       */
+/*   Updated: 2019/12/13 17:00:19 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int				str_shift(char *str, int shift)
 {
 	char	*buff;
 
-	buff = (char *)ft_xmalloc(ft_strlen(str));
+	buff = (char *)ft_xmalloc(ft_strlen(str) + 1);
 	ft_strcpy(buff, str);
 	ft_strcpy(str + shift, buff);
 	free(buff);
