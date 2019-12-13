@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   escape.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/13 16:07:04 by sschmele          #+#    #+#             */
+/*   Updated: 2019/12/13 16:08:22 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "readline.h"
 #define ESC_NUM 6
 
@@ -8,8 +20,8 @@
 int				sequence_process(int sequence_num)
 {
 	int				(*seq_action[ESC_NUM])(void);
-	
-	seq_action[0] = key_right_proc;	
+
+	seq_action[0] = key_right_proc;
 	seq_action[1] = key_up_proc;
 	seq_action[2] = key_left_proc;
 	seq_action[3] = key_down_proc;
@@ -42,7 +54,7 @@ int				escape_check(char **seq_base)
 		while (stage < ESC_NUM)
 		{
 			if (!ft_strncmp(buff, seq_base[stage], i + 1))
-				break;
+				break ;
 			stage++;
 		}
 		if (stage == ESC_NUM)

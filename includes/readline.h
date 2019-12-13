@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/11 16:39:32 by hshawand         ###   ########.fr       */
+/*   Updated: 2019/12/13 15:25:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,8 @@ int								position_cursor(char *cap, int x, int y);
 
 int								char_add(char c);
 int								str_shift(char *str, int shift);
+int								insert_char(char c);
 int								count_str_num(void);
-void							backspace_process(void); //to put it to the other file
-int								insert_within_string_termcap(char c);
 
 /*
 ** File escape.c - router to the functions performing actions with
@@ -113,6 +112,7 @@ unsigned int					on_which_line(size_t cmd_pos, unsigned short col);
 int								cursor_till_word_begginning(void);
 int								position_relative(unsigned short *x,
 									unsigned short *y, size_t analyse);
+int								move_cursor_back_after_print(void);
 
 /*
 ** File undo.c
@@ -124,6 +124,13 @@ int				undo(int mode);
 /*
 ** Actions ____________________________________________________________________
 */
+
+/*
+** File non_printable.c
+*/
+
+int								backspace_process(void);
+int								delete_process(void);
 
 /*
 ** File arrow_keys.c

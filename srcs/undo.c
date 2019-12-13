@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   undo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/13 15:50:21 by sschmele          #+#    #+#             */
+/*   Updated: 2019/12/13 15:50:48 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "readline.h"
 #define ACTIONS_MAX 10
 
 t_action_stack	*action_new(void)
 {
-	t_action_stack	*new;
+	t_action_stack			*new;
 
 	new = (t_action_stack *)ft_xmalloc(sizeof(t_action_stack));
 	new->cmd_b = (char *)ft_xmalloc(ft_strlen(g_rline.cmd) + 1);
@@ -17,7 +29,7 @@ t_action_stack	*action_new(void)
 
 int				action_add(t_action_stack **start, t_action_stack **end)
 {
-	t_action_stack	*new;
+	t_action_stack			*new;
 
 	new = action_new();
 	if (!(*start))
@@ -29,7 +41,7 @@ int				action_add(t_action_stack **start, t_action_stack **end)
 	(*start)->prev = new;
 	new->next = *start;
 	*start = new;
-	return  (0);
+	return (0);
 }
 
 void			action_alloc_management(t_action_stack *start, int mode)
@@ -68,7 +80,7 @@ void			action_pull(t_action_stack **start)
 	}
 }
 
-int		undo(int mode)
+int				undo(int mode)
 {
 	static t_action_stack	*actions = 0;
 	static t_action_stack	*end = 0;
