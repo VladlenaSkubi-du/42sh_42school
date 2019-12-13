@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   undo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:50:21 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/13 15:50:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/13 16:39:05 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int				undo(int mode)
 	{
 		action_pull(&actions);
 		actions_num--;
+		undo_redraw();
 	}
 	action_alloc_management(actions, 0);
 	if (actions_num > ACTIONS_MAX)
