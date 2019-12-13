@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   readline.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/13 15:53:46 by sschmele          #+#    #+#             */
+/*   Updated: 2019/12/13 15:54:00 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "readline.h"
 
 /*
@@ -12,7 +24,6 @@ int		readline_choice(char sy)
 		escape_init(); // Escape sequence process
 	else if (ft_isprint(sy))
 	{
-		write(STDOUT_FILENO, &sy, 1);
 		if (char_add(sy))
 			return (-1);
 	}

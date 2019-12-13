@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 19:03:25 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/11 17:05:35 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/13 15:58:03 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ int			ctrl_key(char sy)
 		write(STDERR_FILENO, "Ctrl-W\n", 11);
 	else if (sy == 127 || sy == '\010')
 		backspace_process();
-	else if (sy == 24)
+	else if (sy == 4)
+		delete_process();
+	else if (sy == 24)//'\028'
 		make_ctrl_x();
 	return (0);
 }
@@ -55,7 +57,7 @@ int			make_ctrl_k(void)
 int			make_ctrl_t(void)
 {
 	size_t			len;
-	
+
 	len = ft_strlen(g_rline.cmd);
 	if (len == 1)
 	{

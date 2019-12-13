@@ -9,6 +9,7 @@ SOURCES =	main.c \
 			termcap_usage.c \
 			str_edit.c \
 			str_processing.c \
+			non_printable.c \
 			escape.c \
 			ctrl_key.c \
 			arrow_keys.c \
