@@ -9,17 +9,19 @@ SOURCES =	main.c \
 			termcap_usage.c \
 			str_edit.c \
 			str_processing.c \
+			undo.c \
 			non_printable.c \
 			escape.c \
 			ctrl_key.c \
-			ctrl_ktuae.c \
+			ctrl_kwuae.c \
+			ctrl_tl.c \
 			arrow_keys.c \
 			esc_cursor_ccp.c \
 			esc_undo_completion_transpose.c \
 			ft_xmalloc.c \
 			ft_realloc.c \
 			swap_chars.c \
-			undo.c
+			ft_issign.c
 
 DIR_O = objs
 
