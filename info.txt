@@ -1,3 +1,4 @@
 	// // printf("pos %u - %u", new_x, new_y);
 	// // printf("end %u - %u", end_x, end_y);
+	printf("pos %zu\n", g_rline.pos);
 	// printf("%zu- %u - %lu\n", g_rline.str_num + tmp, new_y, g_rline.str_num + tmp - new_y);

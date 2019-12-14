@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/13 17:38:38 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/14 19:45:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,11 @@ int								make_ctrl_x(void);
 */
 
 unsigned int					on_which_line(size_t cmd_pos, unsigned short col);
-int								cursor_till_word_begginning(void);
 int								position_relative(unsigned short *x,
 									unsigned short *y, size_t analyse);
-int								move_cursor_back_after_print(void);
+int								move_cursor_back_after_print(short flag);
+int								move_cursor_from_old_position(size_t pos_old,
+									char direction);
 
 /*
 ** File undo.c
@@ -167,14 +168,21 @@ int								word_left_proc(void);
 int								word_right_proc(void);
 
 /*
-** File ctrl_ktuae.c
+** File ctrl_kwuae.c
 */
 
 int								make_ctrl_k(void);
-int								make_ctrl_t(void);
 int								make_ctrl_u(void);
 int								make_ctrl_a(void);
 int								make_ctrl_e(void);
+int								make_ctrl_w(void);
+
+/*
+** File ctrl_tl.c
+*/
+
+int								make_ctrl_t(void);
+int								make_ctrl_t_begend(size_t len);
 
 /*
 ** Should be included in libft ________________________________________________
@@ -184,5 +192,6 @@ void							*ft_realloc(void *subj, size_t len_subj,
 								size_t len, size_t len_needed);
 void							*ft_xmalloc(size_t size);
 void							swap_chars(char *cmd, int b, int a);
+int								ft_issign(char c);
 
 #endif

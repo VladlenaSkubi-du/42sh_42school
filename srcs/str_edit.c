@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:16:46 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/13 17:00:19 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/14 17:00:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int				insert_char(char c)
 		putcap("cd");
 		ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
 		g_rline.pos++;
-		if (move_cursor_back_after_print())
+		if (move_cursor_back_after_print(0))
 			return (-1);
 	}
 	else

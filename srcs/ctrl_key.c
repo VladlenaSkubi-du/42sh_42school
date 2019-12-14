@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 19:03:25 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/13 17:22:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/14 19:44:28 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int			ctrl_key(char sy)
 	else if (sy == '\025')
 		make_ctrl_u();
 	else if (sy == '\027')
-		write(STDERR_FILENO, "Ctrl-W\n", 11);
+		make_ctrl_w();
 	else if (sy == '\001')
 		make_ctrl_a();
 	else if (sy == '\005')
