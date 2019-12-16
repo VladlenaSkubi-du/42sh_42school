@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/14 19:45:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/16 14:05:31 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ int								ctrl_key(char sy);
 int								make_ctrl_x(void);
 
 /*
-** File str_processing.c - operations with command-string for actions
-** performance
+** File cursor_position.c - operations to get the termcap cursor postion and move
+** it after actions
 */
 
 unsigned int					on_which_line(size_t cmd_pos, unsigned short col);

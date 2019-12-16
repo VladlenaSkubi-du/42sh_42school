@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 19:38:44 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/14 19:42:05 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/16 14:13:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int			make_ctrl_t(void)
 	size_t			len;
 	size_t			pos_old;
 
+	undo(0);
 	len = ft_strlen(g_rline.cmd);
 	if (len == 1)
 		return (incorrect_sequence());

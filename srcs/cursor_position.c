@@ -6,24 +6,11 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:07:05 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/14 19:42:44 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/16 14:03:17 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
-
-/*
-** @num_space - counts on which line is space found
-** @num_pos - counts on which line is position found
-** @beg - beginning of the word, its column
-**
-** We need the following: the line cursor is on (pos), the line space is on
-** the column space is on (get it from i). And we have 3 variants:
-** 1) pos and space are on the same line
-** 2) pos and space are on the lines one after another (we clear from pos
-** till the beginning of line and from the end of previous line till the space)
-** 3) pos and space have several lines between them - we need to clear them too
-*/
 
 unsigned int		on_which_line(size_t cmd_pos, unsigned short col)
 {
