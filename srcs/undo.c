@@ -68,11 +68,12 @@ void			action_alloc_management(t_action_stack *start, int mode)
 void			action_pull(t_action_stack **start, size_t *num)
 {
 	t_action_stack			*temp;
-
+	size_t					pos_old;
 	if (start && *start)
 	{
 		temp = *start;
 		ft_strcpy(g_rline.cmd, (*start)->cmd_b); // QUESTIONABLE
+		pos_old = g_rline.pos;
 		g_rline.pos = (*start)->pos_b;
 		g_rline.str_num = (*start)->num_b;
 		*start = (*start)->next;
@@ -80,7 +81,7 @@ void			action_pull(t_action_stack **start, size_t *num)
 		free(temp->cmd_b);
 		free(temp);
 		(*num)--;
-		undo_redraw();
+		undo_redraw(pos_old - g_rline.pos);
 	}
 }
 
