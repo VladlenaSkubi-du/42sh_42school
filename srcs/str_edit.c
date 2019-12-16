@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:16:46 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/14 17:00:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/16 15:47:56 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int				str_shift(char *str, int shift)
 {
-	char	*buff;
+	char			*buff;
 
 	buff = (char *)ft_xmalloc(ft_strlen(str) + 1);
 	ft_strcpy(buff, str);
@@ -37,6 +37,7 @@ int				char_add(char c)
 		sz_max += CMD_SIZE;
 	}
 	sz++;
+	g_rline.cmd_buff_len = sz_max;
 	insert_char(c);
 	return (0);
 }

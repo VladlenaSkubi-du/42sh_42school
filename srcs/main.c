@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:54:55 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/13 16:02:45 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/16 20:10:45 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,19 @@
 ** We take default xterm-256color - terminal
 */
 
-int			main(void)
+int			main(int argc, char **argv)
 {
 	char	*cmd;
 	char	*termtype;
 	char	room_termtype[2];
+	size_t	pos_old;
 
 	//сделать вход для heredoc, если heredoc, то readline немного другой
+	if (argc == 2 && ft_strcmp(argv[1], "--readline") == 0)
+	{
+		print_readline_help();
+		return (0);
+	}
 	if (isatty(STDIN_FILENO))
 	{
 		termtype = getenv("TERM");
@@ -36,6 +42,13 @@ int			main(void)
 	{
 		ft_putendl_fd("Something has happend", 2);
 		return (1);
+	}
+	if (g_rline.pos > 0)
+	{
+		pos_old = g_rline.pos;
+		g_rline.pos = ft_strlen(g_rline.cmd);
+		if (move_cursor_from_old_position(pos_old, 'r'))
+			return (1);
 	}
 	printf("\n%s\n", cmd);
 	free(cmd);

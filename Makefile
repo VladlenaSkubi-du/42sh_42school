@@ -18,6 +18,7 @@ SOURCES =	main.c \
 			arrow_keys.c \
 			esc_cursor_ccp.c \
 			esc_undo_completion_transpose.c \
+			print_readline_help.c \
 			ft_xmalloc.c \
 			ft_realloc.c \
 			swap_chars.c \

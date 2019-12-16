@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/16 14:05:31 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/16 20:09:32 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct		s_rline
 	size_t						pos;
 	size_t						str_num;
 	size_t						prompt_len;
+	size_t						cmd_buff_len;
 	short						flag;
 }								t_rline;
 
@@ -157,7 +158,7 @@ int								key_down_proc(void);
 ** File esc_undo_completion_transpose.c
 */
 
-int								undo_redraw(int diff);
+int								undo_redraw(size_t pos_old);
 int								esc_r(void);
 
 /*
@@ -166,6 +167,7 @@ int								esc_r(void);
 
 int								word_left_proc(void);
 int								word_right_proc(void);
+int								esc_d(void);
 
 /*
 ** File ctrl_kwuae.c
@@ -183,6 +185,14 @@ int								make_ctrl_w(void);
 
 int								make_ctrl_t(void);
 int								make_ctrl_t_begend(size_t len);
+int								make_ctrl_l(void);
+
+/*
+** File print_readline_help.c
+*/
+
+void							print_readline_help(void);
+void							printf_readline_help_further(void);
 
 /*
 ** Should be included in libft ________________________________________________

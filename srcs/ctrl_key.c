@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 19:03:25 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/14 19:44:28 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/16 19:56:55 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int			ctrl_key(char sy)
 		backspace_process();
 	else if (sy == '\030')
 		make_ctrl_x();
+	else if (sy == '\037')
+		undo(1);
 	else if (sy == '\037')
 		undo(1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 19:38:44 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/16 14:13:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/16 20:11:55 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,10 @@ int			make_ctrl_t_begend(size_t len)
 		if (move_cursor_back_after_print(0))
 			return (-1);
 	}
+	return (0);
+}
+
+int			make_ctrl_l(void)
+{
 	return (0);
 }
