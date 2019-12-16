@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:53:46 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/16 20:00:51 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/16 20:21:57 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		readline_choice(char sy)
 {
 	ctrl_key(sy); // Check if it is possible to add this to escape_process
 	if (sy == '\033')
-		escape_init(); // Escape sequence process
+		escape_init();
 	else if (ft_isprint(sy))
 	{
 		if (char_add(sy))
