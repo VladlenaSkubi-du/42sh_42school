@@ -7,8 +7,8 @@ SOURCES =	main.c \
 			readline.c \
 			terminal_input_changes.c \
 			termcap_usage.c \
+			cursor_position.c \
 			str_edit.c \
-			str_processing.c \
 			undo.c \
 			non_printable.c \
 			escape.c \

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:14:29 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/14 19:43:42 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/16 14:33:32 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int			undo_redraw(void)
 	size_t	pos_save;
 
 	pos_save = g_rline.pos;
-	if (move_cursor_back_after_print(0))
+	if (move_cursor_from_old_position(pos_save, 'r')) //объясню
 		return (-1);
 	while (g_rline.pos)
 		key_left_proc();
