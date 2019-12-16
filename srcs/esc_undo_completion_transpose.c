@@ -12,7 +12,7 @@
 
 #include "readline.h"
 
-int			undo_redraw(void)
+int			undo_redraw(int diff)
 {
 	size_t	pos_save;
 

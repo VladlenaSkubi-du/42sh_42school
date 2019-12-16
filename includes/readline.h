@@ -157,7 +157,7 @@ int								key_down_proc(void);
 ** File esc_undo_completion_transpose.c
 */
 
-int								undo_redraw(void);
+int								undo_redraw(int diff);
 int								esc_r(void);
 
 /*
