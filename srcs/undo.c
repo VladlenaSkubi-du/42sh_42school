@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:50:21 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/13 17:26:42 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/16 16:21:43 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void			action_pull(t_action_stack **start, size_t *num)
 		free(temp->cmd_b);
 		free(temp);
 		(*num)--;
-		undo_redraw(pos_old - g_rline.pos);
+		undo_redraw(pos_old);
 	}
 }
 
