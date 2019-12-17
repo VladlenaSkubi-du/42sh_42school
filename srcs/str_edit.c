@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:16:46 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/16 15:47:56 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/17 12:39:02 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,13 @@ int				count_str_num(void)
 	//put it also if we catch the signal SIGWINCH
 {
 	unsigned int	i;
+	size_t			len;
 
 	i = 1;
-	if ((ft_strlen(g_rline.cmd) + g_rline.prompt_len) > g_screen.ws_col)
+	len = ft_strlen(g_rline.cmd);
+	if (len + g_rline.prompt_len > g_screen.ws_col)
 	{
-		while ((ft_strlen(g_rline.cmd) + g_rline.prompt_len) >
+		while (len + g_rline.prompt_len >
 			g_screen.ws_col * i)
 			i++;
 	}
