@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 19:03:25 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/16 19:56:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/17 13:10:08 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int			ctrl_key(char sy)
 {
 	if (sy == '\013')
 		make_ctrl_k();
+	else if (sy == '\014')
+		make_ctrl_l();
 	else if (sy == '\024')
 		make_ctrl_t();
 	else if (sy == '\025')
