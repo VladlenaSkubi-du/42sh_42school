@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   undo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:50:21 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/16 16:21:43 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/17 13:33:20 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_action_stack	*action_new(void)
 	t_action_stack			*new;
 
 	new = (t_action_stack *)ft_xmalloc(sizeof(t_action_stack));
-	new->cmd_b = (char *)ft_xmalloc(ft_strlen(g_rline.cmd) + 1);
+	new->cmd_b = (char *)ft_xmalloc(g_rline.cmd_buff_len + 1);
 	ft_strcpy(new->cmd_b, g_rline.cmd);
 	new->pos_b = g_rline.pos;
 	new->num_b = g_rline.str_num;
@@ -72,6 +72,7 @@ void			action_pull(t_action_stack **start, size_t *num)
 	if (start && *start)
 	{
 		temp = *start;
+		ft_bzero(g_rline.cmd, g_rline.cmd_buff_len);
 		ft_strcpy(g_rline.cmd, (*start)->cmd_b); // QUESTIONABLE
 		pos_old = g_rline.pos;
 		g_rline.pos = (*start)->pos_b;
