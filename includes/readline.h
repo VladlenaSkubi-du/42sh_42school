@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/17 13:20:24 by hshawand         ###   ########.fr       */
+/*   Updated: 2019/12/17 20:12:43 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,8 @@ int								sequence_process(int sequence_num);
 */
 
 int								ctrl_key(char sy);
-int								make_ctrl_x(void);
+int								ctrl_process(char *ctrl_base, char sy);
+int								ctrl_call(size_t call_num);
 
 /*
 ** File cursor_position.c - operations to get the termcap cursor postion and move
@@ -122,6 +123,14 @@ int								position_relative(unsigned short *x,
 int								move_cursor_back_after_print(short flag);
 int								move_cursor_from_old_position(size_t pos_old,
 									char direction);
+
+/*
+** File undo_call.c
+*/
+
+int								make_ctrl_x(void);
+int								undo_wrap(void);
+int								undo_redraw(size_t pos_old);
 
 /*
 ** File undo.c
@@ -155,19 +164,13 @@ int								key_left_proc(void);
 int								key_down_proc(void);
 
 /*
-** File esc_undo_completion_transpose.c
-*/
-
-int								undo_redraw(size_t pos_old);
-int								esc_r(void);
-
-/*
-** File esc_cursor_ccp.c
+** File esc_word_proc.c
 */
 
 int								word_left_proc(void);
 int								word_right_proc(void);
 int								esc_d(void);
+int								esc_r(void);
 
 /*
 ** File ctrl_kwuae.c
@@ -186,6 +189,10 @@ int								make_ctrl_w(void);
 int								make_ctrl_t(void);
 int								make_ctrl_t_begend(size_t len);
 int								make_ctrl_l(void);
+int								esc_t(void);
+int								esc_t_swap_proc(char *word,
+									size_t i, char flag);
+int			esc_t_len_pos(char *word, size_t i, size_t pos_back);
 
 /*
 ** File print_readline_help.c
@@ -202,6 +209,7 @@ void							*ft_realloc(void *subj, size_t len_subj,
 								size_t len, size_t len_needed);
 void							*ft_xmalloc(size_t size);
 void							swap_chars(char *cmd, int b, int a);
+void							swap_ints(int *a, int *b);
 int								ft_issign(char c);
 
 #endif

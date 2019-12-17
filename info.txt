@@ -3,12 +3,13 @@
 	printf("pos %zu\n", g_rline.pos);
 	// printf("%zu- %u - %lu\n", g_rline.str_num + tmp, new_y, g_rline.str_num + tmp - new_y);
 
+	printf("word_other: %shey\n", word_other);
+
 Сделать:
-ctrl - l
 alt - t
 Создать буфер для вставки ctrl - y
-Посмотреть везде, где нужен len - заменить ft_strlen
-Заменить ctrl-key
 Сделать кастрированный readline
 Вставить ft_select на определенную комбинацию
-Проверить все ошибки и куда они ведут
+Проверить все ошибки и куда они ведут - невыполнение действия
+
+undo - проверить, что он вводится только перед началом изменения строки

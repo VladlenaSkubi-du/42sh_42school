@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   esc_cursor_ccp.c                                   :+:      :+:    :+:   */
+/*   esc_word_proc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 17:34:11 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/16 17:36:40 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/17 15:55:41 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ int			esc_d(void)
 	char			*swap;
 	size_t			len_swap;
 
-	undo(0);
 	pos_old = g_rline.pos;
 	if (word_right_proc())
 		return (-1);
+	undo(0);
 	swap = g_rline.cmd + g_rline.pos;
 	len_swap = ft_strlen(swap);
 	ft_strcpy(g_rline.cmd + pos_old, swap);
@@ -92,5 +92,15 @@ int			esc_d(void)
 	ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
 	if (move_cursor_back_after_print(0))
 		return (-1);
+	return (0);
+}
+
+int			esc_r(void) //maybe replace from this file
+{
+	while (g_rline.pos)
+		key_left_proc();
+	putcap("cd");
+	free(g_rline.cmd);
+	init_readline();
 	return (0);
 }

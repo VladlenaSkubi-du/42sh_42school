@@ -6,12 +6,12 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:07:04 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/16 16:08:11 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/17 13:44:51 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
-#define ESC_NUM 9
+#define ESC_NUM 10
 
 /*
 ** Function pointer array, should return function call
@@ -30,6 +30,7 @@ int				sequence_process(int sequence_num)
 	seq_action[6] = word_left_proc;
 	seq_action[7] = word_right_proc;
 	seq_action[8] = esc_d;
+	seq_action[9] = esc_t;
 	return ((*seq_action[sequence_num])());
 }
 
@@ -75,6 +76,12 @@ int				escape_check(char **seq_base)
 ** [A -- KEY_UP
 ** [D -- KEY_LEFT
 ** [B -- KEY_DOWN
+** r -- CLEAR LINE
+** [3~ -- DELETE CHAR
+** b -- BACK ONE WORD
+** f -- FORWARD ONE WORD
+** d -- DELETE UNTILL THE NEXW WORD
+** t -- SWAP WORDS
 */
 
 int				escape_init(void)
@@ -90,6 +97,7 @@ int				escape_init(void)
 	seq_base[6] = "b";
 	seq_base[7] = "f";
 	seq_base[8] = "d";
+	seq_base[9] = "t";
 	escape_check(seq_base);
 	return (0);
 }

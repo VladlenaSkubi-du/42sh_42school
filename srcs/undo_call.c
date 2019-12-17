@@ -1,16 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   esc_undo_completion_transpose.c                    :+:      :+:    :+:   */
+/*   undo_call.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/11 15:14:29 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/16 16:33:34 by sschmele         ###   ########.fr       */
+/*   Created: 2019/12/17 15:41:23 by sschmele          #+#    #+#             */
+/*   Updated: 2019/12/17 15:42:42 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
+
+int			make_ctrl_x(void)
+{
+	char	next;
+
+	read(1, &next, 1);
+	if (next == '\025')
+		undo(1);
+	else
+		incorrect_sequence();
+	return (0);
+}
+
+int			undo_wrap(void)
+{
+	return (undo(1));
+}
 
 int			undo_redraw(size_t pos_old)
 {
@@ -35,15 +52,5 @@ int			undo_redraw(size_t pos_old)
 	ft_putstr_fd(g_rline.cmd, 1);
 	if (move_cursor_back_after_print(0))
 		return (-1);
-	return (0);
-}
-
-int			esc_r(void)
-{
-	while (g_rline.pos)
-		key_left_proc();
-	putcap("cd");
-	free(g_rline.cmd);
-	init_readline();
 	return (0);
 }
