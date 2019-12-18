@@ -48,22 +48,32 @@ int	ft_backslash_find(char *start, char *str)
 */
 /*
 ** Parser function that gets **string from Readline or from argv
-** and separetes it to blockes to start
+** and do tech line
 */
 /*
 int	ft_parser(char **str)
 {
-	char	**str_tech;
+	char	*str_tech;
 	char	*line;
+	int		i;
 
-	line = {0, ' ', '\\', ';', '&', '\"','\'', '(', ')', '[', ']', '{', '}', '$', '~', '|', '>', '<', '*'};
-	//		0	1	 2	   3	4	 5	  6		7	 8	  9	  10	11	12	  13   14   15   16   17   18
-	str_pars = NULL;
-	if (ft_brackets(str) != 0)
-		ft_readline(str);
-	else
+	line = {' ', '\\', ';', '&', '\"','\'', '(', ')', '[', ']', '{', '}', '$', '~', '|', '>', '<', '*'};
+	//		0	 1	   2	3	 4	  5		6	  7	   8	9	10	 11	  12   13   14   15   16   17
+	if (!(str_tech = ft_strdup(*str)))
+		return (1);
+	i = 0;
+	while (*str[i])
 	{
-		ft_get_techline(str, str_tech);
+		j = -1;
+		while (++j < 19)
+		{
+			if (j != 18)
+				if (str_tech[i] == line[j])
+					str_tech[i] = j;
+			else
+					str_tech[i] = 0;
+		}
+		i++;
 	}
 }
 */
