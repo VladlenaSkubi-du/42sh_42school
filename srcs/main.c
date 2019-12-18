@@ -6,7 +6,7 @@
 /*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:02:58 by hshawand          #+#    #+#             */
-/*   Updated: 2019/12/18 16:21:24 by hshawand         ###   ########.fr       */
+/*   Updated: 2019/12/18 18:13:29 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 
 int	main(int argc, char **argv)
 {
-	char	*tech;
+	char	*to_free;
 
 	if (argc != 2)
 		return (0);
-	int len = ft_strlen(argv[1]);
-	tech = ft_get_techline(argv[1]);
-	while (len)
+	parser(argv[1]);
+	to_free = g_techline;
+	while (g_cmd_size)
 	{
-		printf("\'%c\'=%03d\n", *argv[1], *tech);
-		tech++;
+		printf("\'%c\'=%03d\n", *argv[1], *g_techline);
+		g_techline++;
 		argv[1]++;
-		len--;
+		g_cmd_size--;
 	}
 	(void)argc;
-	free(tech);
+	free(to_free);
 	return (0);
 }
