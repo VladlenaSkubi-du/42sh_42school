@@ -16,7 +16,7 @@ SOURCES =	main.c \
 			escape.c \
 			ctrl_key.c \
 			ctrl_kwuae.c \
-			ctrl_tl_esc_t.c \
+			ctrl_tl.c \
 			arrow_keys.c \
 			esc_word_proc.c \
 			esc_t.c \

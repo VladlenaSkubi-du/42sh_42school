@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:07:05 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/16 14:48:58 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/18 17:13:29 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ int					move_cursor_back_after_print(short flag)
 			tmp = 1;
 		}
 	}
-	if (position_relative(&new_x, &new_y, g_rline.pos))
-		return (-1);
+	position_relative(&new_x, &new_y, g_rline.pos);
 	position_cursor("ch", 0, new_x);
 	if (g_rline.str_num + tmp - new_y == 1)
 		putcap("up");
@@ -77,10 +76,8 @@ int					move_cursor_from_old_position(size_t pos_old,
 	unsigned short	new_y;
 	unsigned short	old_y;
 
-	if (position_relative(0, &old_y, pos_old))
-		return (-1);
-	if (position_relative(&new_x, &new_y, g_rline.pos))
-		return (-1);
+	position_relative(0, &old_y, pos_old);
+	position_relative(&new_x, &new_y, g_rline.pos);
 	if (direction == 'l')
 	{
 		if (old_y - new_y == 1)

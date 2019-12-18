@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:07:04 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/18 13:18:59 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/18 17:43:25 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int				sequence_process(int sequence_num)
 int				incorrect_sequence(void)
 {
 	putcap("bl");
-	return (0);
+	return (1);
 }
 
 int				escape_check(char **seq_base)

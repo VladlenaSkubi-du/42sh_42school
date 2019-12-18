@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 14:56:57 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/18 16:43:51 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/18 18:17:28 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,30 +36,15 @@ int			esc_t(void)
 	flag = (ft_isalnum(g_rline.cmd[g_rline.pos]) &&
 		ft_isalnum(g_rline.cmd[g_rline.pos - 1])) ? 'o' : 'n';
 	if (word_left_proc())
-		return (-1);
+		return (0);
 	word_first = save_word(&fi, g_rline.cmd, g_rline.pos);
 	if (pos_back == ft_strlen(g_rline.cmd))
 		return (esc_t_len_pos(word_first, fi, pos_back));
 	end = save_end(pos_back);
-	if (end && ft_strcmp(end, "ko") == 0)
-		return (-1);
-	if (esc_t_proc(flag, word_first, fi, end))
-		return (-1);
-	return (0);
-}
-
-int			esc_t_proc(char flag, char *word_first, size_t fi, char *end)
-{
 	if (flag == 'o')
-	{
-		if (esc_t_need_left(word_first, fi, end))
-			return (-1);
-	}
+		esc_t_need_left(word_first, fi, end);
 	else
-	{
-		if (esc_t_need_right(word_first, fi, end))
-			return (-1);
-	}
+		esc_t_need_right(word_first, fi, end);
 	free(word_first);
 	free(end);
 	return (0);
@@ -75,7 +60,7 @@ int			esc_t_need_left(char *word_first, size_t fi, char *end)
 	pos_old = g_rline.pos;
 	delimiter = g_rline.cmd[g_rline.pos - 1];
 	if (word_left_proc())
-		return (-1);
+		return (0);
 	word_second = save_word(&se, g_rline.cmd, g_rline.pos);
 	ft_strcpy(g_rline.cmd + g_rline.pos, word_first);
 	g_rline.cmd[g_rline.pos + fi] = delimiter;
@@ -84,8 +69,7 @@ int			esc_t_need_left(char *word_first, size_t fi, char *end)
 	putcap("cd");
 	ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
 	g_rline.pos = pos_old + fi;
-	if (move_cursor_back_after_print(0))
-		return (-1);
+	move_cursor_back_after_print(0);
 	free(word_second);
 	return (0);
 }
@@ -99,21 +83,19 @@ int			esc_t_need_right(char *word_first, size_t fi, char *end)
 
 	pos_old = g_rline.pos;
 	if (word_right_proc())
-		return (-1);
+		return (0);
 	delimiter = g_rline.cmd[g_rline.pos];
 	word_second = save_word(&se, g_rline.cmd, g_rline.pos + 1);
 	ft_strcpy(g_rline.cmd + pos_old, word_second);
 	g_rline.cmd[pos_old + se] = delimiter;
 	ft_strcpy(g_rline.cmd + pos_old + se + 1, word_first);
 	ft_strcpy(g_rline.cmd + pos_old + se + 1 + fi, end);
-	swap_ints((int*)&g_rline.pos,(int*)&pos_old);
-	if (move_cursor_from_old_position(pos_old, 'l'))
-		return (-1);
+	swap_ints((int*)&g_rline.pos, (int*)&pos_old);
+	move_cursor_from_old_position(pos_old, 'l');
 	putcap("cd");
 	ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
 	g_rline.pos = pos_old + 1 + se;
-	if (move_cursor_back_after_print(0))
-		return (-1);
+	move_cursor_back_after_print(0);
 	free(word_second);
 	return (0);
 }
@@ -126,7 +108,7 @@ int			esc_t_len_pos(char *word_first, size_t fi, size_t pos_back)
 
 	delimiter = g_rline.cmd[g_rline.pos - 1];
 	if (word_left_proc())
-		return (-1);
+		return (0);
 	word_second = save_word(&se, g_rline.cmd, g_rline.pos);
 	ft_strcpy(g_rline.cmd + g_rline.pos, word_first);
 	g_rline.cmd[g_rline.pos + fi] = delimiter;
@@ -136,4 +118,22 @@ int			esc_t_len_pos(char *word_first, size_t fi, size_t pos_back)
 	g_rline.pos = pos_back;
 	free(word_second);
 	return (0);
+}
+
+char		*save_end(size_t pos_back)
+{
+	char			*end;
+	size_t			pos_now;
+
+	end = NULL;
+	pos_now = g_rline.pos;
+	g_rline.pos = pos_back;
+	move_cursor_from_old_position(pos_now, 'r');
+	if (word_right_proc())
+		return (end);
+	end = ft_strdup(g_rline.cmd + g_rline.pos);
+	pos_back = g_rline.pos;
+	g_rline.pos = pos_now;
+	move_cursor_from_old_position(pos_back, 'l');
+	return (end);
 }
