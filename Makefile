@@ -1,40 +1,36 @@
-NAME = ./42sh
+NAME = parser
+FLAGS = -Wall -Werror -Wextra
+FLAGS += -g
 
-CORE = main.c
-MOD = strings.c extra.c built_ins.c built_in_cd_exit.c
+SOURCES =	main.c \
+			
 
-OBJ = $(addprefix obj/, $(addprefix core/, $(CORE:.c=.o)) $(addprefix mod/, $(MOD:.c=.o)))
+DIR_O = objs
 
-all: $(NAME)
+DIR_S = srcs
 
-$(NAME): libft obj/ $(OBJ)
-	@gcc -g -L libft/ -lft $(OBJ) -o ./$(NAME)
+SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
-obj/%.o: %.c
-	@gcc -Wall -Wextra -Werror -g -I libft/includes -I includes -c $< -o $@
-	@echo "msh–> new obj created: $@"
+OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 
-obj/:
-	@mkdir obj
-	@mkdir obj/core
-	@mkdir obj/mod
+LIBFT = libft/libft.a
 
-libft:
-	@git submodule init
-	@git submodule update --remote --merge
-	@make -C libft
+all:	$(NAME)
+
+$(NAME): $(OBJS)
+	@make -C ./libft
+	@gcc $(FLAGS) $(OBJS) -o $(NAME) libft/libft.a
+
+$(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c
+	@mkdir -p $(DIR_O)
+	gcc $(FLAGS) -c -Iincludes -o $@ $<
 
 clean:
-	@make -C libft clean
-	@rm -rf obj
-	@echo "msh–> objs cleaned!"
+	@/bin/rm -Rf $(DIR_O)
+	@make clean --directory ./libft
 
 fclean: clean
-	@rm -rf $(NAME) $(NAME).dSYM
-	@make -C libft fclean
-	@echo "msh–> full cleaned!"
+	@/bin/rm -f $(NAME)
+	@make fclean --directory ./libft
 
-re: fclean all
-
-
-.PHONY: libft all clean fclean re
+re:		fclean all
