@@ -6,11 +6,11 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 17:09:13 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/14 17:10:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/18 18:22:15 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "readline.h"
+#include "libft_42sh.h"
 
 int				ft_issign(char c)
 {
