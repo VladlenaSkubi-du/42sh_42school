@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   undo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:50:21 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/17 13:33:20 by hshawand         ###   ########.fr       */
+/*   Updated: 2019/12/18 18:16:43 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void			action_pull(t_action_stack **start, size_t *num)
 {
 	t_action_stack			*temp;
 	size_t					pos_old;
+
 	if (start && *start)
 	{
 		temp = *start;

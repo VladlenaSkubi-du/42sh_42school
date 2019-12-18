@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:53:46 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/18 12:47:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/18 18:18:25 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,36 +19,37 @@
 
 int		readline_choice(char sy)
 {
-	ctrl_key(sy); // Check if it is possible to add this to escape_process
+	ctrl_key(sy);
 	if (sy == '\033')
 		escape_init();
 	else if (ft_isprint(sy))
-	{
-		if (char_add(sy))
-			return (-1);
-	}
+		char_add(sy);
 	return (0);
 }
 
 char	*readline(void)
 {
 	char			temp;
-	
+
 	init_readline();
 	if (set_noncanonical_input() == -1)
 	{
-		ft_putendl_fd("Terminal can't be changed", 2); //исправить
+		ft_putendl_fd("Terminal can't be changed", 2);
+		ft_putendl_fd("Use non-interactive shell", 2);
 		return (NULL);
 	}
-	if (main_promt())
-		return (NULL);
+	main_promt(); //сделать условие
 	while (read(1, &temp, 1) && temp != '\n')
 	{
-		ioctl(1, TIOCGWINSZ, &g_screen);
-		if (readline_choice(temp) < 0)
+		if (ioctl(1, TIOCGWINSZ, &g_screen))
+		{
+			ft_putendl_fd("Can't get terminal dimensions", 2);
 			return (NULL);
+		}
+		readline_choice(temp);
 	}
-	reset_canonical_input(); // Add error
+	if (reset_canonical_input())
+		exit(1);
 	action_alloc_management(0, 1);
 	return (g_rline.cmd);
 }

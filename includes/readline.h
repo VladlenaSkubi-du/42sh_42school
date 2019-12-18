@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/18 16:33:54 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/18 18:14:25 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <termios.h>
 # include <sys/ioctl.h>
 
-#include <stdio.h> //DELETE
+# include <stdio.h> //DELETE
 
 # include "libft.h"
 # include "ft_printf.h"
@@ -35,7 +35,7 @@
 ** @prompt_len - length of the prompt (invitation to enter the command)
 */
 
-typedef struct		s_rline
+typedef struct					s_rline
 {
 	char						*cmd;
 	size_t						pos;
@@ -119,11 +119,12 @@ int								ctrl_process(char *ctrl_base, char sy);
 int								ctrl_call(size_t call_num);
 
 /*
-** File cursor_position.c - operations to get the termcap cursor postion and move
-** it after actions
+** File cursor_position.c - operations to get the termcap cursor postion
+** and move it after actions
 */
 
-unsigned int					on_which_line(size_t cmd_pos, unsigned short col);
+unsigned int					on_which_line(size_t cmd_pos,
+									unsigned short col);
 int								position_relative(unsigned short *x,
 									unsigned short *y, size_t analyse);
 int								move_cursor_back_after_print(short flag);
@@ -143,10 +144,12 @@ int								undo_redraw(size_t pos_old);
 */
 
 int								undo(int mode);
-void							action_pull(t_action_stack **start, size_t *num);
-void							action_alloc_management(t_action_stack *start, int mode);
-int								action_add(t_action_stack **start, t_action_stack **end,
+void							action_pull(t_action_stack **start,
 									size_t *num);
+void							action_alloc_management(t_action_stack *start,
+									int mode);
+int								action_add(t_action_stack **start,
+									t_action_stack **end, size_t *num);
 t_action_stack					*action_new(void);
 
 /*
@@ -177,17 +180,20 @@ int								word_left_proc(void);
 int								word_right_proc(void);
 int								esc_d(void);
 int								esc_r(void);
+char							*save_word(size_t *i, char *cmd, size_t pos);
 
 /*
-** File esc_t.c - continuation in ctrl_tl_esc_t.c
+** File esc_t.c - continuation in esc_word_proc.c
 */
 
 int								esc_t(void);
-int								esc_t_proc(char flag, char *word_first,
-									size_t fi, char *end);
-int								esc_t_need_left(char *word_first, size_t fi, char *end);
-int								esc_t_need_right(char *word_first, size_t fi, char *end);
-int								esc_t_len_pos(char *word_first, size_t fi, size_t pos_back);
+int								esc_t_need_left(char *word_first, size_t fi,
+									char *end);
+int								esc_t_need_right(char *word_first, size_t fi,
+									char *end);
+int								esc_t_len_pos(char *word_first, size_t fi,
+									size_t pos_back);
+char							*save_end(size_t pos_back);
 
 /*
 ** File ctrl_kwuae.c
@@ -200,14 +206,12 @@ int								make_ctrl_e(void);
 int								make_ctrl_w(void);
 
 /*
-** File ctrl_tl_esc_t.c
+** File ctrl_tl.c
 */
 
 int								make_ctrl_t(void);
 int								make_ctrl_t_begend(size_t len);
 int								make_ctrl_l(void);
-char							*save_word(size_t *i, char *cmd, size_t pos);
-char							*save_end(size_t pos_back);
 
 /*
 ** File print_readline_help.c

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:16:46 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/18 16:39:31 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/18 18:16:14 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,11 @@ int				char_add(char c)
 {
 	static size_t	sz_max = CMD_SIZE + 1;
 	static size_t	sz = 0;
-	
+
 	if (sz >= sz_max)
 	{
-		if (!(g_rline.cmd = (char *)ft_realloc(g_rline.cmd, sz_max, sz_max,
-			sz_max + CMD_SIZE)))
-			return (-1);
+		g_rline.cmd = (char *)ft_realloc(g_rline.cmd, sz_max, sz_max,
+			sz_max + CMD_SIZE);
 		sz_max += CMD_SIZE;
 	}
 	sz++;
@@ -52,14 +51,12 @@ int				insert_char(char c)
 {
 	if (g_rline.cmd[g_rline.pos] != '\0')
 	{
-		if (str_shift(g_rline.cmd + g_rline.pos, 1))
-			return (-1);
+		str_shift(g_rline.cmd + g_rline.pos, 1);
 		g_rline.cmd[g_rline.pos] = c;
 		putcap("cd");
 		ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
 		g_rline.pos++;
-		if (move_cursor_back_after_print(0))
-			return (-1);
+		move_cursor_back_after_print(0);
 	}
 	else
 	{

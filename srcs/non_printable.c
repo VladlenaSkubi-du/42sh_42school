@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:26:57 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/17 12:37:53 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/18 18:19:38 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int			backspace_process(void)
 {
 	char		*swap;
 	size_t		len_swap;
-	
+
 	if (g_rline.pos > 0)
 	{
 		undo(0);
@@ -28,8 +28,7 @@ int			backspace_process(void)
 		key_left_proc();
 		putcap("cd");
 		ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
-		if (move_cursor_back_after_print(1))
-			return (-1);
+		move_cursor_back_after_print(1);
 	}
 	else
 		return (incorrect_sequence());
@@ -40,7 +39,7 @@ int			delete_process(void)
 {
 	char		*swap;
 	size_t		len_swap;
-	
+
 	if (g_rline.pos < ft_strlen(g_rline.cmd))
 	{
 		undo(0);
@@ -51,8 +50,7 @@ int			delete_process(void)
 			g_rline.cmd_buff_len - ft_strlen(g_rline.cmd));
 		putcap("cd");
 		ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
-		if (move_cursor_back_after_print(0))
-			return (-1);
+		move_cursor_back_after_print(0);
 	}
 	else
 		return (incorrect_sequence());

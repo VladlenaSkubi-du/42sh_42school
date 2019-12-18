@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 12:45:21 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/18 13:02:18 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/18 18:19:04 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		main_promt(void)
 int		other_prompts(char flag)
 {
 	char		*prompt;
-	
+
 	if (flag == 'd')
 		prompt = "dquote> ";
 	else if (flag == 'h')

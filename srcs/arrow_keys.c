@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 17:55:26 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/14 18:05:59 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/18 17:14:00 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ int		key_left_proc(void)
 {
 	unsigned short	new_x;
 
-	if (position_relative(&new_x, 0, g_rline.pos))
-		return (-1);
+	position_relative(&new_x, 0, g_rline.pos);
 	if (g_rline.pos == 0)
 		return (incorrect_sequence());
 	if (new_x > 0)

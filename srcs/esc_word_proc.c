@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 17:34:11 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/18 16:35:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/18 17:44:55 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int			esc_d(void)
 
 	pos_old = g_rline.pos;
 	if (word_right_proc())
-		return (-1);
+		return (0);
 	undo(0);
 	swap = g_rline.cmd + g_rline.pos;
 	len_swap = ft_strlen(swap);
@@ -86,12 +86,10 @@ int			esc_d(void)
 		g_rline.cmd_buff_len - ft_strlen(g_rline.cmd));
 	pos_back = g_rline.pos;
 	g_rline.pos = pos_old;
-	if (move_cursor_from_old_position(pos_back, 'l'))
-		return (-1);
+	move_cursor_from_old_position(pos_back, 'l');
 	putcap("cd");
 	ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
-	if (move_cursor_back_after_print(0))
-		return (-1);
+	move_cursor_back_after_print(0);
 	return (0);
 }
 
@@ -103,4 +101,16 @@ int			esc_r(void) //maybe replace from this file
 	free(g_rline.cmd);
 	init_readline();
 	return (0);
+}
+
+char		*save_word(size_t *i, char *cmd, size_t pos)
+{
+	char			*word;
+
+	word = NULL;
+	*i = 0;
+	while (ft_isalnum(cmd[pos + *i]))
+		(*i)++;
+	word = ft_strndup(cmd + pos, *i);
+	return (word);
 }

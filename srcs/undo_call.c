@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 15:41:23 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/17 15:42:42 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/18 18:15:46 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ int			undo_redraw(size_t pos_old)
 
 	while (pos_old)
 	{
-		if (position_relative(&new_x, 0, pos_old))
-			return (-1);
+		position_relative(&new_x, 0, pos_old);
 		if (pos_old == 0)
 			return (incorrect_sequence());
 		if (new_x > 0)
@@ -50,7 +49,6 @@ int			undo_redraw(size_t pos_old)
 	}
 	putcap("cd");
 	ft_putstr_fd(g_rline.cmd, 1);
-	if (move_cursor_back_after_print(0))
-		return (-1);
+	move_cursor_back_after_print(0);
 	return (0);
 }
