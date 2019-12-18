@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/17 20:12:43 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/18 16:33:54 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,14 @@ struct termios					g_backup_tty;
 
 char							*readline(void);
 void							init_readline(void);
-int								display_promt(void);
 int								readline_choice(char sy);
+
+/*
+** File prompts.c
+*/
+
+int								main_promt(void);
+int								other_prompts(char flag);
 
 /*
 ** File terminal_input_changes.c
@@ -173,6 +179,17 @@ int								esc_d(void);
 int								esc_r(void);
 
 /*
+** File esc_t.c - continuation in ctrl_tl_esc_t.c
+*/
+
+int								esc_t(void);
+int								esc_t_proc(char flag, char *word_first,
+									size_t fi, char *end);
+int								esc_t_need_left(char *word_first, size_t fi, char *end);
+int								esc_t_need_right(char *word_first, size_t fi, char *end);
+int								esc_t_len_pos(char *word_first, size_t fi, size_t pos_back);
+
+/*
 ** File ctrl_kwuae.c
 */
 
@@ -183,16 +200,14 @@ int								make_ctrl_e(void);
 int								make_ctrl_w(void);
 
 /*
-** File ctrl_tl.c
+** File ctrl_tl_esc_t.c
 */
 
 int								make_ctrl_t(void);
 int								make_ctrl_t_begend(size_t len);
 int								make_ctrl_l(void);
-int								esc_t(void);
-int								esc_t_swap_proc(char *word,
-									size_t i, char flag);
-int			esc_t_len_pos(char *word, size_t i, size_t pos_back);
+char							*save_word(size_t *i, char *cmd, size_t pos);
+char							*save_end(size_t pos_back);
 
 /*
 ** File print_readline_help.c

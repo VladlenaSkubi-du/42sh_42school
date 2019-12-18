@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:54:55 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/16 20:10:45 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/18 12:44:27 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int			main(int argc, char **argv)
 	char	room_termtype[2];
 	size_t	pos_old;
 
-	//сделать вход для heredoc, если heredoc, то readline немного другой
+	//сделать вход для heredoc, кавычек и экранирования. В этих случаях
+	// не выводится промпт
 	if (argc == 2 && ft_strcmp(argv[1], "--readline") == 0)
 	{
 		print_readline_help();

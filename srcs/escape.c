@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:07:04 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/17 13:44:51 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/18 13:18:59 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,5 @@ int				escape_init(void)
 	seq_base[7] = "f";
 	seq_base[8] = "d";
 	seq_base[9] = "t";
-	escape_check(seq_base);
-	return (0);
+	return (escape_check(seq_base));
 }
