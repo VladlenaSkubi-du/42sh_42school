@@ -9,7 +9,7 @@ char	get_tech_num(char check)
 	char	*base;
 	size_t	i;
 
-	base = " \\;&\"\'()[]{}$~|><*";
+	base = " \\;&\"\'()[]{}$~|><*\n";
 	i = 0;
 	while (base[i])
 	{
@@ -20,21 +20,28 @@ char	get_tech_num(char check)
 	return (0);
 }
 
-char	*ft_get_techline( char *line)
+int		ft_get_techline(void)
 {
-	char	*tech_str;
 	size_t	i;
 
 	i = 0;
-	if(!(tech_str = (char *)malloc(ft_strlen(line)))) // change to sschmele's xmalloc
-		return (0);
-	while (*line)
+	if(!(g_techline = (char *)malloc(g_cmd_size))) // change to sschmele's xmalloc
+		return (-1);
+	while (g_cmd[i])
 	{
-		tech_str[i] = get_tech_num(*line);
-		line++;
+		g_techline[i] = get_tech_num(g_cmd[i]);
 		i++;
 	}
-	return (tech_str);
+	return (0);
+}
+
+int		parser(char *line)
+{
+	g_cmd = line;
+	g_cmd_size = ft_strlen(g_cmd);
+	ft_get_techline();
+	nullify();
+	return (0);
 }
 
 /*
