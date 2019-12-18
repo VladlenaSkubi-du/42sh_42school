@@ -3,7 +3,7 @@ FLAGS = -Wall -Werror -Wextra
 FLAGS += -g
 
 SOURCES =	main.c \
-			
+			parser.c
 
 DIR_O = objs
 
