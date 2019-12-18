@@ -7,3 +7,5 @@ cmake-build-debug/
 minishell
 obj/
 .vscode/
+readline
+42sh
