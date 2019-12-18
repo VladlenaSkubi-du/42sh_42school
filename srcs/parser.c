@@ -9,7 +9,7 @@ char	get_tech_num(char check)
 	char	*base;
 	size_t	i;
 
-	base = " \\;&\"\'()[]{}$~|><*";
+	base = " \\;&\"\'()[]{}$~|><*\n";
 	i = 0;
 	while (base[i])
 	{
@@ -20,7 +20,7 @@ char	get_tech_num(char check)
 	return (0);
 }
 
-char	*ft_get_techline( char *line)
+char	*ft_get_techline(char *line)
 {
 	char	*tech_str;
 	size_t	i;
