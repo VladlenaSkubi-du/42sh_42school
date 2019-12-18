@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:53:46 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/16 20:21:57 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/18 12:47:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,6 @@ int		readline_choice(char sy)
 	return (0);
 }
 
-int		display_promt(void)
-{
-	char		*prompt;
-
-	prompt = "42sh";
-	ft_putstr_fd("\033[1;31m", 1);
-	ft_putstr_fd(prompt, 1);
-	ft_putstr_fd("\033[0m", 1);
-	ft_putstr_fd("> ", 1);
-	g_rline.prompt_len = ft_strlen(prompt) + 2;
-	return (0);
-}
-
 char	*readline(void)
 {
 	char			temp;
@@ -53,7 +40,7 @@ char	*readline(void)
 		ft_putendl_fd("Terminal can't be changed", 2); //исправить
 		return (NULL);
 	}
-	if (display_promt())
+	if (main_promt())
 		return (NULL);
 	while (read(1, &temp, 1) && temp != '\n')
 	{

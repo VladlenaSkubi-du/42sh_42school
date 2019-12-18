@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:16:46 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/17 12:39:02 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/18 16:39:31 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ int				char_add(char c)
 {
 	static size_t	sz_max = CMD_SIZE + 1;
 	static size_t	sz = 0;
-
-	undo(0);
+	
 	if (sz >= sz_max)
 	{
 		if (!(g_rline.cmd = (char *)ft_realloc(g_rline.cmd, sz_max, sz_max,
@@ -38,6 +37,7 @@ int				char_add(char c)
 	}
 	sz++;
 	g_rline.cmd_buff_len = sz_max;
+	undo(0);
 	insert_char(c);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 19:38:44 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/17 20:18:46 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/18 16:33:38 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int			make_ctrl_l(void)
 {
 	putcap("ti");
-	display_promt();
+	main_promt();
 	ft_putstr_fd(g_rline.cmd, 1);
 	if (move_cursor_back_after_print(0))
 		return (-1);
@@ -27,10 +27,10 @@ int			make_ctrl_t(void)
 	size_t			len;
 	size_t			pos_old;
 
-	undo(0);
 	len = ft_strlen(g_rline.cmd);
 	if (len == 1)
 		return (incorrect_sequence());
+	undo(0);
 	if (g_rline.pos == 0 || g_rline.pos == len)
 	{
 		if (make_ctrl_t_begend(len))
@@ -81,122 +81,34 @@ int			make_ctrl_t_begend(size_t len)
 	return (0);
 }
 
-/*
-** @flag = 'o' means we are within the word and jump to the left
-** will be to the beginning of the word we are on
-**       = 'n' means we are on the sign or in the beginning of
-** the word so the jump will be to the word before
-** If you are on the first word in a command or something goes
-** wrong - you get incorrect_sequence(): bell and out;
-*/
-
-int			esc_t(void)
+char		*save_word(size_t *i, char *cmd, size_t pos)
 {
-	char			*swap;
 	char			*word;
-	size_t			i;
-	size_t			pos_back;
-	char			flag;
 
-	if (g_rline.pos == 0)
-		return (incorrect_sequence());
-	pos_back = g_rline.pos;
-	flag = (ft_isalnum(g_rline.cmd[g_rline.pos]) &&
-		ft_isalnum(g_rline.cmd[g_rline.pos - 1])) ? 'o' : 'n';
-	//тут нужно прыгнуть вправо и если там конец строки, то все выполнять, а если нет - сохранить в swap
-	if (word_left_proc()) //не получилось прыгнуть налево
-		return (-1);
-	if (g_rline.pos == 0) //получилось, но ты на первом слове
-	{
-		swap_ints((int*)&g_rline.pos, (int*)&pos_back);
-		move_cursor_from_old_position(pos_back, 'r');
-		return (incorrect_sequence());
-	}
-	i = 0;
-	while (ft_isalnum(g_rline.cmd[g_rline.pos + i]))
-		i++;
-	word = ft_strndup(g_rline.cmd + g_rline.pos, i);
-	if (pos_back == ft_strlen(g_rline.cmd))
-	{
-		if (esc_t_len_pos(word, i, pos_back))
-			return (-1);
-		return (0);
-	}
-	if (esc_t_swap_proc(word, i, flag))
-		return (incorrect_sequence());
-	return (0);
+	word = NULL;
+	*i = 0;
+	while (ft_isalnum(cmd[pos + *i]))
+		(*i)++;
+	word = ft_strndup(cmd + pos, *i);
+	return (word);
 }
 
-int			esc_t_swap_proc(char *word, size_t i, char flag)
+char		*save_end(size_t pos_back)
 {
-	char			*word_other;
-	size_t			j;
-	size_t			pos_old;
-	char			delimiter;
+	char			*end;
+	size_t			pos_now;
 
-	// undo(0);
-	pos_old = g_rline.pos;
-	if (flag == 'o')
-	{
-		delimiter = g_rline.cmd[g_rline.pos - 1];
-		if (word_left_proc()) //не получилось прыгнуть налево
-			return (-1);
-		j = 0;
-		while (ft_isalnum(g_rline.cmd[g_rline.pos + j]))
-			j++;
-		word_other = ft_strndup(g_rline.cmd + g_rline.pos, j);
-		ft_strcpy(g_rline.cmd + g_rline.pos, word);
-		g_rline.cmd[g_rline.pos + i] = delimiter;
-		ft_strcpy(g_rline.cmd + g_rline.pos + i + 1, word_other);
-		putcap("cd");
-		ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
-		g_rline.pos = pos_old + i;
-		if (move_cursor_back_after_print(0))
-			return (-1);
-	}
-	else
-	{
-		if (word_right_proc()) //не получилось прыгнуть направо
-			return (-1);
-		delimiter = g_rline.cmd[g_rline.pos];
-		g_rline.pos++;
-		j = 0;
-		while (ft_isalnum(g_rline.cmd[g_rline.pos + j]))
-			j++;
-		word_other = ft_strndup(g_rline.cmd + g_rline.pos, j);
-		ft_strcpy(g_rline.cmd + pos_old, word_other);
-		g_rline.cmd[pos_old + j] = delimiter;
-		ft_strcpy(g_rline.cmd + pos_old + j + 1, word);
-		swap_ints((int*)&g_rline.pos,(int*)&pos_old);
-		if (move_cursor_from_old_position(pos_old, 'l'))
-			return (-1);
-		putcap("cd");
-		ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
-		g_rline.pos = pos_old + j;
-		if (move_cursor_back_after_print(0))
-			return (-1);
-	}
-	return (0);
-}
-
-int			esc_t_len_pos(char *word, size_t i, size_t pos_back)
-{
-	char			*word_after;
-	size_t			j;
-	char			delimiter;
-
-	delimiter = g_rline.cmd[g_rline.pos - 1];
-	if (word_left_proc()) //не получилось прыгнуть налево
-		return (-1);
-	j = 0;
-	while (ft_isalnum(g_rline.cmd[g_rline.pos + j]))
-		j++;
-	word_after = ft_strndup(g_rline.cmd + g_rline.pos, j);
-	ft_strcpy(g_rline.cmd + g_rline.pos, word);
-	g_rline.cmd[g_rline.pos + i] = delimiter;
-	ft_strcpy(g_rline.cmd + g_rline.pos + i + 1, word_after);
-	putcap("cd");
-	ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
+	end = NULL;
+	pos_now = g_rline.pos;
 	g_rline.pos = pos_back;
-	return (0);
+	if (move_cursor_from_old_position(pos_now, 'r'))
+		return ("ko");
+	if (word_right_proc())
+		return ("ko");
+	end = ft_strdup(g_rline.cmd + g_rline.pos);
+	pos_back = g_rline.pos;
+	g_rline.pos = pos_now;
+	if (move_cursor_from_old_position(pos_back, 'l'))
+		return ("ko");
+	return (end);
 }

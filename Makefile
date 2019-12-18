@@ -5,6 +5,7 @@ FLAGS += -g
 
 SOURCES =	main.c \
 			readline.c \
+			prompts.c \
 			terminal_input_changes.c \
 			termcap_usage.c \
 			cursor_position.c \
@@ -18,6 +19,7 @@ SOURCES =	main.c \
 			ctrl_tl_esc_t.c \
 			arrow_keys.c \
 			esc_word_proc.c \
+			esc_t.c \
 			print_readline_help.c \
 			ft_xmalloc.c \
 			ft_realloc.c \
