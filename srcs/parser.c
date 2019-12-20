@@ -25,13 +25,14 @@ int		ft_get_techline(void)
 	size_t	i;
 
 	i = 0;
-	if(!(g_techline = (char *)malloc(g_cmd_size))) // change to sschmele's xmalloc
+	if(!(g_techline->line = (char *)malloc(g_cmd_size))) // change to sschmele's xmalloc
 		return (-1);
 	while (g_cmd[i])
 	{
-		g_techline[i] = get_tech_num(g_cmd[i]);
+		g_techline->line[i] = get_tech_num(g_cmd[i]);
 		i++;
 	}
+	g_techline->len = i;
 	return (0);
 }
 
@@ -41,6 +42,7 @@ int		parser(char *line)
 	g_cmd_size = ft_strlen(g_cmd);
 	ft_get_techline();
 	nullify();
+	ft_slice();
 	return (0);
 }
 
