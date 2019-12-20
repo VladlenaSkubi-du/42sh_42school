@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 17:21:19 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/18 18:20:16 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/19 14:06:03 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int			make_ctrl_k(void)
 {
+	if (g_rline.pos == ft_strlen(g_rline.cmd))
+		return (incorrect_sequence());
 	undo(0);
 	putcap("cd");
 	ft_bzero(g_rline.cmd + g_rline.pos, ft_strlen(g_rline.cmd + g_rline.pos));
@@ -25,6 +27,8 @@ int			make_ctrl_u(void)
 	char			*swap;
 	size_t			len_swap;
 
+	if (g_rline.pos == 0)
+		return (incorrect_sequence());
 	undo(0);
 	swap = g_rline.cmd + g_rline.pos;
 	len_swap = ft_strlen(swap);

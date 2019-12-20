@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/18 18:14:25 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/20 13:23:06 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "libft.h"
 # include "ft_printf.h"
 # include "get_next_line.h"
+# include "ft_select.h"
 
 # define CMD_SIZE 10
 
@@ -187,6 +188,7 @@ char							*save_word(size_t *i, char *cmd, size_t pos);
 */
 
 int								esc_t(void);
+int								esc_t_first_left(char flag, size_t pos_back);
 int								esc_t_need_left(char *word_first, size_t fi,
 									char *end);
 int								esc_t_need_right(char *word_first, size_t fi,

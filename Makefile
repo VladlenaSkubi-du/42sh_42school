@@ -3,6 +3,8 @@ NAME = readline
 FLAGS = -Wall #-Werror -Wextra
 FLAGS += -g
 
+FT_SELECT = ft_select
+
 SOURCES =	main.c \
 			readline.c \
 			prompts.c \
@@ -25,7 +27,8 @@ SOURCES =	main.c \
 			ft_realloc.c \
 			swap_chars.c \
 			swap_ints.c \
-			ft_issign.c
+			ft_issign.c \
+			$(FT_SELECT)
 
 DIR_O = objs
 
