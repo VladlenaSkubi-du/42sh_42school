@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:54:55 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/18 12:44:27 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/20 17:36:39 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,22 @@ int			main(int argc, char **argv)
 	}
 	if (isatty(STDIN_FILENO))
 	{
-		termtype = getenv("TERM");
-		if (termtype == NULL)
-			termtype = "xterm-256color";
-		tgetent(room_termtype, termtype);
+		// termtype = getenv("TERM");
+		// if (termtype == NULL)
+		// 	termtype = "xterm-256color";
+		// tgetent(room_termtype, termtype);
 		// if (tgetent(room_termtype, termtype) != 1)
-		//     readline_simple();
+		    if (!(cmd = readline_simple()))
+			{
+				ft_putendl_fd("Something has happend", 2);
+				return (1);
+			}
 	}
-	if (!(cmd = readline()))
-	{
-		ft_putendl_fd("Something has happend", 2);
-		return (1);
-	}
+	// if (!(cmd = readline()))
+	// {
+	// 	ft_putendl_fd("Something has happend", 2);
+	// 	return (1);
+	// }
 	if (g_rline.pos > 0)
 	{
 		pos_old = g_rline.pos;

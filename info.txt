@@ -5,11 +5,24 @@
 
 	printf("word_other: %shey\n", word_other);
 
+	// se = 0;
+	// while (ft_isalnum(g_rline.cmd[g_rline.pos + se]))
+	// 	se++;
+	// word_second = ft_strndup(g_rline.cmd + g_rline.pos, se);
+
+	// fi = 0;
+	// while (ft_isalnum(g_rline.cmd[g_rline.pos + fi]))
+	// 	fi++;
+	// word_first = ft_strndup(g_rline.cmd + g_rline.pos, fi);
+
 Сделать:
-alt - t
+Норма в alt - t
+
 Создать буфер для вставки ctrl - y
 Сделать кастрированный readline
 Вставить ft_select на определенную комбинацию
 Проверить все ошибки и куда они ведут - невыполнение действия
 
 undo - проверить, что он вводится только перед началом изменения строки
+
+Везде, где ошибка может быть именно в сбое - возврат -1
