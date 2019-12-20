@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 17:34:11 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/18 17:44:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/19 14:00:23 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ int			word_left_proc(void)
 	size_t			i;
 	size_t			pos_old;
 
-	if (g_rline.pos == 1)
+	if (g_rline.pos == 1 || g_rline.pos == 2)
 	{
 		putcap("le");
+		(g_rline.pos == 2) ? putcap("le") : 0;
 		g_rline.pos = 0;
 		return (0);
 	}
@@ -27,7 +28,7 @@ int			word_left_proc(void)
 		return (incorrect_sequence());
 	i = g_rline.pos - 1;
 	pos_old = g_rline.pos;
-	while (g_rline.cmd[i] && g_rline.cmd[i - 1])
+	while (i > 0 && g_rline.cmd[i - 1] && g_rline.cmd[i])
 	{
 		if (ft_isalnum(g_rline.cmd[i]) && !ft_isalnum(g_rline.cmd[i - 1]))
 			break ;
