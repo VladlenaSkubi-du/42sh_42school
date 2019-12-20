@@ -3,7 +3,9 @@ NAME = readline
 FLAGS = -Wall #-Werror -Wextra
 FLAGS += -g
 
-FT_SELECT = ft_select
+READLINE_SIMPLE = readline_simple/readline_simple.c \
+			readline_simple/escape_simple.c \
+			readline_simple/help_functions.c
 
 SOURCES =	main.c \
 			readline.c \
@@ -28,7 +30,7 @@ SOURCES =	main.c \
 			swap_chars.c \
 			swap_ints.c \
 			ft_issign.c \
-			$(FT_SELECT)
+			$(READLINE_SIMPLE)
 
 DIR_O = objs
 
@@ -50,6 +52,7 @@ $(NAME): $(OBJS)
 
 $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/readline.h
 	@mkdir -p $(DIR_O)
+	@mkdir -p $(DIR_O)/readline_simple
 	gcc $(FLAGS) -c -I includes -o $@ $<
 
 clean:

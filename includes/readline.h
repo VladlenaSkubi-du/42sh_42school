@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/20 13:23:06 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/20 17:16:24 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include "libft.h"
 # include "ft_printf.h"
 # include "get_next_line.h"
-# include "ft_select.h"
+# include "readline_simple.h"
 
 # define CMD_SIZE 10
 
