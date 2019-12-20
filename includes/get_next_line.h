@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 12:09:34 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/18 15:05:41 by hshawand         ###   ########.fr       */
+/*   Updated: 2019/12/19 20:46:38 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@
 
 # define BUFF_SIZE 50
 
-int						get_next_line(const int fd, char **line);
+int     get_next_line(const int fd, char **line);
 
 #endif

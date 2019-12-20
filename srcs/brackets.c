@@ -6,13 +6,13 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 17:57:58 by rbednar           #+#    #+#             */
-/*   Updated: 2019/12/18 18:14:26 by rbednar          ###   ########.fr       */
+/*   Updated: 2019/12/19 23:36:13 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parser.h"
 
-int	ft_check(char str)
+static	int	ft_check(char str)
 {
 	if (str == 7)
 		return (1);
@@ -29,7 +29,7 @@ int	ft_check(char str)
 	return (0);
 }
 
-int	ft_brackets(char *str, int end)
+int			ft_brackets(char *str, int end)
 {
 	long int	i;
 	long int	buf;
