@@ -12,15 +12,14 @@
 
 #include "parser.h"
 
-int		terminate(char mode, char *ptr)
+/*
+** Dquote removed
+** if (*ptr == 1 || *ptr == 3 || *ptr == 4 || *ptr == 9 || *ptr == 10 || *ptr == 14 || *ptr == 15 || *ptr == 16 || *ptr == 17 || *ptr == 18)
+*/
+
+int		terminate(char *ptr)
 {
-	if (mode == 1)
-	{
-		if (*ptr == 1 || *ptr == 3 || *ptr == 4 || *ptr == 9 || *ptr == 10 || *ptr == 14 || *ptr == 15 || *ptr == 16 || *ptr == 17 || *ptr == 18)
-			*ptr = 0;
-	}
-	else
-		*ptr = 0;
+	*ptr = 0;
 	return (0);
 }
 
@@ -45,9 +44,9 @@ int		nullify(void)
 		else if ((nullifier == 1 && *ptr == 5) || (nullifier == 2 && *ptr == 6))
 			nullifier = 0;
 		else
-			terminate(nullifier, ptr);
+			terminate(ptr);
 		ptr++;
 		count++;
 	}
-	return (0);
+	return (nulifier ? -1 : 0);
 }
