@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/20 16:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/20 17:45:53 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/23 14:52:19 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int				ssequence_process(int sequence_num) //добавить историю
 	seq_action[1] = key_up_proc;
 	seq_action[2] = sesc_left;
 	seq_action[3] = key_down_proc;
+	seq_action[4] = sesc_r;
 	return ((*seq_action[sequence_num])());
 }
 
@@ -61,9 +62,19 @@ int				sesc_left(void)
 int				sesc_right(void)
 {
 	if (g_rline.pos >= ft_strlen(g_rline.cmd) ||
-		g_rline.pos == g_screen.ws_col)
+		g_rline.pos + g_rline.prompt_len == g_screen.ws_col)
 		return (bell_sound());
 	g_rline.pos++;
 	write(STDOUT_FILENO, "\033[C", 3);
+	return (0);
+}
+
+int				sesc_r(void)
+{
+	while (g_rline.pos < ft_strlen(g_rline.cmd) &&
+		g_rline.pos + g_rline.prompt_len < g_screen.ws_col - 1)
+		sesc_right();
+	while (g_rline.pos)
+		sbackspace_proc();
 	return (0);
 }

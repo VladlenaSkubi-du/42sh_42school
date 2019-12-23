@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:54:55 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/20 17:36:39 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/23 18:08:32 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,31 @@ int			main(int argc, char **argv)
 	// не выводится промпт
 	if (argc == 2 && ft_strcmp(argv[1], "--readline") == 0)
 	{
-		print_readline_help();
+		print_help(2);
+		return (0);
+	}
+	if (argc == 2 && ft_strcmp(argv[1], "--simple") == 0)
+	{
+		print_help(3);
 		return (0);
 	}
 	if (isatty(STDIN_FILENO))
 	{
-		// termtype = getenv("TERM");
-		// if (termtype == NULL)
-		// 	termtype = "xterm-256color";
-		// tgetent(room_termtype, termtype);
-		// if (tgetent(room_termtype, termtype) != 1)
+		termtype = getenv("TERM");
+		if (termtype == NULL)
+			termtype = "xterm-256color";
+		if (tgetent(room_termtype, termtype) != 1)
 		    if (!(cmd = readline_simple()))
 			{
 				ft_putendl_fd("Something has happend", 2);
 				return (1);
 			}
 	}
-	// if (!(cmd = readline()))
-	// {
-	// 	ft_putendl_fd("Something has happend", 2);
-	// 	return (1);
-	// }
+	if (!(cmd = readline()))
+	{
+		ft_putendl_fd("Something has happend", 2);
+		return (1);
+	}
 	if (g_rline.pos > 0)
 	{
 		pos_old = g_rline.pos;

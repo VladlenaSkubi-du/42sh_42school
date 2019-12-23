@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/20 17:16:24 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/23 18:08:39 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include "get_next_line.h"
 # include "readline_simple.h"
 
-# define CMD_SIZE 10
+# define CMD_SIZE	10
 
 /*
 ** @cmd is a command string printed by the user
@@ -219,8 +219,10 @@ int								make_ctrl_l(void);
 ** File print_readline_help.c
 */
 
-void							print_readline_help(void);
-void							printf_readline_help_further(void);
+void							print_help(short flag);
+void							print_readline_help(short flag, short undo, char *space);
+void							printf_readline_help_further(short flag,
+									short undo, char *space);
 
 /*
 ** Should be included in libft ________________________________________________
