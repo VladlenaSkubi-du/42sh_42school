@@ -4,8 +4,9 @@ FLAGS = -Wall #-Werror -Wextra
 FLAGS += -g
 
 READLINE_SIMPLE = readline_simple/readline_simple.c \
+			readline_simple/str_edit_simple.c \
 			readline_simple/escape_simple.c \
-			readline_simple/help_functions.c
+			readline_simple/keys_simple.c 
 
 SOURCES =	main.c \
 			readline.c \
