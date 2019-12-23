@@ -19,19 +19,7 @@
 
 int		terminate(char *ptr)
 {
-<<<<<<< HEAD
 	*ptr = 0;
-=======
-	if (mode == 1)
-	{
-		if (*ptr == 1 || *ptr == 3 || *ptr == 4 || *ptr == 9 \
-		|| *ptr == 10 || *ptr == 14 || *ptr == 15 || *ptr == 16 \
-		|| *ptr == 17 || *ptr == 18)
-			*ptr = 0;
-	}
-	else
-		*ptr = 0;
->>>>>>> bfef0096d0bffc9dcc3ae6531f479f54611db2a5
 	return (0);
 }
 
