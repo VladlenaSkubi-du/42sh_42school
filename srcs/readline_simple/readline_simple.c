@@ -6,13 +6,13 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/20 15:49:40 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/23 18:05:14 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/24 17:05:27 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
 
-int			bell_sound(void)
+int					bell_sound(void)
 {
 	write(STDOUT_FILENO, "\a", 1);
 	return (1);

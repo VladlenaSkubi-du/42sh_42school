@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ctrl_tl.c                                          :+:      :+:    :+:   */
+/*   ctrl_tly.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 19:38:44 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/18 17:46:40 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/24 16:55:31 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,54 @@ int			make_ctrl_t_begend(size_t len)
 		g_rline.pos = pos_old;
 		move_cursor_back_after_print(0);
 	}
+	return (0);
+}
+
+int			make_ctrl_y(int mode, char *yank)
+{
+	static char		*yank_str;
+	static size_t	len_yank;
+
+	if (mode == 0)
+	{
+		(yank_str) ? free(yank_str) : 0;
+		if (yank)
+		{
+			yank_str = yank;
+			len_yank = ft_strlen(yank_str);
+		}
+	}
+	else if (mode == 1)
+	{
+		if (yank_str == NULL)
+			return (incorrect_sequence());
+		yank_insert(yank_str, len_yank);
+	}
+	else
+		free(yank_str);
+	return (0);
+}
+
+int			yank_insert(char *yank_str, size_t len_yank)
+{
+	char			*save;
+	size_t			i;
+
+	if (g_rline.cmd[g_rline.pos])
+	{
+		save = ft_strdup(g_rline.cmd + g_rline.pos);
+		ft_bzero(g_rline.cmd + g_rline.pos, g_rline.cmd_buff_len - g_rline.pos);
+	}
+	else
+		save = NULL;
+	putcap("cd");
+	i = -1;
+	while (yank_str[++i])
+		char_add(yank_str[i]);
+	if (save)
+		ft_strcpy(g_rline.cmd + g_rline.pos, save);
+	ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
+	move_cursor_back_after_print(1);
+	free(save);
 	return (0);
 }

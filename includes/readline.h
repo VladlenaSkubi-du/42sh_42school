@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/23 18:08:39 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/24 17:01:45 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include "get_next_line.h"
 # include "readline_simple.h"
 
-# define CMD_SIZE	10
+# define CMD_SIZE	5
 
 /*
 ** @cmd is a command string printed by the user
@@ -119,6 +119,7 @@ int								ctrl_key(char sy);
 int								ctrl_process(char *ctrl_base, char sy);
 int								ctrl_call(size_t call_num);
 
+
 /*
 ** File cursor_position.c - operations to get the termcap cursor postion
 ** and move it after actions
@@ -133,12 +134,13 @@ int								move_cursor_from_old_position(size_t pos_old,
 									char direction);
 
 /*
-** File undo_call.c
+** File undo_yank_call.c
 */
 
 int								make_ctrl_x(void);
 int								undo_wrap(void);
 int								undo_redraw(size_t pos_old);
+int								make_ctrl_y_wrap(void);
 
 /*
 ** File undo.c
@@ -180,7 +182,7 @@ int								key_down_proc(void);
 int								word_left_proc(void);
 int								word_right_proc(void);
 int								esc_d(void);
-int								esc_r(void);
+int								esc_r(void); //перенести
 char							*save_word(size_t *i, char *cmd, size_t pos);
 
 /*
@@ -195,7 +197,7 @@ int								esc_t_need_right(char *word_first, size_t fi,
 									char *end);
 int								esc_t_len_pos(char *word_first, size_t fi,
 									size_t pos_back);
-char							*save_end(size_t pos_back);
+char							*save_end(size_t pos_back); //перенести
 
 /*
 ** File ctrl_kwuae.c
@@ -208,12 +210,15 @@ int								make_ctrl_e(void);
 int								make_ctrl_w(void);
 
 /*
-** File ctrl_tl.c
+** File ctrl_tly.c
 */
 
 int								make_ctrl_t(void);
 int								make_ctrl_t_begend(size_t len);
 int								make_ctrl_l(void);
+int								make_ctrl_y(int mode, char *yank);
+int								yank_insert(char *yank_str,
+									size_t len_yank);
 
 /*
 ** File print_readline_help.c
@@ -221,7 +226,9 @@ int								make_ctrl_l(void);
 
 void							print_help(short flag);
 void							print_readline_help(short flag, short undo, char *space);
-void							printf_readline_help_further(short flag,
+void							printf_readline_help_ccp(short flag,
+									short undo, char *space);
+void							print_readline_help_other(short flag,
 									short undo, char *space);
 
 /*

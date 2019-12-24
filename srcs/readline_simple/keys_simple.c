@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 17:55:05 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/23 18:08:07 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/24 17:05:06 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int				make_sctrl_u(void)
 int				make_sctrl_k(void)
 {
 	size_t		pos_back;
-	
+
 	pos_back = g_rline.pos;
 	while (g_rline.pos < ft_strlen(g_rline.cmd) - 1 &&
 		g_rline.pos + g_rline.prompt_len < g_screen.ws_col - 2)

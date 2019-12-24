@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 12:29:50 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/23 12:43:21 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/24 17:05:54 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int				schar_add(char c)
 int				sstr_add_symbol(char add)
 {
 	char			*swap;
-	
+
 	swap = NULL;
 	if (ft_strlen(g_rline.cmd) + g_rline.prompt_len == g_screen.ws_col - 1)
 		return (bell_sound());

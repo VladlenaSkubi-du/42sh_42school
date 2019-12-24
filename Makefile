@@ -15,13 +15,13 @@ SOURCES =	main.c \
 			termcap_usage.c \
 			cursor_position.c \
 			str_edit.c \
-			undo_call.c \
+			undo_yank_call.c \
 			undo.c \
 			non_printable.c \
 			escape.c \
 			ctrl_key.c \
 			ctrl_kwuae.c \
-			ctrl_tl.c \
+			ctrl_tly.c \
 			arrow_keys.c \
 			esc_word_proc.c \
 			esc_t.c \
@@ -31,6 +31,7 @@ SOURCES =	main.c \
 			swap_chars.c \
 			swap_ints.c \
 			ft_issign.c \
+			signals.c \
 			$(READLINE_SIMPLE)
 
 DIR_O = objs
