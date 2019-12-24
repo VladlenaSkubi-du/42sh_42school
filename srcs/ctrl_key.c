@@ -6,12 +6,12 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 19:03:25 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/23 15:13:57 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/24 16:55:15 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
-#define CTRL_NUM 14
+#define CTRL_NUM 15
 
 int			ctrl_call(size_t call_num)
 {
@@ -31,6 +31,7 @@ int			ctrl_call(size_t call_num)
 	ctrl_action[11] = backspace_process;
 	ctrl_action[12] = make_ctrl_x;
 	ctrl_action[13] = undo_wrap;
+	ctrl_action[14] = make_ctrl_y_wrap;
 	return ((*ctrl_action[call_num])());
 }
 
@@ -66,41 +67,6 @@ int			ctrl_key(char sy)
 	ctrl_base[11] = '\010';
 	ctrl_base[12] = '\030';
 	ctrl_base[13] = '\037';
+	ctrl_base[14] = '\031';
 	return (ctrl_process(ctrl_base, sy));
 }
-
-/*
-int			ctrl_key(char sy)
-{
-
-	if (sy == '\013')
-		make_ctrl_k();
-	else if (sy == '\014')
-		make_ctrl_l();
-	else if (sy == '\024')
-		make_ctrl_t();
-	else if (sy == '\025')
-		make_ctrl_u();
-	else if (sy == '\027')
-		make_ctrl_w();
-	else if (sy == '\001')
-		make_ctrl_a();
-	else if (sy == '\005')
-		make_ctrl_e();
-	else if (sy == '\002')
-		key_left_proc();
-	else if (sy == '\006')
-		key_right_proc();
-	else if (sy == '\004')
-		delete_process();
-	else if (sy == 127 || sy == '\010')
-		backspace_process();
-	else if (sy == '\030')
-		make_ctrl_x();
-	else if (sy == '\037')
-		undo(1);
-	else if (sy == '\037')
-		undo(1);
-	return (0);
-}
-*/

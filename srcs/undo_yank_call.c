@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   undo_call.c                                        :+:      :+:    :+:   */
+/*   undo_yank_call.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 15:41:23 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/18 18:15:46 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/24 17:03:15 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int			make_ctrl_x(void)
 {
-	char	next;
+	char			next;
 
 	read(1, &next, 1);
 	if (next == '\025')
@@ -51,4 +51,9 @@ int			undo_redraw(size_t pos_old)
 	ft_putstr_fd(g_rline.cmd, 1);
 	move_cursor_back_after_print(0);
 	return (0);
+}
+
+int			make_ctrl_y_wrap(void)
+{
+	return (make_ctrl_y(1, NULL));
 }

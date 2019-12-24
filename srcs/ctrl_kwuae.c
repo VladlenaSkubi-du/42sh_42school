@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 17:21:19 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/19 14:06:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/24 16:56:01 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 
 int			make_ctrl_k(void)
 {
+	char			*save_yank;
+
 	if (g_rline.pos == ft_strlen(g_rline.cmd))
 		return (incorrect_sequence());
 	undo(0);
+	save_yank = ft_strdup(g_rline.cmd + g_rline.pos);
+	make_ctrl_y(0, save_yank);
 	putcap("cd");
 	ft_bzero(g_rline.cmd + g_rline.pos, ft_strlen(g_rline.cmd + g_rline.pos));
 	return (0);
@@ -26,10 +30,13 @@ int			make_ctrl_u(void)
 {
 	char			*swap;
 	size_t			len_swap;
+	char			*save_yank;
 
 	if (g_rline.pos == 0)
 		return (incorrect_sequence());
 	undo(0);
+	save_yank = ft_strndup(g_rline.cmd, g_rline.pos);
+	make_ctrl_y(0, save_yank);
 	swap = g_rline.cmd + g_rline.pos;
 	len_swap = ft_strlen(swap);
 	ft_strcpy(g_rline.cmd, swap);
@@ -67,11 +74,14 @@ int			make_ctrl_w(void)
 	size_t			pos_old;
 	char			*swap;
 	size_t			len_swap;
+	char			*save_yank;
 
 	undo(0);
 	pos_old = g_rline.pos;
 	if (word_left_proc())
 		return (0);
+	save_yank = ft_strndup(g_rline.cmd + g_rline.pos, pos_old);
+	make_ctrl_y(0, save_yank);
 	swap = g_rline.cmd + pos_old;
 	len_swap = ft_strlen(swap);
 	ft_strcpy(g_rline.cmd + g_rline.pos, swap);

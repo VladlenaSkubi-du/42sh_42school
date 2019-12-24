@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/20 16:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/23 14:52:19 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/24 17:04:32 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int				sescape_check(char **seq_base)
 	return (0);
 }
 
-int				ssequence_process(int sequence_num) //добавить историю
+int				ssequence_process(int sequence_num)
 {
 	int				(*seq_action[SESC_NUM])(void);
 

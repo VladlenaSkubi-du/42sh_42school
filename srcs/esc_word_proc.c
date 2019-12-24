@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 17:34:11 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/19 14:00:23 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/24 16:51:13 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,14 @@ int			esc_d(void)
 	size_t			pos_back;
 	char			*swap;
 	size_t			len_swap;
+	char			*save_yank;
 
 	pos_old = g_rline.pos;
 	if (word_right_proc())
 		return (0);
 	undo(0);
+	save_yank = ft_strndup(g_rline.cmd + g_rline.pos, pos_old);
+	make_ctrl_y(0, save_yank);
 	swap = g_rline.cmd + g_rline.pos;
 	len_swap = ft_strlen(swap);
 	ft_strcpy(g_rline.cmd + pos_old, swap);

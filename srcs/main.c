@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:54:55 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/23 18:08:32 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/24 16:56:49 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int			main(int argc, char **argv)
 		if (termtype == NULL)
 			termtype = "xterm-256color";
 		if (tgetent(room_termtype, termtype) != 1)
-		    if (!(cmd = readline_simple()))
+			if (!(cmd = readline_simple()))
 			{
 				ft_putendl_fd("Something has happend", 2);
 				return (1);
@@ -52,6 +52,7 @@ int			main(int argc, char **argv)
 		ft_putendl_fd("Something has happend", 2);
 		return (1);
 	}
+	make_ctrl_y(2, NULL);
 	if (g_rline.pos > 0)
 	{
 		pos_old = g_rline.pos;
