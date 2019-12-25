@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 20:00:31 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/24 17:02:25 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/25 19:44:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void		printf_readline_help_ccp(short flag, short undo, char *space)
 	}
 	ft_printf("%s'Ctrl + y' - Past the last deleted from the cursor\n", space);
 	ft_putchar('\n');
+	print_readline_help_other (flag, undo, space);
 }
 
 void		print_readline_help_other(short flag, short undo, char *space)

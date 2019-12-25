@@ -6,15 +6,16 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 19:38:44 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/24 16:55:31 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/25 20:23:23 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
 
-int			make_ctrl_l(void)
+int			make_ctrl_l(void) //проскролить в самый вверх
 {
-	putcap("ti");
+	while (1)
+		putcap("sr");
 	main_promt();
 	ft_putstr_fd(g_rline.cmd, 1);
 	move_cursor_back_after_print(0);
