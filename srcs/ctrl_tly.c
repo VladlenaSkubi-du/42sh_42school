@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 19:38:44 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/25 20:23:23 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/26 13:55:55 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,16 @@
 
 int			make_ctrl_l(void) //проскролить в самый вверх
 {
-	while (1)
-		putcap("sr");
-	main_promt();
+	size_t			pos_back;
+	
+	pos_back = g_rline.pos;
+	g_rline.pos = 0;
+	move_cursor_from_old_position(pos_back, 'l');
+	position_cursor("ch", 0, 0);
+	putcap("cd");
+	putcap("cl");
+	g_rline.pos = pos_back;
+	main_promt(); //исправить
 	ft_putstr_fd(g_rline.cmd, 1);
 	move_cursor_back_after_print(0);
 	return (0);
