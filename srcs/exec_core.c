@@ -4,17 +4,43 @@
 ** Envvironment variables as global?
 */
 
+
+
+char	*get_env(char *var)
+{
+	char	*val;
+
+	val = 0;
+	if (!g_env)
+		return (0);
+	while (*g_env)
+	{
+		if (ft_strstr(*g_env, var))
+			break;
+		g_env++;
+	}
+	if (*g_env)
+		val = ft_strdup(*g_env + ft_strlen(var) + 1);
+	return (val);
+}
+	
+int		path_search(char *name)
+{
+
+}
+
 /*
 ** Here we should find check and return execpath
 */
 
+}
 char	*path_init(char **exec_av)
 {
 	char *ret;
 
 	if (!ft_strchr(path, '/')) /* Builtin or $PATH case */
 	{
-		/* There was some weird idea about PATH content table */
+		/* There was some weird idea about PATH content table. Now it is dead, lol */
 	}
 	else /* Execution path case */
 	{
@@ -22,7 +48,7 @@ char	*path_init(char **exec_av)
 			return (0);
 		ret = ft_strdup(exec_av[0]);
 	}
-	return (ret); /* ret could be NULL*/
+	return (ret); /* ret could be NULL */
 }
 
 int	exec_core(char **exec_av)
