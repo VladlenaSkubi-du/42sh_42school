@@ -18,6 +18,8 @@
 
 t_ltree		*ft_find_spec(t_ltree *block)
 {
+
+
 	return (block); //need to add subfunctions to detect symbols in block
 					//using g_techline and rules for all types
 }
