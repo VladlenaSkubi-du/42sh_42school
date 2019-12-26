@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/24 17:01:45 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/26 15:31:20 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ int								action_add(t_action_stack **start,
 t_action_stack					*action_new(void);
 
 /*
-** Actions ____________________________________________________________________
+** Actions in the folder key_actions___________________________________________
 */
 
 /*
@@ -221,11 +221,18 @@ int								yank_insert(char *yank_str,
 									size_t len_yank);
 
 /*
+** Folder auto_completion _____________________________________________________
+*/
+
+int             				auto_completion(void);
+
+/*
 ** File print_readline_help.c
 */
 
 void							print_help(short flag);
-void							print_readline_help(short flag, short undo, char *space);
+void							print_readline_help(short flag,
+									short undo, char *space);
 void							printf_readline_help_ccp(short flag,
 									short undo, char *space);
 void							print_readline_help_other(short flag,
