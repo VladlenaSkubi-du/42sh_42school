@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:54:55 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/24 16:56:49 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/26 18:56:59 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int			main(int argc, char **argv)
 	char	*cmd;
 	char	*termtype;
 	char	room_termtype[2];
-	size_t	pos_old;
 
 	//сделать вход для heredoc, кавычек и экранирования. В этих случаях
 	// не выводится промпт
@@ -53,14 +52,7 @@ int			main(int argc, char **argv)
 		return (1);
 	}
 	make_ctrl_y(2, NULL);
-	if (g_rline.pos > 0)
-	{
-		pos_old = g_rline.pos;
-		g_rline.pos = ft_strlen(g_rline.cmd);
-		if (move_cursor_from_old_position(pos_old, 'r'))
-			return (1);
-	}
-	printf("\n%s\n", cmd);
+	ft_putendl_fd(cmd, 1);
 	free(cmd);
 	return (0);
 }
