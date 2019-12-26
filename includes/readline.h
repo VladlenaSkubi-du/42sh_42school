@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/26 15:31:20 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/26 19:50:56 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include "readline_simple.h"
 
 # define CMD_SIZE	5
+# define TAB		0x1
 
 /*
 ** @cmd is a command string printed by the user
@@ -132,6 +133,7 @@ int								position_relative(unsigned short *x,
 int								move_cursor_back_after_print(short flag);
 int								move_cursor_from_old_position(size_t pos_old,
 									char direction);
+int								position_cursor_for_menu(size_t len);
 
 /*
 ** File undo_yank_call.c
@@ -225,6 +227,9 @@ int								yank_insert(char *yank_str,
 */
 
 int             				auto_completion(void);
+int             				print_menu(size_t len,
+									size_t pos_back, char pool);
+int								clean_menu(void);
 
 /*
 ** File print_readline_help.c
