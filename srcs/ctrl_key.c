@@ -6,12 +6,12 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 19:03:25 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/24 16:55:15 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/26 15:18:50 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
-#define CTRL_NUM 15
+#define CTRL_NUM 16
 
 int			ctrl_call(size_t call_num)
 {
@@ -32,6 +32,7 @@ int			ctrl_call(size_t call_num)
 	ctrl_action[12] = make_ctrl_x;
 	ctrl_action[13] = undo_wrap;
 	ctrl_action[14] = make_ctrl_y_wrap;
+	ctrl_action[15] = auto_completion;
 	return ((*ctrl_action[call_num])());
 }
 
@@ -68,5 +69,6 @@ int			ctrl_key(char sy)
 	ctrl_base[12] = '\030';
 	ctrl_base[13] = '\037';
 	ctrl_base[14] = '\031';
+	ctrl_base[15] = '\011';
 	return (ctrl_process(ctrl_base, sy));
 }

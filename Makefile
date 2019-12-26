@@ -3,12 +3,28 @@ NAME = readline
 FLAGS = -Wall #-Werror -Wextra
 FLAGS += -g
 
-READLINE_SIMPLE = readline_simple/readline_simple.c \
+READLINE_SIMPLE =	readline_simple/readline_simple.c \
 			readline_simple/str_edit_simple.c \
 			readline_simple/escape_simple.c \
-			readline_simple/keys_simple.c 
+			readline_simple/keys_simple.c
+
+KEY_ACTIONS =		key_actions/ctrl_kwuae.c \
+			key_actions/ctrl_tly.c \
+			key_actions/arrow_keys.c \
+			key_actions/esc_word_proc.c \
+			key_actions/esc_t.c \
+			key_actions/non_printable.c
+
+AUTO_COMPLETION =	auto_completion/start_completion.c
+
+LIBFT_42 =			libft_42/ft_xmalloc.c \
+			libft_42/ft_realloc.c \
+			libft_42/swap_chars.c \
+			libft_42/swap_ints.c \
+			libft_42/ft_issign.c 
 
 SOURCES =	main.c \
+			signals.c \
 			readline.c \
 			prompts.c \
 			terminal_input_changes.c \
@@ -17,22 +33,13 @@ SOURCES =	main.c \
 			str_edit.c \
 			undo_yank_call.c \
 			undo.c \
-			non_printable.c \
 			escape.c \
 			ctrl_key.c \
-			ctrl_kwuae.c \
-			ctrl_tly.c \
-			arrow_keys.c \
-			esc_word_proc.c \
-			esc_t.c \
 			print_readline_help.c \
-			ft_xmalloc.c \
-			ft_realloc.c \
-			swap_chars.c \
-			swap_ints.c \
-			ft_issign.c \
-			signals.c \
-			$(READLINE_SIMPLE)
+			$(READLINE_SIMPLE) \
+			$(KEY_ACTIONS) \
+			$(AUTO_COMPLETION) \
+			$(LIBFT_42)
 
 DIR_O = objs
 
@@ -55,6 +62,9 @@ $(NAME): $(OBJS)
 $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/readline.h
 	@mkdir -p $(DIR_O)
 	@mkdir -p $(DIR_O)/readline_simple
+	@mkdir -p $(DIR_O)/auto_completion
+	@mkdir -p $(DIR_O)/key_actions
+	@mkdir -p $(DIR_O)/libft_42
 	gcc $(FLAGS) -c -I includes -o $@ $<
 
 clean:
