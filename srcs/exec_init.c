@@ -67,18 +67,18 @@ int		get_argc(size_t pos_start, size_t pos_end)
 ** there is no difference)
 */
 
-int		exec_init(size_t pos_start, size_t pos_end)
+int		exec_init(t_ltree *pos)
 {
 	char	*exec_cmd;
 	char	**exec_av;
 	int		exec_ac;
 
-	if (!(exec_cmd = (char *)malloc(pos_end - pos_start + 1)))
+	if (!(exec_cmd = (char *)malloc(pos->end - pos->start + 1)))
 		return (-1);
-	ft_memcpy(exec_cmd, g_cmd + pos_start, pos_end - pos_start);
+	ft_memcpy(exec_cmd, g_cmd + pos->start, pos->end - pos->start);
 //	if ((exec_ac = get_argc(pos_start, pos_end)) == -1)
 //		return (-1);
-	if (!(exec_av = get_argv(exec_cmd, pos_start, pos_end)))
+	if (!(exec_av = get_argv(exec_cmd, pos->start, pos->end)))
 		return (-1);
 	free(exec_cmd);
 	return (exec_core(exec_av));
