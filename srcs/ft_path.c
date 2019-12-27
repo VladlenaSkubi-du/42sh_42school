@@ -145,5 +145,5 @@ char			**ft_path_pars(char *find, char *path)
 	}
 	if (list == NULL)
 		free(list);
-	return (ft_add_block(&root, &len));
+	return (ft_add_block(&root, len));
 }
