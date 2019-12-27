@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2019/12/26 17:50:35 by rbednar          ###   ########.fr       */
+/*   Updated: 2019/12/27 14:04:49 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static t_path	*ft_init_path(char *name, t_dirent *dp)
 
 	if ((temp = (t_path*)malloc(sizeof(t_path))))
 	{
-		temp->name = dp->d_name;
+		temp->name = ft_strdup(dp->d_name);
 		temp->path = dp->d_name;
-		temp->path = ft_take_path(name, temp);
+		ft_addpath(name, temp);
 		temp->prev = NULL;
 		temp->next = NULL;
 		return (temp);
@@ -37,29 +37,34 @@ static t_path	*ft_init_path(char *name, t_dirent *dp)
 ** Func insert t_path element by *root element if it exist
 */
 
-static t_path	*ft_insert_in(char *name, t_path *root)
+static int		ft_insert_in(char *name, t_path **root, t_path **temp)
 {
 	t_path	*current;
 	t_path	*parent;
 
-	current = root;
-	parent = NULL;
+	current = *root;
 	while (1)
 	{
 		parent = current;
-		if (name == parent->name)
-			return (NULL);
-		else if (name < parent->name)
+		if (!(ft_strcmp((*temp)->name, parent->name)))
+			return (0);
+		else if (ft_strcmp((*temp)->name, parent->name) < 0)
 		{
 			current = current->prev;
 			if (current == NULL)
-				return (parent->prev);
+			{
+				parent->prev = *temp;
+				return (0);
+			}
 		}
 		else
 		{
 			current = current->next;
 			if (current == NULL)
-				return (parent->next);
+			{
+				parent->next = *temp;
+				return (0);
+			}
 		}
 	}
 }
@@ -68,21 +73,23 @@ static t_path	*ft_insert_in(char *name, t_path *root)
 ** Func insert t_path element by *root element in all conditions
 */
 
-static void		insert(char *name, t_dirent *dp,  t_path *root)
+static void		insert(char *name, t_dirent *dp, t_path **root, size_t *len)
 {
 	t_path	*temp;
-	t_path	*current;
+	t_path	**current;
 
 	temp = ft_init_path(name, dp);
-	if (root == NULL)
-		root = temp;
+	if (*root == NULL)
+		*root = temp;
 	else
 	{
-		current = ft_insert_in(name, dp,  root);
-		if (current)
-			current = temp;
+		if (!(ft_insert_in(name, root, &temp)))
+			return ;
 		else
+		{
 			free(temp);
+			(*len)++;
+		}
 	}
 }
 
@@ -90,7 +97,7 @@ static void		insert(char *name, t_dirent *dp,  t_path *root)
 ** Func finds files in dir and add it to tree of type t_path
 */
 
-void		ft_get_path(char *name, t_path *root, size_t *len)
+void			ft_get_path(char *name, t_path **root, size_t *len, char *find)
 {
 	DIR			*dir;
 	t_stat		*stat_b;
@@ -102,12 +109,12 @@ void		ft_get_path(char *name, t_path *root, size_t *len)
 		return ;
 	if (!(dir = opendir(name)))
 		return ;
-	while (dir)
+	while (dir != NULL)
 	{
-		if ((dp = readdir(dirp)) != NULL)
+		if ((dp = readdir(dir)) != NULL)
 		{
-			insert(name, dp, root);
-			(*len)++;
+			if (ft_strnequ(dp->d_name, find, ft_strlen(find)))
+				insert(name, dp, root, len);
 		}
 		else
 			closedir(dir) == 0 ? dir = NULL : 0;
@@ -116,10 +123,10 @@ void		ft_get_path(char *name, t_path *root, size_t *len)
 }
 
 /*
-** Func insert t_path element by *root element in all conditions
+** Func find and return **char of all insertions of string find in PATH
 */
 
-char 		**ft_path_pars(char *path)
+char			**ft_path_pars(char *find, char *path)
 {
 	t_path	*root;
 	char	**list;
@@ -132,11 +139,11 @@ char 		**ft_path_pars(char *path)
 	list = ft_strsplit(path, ':');
 	while (list[i])
 	{
-		ft_get_path(list[i], root, &len);
+		ft_get_path(list[i], &root, &len, find);
 		free(list[i]);
 		i++;
 	}
 	if (list == NULL)
 		free(list);
-	return (ft_add_block(root, len));
+	return (ft_add_block(&root, &len));
 }

@@ -16,14 +16,14 @@
 ** Func fills **list by element of tree t_path
 */
 
-static void 	ft_fill_in_order(t_path *root, char **list)
+static void 	ft_fill_in_order(t_path **root, char **list)
 {
-	if (root != NULL)
+	if (*root != NULL)
 	{
-		ft_fill_in_order(root->prev, list);
-		list = root->name;
+		ft_fill_in_order(&((*root)->prev), list);
+		*list = (*root)->name;
 		list++;
-		ft_fill_in_order(root->next, list);
+		ft_fill_in_order(&((*root)->next), list);
 	}
 }
 
@@ -65,7 +65,7 @@ void			ft_addpath(char *name, t_path *buf)
 /*
 ** Func fills **list by element of tree t_path
 */
-char			**ft_add_block(t_path *root, size_t len)
+char			**ft_add_block(t_path **root, size_t len)
 {
 	char	**list;
 
