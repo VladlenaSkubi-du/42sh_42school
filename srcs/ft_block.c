@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2019/12/27 15:56:39 by rbednar          ###   ########.fr       */
+/*   Updated: 2019/12/27 17:04:47 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 static void		ft_fill_in_order(t_path **root, char **list, size_t *len)
 {
-	if (*root != NULL)
+	if (root != NULL && *root != NULL)
 	{
 		ft_fill_in_order(&((*root)->prev), list, len);
 		list[*len] = (*root)->name;
@@ -50,15 +50,15 @@ char			*ft_take_path(char *dir_name)
 ** Added path info to file.
 */
 
-void			ft_addpath(char *name, t_path *buf)
+void			ft_addpath(char *name, t_path **buf)
 {
 	char		*dir_path;
 
 	dir_path = ft_take_path(name);
-	buf->path = ft_strnew(ft_strlen(name) \
-	+ ft_strlen(buf->name) + 1);
-	buf->path = ft_strcpy(buf->path, dir_path);
-	buf->path = ft_strcat(buf->path, buf->name);
+	(*buf)->path = ft_strnew(ft_strlen(name) \
+	+ ft_strlen((*buf)->name) + 1);
+	(*buf)->path = ft_strcpy((*buf)->path, dir_path);
+	(*buf)->path = ft_strcat((*buf)->path, (*buf)->name);
 	free(dir_path);
 }
 
@@ -71,8 +71,9 @@ char			**ft_add_block(t_path **root, size_t len)
 	char	**list;
 	size_t	l;
 
-	len = 0;
-	list = (char **)malloc(sizeof(char*) * len + 2);
+	l = 0;
+	list = (char**)malloc(sizeof(char*) * (len + 2));
+	list[len] = 0;
 	ft_fill_in_order(root, list, &l);
 	return (list);
 }

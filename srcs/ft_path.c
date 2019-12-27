@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2019/12/27 14:04:49 by rbednar          ###   ########.fr       */
+/*   Updated: 2019/12/27 17:04:41 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,17 @@
 ** Func init t_path element
 */
 
-static t_path	*ft_init_path(char *name, t_dirent *dp)
+static void		ft_init_path(char *name, t_dirent *dp, t_path **tmp)
 {
-	t_path	*temp;
-
-	if ((temp = (t_path*)malloc(sizeof(t_path))))
+	if ((*tmp = (t_path*)malloc(sizeof(t_path))))
 	{
-		temp->name = ft_strdup(dp->d_name);
-		temp->path = dp->d_name;
-		ft_addpath(name, temp);
-		temp->prev = NULL;
-		temp->next = NULL;
-		return (temp);
+		(*tmp)->name = ft_strdup(dp->d_name);
+		(*tmp)->path = dp->d_name;
+		ft_addpath(name, tmp);
+		(*tmp)->prev = NULL;
+		(*tmp)->next = NULL;
+		(*tmp)->flag = 0;
 	}
-	else
-		return (NULL);
 }
 
 /*
@@ -78,18 +74,15 @@ static void		insert(char *name, t_dirent *dp, t_path **root, size_t *len)
 	t_path	*temp;
 	t_path	**current;
 
-	temp = ft_init_path(name, dp);
+	ft_init_path(name, dp, &temp);
 	if (*root == NULL)
 		*root = temp;
 	else
 	{
-		if (!(ft_insert_in(name, root, &temp)))
+		if (ft_insert_in(name, root, &temp))
 			return ;
 		else
-		{
-			free(temp);
 			(*len)++;
-		}
 	}
 }
 
@@ -143,7 +136,7 @@ char			**ft_path_pars(char *find, char *path)
 		free(list[i]);
 		i++;
 	}
-	if (list == NULL)
+	if (list != NULL)
 		free(list);
 	return (ft_add_block(&root, len));
 }

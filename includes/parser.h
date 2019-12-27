@@ -133,7 +133,7 @@ void					ft_get_path(char *name, t_path **root, size_t *len, char *find);
 
 char					**ft_add_block(t_path **root, size_t len);
 char					*ft_take_path(char *dir_name);
-void					ft_addpath(char *name, t_path *buf);
+void					ft_addpath(char *name, t_path **buf);
 
 
 
