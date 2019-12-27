@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2019/12/26 15:36:11 by rbednar          ###   ########.fr       */
+/*   Updated: 2019/12/27 15:56:39 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 ** Func fills **list by element of tree t_path
 */
 
-static void 	ft_fill_in_order(t_path **root, char **list)
+static void		ft_fill_in_order(t_path **root, char **list, size_t *len)
 {
 	if (*root != NULL)
 	{
-		ft_fill_in_order(&((*root)->prev), list);
-		*list = (*root)->name;
-		list++;
-		ft_fill_in_order(&((*root)->next), list);
+		ft_fill_in_order(&((*root)->prev), list, len);
+		list[*len] = (*root)->name;
+		(*len)++;
+		ft_fill_in_order(&((*root)->next), list, len);
 	}
 }
 
@@ -65,11 +65,14 @@ void			ft_addpath(char *name, t_path *buf)
 /*
 ** Func fills **list by element of tree t_path
 */
+
 char			**ft_add_block(t_path **root, size_t len)
 {
 	char	**list;
+	size_t	l;
 
-	list = (char **)malloc(sizeof(char*) * len + 1);
-	ft_fill_in_order(root, list);
+	len = 0;
+	list = (char **)malloc(sizeof(char*) * len + 2);
+	ft_fill_in_order(root, list, &l);
 	return (list);
 }
