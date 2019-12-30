@@ -15,7 +15,8 @@ KEY_ACTIONS =		key_actions/ctrl_kwuae.c \
 			key_actions/esc_t.c \
 			key_actions/non_printable.c
 
-AUTO_COMPLETION =	auto_completion/start_completion.c
+AUTO_COMPLETION =	auto_completion/start_completion.c \
+			auto_completion/output_buffer.c
 
 LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_realloc.c \

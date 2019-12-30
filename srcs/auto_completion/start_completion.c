@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_completion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/26 19:54:24 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/30 17:25:50 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,21 @@ int					auto_completion(void)
 
 int					print_menu(size_t len, size_t pos_back, char pool)
 {
-	char			*comment;
-	size_t			len_comment;
-	unsigned short	len_x;
-	unsigned short	menu_lines_num;
+	// char			*comment;
+	// size_t			len_comment;
+	// unsigned short	len_x;
+	// unsigned short	menu_lines_num;
 
-	comment = get_menu(pool);
-	len_comment = ft_strlen(comment);
-	position_relative(&len_x, 0, len);
-	position_cursor_for_menu(len);
-	menu_lines_num = len_comment / g_screen.ws_col + 1;
-	ft_putstr_fd(comment, 2);
-	position_cursor("ch", 0, len_x); //after printing the menu to len
-	position_cursor("UP", 0, menu_lines_num + 1); //after printing the menu to len
-	g_rline.pos = pos_back;
-	move_cursor_from_old_position(len, 'l'); //form len to the old position
+	// comment = get_menu(pool);
+	// len_comment = ft_strlen(comment);
+	// position_relative(&len_x, 0, len);
+	// position_cursor_for_menu(len);
+	// menu_lines_num = len_comment / g_screen.ws_col + 1;
+	// ft_putstr_fd(comment, 2);
+	// position_cursor("ch", 0, len_x); //after printing the menu to len
+	// position_cursor("UP", 0, menu_lines_num + 1); //after printing the menu to len
+	// g_rline.pos = pos_back;
+	// move_cursor_from_old_position(len, 'l'); //form len to the old position
 	return (0);
 }
 
