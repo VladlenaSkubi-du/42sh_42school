@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/26 19:50:56 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/12/30 17:24:48 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,7 @@ int             				auto_completion(void);
 int             				print_menu(size_t len,
 									size_t pos_back, char pool);
 int								clean_menu(void);
+int				buffer_col_init(void);
 
 /*
 ** File print_readline_help.c
