@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/30 17:24:48 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2019/12/30 20:30:27 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,7 @@ int             				auto_completion(void);
 int             				print_menu(size_t len,
 									size_t pos_back, char pool);
 int								clean_menu(void);
-int				buffer_col_init(void);
+int			buffer_col_print(char *add, int word_len, int word_nb);
 
 /*
 ** File print_readline_help.c
@@ -254,5 +254,5 @@ void							*ft_xmalloc(size_t size);
 void							swap_chars(char *cmd, int b, int a);
 void							swap_ints(int *a, int *b);
 int								ft_issign(char c);
-
+char							*ft_straddsy(char *dest, char sy);
 #endif
