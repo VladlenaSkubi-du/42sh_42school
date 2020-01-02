@@ -22,6 +22,7 @@ LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_realloc.c \
 			libft_42/swap_chars.c \
 			libft_42/swap_ints.c \
+			libft_42/ft_straddsy.c \
 			libft_42/ft_issign.c 
 
 SOURCES =	main.c \
