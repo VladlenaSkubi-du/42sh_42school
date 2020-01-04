@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:53:46 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/26 18:53:13 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/04 15:07:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int		readline_choice(char sy)
 	ctrl_key(sy);
 	if (sy == '\033')
 	{
-		// clear_completion();
+		check_menu();
 		escape_init();
 	}
 	else if (ft_isprint(sy))
 	{
-		// clear_completion();
+		check_menu();
 		char_add(sy);
 	}
 	return (0);

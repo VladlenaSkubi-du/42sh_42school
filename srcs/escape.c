@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:07:04 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/19 13:37:20 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/04 15:30:39 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int				escape_check(char **seq_base)
 ** [3~ -- DELETE CHAR
 ** b -- BACK ONE WORD
 ** f -- FORWARD ONE WORD
-** d -- DELETE UNTILL THE NEXW WORD
+** d -- DELETE UNTILL THE NEXT WORD
 ** t -- SWAP WORDS
 */
 

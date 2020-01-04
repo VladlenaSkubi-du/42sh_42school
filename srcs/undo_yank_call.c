@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 15:41:23 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/24 17:03:15 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/04 15:21:16 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int			make_ctrl_x(void)
 {
 	char			next;
 
+	check_menu();
 	read(1, &next, 1);
 	if (next == '\025')
 		undo(1);
