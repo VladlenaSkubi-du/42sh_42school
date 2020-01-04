@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 17:21:19 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/24 16:56:01 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/04 15:18:01 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int			make_ctrl_k(void)
 {
 	char			*save_yank;
 
+	check_menu();
 	if (g_rline.pos == ft_strlen(g_rline.cmd))
 		return (incorrect_sequence());
 	undo(0);
@@ -32,6 +33,7 @@ int			make_ctrl_u(void)
 	size_t			len_swap;
 	char			*save_yank;
 
+	check_menu();
 	if (g_rline.pos == 0)
 		return (incorrect_sequence());
 	undo(0);
@@ -76,6 +78,7 @@ int			make_ctrl_w(void)
 	size_t			len_swap;
 	char			*save_yank;
 
+	check_menu();
 	undo(0);
 	pos_old = g_rline.pos;
 	if (word_left_proc())

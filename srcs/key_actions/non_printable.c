@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:26:57 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/18 18:19:38 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/04 15:19:48 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int			backspace_process(void)
 	char		*swap;
 	size_t		len_swap;
 
+	check_menu();
 	if (g_rline.pos > 0)
 	{
 		undo(0);
@@ -40,6 +41,7 @@ int			delete_process(void)
 	char		*swap;
 	size_t		len_swap;
 
+	check_menu();
 	if (g_rline.pos < ft_strlen(g_rline.cmd))
 	{
 		undo(0);

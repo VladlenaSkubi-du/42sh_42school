@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/30 20:30:27 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/01/04 17:01:20 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,15 @@
 # define TAB		0x1
 
 /*
+** @t_rline is for the whole readline part:
+**
 ** @cmd is a command string printed by the user
 ** @pos - position of the cursor in the command-string
 ** @str_num - number of lines the command-string consists of
 ** @prompt_len - length of the prompt (invitation to enter the command)
+** @cmd_buff_len - buffer of the cmd-line
+** (can grow, after printing "Enter" is freed)
+** @flag - the "working" variable
 */
 
 typedef struct					s_rline
@@ -47,6 +52,17 @@ typedef struct					s_rline
 	short						flag;
 }								t_rline;
 
+/*
+** @t_action_stack is for the "ctrl-x ctrl-u" action:
+**
+** @cmd_b - the command string printed by the user before
+** the last change (last action)
+** @pos_b - position of the cursor in the command-string before
+** the last change (last action)
+** @num_b - number of lines the command-string consisted of before
+** the last change (last action)
+*/
+
 typedef struct					s_action_stack
 {
 	char						*cmd_b;
@@ -55,6 +71,29 @@ typedef struct					s_action_stack
 	struct s_action_stack		*next;
 	struct s_action_stack		*prev;
 }								t_action_stack;
+
+/*
+** @t_complition is for the auto-completion part
+**
+** @buffer - the menu-buffer (all the options for completion)
+** @buf_lines - how many lines the menu buffer consists of after
+** allocations into columns and lines
+** @buf_width - the length of each buffer line (including all tabs)
+** @word_len - the maximal length of the word with the tab inscluded,
+** according to which alignment is done (as in ls-program)
+** @word_nb - the number of menu-options
+** @i - counter
+*/
+
+typedef struct					s_completion
+{
+	char						**buffer;
+	int							buf_lines;
+	int							buf_width;
+	int							word_len;
+	int							word_nb;
+	size_t						i;
+}								t_completion;
 
 t_rline							g_rline;
 struct winsize					g_screen;
@@ -133,7 +172,6 @@ int								position_relative(unsigned short *x,
 int								move_cursor_back_after_print(short flag);
 int								move_cursor_from_old_position(size_t pos_old,
 									char direction);
-int								position_cursor_for_menu(size_t len);
 
 /*
 ** File undo_yank_call.c
@@ -226,11 +264,40 @@ int								yank_insert(char *yank_str,
 ** Folder auto_completion _____________________________________________________
 */
 
+/*
+** File start_completion.c
+*/
+
 int             				auto_completion(void);
-int             				print_menu(size_t len,
-									size_t pos_back, char pool);
+int								print_menu(size_t len, size_t pos_back,
+									char pool, char *complete);
+int								check_menu(void);
 int								clean_menu(void);
-int			buffer_col_print(char *add, int word_len, int word_nb);
+
+/*
+** File cursor_position_completion.c
+*/
+
+int								position_cursor_for_menu(size_t len);
+int                				position_cursor_after_menu_back
+									(unsigned short len_x, int buf_lines,
+									size_t pos_back, size_t len);
+
+
+/*
+** File output_buffer.c
+*/
+
+void							menu_buf_init(t_completion *menu_buf);
+int								buffer_col_print(char *add, t_completion *menu_buf);
+void							buffer_col_calc(t_completion *menu_buf);
+void							buffer_col_finish_and_del(t_completion *menu_buf);
+void							buf_add(char *str, size_t size);
+
+
+/*
+**_______________________________________________________________________________
+*/
 
 /*
 ** File print_readline_help.c

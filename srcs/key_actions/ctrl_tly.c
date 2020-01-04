@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 19:38:44 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/26 13:55:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/04 15:19:27 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int			make_ctrl_l(void) //проскролить в самый вверх
 {
 	size_t			pos_back;
 	
+	check_menu();
 	pos_back = g_rline.pos;
 	g_rline.pos = 0;
 	move_cursor_from_old_position(pos_back, 'l');
@@ -34,6 +35,7 @@ int			make_ctrl_t(void)
 	size_t			len;
 	size_t			pos_old;
 
+	check_menu();
 	len = ft_strlen(g_rline.cmd);
 	if (len == 1)
 		return (incorrect_sequence());
@@ -85,6 +87,7 @@ int			make_ctrl_y(int mode, char *yank)
 	static char		*yank_str;
 	static size_t	len_yank;
 
+	check_menu();
 	if (mode == 0)
 	{
 		(yank_str) ? free(yank_str) : 0;

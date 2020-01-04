@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:07:05 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/26 18:34:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/04 16:51:24 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,23 +93,5 @@ int					move_cursor_from_old_position(size_t pos_old,
 			position_cursor("DO", 0, new_y - old_y);
 	}
 	position_cursor("ch", 0, new_x);
-	return (0);
-}
-
-int					position_cursor_for_menu(size_t len)
-{
-	size_t			pos_old;
-
-	pos_old = g_rline.pos;
-	if (g_rline.pos == 0 && len == 0)
-		putcap("sf");
-	else
-	{
-		g_rline.pos = len;
-		move_cursor_from_old_position(pos_old, 'r');
-		if (g_rline.pos + g_rline.prompt_len <
-			g_screen.ws_col * g_rline.str_num)
-			putcap("sf");
-	}
 	return (0);
 }
