@@ -6,20 +6,62 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/04 18:59:41 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/09 19:01:02 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
 
+char					*complete;
+int						tab_level;
+
+// static char			*comp_alphabet(void)
+// {
+	
+// 	return ();
+// }
+
+// static char			*comp_arguments(char *complete)
+// {
+// 	backspace_process();
+// 	char_add('A');
+// 	return (NULL);
+// }
+
+// static char			*comp_parameters(char *complete)
+// {
+// 	backspace_process();
+// 	char_add('P');
+// 	return (NULL);
+// }
+
+/*
+** @flag = 'b' - binary
+**		= 'i' - incorrect_sequence, tab leaves
+**		= 'a' - auto-completion, immediate
+*/
+
 static char			sign_means(char c, char flag)
 {
-	if (flag == 'b')
+	if (c == 0)
+		return (0);
+	else if (flag == 'b')
 	{
 		if (c == '#' || c == '%' || c == '!' || c == '@' || c == '"'
 			|| c == '\\' || c == '^' || c == '*' || c == '(' || c == ')'
 			|| c == '[' || c == ']' || c == '{' || c == '}' || c == ':'
 			|| c == '=' || c == '/' || c == ',' || c == '\'' || c == '-')
+			return (1);
+	}
+	else if (flag == 'i')
+	{
+		if (c == '#' || c == '@' || c == '^' || c == '=' || c == ':'
+			|| c == '-' || c == ',' || c == '?' || c == '%')
+			return (1);
+	}
+	else if (flag == 'a')
+	{
+		if (c == '\\' || c == '!')
 			return (1);
 	}
 	else
@@ -30,55 +72,88 @@ static char			sign_means(char c, char flag)
 	return (0);
 }
 
-static char			*return_pool(int *pool, size_t i, size_t j, size_t k)
-{
-	if ((k == 0 || g_rline.cmd[k] == ';' || g_rline.cmd[k] == '&'
-		|| g_rline.cmd[k] == '|') && j == i)
-	{
-		*pool = 4;
-		return (NULL);
-	}
-	if ((k == 0 || g_rline.cmd[k] == ';' || g_rline.cmd[k] == '&'
-		|| g_rline.cmd[k] == '|') && j > i && sign_means(g_rline.cmd[i], 'c'))
-		*pool = 1;
-	else if (g_rline.cmd[i] == '$')
-		*pool = 2;
-	else if (ft_isalnum(g_rline.cmd[i]) || g_rline.cmd[i] == '.')
-		*pool = 3;
-	else
-	{
-		// printf("k = %zu, i = %zu, j = %zu\n", k, i, j);
-		*pool = 0;
-	}
-	return (ft_strndup(g_rline.cmd + i, j - i));
-}
+// static char			*return_pool(int *pool, size_t i, size_t j, size_t k)
+// {
+// 	if ((k == 0 || g_rline.cmd[k] == ';' || g_rline.cmd[k] == '&'
+// 		|| g_rline.cmd[k] == '|') && j == i)
+// 	{
+// 		*pool = 4;
+// 		return (NULL);
+// 	}
+// 	if ((k == 0 || g_rline.cmd[k] == ';' || g_rline.cmd[k] == '&'
+// 		|| g_rline.cmd[k] == '|') && j > i && sign_means(g_rline.cmd[i], 'c'))
+// 		*pool = 1;
+// 	else if (g_rline.cmd[i] == '$')
+// 		*pool = 2;
+// 	else if (ft_isalnum(g_rline.cmd[i]) || g_rline.cmd[i] == '.')
+// 		*pool = 3;
+// 	else
+// 	{
+// 		// printf("k = %zu, i = %zu, j = %zu\n", k, i, j);
+// 		*pool = 0;
+// 	}
+// 	return (ft_strndup(g_rline.cmd + i, j - i));
+// }
 
-static char			*choose_pool(size_t pos_back, int *pool) //восклицательный знак становится \!, как и '\',
+/*
+** If the word starts with alphabetic and numeric values or is NULL -
+** it is considered as a file or binary name
+** If there are "#%@(by us)^=:-,?" signs -
+** completion is not done
+** if there are "!\" signs, they become "\!" and "\\"
+** If there are "* or slash" - we look in the arguments pool
+** 
+*/
+
+//восклицательный знак становится \!, как и '\',
 //звездочка и бэкслеш сразу переключает на аргументы
 //не ищутся при: #, %, @ (у нас),^, =, :, -, ',', ?
 //ищутся со знаками, точка
 //ищутся, не влияют знаки (они убираются): {}, [], (), "", ''
-{
-	size_t			beg_word;
-	size_t			end_word;
-	size_t			space;
 
-	beg_word = g_rline.pos;
-	end_word = beg_word;
-	if (!ft_isalnum(g_rline.cmd[beg_word]) && beg_word - 1 > 0
-		&& ft_isalnum(g_rline.cmd[beg_word - 1]))
-		beg_word--;
-	while (beg_word > 0 && ft_isalnum(g_rline.cmd[beg_word]))
-		beg_word--;
-	if (beg_word > 0)
-		beg_word++;
-	while (g_rline.cmd[end_word] && end_word < g_rline.pos
-		&& ft_isalnum(g_rline.cmd[end_word]))
-		end_word++;
-	space = beg_word;
-	while (space > 0 && g_rline.cmd[space] == ' ')
-		space--;
-	return (return_pool(pool, beg_word, end_word, space));
+static int			analyse_quote_args(char fi)
+{
+	if (fi == '*' || fi == '/' || (complete &&
+		(complete[0] == '*' || complete[0] == '/')))
+		return (3);
+	else if ((fi == '.' && !complete) ||
+		(complete && complete[0] == '.' && !complete[1]))
+	{
+		char_add('/');
+		return (0);
+	}
+	else if ((fi == '.' && complete) ||
+		(complete && complete[0] == '.' && complete[1]))
+		return (1);
+	return (5);
+}
+
+static int			analyse_complete(void)
+{
+	char			fi;
+
+	if (g_rline.pos == 0)
+		return (4);
+	fi = (g_rline.pos > 0) ? g_rline.cmd[g_rline.pos - 1] : 0;
+	if (complete && ft_isalnum(complete[0]))
+		return (5);
+	if (sign_means(fi, 'i') || (complete && sign_means(complete[0], 'i')))
+		return (-1);
+	if ((sign_means(fi, 'a') && !complete) ||
+		(complete && sign_means(complete[0], 'a') && !complete[1]))
+	{
+		backspace_process();
+		char_add('\\');
+		(fi == '!' || (complete && complete[0] == '!'))
+			? char_add('!') : char_add('\\');
+		return (0);
+	}
+	else if ((sign_means(fi, 'a') && complete) ||
+		(complete && sign_means(complete[0], 'a') && complete[1]))
+		return (-1);
+	if (fi == '$' || (complete && complete[0] == '$'))
+		return (2);
+	return (analyse_quote_args(fi));
 }
 
 /*
@@ -95,15 +170,58 @@ int					auto_completion(void)
 	size_t			len;
 	size_t			pos_back;
 	int				pool;
-	char			*complete;
+	int				tmp;
 	
 	len = ft_strlen(g_rline.cmd);
 	pos_back = g_rline.pos;
-	complete = choose_pool(pos_back, &pool);
-	printf("pool - %d, %s\n", pool, complete);
-	if (pool == 0)
+	fill_complete(pos_back, &pool);
+	tmp = analyse_complete();
+	if (tmp < 0)
 		return (incorrect_sequence());
+	else if (tmp == 0)
+		return (0);
+	g_rline.flag |= TAB;
+	tab_level = 0;
+	if (tmp == 2)
+		pool = 2;
+	else if (tmp == 3)
+		pool = 3;
+	else if (tmp == 4)
+		pool = 4;
+	// printf("pool - %d, %s\n", pool, complete);
+	// printf("complete = %s\n", complete);
+	
+	// if (pool == 0)
+	// 	return (incorrect_sequence());
 	// print_menu(len, pos_back, pool, complete);
+	return (0);
+}
+
+int					fill_complete(size_t pos_back, int *pool)
+{
+	size_t			beg_word;
+	size_t			end_word;
+	size_t			space;
+	char			*tmp;
+
+	beg_word = g_rline.pos;
+	end_word = beg_word;
+	if (!ft_isalnum(g_rline.cmd[beg_word]) && beg_word - 1 > 0
+		&& ft_isalnum(g_rline.cmd[beg_word - 1]))
+		beg_word--;
+	while (beg_word > 0 && ft_isalnum(g_rline.cmd[beg_word]))
+		beg_word--;
+	while (g_rline.cmd[end_word] && end_word < g_rline.pos
+		&& ft_isalnum(g_rline.cmd[end_word]))
+		end_word++;
+	space = beg_word;
+	while (space > 0 && g_rline.cmd[space] == ' ')
+		space--;
+	tmp = ft_strndup(g_rline.cmd + beg_word, end_word - beg_word);
+	// printf("complete = %s\n", tmp);
+	complete = ft_strtrim(tmp);
+	// printf("complete = %s\n", complete);
+	free(tmp);
 	return (0);
 }
 
@@ -176,7 +294,7 @@ int					check_menu(void) //поправить возврат после нажа
 {
 	if (g_rline.flag & TAB)
 	{
-		clean_menu();
+		// clean_menu();
 		g_rline.flag &= ~TAB;
 	}
 	return (0);

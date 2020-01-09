@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/04 17:01:20 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/09 13:15:51 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,6 +269,7 @@ int								yank_insert(char *yank_str,
 */
 
 int             				auto_completion(void);
+int								fill_complete(size_t pos_back, int *pool);
 int								print_menu(size_t len, size_t pos_back,
 									char pool, char *complete);
 int								check_menu(void);
