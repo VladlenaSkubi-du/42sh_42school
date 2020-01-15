@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/09 13:15:51 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/15 14:37:29 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <term.h>
 # include <termios.h>
 # include <sys/ioctl.h>
+
+# include <sys/types.h>
+# include <signal.h>
 
 # include <stdio.h> //DELETE
 
@@ -99,6 +102,20 @@ t_rline							g_rline;
 struct winsize					g_screen;
 struct termios					g_tty;
 struct termios					g_backup_tty;
+
+/*
+** File main.c
+*/
+
+int								start_readline42(void);
+int								clean_readline42(void);
+
+/*
+** File 42signals_processing.c
+*/
+
+int             				signals_reroute(void);
+void            				signal_handler(int sig);
 
 /*
 ** File readline.c - the beginning of the work with readline

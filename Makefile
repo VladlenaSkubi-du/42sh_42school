@@ -27,7 +27,7 @@ LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_issign.c 
 
 SOURCES =	main.c \
-			signals.c \
+			42signals_processing.c \
 			readline.c \
 			prompts.c \
 			terminal_input_changes.c \
