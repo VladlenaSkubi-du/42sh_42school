@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:53:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/04 15:07:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/15 13:27:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,6 @@ char	*readline(void)
 	char			temp;
 	size_t			len;
 
-	init_readline();
-	if (set_noncanonical_input() == -1)
-	{
-		ft_putendl_fd("Terminal can't be changed", 2);
-		ft_putendl_fd("Use non-interactive shell", 2);
-		return (NULL);
-	}
-	main_promt(); //сделать условие
 	while (read(1, &temp, 1) && temp != '\n')
 	{
 		if (ioctl(1, TIOCGWINSZ, &g_screen))
@@ -61,9 +53,8 @@ char	*readline(void)
 		position_cursor_for_menu(len);
 		putcap("cd");
 	}
-	if (reset_canonical_input())
-		exit(1);
 	action_alloc_management(0, 1);
+	make_ctrl_y(2, NULL);
 	return (g_rline.cmd);
 }
 
