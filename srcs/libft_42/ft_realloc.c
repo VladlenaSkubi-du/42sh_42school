@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap_ints.c                                        :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/17 16:21:04 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/18 18:23:49 by sschmele         ###   ########.fr       */
+/*   Created: 2019/12/02 13:56:18 by sschmele          #+#    #+#             */
+/*   Updated: 2020/01/15 20:50:13 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_42sh.h"
+#include "libft_42.h"
 
-void			swap_ints(int *a, int *b)
+void		*ft_realloc(void *subj, size_t len_subj,
+				size_t len, size_t len_needed)
 {
-	int			tmp;
+	void	*ptr;
 
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
+	if (!(ptr = malloc(len_needed)))
+	{
+		write(2, "No space left\n", 15);
+		exit(1);
+	}
+	if (len_needed > len_subj)
+	{
+		ft_memcpy(ptr, subj, len);
+		ft_bzero(ptr + len, len_needed - len);
+	}
+	else
+		ft_memcpy(ptr, subj, len_needed);
+	free(subj);
+	return (ptr);
 }

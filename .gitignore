@@ -5,7 +5,9 @@ cmake-build-debug/
 *.out
 *.dSYM/
 minishell
-obj/
+ft_select
+objs/
 .vscode/
+
 readline
 42sh
