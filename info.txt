@@ -1,0 +1,30 @@
+	// // printf("pos %u - %u", new_x, new_y);
+	// // printf("end %u - %u", end_x, end_y);
+	printf("pos %zu\n", g_rline.pos);
+	// printf("%zu- %u - %lu\n", g_rline.str_num + tmp, new_y, g_rline.str_num + tmp - new_y);
+
+	printf("word_other: %shey\n", word_other);
+
+	// se = 0;
+	// while (ft_isalnum(g_rline.cmd[g_rline.pos + se]))
+	// 	se++;
+	// word_second = ft_strndup(g_rline.cmd + g_rline.pos, se);
+
+	// fi = 0;
+	// while (ft_isalnum(g_rline.cmd[g_rline.pos + fi]))
+	// 	fi++;
+	// word_first = ft_strndup(g_rline.cmd + g_rline.pos, fi);
+
+Сделать:
+Вставить ft_select на определенную комбинацию:
+1) Заходим по табу - под курсором пусто или пробел
+Если ничего не находим - белл
+2) проверяем то, что стоит впереди - находим слеши на слове, на котором стоим - это абсолютный или относительный путь
+3) записываем все по папке в двумерный массив
+4) по alt + / переходим в функцию анализа и сохранения, которая возвращает двумерный маccив
+5) для ft_select кидаем все в строку через пробелы
+6) удаляем массив двумерный
+Автодополнение
+
+$HISTSIZE - можно изменить размер запоминаемой истории
+

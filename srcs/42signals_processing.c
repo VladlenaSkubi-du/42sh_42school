@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap_chars.c                                       :+:      :+:    :+:   */
+/*   42signals_processing.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/06 20:29:13 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/18 18:23:33 by sschmele         ###   ########.fr       */
+/*   Created: 2020/01/15 12:43:36 by sschmele          #+#    #+#             */
+/*   Updated: 2020/01/15 21:29:23 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_42sh.h"
+#include "shell42.h"
 
-void		swap_chars(char *cmd, int b, int a)
+int             signals_reroute(void)
 {
-	char	tmp;
+	signal(SIGTTOU, signal_handler);
+	return(0);
+}
 
-	tmp = cmd[b];
-	cmd[b] = cmd[a];
-	cmd[a] = tmp;
+static void		sig_tstp(int sig)
+{
+	
+}
+
+void            signal_handler(int sig)
+{
+	if (sig == SIGTTOU)
+		sig_tstp(sig);
 }
