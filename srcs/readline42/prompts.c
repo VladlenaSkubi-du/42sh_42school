@@ -6,15 +6,15 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 12:45:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/15 21:25:58 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/16 15:39:38 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
 
-int				init_prompt(char flag, char end, char *send)
+int				init_prompt(char flag, char *send)
 {
-	g_prompt.stop = (end) ? end : 0;
+	g_prompt.i = 0;
 	g_prompt.sstop = (send) ? send : NULL;
 	if (flag == 'm')
 		g_prompt.prompt_func = main_prompt;
@@ -26,9 +26,8 @@ int				init_prompt(char flag, char end, char *send)
 
 int				main_prompt(char flag)
 {
-	char		*prompt;
+	const char	*prompt = "42sh";
 
-	prompt = "42sh";
 	ft_putstr_fd("\033[1;31m", 1);
 	ft_putstr_fd(prompt, 1);
 	ft_putstr_fd("\033[0m", 1);

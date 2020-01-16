@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/15 21:44:11 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:47:01 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 static int		parser(char *line)
 {
+	signals_reroute(3);
 	ft_putendl_fd(line, 1);
+	free(line);
 	// g_cmd = line;
 	// g_cmd_size = ft_strlen(g_cmd);
 	// ft_get_techline();
@@ -35,25 +37,27 @@ int				interactive_shell(char flag, char end, char *send)
 	char		room_termtype[2];
 	int			tmp;
 	
-	signals_reroute();
-	if (!isatty(STDIN_FILENO))
+	while (1)
 	{
-		ft_putendl_fd("Something has happend", 2);
-		return (1);
+		init_readline();
+		signals_reroute(1);
+		if (!isatty(STDIN_FILENO))
+		{
+			error_handler(TERMINAL_EXISTS, NULL);
+			exit(TERMINAL_EXISTS);
+		}
+		if (set_noncanonical_input() == -1)
+		{
+			error_handler(TERMINAL_TO_NON, NULL);
+			exit(TERMINAL_TO_NON);
+		}
+		init_prompt(flag, send);
+		termtype = getenv("TERM");
+		termtype = (termtype == NULL) ? "xterm-256color" : termtype;
+		tmp = tgetent(room_termtype, termtype);
+		if (start_readline42(tmp))
+			return (1);
 	}
-	init_readline();
-	if (set_noncanonical_input() == -1)
-	{
-		ft_putendl_fd("Terminal can't be changed", 2);
-		ft_putendl_fd("Use non-interactive shell", 2);
-		return (1);
-	}
-	init_prompt(flag, end, send);
-	termtype = getenv("TERM");
-	termtype = (termtype == NULL) ? "xterm-256color" : termtype;
-	tmp = tgetent(room_termtype, termtype);
-	if (start_readline42(tmp))
-		return (1);
 	return (0);
 }
 
@@ -68,20 +72,20 @@ int				start_readline42(int tmp)
 	if (tmp != 1)
 		if (!(cmd = readline_simple()))
 		{
-			ft_putendl_fd("Something has happend", 2);
+			ft_putendl_fd("Something has happend", 2); //TODO error
 			return (1);
 		}
 	if (!(cmd = readline()))
 	{
-		ft_putendl_fd("Something has happend", 2);
+		ft_putendl_fd("Something has happend", 2); //TODO error
 		return (1);
 	}
-	if (reset_canonical_input())
-		exit(1);
+	reset_canonical_input();
 	cmd = finalize_cmd(cmd);
 	clean_readline42();
+	signals_reroute(2);
 	if (parser(cmd))
-		return (1);
+		return (1); //TODO error
 	return (0);
 }
 
@@ -99,15 +103,7 @@ char			*finalize_cmd(char *cmd)
 	}
 	else
 		final = ft_strtrim(cmd);
-	free(cmd);
 	return (final);
 }
 
-
-int				clean_readline42(void)
-{
-	//выходя из ридлайна;
-	//t_completion,t_rline,  
-	return (0);
-}
 

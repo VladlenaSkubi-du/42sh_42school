@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:45:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/15 21:42:35 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/16 15:05:28 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,6 @@ int					count_first_env(void)
 	while (environ[i])
 		i++;
 	return (i);
-}
-
-int					clean_everything(void)
-{
-	ft_arrdel(g_env);
-	ft_arrdel(g_shvar);
-	make_ctrl_y(2, NULL);
-	return (0);
 }
 
 //make variables: SHELL42 (==BASH), SHELL42_PID(==BASHPID), SHELL42_CMDS(==BASH_CMDS),

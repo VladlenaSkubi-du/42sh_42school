@@ -35,6 +35,8 @@ AUTO_COMPLETION =	readline42/auto_completion/start_completion.c \
 			readline42/auto_completion/cursor_position_completion.c \
 			readline42/auto_completion/output_buffer.c
 
+BUILTIN = 			builtin/exit.c
+
 LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_realloc.c \
 			libft_42/swap_chars.c \
@@ -45,7 +47,10 @@ LIBFT_42 =			libft_42/ft_xmalloc.c \
 SOURCES =	main.c \
 			42signals_processing.c \
 			42environment.c \
+			42error_handler.c \
+			42clean_all.c \
 			$(READLINE42) \
+			$(BUILTIN) \
 			$(LIBFT_42)
 
 DIR_O = objs
@@ -72,6 +77,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)/readline42/readline_simple
 	@mkdir -p $(DIR_O)/readline42/key_actions
 	@mkdir -p $(DIR_O)/readline42/auto_completion
+	@mkdir -p $(DIR_O)/builtin
 	@mkdir -p $(DIR_O)/libft_42
 	gcc $(FLAGS) -c -I includes -o $@ $<
 

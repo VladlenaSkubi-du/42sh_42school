@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/15 21:00:58 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:26:05 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,17 @@
 # include <term.h>
 # include <termios.h>
 # include <sys/ioctl.h>
-# include <stdio.h>
 
+# include <stdio.h> //DELETE
+
+# include "exit_status.h"
 # include "readline_simple.h"
+# include "builtin42.h"
 # include "libft.h"
 # include "libft_42.h"
 # include "ft_printf.h"
-# include "get_next_line.h"
+
+# include "get_next_line.h" //If not used, delete
 
 # define CMD_SIZE	5
 # define TAB		0x1
@@ -95,9 +99,9 @@ typedef struct					s_completion
 
 typedef struct					s_prompt
 {
-	char						stop;
 	char						*sstop;
-	int							(*prompt_func)(char);		
+	size_t						i;
+	int							(*prompt_func)(char);
 }								t_prompt;
 
 
@@ -129,8 +133,7 @@ int								readline_choice(char sy);
 ** File prompts.c
 */
 
-int								init_prompt(char flag,
-									char end, char *send);
+int								init_prompt(char flag, char *send);
 int								main_prompt(char flag);
 int								other_prompts(char flag);
 

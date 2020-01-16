@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:53:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/15 21:41:44 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:27:52 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ char	*readline(void)
 	char			temp;
 	size_t			len;
 
-	while (read(1, &temp, 1) && temp != '\n' && temp != 4)
+	while (read(1, &temp, 1) && temp != '\n')
 	{
 		if (ioctl(1, TIOCGWINSZ, &g_screen))
 		{
-			ft_putendl_fd("Can't get terminal dimensions", 2);
+			ft_putendl_fd("Can't get terminal dimensions", 2); //TODO delete
 			return (NULL);
 		}
 		readline_choice(temp);
