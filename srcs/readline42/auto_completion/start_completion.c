@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/09 19:01:02 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:12:26 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,6 @@
 
 char					*complete;
 int						tab_level;
-
-// static char			*comp_alphabet(void)
-// {
-	
-// 	return ();
-// }
-
-// static char			*comp_arguments(char *complete)
-// {
-// 	backspace_process();
-// 	char_add('A');
-// 	return (NULL);
-// }
-
-// static char			*comp_parameters(char *complete)
-// {
-// 	backspace_process();
-// 	char_add('P');
-// 	return (NULL);
-// }
 
 /*
 ** @flag = 'b' - binary

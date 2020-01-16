@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/15 20:46:04 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:25:50 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,16 @@
 # include <sys/types.h>
 # include <signal.h>
 
-# include <stdio.h> //DELETE
+// # include <stdio.h> //DELETE
 
+# include "exit_status.h"
+# include "readline.h"
+# include "builtin42.h"
 # include "libft.h"
 # include "libft_42.h"
-# include "ft_printf.h"
-# include "get_next_line.h"
-# include "readline.h"
+
+# include "ft_printf.h" //If not used, delete
+# include "get_next_line.h" //If not used, delete
 
 /*
 ** @g_env - global variable with (char **environ) parameters
@@ -41,13 +44,26 @@ char				**g_shvar;
 int					save_environment(void);
 int					count_first_env(void);
 int					save_shell_variables(void);
-int					clean_everything(void);
 
 /*
 ** File 42signals_processing.c
 */
 
-int             	signals_reroute(void);
-void            	signal_handler(int sig);
+int             	signals_reroute(int from);
+void            	sig_readline(int sig);
+void                sig_fork(int sig);
+
+/*
+** File 42errors_handler.c
+*/
+
+int             	error_handler(exit_status status, char *str);
+
+/*
+** File 42clean_all.c
+*/
+
+int				    clean_everything(void);
+int					clean_readline42(void);
 
 #endif

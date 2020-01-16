@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:54:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/15 21:35:18 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:47:24 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,25 @@ int		options(int argc, char **argv)
 	if (argc == 2 && ft_strcmp(argv[1], "--readline") == 0)
 	{
 		print_help(2);
-		return (0);
+		exit(SUCCESS);
 	}
 	if (argc == 2 && ft_strcmp(argv[1], "--simple") == 0)
 	{
 		print_help(3);
-		return (0);
+		exit(SUCCESS);
 	}
 	if (argc == 2 && ft_strcmp(argv[1], "-c") == 0)
 	{
-		ft_putendl_fd("42sh: -c: option requires an argument", 2); //make error
-		return (2);
+		error_handler(OPTIONS_REQUIRED, NULL);
+		exit(OPTIONS_REQUIRED);
 	}
-	return (1);
+	return (0);
 }
 
 static int		parser(char *line)
 {
 	ft_putendl_fd(line, 1);
+	free(line);
 	// g_cmd = line;
 	// g_cmd_size = ft_strlen(g_cmd);
 	// ft_get_techline();
@@ -49,9 +50,9 @@ int				noninteractive_shell(int argc, char **argv)
 
 	if (argc > 2 && ft_strcmp(argv[1], "-c") == 0)
 	{
-		cmd = ft_strdup(argv[2]);
+		cmd = ft_strdup(argv[2]); //TODO строка может быть нулевой
 		if (parser(cmd))
-			return (-1);
+			return (-1); //TODO исправить после того, как все ошибки парсера будут выделены через exit_status
 		return (1);
 	}
 	return (0);
@@ -63,16 +64,15 @@ int				main(int argc, char **argv)
 	
 	save_environment();
 	save_shell_variables();
-	if ((tmp = options(argc, argv)) != 1)
-		return (tmp);
-	if ((tmp = noninteractive_shell(argc, argv)) == -1)
+	options(argc, argv);
+	if ((tmp = noninteractive_shell(argc, argv)) == -1) 
 		return (1);
-	else if (tmp)
+	else if (tmp == 1)
 		return (0);
-	if (interactive_shell('m', EOF, NULL))
-		return (1);
+	if (interactive_shell('m', 0, NULL))
+		return (1); //TODO исправить после того, как все ошибки парсера будут выделены через exit_status
 	clean_everything();
 	return (0);
 }
 
-//stopped with signals for readline
+//кучу всяких чисток всего и вся по выходу при ошибках

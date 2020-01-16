@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft_42.h                                         :+:      :+:    :+:   */
+/*   builtin42.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/15 20:46:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/16 17:12:48 by sschmele         ###   ########.fr       */
+/*   Created: 2020/01/16 13:45:45 by sschmele          #+#    #+#             */
+/*   Updated: 2020/01/16 17:01:06 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_42_H
-# define LIBFT_42_H
-
-# include <unistd.h>
-# include <stdlib.h>
+#ifndef BUILTIN42_H
+# define BUILTIN42_H
 
 # include "exit_status.h"
 # include "libft.h"
+# include "libft_42.h"
+# include "shell42.h"
 
 # include "ft_printf.h" //If not used, delete
 # include "get_next_line.h" //If not used, delete
 
-void							*ft_realloc(void *subj, size_t len_subj,
-								size_t len, size_t len_needed);
-void							*ft_xmalloc(size_t size);
-void							swap_chars(char *cmd, int b, int a);
-void							swap_ints(int *a, int *b);
-int								ft_issign(char c);
-char							*ft_straddsy(char *dest, char sy);
+int				btin_exit(exit_status status);
 
 #endif

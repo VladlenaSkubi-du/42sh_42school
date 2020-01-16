@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 19:37:01 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/15 20:50:35 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/16 17:15:49 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		*ft_xmalloc(size_t size)
 	if (!(ptr = malloc(size)))
 	{
 		write(STDERR_FILENO, "No space left\n", 15);
-		exit(1);
+		exit(MALLOC_ERROR);
 	}
 	ft_bzero(ptr, size);
 	return (ptr);

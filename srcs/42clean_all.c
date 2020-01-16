@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   42clean_all.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/02 13:56:18 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/16 17:15:27 by sschmele         ###   ########.fr       */
+/*   Created: 2020/01/16 15:05:06 by sschmele          #+#    #+#             */
+/*   Updated: 2020/01/16 19:14:39 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_42.h"
+#include "shell42.h"
 
-void		*ft_realloc(void *subj, size_t len_subj,
-				size_t len, size_t len_needed)
+int				clean_everything(void)
 {
-	void	*ptr;
+	ft_arrdel(g_env);
+	ft_arrdel(g_shvar);
+    //другие clean
+	make_ctrl_y(2, NULL);
+	return (0);
+}
 
-	if (!(ptr = malloc(len_needed)))
-	{
-		write(2, "No space left\n", 15);
-		exit(MALLOC_ERROR);
-	}
-	if (len_needed > len_subj)
-	{
-		ft_memcpy(ptr, subj, len);
-		ft_bzero(ptr + len, len_needed - len);
-	}
-	else
-		ft_memcpy(ptr, subj, len_needed);
-	free(subj);
-	return (ptr);
+int				clean_readline42(void)
+{
+	free(g_rline.cmd);
+	
+	return (0);
 }
