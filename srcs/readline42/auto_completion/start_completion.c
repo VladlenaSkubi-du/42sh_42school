@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/17 15:49:47 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 16:25:51 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char				*g_complete;
 int					auto_completion(void)
 {
 	size_t			pos_back;
-	int				pool;
+	// int				pool;
 
 	pos_back = g_rline.pos;
 	fill_complete(pos_back);

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/17 14:41:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 16:20:33 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 # include "exit_status.h"
 # include "readline.h"
+# include "parser.h"
 # include "builtin42.h"
 # include "libft.h"
 # include "libft_42.h"
