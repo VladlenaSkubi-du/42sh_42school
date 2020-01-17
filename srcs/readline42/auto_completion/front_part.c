@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:46:39 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/17 16:01:54 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 16:26:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 int					print_menu(size_t len, size_t pos_back,
 						char pool, char *complete)
 {
-	char			**menu;
+	char			**menu = NULL;
 	t_completion	menu_buf;
 	unsigned short	len_x;
 	static int		tab_push;
@@ -40,7 +40,7 @@ int					print_menu(size_t len, size_t pos_back,
 	position_relative(&len_x, 0, len);
 	position_cursor_for_menu(len);
 	menu_buf_init(&menu_buf);
-	menu = get_menu(pool, &menu_buf);
+	// menu = get_menu(pool, &menu_buf);
 	while (++i < menu_buf.word_nb)
 		buffer_col_print(menu[i], &menu_buf);
 	position_cursor_after_menu_back(len_x, menu_buf.buf_lines, pos_back, len);

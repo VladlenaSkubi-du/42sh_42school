@@ -6,24 +6,11 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/17 14:44:18 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 16:24:41 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
-
-static int		parser(char *line)
-{
-	signals_reroute(3);
-	ft_putendl_fd(line, 1);
-	free(line);
-	// g_cmd = line;
-	// g_cmd_size = ft_strlen(g_cmd);
-	// ft_get_techline();
-	// nullify();
-	// ft_slice();
-	return (0);
-}
 
 /*
 ** @flag = 'm' - main_prompt

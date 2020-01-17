@@ -11,3 +11,4 @@ objs/
 
 readline
 42sh
+CMakeLists.txt

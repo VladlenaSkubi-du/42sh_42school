@@ -36,6 +36,21 @@ AUTO_COMPLETION =	readline42/auto_completion/start_completion.c \
 			readline42/auto_completion/cursor_position_completion.c \
 			readline42/auto_completion/output_buffer.c
 
+PARSER = 			parser/parser42.c \
+			parser/brackets.c \
+			parser/find_spec.c \
+			parser/quote_control.c \
+			parser/slice_to_blocks.c \
+			$(PATH_TREE)
+			# $(EXEC)
+
+PATH_TREE = 		parser/path_tree/ft_block.c \
+			parser/path_tree/ft_path_help.c \
+			parser/path_tree/ft_path.c
+
+EXEC = 				parser/exec/exec_init.c \
+			parser/exec/exec_core.c
+
 BUILTIN = 			builtin/exit.c
 
 LIBFT_42 =			libft_42/ft_xmalloc.c \
@@ -51,6 +66,7 @@ SOURCES =	main.c \
 			error_handler42.c \
 			clean_all42.c \
 			$(READLINE42) \
+			$(PARSER) \
 			$(BUILTIN) \
 			$(LIBFT_42)
 
@@ -78,6 +94,8 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)/readline42/readline_simple
 	@mkdir -p $(DIR_O)/readline42/key_actions
 	@mkdir -p $(DIR_O)/readline42/auto_completion
+	@mkdir -p $(DIR_O)/parser
+	@mkdir -p $(DIR_O)/parser/path_tree
 	@mkdir -p $(DIR_O)/builtin
 	@mkdir -p $(DIR_O)/libft_42
 	gcc $(FLAGS) -c -I includes -o $@ $<
