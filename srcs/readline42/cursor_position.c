@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:07:05 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/04 16:51:24 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 12:48:43 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int					move_cursor_back_after_print(short flag)
 	tmp = 0;
 	if (flag == 0)
 	{
-		if (ft_strlen(g_rline.cmd) + g_rline.prompt_len ==
+		if (g_rline.cmd_len + g_rline.prompt_len ==
 		g_screen.ws_col * g_rline.str_num)
 		{
 			putcap("sf");

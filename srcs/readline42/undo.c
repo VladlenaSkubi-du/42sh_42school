@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:50:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/04 15:20:38 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 13:56:02 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void			action_pull(t_action_stack **start, size_t *num)
 		ft_bzero(g_rline.cmd, g_rline.cmd_buff_len);
 		ft_strcpy(g_rline.cmd, (*start)->cmd_b); // QUESTIONABLE
 		pos_old = g_rline.pos;
+		g_rline.cmd_len = ft_strlen(g_rline.cmd);
 		g_rline.pos = (*start)->pos_b;
 		g_rline.str_num = (*start)->num_b;
 		*start = (*start)->next;
@@ -103,7 +104,7 @@ int				undo(int mode)
 	if (actions_num > ACTIONS_MAX)
 	{
 		end = end->prev;
-		free(end->next->cmd_b);
+		free(end->next->cmd_b); //TODO утечки
 		free(end->next);
 		end->next = 0;
 		actions_num--;

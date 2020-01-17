@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:16:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/16 19:58:27 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 14:18:10 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,14 @@ int				str_shift(char *str, int shift)
 
 int				char_add(char c)
 {
-	static size_t	sz_max = CMD_SIZE + 1;
-	static size_t	sz = 0;
-
-	if (sz >= sz_max - 1)
+	if (g_rline.cmd_len >= g_rline.cmd_buff_len - 1)
 	{
-		g_rline.cmd = (char *)ft_realloc(g_rline.cmd, sz, sz_max,
-			sz_max + CMD_SIZE);
-		sz_max += CMD_SIZE;
+		g_rline.cmd = (char *)ft_realloc(g_rline.cmd, g_rline.cmd_len,
+			g_rline.cmd_buff_len,
+			g_rline.cmd_buff_len + CMD_SIZE);
+		g_rline.cmd_buff_len += CMD_SIZE;
 	}
-	sz++;
-	g_rline.cmd_buff_len = sz_max;
+	g_rline.cmd_len++;
 	undo(0);
 	insert_char(c);
 	return (0);
@@ -71,17 +68,14 @@ int				insert_char(char c)
 	return (0);
 }
 
-int				count_str_num(void)
-	//put it also if we catch the signal SIGWINCH
+int				count_str_num(void) //TODO if we catch the signal SIGWINCH
 {
 	unsigned int	i;
-	size_t			len;
 
 	i = 1;
-	len = ft_strlen(g_rline.cmd);
-	if (len + g_rline.prompt_len > g_screen.ws_col)
+	if (g_rline.cmd_len + g_rline.prompt_len > g_screen.ws_col)
 	{
-		while (len + g_rline.prompt_len >
+		while (g_rline.cmd_len + g_rline.prompt_len >
 			g_screen.ws_col * i)
 			i++;
 	}

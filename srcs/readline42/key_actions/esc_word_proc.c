@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 17:34:11 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/24 16:51:13 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 14:24:44 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,13 @@ int			word_right_proc(void)
 {
 	size_t			i;
 	size_t			pos_old;
-	size_t			len;
 
-	len = ft_strlen(g_rline.cmd);
-	if (g_rline.pos == len)
+	if (g_rline.pos == g_rline.cmd_len)
 		return (incorrect_sequence());
-	else if (g_rline.pos == len - 1)
+	else if (g_rline.pos == g_rline.cmd_len - 1)
 	{
 		putcap("nd");
-		g_rline.pos = len;
+		g_rline.pos = g_rline.cmd_len;
 		return (0);
 	}
 	i = g_rline.pos + 1;
@@ -85,25 +83,16 @@ int			esc_d(void)
 	make_ctrl_y(0, save_yank);
 	swap = g_rline.cmd + g_rline.pos;
 	len_swap = ft_strlen(swap);
+	g_rline.cmd_len = pos_old + len_swap;
 	ft_strcpy(g_rline.cmd + pos_old, swap);
 	ft_bzero(g_rline.cmd + pos_old + len_swap,
-		g_rline.cmd_buff_len - ft_strlen(g_rline.cmd));
+		g_rline.cmd_buff_len - g_rline.cmd_len);
 	pos_back = g_rline.pos;
 	g_rline.pos = pos_old;
 	move_cursor_from_old_position(pos_back, 'l');
 	putcap("cd");
 	ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
 	move_cursor_back_after_print(0);
-	return (0);
-}
-
-int			esc_r(void) //maybe replace from this file
-{
-	while (g_rline.pos)
-		key_left_proc();
-	putcap("cd");
-	free(g_rline.cmd);
-	init_readline();
 	return (0);
 }
 
@@ -117,4 +106,22 @@ char		*save_word(size_t *i, char *cmd, size_t pos)
 		(*i)++;
 	word = ft_strndup(cmd + pos, *i);
 	return (word);
+}
+
+char		*save_end(size_t pos_back)
+{
+	char			*end;
+	size_t			pos_now;
+
+	end = NULL;
+	pos_now = g_rline.pos;
+	g_rline.pos = pos_back;
+	move_cursor_from_old_position(pos_now, 'r');
+	if (word_right_proc())
+		return (end);
+	end = ft_strdup(g_rline.cmd + g_rline.pos);
+	pos_back = g_rline.pos;
+	g_rline.pos = pos_now;
+	move_cursor_from_old_position(pos_back, 'l');
+	return (end);
 }

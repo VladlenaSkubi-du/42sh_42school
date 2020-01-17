@@ -6,12 +6,12 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 16:43:04 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/01/04 17:00:59 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 14:39:31 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
-#define				OUT_BUF 10
+#define OUT_BUF 10
 
 void				buf_add(char *str, size_t size)
 {
@@ -54,11 +54,13 @@ void				buffer_col_calc(t_completion *menu_buf)
 {
 	size_t			i;
 
-	menu_buf->buf_width = (g_screen.ws_col / menu_buf->word_len) * menu_buf->word_len + 1;
+	menu_buf->buf_width = (g_screen.ws_col / menu_buf->word_len) *
+		menu_buf->word_len + 1;
 	menu_buf->buf_lines = g_screen.ws_col / menu_buf->word_len;
 	menu_buf->buf_lines = menu_buf->word_nb / menu_buf->buf_lines
 		+ (menu_buf->word_nb % menu_buf->buf_lines ? 1 : 0);
-	menu_buf->buffer = (char**)ft_xmalloc(sizeof(char*) * (menu_buf->buf_lines + 1));
+	menu_buf->buffer = (char**)ft_xmalloc(sizeof(char*) *
+		(menu_buf->buf_lines + 1));
 	menu_buf->buffer[menu_buf->buf_lines] = 0;
 	i = -1;
 	while (++i < menu_buf->buf_lines)

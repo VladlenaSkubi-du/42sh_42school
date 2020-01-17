@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 17:55:26 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/18 17:14:00 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 12:49:03 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		key_right_proc(void)
 	unsigned int	i;
 
 	i = 1;
-	if (g_rline.pos >= ft_strlen(g_rline.cmd))
+	if (g_rline.pos >= g_rline.cmd_len)
 		return (incorrect_sequence());
 	if (g_rline.str_num > 1)
 		i = on_which_line(g_rline.pos + g_rline.prompt_len, g_screen.ws_col);
