@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/16 18:58:20 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 16:08:27 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ typedef enum        e_status
     TERMINAL_EXISTS = 111,
     TERMINAL_TO_NON,
     TERMINAL_TO_CAN,
-    ACCESS_DENIED = 126, //это пример
-    ACCESS_BYE, //это пример
     SYNTAX_ERROR = 258
 }                   exit_status;
 
