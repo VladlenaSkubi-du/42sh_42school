@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/16 19:26:05 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 15:48:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 typedef struct					s_rline
 {
 	char						*cmd;
+	size_t						cmd_len;
 	size_t						pos;
 	size_t						str_num;
 	size_t						prompt_len;
@@ -101,18 +102,18 @@ typedef struct					s_prompt
 {
 	char						*sstop;
 	size_t						i;
-	int							(*prompt_func)(char);
+	int							(*prompt_func)(void);
 }								t_prompt;
 
 
 t_rline							g_rline;
 t_prompt						g_prompt;
 struct winsize					g_screen;
-struct termios					g_tty;
+// struct termios					g_tty; //TODO убрать, если
 struct termios					g_backup_tty;
 
 /*
-** File 42start_readline.c
+** File start_readline42.c
 */
 
 int             				interactive_shell(char flag,
@@ -134,8 +135,10 @@ int								readline_choice(char sy);
 */
 
 int								init_prompt(char flag, char *send);
-int								main_prompt(char flag);
-int								other_prompts(char flag);
+int								main_prompt(void);
+int								dquote_prompt(void);
+int								heredoc_prompt(void);
+int								other_prompt(void);
 
 /*
 ** File terminal_input_changes.c
@@ -222,11 +225,12 @@ t_action_stack					*action_new(void);
 */
 
 /*
-** File non_printable.c
+** File cut_keys.c
 */
 
 int								backspace_process(void);
 int								delete_process(void);
+int								esc_r(void);
 
 /*
 ** File arrow_keys.c
@@ -244,8 +248,8 @@ int								key_down_proc(void);
 int								word_left_proc(void);
 int								word_right_proc(void);
 int								esc_d(void);
-int								esc_r(void); //перенести
 char							*save_word(size_t *i, char *cmd, size_t pos);
+char							*save_end(size_t pos_back);
 
 /*
 ** File esc_t.c - continuation in esc_word_proc.c
@@ -259,7 +263,6 @@ int								esc_t_need_right(char *word_first, size_t fi,
 									char *end);
 int								esc_t_len_pos(char *word_first, size_t fi,
 									size_t pos_back);
-char							*save_end(size_t pos_back); //перенести
 
 /*
 ** File ctrl_kwuae.c
@@ -291,10 +294,15 @@ int								yank_insert(char *yank_str,
 */
 
 int             				auto_completion(void);
-int								fill_complete(size_t pos_back, int *pool);
+int								fill_complete(size_t pos_back);
+int								check_menu(void);
+
+/*
+** File front_part.c
+*/
+
 int								print_menu(size_t len, size_t pos_back,
 									char pool, char *complete);
-int								check_menu(void);
 int								clean_menu(void);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 12:45:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/16 15:39:38 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 14:37:27 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,35 +18,45 @@ int				init_prompt(char flag, char *send)
 	g_prompt.sstop = (send) ? send : NULL;
 	if (flag == 'm')
 		g_prompt.prompt_func = main_prompt;
+	else if (flag == 'd')
+		g_prompt.prompt_func = dquote_prompt;
+	else if (flag == 'h')
+		g_prompt.prompt_func = heredoc_prompt;
 	else
-		g_prompt.prompt_func = other_prompts;
-	g_prompt.prompt_func(flag);
+		g_prompt.prompt_func = other_prompt;
+	g_prompt.prompt_func();
 	return (0);
 }
 
-int				main_prompt(char flag)
+int				main_prompt(void)
 {
 	const char	*prompt = "42sh";
 
-	ft_putstr_fd("\033[1;31m", 1);
-	ft_putstr_fd(prompt, 1);
-	ft_putstr_fd("\033[0m", 1);
-	ft_putstr_fd("> ", 1);
+	ft_putstr_fd("\033[1;31m", STDOUT_FILENO);
+	ft_putstr_fd(prompt, STDOUT_FILENO);
+	ft_putstr_fd("\033[0m", STDOUT_FILENO);
+	ft_putstr_fd("> ", STDOUT_FILENO);
 	g_rline.prompt_len = ft_strlen(prompt) + 2;
 	return (0);
 }
 
-int				other_prompts(char flag)
+int				dquote_prompt(void)
 {
-	char		*prompt;
+	ft_putstr_fd("dquote> ", STDOUT_FILENO);
+	g_rline.prompt_len = 8;
+	return (0);
+}
 
-	if (flag == 'd')
-		prompt = "dquote> ";
-	else if (flag == 'h')
-		prompt = "heredoc> ";
-	else if (flag == 'c')
-		prompt = "> ";
-	ft_putstr_fd(prompt, 1);
-	g_rline.prompt_len = ft_strlen(prompt) + 2;
+int				heredoc_prompt(void)
+{
+	ft_putstr_fd("heredoc> ", STDOUT_FILENO);
+	g_rline.prompt_len = 9;
+	return (0);
+}
+
+int				other_prompt(void)
+{
+	ft_putstr_fd("> ", STDOUT_FILENO);
+	g_rline.prompt_len = 2;
 	return (0);
 }

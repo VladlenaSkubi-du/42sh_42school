@@ -6,16 +6,16 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 19:38:44 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/15 20:51:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 14:38:12 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
 
-int			make_ctrl_l(void) //проскролить в самый вверх
+int			make_ctrl_l(void)
 {
 	size_t			pos_back;
-	
+
 	check_menu();
 	pos_back = g_rline.pos;
 	g_rline.pos = 0;
@@ -24,7 +24,7 @@ int			make_ctrl_l(void) //проскролить в самый вверх
 	putcap("cd");
 	putcap("cl");
 	g_rline.pos = pos_back;
-	main_prompt(0); //исправить
+	g_prompt.prompt_func();
 	ft_putstr_fd(g_rline.cmd, 1);
 	move_cursor_back_after_print(0);
 	return (0);
@@ -32,16 +32,14 @@ int			make_ctrl_l(void) //проскролить в самый вверх
 
 int			make_ctrl_t(void)
 {
-	size_t			len;
 	size_t			pos_old;
 
 	check_menu();
-	len = ft_strlen(g_rline.cmd);
-	if (len == 1)
+	if (g_rline.cmd_len == 1)
 		return (incorrect_sequence());
 	undo(0);
-	if (g_rline.pos == 0 || g_rline.pos == len)
-		return (make_ctrl_t_begend(len));
+	if (g_rline.pos == 0 || g_rline.pos == g_rline.cmd_len)
+		return (make_ctrl_t_begend(g_rline.cmd_len));
 	else
 	{
 		swap_chars(g_rline.cmd, g_rline.pos, g_rline.pos - 1);
@@ -113,7 +111,7 @@ int			yank_insert(char *yank_str, size_t len_yank)
 	char			*save;
 	size_t			i;
 
-	if (g_rline.cmd[g_rline.pos])
+	if (g_rline.pos < g_rline.cmd_len && g_rline.cmd[g_rline.pos])
 	{
 		save = ft_strdup(g_rline.cmd + g_rline.pos);
 		ft_bzero(g_rline.cmd + g_rline.pos, g_rline.cmd_buff_len - g_rline.pos);

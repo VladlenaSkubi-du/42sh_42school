@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   42start_readline.c                                 :+:      :+:    :+:   */
+/*   start_readline42.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/16 19:47:01 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 14:44:18 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,10 @@ int				interactive_shell(char flag, char end, char *send)
 	char		*termtype;
 	char		room_termtype[2];
 	int			tmp;
-	
+
 	while (1)
 	{
 		init_readline();
-		signals_reroute(1);
 		if (!isatty(STDIN_FILENO))
 		{
 			error_handler(TERMINAL_EXISTS, NULL);
@@ -105,5 +104,3 @@ char			*finalize_cmd(char *cmd)
 		final = ft_strtrim(cmd);
 	return (final);
 }
-
-

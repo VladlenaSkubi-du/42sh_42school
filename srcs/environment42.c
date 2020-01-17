@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   42environment.c                                    :+:      :+:    :+:   */
+/*   environment42.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:45:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/16 15:05:28 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 16:03:17 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int					count_first_env(void)
 	return (i);
 }
 
-//make variables: SHELL42 (==BASH), SHELL42_PID(==BASHPID), SHELL42_CMDS(==BASH_CMDS),
+//make variables: SHELL42 (==BASH), SHELL42_PID(==BASHPID),
+//SHELL42_CMDS(==BASH_CMDS),
 //SHELL42_SUBSHELL (==BASH_SUBSHELL) and so on
 
 int					save_shell_variables(void)

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 19:03:25 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/16 13:43:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 13:47:31 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int			ctrl_call(size_t call_num)
 	ctrl_action[11] = backspace_process;
 	ctrl_action[12] = make_ctrl_x;
 	ctrl_action[13] = undo_wrap;
-	ctrl_action[14] = make_ctrl_y_wrap; //возможно, не нужна
+	ctrl_action[14] = make_ctrl_y_wrap;
 	ctrl_action[15] = auto_completion;
 	return ((*ctrl_action[call_num])());
 }

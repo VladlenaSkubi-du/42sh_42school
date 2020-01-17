@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 14:56:57 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/24 16:42:51 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 14:23:50 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int			esc_t(void)
 	if (esc_t_first_left(flag, pos_back))
 		return (1);
 	word_first = save_word(&fi, g_rline.cmd, g_rline.pos);
-	if (pos_back == ft_strlen(g_rline.cmd))
+	if (pos_back == g_rline.cmd_len)
 		return (esc_t_len_pos(word_first, fi, pos_back));
 	end = save_end(pos_back);
 	if (flag == 'o')
@@ -128,29 +128,11 @@ int			esc_t_len_pos(char *word_first, size_t fi, size_t pos_back)
 	ft_strcpy(g_rline.cmd + g_rline.pos + fi + 1, word_second);
 	putcap("cd");
 	ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
-	if (ft_strlen(g_rline.cmd) + + g_rline.prompt_len ==
+	if (g_rline.cmd_len + g_rline.prompt_len ==
 		g_screen.ws_col * g_rline.str_num)
 		putcap("sf");
 	g_rline.pos = pos_back;
 	free(word_first);
 	free(word_second);
 	return (0);
-}
-
-char		*save_end(size_t pos_back) //перенести
-{
-	char			*end;
-	size_t			pos_now;
-
-	end = NULL;
-	pos_now = g_rline.pos;
-	g_rline.pos = pos_back;
-	move_cursor_from_old_position(pos_now, 'r');
-	if (word_right_proc())
-		return (end);
-	end = ft_strdup(g_rline.cmd + g_rline.pos);
-	pos_back = g_rline.pos;
-	g_rline.pos = pos_now;
-	move_cursor_from_old_position(pos_back, 'l');
-	return (end);
 }

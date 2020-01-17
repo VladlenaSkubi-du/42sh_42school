@@ -6,20 +6,30 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:53:06 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/16 14:13:22 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 14:16:57 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
+#define TERMCAP_SIZE 20
 
 int				printc(int c)
 {
 	return (write(1, &c, 1));
 }
 
-int				putcap(char *cap) //наиболее используемые капы можно сохранить
+/*static char	*left;
+static char	*right;
+static char	*up;
+static char	*down;
+static char	*cd_clear;
+static char	*scroll;
+static char	*absolute_line;
+*/
+
+int				putcap(char *cap) //TODO наиболее используемые капы сохранить
 {
-	char		buff[20];
+	char		buff[TERMCAP_SIZE];
 	char		*ptr;
 
 	ptr = buff;
@@ -31,7 +41,7 @@ int				putcap(char *cap) //наиболее используемые капы м
 
 int				position_cursor(char *cap, int x, int y)
 {
-	char		buff[20];
+	char		buff[TERMCAP_SIZE];
 	char		*ptr;
 
 	ptr = buff;

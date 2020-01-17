@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:53:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/16 19:27:52 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 13:51:15 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int		readline_choice(char sy)
 char	*readline(void)
 {
 	char			temp;
-	size_t			len;
 
 	while (read(1, &temp, 1) && temp != '\n')
 	{
@@ -47,19 +46,19 @@ char	*readline(void)
 		}
 		readline_choice(temp);
 	}
-	len = ft_strlen(g_rline.cmd);
-	if (len > 0)
+	if (g_rline.cmd_len > 0)
 	{
-		position_cursor_for_menu(len);
+		position_cursor_for_menu(g_rline.cmd_len);
 		putcap("cd");
 	}
-	action_alloc_management(0, 1);
+	action_alloc_management(NULL, 1);
 	return (g_rline.cmd);
 }
 
 void	init_readline(void)
 {
 	g_rline.cmd = (char *)ft_xmalloc(CMD_SIZE + 1);
+	g_rline.cmd_len = 0;
 	g_rline.pos = 0;
 	g_rline.str_num = 0;
 	g_rline.cmd_buff_len = CMD_SIZE + 1;

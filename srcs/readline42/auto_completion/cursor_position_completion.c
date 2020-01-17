@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:51:01 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/04 16:54:57 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 15:41:00 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int					position_cursor_for_menu(size_t len)
 	return (0);
 }
 
-int                 position_cursor_after_menu_back(unsigned short len_x,
-                        int buf_lines, size_t pos_back, size_t len)
+int					position_cursor_after_menu_back(unsigned short len_x,
+						int buf_lines, size_t pos_back, size_t len)
 {
-    position_cursor("ch", 0, len_x);
+	position_cursor("ch", 0, len_x);
 	position_cursor("UP", 0, buf_lines);
 	g_rline.pos = pos_back;
 	move_cursor_from_old_position(len, 'l');
-    return (0);
+	return (0);
 }

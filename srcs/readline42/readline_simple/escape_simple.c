@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/20 16:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/24 17:04:32 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 12:53:49 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int				sesc_left(void)
 
 int				sesc_right(void)
 {
-	if (g_rline.pos >= ft_strlen(g_rline.cmd) ||
+	if (g_rline.pos >= g_rline.cmd_len ||
 		g_rline.pos + g_rline.prompt_len == g_screen.ws_col)
 		return (bell_sound());
 	g_rline.pos++;
@@ -71,7 +71,7 @@ int				sesc_right(void)
 
 int				sesc_r(void)
 {
-	while (g_rline.pos < ft_strlen(g_rline.cmd) &&
+	while (g_rline.pos < g_rline.cmd_len &&
 		g_rline.pos + g_rline.prompt_len < g_screen.ws_col - 1)
 		sesc_right();
 	while (g_rline.pos)

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/16 19:25:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 14:41:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char				**g_env;
 char				**g_shvar;
 
 /*
-** File 42environment.c
+** File environment42.c
 */
 
 int					save_environment(void);
@@ -46,7 +46,7 @@ int					count_first_env(void);
 int					save_shell_variables(void);
 
 /*
-** File 42signals_processing.c
+** File signals_processing42.c
 */
 
 int             	signals_reroute(int from);
@@ -54,13 +54,13 @@ void            	sig_readline(int sig);
 void                sig_fork(int sig);
 
 /*
-** File 42errors_handler.c
+** File errors_handler42.c
 */
 
 int             	error_handler(exit_status status, char *str);
 
 /*
-** File 42clean_all.c
+** File clean_all42.c
 */
 
 int				    clean_everything(void);

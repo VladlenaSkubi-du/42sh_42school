@@ -1,29 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   42clean_all.c                                      :+:      :+:    :+:   */
+/*   signals_processing42.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/16 15:05:06 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/16 19:14:39 by sschmele         ###   ########.fr       */
+/*   Created: 2020/01/15 12:43:36 by sschmele          #+#    #+#             */
+/*   Updated: 2020/01/17 15:21:54 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 
-int				clean_everything(void)
+//TODO сделать нормальные защищенные сигналы
+
+/*
+** @from = 2 from the main
+**		= 3 if out
+*/
+
+int				signals_reroute(int from)
 {
-	ft_arrdel(g_env);
-	ft_arrdel(g_shvar);
-    //другие clean
-	make_ctrl_y(2, NULL);
+	if (from == 2)
+	{
+		signal(SIGINT, sig_fork);
+	}
+	else
+	{
+		signal(SIGTSTP, SIG_DFL);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGTERM, SIG_DFL);
+		signal(SIGCONT, SIG_DFL);
+	}
 	return (0);
 }
 
-int				clean_readline42(void)
+void			sig_fork(int sig)
 {
-	free(g_rline.cmd);
-	
-	return (0);
+	if (sig == SIGINT)
+	{
+		return ; //TODO чистим parser
+	}
 }

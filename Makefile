@@ -3,7 +3,7 @@ NAME = 42sh
 FLAGS = -Wall #-Werror -Wextra
 FLAGS += -g
 
-READLINE42 = 		readline42/42start_readline.c \
+READLINE42 = 		readline42/start_readline42.c \
 			readline42/readline.c \
 			readline42/prompts.c \
 			readline42/terminal_input_changes.c \
@@ -29,9 +29,10 @@ KEY_ACTIONS =		readline42/key_actions/ctrl_kwuae.c \
 			readline42/key_actions/arrow_keys.c \
 			readline42/key_actions/esc_word_proc.c \
 			readline42/key_actions/esc_t.c \
-			readline42/key_actions/non_printable.c
+			readline42/key_actions/cut_keys.c
 
 AUTO_COMPLETION =	readline42/auto_completion/start_completion.c \
+			readline42/auto_completion/front_part.c \
 			readline42/auto_completion/cursor_position_completion.c \
 			readline42/auto_completion/output_buffer.c
 
@@ -45,10 +46,10 @@ LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_issign.c
 
 SOURCES =	main.c \
-			42signals_processing.c \
-			42environment.c \
-			42error_handler.c \
-			42clean_all.c \
+			signals_processing42.c \
+			environment42.c \
+			error_handler42.c \
+			clean_all42.c \
 			$(READLINE42) \
 			$(BUILTIN) \
 			$(LIBFT_42)

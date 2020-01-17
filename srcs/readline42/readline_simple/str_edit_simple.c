@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 12:29:50 by sschmele          #+#    #+#             */
-/*   Updated: 2019/12/24 17:05:54 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 12:54:13 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,14 @@
 
 int				schar_add(char c)
 {
-	static size_t	sz_max = CMD_SIZE + 1;
-	static size_t	sz = 0;
-
-	if (sz >= sz_max - 1)
+	if (g_rline.cmd_len >= g_rline.cmd_buff_len - 1)
 	{
-		g_rline.cmd = (char *)ft_realloc(g_rline.cmd, sz_max, sz_max,
-			sz_max + CMD_SIZE);
-		sz_max += CMD_SIZE;
+		g_rline.cmd = (char *)ft_realloc(g_rline.cmd, g_rline.cmd_len,
+			g_rline.cmd_buff_len,
+			g_rline.cmd_buff_len + CMD_SIZE);
+		g_rline.cmd_buff_len += CMD_SIZE;
 	}
-	sz++;
-	g_rline.cmd_buff_len = sz_max;
+	g_rline.cmd_len++;
 	sstr_add_symbol(c);
 	return (0);
 }
@@ -34,7 +31,7 @@ int				sstr_add_symbol(char add)
 	char			*swap;
 
 	swap = NULL;
-	if (ft_strlen(g_rline.cmd) + g_rline.prompt_len == g_screen.ws_col - 1)
+	if (g_rline.cmd_len + g_rline.prompt_len == g_screen.ws_col - 1)
 		return (bell_sound());
 	swap = ft_strdup(g_rline.cmd + g_rline.pos);
 	g_rline.cmd[g_rline.pos] = add;
