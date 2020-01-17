@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2019/12/27 17:04:41 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/17 16:06:46 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,13 @@ static int		ft_insert_in(char *name, t_path **root, t_path **temp)
 			return (0);
 		else if (ft_strcmp((*temp)->name, parent->name) < 0)
 		{
-			current = current->prev;
-			if (current == NULL)
-			{
-				parent->prev = *temp;
-				return (0);
-			}
+			ft_insert_prev(&current, &parent, temp);
+			return (0);
 		}
 		else
 		{
-			current = current->next;
-			if (current == NULL)
-			{
-				parent->next = *temp;
-				return (0);
-			}
+			ft_insert_next(&current, &parent, temp);
+			return (0);
 		}
 	}
 }

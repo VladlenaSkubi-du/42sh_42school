@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   brackets.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 17:57:58 by rbednar           #+#    #+#             */
-/*   Updated: 2019/12/19 23:36:13 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/17 16:04:59 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ static	int	ft_check(char str)
 		return (6);
 	return (0);
 }
+
+/*
+** Function to check if all types of brackets are correctly closed
+*/
 
 int			ft_brackets(char *str, int end)
 {

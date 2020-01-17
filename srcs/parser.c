@@ -1,4 +1,4 @@
-#include "parser.h"
+#include "../includes/parser.h"
 
 /*
 ** functioun to check if find char is in use or just text
