@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2019/12/20 00:06:27 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/17 16:07:36 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,13 @@ t_ltree					*ft_find_spec(t_ltree *block);
 
 char					**ft_path_pars(char *find, char *path);
 void					ft_get_path(char *name, t_path **root, size_t *len, char *find);
+
+/*
+** File ft_path_help.c
+*/
+
+int						ft_insert_prev(t_path **current, t_path **parent, t_path **temp);
+int						ft_insert_next(t_path **current, t_path **parent, t_path **temp);
 
 /*
 ** File ft_block.c funcs to add and spend massive char **str of exe files
