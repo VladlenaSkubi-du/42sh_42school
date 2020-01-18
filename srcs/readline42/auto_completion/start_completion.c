@@ -6,13 +6,13 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/18 14:23:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/18 17:17:40 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
 
-char				*g_tablevel;
+size_t				g_tablevel;
 char				*g_complete;
 
 /*
@@ -27,16 +27,19 @@ char				*g_complete;
 int					auto_completion(void)
 {
 	size_t			pos_back;
-	// char			*tech_line;
+	char			*tech_line;
+	int				pool;
 
 	pos_back = g_rline.pos;
-	// fill_complete(pos_back);
-	// // printf("%s - %zu\n", g_complete, g_rline.pos);
-	// tech_line = get_techline_compl(g_complete, g_rline.pos);
-	// // printf("%.*s\n", (int)g_rline.pos, g_rline.cmd);
-	
-	// g_rline.flag |= TAB;
-	// g_tablevel = 0;
+	if (!(g_rline.flag & TAB))
+	{
+		fill_complete(pos_back);
+		tech_line = get_techline_compl(g_complete, g_rline.pos);
+		if (analyse_techline_compl(tech_line, pos_back, &pool))
+			return (incorrect_sequence());
+	}
+	g_rline.flag |= TAB;
+	g_tablevel = 0;
 	return (0);
 }
 
@@ -70,6 +73,7 @@ int					check_menu(void) //поправить возврат после нажа
 {
 	if (g_rline.flag & TAB)
 	{
+		free(g_complete);
 		// clean_menu();
 		g_rline.flag &= ~TAB;
 	}

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/17 16:20:33 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/18 17:35:18 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,37 @@
 
 char				**g_env;
 char				**g_shvar;
+
+/*
+** @SLASH is "\", @SCOLON is ";", @AND is "&", @DQUOTE is '"',
+** @SQUOTE is "'", @OPAREN is "(", @CPAREN is ")", @OBRACKET is "["
+** @CBRACKET is "]", @OBRACE is "{", CBRACE is "}", @DOLLAR is "$",
+** @TILDA is "~", @PIPE is "|", @GTHAN is "<", @LTHAN is "<",
+** @AST is "*", @ENTER is "\n"
+*/
+
+typedef enum					e_techline
+{
+   SPACE = 1,
+   SLASH,
+   SCOLON,
+   AND,
+   DQUOTE,
+   SQUOTE,
+   OPAREN,
+   CPAREN,
+   OBRACKET,
+   CBRACKET,
+   OBRACE,
+   CBRACE,
+   DOLLAR,
+   TILDA,
+   PIPE,
+   GTHAN,
+   LTHAN,
+   AST,
+   ENTER
+}								sign_techline;
 
 /*
 ** File environment42.c

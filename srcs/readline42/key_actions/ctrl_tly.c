@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 19:38:44 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/17 14:38:12 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/18 15:14:33 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int			make_ctrl_y(int mode, char *yank)
 			yank_str = yank;
 			len_yank = ft_strlen(yank_str);
 		}
+		else
+			yank_str = NULL;
 	}
 	else if (mode == 1)
 	{
@@ -101,8 +103,8 @@ int			make_ctrl_y(int mode, char *yank)
 			return (incorrect_sequence());
 		yank_insert(yank_str, len_yank);
 	}
-	else
-		free(yank_str);
+	else if (mode == 2)
+		(yank_str) ? free(yank_str) : 0;
 	return (0);
 }
 
