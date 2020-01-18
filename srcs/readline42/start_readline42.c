@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_readline42.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/18 12:55:35 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/01/18 14:36:25 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int				start_readline42(int tmp)
 	cmd = finalize_cmd(cmd);
 	clean_readline42();
 	signals_reroute(2);
-	// if (parser(cmd))
-	// 	return (1); //TODO error
+	if (parser(cmd))
+		return (1); //TODO error
 	return (0);
 }
 
@@ -81,13 +81,15 @@ char			*finalize_cmd(char *cmd)
 	char		*tmp;
 	char		*final;
 
+	if (g_rline.cmd_len == 0)
+		return (NULL);
 	if ((sign = ft_strchr(cmd, '#')) != NULL)
 	{
 		tmp = ft_strndup(cmd, sign - cmd);
 		final = ft_strtrim(tmp);
 		free(tmp);
 	}
-	else
+	if (g_rline.cmd_len > 0)
 		final = ft_strtrim(cmd);
 	return (final);
 }
