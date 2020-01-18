@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/17 17:09:45 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 18:34:26 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int     				ft_slice(void);
 t_ltree					*ft_find_spec(t_ltree *block);
 
 /*
-** Path_tree___________________________________________________________________________________________________________
+** Folder path_tree____________________________________________________________
 */
 
 /*
@@ -135,14 +135,17 @@ t_ltree					*ft_find_spec(t_ltree *block);
 */
 
 char					**ft_path_pars(char *find, char *path, int *total);
-void					ft_get_path(char *name, t_path **root, size_t *len, char *find);
+void					ft_get_path(char *name, t_path **root,
+							size_t *len, char *find);
 
 /*
 ** File ft_path_help.c
 */
 
-int						ft_insert_prev(t_path **current, t_path **parent, t_path **temp);
-int						ft_insert_next(t_path **current, t_path **parent, t_path **temp);
+int						ft_insert_prev(t_path **current,
+							t_path **parent, t_path **temp);
+int						ft_insert_next(t_path **current,
+							t_path **parent, t_path **temp);
 
 /*
 ** File ft_block.c funcs to add and spend massive char **str of exe files
@@ -151,5 +154,11 @@ int						ft_insert_next(t_path **current, t_path **parent, t_path **temp);
 char					**ft_add_block(t_path **root, size_t len);
 char					*ft_take_path(char *dir_name);
 void					ft_addpath(char *name, t_path **buf);
+
+/*
+** Folder exec_________________________________________________________________
+*/
+
+
 
 #endif

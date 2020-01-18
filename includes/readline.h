@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/17 15:48:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/17 18:34:58 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,6 +298,13 @@ int								fill_complete(size_t pos_back);
 int								check_menu(void);
 
 /*
+** File analyse_line.c
+*/
+
+char        					*get_techline_compl(char *complete,
+									size_t len);
+
+/*
 ** File front_part.c
 */
 
@@ -320,9 +327,11 @@ int                				position_cursor_after_menu_back
 */
 
 void							menu_buf_init(t_completion *menu_buf);
-int								buffer_col_print(char *add, t_completion *menu_buf);
+int								buffer_col_print(char *add,
+									t_completion *menu_buf);
 void							buffer_col_calc(t_completion *menu_buf);
-void							buffer_col_finish_and_del(t_completion *menu_buf);
+void							buffer_col_finish_and_del
+									(t_completion *menu_buf);
 void							buf_add(char *str, size_t size);
 
 
