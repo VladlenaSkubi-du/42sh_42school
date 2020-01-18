@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/18 18:35:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/18 19:45:38 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ int						ft_insert_prev(t_path **current,
 							t_path **parent, t_path **temp);
 int						ft_insert_next(t_path **current,
 							t_path **parent, t_path **temp);
+int						ft_path_free(t_path **root);
 
 /*
 ** File ft_block.c funcs to add and spend massive char **str of exe files

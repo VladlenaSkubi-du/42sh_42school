@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/18 18:38:43 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/18 19:43:58 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void		ft_init_path(char *name, t_dirent *dp, t_path **tmp)
 	if ((*tmp = (t_path*)malloc(sizeof(t_path))))
 	{
 		(*tmp)->name = ft_strdup(dp->d_name);
-		(*tmp)->path = dp->d_name;
 		ft_addpath(name, tmp);
 		(*tmp)->prev = NULL;
 		(*tmp)->next = NULL;
@@ -46,13 +45,13 @@ static int		ft_insert_in(char *name, t_path **root, t_path **temp)
 			return (0);
 		else if (ft_strcmp((*temp)->name, parent->name) < 0)
 		{
-			ft_insert_prev(&current, &parent, temp);
-			return (0);
+			if (!(ft_insert_prev(&current, &parent, temp)))
+				return (0);
 		}
 		else
 		{
-			ft_insert_next(&current, &parent, temp);
-			return (0);
+			if (!(ft_insert_next(&current, &parent, temp)))
+				return (0);
 		}
 	}
 }
@@ -64,7 +63,6 @@ static int		ft_insert_in(char *name, t_path **root, t_path **temp)
 static void		insert(char *name, t_dirent *dp, t_path **root, size_t *len)
 {
 	t_path	*temp;
-	// t_path	**current;
 
 	ft_init_path(name, dp, &temp);
 	if (*root == NULL)
@@ -74,7 +72,7 @@ static void		insert(char *name, t_dirent *dp, t_path **root, size_t *len)
 		if (ft_insert_in(name, root, &temp))
 			return ;
 		else
-			(*len)++;
+			(*len) += 1;
 	}
 }
 
@@ -130,7 +128,8 @@ char			**ft_path_pars(char *find, char *path, size_t *total)
 	}
 	if (list != NULL)
 		free(list);
-	list = ft_add_block(&root, len);
 	*total = len;
+	list = ft_add_block(&root, len);
+	ft_path_free(&root);
 	return (list);
 }
