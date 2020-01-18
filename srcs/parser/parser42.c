@@ -7,6 +7,7 @@ int		parser(char *line)
 	// ft_get_techline();
 	// nullify();
 	// ft_slice();
+	free(line);
 	return (0);
 }
 
