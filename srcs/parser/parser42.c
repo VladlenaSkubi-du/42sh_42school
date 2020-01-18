@@ -22,7 +22,7 @@ char	get_tech_num(char check)
 	char	*base;
 	size_t	i;
 
-	base = " \\;&\"\'()[]{}$~|><*\n";
+	base = " \\;&\"\'()[]{}$~|><*=\n";
 	i = 0;
 	while (base[i])
 	{
