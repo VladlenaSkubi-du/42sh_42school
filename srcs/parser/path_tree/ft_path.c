@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/17 17:04:20 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/18 18:32:52 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,7 @@ char			**ft_path_pars(char *find, char *path, int *total)
 	}
 	if (list != NULL)
 		free(list);
-	return (ft_add_block(&root, len));
+	list = ft_add_block(&root, len);
+	*total = (int)len;
+	return (list);
 }

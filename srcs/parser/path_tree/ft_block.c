@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_block.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2019/12/27 17:04:47 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/18 18:31:27 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ char			**ft_add_block(t_path **root, size_t len)
 	size_t	l;
 
 	l = 0;
-	list = (char**)malloc(sizeof(char*) * (len + 2));
-	list[len] = 0;
+	list = (char**)malloc(sizeof(char*) * (len + 1));
+	list[len] = NULL;
 	ft_fill_in_order(root, list, &l);
 	return (list);
 }
