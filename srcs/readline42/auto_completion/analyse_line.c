@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 18:24:47 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/17 18:35:40 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/18 17:19:03 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,16 @@ char        *get_techline_compl(char *complete, size_t len)
         i++;
     }
     return (tech_line);
+}
+
+int			analyse_techline_compl(char *tech_line, size_t len, int *pool)
+{
+    size_t	i;
+
+	i = len - 1;
+	while (i > 0)
+	{
+		
+	}
+    return (0);
 }

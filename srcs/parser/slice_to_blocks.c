@@ -12,7 +12,7 @@
 
 #include "parser.h"
 
-int ft_block_start_fg(t_ltree *block)
+int			ft_block_start_fg(t_ltree *block)
 {
 	t_ltree	*sub;
 
@@ -23,7 +23,7 @@ int ft_block_start_fg(t_ltree *block)
 	return (0);
 }
 
-int ft_block_start_bg(t_ltree *block)
+int			ft_block_start_bg(t_ltree *block)
 {
 	t_ltree	*sub;
 
@@ -47,7 +47,7 @@ int         ft_slice(void)
 	i = 0;
 	flag = 0;
 	block.start = 0;
-	while(i <= g_techline->len)
+	while (i <= g_techline->len)
 	{
 		if (g_techline->line[i] == 3 || g_cmd[i] == '\0')
 		{

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/18 14:36:25 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/18 16:01:19 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ char			*finalize_cmd(char *cmd)
 	char		*tmp;
 	char		*final;
 
+	final = NULL;
 	if (g_rline.cmd_len == 0)
 		return (NULL);
 	if ((sign = ft_strchr(cmd, '#')) != NULL)
@@ -88,6 +89,7 @@ char			*finalize_cmd(char *cmd)
 		tmp = ft_strndup(cmd, sign - cmd);
 		final = ft_strtrim(tmp);
 		free(tmp);
+		return (final);
 	}
 	if (g_rline.cmd_len > 0)
 		final = ft_strtrim(cmd);
