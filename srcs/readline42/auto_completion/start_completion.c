@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/18 19:30:41 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/18 21:06:30 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,21 @@ int					auto_completion(void)
 	{
 		fill_complete(pos_back);
 		tech_line = get_techline_compl(g_complete, g_rline.pos);
-		if ((tmp = analyse_techline_compl(tech_line, pos_back, &pool)) == 0)
-			return (incorrect_sequence());
-		//printf("%s - %s\n", g_complete + tmp - 1, path_parse());
-		menu = ft_path_pars(g_complete + tmp - 1, path_parse(), &tmp);
-		printf("%zu\n", tmp);
-		// while (i < tmp)
-		// {
-		// 	ft_putendl(menu[i]);
-		// 	i++;
-		// }
+		if (tech_line == NULL)
+			menu = ft_path_pars("", path_parse(), &tmp);
+		else
+		{
+			if ((tmp = analyse_techline_compl(tech_line, pos_back, &pool)) == 0)
+				return (incorrect_sequence());
+			// printf("%s - %s\n", g_complete + tmp - 1, path_parse());
+			menu = ft_path_pars(g_complete + tmp - 1, path_parse(), &tmp);
+		}
+		printf("\n%zu\n", tmp);
+		while (i < tmp)
+		{
+			ft_putendl(menu[i]);
+			i++;
+		}
 	}
 	g_rline.flag |= TAB;
 	g_tablevel = 0;
@@ -78,7 +83,7 @@ int					fill_complete(size_t pos_back)
 
 	beg_word = g_rline.pos;
 	end_word = beg_word;
-	if (!ft_isalnum(g_rline.cmd[beg_word]) && beg_word - 1 > 0
+	if (!ft_isalnum(g_rline.cmd[beg_word]) && beg_word > 0
 		&& ft_isalnum(g_rline.cmd[beg_word - 1]))
 		beg_word--;
 	while (beg_word > 0 && ft_isalnum(g_rline.cmd[beg_word]))

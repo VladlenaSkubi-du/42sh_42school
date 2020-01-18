@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   analyse_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 18:24:47 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/18 18:22:23 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/18 20:32:21 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char				*get_techline_compl(char *complete, size_t len)
     char			*tech_line;
     size_t			i;
     
+    if (complete && complete[0] == 0)
+        return (NULL);
     tech_line = (char*)ft_xmalloc(len);
     i = 0;
     while (g_rline.cmd[i] && i < len)

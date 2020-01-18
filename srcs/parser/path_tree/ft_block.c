@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/18 18:31:27 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/18 20:41:13 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ static void		ft_fill_in_order(t_path **root, char **list, size_t *len)
 	if (root != NULL && *root != NULL)
 	{
 		ft_fill_in_order(&((*root)->prev), list, len);
-		list[*len] = (*root)->name;
-		(*len)++;
+		if ((*root)->name != NULL)
+		{
+			list[*len] = ft_strdup((*root)->name);
+			(*len)++;
+		}
 		ft_fill_in_order(&((*root)->next), list, len);
 	}
 }
