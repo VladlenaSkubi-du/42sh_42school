@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   undo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:50:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/18 13:57:01 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/01/18 14:10:01 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int				undo(int mode)
 	if (actions_num > ACTIONS_MAX)
 	{
 		end = end->prev;
-		free(end->next->cmd_b); //TODO утечки
+		free(end->next->cmd_b);
 		free(end->next);
 		end->next = 0;
 		actions_num--;

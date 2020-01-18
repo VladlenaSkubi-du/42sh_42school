@@ -33,6 +33,7 @@ KEY_ACTIONS =		readline42/key_actions/ctrl_kwuae.c \
 
 AUTO_COMPLETION =	readline42/auto_completion/start_completion.c \
 			readline42/auto_completion/front_part.c \
+			readline42/auto_completion/analyse_line.c \
 			readline42/auto_completion/cursor_position_completion.c \
 			readline42/auto_completion/output_buffer.c
 
