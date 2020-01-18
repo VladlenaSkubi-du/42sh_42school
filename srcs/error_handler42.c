@@ -6,13 +6,13 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/17 16:08:57 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/18 18:06:50 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 
-int				error_handler(exit_status status, char *str)
+int				error_handler(t_exit_status status, char *str)
 {
 	ft_putstr_fd("42sh: ", STDERR_FILENO);
 	if (status == OPTIONS_REQUIRED)

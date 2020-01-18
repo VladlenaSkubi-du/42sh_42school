@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/17 18:34:26 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/18 18:35:50 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ t_ltree					*ft_find_spec(t_ltree *block);
 ** File ft_path.c
 */
 
-char					**ft_path_pars(char *find, char *path, int *total);
+char					**ft_path_pars(char *find, char *path, size_t *total);
 void					ft_get_path(char *name, t_path **root,
 							size_t *len, char *find);
 

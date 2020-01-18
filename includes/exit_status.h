@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/17 16:08:27 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/18 18:07:14 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ typedef enum        e_status
     TERMINAL_TO_NON,
     TERMINAL_TO_CAN,
     SYNTAX_ERROR = 258
-}                   exit_status;
+}                   t_exit_status;
 
 #endif

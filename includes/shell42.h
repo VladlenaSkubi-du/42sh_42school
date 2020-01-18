@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/18 17:37:59 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/18 18:20:56 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef enum					e_techline
    AST,
    EQUAL,
    ENTER
-}								sign_techline;
+}								t_sign_techline;
 
 /*
 ** File environment42.c
@@ -90,7 +90,7 @@ void                sig_fork(int sig);
 ** File errors_handler42.c
 */
 
-int             	error_handler(exit_status status, char *str);
+int             	error_handler(t_exit_status status, char *str);
 
 /*
 ** File clean_all42.c

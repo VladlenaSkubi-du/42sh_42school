@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/18 18:32:52 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/18 18:38:43 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int		ft_insert_in(char *name, t_path **root, t_path **temp)
 static void		insert(char *name, t_dirent *dp, t_path **root, size_t *len)
 {
 	t_path	*temp;
-	t_path	**current;
+	// t_path	**current;
 
 	ft_init_path(name, dp, &temp);
 	if (*root == NULL)
@@ -111,7 +111,7 @@ void			ft_get_path(char *name, t_path **root, size_t *len, char *find)
 ** Func find and return **char of all insertions of string find in PATH
 */
 
-char			**ft_path_pars(char *find, char *path, int *total)
+char			**ft_path_pars(char *find, char *path, size_t *total)
 {
 	t_path	*root;
 	char	**list;
@@ -131,6 +131,6 @@ char			**ft_path_pars(char *find, char *path, int *total)
 	if (list != NULL)
 		free(list);
 	list = ft_add_block(&root, len);
-	*total = (int)len;
+	*total = len;
 	return (list);
 }
