@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/18 19:43:58 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/18 21:06:25 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 ** Func init t_path element
 */
 
-static void		ft_init_path(char *name, t_dirent *dp, t_path **tmp)
+static void		ft_init_path(char *name_d, t_dirent *dp, t_path **tmp)
 {
 	if ((*tmp = (t_path*)malloc(sizeof(t_path))))
 	{
 		(*tmp)->name = ft_strdup(dp->d_name);
-		ft_addpath(name, tmp);
+		ft_addpath(name_d, tmp);
 		(*tmp)->prev = NULL;
 		(*tmp)->next = NULL;
 		(*tmp)->flag = 0;
@@ -32,7 +32,7 @@ static void		ft_init_path(char *name, t_dirent *dp, t_path **tmp)
 ** Func insert t_path element by *root element if it exist
 */
 
-static int		ft_insert_in(char *name, t_path **root, t_path **temp)
+static int		ft_insert_in(char *name_d, t_path **root, t_path **temp)
 {
 	t_path	*current;
 	t_path	*parent;
@@ -60,19 +60,20 @@ static int		ft_insert_in(char *name, t_path **root, t_path **temp)
 ** Func insert t_path element by *root element in all conditions
 */
 
-static void		insert(char *name, t_dirent *dp, t_path **root, size_t *len)
+static void		insert(char *name_d, t_dirent *dp, t_path **root, size_t *len)
 {
 	t_path	*temp;
 
-	ft_init_path(name, dp, &temp);
+	ft_init_path(name_d, dp, &temp);
 	if (*root == NULL)
+	{
 		*root = temp;
+		(*len) += 1;
+	}
 	else
 	{
-		if (ft_insert_in(name, root, &temp))
-			return ;
-		else
-			(*len) += 1;
+		ft_insert_in(name_d, root, &temp);
+		(*len) += 1;
 	}
 }
 
@@ -80,7 +81,8 @@ static void		insert(char *name, t_dirent *dp, t_path **root, size_t *len)
 ** Func finds files in dir and add it to tree of type t_path
 */
 
-void			ft_get_path(char *name, t_path **root, size_t *len, char *find)
+void			ft_get_path(char *name_d, t_path **root, size_t *len, \
+				char *find)
 {
 	DIR			*dir;
 	t_stat		*stat_b;
@@ -88,16 +90,16 @@ void			ft_get_path(char *name, t_path **root, size_t *len, char *find)
 
 	if ((stat_b = (t_stat *)malloc(sizeof(t_stat))) == NULL)
 		return ;
-	if (lstat(name, stat_b) == -1)
+	if (lstat(name_d, stat_b) == -1)
 		return ;
-	if (!(dir = opendir(name)))
+	if (!(dir = opendir(name_d)))
 		return ;
 	while (dir != NULL)
 	{
 		if ((dp = readdir(dir)) != NULL)
 		{
 			if (ft_strnequ(dp->d_name, find, ft_strlen(find)))
-				insert(name, dp, root, len);
+				insert(name_d, dp, root, len);
 		}
 		else
 			closedir(dir) == 0 ? dir = NULL : 0;

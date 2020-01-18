@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:57:07 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/18 20:03:12 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/18 20:47:59 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int	ft_path_free(t_path **root)
 {
 	if (root != NULL && *root != NULL)
 	{
-		ft_path_free(&((*root)->prev));
+		ft_path_free(&((*root)->next));
 		free((*root)->name);
 		free((*root)->path);
-		ft_path_free(&((*root)->next));
+		ft_path_free(&((*root)->prev));
 		free(*root);
 	}
 	return (0);
