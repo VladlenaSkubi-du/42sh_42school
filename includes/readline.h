@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/18 17:35:10 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/18 18:22:54 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,6 +303,8 @@ int								check_menu(void);
 
 char        					*get_techline_compl(char *complete,
 									size_t len);
+int								analyse_techline_compl(char *tech_line,
+									size_t len, int *pool);
 
 /*
 ** File front_part.c

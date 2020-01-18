@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/18 17:17:40 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/18 18:38:16 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 
 size_t				g_tablevel;
 char				*g_complete;
+
+static char			*path_parse(void)
+{
+	size_t			i;
+
+	i = 0;
+	while (g_env[i])
+	{
+		if (ft_strncmp(g_env[i], "PATH=", 5) == 0)
+			return (g_env[i] + 5);
+		i++;
+	}
+	return (NULL);
+}
 
 /*
 ** @pool = pool of variables: binary-files (1), variables (2),
@@ -29,14 +43,26 @@ int					auto_completion(void)
 	size_t			pos_back;
 	char			*tech_line;
 	int				pool;
+	char			**menu;
+	size_t			tmp;
+	size_t			i;
 
 	pos_back = g_rline.pos;
+	i = 0;
 	if (!(g_rline.flag & TAB))
 	{
 		fill_complete(pos_back);
 		tech_line = get_techline_compl(g_complete, g_rline.pos);
-		if (analyse_techline_compl(tech_line, pos_back, &pool))
+		if ((tmp = analyse_techline_compl(tech_line, pos_back, &pool)) == 0)
 			return (incorrect_sequence());
+		// printf("%s - %s\n", g_complete + tmp - 1, path_parse());
+		menu = ft_path_pars(g_complete + tmp - 1, path_parse(), &tmp);
+		// printf("%zu\n", tmp);
+		// while (i < tmp)
+		// {
+		// 	ft_putendl(menu[i]);
+		// 	i++;
+		// }
 	}
 	g_rline.flag |= TAB;
 	g_tablevel = 0;
