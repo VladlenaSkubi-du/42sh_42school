@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   undo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:50:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/17 13:56:02 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/18 13:57:01 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,19 @@ int				action_add(t_action_stack **start, t_action_stack **end,
 	return (0);
 }
 
-void			action_alloc_management(t_action_stack *start, int mode)
+void			action_alloc_management(t_action_stack **start, int mode)
 {
-	static t_action_stack	*save;
+	static t_action_stack	**save;
 	t_action_stack			*temp;
 
-	if (!mode)
+	if (!mode && save)
 		save = start;
-	else
+	else if (save)
 	{
-		while (save)
+		while (*save)
 		{
-			temp = save;
-			save = save->next;
+			temp = *save;
+			*save = (*save)->next;
 			free(temp->cmd_b);
 			free(temp);
 		}
@@ -80,7 +80,7 @@ void			action_pull(t_action_stack **start, size_t *num)
 		g_rline.pos = (*start)->pos_b;
 		g_rline.str_num = (*start)->num_b;
 		*start = (*start)->next;
-		*start ? (*start)->prev = 0 : 0;
+		*start && ((*start)->prev = 0);
 		free(temp->cmd_b);
 		free(temp);
 		(*num)--;
@@ -100,7 +100,7 @@ int				undo(int mode)
 		action_pull(&actions, &actions_num);
 	else
 		incorrect_sequence();
-	action_alloc_management(actions, 0);
+	action_alloc_management(&actions, 0);
 	if (actions_num > ACTIONS_MAX)
 	{
 		end = end->prev;

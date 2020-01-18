@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/17 15:48:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/18 13:14:24 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ int								make_ctrl_y_wrap(void);
 int								undo(int mode);
 void							action_pull(t_action_stack **start,
 									size_t *num);
-void							action_alloc_management(t_action_stack *start,
+void							action_alloc_management(t_action_stack **start,
 									int mode);
 int								action_add(t_action_stack **start,
 									t_action_stack **end, size_t *num);
