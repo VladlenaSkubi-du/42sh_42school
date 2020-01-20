@@ -18,7 +18,7 @@ int			ft_block_start_fg(t_ltree *block)
 
 	while ((sub = ft_find_spec(block)))
 	{
-		//start in foreground
+		exec_init(sub); //start in foreground TODO: Check return
 	}
 	return (0);
 }
