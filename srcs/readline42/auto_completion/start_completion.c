@@ -6,11 +6,12 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/18 22:26:01 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/20 12:19:04 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
+#include "parser.h"
 
 size_t				g_tablevel;
 char				*g_complete;
@@ -63,11 +64,12 @@ int					auto_completion(void)
 			menu = ft_path_pars(g_complete + tmp - 1, path_parse(), &tmp);
 		}
 		printf("\n%zu\n", tmp);
-		// while (i < tmp)
-		// {
-		// 	printf("%s\n", menu[i]);
-		// 	i++;
-		// }
+		while (i < tmp)
+		{
+		 printf("%s\n", menu[i]);
+			i++;
+		}
+		free_vec(menu);
 	}
 	g_rline.flag |= TAB;
 	g_tablevel = 0;
