@@ -38,7 +38,7 @@ int		ft_get_techline(void)
 	size_t	i;
 
 	i = 0;
-	g_techline.line = (char *)ft_xmalloc(g_cmd_size);
+	g_techline.line = (char *)ft_xmalloc(g_cmd_size + 1);
 	while (g_cmd[i])
 	{
 		g_techline.line[i] = get_tech_num(g_cmd[i]);
