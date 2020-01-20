@@ -6,7 +6,11 @@
 /*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/01/20 13:08:25 by hshawand         ###   ########.fr       */
+=======
+/*   Updated: 2020/01/20 12:57:51 by rbednar          ###   ########.fr       */
+>>>>>>> 9173a61a47af92a2a1c812b06717f799045d0571
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,9 +145,9 @@ void					ft_get_path(char *name, t_path **root,
 */
 
 int						ft_insert_prev(t_path **current,
-							t_path **parent, t_path **temp);
+							t_path **parent, t_path **temp, size_t *len);
 int						ft_insert_next(t_path **current,
-							t_path **parent, t_path **temp);
+							t_path **parent, t_path **temp, size_t *len);
 int						ft_path_free(t_path **root);
 
 /*

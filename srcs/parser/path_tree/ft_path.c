@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/18 22:26:41 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/20 12:59:51 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static void		ft_init_path(char *name_d, t_dirent *dp, t_path **tmp)
 ** Func insert t_path element by *root element if it exist
 */
 
-static int		ft_insert_in(char *name_d, t_path **root, t_path **temp)
+static int		ft_insert_in(char *name_d, t_path **root, \
+				t_path **temp, size_t *len)
 {
 	t_path	*current;
 	t_path	*parent;
@@ -45,12 +46,12 @@ static int		ft_insert_in(char *name_d, t_path **root, t_path **temp)
 			return (0);
 		else if (ft_strcmp((*temp)->name, parent->name) < 0)
 		{
-			if (!(ft_insert_prev(&current, &parent, temp)))
+			if (!(ft_insert_prev(&current, &parent, temp, len)))
 				return (0);
 		}
 		else
 		{
-			if (!(ft_insert_next(&current, &parent, temp)))
+			if (!(ft_insert_next(&current, &parent, temp, len)))
 				return (0);
 		}
 	}
@@ -72,8 +73,7 @@ static void		insert(char *name_d, t_dirent *dp, t_path **root, size_t *len)
 	}
 	else
 	{
-		ft_insert_in(name_d, root, &temp);
-		(*len) += 1;
+		ft_insert_in(name_d, root, &temp, len);
 	}
 }
 
