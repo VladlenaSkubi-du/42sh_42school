@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/20 14:22:33 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/20 14:33:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int					auto_completion(void)
 	int				max_len;
 	char			*tech_line;
 
+	int i = 0;
+
 	pos_back = g_rline.pos;
 	max_len = 0;
 	if (!(g_rline.flag & TAB))
@@ -63,7 +65,14 @@ int					auto_completion(void)
 			free(g_complete);
 			return (incorrect_sequence());
 		}
-		print_menu(pos_back, g_menu, total, max_len);
+		printf("%zu - %d\n", total, max_len);
+		// print_menu(pos_back, g_menu, total, max_len);
+		
+		while (i < total)
+		{
+			printf("%s\n", g_menu[i]);
+			i++;
+		}
 		g_rline.flag |= TAB;
 		g_tablevel = 0;
 	}

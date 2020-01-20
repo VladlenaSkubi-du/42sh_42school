@@ -20,18 +20,20 @@ void	free_vec(char **vec)
 char	*get_env(char *var)
 {
 	char	*val;
+	size_t	i;
 
 	val = 0;
+	i = 0;
 	if (!g_env)
 		return (0);
-	while (*g_env)
+	while (g_env[i])
 	{
-		if (ft_strstr(*g_env, var))
+		if (ft_strstr(g_env[i], var))
 			break;
-		g_env++;
+		i++;
 	}
-	if (*g_env)
-		val = ft_strdup(*g_env + ft_strlen(var) + 1);
+	if (g_env[i])
+		val = ft_strdup(g_env[i] + ft_strlen(var) + 1);
 	return (val);
 }
 
@@ -69,6 +71,8 @@ char	*locate_file(char *env_path, char *name, char **to_clean)
 
 	ret = 0;
 	path = opendir(env_path);
+	if (path == NULL)
+		return (NULL);
 	while ((entity = readdir(path)))
 	{
 		if (!ft_strcmp(entity->d_name, name))

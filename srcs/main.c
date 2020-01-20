@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:54:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/17 16:23:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/20 15:00:14 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int				main(int argc, char **argv)
 		return (0);
 	if (interactive_shell('m', 0, NULL))
 		return (1); //TODO исправить после вынесения exit_status
-	clean_everything();
 	return (0);
 }
 
