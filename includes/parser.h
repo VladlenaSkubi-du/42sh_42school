@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2020/01/20 13:08:25 by hshawand         ###   ########.fr       */
+=======
 /*   Updated: 2020/01/20 12:57:51 by rbednar          ###   ########.fr       */
+>>>>>>> 9173a61a47af92a2a1c812b06717f799045d0571
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +172,6 @@ int		exec_init(t_ltree *pos);
 ** File exec_core.c
 */
 
-int	exec_core(char **exec_av);
+int		exec_core(char **exec_av);
 
 #endif
