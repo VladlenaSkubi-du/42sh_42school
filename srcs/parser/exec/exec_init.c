@@ -29,7 +29,8 @@ char	**get_argv(char *exec_cmd)
 
 	if (spaceizer(exec_cmd))
 		return (0);
-	return (ret = ft_strsplit(exec_cmd, ' '));
+	ret = ft_strsplit(exec_cmd, ' ');
+	return (ret);
 }
 
 /*
@@ -72,8 +73,7 @@ int		exec_init(t_ltree *pos)
 	char	**exec_av;
 //	int		exec_ac;
 
-	if (!(exec_cmd = (char *)malloc(pos->end - pos->start + 1)))
-		return (-1);
+	exec_cmd = (char *)ft_xmalloc(pos->end - pos->start + 2);
 	ft_memcpy(exec_cmd, g_cmd + pos->start, pos->end - pos->start);
 //	if ((exec_ac = get_argc(pos_start, pos_end)) == -1)
 //		return (-1);

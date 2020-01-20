@@ -158,5 +158,6 @@ int	exec_core(char **exec_av)
 		return (-1);
 	wait(&child_pid);
 	free(path);
+	free_vec(exec_av);
 	return (0);
 }
