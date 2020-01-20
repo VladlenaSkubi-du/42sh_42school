@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 16:43:04 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/01/17 14:39:31 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/20 13:46:14 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,13 @@ void				buffer_col_finish_and_del(t_completion *menu_buf)
 	menu_buf->buffer = NULL;
 }
 
-void				menu_buf_init(t_completion *menu_buf)
+void				menu_buf_init(t_completion *menu_buf,
+						size_t total, int max_len)
 {
 	menu_buf->buffer = NULL;
 	menu_buf->buf_lines = 0;
 	menu_buf->buf_width = 0;
-	menu_buf->word_len = 0;
-	menu_buf->word_nb = 0;
+	menu_buf->word_len = max_len;
+	menu_buf->word_nb = total;
 	menu_buf->i = 0;
 }

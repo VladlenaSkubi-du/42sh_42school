@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   analyse_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 18:24:47 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/18 20:32:21 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/20 13:43:53 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ char				*get_techline_compl(char *complete, size_t len)
     return (tech_line);
 }
 
-int					analyse_techline_compl(char *tech_line, size_t len, int *pool)
+int					analyse_techline_compl(char *tech_line,
+                        size_t len, int *pool)
 {
     int				i;
 	// t_sign_techline	sign;

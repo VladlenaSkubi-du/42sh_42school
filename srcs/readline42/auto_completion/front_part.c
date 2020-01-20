@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:46:39 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/17 16:26:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/20 13:46:35 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,27 @@
 ** The back-part: menu-buffer is filled in in the output_buffer.c file
 */
 
-int					print_menu(size_t len, size_t pos_back,
-						char pool, char *complete)
+int					print_menu(size_t pos_back, char **menu,
+						size_t total, int max_len)
 {
-	char			**menu = NULL;
 	t_completion	menu_buf;
 	unsigned short	len_x;
-	static int		tab_push;
+	// static int		tab_push;
 	size_t			i;
 
-	tab_push = (g_rline.flag & TAB) ? tab_push + 1 : -1;
-	g_rline.flag |= TAB;
+	// tab_push = (g_rline.flag & TAB) ? tab_push + 1 : -1;
+	// g_rline.flag |= TAB;
 	i = -1;
-	position_relative(&len_x, 0, len);
-	position_cursor_for_menu(len);
-	menu_buf_init(&menu_buf);
-	// menu = get_menu(pool, &menu_buf);
+	position_relative(&len_x, 0, g_rline.cmd_len);
+	position_cursor_for_menu(g_rline.cmd_len);
+	menu_buf_init(&menu_buf, total, max_len);
 	while (++i < menu_buf.word_nb)
-		buffer_col_print(menu[i], &menu_buf);
-	position_cursor_after_menu_back(len_x, menu_buf.buf_lines, pos_back, len);
+	{
+		if (menu[i] && menu[i][0])
+			buffer_col_print(menu[i], &menu_buf);
+	}
+	position_cursor_after_menu_back(len_x, menu_buf.buf_lines,
+		pos_back, g_rline.cmd_len);
 	return (0);
 }
 

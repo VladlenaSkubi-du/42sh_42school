@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   start_completion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/20 12:19:04 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/20 13:47:59 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
-#include "parser.h"
 
 size_t				g_tablevel;
-char				*g_complete;
+char				g_complete;
+char				**g_menu;
 
 static char			*path_parse(void)
 {
@@ -42,46 +42,56 @@ static char			*path_parse(void)
 int					auto_completion(void)
 {
 	size_t			pos_back;
+	size_t			total;
+	int				max_len;
 	char			*tech_line;
-	int				pool;
-	char			**menu;
-	size_t			tmp;
-	size_t			i;
 
 	pos_back = g_rline.pos;
-	i = 0;
+	max_len = 0;
 	if (!(g_rline.flag & TAB))
 	{
-		fill_complete(pos_back);
+		g_complete = fill_complete(pos_back);
 		tech_line = get_techline_compl(g_complete, g_rline.pos);
-		if (tech_line == NULL)
-			menu = ft_path_pars("", path_parse(), &tmp);
-		else
-		{
-			if ((tmp = analyse_techline_compl(tech_line, pos_back, &pool)) == 0)
-				return (incorrect_sequence());
-			// printf("%s - %s\n", g_complete + tmp - 1, path_parse());
-			menu = ft_path_pars(g_complete + tmp - 1, path_parse(), &tmp);
-		}
-		printf("\n%zu\n", tmp);
-		while (i < tmp)
-		{
-		 printf("%s\n", menu[i]);
-			i++;
-		}
-		free_vec(menu);
+		g_menu = route_menu_receipt(tech_line, pos_back, &total, &max_len);
+		print_menu(pos_back, g_menu, total, max_len);
+		g_tablevel = 0;
 	}
 	g_rline.flag |= TAB;
-	g_tablevel = 0;
+	
 	return (0);
 }
 
-int					fill_complete(size_t pos_back)
+char				**route_menu_receipt(char *tech_line,
+						size_t tech_len, size_t *total, int *max_len)
+{
+	char			**menu;
+	int				pool;
+	int				tmp;		
+
+	if (tech_line == NULL)
+		menu = ft_path_pars("", path_parse(), total);
+	else
+	{
+		if ((tmp = analyse_techline_compl(tech_line, tech_len, &pool)) == 0)
+			return (incorrect_sequence());
+		if (pool == 1)
+			menu = ft_path_pars(g_complete + tmp - 1,
+				path_parse(), &total, max_len);
+		else if (pool == 2)
+			menu = get_variables(g_complete + tmp - 1, total, max_len);
+		else
+			menu = get_arguments(g_complete + tmp - 1, total, max_len);	
+	}
+	return (menu);
+}
+
+char				*fill_complete(size_t pos_back)
 {
 	size_t			beg_word;
 	size_t			end_word;
 	size_t			space;
 	char			*tmp;
+	char			*complete;
 
 	beg_word = g_rline.pos;
 	end_word = beg_word;
@@ -97,16 +107,16 @@ int					fill_complete(size_t pos_back)
 	while (space > 0 && g_rline.cmd[space] == ' ')
 		space--;
 	tmp = ft_strndup(g_rline.cmd + beg_word, end_word - beg_word);
-	g_complete = ft_strtrim(tmp);
+	complete = ft_strtrim(tmp);
 	free(tmp);
-	return (0);
+	return (complete);
 }
 
 int					check_menu(void) //поправить возврат после нажатия символа
 {
 	if (g_rline.flag & TAB)
 	{
-		free(g_complete);
+		// free(g_complete);
 		// clean_menu();
 		g_rline.flag &= ~TAB;
 	}

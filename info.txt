@@ -152,6 +152,14 @@ static char			**get_menu(char pool, t_completion *menu_buf)
 	return (menu);
 }
 
+i = 0;
+		// printf("\n%zu\n", total);
+		// while (i < total)
+		// {
+		// 	printf("%s\n", menu[i]);
+		// 	i++;
+		// }
+		//free_vec(menu);
 
 Сделать:
 Вставить ft_select на определенную комбинацию:
