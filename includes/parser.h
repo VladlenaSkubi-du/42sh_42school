@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/20 13:56:59 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/20 14:16:58 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ t_ltree					*ft_find_spec(t_ltree *block);
 ** File ft_path.c
 */
 
-char					**ft_path_pars(char *find, char *path, size_t *total);
+char					**ft_path_pars(char *find, char *path, size_t *total, int *size_max);
 void					ft_get_path(char *name, t_path **root,
 							size_t *len, char *find);
 

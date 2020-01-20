@@ -6,14 +6,22 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/20 13:54:38 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/20 14:22:33 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
 
+/*
+** @g_tablevel is a counter according to that we complete this or that line
+** from the g_menu
+** @g_complete - is a string, according to which we search
+** options for completion
+** @g_menu - the full menu for completion
+*/
+
 size_t				g_tablevel;
-char				g_complete;
+char				*g_complete;
 char				**g_menu;
 
 static char			*path_parse(void)
@@ -33,11 +41,7 @@ static char			*path_parse(void)
 
 /*
 ** @pool = pool of variables: binary-files (1), variables (2),
-** arguments (3), comment (4), bell (nothing can be done - 0);
-** @complete - is a string, according to which we search
-** options for completion
-** @tab_push is a counter according to that we complete this or that line
-** from the menu
+** arguments (3), bell (nothing can be done - 0);
 */
 
 int					auto_completion(void)
@@ -51,9 +55,14 @@ int					auto_completion(void)
 	max_len = 0;
 	if (!(g_rline.flag & TAB))
 	{
-		g_complete = fill_complete(pos_back);
+		g_complete = fill_complete(pos_back); //по моей логике только в случае, когда в строке нет ничего complete будет пустым, во всех остальных случаях он будет заполненным
 		tech_line = get_techline_compl(g_complete, g_rline.pos);
 		g_menu = route_menu_receipt(tech_line, pos_back, &total, &max_len);
+		if (g_menu == NULL)
+		{
+			free(g_complete);
+			return (incorrect_sequence());
+		}
 		print_menu(pos_back, g_menu, total, max_len);
 		g_rline.flag |= TAB;
 		g_tablevel = 0;
@@ -74,14 +83,14 @@ char				**route_menu_receipt(char *tech_line,
 	int				tmp;		
 
 	if (tech_line == NULL)
-		menu = ft_path_pars("", path_parse(), total);
+		menu = ft_path_pars("", path_parse(), total, max_len);
 	else
 	{
 		if ((tmp = analyse_techline_compl(tech_line, tech_len, &pool)) == 0)
-			return (incorrect_sequence());
+			return (NULL);
 		if (pool == 1)
 			menu = ft_path_pars(g_complete + tmp - 1,
-				path_parse(), &total, max_len);
+				path_parse(), total, max_len);
 		else if (pool == 2)
 			menu = get_variables(g_complete + tmp - 1, total, max_len);
 		else
