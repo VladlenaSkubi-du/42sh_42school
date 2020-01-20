@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/20 13:57:47 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/20 14:23:20 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,7 +295,7 @@ int								yank_insert(char *yank_str,
 */
 
 int             				auto_completion(void);
-int								fill_complete(size_t pos_back);
+char							*fill_complete(size_t pos_back);
 char							**route_menu_receipt(char *tech_line,
 									size_t tech_len, size_t *total,
 									int *max_len);
@@ -315,9 +315,9 @@ int								analyse_techline_compl(char *tech_line,
 */
 
 char            				**get_variables(char *complete,
-									int *total, int *max_len);
+									size_t *total, int *max_len);
 char            				**get_arguments(char *complete,
-									int *total, int *max_len);
+									size_t *total, int *max_len);
 
 /*
 ** File front_part.c

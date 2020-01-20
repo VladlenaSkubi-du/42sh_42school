@@ -16,10 +16,10 @@ int			ft_block_start_fg(t_ltree *block)
 {
 	t_ltree	*sub;
 
-	while ((sub = ft_find_spec(block)))
-	{
-		exec_init(sub); //start in foreground TODO: Check return
-	}
+//	while ((sub = ft_find_spec(block)))
+//	{
+		exec_init(block); //start in foreground TODO: Check return, change to sub later
+//	}
 	return (0);
 }
 

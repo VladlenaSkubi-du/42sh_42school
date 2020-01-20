@@ -72,7 +72,6 @@ int		exec_init(t_ltree *pos)
 	char	**exec_av;
 //	int		exec_ac;
 
-	write(1, "KEKESTAN!\n", 10);
 	if (!(exec_cmd = (char *)malloc(pos->end - pos->start + 1)))
 		return (-1);
 	ft_memcpy(exec_cmd, g_cmd + pos->start, pos->end - pos->start);
