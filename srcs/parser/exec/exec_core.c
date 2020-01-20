@@ -11,7 +11,7 @@ void	free_vec(char **vec)
 	i = 0;
 	while (vec[i])
 	{
-		free(vec[i])
+		free(vec[i]);
 		i++;
 	}
 	free(vec);
@@ -37,10 +37,10 @@ char	*get_env(char *var)
 
 char	**path_parse(void)
 {
-	char	path_value;
+	char	*path_value;
 	char	**ret;
 
-	if (!(path_value = get_env("PATH"))
+	if (!(path_value = get_env("PATH")))
 		return (0);
 	ret = ft_strsplit(path_value, ':');
 	free(path_value);
@@ -65,7 +65,7 @@ char	*locate_file(char *env_path, char *name, char **to_clean)
 {
 	struct dirent	*entity;
 	char			*ret;
-	DIR				path;
+	DIR				*path;
 
 	ret = 0;
 	path = opendir(env_path);
@@ -76,6 +76,7 @@ char	*locate_file(char *env_path, char *name, char **to_clean)
 			if (!(ret = (char *)malloc(ft_strlen(env_path) + ft_strlen(name) + 2))) /* You shoud use Vlada's awesome function */
 			{
 				free_vec(to_clean);
+				closedir(path);
 				return (0);
 			}
 			ret = form_path(ret, env_path, name);
@@ -83,6 +84,7 @@ char	*locate_file(char *env_path, char *name, char **to_clean)
 				break;
 		}
 	}
+	closedir(path);
 	return (ret);
 }
 
@@ -96,7 +98,6 @@ char	*path_search(char *name)
 	char			**path_array;
 	char			**to_clean;
 	char			*ret;
-	DIR				path;
 	struct dirent	*entity;
 
 	if (!(path_array = path_parse()))
@@ -104,7 +105,7 @@ char	*path_search(char *name)
 	to_clean = path_array;
 	while(*path_array)
 	{
-		ret = locate_file(path_array);
+		ret = locate_file(*path_array, name, to_clean);
 		if (ret)
 			break;
 		path_array++;
@@ -121,7 +122,7 @@ char	*path_init(char **exec_av)
 {
 	char *ret;
 
-	if (!ft_strchr(path, '/')) /* Builtin or $PATH case */
+	if (!ft_strchr(*exec_av, '/')) /* Builtin or $PATH case */
 		ret = path_search(*exec_av);
 	else /* Execution path case */
 	{
@@ -153,6 +154,5 @@ int	exec_core(char **exec_av)
 		return (-1);
 	wait(&child_pid);
 	free(path);
-	free_vec(to_clean);
 	return (0);
 }

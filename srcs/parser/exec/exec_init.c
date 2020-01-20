@@ -20,14 +20,13 @@ int		spaceizer(char *str)
 			*str = ' ';
 		str++;
 	}
+	return (0);
 }
 
 char	**get_argv(char *exec_cmd)
 {
-	size_t	iter;
 	char	**ret;
 
-	iter = 0;
 	if (spaceizer(exec_cmd))
 		return (0);
 	return (ret = ft_strsplit(exec_cmd, ' '));
@@ -47,12 +46,12 @@ int		get_argc(size_t pos_start, size_t pos_end)
 	ret = 0;
 	while (iter < pos_end)
 	{
-		if (g_techline[iter] == 1)
+		if (g_techline.line[iter] == 1)
 			iter++;
-		else if (!g_techline[iter])
+		else if (!g_techline.line[iter])
 		{
 			ret++;
-			while (!g_techline[iter])
+			while (!g_techline.line[iter])
 				iter++;
 		}
 		else
@@ -71,16 +70,15 @@ int		exec_init(t_ltree *pos)
 {
 	char	*exec_cmd;
 	char	**exec_av;
-	int		exec_ac;
+//	int		exec_ac;
 
 	if (!(exec_cmd = (char *)malloc(pos->end - pos->start + 1)))
 		return (-1);
 	ft_memcpy(exec_cmd, g_cmd + pos->start, pos->end - pos->start);
 //	if ((exec_ac = get_argc(pos_start, pos_end)) == -1)
 //		return (-1);
-	if (!(exec_av = get_argv(exec_cmd, pos->start, pos->end)))
+	if (!(exec_av = get_argv(exec_cmd)))
 		return (-1);
 	free(exec_cmd);
-	return (0);
-	// return (exec_core(exec_av));
+	return (exec_core(exec_av));
 }

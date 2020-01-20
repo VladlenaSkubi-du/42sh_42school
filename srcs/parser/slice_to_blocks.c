@@ -47,15 +47,15 @@ int         ft_slice(void)
 	i = 0;
 	flag = 0;
 	block.start = 0;
-	while (i <= g_techline->len)
+	while (i <= g_techline.len)
 	{
-		if (g_techline->line[i] == 3 || g_cmd[i] == '\0')
+		if (g_techline.line[i] == 3 || g_cmd[i] == '\0')
 		{
 			block.end = i;
 			ft_block_start_fg(&block);
 			block.start = i + 1;
 		}
-		if (g_techline->line[i] == 4)
+		if (g_techline.line[i] == 4)
 		{
 			block.end = i;
 			ft_block_start_bg(&block);
