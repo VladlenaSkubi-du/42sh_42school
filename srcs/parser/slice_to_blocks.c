@@ -43,7 +43,6 @@ int         ft_slice(void)
 	t_ltree			block;
 	size_t			i;
 	char			flag;
-	t_sign_techline	type;
 
 	i = 0;
 	flag = 0;
