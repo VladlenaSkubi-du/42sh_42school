@@ -6,7 +6,7 @@
 /*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/20 13:12:47 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/01/20 14:13:40 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int						ft_path_free(t_path **root);
 ** File ft_block.c funcs to add and spend massive char **str of exe files
 */
 
-char					**ft_add_block(t_path **root, size_t len);
+char					**ft_add_block(t_path **root, size_t len, int *max);
 char					*ft_take_path(char *dir_name);
 void					ft_addpath(char *name, t_path **buf);
 
