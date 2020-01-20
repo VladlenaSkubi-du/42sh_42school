@@ -2,13 +2,17 @@
 
 int		parser(char *line)
 {
+	if (line == NULL || line[0] == 0)
+	{
+		free(line);
+		return (0);
+	}
 	g_cmd = line;
 	g_cmd_size = ft_strlen(g_cmd);
 	ft_get_techline();
 	nullify();
 	ft_slice();
-	if (line != NULL)
-		ft_putendl_fd(line, 1);
+	ft_putendl_fd(line, 1);
 	free(line);
 	return (0);
 }

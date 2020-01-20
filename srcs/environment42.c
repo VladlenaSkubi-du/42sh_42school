@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:45:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/17 16:03:17 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/20 14:56:29 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ int					save_environment(void)
 	i = 0;
 	num = count_first_env();
 	g_env = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
+	g_env[num] = NULL;
 	while (environ[i])
 	{
 		g_env[i] = ft_strdup(environ[i]);
 		i++;
 	}
-	g_env[i] = NULL;
 	return (0);
 }
 
