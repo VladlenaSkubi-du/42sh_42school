@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/18 18:22:54 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/20 13:20:04 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 # include "exit_status.h"
 # include "readline_simple.h"
+# include "parser.h"
 # include "builtin42.h"
 # include "libft.h"
 # include "libft_42.h"
@@ -305,6 +306,13 @@ char        					*get_techline_compl(char *complete,
 									size_t len);
 int								analyse_techline_compl(char *tech_line,
 									size_t len, int *pool);
+
+/*
+** File menu_receipt.c
+*/
+
+char            				**get_variables(char *complete, int *total);
+char            				**get_arguments(char *complete, int *total);
 
 /*
 ** File front_part.c
