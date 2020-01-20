@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/20 12:59:51 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/20 13:41:16 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void			ft_get_path(char *name_d, t_path **root, size_t *len, \
 ** Func find and return **char of all insertions of string find in PATH
 */
 
-char			**ft_path_pars(char *find, char *path, size_t *total)
+char			**ft_path_pars(char *find, char *path, size_t *total, int *max)
 {
 	t_path	*root;
 	char	**list;
@@ -131,7 +131,7 @@ char			**ft_path_pars(char *find, char *path, size_t *total)
 	if (list != NULL)
 		free(list);
 	*total = len;
-	list = ft_add_block(&root, len);
+	list = ft_add_block(&root, len, max);
 	ft_path_free(&root);
 	return (list);
 }
