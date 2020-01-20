@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 16:43:04 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/01/20 13:46:14 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/20 18:08:16 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void				buf_add(char *str, size_t size)
 
 	if (!str && !size)
 	{
-		write(1, buf, ptr - buf);
+		write(STDOUT_FILENO, buf, ptr - buf);
 		ptr = buf;
 	}
 	else if (size + (size_t)(ptr - buf) < OUT_BUF)
@@ -30,21 +30,25 @@ void				buf_add(char *str, size_t size)
 	}
 	else
 	{
-		write(1, buf, ptr - buf);
-		write(1, str, size);
+		write(STDOUT_FILENO, buf, ptr - buf);
+		write(STDOUT_FILENO, str, size);
 		ptr = buf;
 	}
 }
 
 int					buffer_col_print(char *add, t_completion *menu_buf)
 {
+	size_t			len;
+	
+	len = ft_strlen(add);
 	if (!menu_buf->buffer)
 		buffer_col_calc(menu_buf);
 	ft_memcpy(menu_buf->buffer[menu_buf->i % menu_buf->buf_lines]
 		+ (menu_buf->i / menu_buf->buf_lines * menu_buf->word_len),
-			add, ft_strlen(add));
-	ft_straddsy(menu_buf->buffer[menu_buf->i % menu_buf->buf_lines]
-		+ (menu_buf->i / menu_buf->buf_lines * menu_buf->word_len), '\t');
+			add, len);
+	ft_memset(menu_buf->buffer[menu_buf->i % menu_buf->buf_lines]
+		+ (menu_buf->i / menu_buf->buf_lines * menu_buf->word_len) + len,
+		' ', menu_buf->word_len - len);
 	if (menu_buf->i++ == menu_buf->word_nb - 1)
 		buffer_col_finish_and_del(menu_buf);
 	return (0);
@@ -82,13 +86,18 @@ void				buffer_col_finish_and_del(t_completion *menu_buf)
 	menu_buf->buffer = NULL;
 }
 
-void				menu_buf_init(t_completion *menu_buf,
-						size_t total, int max_len)
+t_completion			menu_buf_init(size_t total, int max_len)
 {
-	menu_buf->buffer = NULL;
-	menu_buf->buf_lines = 0;
-	menu_buf->buf_width = 0;
-	menu_buf->word_len = max_len;
-	menu_buf->word_nb = total;
-	menu_buf->i = 0;
+	t_completion		menu_buf;
+	
+	menu_buf.buffer = NULL;
+	menu_buf.buf_lines = 0;
+	menu_buf.buf_width = 0;
+	max_len = (max_len == 8) ? (max_len)++ : max_len;
+	while (max_len % 8 != 0)
+		max_len++;
+	menu_buf.word_len = max_len;
+	menu_buf.word_nb = total;
+	menu_buf.i = 0;
+	return (menu_buf);
 }

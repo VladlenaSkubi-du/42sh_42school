@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:46:39 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/20 13:56:12 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/20 19:50:32 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 ** @menu_lines_num we need to understand how high we need to jump
 ** to the end of the cmd-line after the menu-printing
 **
+** @sf_i - counter of how much we printed "sf"
 ** The back-part: menu-buffer is filled in in the output_buffer.c file
 */
 
@@ -37,10 +38,10 @@ int					print_menu(size_t pos_back, char **menu,
 	i = -1;
 	position_relative(&len_x, 0, g_rline.cmd_len);
 	position_cursor_for_menu(g_rline.cmd_len);
-	menu_buf_init(&menu_buf, total, max_len);
+	menu_buf = menu_buf_init(total, max_len);
 	while (++i < menu_buf.word_nb)
 	{
-		if (menu[i] && menu[i][0])
+		if (menu[i] && menu[i][0] && !(menu[i][0] == '.'))
 			buffer_col_print(menu[i], &menu_buf);
 	}
 	position_cursor_after_menu_back(len_x, menu_buf.buf_lines,
@@ -51,11 +52,15 @@ int					print_menu(size_t pos_back, char **menu,
 int					clean_menu(void)
 {
 	size_t			pos_back;
+	unsigned short	len_x;
 
 	pos_back = g_rline.pos;
 	position_cursor_for_menu(g_rline.cmd_len);
 	putcap("cd");
-	g_rline.pos = pos_back;
-	move_cursor_from_old_position(g_rline.cmd_len, 'l');
+	// position_relative(&len_x, 0, g_rline.cmd_len);
+	// putcap("up");
+	// position_cursor("ch", 0, len_x);
+	// g_rline.pos = pos_back;
+	// move_cursor_from_old_position(g_rline.cmd_len, 'l');
 	return (0);
 }

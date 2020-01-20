@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/20 14:33:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/20 19:59:59 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,13 @@ int					auto_completion(void)
 			free(g_complete);
 			return (incorrect_sequence());
 		}
-		printf("%zu - %d\n", total, max_len);
-		// print_menu(pos_back, g_menu, total, max_len);
+		print_menu(pos_back, g_menu, total, max_len);
 		
-		while (i < total)
-		{
-			printf("%s\n", g_menu[i]);
-			i++;
-		}
+		// while (i < total)
+		// {
+		// 	printf("%s\n", g_menu[i]);
+		// 	i++;
+		// }
 		g_rline.flag |= TAB;
 		g_tablevel = 0;
 	}
@@ -139,9 +138,11 @@ int					check_menu(void) //поправить возврат после нажа
 {
 	if (g_rline.flag & TAB)
 	{
-		// free(g_complete);
-		// clean_menu();
+		clean_menu();
+		free(g_complete);
+		ft_arrdel(g_menu);
 		g_rline.flag &= ~TAB;
+		g_tablevel = 0;
 	}
 	return (0);
 }
