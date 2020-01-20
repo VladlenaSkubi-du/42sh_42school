@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/20 14:23:20 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/20 18:00:15 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,8 +341,7 @@ int                				position_cursor_after_menu_back
 ** File output_buffer.c
 */
 
-void							menu_buf_init(t_completion *menu_buf,
-									size_t total, int max_len);
+t_completion					menu_buf_init(size_t total, int max_len);
 int								buffer_col_print(char *add,
 									t_completion *menu_buf);
 void							buffer_col_calc(t_completion *menu_buf);
