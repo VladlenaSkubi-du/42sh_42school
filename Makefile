@@ -42,8 +42,8 @@ PARSER = 			parser/parser42.c \
 			parser/find_spec.c \
 			parser/quote_control.c \
 			parser/slice_to_blocks.c \
-			$(PATH_TREE)
-			# $(EXEC)
+			$(PATH_TREE) \
+			$(EXEC)
 
 PATH_TREE = 		parser/path_tree/ft_block.c \
 			parser/path_tree/ft_path_help.c \
@@ -97,6 +97,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)/readline42/auto_completion
 	@mkdir -p $(DIR_O)/parser
 	@mkdir -p $(DIR_O)/parser/path_tree
+	@mkdir -p $(DIR_O)/parser/exec
 	@mkdir -p $(DIR_O)/builtin
 	@mkdir -p $(DIR_O)/libft_42
 	gcc $(FLAGS) -c -I includes -o $@ $<

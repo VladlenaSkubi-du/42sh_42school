@@ -17,12 +17,12 @@
 # include <sys/dir.h>
 # include <sys/stat.h>
 # include <grp.h>
-# include <uuid/uuid.h>
+// # include <uuid/uuid.h>
 # include <sys/xattr.h>
 # include <time.h>
 # include <pwd.h>
 # include <string.h>
-# include <sys/acl.h>
+// # include <sys/acl.h>
 
 # include "exit_status.h"
 # include "readline.h"
@@ -90,7 +90,7 @@ typedef struct  		s_path
 
 char					*g_cmd;
 size_t					g_cmd_size;
-t_tech					*g_techline;
+t_tech					g_techline;
 
 /*
 ** File parser.c
@@ -160,6 +160,16 @@ void					ft_addpath(char *name, t_path **buf);
 ** Folder exec_________________________________________________________________
 */
 
+/*
+** File exec_init.c
+*/
 
+int		exec_init(t_ltree *pos);
+
+/*
+** File exec_core.c
+*/
+
+int	exec_core(char **exec_av);
 
 #endif

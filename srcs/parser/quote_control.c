@@ -32,7 +32,7 @@ int		nullify(void)
 
 	count = 0;
 	nullifier = 0;
-	ptr = g_techline->line;
+	ptr = g_techline.line;
 	while (count < g_cmd_size)
 	{
 		if (!nullifier)
