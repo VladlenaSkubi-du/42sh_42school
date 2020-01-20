@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/20 13:20:04 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/20 13:57:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,7 +287,7 @@ int								yank_insert(char *yank_str,
 									size_t len_yank);
 
 /*
-** Folder auto_completion _____________________________________________________
+** Folder auto_completion ______________________________________________________
 */
 
 /*
@@ -296,6 +296,9 @@ int								yank_insert(char *yank_str,
 
 int             				auto_completion(void);
 int								fill_complete(size_t pos_back);
+char							**route_menu_receipt(char *tech_line,
+									size_t tech_len, size_t *total,
+									int *max_len);
 int								check_menu(void);
 
 /*
@@ -311,15 +314,17 @@ int								analyse_techline_compl(char *tech_line,
 ** File menu_receipt.c
 */
 
-char            				**get_variables(char *complete, int *total);
-char            				**get_arguments(char *complete, int *total);
+char            				**get_variables(char *complete,
+									int *total, int *max_len);
+char            				**get_arguments(char *complete,
+									int *total, int *max_len);
 
 /*
 ** File front_part.c
 */
 
-int								print_menu(size_t len, size_t pos_back,
-									char pool, char *complete);
+int								print_menu(size_t pos_back, char **menu,
+									size_t total, int max_len);
 int								clean_menu(void);
 
 /*
@@ -336,7 +341,8 @@ int                				position_cursor_after_menu_back
 ** File output_buffer.c
 */
 
-void							menu_buf_init(t_completion *menu_buf);
+void							menu_buf_init(t_completion *menu_buf,
+									size_t total, int max_len);
 int								buffer_col_print(char *add,
 									t_completion *menu_buf);
 void							buffer_col_calc(t_completion *menu_buf);

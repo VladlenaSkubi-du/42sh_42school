@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:57:07 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/20 12:57:24 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/20 13:22:55 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 ** Functions to insert t_path element prev or next
 */
 
-int	ft_insert_prev(t_path **current, t_path **parent, t_path **temp, size_t *len)
+int	ft_insert_prev(t_path **current, t_path **parent, \
+	t_path **temp, size_t *len)
 {
 	*current = (*current)->prev;
 	if (*current == NULL)
@@ -28,7 +29,8 @@ int	ft_insert_prev(t_path **current, t_path **parent, t_path **temp, size_t *len
 	return (1);
 }
 
-int	ft_insert_next(t_path **current, t_path **parent, t_path **temp, size_t *len)
+int	ft_insert_next(t_path **current, t_path **parent, \
+	t_path **temp, size_t *len)
 {
 	*current = (*current)->next;
 	if (*current == NULL)

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:46:39 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/20 13:46:35 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/20 13:56:12 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int					print_menu(size_t pos_back, char **menu,
 {
 	t_completion	menu_buf;
 	unsigned short	len_x;
-	// static int		tab_push;
 	size_t			i;
 
 	// tab_push = (g_rline.flag & TAB) ? tab_push + 1 : -1;

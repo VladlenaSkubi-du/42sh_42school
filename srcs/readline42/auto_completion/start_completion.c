@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/20 13:47:59 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/20 13:54:38 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static char			*path_parse(void)
 			return (g_env[i] + 5);
 		i++;
 	}
+	//список builtin и измерение самого длинного слова + общее количество
 	return (NULL);
 }
 
@@ -54,10 +55,14 @@ int					auto_completion(void)
 		tech_line = get_techline_compl(g_complete, g_rline.pos);
 		g_menu = route_menu_receipt(tech_line, pos_back, &total, &max_len);
 		print_menu(pos_back, g_menu, total, max_len);
+		g_rline.flag |= TAB;
 		g_tablevel = 0;
 	}
-	g_rline.flag |= TAB;
-	
+	else
+	{
+		g_tablevel++;
+		//TODO подстановка слова
+	}
 	return (0);
 }
 

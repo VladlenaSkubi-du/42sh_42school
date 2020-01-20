@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/20 12:28:57 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/20 13:47:35 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,23 @@ void			ft_addpath(char *name, t_path **buf)
 ** Func fills **list by element of tree t_path
 */
 
-static void		ft_fill_in_order(t_path **root, char **list, size_t *len)
+static void		ft_fill_in_order(t_path **root, char **list, \
+				size_t *len, int *max)
 {
+	int	bu;
+
+	bu = 0;
 	if (root != NULL && *root != NULL)
 	{
-		ft_fill_in_order(&((*root)->prev), list, len);
+		ft_fill_in_order(&((*root)->prev), list, len, max);
 		if ((*root)->name != NULL)
 		{
 			list[*len] = ft_strdup((*root)->name);
+			bu = ft_strlen((*root)->name);
+			bu > *max ? *max = bu : 0;
 			(*len)++;
 		}
-		ft_fill_in_order(&((*root)->next), list, len);
+		ft_fill_in_order(&((*root)->next), list, len, max);
 	}
 }
 
@@ -69,7 +75,7 @@ static void		ft_fill_in_order(t_path **root, char **list, size_t *len)
 ** Func fills **list by element of tree t_path
 */
 
-char			**ft_add_block(t_path **root, size_t len)
+char			**ft_add_block(t_path **root, size_t len, int *max)
 {
 	char	**list;
 	size_t	l;
@@ -77,6 +83,6 @@ char			**ft_add_block(t_path **root, size_t len)
 	l = 0;
 	list = (char**)malloc(sizeof(char*) * (len + 1));
 	list[len] = NULL;
-	ft_fill_in_order(root, list, &l);
+	ft_fill_in_order(root, list, &l, max);
 	return (list);
 }
