@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/20 13:41:48 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/20 13:56:59 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,6 @@ int		exec_init(t_ltree *pos);
 ** File exec_core.c
 */
 
-int	exec_core(char **exec_av);
+int		exec_core(char **exec_av);
 
 #endif
