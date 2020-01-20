@@ -4,9 +4,9 @@ int		parser(char *line)
 {
 	g_cmd = line;
 	g_cmd_size = ft_strlen(g_cmd);
-	// ft_get_techline();
-	// nullify();
-	// ft_slice();
+	ft_get_techline();
+	nullify();
+	ft_slice();
 	if (line != NULL)
 		ft_putendl_fd(line, 1);
 	free(line);

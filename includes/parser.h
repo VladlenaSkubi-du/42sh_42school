@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/18 19:45:38 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/20 12:57:51 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,10 @@
 # include <sys/dir.h>
 # include <sys/stat.h>
 # include <grp.h>
-// # include <uuid/uuid.h>
 # include <sys/xattr.h>
 # include <time.h>
 # include <pwd.h>
 # include <string.h>
-// # include <sys/acl.h>
 
 # include "exit_status.h"
 # include "readline.h"
@@ -143,9 +141,9 @@ void					ft_get_path(char *name, t_path **root,
 */
 
 int						ft_insert_prev(t_path **current,
-							t_path **parent, t_path **temp);
+							t_path **parent, t_path **temp, size_t *len);
 int						ft_insert_next(t_path **current,
-							t_path **parent, t_path **temp);
+							t_path **parent, t_path **temp, size_t *len);
 int						ft_path_free(t_path **root);
 
 /*
