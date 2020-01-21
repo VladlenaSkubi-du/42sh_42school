@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:57:07 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/21 13:10:05 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/21 15:03:31 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,26 @@ int	ft_insert_next(t_path **current, t_path **parent, \
 		return (0);
 	}
 	return (1);
+}
+
+/*
+** Input buildins to tree
+*/
+
+int	ft_input_buildins(char **root, size_t *len, char *find)
+{
+	int		i;
+	size_t	str_len;
+
+	i = 0;
+	str_len = ft_strlen(find);
+	while (buildins[i])
+	{
+		if (ft_strnequ(buildins[i], find, str_len))
+			insert(buildins[i], root, len);
+		i++;
+	}
+	return (0);
 }
 
 /*
