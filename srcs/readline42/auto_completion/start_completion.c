@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/21 19:51:29 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/21 20:18:52 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 
 size_t				g_tablevel;
 char				*g_complete;
+size_t				g_len_compl;
+int					g_delete;
 char				**g_menu;
 
 char				*path_parse_compl(void)
@@ -61,27 +63,24 @@ int					auto_completion(void)
 	char			*tech_line;
 
 	pos_back = g_rline.pos;
-	max_len = 0;
-	if (!(g_rline.flag & TAB))
-	{
-		g_complete = fill_complete(pos_back);
-		tech_line = get_techline_compl(g_complete, g_rline.pos);
-		g_menu = route_menu_receipt(tech_line, pos_back, &total, &max_len);
-		if (g_menu == NULL || g_menu[0] == 0)
-		{
-			free(g_complete);
-			return (incorrect_sequence());
-		}
-		if (print_menu(pos_back, g_menu, total, max_len))
-			return (0);
-		g_rline.flag |= TAB;
-		g_tablevel = 0;
-	}
-	else
+	if (g_rline.flag & TAB)
 	{
 		g_tablevel++;
-		//TODO подстановка слова
+		return (insert_word_compl(g_delete, g_len_compl, g_menu, g_tablevel));
 	}
+	g_complete = fill_complete(pos_back);
+	tech_line = get_techline_compl(g_complete, g_rline.pos);
+	g_menu = route_menu_receipt(tech_line, pos_back, &total, &max_len);
+	if (g_menu == NULL || g_menu[0] == 0)
+	{
+		free(g_complete);
+		return (incorrect_sequence());
+	}
+	if (print_menu(pos_back, g_menu, total, max_len))
+		return (0);
+	g_tablevel = 0;
+	g_delete = 0;
+	g_len_compl = ft_strlen(g_complete);
 	return (0);
 }
 
@@ -101,6 +100,7 @@ char				**route_menu_receipt(char *tech_line,
 	int				pool;
 	int				tmp;	
 
+	*max_len = 0;
 	if (tech_line == NULL)
 		menu = ft_path_pars("", path_parse_compl(), total, max_len);
 	else
