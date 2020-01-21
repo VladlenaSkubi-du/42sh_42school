@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   question_if_many.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:59:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/21 15:22:39 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:32:12 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int					ask_output(size_t total, int buf_lines,
 	
 	count_comment_len(&total_len, &lines_len, total, buf_lines);
 	len = 29 + 16 + 10 + total_len + lines_len;
-	ft_printf("42sh: do you wish to see all %u possibilities (%u lines)? ",
+	ft_printf("42sh: do you wish to see all %u possibilities (%u lines)? y/n ",
 		total, buf_lines);
 	read(STDOUT_FILENO, &c, 1);
 	if (c == 'y' || c == 'Y')

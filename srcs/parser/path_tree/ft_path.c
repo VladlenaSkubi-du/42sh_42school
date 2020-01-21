@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/21 16:48:32 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/21 17:25:16 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,12 +123,13 @@ char			**ft_path_pars(char *find, char *path, size_t *total, int *max)
 	root = NULL;
 	list = ft_strsplit(path, ':');
 	ft_input_buildins(&root, &len, find);
-	while (list[i])
-	{
-		ft_get_path(list[i], &root, &len, find);
-		free(list[i]);
-		i++;
-	}
+	if (list != NULL)
+		while (list[i])
+		{
+			ft_get_path(list[i], &root, &len, find);
+			free(list[i]);
+			i++;
+		}
 	if (list != NULL)
 		free(list);
 	*total = len;
