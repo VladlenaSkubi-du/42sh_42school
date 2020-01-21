@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/21 16:24:14 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/21 20:20:19 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,6 +331,8 @@ int								print_menu(size_t pos_back, char **menu,
 int								after_big_menu(size_t pos_back,
 									unsigned short len_x);
 int								clean_menu(void);
+int								insert_word_compl(int delete, size_t len_compl, char **menu,
+									size_t tab_level);
 
 /*
 ** File question_if_many.c
