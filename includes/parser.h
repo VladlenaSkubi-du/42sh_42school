@@ -6,7 +6,7 @@
 /*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/20 14:16:58 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/01/21 13:17:46 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,18 @@ typedef struct  		s_tech
 
 /*
 ** Struct to work with lextree
+** FLAGS:
+** 0x01 -- PIPED_OUTPUT
+** 0x02 -- PIPED_INPUT
+** 0x04 -- REDIRECTION (It's kinda different, as we have to take fd from another place)
+** 0x08 -- IS_BG
 */
 
 typedef struct  		s_ltree
 {
 	size_t				start; //index of start
 	size_t				end;
+	int					flags;
 }              			t_ltree;
 
 /*

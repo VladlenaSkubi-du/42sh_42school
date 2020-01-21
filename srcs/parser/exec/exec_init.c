@@ -64,7 +64,8 @@ int		get_argc(size_t pos_start, size_t pos_end)
 /*
 ** It is assumed, that we receive starting and ending position with only space
 ** specchars. By the way, we also have to process "raw" tabs (maybe as spaces --
-** there is no difference)
+** there is no difference). In "pos" structure there is also flag var, which sto
+** res information about pipes, redirections, subshell, etc...
 */
 
 int		exec_init(t_ltree *pos)
@@ -80,5 +81,5 @@ int		exec_init(t_ltree *pos)
 	if (!(exec_av = get_argv(exec_cmd)))
 		return (-1);
 	free(exec_cmd);
-	return (exec_core(exec_av));
+	return (exec_core(exec_av), pos->flags);
 }

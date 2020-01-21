@@ -1,9 +1,5 @@
 #include "parser.h"
 
-/*
-** Envvironment variables as global?
-*/
-
 void	free_vec(char **vec)
 {
 	size_t	i;
@@ -137,7 +133,7 @@ char	*path_init(char **exec_av)
 	return (ret); /* ret could be NULL */
 }
 
-int	exec_core(char **exec_av)
+int	exec_core(char **exec_av, int flags)
 {
 	pid_t	child_pid;
 	char	*path;
