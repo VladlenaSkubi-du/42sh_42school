@@ -133,13 +133,20 @@ char	*path_init(char **exec_av)
 	return (ret); /* ret could be NULL */
 }
 
+/*
+** So, let's talk about pipes:
+** 1) If only PIPED_OUT -- create pipe
+** 2) If only PIPED_IN -- delete pipe
+*/
+
 int	exec_core(char **exec_av, int flags)
 {
-	pid_t	child_pid;
-	char	*path;
-//	int		pipe[2];
+	pid_t			child_pid;
+	char			*path;
+	static int		pipe_fd[2];
 
-//	pipe ? pipe(pipe) : 0;
+	if ((flags & PIPED_OUT & ~PIPED_IN) && pipe(pipe_fd) == -1)
+		return (-1);
 	if (!(path = path_init(exec_av)))
 		return (-1);
 	child_pid = fork();
@@ -147,6 +154,8 @@ int	exec_core(char **exec_av, int flags)
 	{
 		/* ALSO check for builtins, pipes and redirections... Darn, that's a lot! */
 //		using_pipe ? dup2(p[1], 1);
+		(flags & PIPED_OUT) && dup2(p[1], 1);
+		(flags & PIPED_IN) && dup2(p[0], 0);
 		if (execve(path, exec_av, g_env) == -1)
 			exit(-1);
 	}
@@ -155,5 +164,10 @@ int	exec_core(char **exec_av, int flags)
 	wait(&child_pid);
 	free(path);
 	free_vec(exec_av);
+	if (flags & PIPED_IN & ~PIPED_OUT)
+	{
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
+	}
 	return (0);
 }
