@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/21 15:05:43 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/21 15:41:12 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int		ft_insert_in(t_path **root, \
 ** Func insert t_path element by *root element in all conditions
 */
 
-static void		insert(char *dp_name, t_path **root, size_t *len)
+void			insert(char *dp_name, t_path **root, size_t *len)
 {
 	t_path	*temp;
 
