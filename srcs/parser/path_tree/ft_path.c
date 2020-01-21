@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/21 15:41:12 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/21 16:48:32 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ void			ft_get_path(char *name_d, t_path **root, size_t *len, \
 	{
 		if ((dp = readdir(dir)) != NULL)
 		{
-			if (ft_strnequ(dp->d_name, find, ft_strlen(find)))
+			if (ft_strnequ(dp->d_name, find, ft_strlen(find)) && \
+				ft_strcmp(dp->d_name, ".") && ft_strcmp(dp->d_name, ".."))
 				insert(dp->d_name, root, len);
 		}
 		else
