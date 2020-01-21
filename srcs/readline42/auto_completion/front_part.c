@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:46:39 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/21 19:51:31 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/21 20:18:56 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int					print_menu(size_t pos_back, char **menu,
 				buffer_col_print(menu[i], &menu_buf);
 		position_cursor_after_menu_back(len_x, menu_buf.buf_lines,
 			pos_back, g_rline.cmd_len);
+		g_rline.flag |= TAB;
 		return (0);
 	}
 	if (ask_output(total, menu_buf.buf_lines, pos_back, len_x) == 1)
@@ -87,5 +88,14 @@ int					clean_menu(void)
 	putcap("up");
 	g_rline.pos = pos_back;
 	move_cursor_from_old_position(g_rline.cmd_len, 'l');
+	return (0);
+}
+
+int					insert_word_compl(int delete, size_t len_compl,
+						char **menu, size_t tab_level)
+{
+	size_t			len_option;
+
+	len_option = ft_strlen(menu[tab_level]);
 	return (0);
 }
