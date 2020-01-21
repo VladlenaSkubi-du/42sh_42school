@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_completion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/21 17:32:14 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/21 20:18:52 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 ** @g_tablevel is a counter according to that we complete this or that line
 ** from the g_menu
 ** @g_complete - is a string, according to which we search
-** options for completion
-** @g_menu - the full menu for completion
+** options for completion. Can be empty if TAB is pushed before any other key
+** @g_menu - the full menu for completion, all the possible options
 */
 
 size_t				g_tablevel;
 char				*g_complete;
+size_t				g_len_compl;
+int					g_delete;
 char				**g_menu;
 
 char				*path_parse_compl(void)
@@ -41,6 +43,16 @@ char				*path_parse_compl(void)
 /*
 ** @pool = pool of variables: binary-files (1), variables (2),
 ** arguments (3), bell (nothing can be done - 0);
+** @total = total number of options
+** @max_len = maximal length of the option-string within the whole
+** menu array - is needed for the buffer output part
+** @tech_line = is needed for analysis of the g_complete string - 
+** parsing of the g_complete string
+** @delete = by each TAB a word-option is added to the 
+** g_complete part. If this option does not taken by the user and
+** the user pushes TAB to change the option - the old option should
+** be deleted - as many symbols as in @delete variable
+** If there are no options to be auto-completed, there is a bell.
 */
 
 int					auto_completion(void)
@@ -51,38 +63,44 @@ int					auto_completion(void)
 	char			*tech_line;
 
 	pos_back = g_rline.pos;
-	max_len = 0;
-	if (!(g_rline.flag & TAB))
-	{
-		g_complete = fill_complete(pos_back); //по моей логике только в случае, когда в строке нет ничего complete будет пустым, во всех остальных случаях он будет заполненным
-		tech_line = get_techline_compl(g_complete, g_rline.pos);
-		g_menu = route_menu_receipt(tech_line, pos_back, &total, &max_len);
-		if (g_menu == NULL)
-		{
-			free(g_complete);
-			return (incorrect_sequence());
-		}
-		if (print_menu(pos_back, g_menu, total, max_len))
-			return (0);
-		g_rline.flag |= TAB;
-		g_tablevel = 0;
-	}
-	else
+	if (g_rline.flag & TAB)
 	{
 		g_tablevel++;
-		//TODO подстановка слова
+		return (insert_word_compl(g_delete, g_len_compl, g_menu, g_tablevel));
 	}
+	g_complete = fill_complete(pos_back);
+	tech_line = get_techline_compl(g_complete, g_rline.pos);
+	g_menu = route_menu_receipt(tech_line, pos_back, &total, &max_len);
+	if (g_menu == NULL || g_menu[0] == 0)
+	{
+		free(g_complete);
+		return (incorrect_sequence());
+	}
+	if (print_menu(pos_back, g_menu, total, max_len))
+		return (0);
+	g_tablevel = 0;
+	g_delete = 0;
+	g_len_compl = ft_strlen(g_complete);
 	return (0);
 }
+
+/*
+** If the @g_complete line is empty and @pool is 1, menu consists of all
+** the binary-options found in the environmental variable PATH and
+** in the internal list of builtin programs.
+** If @g_complete is not empty and @pool is 1 - the function
+** ft_path_pars returns only those options that match.
+** The same principle for other pools.
+*/
 
 char				**route_menu_receipt(char *tech_line,
 						size_t tech_len, size_t *total, int *max_len)
 {
 	char			**menu;
 	int				pool;
-	int				tmp;
-	int i = 0;	
+	int				tmp;	
 
+	*max_len = 0;
 	if (tech_line == NULL)
 		menu = ft_path_pars("", path_parse_compl(), total, max_len);
 	else
@@ -99,6 +117,11 @@ char				**route_menu_receipt(char *tech_line,
 	}
 	return (menu);
 }
+
+/*
+** Here we take everything that is before the cursor in the string
+** and analyse it after
+*/
 
 char				*fill_complete(size_t pos_back)
 {
@@ -127,7 +150,12 @@ char				*fill_complete(size_t pos_back)
 	return (complete);
 }
 
-int					check_menu(void) //поправить возврат после нажатия символа
+/*
+** After any key except of TAB is pushed, the menu under the line
+** is cleared
+*/
+
+int					check_menu(void)
 {
 	if (g_rline.flag & TAB)
 	{

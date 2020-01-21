@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   question_if_many.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:59:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/21 17:32:12 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/21 17:40:48 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int					ask_output(size_t total, int buf_lines,
 	unsigned short	len;
 	unsigned short	total_len;
 	unsigned short	lines_len;
-	
+
 	count_comment_len(&total_len, &lines_len, total, buf_lines);
 	len = 29 + 16 + 10 + total_len + lines_len;
-	ft_printf("42sh: do you wish to see all %u possibilities (%u lines)? y/n ",
+	ft_printf("42sh: display all %u possibilities (%u lines)? [y or n] ",
 		total, buf_lines);
 	read(STDOUT_FILENO, &c, 1);
 	if (c == 'y' || c == 'Y')
@@ -64,20 +64,20 @@ int					clean_output_question(int from, size_t pos_back,
 	
 	if (len > g_screen.ws_col)
 	{
-	    lines_nb = len / g_screen.ws_col + ((from == 0) ? 1 : 0);
-	    position_cursor("UP", 0, lines_nb);
+		lines_nb = len / g_screen.ws_col + ((from == 0) ? 1 : 0);
+		position_cursor("UP", 0, lines_nb);
 	}
-    if (from == 0)
-    {
-        position_cursor("ch", 0, len_x);
-	    if (len <= g_screen.ws_col)
-		    putcap("up");
-        putcap("cd");
-        g_rline.pos = pos_back;
-	    move_cursor_from_old_position(g_rline.cmd_len, 'l');
-        return (0);
-    }
-    position_cursor("ch", 0, 0);
-    putcap("cd");
+	if (from == 0)
+	{
+		position_cursor("ch", 0, len_x);
+		if (len <= g_screen.ws_col)
+			putcap("up");
+		putcap("cd");
+		g_rline.pos = pos_back;
+		move_cursor_from_old_position(g_rline.cmd_len, 'l');
+		return (0);
+	}
+	position_cursor("ch", 0, 0);
+	putcap("cd");
 	return (0);
 }

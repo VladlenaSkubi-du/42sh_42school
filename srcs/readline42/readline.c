@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:53:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/18 14:25:57 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:43:36 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char	*readline(void)
 	}
 	if (g_rline.cmd_len > 0)
 	{
+		check_menu();
 		position_cursor_for_menu(g_rline.cmd_len);
 		putcap("cd");
 	}
