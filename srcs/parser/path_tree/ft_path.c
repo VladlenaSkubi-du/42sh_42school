@@ -3,25 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/20 14:03:35 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/21 13:10:05 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parser.h"
+#include "parser.h"
 
 /*
 ** Func init t_path element
 */
 
-static void		ft_init_path(char *name_d, t_dirent *dp, t_path **tmp)
+static void		ft_init_path(t_dirent *dp, t_path **tmp)
 {
 	if ((*tmp = (t_path*)malloc(sizeof(t_path))))
 	{
 		(*tmp)->name = ft_strdup(dp->d_name);
-		ft_addpath(name_d, tmp);
 		(*tmp)->prev = NULL;
 		(*tmp)->next = NULL;
 		(*tmp)->flag = 0;
@@ -32,7 +31,7 @@ static void		ft_init_path(char *name_d, t_dirent *dp, t_path **tmp)
 ** Func insert t_path element by *root element if it exist
 */
 
-static int		ft_insert_in(char *name_d, t_path **root, \
+static int		ft_insert_in(t_path **root, \
 				t_path **temp, size_t *len)
 {
 	t_path	*current;
@@ -61,11 +60,11 @@ static int		ft_insert_in(char *name_d, t_path **root, \
 ** Func insert t_path element by *root element in all conditions
 */
 
-static void		insert(char *name_d, t_dirent *dp, t_path **root, size_t *len)
+static void		insert(t_dirent *dp, t_path **root, size_t *len)
 {
 	t_path	*temp;
 
-	ft_init_path(name_d, dp, &temp);
+	ft_init_path(dp, &temp);
 	if (*root == NULL)
 	{
 		*root = temp;
@@ -73,7 +72,7 @@ static void		insert(char *name_d, t_dirent *dp, t_path **root, size_t *len)
 	}
 	else
 	{
-		ft_insert_in(name_d, root, &temp, len);
+		ft_insert_in(root, &temp, len);
 	}
 }
 
@@ -99,7 +98,7 @@ void			ft_get_path(char *name_d, t_path **root, size_t *len, \
 		if ((dp = readdir(dir)) != NULL)
 		{
 			if (ft_strnequ(dp->d_name, find, ft_strlen(find)))
-				insert(name_d, dp, root, len);
+				insert(dp, root, len);
 		}
 		else
 			closedir(dir) == 0 ? dir = NULL : 0;
