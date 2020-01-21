@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/18 18:20:56 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:52:26 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char				**g_shvar;
 ** @AST is "*", @EQUAL = "=", @ENTER is "\n"
 */
 
-typedef enum					e_techline
+enum				e_techline
 {
    SPACE = 1,
    SLASH,
@@ -68,7 +68,7 @@ typedef enum					e_techline
    AST,
    EQUAL,
    ENTER
-}								t_sign_techline;
+}					t_sign_techline;
 
 /*
 ** File environment42.c

@@ -10,15 +10,42 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parser.h"
+#include "parser.h"
 
 /*
 ** Func to find another subblocks
 */
 
-t_ltree		*ft_find_spec(t_ltree *block)
+t_ltree		*ft_find_pipe(t_ltree *block, t_ltree *final)
 {
-	t_ltree *final = NULL;
-	return (block); //need to add subfunctions to detect symbols in block
+	int		i;
+	
+	i = block->start;
+	while (i <= block->end)
+	{
+		if (g_techline.line[i] == PIPE)
+		{
+			final->start = block->start;
+			final->end = i;
+			(block->flags & PIPED_OUT) && (block->flags |= PIPED_IN);
+			(block->flags & PIPED_IN) && (final->flags |= PIPED_IN);
+			final->flags |= PIPED_OUT;
+			block->flags |= PIPED_OUT;
+			return (final);
+		}
+		if (i == block->end)
+		{
+			final->start = block->start;
+			final->end = i;
+			if (block->flags & PIPED_OUT)
+			{
+				final->flags = PIPED_IN;
+				block->flags = PIPED_IN;
+			}
+			return (final);
+		}
+		i++;
+	}
+	return (NULL); //need to add subfunctions to detect symbols in block
 					//using g_techline and rules for all types
 }

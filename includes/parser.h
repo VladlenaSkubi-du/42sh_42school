@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/21 15:46:24 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/21 20:18:54 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int     				ft_slice(void);
 ** File find_spec.c
 */
 
-t_ltree					*ft_find_spec(t_ltree *block);
+t_ltree					*ft_find_pipe(t_ltree *block, t_ltree *final);
 
 /*
 ** Folder path_tree____________________________________________________________
