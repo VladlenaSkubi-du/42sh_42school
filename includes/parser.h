@@ -6,7 +6,7 @@
 /*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/21 13:17:46 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/01/21 13:19:26 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ typedef struct  		s_block
 typedef struct  		s_path
 {
 	char				*name;
-	char				*path;
 	struct s_path		*next;
 	struct s_path		*prev;
 	char				flag;

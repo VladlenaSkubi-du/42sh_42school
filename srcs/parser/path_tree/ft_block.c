@@ -6,11 +6,11 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/20 13:47:35 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/21 13:04:21 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parser.h"
+#include "parser.h"
 
 /*
 ** This func needs to fill path in the struct of file
@@ -29,22 +29,6 @@ char			*ft_take_path(char *dir_name)
 		new = ft_strcat(new, "/");
 	}
 	return (new);
-}
-
-/*
-** Added path info to file.
-*/
-
-void			ft_addpath(char *name, t_path **buf)
-{
-	char		*dir_path;
-
-	dir_path = ft_take_path(name);
-	(*buf)->path = ft_strnew(ft_strlen(name) \
-	+ ft_strlen((*buf)->name) + 1);
-	(*buf)->path = ft_strcpy((*buf)->path, dir_path);
-	(*buf)->path = ft_strcat((*buf)->path, (*buf)->name);
-	free(dir_path);
 }
 
 /*

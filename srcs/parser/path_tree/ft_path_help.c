@@ -6,11 +6,11 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:57:07 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/20 13:22:55 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/21 13:10:05 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parser.h"
+#include "parser.h"
 
 /*
 ** Functions to insert t_path element prev or next
@@ -52,7 +52,6 @@ int	ft_path_free(t_path **root)
 	{
 		ft_path_free(&((*root)->next));
 		free((*root)->name);
-		free((*root)->path);
 		ft_path_free(&((*root)->prev));
 		free(*root);
 	}
