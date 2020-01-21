@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/21 15:18:51 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/01/21 15:46:24 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,7 @@ typedef struct stat		t_stat;
 # define PIPED_OUT 0x01
 # define PIPED_IN 0x02
 # define REDIRECTION 0x04
-/*
-** List of builtins to use in autocompletion
-*/
 
-char					**buildins = {"alias", "unalias", \
-					"hash", "set", "unset", "export", \
-			"cd", "exit", "echo", "type", "fg", "bg", "jobs", "fc", NULL};
 /*
 ** Struct to save and work with techline
 */
@@ -56,6 +50,10 @@ typedef struct  		s_tech
    char					*line;
    size_t				len;
 }               		t_tech;
+
+static char				*g_buildins[] = {"alias", "unalias", \
+	"hash", "set", "unset", "export", \
+	"cd", "exit", "echo", "type", "fg", "bg", "jobs", "fc", NULL};
 
 /*
 ** Struct to work with lextree
@@ -154,6 +152,7 @@ t_ltree					*ft_find_spec(t_ltree *block);
 char					**ft_path_pars(char *find, char *path, size_t *total, int *size_max);
 void					ft_get_path(char *name, t_path **root,
 							size_t *len, char *find);
+void					insert(char *dp_name, t_path **root, size_t *len);
 
 /*
 ** File ft_path_help.c
@@ -164,7 +163,7 @@ int						ft_insert_prev(t_path **current,
 int						ft_insert_next(t_path **current,
 							t_path **parent, t_path **temp, size_t *len);
 int						ft_path_free(t_path **root);
-int						ft_input_buildins(char **root, size_t *len, char *find);
+int						ft_input_buildins(t_path **root, size_t *len, char *find);
 
 /*
 ** File ft_block.c funcs to add and spend massive char **str of exe files
