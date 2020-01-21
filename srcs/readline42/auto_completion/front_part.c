@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:46:39 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/20 19:50:32 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:40:52 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,34 +33,49 @@ int					print_menu(size_t pos_back, char **menu,
 	unsigned short	len_x;
 	size_t			i;
 
-	// tab_push = (g_rline.flag & TAB) ? tab_push + 1 : -1;
-	// g_rline.flag |= TAB;
 	i = -1;
 	position_relative(&len_x, 0, g_rline.cmd_len);
 	position_cursor_for_menu(g_rline.cmd_len);
 	menu_buf = menu_buf_init(total, max_len);
-	while (++i < menu_buf.word_nb)
+	if (g_screen.ws_row - g_rline.str_num >= menu_buf.buf_lines)
 	{
-		if (menu[i] && menu[i][0] && !(menu[i][0] == '.'))
-			buffer_col_print(menu[i], &menu_buf);
+		while (++i < menu_buf.word_nb)
+			if (menu[i] && menu[i][0] && !(menu[i][0] == '.'))
+				buffer_col_print(menu[i], &menu_buf);
+		position_cursor_after_menu_back(len_x, menu_buf.buf_lines,
+			pos_back, g_rline.cmd_len);
+		return (0);
 	}
-	position_cursor_after_menu_back(len_x, menu_buf.buf_lines,
-		pos_back, g_rline.cmd_len);
+	if (ask_output(total, menu_buf.buf_lines, pos_back, len_x) == 1)
+		return (1);
+	while (++i < menu_buf.word_nb)
+		if (menu[i] && menu[i][0])
+			buffer_col_print(menu[i], &menu_buf);
+	after_big_menu(pos_back, len_x);
+	return (0);
+}
+
+int					after_big_menu(size_t pos_back, unsigned short len_x)
+{
+	ft_putchar_fd('\n', STDOUT_FILENO);
+	g_rline.pos = 0;
+	position_cursor("ch", 0, 0);
+	g_rline.pos = pos_back;
+	g_prompt.prompt_func();
+	ft_putstr_fd(g_rline.cmd, 1);
+	move_cursor_back_after_print(0);
 	return (0);
 }
 
 int					clean_menu(void)
 {
 	size_t			pos_back;
-	unsigned short	len_x;
 
 	pos_back = g_rline.pos;
 	position_cursor_for_menu(g_rline.cmd_len);
 	putcap("cd");
-	// position_relative(&len_x, 0, g_rline.cmd_len);
-	// putcap("up");
-	// position_cursor("ch", 0, len_x);
-	// g_rline.pos = pos_back;
-	// move_cursor_from_old_position(g_rline.cmd_len, 'l');
+	putcap("up");
+	g_rline.pos = pos_back;
+	move_cursor_from_old_position(g_rline.cmd_len, 'l');
 	return (0);
 }

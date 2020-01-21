@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/20 18:00:15 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:24:14 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 
 # define CMD_SIZE	5
 # define TAB		0x1
+# define MENU		0x2
 
 /*
 ** @t_rline is for the whole readline part:
@@ -109,6 +110,7 @@ typedef struct					s_prompt
 
 t_rline							g_rline;
 t_prompt						g_prompt;
+// t_completion					g_menu_buf;
 struct winsize					g_screen;
 // struct termios					g_tty; //TODO убрать, если
 struct termios					g_backup_tty;
@@ -295,6 +297,7 @@ int								yank_insert(char *yank_str,
 */
 
 int             				auto_completion(void);
+char							*path_parse_compl(void);
 char							*fill_complete(size_t pos_back);
 char							**route_menu_receipt(char *tech_line,
 									size_t tech_len, size_t *total,
@@ -325,7 +328,21 @@ char            				**get_arguments(char *complete,
 
 int								print_menu(size_t pos_back, char **menu,
 									size_t total, int max_len);
+int								after_big_menu(size_t pos_back,
+									unsigned short len_x);
 int								clean_menu(void);
+
+/*
+** File question_if_many.c
+*/
+
+int								ask_output(size_t total, int buf_lines,
+									size_t pos_back, unsigned short len_x);
+int								count_comment_len(unsigned short *total_len,
+									unsigned short *lines_len,
+									size_t total, int buf_lines);
+int								clean_output_question(int from, size_t pos_back,
+									unsigned short len, unsigned short len_x);
 
 /*
 ** File cursor_position_completion.c
