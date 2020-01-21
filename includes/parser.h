@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/21 14:46:10 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/01/21 15:15:45 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,20 @@
 typedef struct dirent	t_dirent;
 typedef struct stat		t_stat;
 
+/*
+** Defines for FLAGS
+*/
+
+# define PIPED_OUTPUT 0x01
+# define PIPED_INPUT 0x02
+# define REDIRECTION 0x04
+/*
+** List of builtins to use in autocompletion
+*/
+
+char					**buildins = {"alias", "unalias", \
+					"hash", "set", "unset", "export", \
+			"cd", "exit", "echo", "type", "fg", "bg", "jobs", "fc", NULL};
 /*
 ** Struct to save and work with techline
 */
@@ -150,6 +164,7 @@ int						ft_insert_prev(t_path **current,
 int						ft_insert_next(t_path **current,
 							t_path **parent, t_path **temp, size_t *len);
 int						ft_path_free(t_path **root);
+int						ft_input_buildins(char **root, size_t *len, char *find);
 
 /*
 ** File ft_block.c funcs to add and spend massive char **str of exe files

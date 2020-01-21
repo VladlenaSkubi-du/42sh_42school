@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/21 13:10:05 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/21 15:05:43 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 ** Func init t_path element
 */
 
-static void		ft_init_path(t_dirent *dp, t_path **tmp)
+static void		ft_init_path(char *dp_name, t_path **tmp)
 {
 	if ((*tmp = (t_path*)malloc(sizeof(t_path))))
 	{
-		(*tmp)->name = ft_strdup(dp->d_name);
+		(*tmp)->name = ft_strdup(dp_name);
 		(*tmp)->prev = NULL;
 		(*tmp)->next = NULL;
 		(*tmp)->flag = 0;
@@ -60,11 +60,11 @@ static int		ft_insert_in(t_path **root, \
 ** Func insert t_path element by *root element in all conditions
 */
 
-static void		insert(t_dirent *dp, t_path **root, size_t *len)
+static void		insert(char *dp_name, t_path **root, size_t *len)
 {
 	t_path	*temp;
 
-	ft_init_path(dp, &temp);
+	ft_init_path(dp_name, &temp);
 	if (*root == NULL)
 	{
 		*root = temp;
@@ -98,7 +98,7 @@ void			ft_get_path(char *name_d, t_path **root, size_t *len, \
 		if ((dp = readdir(dir)) != NULL)
 		{
 			if (ft_strnequ(dp->d_name, find, ft_strlen(find)))
-				insert(dp, root, len);
+				insert(dp->d_name, root, len);
 		}
 		else
 			closedir(dir) == 0 ? dir = NULL : 0;
@@ -121,6 +121,7 @@ char			**ft_path_pars(char *find, char *path, size_t *total, int *max)
 	len = 0;
 	root = NULL;
 	list = ft_strsplit(path, ':');
+	ft_input_buildins(&root, &len, find);
 	while (list[i])
 	{
 		ft_get_path(list[i], &root, &len, find);
