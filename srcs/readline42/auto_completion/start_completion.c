@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/20 19:59:59 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:40:04 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t				g_tablevel;
 char				*g_complete;
 char				**g_menu;
 
-static char			*path_parse(void)
+char				*path_parse_compl(void)
 {
 	size_t			i;
 
@@ -35,7 +35,6 @@ static char			*path_parse(void)
 			return (g_env[i] + 5);
 		i++;
 	}
-	//список builtin и измерение самого длинного слова + общее количество
 	return (NULL);
 }
 
@@ -51,8 +50,6 @@ int					auto_completion(void)
 	int				max_len;
 	char			*tech_line;
 
-	int i = 0;
-
 	pos_back = g_rline.pos;
 	max_len = 0;
 	if (!(g_rline.flag & TAB))
@@ -65,13 +62,8 @@ int					auto_completion(void)
 			free(g_complete);
 			return (incorrect_sequence());
 		}
-		print_menu(pos_back, g_menu, total, max_len);
-		
-		// while (i < total)
-		// {
-		// 	printf("%s\n", g_menu[i]);
-		// 	i++;
-		// }
+		if (print_menu(pos_back, g_menu, total, max_len))
+			return (0);
 		g_rline.flag |= TAB;
 		g_tablevel = 0;
 	}
@@ -88,17 +80,22 @@ char				**route_menu_receipt(char *tech_line,
 {
 	char			**menu;
 	int				pool;
-	int				tmp;		
+	int				tmp;
+	int i = 0;	
 
 	if (tech_line == NULL)
-		menu = ft_path_pars("", path_parse(), total, max_len);
+	{
+		menu = ft_path_pars("", path_parse_compl(), total, max_len);
+		// while (i < 20)
+		// 	printf("%s\n", menu[i++]);
+	}
 	else
 	{
 		if ((tmp = analyse_techline_compl(tech_line, tech_len, &pool)) == 0)
 			return (NULL);
 		if (pool == 1)
 			menu = ft_path_pars(g_complete + tmp - 1,
-				path_parse(), total, max_len);
+				path_parse_compl(), total, max_len);
 		else if (pool == 2)
 			menu = get_variables(g_complete + tmp - 1, total, max_len);
 		else
@@ -138,10 +135,12 @@ int					check_menu(void) //поправить возврат после нажа
 {
 	if (g_rline.flag & TAB)
 	{
-		clean_menu();
+		if (g_rline.flag & MENU)
+			clean_menu();
 		free(g_complete);
 		ft_arrdel(g_menu);
 		g_rline.flag &= ~TAB;
+		(g_rline.flag & MENU) ? g_rline.flag &= ~MENU : 0;
 		g_tablevel = 0;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 16:43:04 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/01/20 18:08:16 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/21 15:07:29 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,9 @@ t_completion			menu_buf_init(size_t total, int max_len)
 	max_len = (max_len == 8) ? (max_len)++ : max_len;
 	while (max_len % 8 != 0)
 		max_len++;
-	menu_buf.word_len = max_len;
+	menu_buf.word_len = max_len + 1;
 	menu_buf.word_nb = total;
 	menu_buf.i = 0;
+	buffer_col_calc(&menu_buf);
 	return (menu_buf);
 }
