@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_completion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/21 16:40:04 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:32:14 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,7 @@ char				**route_menu_receipt(char *tech_line,
 	int i = 0;	
 
 	if (tech_line == NULL)
-	{
 		menu = ft_path_pars("", path_parse_compl(), total, max_len);
-		// while (i < 20)
-		// 	printf("%s\n", menu[i++]);
-	}
 	else
 	{
 		if ((tmp = analyse_techline_compl(tech_line, tech_len, &pool)) == 0)
