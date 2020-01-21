@@ -154,8 +154,8 @@ int	exec_core(char **exec_av, int flags)
 	{
 		/* ALSO check for builtins, pipes and redirections... Darn, that's a lot! */
 //		using_pipe ? dup2(p[1], 1);
-		(flags & PIPED_OUT) && dup2(p[1], 1);
-		(flags & PIPED_IN) && dup2(p[0], 0);
+		(flags & PIPED_OUT) && dup2(pipe_fd[1], 1);
+		(flags & PIPED_IN) && dup2(pipe_fd[0], 0);
 		if (execve(path, exec_av, g_env) == -1)
 			exit(-1);
 	}

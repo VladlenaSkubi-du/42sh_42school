@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hshawand <hshawand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/21 15:15:45 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/21 15:18:51 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ typedef struct stat		t_stat;
 ** Defines for FLAGS
 */
 
-# define PIPED_OUTPUT 0x01
-# define PIPED_INPUT 0x02
+# define PIPED_OUT 0x01
+# define PIPED_IN 0x02
 # define REDIRECTION 0x04
 /*
 ** List of builtins to use in autocompletion
