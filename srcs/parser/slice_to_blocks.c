@@ -15,22 +15,24 @@
 int			ft_block_start_fg(t_ltree *block)
 {
 	t_ltree	*sub;
+	t_ltree	final;
 
-//	while ((sub = ft_find_spec(block)))
-//	{
-		exec_init(block); //start in foreground TODO: Check return, change to sub later
-//	}
+	while ((sub = ft_find_pipe(block, &final)))
+	{
+		exec_init(sub); //start in foreground TODO: Check return, change to sub later
+		block->start = sub->end + 1;
+	}
 	return (0);
 }
 
 int			ft_block_start_bg(t_ltree *block)
 {
-	t_ltree	*sub;
+	// t_ltree	*sub;
 
-	while ((sub = ft_find_spec(block)))
-	{
-		//start in background
-	}
+	// while ((sub = ft_find_pipe(block, &final)))
+	// {
+	// 	//start in background
+	// }
 	return (0);
 }
 
