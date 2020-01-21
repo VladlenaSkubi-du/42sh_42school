@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:46:39 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/21 16:40:52 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/21 19:51:31 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@
 **
 ** @menu_lines_num we need to understand how high we need to jump
 ** to the end of the cmd-line after the menu-printing
-**
-** @sf_i - counter of how much we printed "sf"
-** The back-part: menu-buffer is filled in in the output_buffer.c file
 */
 
 int					print_menu(size_t pos_back, char **menu,
@@ -55,17 +52,30 @@ int					print_menu(size_t pos_back, char **menu,
 	return (0);
 }
 
+/*
+** After printing some kind of big menu (the number of lines is bigger
+** than the space left in the terminal) the behavior is as in bash - 
+** printing new prompt and the line without any changes
+*/
+
 int					after_big_menu(size_t pos_back, unsigned short len_x)
 {
-	ft_putchar_fd('\n', STDOUT_FILENO);
+	putcap("sf");
 	g_rline.pos = 0;
 	position_cursor("ch", 0, 0);
 	g_rline.pos = pos_back;
 	g_prompt.prompt_func();
 	ft_putstr_fd(g_rline.cmd, 1);
 	move_cursor_back_after_print(0);
+	g_rline.flag &= ~TAB;
+	g_rline.flag &= ~MENU;
 	return (0);
 }
+
+/*
+** After any key except of TAB is pushed, the menu under the line
+** is cleared
+*/
 
 int					clean_menu(void)
 {

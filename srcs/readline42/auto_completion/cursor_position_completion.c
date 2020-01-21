@@ -6,13 +6,11 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:51:01 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/21 15:12:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/21 19:52:33 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
-
-int					g_sf_i;
 
 int					position_cursor_for_menu(size_t len)
 {
@@ -36,8 +34,12 @@ int					position_cursor_for_menu(size_t len)
 int					position_cursor_after_menu_back(unsigned short len_x,
 						int buf_lines, size_t pos_back, size_t len)
 {
+	size_t			i;
+	
+	i = -1;
 	position_cursor("ch", 0, len_x);
-	position_cursor("UP", 0, buf_lines);
+	while (++i < buf_lines)
+		putcap("sr");
 	g_rline.pos = pos_back;
 	move_cursor_from_old_position(len, 'l');
 	return (0);

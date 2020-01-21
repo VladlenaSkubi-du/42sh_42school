@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 16:43:04 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/01/21 15:07:29 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:26:11 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,14 @@ void				buffer_col_finish_and_del(t_completion *menu_buf)
 	size_t			i;
 
 	i = -1;
-	while (++i < menu_buf->buf_lines)
+	while (++i < menu_buf->buf_lines - 1)
 	{
 		buf_add(menu_buf->buffer[i], menu_buf->buf_width);
 		buf_add("\n", 1);
 		free(menu_buf->buffer[i]);
 	}
+	buf_add(menu_buf->buffer[i], menu_buf->buf_width);
+	free(menu_buf->buffer[i]);
 	free(menu_buf->buffer);
 	menu_buf->buffer = NULL;
 }
