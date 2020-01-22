@@ -139,35 +139,37 @@ char	*path_init(char **exec_av)
 ** 2) If only PIPED_IN -- delete pipe
 */
 
+/*
+** consider changing architecture to... well, something else
+*/
+
 int	exec_core(char **exec_av, int flags)
 {
 	pid_t			child_pid;
 	char			*path;
-	static int		pipe_fd[2];
+	static int		pipe_prev;
+	static int		pipe_next[2];
 
-	if ((flags & PIPED_OUT & ~PIPED_IN) && pipe(pipe_fd) == -1)
-		return (-1);
+	(flags & PIPED_IN) && (pipe_prev = pipe_next[0]);
+	if ((flags & PIPED_OUT) && pipe(pipe_next) == -1)
+			return (-1);
 	if (!(path = path_init(exec_av)))
 		return (-1);
 	child_pid = fork();
 	if (!child_pid)
 	{
-		/* ALSO check for builtins, pipes and redirections... Darn, that's a lot! */
-//		using_pipe ? dup2(p[1], 1);
-		(flags & PIPED_OUT) && dup2(pipe_fd[1], 1);
-		(flags & PIPED_IN) && dup2(pipe_fd[0], 0);
+		(flags & PIPED_OUT) && dup2(pipe_next[1], 1);
+		(flags & PIPED_IN) && dup2(pipe_prev, 0);
 		if (execve(path, exec_av, g_env) == -1)
 			exit(-1);
 	}
 	else if (child_pid < 0)
 		return (-1);
 	wait(&child_pid);
+	(flags & PIPED_OUT) && close(pipe_next[1]);
+	(flags & PIPED_IN) && close(pipe_prev);
 	free(path);
 	free_vec(exec_av);
-	if (flags & PIPED_IN & ~PIPED_OUT)
-	{
-		close(pipe_fd[0]);
-		close(pipe_fd[1]);
-	}
+
 	return (0);
 }
