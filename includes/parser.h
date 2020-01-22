@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/21 20:18:54 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/22 17:14:15 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct stat		t_stat;
 # define PIPED_OUT 0x01
 # define PIPED_IN 0x02
 # define REDIRECTION 0x04
+# define LOG_AND 0x08
+# define LOG_OR 0x10
 
 /*
 ** Struct to save and work with techline
@@ -50,10 +52,6 @@ typedef struct  		s_tech
    char					*line;
    size_t				len;
 }               		t_tech;
-
-static char				*g_buildins[] = {"alias", "unalias", \
-	"hash", "set", "unset", "export", \
-	"cd", "exit", "echo", "type", "fg", "bg", "jobs", "fc", NULL};
 
 /*
 ** Struct to work with lextree
@@ -139,7 +137,8 @@ int     				ft_slice(void);
 ** File find_spec.c
 */
 
-t_ltree					*ft_find_pipe(t_ltree *block, t_ltree *final);
+t_ltree					*ft_find_pipe(t_ltree *block, t_ltree *final, int *i);
+t_ltree					*ft_find_logic(t_ltree *block, t_ltree *final);
 
 /*
 ** Folder path_tree____________________________________________________________

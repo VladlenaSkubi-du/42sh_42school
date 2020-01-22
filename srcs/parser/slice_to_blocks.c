@@ -18,11 +18,10 @@ int	ft_block_start_fg(t_ltree *block)
 	t_ltree	final;
 
 	block->flags = 0;
-	while ((sub = ft_find_pipe(block, &final)))
+	while ((sub = ft_find_logic(block, &final)))
 	{
 		exec_init(sub);
 		block->start = sub->end + 1;
-		printf("%#X flags \n", block->flags);
 	}
 	return (0);
 }
@@ -59,7 +58,7 @@ int	ft_slice(void)
 			ft_block_start_fg(&block);
 			block.start = i + 1;
 		}
-		if (g_techline.line[i] == 4)
+		if (g_techline.line[i] == 4 && g_techline.line[i + 1] != 4)
 		{
 			block.end = i;
 			ft_block_start_bg(&block);
