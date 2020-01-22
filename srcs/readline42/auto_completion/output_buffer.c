@@ -6,17 +6,17 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 16:43:04 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/01/22 16:54:30 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/22 19:16:21 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
 #define OUT_BUF 10
 
-void				buf_add(char *str, size_t size)
+void					buf_add(char *str, size_t size)
 {
-	static char		buf[OUT_BUF];
-	static char		*ptr = buf;
+	static char			buf[OUT_BUF];
+	static char			*ptr = buf;
 
 	if (!str && !size)
 	{
@@ -36,10 +36,10 @@ void				buf_add(char *str, size_t size)
 	}
 }
 
-int					buffer_col_print(char *add, t_completion *menu_buf)
+int						buffer_col_print(char *add, t_completion *menu_buf)
 {
-	size_t			len;
-	
+	size_t				len;
+
 	len = ft_strlen(add);
 	if (!menu_buf->buffer)
 		buffer_col_calc(menu_buf);
@@ -54,9 +54,9 @@ int					buffer_col_print(char *add, t_completion *menu_buf)
 	return (0);
 }
 
-void				buffer_col_calc(t_completion *menu_buf)
+void					buffer_col_calc(t_completion *menu_buf)
 {
-	size_t			i;
+	size_t				i;
 
 	menu_buf->buf_width = (g_screen.ws_col / menu_buf->word_len) *
 		menu_buf->word_len + 1;
@@ -71,27 +71,23 @@ void				buffer_col_calc(t_completion *menu_buf)
 		menu_buf->buffer[i] = (char*)ft_xmalloc(menu_buf->buf_width + 1);
 }
 
-void				buffer_col_finish(t_completion *menu_buf)
+void					buffer_col_finish(t_completion *menu_buf)
 {
-	size_t			i;
+	size_t				i;
 
 	i = -1;
 	while (++i < menu_buf->buf_lines - 1)
 	{
 		buf_add(menu_buf->buffer[i], menu_buf->buf_width);
 		buf_add("\n", 1);
-		// free(menu_buf->buffer[i]);
 	}
 	buf_add(menu_buf->buffer[i], menu_buf->buf_width);
-	// free(menu_buf->buffer[i]);
-	// free(menu_buf->buffer);
-	// menu_buf->buffer = NULL;
 }
 
 t_completion			menu_buf_init(size_t total, int max_len)
 {
 	t_completion		menu_buf;
-	
+
 	menu_buf.buffer = NULL;
 	menu_buf.buf_lines = 0;
 	menu_buf.buf_width = 0;

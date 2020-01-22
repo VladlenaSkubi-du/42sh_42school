@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:46:39 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/22 16:58:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/22 19:13:17 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int					print_menu(size_t pos_back, char **menu,
 int					print_menu_buf_after_insert(size_t pos_back)
 {
 	unsigned short	len_x;
-	
+
 	position_relative(&len_x, 0, g_rline.cmd_len);
 	position_cursor_for_menu(g_rline.cmd_len);
 	buffer_col_finish(&g_menu_buf);
@@ -68,7 +68,7 @@ int					print_menu_buf_after_insert(size_t pos_back)
 
 /*
 ** After printing some kind of big menu (the number of lines is bigger
-** than the space left in the terminal) the behavior is as in bash - 
+** than the space left in the terminal) the behavior is as in bash -
 ** printing new prompt and the line without any changes
 */
 
@@ -107,7 +107,7 @@ int					clean_menu(void)
 int					clean_menu_buf(void)
 {
 	size_t			i;
-	
+
 	i = -1;
 	while (++i < g_menu_buf.buf_lines)
 		free(g_menu_buf.buffer[i]);

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:51:01 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/22 12:06:13 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/22 19:12:07 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int					position_cursor_after_menu_back(unsigned short len_x,
 						int buf_lines, size_t pos_back, size_t len)
 {
 	size_t			i;
-	
+
 	i = -1;
 	position_cursor("ch", 0, len_x);
 	while (++i < buf_lines)
