@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 13:04:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/22 17:16:36 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/22 18:24:35 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 t_ltree		*ft_find_logic(t_ltree *block, t_ltree *final)
 {
-	int 	i;
-	t_ltree buf;
+	int		i;
+	t_ltree	buf; //переместить buf выше по функции и продумать работу с блоком до конца блока
 
 	i = block->start;
 	final->flags = 0;
