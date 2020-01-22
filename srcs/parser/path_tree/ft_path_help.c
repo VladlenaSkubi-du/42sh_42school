@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path_help.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/17 15:57:07 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/21 17:03:57 by rbednar          ###   ########.fr       */
+/*   Created: 2020/01/22 16:54:47 by rbednar           #+#    #+#             */
+/*   Updated: 2020/01/22 16:54:55 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
+static char	*g_buildins[] = {"alias", "unalias", \
+	"hash", "set", "unset", "export", \
+	"cd", "exit", "echo", "type", "fg", "bg", "jobs", "fc", NULL};
 /*
 ** Functions to insert t_path element prev or next
 */
 
-int	ft_insert_prev(t_path **current, t_path **parent, \
+int			ft_insert_prev(t_path **current, t_path **parent, \
 	t_path **temp, size_t *len)
 {
 	*current = (*current)->prev;
@@ -29,7 +32,7 @@ int	ft_insert_prev(t_path **current, t_path **parent, \
 	return (1);
 }
 
-int	ft_insert_next(t_path **current, t_path **parent, \
+int			ft_insert_next(t_path **current, t_path **parent, \
 	t_path **temp, size_t *len)
 {
 	*current = (*current)->next;
@@ -46,7 +49,7 @@ int	ft_insert_next(t_path **current, t_path **parent, \
 ** Input buildins to tree
 */
 
-int	ft_input_buildins(t_path **root, size_t *len, char *find)
+int			ft_input_buildins(t_path **root, size_t *len, char *find)
 {
 	int		i;
 	size_t	str_len;
@@ -66,7 +69,7 @@ int	ft_input_buildins(t_path **root, size_t *len, char *find)
 ** Function to free tree t_path
 */
 
-int	ft_path_free(t_path **root)
+int			ft_path_free(t_path **root)
 {
 	if (root != NULL && *root != NULL)
 	{
