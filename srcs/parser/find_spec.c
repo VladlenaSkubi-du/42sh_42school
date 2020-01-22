@@ -21,6 +21,7 @@ t_ltree		*ft_find_pipe(t_ltree *block, t_ltree *final)
 	int		i;
 	
 	i = block->start;
+	final->flags = 0;
 	while (i <= block->end)
 	{
 		if (g_techline.line[i] == PIPE)
