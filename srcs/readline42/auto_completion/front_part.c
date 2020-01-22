@@ -6,11 +6,13 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:46:39 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/21 20:18:56 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:58:55 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
+
+t_completion		g_menu_buf;
 
 /*
 ** The front-part: we put cursor to the end of the line -
@@ -26,30 +28,41 @@
 int					print_menu(size_t pos_back, char **menu,
 						size_t total, int max_len)
 {
-	t_completion	menu_buf;
 	unsigned short	len_x;
 	size_t			i;
 
 	i = -1;
 	position_relative(&len_x, 0, g_rline.cmd_len);
 	position_cursor_for_menu(g_rline.cmd_len);
-	menu_buf = menu_buf_init(total, max_len);
-	if (g_screen.ws_row - g_rline.str_num >= menu_buf.buf_lines)
+	g_menu_buf = menu_buf_init(total, max_len);
+	if (g_screen.ws_row - g_rline.str_num >= g_menu_buf.buf_lines)
 	{
-		while (++i < menu_buf.word_nb)
+		while (++i < g_menu_buf.word_nb)
 			if (menu[i] && menu[i][0] && !(menu[i][0] == '.'))
-				buffer_col_print(menu[i], &menu_buf);
-		position_cursor_after_menu_back(len_x, menu_buf.buf_lines,
+				buffer_col_print(menu[i], &g_menu_buf);
+		position_cursor_after_menu_back(len_x, g_menu_buf.buf_lines,
 			pos_back, g_rline.cmd_len);
 		g_rline.flag |= TAB;
 		return (0);
 	}
-	if (ask_output(total, menu_buf.buf_lines, pos_back, len_x) == 1)
+	if (ask_output(total, g_menu_buf.buf_lines, pos_back, len_x) == 1)
 		return (1);
-	while (++i < menu_buf.word_nb)
+	while (++i < g_menu_buf.word_nb)
 		if (menu[i] && menu[i][0])
-			buffer_col_print(menu[i], &menu_buf);
+			buffer_col_print(menu[i], &g_menu_buf);
 	after_big_menu(pos_back, len_x);
+	return (0);
+}
+
+int					print_menu_buf_after_insert(size_t pos_back)
+{
+	unsigned short	len_x;
+	
+	position_relative(&len_x, 0, g_rline.cmd_len);
+	position_cursor_for_menu(g_rline.cmd_len);
+	buffer_col_finish(&g_menu_buf);
+	position_cursor_after_menu_back(len_x, g_menu_buf.buf_lines,
+		pos_back, g_rline.cmd_len);
 	return (0);
 }
 
@@ -69,7 +82,6 @@ int					after_big_menu(size_t pos_back, unsigned short len_x)
 	ft_putstr_fd(g_rline.cmd, 1);
 	move_cursor_back_after_print(0);
 	g_rline.flag &= ~TAB;
-	g_rline.flag &= ~MENU;
 	return (0);
 }
 
@@ -88,14 +100,18 @@ int					clean_menu(void)
 	putcap("up");
 	g_rline.pos = pos_back;
 	move_cursor_from_old_position(g_rline.cmd_len, 'l');
+	clean_menu_buf();
 	return (0);
 }
 
-int					insert_word_compl(int delete, size_t len_compl,
-						char **menu, size_t tab_level)
+int					clean_menu_buf(void)
 {
-	size_t			len_option;
-
-	len_option = ft_strlen(menu[tab_level]);
+	size_t			i;
+	
+	i = -1;
+	while (++i < g_menu_buf.buf_lines)
+		free(g_menu_buf.buffer[i]);
+	free(g_menu_buf.buffer);
+	g_menu_buf.buffer = NULL;
 	return (0);
 }

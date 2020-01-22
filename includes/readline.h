@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/21 20:20:19 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:59:55 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 
 # define CMD_SIZE	5
 # define TAB		0x1
-# define MENU		0x2
 
 /*
 ** @t_rline is for the whole readline part:
@@ -232,6 +231,7 @@ t_action_stack					*action_new(void);
 */
 
 int								backspace_process(void);
+int								delete_till_compl(size_t len_compl, size_t delete);
 int								delete_process(void);
 int								esc_r(void);
 
@@ -297,11 +297,11 @@ int								yank_insert(char *yank_str,
 */
 
 int             				auto_completion(void);
-char							*path_parse_compl(void);
 char							*fill_complete(size_t pos_back);
 char							**route_menu_receipt(char *tech_line,
 									size_t tech_len, size_t *total,
 									int *max_len);
+int								insert_word_compl(void);
 int								check_menu(void);
 
 /*
@@ -321,6 +321,7 @@ char            				**get_variables(char *complete,
 									size_t *total, int *max_len);
 char            				**get_arguments(char *complete,
 									size_t *total, int *max_len);
+char							*path_parse_compl(void);
 
 /*
 ** File front_part.c
@@ -330,9 +331,9 @@ int								print_menu(size_t pos_back, char **menu,
 									size_t total, int max_len);
 int								after_big_menu(size_t pos_back,
 									unsigned short len_x);
+int								print_menu_buf_after_insert(size_t pos_back);
 int								clean_menu(void);
-int								insert_word_compl(int delete, size_t len_compl, char **menu,
-									size_t tab_level);
+int								clean_menu_buf(void);
 
 /*
 ** File question_if_many.c
@@ -364,8 +365,7 @@ t_completion					menu_buf_init(size_t total, int max_len);
 int								buffer_col_print(char *add,
 									t_completion *menu_buf);
 void							buffer_col_calc(t_completion *menu_buf);
-void							buffer_col_finish_and_del
-									(t_completion *menu_buf);
+void							buffer_col_finish(t_completion *menu_buf);
 void							buf_add(char *str, size_t size);
 
 

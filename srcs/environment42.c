@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:45:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/20 14:56:29 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:49:45 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ int					save_shell_variables(void)
 	num = 10;
 	g_shvar = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
 	g_shvar[num] = NULL;
+	
 	return (0);
 }

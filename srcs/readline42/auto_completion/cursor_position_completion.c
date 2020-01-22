@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:51:01 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/21 19:52:33 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:06:13 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int					position_cursor_for_menu(size_t len)
 {
 	size_t			pos_old;
 
-	g_rline.flag |= MENU;
 	pos_old = g_rline.pos;
 	if (g_rline.pos == 0 && len == 0)
 		putcap("sf");

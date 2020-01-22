@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 16:43:04 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/01/21 18:26:11 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:54:30 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int					buffer_col_print(char *add, t_completion *menu_buf)
 		+ (menu_buf->i / menu_buf->buf_lines * menu_buf->word_len) + len,
 		' ', menu_buf->word_len - len);
 	if (menu_buf->i++ == menu_buf->word_nb - 1)
-		buffer_col_finish_and_del(menu_buf);
+		buffer_col_finish(menu_buf);
 	return (0);
 }
 
@@ -71,7 +71,7 @@ void				buffer_col_calc(t_completion *menu_buf)
 		menu_buf->buffer[i] = (char*)ft_xmalloc(menu_buf->buf_width + 1);
 }
 
-void				buffer_col_finish_and_del(t_completion *menu_buf)
+void				buffer_col_finish(t_completion *menu_buf)
 {
 	size_t			i;
 
@@ -80,12 +80,12 @@ void				buffer_col_finish_and_del(t_completion *menu_buf)
 	{
 		buf_add(menu_buf->buffer[i], menu_buf->buf_width);
 		buf_add("\n", 1);
-		free(menu_buf->buffer[i]);
+		// free(menu_buf->buffer[i]);
 	}
 	buf_add(menu_buf->buffer[i], menu_buf->buf_width);
-	free(menu_buf->buffer[i]);
-	free(menu_buf->buffer);
-	menu_buf->buffer = NULL;
+	// free(menu_buf->buffer[i]);
+	// free(menu_buf->buffer);
+	// menu_buf->buffer = NULL;
 }
 
 t_completion			menu_buf_init(size_t total, int max_len)
