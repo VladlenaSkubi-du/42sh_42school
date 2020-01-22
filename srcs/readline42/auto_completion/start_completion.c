@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/21 20:18:52 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:56:46 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,9 @@
 size_t				g_tablevel;
 char				*g_complete;
 size_t				g_len_compl;
-int					g_delete;
+size_t				g_delete;
 char				**g_menu;
-
-char				*path_parse_compl(void)
-{
-	size_t			i;
-
-	i = 0;
-	while (g_env[i])
-	{
-		if (ft_strncmp(g_env[i], "PATH=", 5) == 0)
-			return (g_env[i] + 5);
-		i++;
-	}
-	return (NULL);
-}
+size_t				g_total;
 
 /*
 ** @pool = pool of variables: binary-files (1), variables (2),
@@ -58,7 +45,6 @@ char				*path_parse_compl(void)
 int					auto_completion(void)
 {
 	size_t			pos_back;
-	size_t			total;
 	int				max_len;
 	char			*tech_line;
 
@@ -66,17 +52,18 @@ int					auto_completion(void)
 	if (g_rline.flag & TAB)
 	{
 		g_tablevel++;
-		return (insert_word_compl(g_delete, g_len_compl, g_menu, g_tablevel));
+		insert_word_compl();
+		return (0);
 	}
 	g_complete = fill_complete(pos_back);
 	tech_line = get_techline_compl(g_complete, g_rline.pos);
-	g_menu = route_menu_receipt(tech_line, pos_back, &total, &max_len);
+	g_menu = route_menu_receipt(tech_line, pos_back, &g_total, &max_len);
 	if (g_menu == NULL || g_menu[0] == 0)
 	{
 		free(g_complete);
 		return (incorrect_sequence());
 	}
-	if (print_menu(pos_back, g_menu, total, max_len))
+	if (print_menu(pos_back, g_menu, g_total, max_len))
 		return (0);
 	g_tablevel = 0;
 	g_delete = 0;
@@ -159,13 +146,33 @@ int					check_menu(void)
 {
 	if (g_rline.flag & TAB)
 	{
-		if (g_rline.flag & MENU)
-			clean_menu();
+		clean_menu();
 		free(g_complete);
 		ft_arrdel(g_menu);
 		g_rline.flag &= ~TAB;
-		(g_rline.flag & MENU) ? g_rline.flag &= ~MENU : 0;
 		g_tablevel = 0;
 	}
+	return (0);
+}
+
+int					insert_word_compl(void)
+{
+	size_t			len_option;
+	size_t			i;
+	size_t			counter;
+
+	i = -1;
+	if (g_delete > 0)
+		delete_till_compl(g_len_compl, g_delete);
+	if (g_tablevel - 1 < g_total)
+		counter = g_tablevel - 1;
+	else
+		counter = (g_tablevel - 1) % g_total;
+	len_option = ft_strlen(g_menu[counter]);
+	g_delete = len_option - g_len_compl;
+	i = -1;
+	while (++i < g_delete)
+		char_add(g_menu[counter][g_len_compl + i]);
+	print_menu_buf_after_insert(g_rline.pos);
 	return (0);
 }

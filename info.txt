@@ -161,6 +161,41 @@ i = 0;
 		// }
 		//free_vec(menu);
 
+/*
+** If the @g_complete line is empty and @pool is 1, menu consists of all
+** the binary-options found in the environmental variable PATH and
+** in the internal list of builtin programs.
+** If @g_complete is not empty and @pool is 1 - the function
+** ft_path_pars returns only those options that match.
+** The same principle for other pools.
+*/
+
+/*
+** @pool = pool of variables: binary-files (1), variables (2),
+** arguments (3), bell (nothing can be done - 0);
+** @total = total number of options
+** @max_len = maximal length of the option-string within the whole
+** menu array - is needed for the buffer output part
+** @tech_line = is needed for analysis of the g_complete string - 
+** parsing of the g_complete string
+** @delete = by each TAB a word-option is added to the 
+** g_complete part. If this option does not taken by the user and
+** the user pushes TAB to change the option - the old option should
+** be deleted - as many symbols as in @delete variable
+** If there are no options to be auto-completed, there is a bell.
+*/
+
+/*
+** After printing some kind of big menu (the number of lines is bigger
+** than the space left in the terminal) the behavior is as in bash - 
+** printing new prompt and the line without any changes
+*/
+
+/*
+** After any key except of TAB is pushed, the menu under the line
+** is cleared
+*/
+
 Сделать:
 Вставить ft_select на определенную комбинацию:
 1) Заходим по табу - под курсором пусто или пробел
