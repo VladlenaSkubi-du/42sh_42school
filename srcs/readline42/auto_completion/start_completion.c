@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/22 16:56:46 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/22 19:21:30 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ size_t				g_total;
 ** @total = total number of options
 ** @max_len = maximal length of the option-string within the whole
 ** menu array - is needed for the buffer output part
-** @tech_line = is needed for analysis of the g_complete string - 
+** @tech_line = is needed for analysis of the g_complete string -
 ** parsing of the g_complete string
-** @delete = by each TAB a word-option is added to the 
+** @delete = by each TAB a word-option is added to the
 ** g_complete part. If this option does not taken by the user and
 ** the user pushes TAB to change the option - the old option should
 ** be deleted - as many symbols as in @delete variable
@@ -52,22 +52,21 @@ int					auto_completion(void)
 	if (g_rline.flag & TAB)
 	{
 		g_tablevel++;
-		insert_word_compl();
-		return (0);
+		return (insert_word_compl());
 	}
+	g_total = 0;
+	max_len = 0;
 	g_complete = fill_complete(pos_back);
 	tech_line = get_techline_compl(g_complete, g_rline.pos);
 	g_menu = route_menu_receipt(tech_line, pos_back, &g_total, &max_len);
 	if (g_menu == NULL || g_menu[0] == 0)
-	{
-		free(g_complete);
-		return (incorrect_sequence());
-	}
+		return (clean_strings_compl(g_complete, tech_line, 1));
 	if (print_menu(pos_back, g_menu, g_total, max_len))
-		return (0);
+		return (clean_strings_compl(g_complete, tech_line, 0));
 	g_tablevel = 0;
 	g_delete = 0;
 	g_len_compl = ft_strlen(g_complete);
+	free(tech_line);
 	return (0);
 }
 
@@ -85,9 +84,10 @@ char				**route_menu_receipt(char *tech_line,
 {
 	char			**menu;
 	int				pool;
-	int				tmp;	
+	int				tmp;
 
-	*max_len = 0;
+	menu = NULL;
+	pool = 0;
 	if (tech_line == NULL)
 		menu = ft_path_pars("", path_parse_compl(), total, max_len);
 	else
@@ -100,7 +100,7 @@ char				**route_menu_receipt(char *tech_line,
 		else if (pool == 2)
 			menu = get_variables(g_complete + tmp - 1, total, max_len);
 		else
-			menu = get_arguments(g_complete + tmp - 1, total, max_len);	
+			menu = get_arguments(g_complete + tmp - 1, total, max_len);
 	}
 	return (menu);
 }
@@ -164,15 +164,18 @@ int					insert_word_compl(void)
 	i = -1;
 	if (g_delete > 0)
 		delete_till_compl(g_len_compl, g_delete);
-	if (g_tablevel - 1 < g_total)
-		counter = g_tablevel - 1;
-	else
-		counter = (g_tablevel - 1) % g_total;
-	len_option = ft_strlen(g_menu[counter]);
-	g_delete = len_option - g_len_compl;
-	i = -1;
-	while (++i < g_delete)
-		char_add(g_menu[counter][g_len_compl + i]);
-	print_menu_buf_after_insert(g_rline.pos);
+	if (g_tablevel > 0 && g_total > 0)
+	{
+		if (g_tablevel - 1 < g_total)
+			counter = g_tablevel - 1;
+		else
+			counter = (g_tablevel - 1) % g_total;
+		len_option = ft_strlen(g_menu[counter]);
+		g_delete = len_option - g_len_compl;
+		i = -1;
+		while (++i < g_delete)
+			char_add(g_menu[counter][g_len_compl + i]);
+		print_menu_buf_after_insert(g_rline.pos);
+	}
 	return (0);
 }

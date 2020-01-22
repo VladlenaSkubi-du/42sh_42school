@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:59:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/21 17:40:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/22 19:17:02 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int					clean_output_question(int from, size_t pos_back,
 						unsigned short len, unsigned short len_x)
 {
 	unsigned short	lines_nb;
-	
+
 	if (len > g_screen.ws_col)
 	{
 		lines_nb = len / g_screen.ws_col + ((from == 0) ? 1 : 0);
@@ -79,5 +79,15 @@ int					clean_output_question(int from, size_t pos_back,
 	}
 	position_cursor("ch", 0, 0);
 	putcap("cd");
+	return (0);
+}
+
+int					clean_strings_compl(char *compl,
+						char *tech_line, int flag)
+{
+	free(compl);
+	free(tech_line);
+	if (flag == 1)
+		return (incorrect_sequence());
 	return (0);
 }

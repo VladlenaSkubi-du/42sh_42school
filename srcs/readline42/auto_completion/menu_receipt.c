@@ -6,15 +6,15 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 13:17:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/22 12:54:49 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/22 19:15:07 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
 
-char				*path_parse_compl(void)
+char			*path_parse_compl(void)
 {
-	size_t			i;
+	size_t		i;
 
 	i = 0;
 	while (g_env[i])
@@ -26,16 +26,16 @@ char				*path_parse_compl(void)
 	return (NULL);
 }
 
-char            **get_variables(char *complete, size_t *total, int *max_len)
+char			**get_variables(char *complete, size_t *total, int *max_len)
 {
-    char        **menu = NULL;
+	char		**menu = NULL;
 
-    return (menu);
+	return (menu);
 }
 
-char            **get_arguments(char *complete, size_t *total, int *max_len)
+char			**get_arguments(char *complete, size_t *total, int *max_len)
 {
-    char        **menu = NULL;
+	char		**menu = NULL;
 
-    return (menu);
+	return (menu);
 }

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/22 16:59:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/22 19:30:04 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,8 @@ typedef struct					s_prompt
 	int							(*prompt_func)(void);
 }								t_prompt;
 
-
 t_rline							g_rline;
 t_prompt						g_prompt;
-// t_completion					g_menu_buf;
 struct winsize					g_screen;
 // struct termios					g_tty; //TODO убрать, если
 struct termios					g_backup_tty;
@@ -118,7 +116,7 @@ struct termios					g_backup_tty;
 ** File start_readline42.c
 */
 
-int             				interactive_shell(char flag,
+int								interactive_shell(char flag,
 									char end, char *send);
 int								start_readline42(int tmp);
 char							*finalize_cmd(char *cmd);
@@ -186,7 +184,6 @@ int								ctrl_key(char sy);
 int								ctrl_process(char *ctrl_base, char sy);
 int								ctrl_call(size_t call_num);
 
-
 /*
 ** File cursor_position.c - operations to get the termcap cursor postion
 ** and move it after actions
@@ -231,7 +228,8 @@ t_action_stack					*action_new(void);
 */
 
 int								backspace_process(void);
-int								delete_till_compl(size_t len_compl, size_t delete);
+int								delete_till_compl(size_t len_compl,
+									size_t delete);
 int								delete_process(void);
 int								esc_r(void);
 
@@ -296,7 +294,7 @@ int								yank_insert(char *yank_str,
 ** File start_completion.c
 */
 
-int             				auto_completion(void);
+int								auto_completion(void);
 char							*fill_complete(size_t pos_back);
 char							**route_menu_receipt(char *tech_line,
 									size_t tech_len, size_t *total,
@@ -308,7 +306,7 @@ int								check_menu(void);
 ** File analyse_line.c
 */
 
-char        					*get_techline_compl(char *complete,
+char							*get_techline_compl(char *complete,
 									size_t len);
 int								analyse_techline_compl(char *tech_line,
 									size_t len, int *pool);
@@ -317,9 +315,9 @@ int								analyse_techline_compl(char *tech_line,
 ** File menu_receipt.c
 */
 
-char            				**get_variables(char *complete,
+char							**get_variables(char *complete,
 									size_t *total, int *max_len);
-char            				**get_arguments(char *complete,
+char							**get_arguments(char *complete,
 									size_t *total, int *max_len);
 char							*path_parse_compl(void);
 
@@ -336,7 +334,7 @@ int								clean_menu(void);
 int								clean_menu_buf(void);
 
 /*
-** File question_if_many.c
+** File question_if_many.c and also a small function (because of norm)
 */
 
 int								ask_output(size_t total, int buf_lines,
@@ -346,16 +344,17 @@ int								count_comment_len(unsigned short *total_len,
 									size_t total, int buf_lines);
 int								clean_output_question(int from, size_t pos_back,
 									unsigned short len, unsigned short len_x);
+int								clean_strings_compl(char *compl,
+									char *tech_line, int flag);
 
 /*
 ** File cursor_position_completion.c
 */
 
 int								position_cursor_for_menu(size_t len);
-int                				position_cursor_after_menu_back
+int								position_cursor_after_menu_back
 									(unsigned short len_x, int buf_lines,
 									size_t pos_back, size_t len);
-
 
 /*
 ** File output_buffer.c
@@ -368,9 +367,8 @@ void							buffer_col_calc(t_completion *menu_buf);
 void							buffer_col_finish(t_completion *menu_buf);
 void							buf_add(char *str, size_t size);
 
-
 /*
-**_______________________________________________________________________________
+**_____________________________________________________________________________
 */
 
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/21 18:52:26 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/22 19:32:44 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,26 +48,26 @@ char				**g_shvar;
 
 enum				e_techline
 {
-   SPACE = 1,
-   SLASH,
-   SCOLON,
-   AND,
-   DQUOTE,
-   SQUOTE,
-   OPAREN,
-   CPAREN,
-   OBRACKET,
-   CBRACKET,
-   OBRACE,
-   CBRACE,
-   DOLLAR,
-   TILDA,
-   PIPE,
-   GTHAN,
-   LTHAN,
-   AST,
-   EQUAL,
-   ENTER
+	SPACE = 1,
+	SLASH,
+	SCOLON,
+	AND,
+	DQUOTE,
+	SQUOTE,
+	OPAREN,
+	CPAREN,
+	OBRACKET,
+	CBRACKET,
+	OBRACE,
+	CBRACE,
+	DOLLAR,
+	TILDA,
+	PIPE,
+	GTHAN,
+	LTHAN,
+	AST,
+	EQUAL,
+	ENTER
 }					t_sign_techline;
 
 /*
@@ -82,21 +82,21 @@ int					save_shell_variables(void);
 ** File signals_processing42.c
 */
 
-int             	signals_reroute(int from);
-void            	sig_readline(int sig);
-void                sig_fork(int sig);
+int					signals_reroute(int from);
+void				sig_readline(int sig);
+void				sig_fork(int sig);
 
 /*
 ** File errors_handler42.c
 */
 
-int             	error_handler(t_exit_status status, char *str);
+int					error_handler(t_exit_status status, char *str);
 
 /*
 ** File clean_all42.c
 */
 
-int				    clean_everything(void);
+int					clean_everything(void);
 int					clean_readline42(void);
 
 #endif
