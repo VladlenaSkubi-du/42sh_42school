@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/19 23:44:20 by rbednar           #+#    #+#             */
-/*   Updated: 2019/12/19 23:44:20 by rbednar          ###   ########.fr       */
+/*   Created: 2020/01/22 13:04:56 by rbednar           #+#    #+#             */
+/*   Updated: 2020/01/22 13:04:56 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,5 @@ t_ltree		*ft_find_pipe(t_ltree *block, t_ltree *final)
 		}
 		i++;
 	}
-	return (NULL); //need to add subfunctions to detect symbols in block
-					//using g_techline and rules for all types
+	return (NULL); //need to add subfunctions to detect symbols in block .using g_techline and rules for all types
 }
