@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   slice_to_block.c                                   :+:      :+:    :+:   */
+/*   slice_to_blocks.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/19 22:19:23 by rbednar           #+#    #+#             */
-/*   Updated: 2019/12/19 22:19:23 by rbednar          ###   ########.fr       */
+/*   Created: 2020/01/22 12:40:31 by rbednar           #+#    #+#             */
+/*   Updated: 2020/01/22 12:40:31 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int			ft_block_start_fg(t_ltree *block)
+int	ft_block_start_fg(t_ltree *block)
 {
 	t_ltree	*sub;
 	t_ltree	final;
 
+	block->flags = 0;
 	while ((sub = ft_find_pipe(block, &final)))
 	{
-		exec_init(sub); //start in foreground TODO: Check return, change to sub later
+		exec_init(sub);
 		block->start = sub->end + 1;
+		printf("%#X flags \n", block->flags);
 	}
 	return (0);
 }
 
-int			ft_block_start_bg(t_ltree *block)
+int	ft_block_start_bg(t_ltree *block)
 {
 	// t_ltree	*sub;
 
@@ -37,10 +39,10 @@ int			ft_block_start_bg(t_ltree *block)
 }
 
 /*
-**Fucntion slice command string to blocks and send it to execv
+** Fucntion slice command string to blocks and send it to execv
 */
 
-int         ft_slice(void)
+int	ft_slice(void)
 {
 	t_ltree			block;
 	size_t			i;
@@ -65,5 +67,5 @@ int         ft_slice(void)
 		}
 		i++;
 	}
-	return(0);
+	return (0);
 }
