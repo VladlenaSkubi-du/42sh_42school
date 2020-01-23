@@ -6,7 +6,11 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/01/23 17:50:43 by sschmele         ###   ########.fr       */
+=======
+/*   Updated: 2020/01/23 17:45:10 by rbednar          ###   ########.fr       */
+>>>>>>> a0dde4f995f5ab8a9a67d42a18d16f8b1e1d5730
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +93,7 @@ void			ft_get_path(char *name_d, t_path **root, size_t *len, \
 	DIR			*dir;
 	t_stat		*stat_b;
 	t_dirent	*dp;
+	size_t		str_len;
 
 	if ((stat_b = (t_stat *)malloc(sizeof(t_stat))) == NULL)
 		return ;
@@ -96,12 +101,13 @@ void			ft_get_path(char *name_d, t_path **root, size_t *len, \
 		return ;
 	if (!(dir = opendir(name_d)))
 		return ;
+	str_len = ft_strlen(find);
 	while (dir != NULL)
 	{
 		if ((dp = readdir(dir)) != NULL)
 		{
-			if (ft_strnequ(dp->d_name, find, ft_strlen(find)) && \
-				ft_strcmp(dp->d_name, ".") && ft_strcmp(dp->d_name, "..")) //TODO оптимизация для лен
+			if (ft_strnequ(dp->d_name, find, str_len) && \
+				ft_strcmp(dp->d_name, ".") && ft_strcmp(dp->d_name, ".."))
 				insert(dp->d_name, root, len);
 		}
 		else

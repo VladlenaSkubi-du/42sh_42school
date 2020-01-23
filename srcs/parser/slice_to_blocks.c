@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/22 12:40:31 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/22 12:40:31 by rbednar          ###   ########.fr       */
+/*   Created: 2020/01/23 17:43:51 by rbednar           #+#    #+#             */
+/*   Updated: 2020/01/23 17:43:51 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,22 @@ int	ft_block_start_fg(t_ltree *block)
 {
 	t_ltree	*sub;
 	t_ltree	final;
-
-	block->flags = 0;
-	while ((sub = ft_find_logic(block, &final)))
+	int		buf;
+	int		out_flag;
+	
+	buf = 0;
+	while ((sub = ft_find_logic(block, &final, &buf)))
 	{
-		exec_init(sub);
+		out_flag = exec_init(sub);		
+		if (buf != 0)
+		{
+			block->end = buf;
+			buf = 0;
+		}
+		if (out_flag != 0 && block->flags & LOG_AND)
+			break ;
+		if (out_flag == 0 && block->flags & LOG_OR)
+			break ;
 		block->start = sub->end + 1;
 	}
 	return (0);
@@ -45,20 +56,21 @@ int	ft_slice(void)
 {
 	t_ltree			block;
 	size_t			i;
-	char			flag;
 
 	i = 0;
-	flag = 0;
 	block.start = 0;
+	block.flags = 0;
 	while (i <= g_techline.len)
 	{
-		if (g_techline.line[i] == 3 || g_cmd[i] == '\0')
+		if (g_techline.line[i] == SCOLON || g_cmd[i] == '\0')
 		{
 			block.end = i;
 			ft_block_start_fg(&block);
 			block.start = i + 1;
 		}
-		if (g_techline.line[i] == 4 && g_techline.line[i + 1] != 4)
+		if (g_techline.line[i] == AND && g_techline.line[i + 1] != AND && \
+			g_techline.line[i + 1] != GTHAN && g_techline.line[i + 1] != LTHAN && \
+		 	g_techline.line[i - 1] != GTHAN && g_techline.line[i - 1] !=LTHAN)
 		{
 			block.end = i;
 			ft_block_start_bg(&block);
