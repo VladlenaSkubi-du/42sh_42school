@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/23 16:19:17 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/23 20:37:36 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,8 +310,11 @@ char							*get_techline_compl(char *complete,
 									size_t len);
 int								analyse_techline_compl(char *compl, char *tech_line,
 									size_t len, int *pool);
-size_t							route_to_first_pool(char *tech, size_t i, int *pool);
-size_t							route_to_other_pools(char *tech, size_t i, int *pool);
+size_t							pass_symbols(char *compl, char *tech, size_t i, int *pool);
+size_t							route_to_first_pool(char *tech,
+									size_t i, int *pool);
+size_t							route_to_other_pools(char *tech,
+									size_t i, int *pool);
 
 /*
 ** File menu_receipt.c

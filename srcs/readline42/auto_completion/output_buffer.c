@@ -66,20 +66,24 @@ void					buffer_col_calc(t_completion *menu_buf)
 	menu_buf->buffer = (char**)ft_xmalloc(sizeof(char*) *
 		(menu_buf->buf_lines + 1));
 	menu_buf->buffer[menu_buf->buf_lines] = 0;
-	i = -1;
-	while (++i < menu_buf->buf_lines)
+	i = 0;
+	while (i < menu_buf->buf_lines)
+	{
 		menu_buf->buffer[i] = (char*)ft_xmalloc(menu_buf->buf_width + 1);
+		i++;
+	}
 }
 
 void					buffer_col_finish(t_completion *menu_buf)
 {
 	size_t				i;
 
-	i = -1;
-	while (++i < menu_buf->buf_lines - 1)
+	i = 0;
+	while (i < menu_buf->buf_lines - 1)
 	{
 		buf_add(menu_buf->buffer[i], menu_buf->buf_width);
 		buf_add("\n", 1);
+		i++;
 	}
 	buf_add(menu_buf->buffer[i], menu_buf->buf_width);
 }
