@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 13:04:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/22 18:24:35 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/23 16:40:55 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@
 ** Func to find another subblocks
 */
 
-t_ltree		*ft_find_logic(t_ltree *block, t_ltree *final)
+t_ltree		*ft_find_logic(t_ltree *block, t_ltree *final, int *buf)
 {
 	int		i;
-	t_ltree	buf; //переместить buf выше по функции и продумать работу с блоком до конца блока
 
 	i = block->start;
 	final->flags = 0;
@@ -27,12 +26,11 @@ t_ltree		*ft_find_logic(t_ltree *block, t_ltree *final)
 	{
 		if (g_techline.line[i] == PIPE && g_techline.line[i + 1] == PIPE)
 		{
-			buf.start = block->start;
+			*buf= block->end;
 			block->start = i + 2;
-			buf.end = i - 1;
+			block->end = i - 1;
 			block->flags = LOG_OR;
-			buf.flags = block->flags;
-			return (ft_find_logic(&buf, final));
+			return (ft_find_logic(block, final, buf));
 		}
 		if (ft_find_pipe(block, final, &i))
 			return (final);
@@ -43,7 +41,7 @@ t_ltree		*ft_find_logic(t_ltree *block, t_ltree *final)
 
 t_ltree		*ft_find_pipe(t_ltree *block, t_ltree *final, int *i)
 {
-	if (g_techline.line[*i] == PIPE)
+	if (g_techline.line[*i] == PIPE && g_techline.line[*i + 1] != PIPE)
 	{
 		final->start = block->start;
 		final->end = *i;
