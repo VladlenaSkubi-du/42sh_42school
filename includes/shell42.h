@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/22 19:32:44 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/23 12:52:01 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char				**g_shvar;
 ** @SLASH is "\", @SCOLON is ";", @AND is "&", @DQUOTE is '"',
 ** @SQUOTE is "'", @OPAREN is "(", @CPAREN is ")", @OBRACKET is "["
 ** @CBRACKET is "]", @OBRACE is "{", CBRACE is "}", @DOLLAR is "$",
-** @TILDA is "~", @PIPE is "|", @GTHAN is "<", @LTHAN is "<",
+** @TILDA is "~", @PIPE is "|", @GTHAN is ">", @LTHAN is "<",
 ** @AST is "*", @EQUAL = "=", @ENTER is "\n"
 */
 

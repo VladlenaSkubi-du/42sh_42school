@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/22 19:21:30 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/23 16:30:42 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int					auto_completion(void)
 	}
 	g_total = 0;
 	max_len = 0;
-	g_complete = fill_complete(pos_back);
+	g_complete = ft_strndup(g_rline.cmd, pos_back);
 	tech_line = get_techline_compl(g_complete, g_rline.pos);
 	g_menu = route_menu_receipt(tech_line, pos_back, &g_total, &max_len);
 	if (g_menu == NULL || g_menu[0] == 0)
@@ -92,15 +92,17 @@ char				**route_menu_receipt(char *tech_line,
 		menu = ft_path_pars("", path_parse_compl(), total, max_len);
 	else
 	{
-		if ((tmp = analyse_techline_compl(tech_line, tech_len, &pool)) == 0)
+		if ((tmp = analyse_techline_compl(g_complete, tech_line,
+			tech_len, &pool)) == 0)
 			return (NULL);
-		if (pool == 1)
-			menu = ft_path_pars(g_complete + tmp - 1,
-				path_parse_compl(), total, max_len);
-		else if (pool == 2)
-			menu = get_variables(g_complete + tmp - 1, total, max_len);
-		else
-			menu = get_arguments(g_complete + tmp - 1, total, max_len);
+		printf("POOL = %d - %s\n", pool, g_complete + tmp - 1);
+		// if (pool == 1)
+		// 	menu = ft_path_pars(g_complete + tmp - 1,
+		// 		path_parse_compl(), total, max_len);
+		// else if (pool == 2)
+		// 	menu = get_variables(g_complete + tmp - 1, total, max_len);
+		// else
+		// 	menu = get_arguments(g_complete + tmp - 1, total, max_len);
 	}
 	return (menu);
 }
@@ -110,7 +112,7 @@ char				**route_menu_receipt(char *tech_line,
 ** and analyse it after
 */
 
-char				*fill_complete(size_t pos_back)
+char				*fill_complete(size_t pos_back) //TODO if it is needed
 {
 	size_t			beg_word;
 	size_t			end_word;
