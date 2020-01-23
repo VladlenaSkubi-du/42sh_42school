@@ -12,7 +12,6 @@ int		parser(char *line)
 	ft_get_techline();
 	nullify();
 	ft_slice();
-	ft_putendl_fd(line, 1);
 	free(line);
 	return (0);
 }
