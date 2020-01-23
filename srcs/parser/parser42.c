@@ -1,4 +1,16 @@
-#include "../includes/parser.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser42.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
+/*   Updated: 2020/01/23 19:20:02 by rbednar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "parser.h"
 
 int		parser(char *line)
 {
@@ -12,7 +24,6 @@ int		parser(char *line)
 	ft_get_techline();
 	nullify();
 	ft_slice();
-	ft_putendl_fd(line, 1);
 	free(line);
 	return (0);
 }

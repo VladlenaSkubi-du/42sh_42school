@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/22 17:14:15 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/23 16:20:05 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int     				ft_slice(void);
 */
 
 t_ltree					*ft_find_pipe(t_ltree *block, t_ltree *final, int *i);
-t_ltree					*ft_find_logic(t_ltree *block, t_ltree *final);
+t_ltree					*ft_find_logic(t_ltree *block, t_ltree *final, int *buf);
 
 /*
 ** Folder path_tree____________________________________________________________
