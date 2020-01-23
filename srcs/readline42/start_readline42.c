@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/23 18:01:38 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/23 20:39:27 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int				start_readline42(int tmp)
 	cmd = finalize_cmd(cmd);
 	clean_readline42();
 	signals_reroute(2);
-	// ft_putendl_fd(cmd, 1);
-	if (parser(cmd))
-		return (1); //TODO error
+	ft_putendl_fd(cmd, 1);
+	// if (parser(cmd))
+	// 	return (1); //TODO error
 	return (0);
 }
 
