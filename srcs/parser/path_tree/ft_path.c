@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:36:08 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/22 18:27:49 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/23 17:50:43 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void			ft_get_path(char *name_d, t_path **root, size_t *len, \
 		if ((dp = readdir(dir)) != NULL)
 		{
 			if (ft_strnequ(dp->d_name, find, ft_strlen(find)) && \
-				ft_strcmp(dp->d_name, ".") && ft_strcmp(dp->d_name, ".."))
+				ft_strcmp(dp->d_name, ".") && ft_strcmp(dp->d_name, "..")) //TODO оптимизация для лен
 				insert(dp->d_name, root, len);
 		}
 		else
