@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/23 17:58:06 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/23 20:51:00 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int					auto_completion(void)
 	{
 		g_tablevel++;
 		return (insert_word_compl());
+		// return (0);
 	}
 	g_total = 0;
 	max_len = 0;
@@ -85,6 +86,7 @@ char				**route_menu_receipt(char *tech_line,
 	char			**menu;
 	int				pool;
 	int				tmp;
+	char			*final;
 
 	menu = NULL;
 	pool = 0;
@@ -93,16 +95,18 @@ char				**route_menu_receipt(char *tech_line,
 	else
 	{
 		if ((tmp = analyse_techline_compl(g_complete, tech_line,
-			tech_len, &pool)) == 0)
+			tech_len, &pool)) == -1)
 			return (NULL);
-		// printf("POOL = %d - %s\n", pool, g_complete + tmp - 1);
+		final = ft_strdup(g_complete + tmp);
+		free(g_complete);
+		g_complete = final;
+		// printf("POOL = %d - %s\n", pool, g_complete);
 		if (pool == 1)
-			menu = ft_path_pars(g_complete + tmp - 1,
-				path_parse_compl(), total, max_len);
+			menu = ft_path_pars(g_complete, path_parse_compl(), total, max_len);
 		else if (pool == 2)
-			menu = get_variables(g_complete + tmp - 1, total, max_len);
+			menu = get_variables(g_complete, total, max_len);
 		else
-			menu = get_arguments(g_complete + tmp - 1, total, max_len);
+			menu = get_arguments(g_complete, total, max_len);
 	}
 	return (menu);
 }
@@ -163,7 +167,7 @@ int					insert_word_compl(void)
 	size_t			i;
 	size_t			counter;
 
-	i = -1;
+	i = 0;
 	if (g_delete > 0)
 		delete_till_compl(g_len_compl, g_delete);
 	if (g_tablevel > 0 && g_total > 0)
@@ -174,9 +178,11 @@ int					insert_word_compl(void)
 			counter = (g_tablevel - 1) % g_total;
 		len_option = ft_strlen(g_menu[counter]);
 		g_delete = len_option - g_len_compl;
-		i = -1;
-		while (++i < g_delete)
+		while (i < g_delete)
+		{
 			char_add(g_menu[counter][g_len_compl + i]);
+			i++;
+		}
 		print_menu_buf_after_insert(g_rline.pos);
 	}
 	return (0);

@@ -29,7 +29,7 @@ int					print_menu(size_t pos_back, char **menu,
 						size_t total, int max_len)
 {
 	unsigned short	len_x;
-	size_t			i;
+	int				i;
 
 	i = -1;
 	position_relative(&len_x, 0, g_rline.cmd_len);
