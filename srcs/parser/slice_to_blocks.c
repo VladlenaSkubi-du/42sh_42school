@@ -18,12 +18,11 @@ int	ft_block_start_fg(t_ltree *block)
 	t_ltree	final;
 	int		buf;
 	int		out_flag;
-
-	block->flags = 0;
+	
 	buf = 0;
 	while ((sub = ft_find_logic(block, &final, &buf)))
 	{
-		out_flag = exec_init(sub);
+		out_flag = exec_init(sub);		
 		if (buf != 0)
 		{
 			block->end = buf;
@@ -57,14 +56,13 @@ int	ft_slice(void)
 {
 	t_ltree			block;
 	size_t			i;
-	char			flag;
 
 	i = 0;
-	flag = 0;
 	block.start = 0;
+	block.flags = 0;
 	while (i <= g_techline.len)
 	{
-		if (g_techline.line[i] == 3 || g_cmd[i] == '\0')
+		if (g_techline.line[i] == SCOLON || g_cmd[i] == '\0')
 		{
 			block.end = i;
 			ft_block_start_fg(&block);
