@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/23 16:20:05 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/24 11:55:18 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@
 # include <pwd.h>
 # include <string.h>
 
-# include "exit_status.h"
-# include "readline.h"
-# include "builtin42.h"
-# include "libft.h"
-# include "libft_42.h"
+// # include "exit_status.h"
+# include "shell42.h"
+// # include "readline.h"
+// # include "builtin42.h"
+// # include "libft.h"
+// # include "libft_42.h"
 
 # include <stdio.h> //DELETE
 
