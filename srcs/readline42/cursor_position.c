@@ -6,10 +6,11 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:07:05 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/17 12:48:43 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "shell42.h"
 #include "readline.h"
 
 unsigned int		on_which_line(size_t cmd_pos, unsigned short col)

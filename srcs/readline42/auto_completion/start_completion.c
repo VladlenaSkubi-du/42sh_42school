@@ -6,10 +6,11 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 12:26:39 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/24 15:21:24 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "shell42.h"
 #include "readline.h"
 
 /*
@@ -101,12 +102,12 @@ char				**route_menu_receipt(char *tech_line,
 		free(g_complete);
 		g_complete = final;
 		// printf("POOL = %d - %s\n", pool, g_complete);
-		if (pool == 1)
-			menu = ft_path_pars(g_complete, path_parse_compl(), total, max_len);
-		else if (pool == 2)
-			menu = get_variables(g_complete, total, max_len);
-		else
-			menu = get_arguments(g_complete, total, max_len);
+		// if (pool == 1)
+		// 	menu = ft_path_pars(g_complete, path_parse_compl(), total, max_len);
+		// else if (pool == 2)
+		// 	menu = get_variables(g_complete, total, max_len);
+		// else
+		// 	menu = get_arguments(&g_complete, total, max_len);
 	}
 	return (menu);
 }

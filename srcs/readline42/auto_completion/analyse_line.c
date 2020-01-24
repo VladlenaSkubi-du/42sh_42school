@@ -6,10 +6,11 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 18:24:47 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 12:26:24 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "shell42.h"
 #include "readline.h"
 
 char				*get_techline_compl(char *complete, size_t len)
@@ -102,9 +103,9 @@ int					route_to_arguments(char *compl, int i, int *pool)
 
 	save_i = i;
 	*pool = 3;
-	while (i > 0 && (ft_isalnum(compl[i] || compl[i] == '/')))
+	while (i > 0 && (ft_isalnum(compl[i]) || compl[i] == '/'))
 		i--;
-	if (compl[i] == SPACE)
-		return (i);
+	if (compl[i] == ' ')
+		return (i + 1);
 	return (-1);
 }

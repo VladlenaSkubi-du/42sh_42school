@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser42.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/23 19:20:02 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "shell42.h"
 #include "parser.h"
 
 int		parser(char *line)

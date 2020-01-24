@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:46:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/16 17:12:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/24 12:59:57 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ void							swap_chars(char *cmd, int b, int a);
 void							swap_ints(int *a, int *b);
 int								ft_issign(char c);
 char							*ft_straddsy(char *dest, char sy);
+int								ft_strrchri(char *s, int c);
 
 #endif

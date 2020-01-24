@@ -1,4 +1,5 @@
 
+#include "shell42.h"
 #include "parser.h"
 
 /*

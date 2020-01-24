@@ -6,10 +6,11 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:59:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/22 19:17:02 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "shell42.h"
 #include "readline.h"
 
 int					ask_output(size_t total, int buf_lines,
