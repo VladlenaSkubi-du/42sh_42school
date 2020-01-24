@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 18:24:47 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/23 20:49:18 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/24 12:26:24 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int					analyse_techline_compl(char *compl, char *tech,
 
 	if (!(g_rline.cmd[g_rline.pos] == 0 || g_rline.cmd[g_rline.pos] == ' '))
 		return (0);
-	i = len - 1;
+	i = (int)len - 1;
 	i = pass_symbols(compl, tech, i, pool);
 	if (*pool == 1)
 		return (i);
@@ -51,12 +51,13 @@ int					analyse_techline_compl(char *compl, char *tech,
 		compl[i] == '?' || compl[i] == '-' || compl[i] == '+' ||
 		compl[i] == ',')
 		return (-1);
-	i = route_to_first_pool(tech, i, pool);
-	i = (*pool == 0) ? route_to_other_pools(tech, i, pool) : i;
+	if (compl[i] == '/')
+		return (route_to_arguments(compl, i, pool));
+	i = route_to_pools(tech, i, pool);
 	return (i);
 }
 
-size_t				pass_symbols(char *compl, char *tech, size_t i, int *pool)
+int					pass_symbols(char *compl, char *tech, int i, int *pool)
 {
 	while (i > 0 && (tech[i] == 0 && ft_isalnum(compl[i])))
 		i--;
@@ -68,17 +69,11 @@ size_t				pass_symbols(char *compl, char *tech, size_t i, int *pool)
 	return (i);
 }
 
-size_t				route_to_first_pool(char *tech, size_t i, int *pool)
+int					route_to_pools(char *tech, int i, int *pool)
 {
 	int				save_i;
 
 	save_i = i;
-	if (tech[i] == OBRACE || tech[i] == OPAREN || tech[i] == SCOLON || 
-		tech[i] == AND || tech[i] == PIPE)
-	{
-		*pool = 1;
-		return (i + 1);
-	}
 	if (tech[i] == DOLLAR)
 	{
 		*pool = 2;
@@ -87,26 +82,29 @@ size_t				route_to_first_pool(char *tech, size_t i, int *pool)
 	while (i > 0 && tech[i] == SPACE)
 		i--;
 	if (tech[i] == OBRACE || tech[i] == OPAREN || tech[i] == SCOLON || 
-		tech[i] == AND || tech[i] == PIPE || i == 0)
+		tech[i] == AND || tech[i] == PIPE)
 	{
 		*pool = 1;
-		return (save_i + 1);
+		return ((i == save_i) ? i + 1 : save_i + 1);
 	}
-	return (save_i);
-}
-
-size_t				route_to_other_pools(char *tech, size_t i, int *pool)
-{
-	int				save_i;
-
-	save_i = i;
-	while (i > 0 && tech[i] == SPACE)
-		i--;
-	if (tech[i] != SPACE && tech[i] != ENTER)
+	if (tech[i] != ENTER)
 	{
 		*pool = 3;
 		return (save_i + 1);
 	}
 	ft_putendl_fd("no pool", 1); //TODO cancel
-	return (i);
+	return (save_i);
+}
+
+int					route_to_arguments(char *compl, int i, int *pool)
+{
+	int				save_i;
+
+	save_i = i;
+	*pool = 3;
+	while (i > 0 && (ft_isalnum(compl[i] || compl[i] == '/')))
+		i--;
+	if (compl[i] == SPACE)
+		return (i);
+	return (-1);
 }

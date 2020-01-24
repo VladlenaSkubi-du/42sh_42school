@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 13:17:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/23 17:58:07 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/24 12:27:46 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,23 @@ char			*path_parse_compl(void)
 char			**get_variables(char *complete, size_t *total, int *max_len)
 {
 	char		**menu = NULL;
+	t_path		*root;
+	size_t		len;
+
+	len = ft_strlen(complete);
+	root = fill_tree_with_variables(complete, total, len);
+	menu = ft_add_block(&root, *total, max_len);
+	ft_path_free(&root);
+	return (menu);
+}
+
+t_path			*fill_tree_with_variables(char *complete, size_t *total, size_t len)
+{
 	size_t		i;
 	t_path		*root;
 	char		*tmp;
-	size_t		len;
 
 	i = 0;
-	len = ft_strlen(complete);
 	root = NULL;
 	while (g_env[i])
 	{
@@ -54,15 +64,34 @@ char			**get_variables(char *complete, size_t *total, int *max_len)
 		free(tmp);
 		i++;
 	}
-	menu = ft_add_block(&root, *total, max_len);
-	ft_path_free(&root);
-	return (menu);
+	return (root);
 }
 
 char			**get_arguments(char *complete, size_t *total, int *max_len)
 {
 	char		**menu = NULL;
+	// printf("%s\n", complete);
+	t_path		*root;
+	size_t		len;
 
-	printf("arguments\n");
+	len = ft_strlen(complete);
+	root = fill_tree_with_arguments(complete, total, len);
+	if (root == NULL)
+		return (NULL);
+	menu = ft_add_block(&root, *total, max_len);
+	ft_path_free(&root);
 	return (menu);
+}
+
+t_path			*fill_tree_with_arguments(char *complete, size_t *total, size_t len)
+{
+	size_t		i;
+	t_path		*root;
+	DIR			*dir_name;
+	char		*path;
+
+	i = 0;
+	root = NULL;
+	
+	return(root);
 }

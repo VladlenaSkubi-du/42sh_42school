@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/23 20:57:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/24 12:16:51 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 // # include <stdio.h> //DELETE
 
 # include "exit_status.h"
-# include "readline.h"
-# include "parser.h"
 # include "builtin42.h"
 # include "libft.h"
 # include "libft_42.h"
+# include "parser.h"
+# include "readline.h"
 
 # include "ft_printf.h" //If not used, delete
 # include "get_next_line.h" //If not used, delete
