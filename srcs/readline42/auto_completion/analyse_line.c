@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 18:24:47 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/24 16:32:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int					analyse_techline_compl(char *compl, char *tech,
 		return (0);
 	i = (int)len - 1;
 	i = pass_symbols(compl, tech, i, pool);
-	if (*pool == 1)
+	if (*pool == 1 || *pool == 3)
 		return (i);
 	if (tech[i] == SLASH || tech[i] == DQUOTE || tech[i] == SQUOTE ||
 		tech[i] == CPAREN || tech[i] == OBRACKET || tech[i] == CBRACKET ||
@@ -65,6 +65,11 @@ int					pass_symbols(char *compl, char *tech, int i, int *pool)
 	if (tech[i] == 0 && ft_isalnum(compl[i]))
 	{
 		*pool = 1;
+		return (i);
+	}
+	if (tech[i] == 0 && compl[i] == '/')
+	{
+		*pool = 3;
 		return (i);
 	}
 	return (i);

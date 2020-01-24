@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/24 14:17:22 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/24 15:57:12 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,6 @@
 # include <time.h>
 # include <pwd.h>
 # include <string.h>
-
-// # include "exit_status.h"
-// # include "shell42.h"
-// # include "readline.h"
-// # include "builtin42.h"
-// # include "libft.h"
-// # include "libft_42.h"
 
 # include <stdio.h> //DELETE
 

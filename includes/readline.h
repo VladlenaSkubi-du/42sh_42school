@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 14:42:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/24 16:03:36 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,7 @@
 
 # include <stdio.h> //DELETE
 
-// # include "shell42.h"
-// # include "exit_status.h"
-// # include "parser.h"
 # include "readline_simple.h"
-// # include "builtin42.h"
-// # include "libft.h"
-// # include "libft_42.h"
-// # include "ft_printf.h"
-
 # include "get_next_line.h" //If not used, delete
 
 # define CMD_SIZE	5
@@ -327,10 +319,10 @@ char							**get_variables(char *complete,
 									size_t *total, int *max_len);
 t_path							*fill_tree_with_variables(char *complete,
 									size_t *total, size_t len);
-char							**get_arguments(char *complete,
+char							**get_arguments(char **complete,
 									size_t *total, int *max_len);
-t_path							*fill_tree_with_arguments(char *complete,
-									size_t *total, size_t len);
+t_path							*fill_tree_with_arguments(char *path,
+									char *complete, size_t *total);
 char							*path_parse_compl(void);
 
 /*

@@ -6,16 +6,16 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 13:17:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 14:47:43 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/24 17:43:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
 
-char			*path_parse_compl(void)
+char				*path_parse_compl(void)
 {
-	size_t		i;
+	size_t			i;
 
 	i = 0;
 	while (g_env[i])
@@ -27,11 +27,11 @@ char			*path_parse_compl(void)
 	return (NULL);
 }
 
-char			**get_variables(char *complete, size_t *total, int *max_len)
+char				**get_variables(char *complete, size_t *total, int *max_len)
 {
-	char		**menu = NULL;
-	t_path		*root;
-	size_t		len;
+	char			**menu = NULL;
+	t_path			*root;
+	size_t			len;
 
 	len = ft_strlen(complete);
 	root = fill_tree_with_variables(complete, total, len);
@@ -40,11 +40,12 @@ char			**get_variables(char *complete, size_t *total, int *max_len)
 	return (menu);
 }
 
-t_path			*fill_tree_with_variables(char *complete, size_t *total, size_t len)
+t_path				*fill_tree_with_variables(char *complete,
+						size_t *total, size_t len)
 {
-	size_t		i;
-	t_path		*root;
-	char		*tmp;
+	size_t			i;
+	t_path			*root;
+	char			*tmp;
 
 	i = 0;
 	root = NULL;
@@ -68,44 +69,56 @@ t_path			*fill_tree_with_variables(char *complete, size_t *total, size_t len)
 	return (root);
 }
 
-char			**get_arguments(char *complete, size_t *total, int *max_len)
+char				**get_arguments(char **complete, size_t *total, int *max_len)
 {
-	char		**menu = NULL;
-	char		*path;
-	char		*compl;
-	int			tmp;
+	char			**menu;
+	char			*path;
+	char			*compl;
+	int				tmp;
+	t_path			*root;
 
-	// printf("%s\n", complete);
-	if (complete && complete[0])
-	{
-		if ((tmp = ft_strrchri(complete, '/')) == -1)
+	tmp = 0;
+	if (*complete && *complete[0] && (tmp = ft_strrchri(*complete, '/')) == -1)
 		return (NULL);
-		path = ft_strndup(complete, ft_strrchri(complete, '/') + 1);
-	}
+	else if (*complete && *complete[0] && tmp != -1)
+		path = ft_strndup(*complete, ft_strrchri(*complete, '/') + 1);
 	else
 		path = ft_strdup("./");
-	printf("%s\n", path);
-	// t_path		*root;
-	// size_t		len;
-
-	// len = ft_strlen(complete);
-	// root = fill_tree_with_arguments(complete, total, len);
-	// if (root == NULL)
-	// 	return (NULL);
-	// menu = ft_add_block(&root, *total, max_len);
-	// ft_path_free(&root);
+	compl = (tmp >= 0 && tmp < ft_strlen(*complete))
+			? ft_strdup(*complete + tmp + 1) : NULL;
+	if (compl != NULL)
+	{
+		free(*complete);
+		*complete = compl;
+	}
+	root = fill_tree_with_arguments(path, *complete, total);
+	if (root == NULL)
+		return (NULL);
+	menu = ft_add_block(&root, *total, max_len);
+	ft_path_free(&root);
+	free(path);
 	return (menu);
 }
 
-t_path			*fill_tree_with_arguments(char *complete, size_t *total, size_t len)
+t_path				*fill_tree_with_arguments(char *path, char *complete, size_t *total)
 {
-	size_t		i;
-	t_path		*root;
-	DIR			*dir_name;
-	char		*path;
+	size_t			i;
+	t_path			*root;
+	size_t			len;
+	DIR				*dir_name;
+	struct dirent	*entry;
 
 	i = 0;
 	root = NULL;
-	
+	len = ft_strlen(complete);
+	if (!(dir_name = opendir(path)))
+		return (NULL);
+	while ((entry = readdir(dir_name)))
+	{
+		if (ft_strnequ(entry->d_name, complete, len) &&
+			entry->d_name[0] != '.')
+			insert(entry->d_name, &root, total);
+	}
+	closedir(dir_name);
 	return(root);
 }
