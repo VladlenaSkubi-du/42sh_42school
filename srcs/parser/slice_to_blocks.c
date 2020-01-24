@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "shell42.h"
 #include "parser.h"
 
 int	ft_block_start_fg(t_ltree *block)

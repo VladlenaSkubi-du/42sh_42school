@@ -1,3 +1,4 @@
+#include "shell42.h"
 #include "parser.h"
 
 void	free_vec(char **vec)

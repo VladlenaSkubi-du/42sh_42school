@@ -6,10 +6,11 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 13:17:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 12:27:46 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/24 14:47:43 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "shell42.h"
 #include "readline.h"
 
 char			*path_parse_compl(void)
@@ -70,16 +71,29 @@ t_path			*fill_tree_with_variables(char *complete, size_t *total, size_t len)
 char			**get_arguments(char *complete, size_t *total, int *max_len)
 {
 	char		**menu = NULL;
-	// printf("%s\n", complete);
-	t_path		*root;
-	size_t		len;
+	char		*path;
+	char		*compl;
+	int			tmp;
 
-	len = ft_strlen(complete);
-	root = fill_tree_with_arguments(complete, total, len);
-	if (root == NULL)
+	// printf("%s\n", complete);
+	if (complete && complete[0])
+	{
+		if ((tmp = ft_strrchri(complete, '/')) == -1)
 		return (NULL);
-	menu = ft_add_block(&root, *total, max_len);
-	ft_path_free(&root);
+		path = ft_strndup(complete, ft_strrchri(complete, '/') + 1);
+	}
+	else
+		path = ft_strdup("./");
+	printf("%s\n", path);
+	// t_path		*root;
+	// size_t		len;
+
+	// len = ft_strlen(complete);
+	// root = fill_tree_with_arguments(complete, total, len);
+	// if (root == NULL)
+	// 	return (NULL);
+	// menu = ft_add_block(&root, *total, max_len);
+	// ft_path_free(&root);
 	return (menu);
 }
 
