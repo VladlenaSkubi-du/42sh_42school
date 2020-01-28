@@ -6,30 +6,16 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 13:17:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 17:43:47 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/28 16:54:48 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
 
-char				*path_parse_compl(void)
-{
-	size_t			i;
-
-	i = 0;
-	while (g_env[i])
-	{
-		if (ft_strncmp(g_env[i], "PATH=", 5) == 0)
-			return (g_env[i] + 5);
-		i++;
-	}
-	return (NULL);
-}
-
 char				**get_variables(char *complete, size_t *total, int *max_len)
 {
-	char			**menu = NULL;
+	char			**menu;
 	t_path			*root;
 	size_t			len;
 
@@ -69,7 +55,8 @@ t_path				*fill_tree_with_variables(char *complete,
 	return (root);
 }
 
-char				**get_arguments(char **complete, size_t *total, int *max_len)
+char				**get_arguments(char **complete,
+						size_t *total, int *max_len)
 {
 	char			**menu;
 	char			*path;
@@ -77,13 +64,8 @@ char				**get_arguments(char **complete, size_t *total, int *max_len)
 	int				tmp;
 	t_path			*root;
 
-	tmp = 0;
-	if (*complete && *complete[0] && (tmp = ft_strrchri(*complete, '/')) == -1)
-		return (NULL);
-	else if (*complete && *complete[0] && tmp != -1)
-		path = ft_strndup(*complete, ft_strrchri(*complete, '/') + 1);
-	else
-		path = ft_strdup("./");
+	tmp = ft_strchri(*complete, '/');
+	path = find_path_compl(*complete, tmp);
 	compl = (tmp >= 0 && tmp < ft_strlen(*complete))
 			? ft_strdup(*complete + tmp + 1) : NULL;
 	if (compl != NULL)
@@ -93,14 +75,18 @@ char				**get_arguments(char **complete, size_t *total, int *max_len)
 	}
 	root = fill_tree_with_arguments(path, *complete, total);
 	if (root == NULL)
+	{
+		free(path);
 		return (NULL);
+	}
 	menu = ft_add_block(&root, *total, max_len);
 	ft_path_free(&root);
 	free(path);
 	return (menu);
 }
 
-t_path				*fill_tree_with_arguments(char *path, char *complete, size_t *total)
+t_path				*fill_tree_with_arguments(char *path,
+						char *complete, size_t *total)
 {
 	size_t			i;
 	t_path			*root;
@@ -110,6 +96,8 @@ t_path				*fill_tree_with_arguments(char *path, char *complete, size_t *total)
 
 	i = 0;
 	root = NULL;
+	if (path == NULL)
+		return (NULL);
 	len = ft_strlen(complete);
 	if (!(dir_name = opendir(path)))
 		return (NULL);
@@ -120,5 +108,5 @@ t_path				*fill_tree_with_arguments(char *path, char *complete, size_t *total)
 			insert(entry->d_name, &root, total);
 	}
 	closedir(dir_name);
-	return(root);
+	return (root);
 }

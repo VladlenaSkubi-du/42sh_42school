@@ -6,20 +6,20 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:50:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/28 16:40:55 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
-#define ACTIONS_MAX 10
+#define ACTIONS_MAX 2
 
 t_action_stack	*action_new(void)
 {
 	t_action_stack			*new;
 
 	new = (t_action_stack *)ft_xmalloc(sizeof(t_action_stack));
-	new->cmd_b = (char *)ft_xmalloc(g_rline.cmd_buff_len + 1);
+	new->cmd_b = (char*)ft_xmalloc(g_rline.cmd_buff_len + 1);
 	ft_strcpy(new->cmd_b, g_rline.cmd);
 	new->pos_b = g_rline.pos;
 	new->num_b = g_rline.str_num;
@@ -59,9 +59,9 @@ void			action_alloc_management(t_action_stack **start, int mode)
 		while (*save)
 		{
 			temp = *save;
-			*save = (*save)->next;
 			free(temp->cmd_b);
 			free(temp);
+			*save = (*save)->next;
 		}
 	}
 }

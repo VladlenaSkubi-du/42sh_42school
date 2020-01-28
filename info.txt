@@ -209,3 +209,34 @@ i = 0;
 
 $HISTSIZE - можно изменить размер запоминаемой истории
 
+/*
+** Here we take everything that is before the cursor in the string
+** and analyse it after
+*/
+
+char				*fill_complete(size_t pos_back) //TODO if it is needed
+{
+	size_t			beg_word;
+	size_t			end_word;
+	size_t			space;
+	char			*tmp;
+	char			*complete;
+
+	beg_word = g_rline.pos;
+	end_word = beg_word;
+	if (!ft_isalnum(g_rline.cmd[beg_word]) && beg_word > 0
+		&& ft_isalnum(g_rline.cmd[beg_word - 1]))
+		beg_word--;
+	while (beg_word > 0 && ft_isalnum(g_rline.cmd[beg_word]))
+		beg_word--;
+	while (g_rline.cmd[end_word] && end_word < g_rline.pos
+		&& ft_isalnum(g_rline.cmd[end_word]))
+		end_word++;
+	space = beg_word;
+	while (space > 0 && g_rline.cmd[space] == ' ')
+		space--;
+	tmp = ft_strndup(g_rline.cmd + beg_word, end_word - beg_word);
+	complete = ft_strtrim(tmp);
+	free(tmp);
+	return (complete);
+}

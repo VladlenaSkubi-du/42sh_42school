@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:26:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/28 14:12:25 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,15 @@ int			delete_till_compl(size_t len_compl, size_t delete)
 {
 	char		*swap;
 	size_t		len_swap;
-	size_t		i;
+	int			i;
 
 	if (g_rline.pos > 0)
 	{
 		swap = g_rline.cmd + g_rline.pos;
 		len_swap = ft_strlen(swap);
-		ft_strcpy(g_rline.cmd + len_compl, swap);
-		ft_bzero(g_rline.cmd + len_compl + len_swap,
-			g_rline.cmd_buff_len - len_compl - len_swap);
+		ft_strcpy(g_rline.cmd + g_rline.pos - delete, swap);
+		ft_bzero(g_rline.cmd + g_rline.pos - delete + len_swap,
+			g_rline.cmd_buff_len - ft_strlen(g_rline.cmd));
 		i = -1;
 		while (++i < delete)
 			key_left_proc();

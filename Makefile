@@ -36,6 +36,7 @@ AUTO_COMPLETION =	readline42/auto_completion/start_completion.c \
 			readline42/auto_completion/analyse_line.c \
 			readline42/auto_completion/menu_receipt.c \
 			readline42/auto_completion/question_if_many.c \
+			readline42/auto_completion/path_processing_compl.c \
 			readline42/auto_completion/cursor_position_completion.c \
 			readline42/auto_completion/output_buffer.c
 
