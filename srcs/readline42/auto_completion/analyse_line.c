@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 18:24:47 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 16:32:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/28 16:42:52 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ int					pass_symbols(char *compl, char *tech, int i, int *pool)
 		*pool = 3;
 		return (i);
 	}
+	if (tech[i] == SPACE && i == 0)
+	{
+		*pool = 1;
+		return (i + 1);
+	}
 	return (i);
 }
 
@@ -87,8 +92,8 @@ int					route_to_pools(char *tech, int i, int *pool)
 	}
 	while (i > 0 && tech[i] == SPACE)
 		i--;
-	if (tech[i] == OBRACE || tech[i] == OPAREN || tech[i] == SCOLON || 
-		tech[i] == AND || tech[i] == PIPE)
+	if (tech[i] == OBRACE || tech[i] == OPAREN || tech[i] == SCOLON ||
+	tech[i] == AND || tech[i] == PIPE)
 	{
 		*pool = 1;
 		return ((i == save_i) ? i + 1 : save_i + 1);
@@ -98,7 +103,6 @@ int					route_to_pools(char *tech, int i, int *pool)
 		*pool = 3;
 		return (save_i + 1);
 	}
-	ft_putendl_fd("no pool", 1); //TODO cancel
 	return (save_i);
 }
 

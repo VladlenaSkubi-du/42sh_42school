@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 16:03:36 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/28 17:01:36 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,7 +288,6 @@ int								yank_insert(char *yank_str,
 */
 
 int								auto_completion(void);
-char							*fill_complete(size_t pos_back);
 char							**route_menu_receipt(char *tech_line,
 									size_t tech_len, size_t *total,
 									int *max_len);
@@ -323,7 +322,6 @@ char							**get_arguments(char **complete,
 									size_t *total, int *max_len);
 t_path							*fill_tree_with_arguments(char *path,
 									char *complete, size_t *total);
-char							*path_parse_compl(void);
 
 /*
 ** File front_part.c
@@ -350,6 +348,13 @@ int								clean_output_question(int from, size_t pos_back,
 									unsigned short len, unsigned short len_x);
 int								clean_strings_compl(char *compl,
 									char *tech_line, int flag);
+
+/*
+** File path_processing_compl.c
+*/
+
+char							*find_path_compl(char *compl, int tmp);
+char							*path_parse_compl(void);
 
 /*
 ** File cursor_position_completion.c

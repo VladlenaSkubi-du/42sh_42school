@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 17:44:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/28 16:58:57 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ char				**route_menu_receipt(char *tech_line,
 		final = ft_strdup(g_complete + tmp);
 		free(g_complete);
 		g_complete = final;
-		// printf("POOL = %d - %s\n", pool, g_complete);
 		if (pool == 1)
 			menu = ft_path_pars(g_complete, path_parse_compl(), total, max_len);
 		else if (pool == 2)
@@ -109,38 +108,6 @@ char				**route_menu_receipt(char *tech_line,
 			menu = get_arguments(&g_complete, total, max_len);
 	}
 	return (menu);
-}
-
-/*
-** Here we take everything that is before the cursor in the string
-** and analyse it after
-*/
-
-char				*fill_complete(size_t pos_back) //TODO if it is needed
-{
-	size_t			beg_word;
-	size_t			end_word;
-	size_t			space;
-	char			*tmp;
-	char			*complete;
-
-	beg_word = g_rline.pos;
-	end_word = beg_word;
-	if (!ft_isalnum(g_rline.cmd[beg_word]) && beg_word > 0
-		&& ft_isalnum(g_rline.cmd[beg_word - 1]))
-		beg_word--;
-	while (beg_word > 0 && ft_isalnum(g_rline.cmd[beg_word]))
-		beg_word--;
-	while (g_rline.cmd[end_word] && end_word < g_rline.pos
-		&& ft_isalnum(g_rline.cmd[end_word]))
-		end_word++;
-	space = beg_word;
-	while (space > 0 && g_rline.cmd[space] == ' ')
-		space--;
-	tmp = ft_strndup(g_rline.cmd + beg_word, end_word - beg_word);
-	complete = ft_strtrim(tmp);
-	free(tmp);
-	return (complete);
 }
 
 /*
