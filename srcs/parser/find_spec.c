@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_spec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 13:04:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/28 18:20:48 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ t_ltree		*ft_find_logic(t_ltree *block, t_ltree *final, int *buf)
 			*buf= block->end;
 			block->end = i - 1;
 			block->flags = LOG_OR;
+			return (ft_find_logic(block, final, buf));
+		}
+		if (g_techline.line[i] == AND && g_techline.line[i + 1] == AND)
+		{
+			*buf= block->end;
+			block->end = i - 1;
+			block->flags = LOG_AND;
 			return (ft_find_logic(block, final, buf));
 		}
 		if (ft_find_pipe(block, final, &i))
