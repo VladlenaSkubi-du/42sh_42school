@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/24 15:57:12 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/28 18:48:42 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,16 @@ t_ltree					*ft_find_pipe(t_ltree *block, t_ltree *final, int *i);
 t_ltree					*ft_find_logic(t_ltree *block, t_ltree *final, int *buf);
 
 /*
+** Folder quoting_____________________________________________________________
+*/
+
+/*
+** File check_start_quote.c
+*/
+
+int             		quoting_to_readline(void);
+
+/*
 ** Folder path_tree____________________________________________________________
 */
 
@@ -142,7 +152,8 @@ t_ltree					*ft_find_logic(t_ltree *block, t_ltree *final, int *buf);
 ** File ft_path.c
 */
 
-char					**ft_path_pars(char *find, char *path, size_t *total, int *size_max);
+char					**ft_path_pars(char *find, char *path,
+							size_t *total, int *size_max);
 void					ft_get_path(char *name, t_path **root,
 							size_t *len, char *find);
 void					insert(char *dp_name, t_path **root, size_t *len);

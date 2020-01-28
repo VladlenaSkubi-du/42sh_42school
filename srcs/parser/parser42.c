@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/28 18:10:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int		parser(char *line)
 	g_cmd = line;
 	g_cmd_size = ft_strlen(g_cmd);
 	ft_get_techline();
+	while (quoting_to_readline() != 0)
+		;
 	nullify();
 	ft_slice();
 	free(line);
