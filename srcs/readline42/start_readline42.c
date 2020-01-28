@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/28 17:19:23 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/28 18:07:14 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 **          = 'q' = dquote
 */
 
-int				interactive_shell(char flag, char end, char *send)
+int				interactive_shell(char flag)
 {
 	char		*termtype;
 	char		room_termtype[2];
@@ -38,7 +38,7 @@ int				interactive_shell(char flag, char end, char *send)
 			error_handler(TERMINAL_TO_NON, NULL);
 			exit(TERMINAL_TO_NON);
 		}
-		init_prompt(flag, send);
+		init_prompt(flag);
 		termtype = getenv("TERM");
 		termtype = (termtype == NULL) ? "xterm-256color" : termtype;
 		tmp = tgetent(room_termtype, termtype);

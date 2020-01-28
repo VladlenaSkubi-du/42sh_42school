@@ -46,7 +46,8 @@ PARSER = 			parser/parser42.c \
 			parser/quote_control.c \
 			parser/slice_to_blocks.c \
 			$(PATH_TREE) \
-			$(EXEC)
+			$(EXEC) \
+			$(QUOTING)
 
 PATH_TREE = 		parser/path_tree/ft_block.c \
 			parser/path_tree/ft_path_help.c \
@@ -54,6 +55,8 @@ PATH_TREE = 		parser/path_tree/ft_block.c \
 
 EXEC = 				parser/exec/exec_init.c \
 			parser/exec/exec_core.c
+
+QUOTING =			parser/quoting/check_start_quote.c
 
 BUILTIN = 			builtin/exit.c
 
@@ -102,6 +105,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)/parser
 	@mkdir -p $(DIR_O)/parser/path_tree
 	@mkdir -p $(DIR_O)/parser/exec
+	@mkdir -p $(DIR_O)/parser/quoting
 	@mkdir -p $(DIR_O)/builtin
 	@mkdir -p $(DIR_O)/libft_42
 	gcc $(FLAGS) -c -I includes -o $@ $<
