@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/28 16:22:19 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/28 17:19:23 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ int				start_readline42(int tmp)
 	cmd = finalize_cmd(cmd);
 	clean_readline42();
 	signals_reroute(2);
-	ft_putendl_fd(cmd, 1);
-	// if (parser(cmd))
-	// 	return (1); //TODO erro
+	// ft_putendl_fd(cmd, 1);
+	if (parser(cmd))
+		return (1); //TODO erro
 	return (0);
 }
 
