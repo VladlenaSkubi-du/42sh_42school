@@ -99,7 +99,6 @@ char	*path_search(char *name)
 	char			**path_array;
 	char			**to_clean;
 	char			*ret;
-	struct dirent	*entity;
 
 	if (!(path_array = path_parse()))
 		return (0);
@@ -144,6 +143,13 @@ char	*path_init(char **exec_av)
 ** consider changing architecture to... well, something else
 */
 
+int	exec_clean(char **exec_av, char *path, int exit_status)
+{
+	free(path);
+	free_vec(exec_av);
+	return (exit_status);
+}
+
 int	exec_core(char **exec_av, int flags)
 {
 	pid_t			child_pid;
@@ -151,11 +157,11 @@ int	exec_core(char **exec_av, int flags)
 	static int		pipe_prev;
 	static int		pipe_next[2];
 
+	if (!(path = path_init(exec_av)))
+		return (exec_clean(exec_av, path, -1));
 	(flags & PIPED_IN) && (pipe_prev = pipe_next[0]);
 	if ((flags & PIPED_OUT) && pipe(pipe_next) == -1)
-			return (-1);
-	if (!(path = path_init(exec_av)))
-		return (-1);
+			return (exec_clean(exec_av, path, -1));
 	child_pid = fork();
 	if (!child_pid)
 	{
@@ -165,12 +171,9 @@ int	exec_core(char **exec_av, int flags)
 			exit(-1);
 	}
 	else if (child_pid < 0)
-		return (-1);
+		return (exec_clean(exec_av, path, -1));
 	wait(&child_pid);
 	(flags & PIPED_OUT) && close(pipe_next[1]);
 	(flags & PIPED_IN) && close(pipe_prev);
-	free(path);
-	free_vec(exec_av);
-
-	return (0);
+	return (exec_clean(exec_av, path, 0));
 }
