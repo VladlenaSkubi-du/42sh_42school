@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/28 18:07:14 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/29 13:54:38 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 /*
 ** @flag = 'm' - main_prompt
 **          = 'h' - heredoc
-**          = 'q' = dquote
+**          = 'd' = dquote
+**			= 's' = subshell
+**			= 'o' = other
 */
 
-int				interactive_shell(char flag)
+int				interactive_shell(void)
 {
 	char		*termtype;
 	char		room_termtype[2];
@@ -38,7 +40,7 @@ int				interactive_shell(char flag)
 			error_handler(TERMINAL_TO_NON, NULL);
 			exit(TERMINAL_TO_NON);
 		}
-		init_prompt(flag);
+		g_prompt.prompt_func();
 		termtype = getenv("TERM");
 		termtype = (termtype == NULL) ? "xterm-256color" : termtype;
 		tmp = tgetent(room_termtype, termtype);
@@ -97,4 +99,20 @@ char			*finalize_cmd(char *cmd)
 	if (g_rline.cmd_len > 0)
 		final = ft_strtrim(cmd);
 	return (final);
+}
+
+int				init_prompt(char flag)
+{
+	if (flag == 'm')
+		g_prompt.prompt_func = main_prompt;
+	else if (flag == 'd')
+		g_prompt.prompt_func = dquote_prompt;
+	else if (flag == 'h')
+		g_prompt.prompt_func = heredoc_prompt;
+	else if (flag == 's')
+		g_prompt.prompt_func = subshell_prompt;
+	else if (flag == 'o')
+		g_prompt.prompt_func = other_prompt;
+	g_prompt.prompt_func();
+	return (0);
 }

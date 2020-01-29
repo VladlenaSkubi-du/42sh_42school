@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/28 18:10:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/29 14:14:45 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,17 @@ int		parser(char *line)
 	g_cmd = line;
 	g_cmd_size = ft_strlen(g_cmd);
 	ft_get_techline();
-	while (quoting_to_readline() != 0)
+	while (back_to_readline() != 0)
 		;
+	printf("final %s - %zu\n", g_cmd, g_cmd_size); //нужна новая техническая строка
 	nullify();
-	ft_slice();
-	free(line);
+	// ft_slice();
+	clean_parser42();
 	return (0);
 }
 
 /*
-** functioun to check if find char is in use or just text
+** Function to check if find char is in use or just text
 */
 
 char	get_tech_num(char check)

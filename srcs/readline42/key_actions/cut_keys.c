@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:26:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/28 14:12:25 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/29 14:33:26 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int			delete_process(void)
 	size_t		len_swap;
 
 	check_menu();
-	if (g_rline.pos == 0 && g_rline.cmd_len == 0)
+	if (g_rline.pos == 0 && g_rline.cmd_len == 0 &&
+		g_prompt.prompt_func == main_prompt)
 		btin_exit(SUCCESS);
 	if (g_rline.pos < g_rline.cmd_len)
 	{

@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_all42.c                                      :+:      :+:    :+:   */
+/*   block_processing.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/16 15:05:06 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/29 14:17:13 by sschmele         ###   ########.fr       */
+/*   Created: 2020/01/29 14:24:54 by sschmele          #+#    #+#             */
+/*   Updated: 2020/01/29 14:25:21 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
+#include "parser.h"
 
-int				clean_everything(void)
+char		*copy_without_slash_enter(char *cmd, char *buf_cmd, size_t *cmd_len)
 {
-	ft_arrdel(g_env);
-	ft_arrdel(g_shvar);
-    //другие clean
-	make_ctrl_y(2, NULL);
-	return (0);
-}
+	int			i;
+	int			j;
 
-int				clean_readline42(void)
-{
-	free(g_rline.cmd);
-	return (0);
-}
-
-int				clean_parser42(void)
-{
-	free(g_cmd);
-	free(g_techline.line);
-	return (0);
+	i = 0;
+	j = 0;
+	while (buf_cmd[i])
+	{
+		if (buf_cmd[i] == '\\' || buf_cmd[i] == '\n')
+			i++;
+		else
+		{
+			cmd[j] = buf_cmd[i];
+			i++;
+			j++;
+		}
+	}
+	i = 0;
+	*cmd_len = j;
+	return (cmd);
 }

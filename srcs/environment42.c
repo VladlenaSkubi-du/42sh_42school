@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:45:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/23 17:31:00 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/29 12:13:35 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int					save_shell_variables(void)
 	char			*tmp;
 	size_t			size_tmp;
 
-	num = 5;
+	num = 6;
 	g_shvar = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
 	g_shvar[num] = NULL;
 	tmp = ft_itoa(getuid());
@@ -68,5 +68,6 @@ int					save_shell_variables(void)
 	tmp = ft_itoa(getppid());
 	g_shvar[4] = ft_strjoin("PPID=", tmp);
 	free(tmp);
+	g_shvar[5] = ft_strdup("42SH_PARSER=0");
 	return (0);
 }
