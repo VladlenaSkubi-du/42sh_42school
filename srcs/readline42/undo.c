@@ -6,13 +6,13 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:50:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/28 16:40:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/29 10:13:49 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
-#define ACTIONS_MAX 2
+#define ACTIONS_MAX 10
 
 t_action_stack	*action_new(void)
 {
@@ -102,7 +102,7 @@ int				undo(int mode)
 	else
 		incorrect_sequence();
 	action_alloc_management(&actions, 0);
-	if (actions_num > ACTIONS_MAX)
+	if (actions_num >= ACTIONS_MAX)
 	{
 		end = end->prev;
 		free(end->next->cmd_b);
