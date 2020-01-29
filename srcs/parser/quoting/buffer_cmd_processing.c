@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 14:00:01 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/29 14:06:21 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/29 17:31:23 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ char			*init_buffer_cmd(size_t cmd_len, char *cmd, size_t *buf_len)
 char            *add_buffer_cmd(char *buf_cmd, size_t cmd_len,
                                     char *cmd, size_t *buf_len)
 {
-    buf_cmd = ft_realloc(buf_cmd, *buf_len, *buf_len,
+    if (cmd == NULL || cmd[0] == 0)
+		return (buf_cmd);
+	buf_cmd = ft_realloc(buf_cmd, *buf_len, *buf_len,
 			*buf_len + cmd_len + 1);
 	ft_strcpy(buf_cmd + *buf_len, cmd);
 	buf_cmd[*buf_len + cmd_len] = '\n';

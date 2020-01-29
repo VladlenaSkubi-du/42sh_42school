@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/29 14:14:45 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/29 18:56:03 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,24 @@ int		parser(char *line)
 {
 	if (line == NULL || line[0] == 0)
 	{
-		free(line);
-		return (0);
+		if (g_prompt.prompt_func != NULL)
+		{
+			free(line);
+			return (0);
+		}
+		clear_cmd_from_escape(0);
 	}
-	g_cmd = line;
-	g_cmd_size = ft_strlen(g_cmd);
+	else
+	{
+		g_cmd = line;
+		g_cmd_size = ft_strlen(g_cmd);
+	}
 	ft_get_techline();
 	while (back_to_readline() != 0)
 		;
-	printf("final %s - %zu\n", g_cmd, g_cmd_size); //нужна новая техническая строка
+	// printf("final %s - %zu\n", g_cmd, g_cmd_size); //нужна новая техническая строка
 	nullify();
-	// ft_slice();
+	ft_slice();
 	clean_parser42();
 	return (0);
 }
