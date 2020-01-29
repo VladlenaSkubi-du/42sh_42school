@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_all42.c                                      :+:      :+:    :+:   */
+/*   ft_init_stack.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/16 15:05:06 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/29 14:17:13 by sschmele         ###   ########.fr       */
+/*   Created: 2020/01/29 10:31:19 by sschmele          #+#    #+#             */
+/*   Updated: 2020/01/29 10:37:05 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
+#include "libft_42.h"
 
-int				clean_everything(void)
+t_stack				*ft_init_stack(void)
 {
-	ft_arrdel(g_env);
-	ft_arrdel(g_shvar);
-    //другие clean
-	make_ctrl_y(2, NULL);
-	return (0);
-}
+	t_stack			*stack;
 
-int				clean_readline42(void)
-{
-	free(g_rline.cmd);
-	return (0);
-}
-
-int				clean_parser42(void)
-{
-	free(g_cmd);
-	free(g_techline.line);
-	return (0);
+	stack = ft_xmalloc(sizeof(t_stack));
+	stack->data = 0;
+	stack->next = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:54:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/28 18:48:06 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/29 13:51:48 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int				main(int argc, char **argv)
 		return (1);
 	else if (tmp == 1)
 		return (0);
-	if (interactive_shell('m'))
+	g_prompt.prompt_func = main_prompt;
+	if (interactive_shell())
 		return (1); //TODO исправить после вынесения exit_status
 	return (0);
 }

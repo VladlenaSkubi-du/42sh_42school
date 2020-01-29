@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/28 18:48:42 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/29 14:26:01 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,25 @@ t_ltree					*ft_find_logic(t_ltree *block, t_ltree *final, int *buf);
 ** File check_start_quote.c
 */
 
-int             		quoting_to_readline(void);
+int             		back_to_readline(void);
+int						escape_character(void);
+int						clear_cmd_from_escape(int *flag);
+
+/*
+** File buffer_cmd_processing.c
+*/
+
+char					*init_buffer_cmd(size_t cmd_len, char *cmd,
+							size_t *buf_len);
+char            		*add_buffer_cmd(char *buf_cmd, size_t cmd_len,
+                            char *cmd, size_t *buf_len);
+
+/*
+** File block_processing.c
+*/
+
+char					*copy_without_slash_enter(char *cmd,
+							char *buf_cmd, size_t *cmd_len);
 
 /*
 ** Folder path_tree____________________________________________________________

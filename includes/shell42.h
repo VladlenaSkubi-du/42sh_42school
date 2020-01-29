@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 12:16:51 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/29 14:16:58 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,10 @@
 # include "ft_printf.h" //If not used, delete
 # include "get_next_line.h" //If not used, delete
 
-/*
-** @g_env - global variable with (char **environ) parameters
-** @sh_var - shell variables
-*/
-
-char				**g_env;
-char				**g_shvar;
+typedef struct		s_prompt
+{
+	int				(*prompt_func)(void);
+}					t_prompt;
 
 /*
 ** @SLASH is "\", @SCOLON is ";", @AND is "&", @DQUOTE is '"',
@@ -71,6 +68,15 @@ enum				e_techline
 }					t_sign_techline;
 
 /*
+** @g_env - global variable with (char **environ) parameters
+** @g_sh_var - shell variables
+*/
+
+char				**g_env;
+char				**g_shvar;
+t_prompt			g_prompt;
+
+/*
 ** File environment42.c
 */
 
@@ -98,5 +104,6 @@ int					error_handler(t_exit_status status, char *str);
 
 int					clean_everything(void);
 int					clean_readline42(void);
+int					clean_parser42(void);
 
 #endif

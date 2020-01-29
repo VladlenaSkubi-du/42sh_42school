@@ -6,26 +6,12 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 12:45:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/28 18:06:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/29 12:38:25 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
-
-int				init_prompt(char flag)
-{
-	if (flag == 'm')
-		g_prompt.prompt_func = main_prompt;
-	else if (flag == 'd')
-		g_prompt.prompt_func = dquote_prompt;
-	else if (flag == 'h')
-		g_prompt.prompt_func = heredoc_prompt;
-	else if (flag == 's')
-		g_prompt.prompt_func = subshell_prompt;
-	g_prompt.prompt_func();
-	return (0);
-}
 
 int				main_prompt(void)
 {
@@ -57,5 +43,12 @@ int				subshell_prompt(void)
 {
 	ft_putstr_fd("subsh> ", STDOUT_FILENO);
 	g_rline.prompt_len = 7;
+	return (0);
+}
+
+int				other_prompt(void)
+{
+	ft_putstr_fd("> ", STDOUT_FILENO);
+	g_rline.prompt_len = 2;
 	return (0);
 }

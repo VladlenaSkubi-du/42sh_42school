@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 13:17:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/28 16:54:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/29 11:20:17 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,9 @@ t_path				*fill_tree_with_arguments(char *path,
 		return (NULL);
 	while ((entry = readdir(dir_name)))
 	{
-		if (ft_strnequ(entry->d_name, complete, len) &&
-			entry->d_name[0] != '.')
+		if (entry->d_name[0] == '.')
+			continue ;
+		if (ft_strnequ(entry->d_name, complete, len))
 			insert(entry->d_name, &root, total);
 	}
 	closedir(dir_name);

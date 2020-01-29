@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/28 18:07:10 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/29 13:49:12 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,8 @@ typedef struct					s_completion
 	size_t						i;
 }								t_completion;
 
-typedef struct					s_prompt
-{
-	int							(*prompt_func)(void);
-}								t_prompt;
-
 t_rline							g_rline;
-t_prompt						g_prompt;
+// t_prompt						g_prompt;
 struct winsize					g_screen;
 // struct termios					g_tty; //TODO убрать, если
 struct termios					g_backup_tty;
@@ -107,10 +102,11 @@ struct termios					g_backup_tty;
 ** File start_readline42.c
 */
 
-int								interactive_shell(char flag);
+int								interactive_shell(void);
 int								start_readline42(int tmp);
 char							*finalize_cmd(char *cmd);
 int								clean_readline42(void);
+int								init_prompt(char flag); //TODO DELETE
 
 /*
 ** File readline.c - the beginning of the work with readline
@@ -124,11 +120,11 @@ int								readline_choice(char sy);
 ** File prompts.c
 */
 
-int								init_prompt(char flag);
 int								main_prompt(void);
 int								dquote_prompt(void);
 int								heredoc_prompt(void);
 int								subshell_prompt(void);
+int								other_prompt(void);
 
 /*
 ** File terminal_input_changes.c

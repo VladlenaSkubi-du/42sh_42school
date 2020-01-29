@@ -56,7 +56,9 @@ PATH_TREE = 		parser/path_tree/ft_block.c \
 EXEC = 				parser/exec/exec_init.c \
 			parser/exec/exec_core.c
 
-QUOTING =			parser/quoting/check_start_quote.c
+QUOTING =			parser/quoting/check_start_quote.c \
+			parser/quoting/buffer_cmd_processing.c \
+			parser/quoting/block_processing.c
 
 BUILTIN = 			builtin/exit.c
 
