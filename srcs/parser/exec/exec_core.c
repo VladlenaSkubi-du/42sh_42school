@@ -175,5 +175,6 @@ int	exec_core(char **exec_av, int flags)
 	wait(&child_pid);
 	(flags & PIPED_OUT) && close(pipe_next[1]);
 	(flags & PIPED_IN) && close(pipe_prev);
-	return (exec_clean(exec_av, path, 0));
+	return (exec_clean(exec_av, path, WIFEXITED(child_pid) ? 
+		WEXITSTATUS(childpid : (-1))));
 }
