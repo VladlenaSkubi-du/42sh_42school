@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:26:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/29 14:33:26 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/29 17:39:33 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,8 @@ int			delete_process(void)
 	size_t		len_swap;
 
 	check_menu();
-	if (g_rline.pos == 0 && g_rline.cmd_len == 0 &&
-		g_prompt.prompt_func == main_prompt)
-		btin_exit(SUCCESS);
+	if (g_rline.pos == 0 && g_rline.cmd_len == 0)
+		route_exit();
 	if (g_rline.pos < g_rline.cmd_len)
 	{
 		undo(0);
@@ -62,6 +61,23 @@ int			delete_process(void)
 	}
 	else
 		return (incorrect_sequence());
+	return (0);
+}
+
+int			route_exit(void)
+{
+	if (g_prompt.prompt_func == main_prompt)
+		btin_exit(SUCCESS);
+	if (g_prompt.prompt_func == other_prompt)
+	{
+		action_alloc_management(NULL, 1);
+		reset_canonical_input();
+		clean_readline42();
+		signals_reroute(2);
+		g_prompt.prompt_func = NULL;
+		parser(NULL);
+		exit(SUCCESS);
+	}
 	return (0);
 }
 

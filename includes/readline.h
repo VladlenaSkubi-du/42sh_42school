@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/29 13:49:12 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/29 17:12:56 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,7 @@ int								backspace_process(void);
 int								delete_till_compl(size_t len_compl,
 									size_t delete);
 int								delete_process(void);
+int								route_exit(void);
 int								esc_r(void);
 
 /*
