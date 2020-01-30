@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/30 15:28:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/30 17:54:58 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,6 @@ int				init_prompt(char flag)
 		g_prompt.prompt_func = dquote_prompt;
 	else if (flag == 'h')
 		g_prompt.prompt_func = heredoc_prompt;
-	else if (flag == 's')
-		g_prompt.prompt_func = subshell_prompt;
 	else if (flag == 'o')
 		g_prompt.prompt_func = other_prompt;
 	g_prompt.prompt_func();

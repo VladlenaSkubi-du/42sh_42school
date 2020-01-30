@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 10:31:19 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/29 10:37:05 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/30 16:32:38 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,5 @@ t_stack				*ft_init_stack(void)
 	stack = ft_xmalloc(sizeof(t_stack));
 	stack->data = 0;
 	stack->next = NULL;
+	return (stack);
 }

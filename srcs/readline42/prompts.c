@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 12:45:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/30 15:13:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/30 17:55:12 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,6 @@ int				heredoc_prompt(void)
 {
 	ft_putstr_fd("heredoc> ", STDOUT_FILENO);
 	g_rline.prompt_len = 9;
-	return (0);
-}
-
-int				subshell_prompt(void)
-{
-	ft_putstr_fd("subsh> ", STDOUT_FILENO);
-	g_rline.prompt_len = 7;
 	return (0);
 }
 
