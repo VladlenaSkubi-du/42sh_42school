@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 12:43:36 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/30 14:08:51 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/30 15:23:09 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void			sig_fork(int sig)
 {
 	if (sig == SIGINT)
 	{
+		ft_putendl_fd(0, STDIN_FILENO);
 		return ; //TODO чистим parser
 	}
 }
