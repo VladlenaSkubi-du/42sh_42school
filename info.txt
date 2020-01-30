@@ -258,4 +258,27 @@ i = ft_strchri(g_shvar[5], '=');
 ctrl-D из slash выходит из проги, но запускает парсер
 ctrl-D из кавыки, сабшелла и тд запускает парсер НЕ выходит
 
+static int		subshell_character(int *flag_subsh)
+{
+	flag_subsh += 1;
+	if (g_len_buf_cmd == 0)
+		g_buf_cmd = init_buffer_cmd(g_cmd_size, g_cmd, &g_len_buf_cmd);
+	else
+		g_buf_cmd = add_buffer_cmd(g_buf_cmd, g_cmd_size, g_cmd, &g_len_buf_cmd);
+	clean_parser42();
+	g_prompt.prompt_func = subshell_prompt;
+	if (interactive_shell())
+		exit(PARSER_ERROR); //TODO удалить
+	return (0);
+}
 
+int				parenthesis_or_brace_subshell(int *flag_subsh)
+{
+	if (g_techline.line[0] == OPAREN)
+		if (check_if_not_closed(OPAREN, CPAREN) == -1)
+			subshell_character(flag_subsh);
+	if (g_techline.line[0] == OBRACE)
+		if (check_if_not_closed(OBRACE, CBRACE) == -1)
+			subshell_character(flag_subsh);
+	return (0);
+}

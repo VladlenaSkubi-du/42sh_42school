@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/30 14:01:28 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/30 17:55:45 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ int								readline_choice(char sy);
 int								main_prompt(void);
 int								dquote_prompt(void);
 int								heredoc_prompt(void);
-int								subshell_prompt(void);
 int								other_prompt(void);
 
 /*
