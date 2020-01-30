@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/29 17:25:53 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/30 14:57:46 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,13 @@ int				start_readline42(int tmp)
 	char		*cmd;
 
 	if (tmp != 1)
-		if (!(cmd = readline_simple()))
-		{
-			ft_putendl_fd("Something has happend", 2); //TODO error
-			return (1);
-		}
-	if (!(cmd = readline()))
-	{
-		ft_putendl_fd("Something has happend", 2); //TODO error
-		return (1);
-	}
+		cmd = readline_simple();
+	else
+		cmd = readline();
 	reset_canonical_input();
 	cmd = finalize_cmd(cmd);
 	clean_readline42();
 	signals_reroute(2);
-	// ft_putendl_fd(cmd, 1);
 	if (parser(cmd))
 		return (1); //TODO erro
 	return (0);
@@ -87,6 +79,8 @@ char			*finalize_cmd(char *cmd)
 
 	check_menu();
 	final = NULL;
+	if (cmd == NULL)
+		return (final);
 	if (g_rline.cmd_len == 0)
 		return (NULL);
 	if ((sign = ft_strchr(cmd, '#')) != NULL)

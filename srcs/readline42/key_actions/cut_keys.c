@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:26:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/29 17:39:33 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/30 14:58:53 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int			route_exit(void)
 		signals_reroute(2);
 		g_prompt.prompt_func = NULL;
 		parser(NULL);
+		//TODO make history to the file
 		exit(SUCCESS);
 	}
 	return (0);

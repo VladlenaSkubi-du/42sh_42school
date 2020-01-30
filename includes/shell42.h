@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/29 14:16:58 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/30 15:16:16 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int					save_shell_variables(void);
 ** File signals_processing42.c
 */
 
+int					signal_ctrl_c(void);
 int					signals_reroute(int from);
 void				sig_readline(int sig);
 void				sig_fork(int sig);

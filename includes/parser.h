@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/29 17:37:51 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/30 15:16:33 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ t_ltree					*ft_find_logic(t_ltree *block, t_ltree *final, int *buf);
 int             		back_to_readline(void);
 int						escape_character(void);
 int						clear_cmd_from_escape(int flag);
+int						parenthesis_or_brace_subshell(void);
 
 /*
 ** File buffer_cmd_processing.c
