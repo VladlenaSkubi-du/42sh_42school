@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 18:13:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/30 15:16:08 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/30 15:26:39 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int				clear_cmd_from_escape(int flag)
 		g_flag = 0;
 		g_cmd = copy_without_slash_enter(g_cmd, g_buf_cmd, &g_cmd_size);
 		g_cmd_size = ft_strlen(g_cmd);
+		if (!g_cmd || g_cmd[0] == 0)
+			btin_exit(SUCCESS);
 	}
 	return (0);
 }
