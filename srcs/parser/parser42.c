@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser42.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/30 15:16:49 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/30 15:19:12 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ int		parser(char *line)
 		g_cmd_size = ft_strlen(g_cmd);
 	}
 	ft_get_techline();
-	while (back_to_readline() != 0)
-		;
+	while (back_to_readline() != 0);
 	// printf("final %s - %zu\n", g_cmd, g_cmd_size); //нужна новая техническая строка
 	nullify();
 	// ft_putendl_fd(g_cmd, 1);

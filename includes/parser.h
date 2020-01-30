@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/30 15:16:33 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/30 16:44:43 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int     				ft_slice(void);
 */
 
 t_ltree					*ft_find_pipe(t_ltree *block, t_ltree *final, int *i);
-t_ltree					*ft_find_logic(t_ltree *block, t_ltree *final, int *buf);
+t_ltree					*ft_find_logic(t_ltree *block, t_ltree *final);
 
 /*
 ** Folder quoting_____________________________________________________________

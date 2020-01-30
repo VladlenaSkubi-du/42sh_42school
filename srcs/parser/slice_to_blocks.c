@@ -17,23 +17,19 @@ int	ft_block_start_fg(t_ltree *block)
 {
 	t_ltree	*sub;
 	t_ltree	final;
-	int		buf;
 	int		out_flag;
 	
-	buf = 0;
-	while ((sub = ft_find_logic(block, &final, &buf)))
+	while ((sub = ft_find_logic(block, &final)))
 	{
-		out_flag = exec_init(sub);		
-		if (buf != 0)
-		{
-			block->end = buf;
-			buf = 0;
-		}
-		if (out_flag != 0 && block->flags & LOG_AND)
+		out_flag = exec_init(sub);	
+		if (out_flag != 0 && final.flags & LOG_AND)
 			break ;
-		if (out_flag == 0 && block->flags & LOG_OR)
+		if (out_flag == 0 && final.flags & LOG_OR)
 			break ;
-		block->start = sub->end + 1;
+		block->start = final.end + 1;
+		final.end = block->end;
+		if (final.flags & LOG_AND || final.flags & LOG_OR)
+			block->start += 2;
 	}
 	return (0);
 }
@@ -70,8 +66,9 @@ int	ft_slice(void)
 			block.start = i + 1;
 		}
 		if (g_techline.line[i] == AND && g_techline.line[i + 1] != AND && \
+			g_techline.line[i - 1] != AND && \
 			g_techline.line[i + 1] != GTHAN && g_techline.line[i + 1] != LTHAN && \
-		 	g_techline.line[i - 1] != GTHAN && g_techline.line[i - 1] !=LTHAN)
+		 	g_techline.line[i - 1] != GTHAN && g_techline.line[i - 1] != LTHAN)
 		{
 			block.end = i;
 			ft_block_start_bg(&block);
