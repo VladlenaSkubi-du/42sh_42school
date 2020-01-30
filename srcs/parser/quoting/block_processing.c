@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 14:24:54 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/29 14:25:21 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/30 15:13:32 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char		*copy_without_slash_enter(char *cmd, char *buf_cmd, size_t *cmd_len)
 	j = 0;
 	while (buf_cmd[i])
 	{
-		if (buf_cmd[i] == '\\' || buf_cmd[i] == '\n')
+		if ((buf_cmd[i] == '\\' && buf_cmd[i + 1] == '\n') || buf_cmd[i] == '\n')
 			i++;
 		else
 		{
@@ -31,7 +31,7 @@ char		*copy_without_slash_enter(char *cmd, char *buf_cmd, size_t *cmd_len)
 			j++;
 		}
 	}
-	i = 0;
+	cmd[j] = '\0';
 	*cmd_len = j;
 	return (cmd);
 }

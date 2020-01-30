@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/29 17:12:56 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/30 14:01:28 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "get_next_line.h" //If not used, delete
 
 # define CMD_SIZE	5
+# define OUT		42
 # define TAB		0x1
 
 /*

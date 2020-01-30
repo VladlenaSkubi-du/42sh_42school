@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/29 19:00:38 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/30 15:16:49 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int		parser(char *line)
 		;
 	// printf("final %s - %zu\n", g_cmd, g_cmd_size); //нужна новая техническая строка
 	nullify();
+	// ft_putendl_fd(g_cmd, 1);
 	ft_slice();
 	clean_parser42();
 	return (0);

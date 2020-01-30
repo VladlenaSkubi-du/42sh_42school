@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 12:45:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/29 12:38:25 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/30 15:13:03 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int				main_prompt(void)
 {
-	const char	*prompt = "42sh";
+	const char	*prompt = "e-bash";
 
 	ft_putstr_fd("\033[1;31m", STDOUT_FILENO);
 	ft_putstr_fd(prompt, STDOUT_FILENO);

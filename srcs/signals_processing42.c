@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 12:43:36 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/17 15:21:54 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/30 14:08:51 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@
 ** @from = 2 from the main
 **		= 3 if out
 */
+
+int				signal_ctrl_c(void)
+{
+	if (g_prompt.prompt_func != main_prompt)
+		g_prompt.prompt_func = main_prompt;
+	free(g_rline.cmd);
+	g_rline.cmd = NULL;
+	g_rline.cmd_len = 0;
+	return (OUT);
+}
 
 int				signals_reroute(int from)
 {

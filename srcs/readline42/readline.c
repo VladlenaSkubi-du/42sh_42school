@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:53:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/28 16:37:19 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/30 14:09:17 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 
 int		readline_choice(char sy)
 {
-	ctrl_key(sy);
+	if (ctrl_key(sy) == OUT)
+		return (OUT);
 	if (sy == '\033')
 	{
 		check_menu();
@@ -45,7 +46,8 @@ char	*readline(void)
 			ft_putendl_fd("Can't get terminal dimensions", 2); //TODO delete
 			return (NULL);
 		}
-		readline_choice(temp);
+		if (readline_choice(temp) == OUT)
+			break ;
 	}
 	if (g_rline.cmd_len > 0)
 	{
