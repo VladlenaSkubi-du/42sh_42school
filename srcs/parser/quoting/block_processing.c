@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 14:24:54 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/31 19:55:30 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/31 21:42:44 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ int				check_quotes(int *flag_quotes, t_stack **check)
 {
 	size_t		i;
 
+	if (!g_techline.line)
+		return (0);
 	if (*flag_quotes == 0)
 	{
 		*check = ft_init_stack();
