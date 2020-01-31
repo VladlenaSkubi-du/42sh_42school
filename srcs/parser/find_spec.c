@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 13:04:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/31 12:02:43 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/31 12:09:56 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_ltree		*ft_find_pipe(t_ltree *block, t_ltree *final, int *i)
 			final->flags &= ~PIPED_OUT;
 			block->flags &= ~PIPED_OUT;
 			final->flags |= PIPED_IN;
-			block->flags |= PIPED_IN;
+			block->flags &= ~PIPED_IN;
 		}
 		return (final);
 	}
