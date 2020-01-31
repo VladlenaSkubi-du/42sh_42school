@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 14:24:54 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/31 12:47:33 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/31 19:55:30 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int				dquote_character_open(void)
 			g_cmd, &g_dquote.buf_len);
 	clean_parser42();
 	g_prompt.prompt_func = dquote_prompt;
-	if (interactive_shell())
-		exit(PARSER_ERROR); //TODO удалить
-	return (0);
+	// if (interactive_shell())
+	// 	exit(PARSER_ERROR); //TODO удалить
+	return (OUT);
 }
 
 int				dquote_character_closed(void)
@@ -39,6 +39,7 @@ int				dquote_character_closed(void)
 	{
 		clean_parser42();
 		g_cmd = g_dquote.cmd_buf;
+		g_cmd_size = g_dquote.buf_len;
 		ft_get_techline();
 	}
 	g_dquote.flag_quote = 0;

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:50:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/30 17:00:46 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/31 20:40:48 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,18 @@ void			action_alloc_management(t_action_stack **start, int mode)
 	static t_action_stack	**save;
 	t_action_stack			*temp;
 
-	if (!mode && save)
+	if (!mode)
 		save = start;
 	else if (save)
 	{
 		while (*save)
 		{
-			temp = *save;
-			free(temp->cmd_b);
-			free(temp);
-			*save = (*save)->next;
+			temp = (*save)->next;
+			free((*save)->cmd_b);
+			free(*save);
+			*save = temp;
 		}
+		*save = NULL;
 	}
 }
 
