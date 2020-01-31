@@ -65,7 +65,8 @@ BUILTIN = 			builtin/exit.c
 STACK_STRUCTURE = 	libft_42/stack_structure/ft_init_stack.c \
 			libft_42/stack_structure/ft_pop_stack.c \
 			libft_42/stack_structure/ft_push_stack.c \
-			libft_42/stack_structure/ft_clear_stack.c
+			libft_42/stack_structure/ft_clear_stack.c \
+			libft_42/stack_structure/ft_last_stack.c
 
 LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_realloc.c \
