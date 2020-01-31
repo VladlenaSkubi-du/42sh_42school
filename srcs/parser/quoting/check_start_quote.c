@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 18:13:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/31 19:28:00 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/31 21:44:35 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,9 @@ int				dquote_character(void)
 	
 	tmp = 0;
 	if ((tmp = check_quotes(&g_dquote.flag_quote, &g_dquote.check)) == -1)
-	{
 		return (dquote_character_open());
-		// return (2);
-	}
 	if (tmp == 0 && g_dquote.cmd_buf)
 		dquote_character_closed();
-	ft_clear_stack(&g_dquote.check);
+	(g_dquote.check != NULL) ? ft_clear_stack(&g_dquote.check) : 0;
 	return (0);
 }
