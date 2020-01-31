@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/31 20:21:45 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/31 21:47:20 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,15 @@ typedef struct  		s_path
 	char				flag;
 }               		t_path;
 
+typedef struct			s_dquote
+{
+	char				*cmd_buf;
+	size_t				buf_len;
+	int					flag_esc;
+	int					flag_quote;
+	t_stack				*check;
+}						t_dquote;
+
 /*
 **Global vars
 */
@@ -100,12 +109,15 @@ typedef struct  		s_path
 char					*g_cmd;
 size_t					g_cmd_size;
 t_tech					g_techline;
+t_dquote				g_dquote;
 
 /*
 ** File parser.c
 */
 
 int						parser(char *line);
+int						pars_lex_exec(int tmp);
+int						check_null_line(char *line);
 int						ft_get_techline(void);
 char					get_tech_num(char check);
 
@@ -145,10 +157,10 @@ t_ltree					*ft_find_redirection(t_ltree *block, t_ltree *final);
 ** File check_start_quote.c
 */
 
-int             		back_to_readline(void);
+void					init_dquote(void);
+int						back_to_readline(void);
 int						escape_character(void);
-int						dquote_character(int *flag_quotes);
-int						clear_cmd_from_escape(int flag);
+int						dquote_character(void);
 
 /*
 ** File buffer_cmd_processing.c
@@ -165,8 +177,11 @@ char            		*add_buffer_last(char *buf_cmd, size_t cmd_len,
 ** File block_processing.c
 */
 
+int						dquote_character_open(void);
+int						dquote_character_closed(void);
+int						clear_cmd_from_slash(int flag);
 char					*copy_without_slash_enter(char *cmd,
-							char *buf_cmd, size_t *cmd_len);
+							char *buf_cmd, size_t *cmd_len, int sl_en);
 int						check_quotes(int *flag_quotes, t_stack **check);
 
 /*

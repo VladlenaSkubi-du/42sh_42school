@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:26:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/30 15:26:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/31 20:16:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int			delete_process(void)
 
 	check_menu();
 	if (g_rline.pos == 0 && g_rline.cmd_len == 0)
-		route_exit();
+		if (route_exit() == OUT)
+			return (OUT);
 	if (g_rline.pos < g_rline.cmd_len)
 	{
 		undo(0);
@@ -68,20 +69,20 @@ int			route_exit(void)
 {
 	if (g_prompt.prompt_func == main_prompt)
 	{
+		action_alloc_management(NULL, 1);
 		reset_canonical_input();
 		clean_readline42();
 		btin_exit(SUCCESS);
 	}
 	if (g_prompt.prompt_func == other_prompt)
 	{
-		action_alloc_management(NULL, 1);
-		reset_canonical_input();
-		clean_readline42();
-		signals_reroute(2);
-		g_prompt.prompt_func = NULL;
-		parser(NULL);
-		//TODO make history to the file
-		exit(SUCCESS);
+		g_rline.cmd = NULL;
+		return (OUT);
+	}
+	if (g_prompt.prompt_func == dquote_prompt)
+	{
+		g_rline.cmd = NULL;
+		return (OUT);
 	}
 	return (0);
 }

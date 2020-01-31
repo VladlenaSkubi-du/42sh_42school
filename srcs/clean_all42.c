@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:05:06 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/29 14:17:13 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/31 21:39:28 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int				clean_readline42(void)
 int				clean_parser42(void)
 {
 	free(g_cmd);
+	g_cmd = NULL;
 	free(g_techline.line);
+	g_techline.line = NULL;
 	return (0);
 }

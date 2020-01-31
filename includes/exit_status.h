@@ -6,12 +6,23 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/22 19:34:07 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/31 17:21:39 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXIT_STATUS_H
 # define EXIT_STATUS_H
+
+# define	ERR_SQUOTE 0x1
+
+/*
+** In reality bash returns code "2" for all the internal errors + adds mask for
+** explanation of general type error (main_error (=1) | general_mask >> 8) +
+** adds explanation of local type error (main_error (=1) |
+** general_mask >> 8 | local_mask >> 16)
+**
+** But we do the main_error_status + local_mask << 8
+*/
 
 typedef enum		e_status
 {

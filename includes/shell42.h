@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/30 15:16:16 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/31 17:28:22 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int					save_shell_variables(void);
 */
 
 int					signal_ctrl_c(void);
+int					ctrl_d_with_other_prompt(void);
+int					ctrl_d_with_dquote_prompt(void);
 int					signals_reroute(int from);
 void				sig_readline(int sig);
 void				sig_fork(int sig);
@@ -98,6 +100,7 @@ void				sig_fork(int sig);
 */
 
 int					error_handler(t_exit_status status, char *str);
+int					syntax_errors(t_exit_status status, char *str);
 
 /*
 ** File clean_all42.c

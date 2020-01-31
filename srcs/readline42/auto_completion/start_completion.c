@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/28 16:58:57 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/31 21:36:56 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char				**route_menu_receipt(char *tech_line,
 	menu = NULL;
 	pool = 0;
 	if (tech_line == NULL)
-		menu = ft_path_pars("", path_parse_compl(), total, max_len);
+		menu = route_by_prompts(total, max_len);
 	else
 	{
 		if ((tmp = analyse_techline_compl(g_complete, tech_line,
@@ -106,6 +106,24 @@ char				**route_menu_receipt(char *tech_line,
 			menu = get_variables(g_complete, total, max_len);
 		else
 			menu = get_arguments(&g_complete, total, max_len);
+	}
+	return (menu);
+}
+
+char				**route_by_prompts(size_t *total, int *max_len)
+{
+	char			**menu;
+	t_path			*root;
+
+	if (g_prompt.prompt_func == main_prompt)
+		menu = ft_path_pars("", path_parse_compl(), total, max_len);
+	else
+	{
+		root = fill_tree_with_arguments("./", "", total);
+		if (root == NULL)
+			return (NULL);
+		menu = ft_add_block(&root, *total, max_len);
+		ft_path_free(&root);
 	}
 	return (menu);
 }
