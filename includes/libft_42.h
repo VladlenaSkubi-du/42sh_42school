@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:46:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/29 10:39:28 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/31 17:07:15 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ t_stack							*ft_init_stack(void);
 int								ft_pop_stack(t_stack **head);
 int								ft_push_stack(t_stack **head, int data);
 void							ft_clear_stack(t_stack **head);
+int				                ft_last_stack(t_stack **head);
 
 #endif

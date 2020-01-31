@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 18:24:47 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/28 16:42:52 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/31 21:21:08 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int					pass_symbols(char *compl, char *tech, int i, int *pool)
 		i--;
 	if (tech[i] == 0 && ft_isalnum(compl[i]))
 	{
-		*pool = 1;
+		*pool = (g_prompt.prompt_func == main_prompt) ? 1 : 3;
 		return (i);
 	}
 	if (tech[i] == 0 && compl[i] == '/')
@@ -74,7 +74,7 @@ int					pass_symbols(char *compl, char *tech, int i, int *pool)
 	}
 	if (tech[i] == SPACE && i == 0)
 	{
-		*pool = 1;
+		*pool = (g_prompt.prompt_func == main_prompt) ? 1 : 3;
 		return (i + 1);
 	}
 	return (i);

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/30 17:55:45 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/31 21:37:35 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,6 +285,7 @@ int								auto_completion(void);
 char							**route_menu_receipt(char *tech_line,
 									size_t tech_len, size_t *total,
 									int *max_len);
+char							**route_by_prompts(size_t *total, int *max_len);
 int								insert_word_compl(void);
 int								check_menu(void);
 
