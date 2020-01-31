@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:54:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/30 16:22:35 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/31 10:05:06 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int				noninteractive_shell(int argc, char **argv)
 	if (argc > 2 && ft_strcmp(argv[1], "-c") == 0)
 	{
 		cmd = ft_strdup(argv[2]); //TODO строка может быть нулевой
+		g_prompt.prompt_func = NULL;
 		if (parser(cmd))
 			return (-1); //TODO исправить после вынесения exit_status
 		return (1);

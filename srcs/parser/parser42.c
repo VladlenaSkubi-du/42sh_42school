@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/30 18:51:07 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/31 17:56:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,58 @@
 
 int		parser(char *line)
 {
+	int			tmp;
+	int			answer;
+	
+	tmp = 0;
+	if (g_prompt.prompt_func == main_prompt)
+		init_dquote();
 	if (line == NULL || line[0] == 0)
 	{
-		if (g_prompt.prompt_func != NULL)
-		{
-			free(line);
+		answer = check_null_line(line);
+		if (answer == 2)
 			return (0);
-		}
-		clear_cmd_from_escape(0);
 	}
 	else
-	{
 		g_cmd = line;
-		g_cmd_size = ft_strlen(g_cmd);
-	}
+	g_cmd_size = ft_strlen(g_cmd);
+	//history
 	ft_get_techline();
 	while (back_to_readline() != 0)
 		;
+	if (pars_lex_exec(answer))
+		return (1); //TODO исправить
+	return (0);
+}
+
+int		pars_lex_exec(int tmp)
+{
 	nullify();
 	ft_putendl_fd(g_cmd, 1);
 	// ft_slice();
 	clean_parser42();
+	if (tmp == 1)
+	{
+		clean_everything();
+		exit(SUCCESS);
+	}
+	return (0);
+}
+
+int		check_null_line(char *line)
+{
+	if (g_prompt.prompt_func == NULL)
+	{
+		free(line);
+		clean_everything();
+		exit(SUCCESS);
+	}
+	if (g_prompt.prompt_func == main_prompt)
+		return (2);
+	if (g_prompt.prompt_func == other_prompt)
+		return (ctrl_d_with_other_prompt());
+	if (g_prompt.prompt_func == dquote_prompt)
+		return (ctrl_d_with_dquote_prompt());
 	return (0);
 }
 
