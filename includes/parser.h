@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/30 16:44:43 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/01/30 18:56:42 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,8 +144,8 @@ t_ltree					*ft_find_logic(t_ltree *block, t_ltree *final);
 
 int             		back_to_readline(void);
 int						escape_character(void);
+int						dquote_character(int *flag_quotes);
 int						clear_cmd_from_escape(int flag);
-int						parenthesis_or_brace_subshell(void);
 
 /*
 ** File buffer_cmd_processing.c
@@ -155,6 +155,8 @@ char					*init_buffer_cmd(size_t cmd_len, char *cmd,
 							size_t *buf_len);
 char            		*add_buffer_cmd(char *buf_cmd, size_t cmd_len,
                             char *cmd, size_t *buf_len);
+char            		*add_buffer_last(char *buf_cmd, size_t cmd_len,
+                            char *cmd, size_t *buf_len);
 
 /*
 ** File block_processing.c
@@ -162,6 +164,7 @@ char            		*add_buffer_cmd(char *buf_cmd, size_t cmd_len,
 
 char					*copy_without_slash_enter(char *cmd,
 							char *buf_cmd, size_t *cmd_len);
+int						check_quotes(int *flag_quotes, t_stack **check);
 
 /*
 ** Folder path_tree____________________________________________________________

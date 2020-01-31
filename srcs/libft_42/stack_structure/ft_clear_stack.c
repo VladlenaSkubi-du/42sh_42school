@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 10:37:08 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/29 10:38:36 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/30 16:59:26 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void			ft_clear_stack(t_stack **head)
 	while (*head)
 	{
 		tmp = *head;
-		if ((*head)->next)
-			(*head) = (*head)->next;
 		free(tmp);
+		*head = (*head)->next;
 	}
+	*head = NULL;
 }
