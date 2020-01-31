@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 14:00:01 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/30 14:15:29 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/30 18:56:25 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,18 @@ char            *add_buffer_cmd(char *buf_cmd, size_t cmd_len,
 	buf_cmd[*buf_len + cmd_len] = '\n';
 	buf_cmd[*buf_len + cmd_len + 1] = '\0';
 	*buf_len += cmd_len + 1;
+    return (buf_cmd);
+}
+
+char            *add_buffer_last(char *buf_cmd, size_t cmd_len,
+                                    char *cmd, size_t *buf_len)
+{
+    if (cmd == NULL || cmd[0] == 0)
+		return (buf_cmd);
+	buf_cmd = ft_realloc(buf_cmd, *buf_len, *buf_len,
+			*buf_len + cmd_len + 1);
+	ft_strcpy(buf_cmd + *buf_len, cmd);
+	buf_cmd[*buf_len + cmd_len] = '\0';
+	*buf_len += cmd_len;
     return (buf_cmd);
 }

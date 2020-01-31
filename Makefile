@@ -62,13 +62,19 @@ QUOTING =			parser/quoting/check_start_quote.c \
 
 BUILTIN = 			builtin/exit.c
 
+STACK_STRUCTURE = 	libft_42/stack_structure/ft_init_stack.c \
+			libft_42/stack_structure/ft_pop_stack.c \
+			libft_42/stack_structure/ft_push_stack.c \
+			libft_42/stack_structure/ft_clear_stack.c
+
 LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_realloc.c \
 			libft_42/swap_chars.c \
 			libft_42/swap_ints.c \
 			libft_42/ft_straddsy.c \
 			libft_42/ft_strrchri.c \
-			libft_42/ft_issign.c
+			libft_42/ft_issign.c \
+			$(STACK_STRUCTURE)
 
 SOURCES =	main.c \
 			signals_processing42.c \
@@ -110,6 +116,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)/parser/quoting
 	@mkdir -p $(DIR_O)/builtin
 	@mkdir -p $(DIR_O)/libft_42
+	@mkdir -p $(DIR_O)/libft_42/stack_structure
 	gcc $(FLAGS) -c -I includes -o $@ $<
 
 clean:
