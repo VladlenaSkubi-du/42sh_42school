@@ -18,7 +18,11 @@ int	ft_block_start_fg(t_ltree *block)
 	t_ltree	*sub;
 	t_ltree	final;
 	int		out_flag;
-	
+	int		k;
+
+	k = -1;
+	while (k++)
+		final.fd[k] = k;	
 	while ((sub = ft_find_logic(block, &final)))
 	{
 		out_flag = exec_init(sub);	

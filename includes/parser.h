@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/30 18:56:42 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/31 20:21:45 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <time.h>
 # include <pwd.h>
 # include <string.h>
+# include <fcntl.h>
 
 # include <stdio.h> //DELETE
 
@@ -48,7 +49,7 @@ typedef struct  		s_tech
 }               		t_tech;
 
 /*
-** Struct to work with lextree
+** Struct to work with lextree fd[3] needs to know if it is redirection
 ** FLAGS:
 ** 0x01 -- PIPED_OUTPUT
 ** 0x02 -- PIPED_INPUT
@@ -60,6 +61,7 @@ typedef struct  		s_ltree
 {
 	size_t				start; //index of start
 	size_t				end;
+	int					fd[3];
 	int					flags;
 }              			t_ltree;
 
@@ -133,6 +135,7 @@ int     				ft_slice(void);
 
 t_ltree					*ft_find_pipe(t_ltree *block, t_ltree *final, int *i);
 t_ltree					*ft_find_logic(t_ltree *block, t_ltree *final);
+t_ltree					*ft_find_redirection(t_ltree *block, t_ltree *final);
 
 /*
 ** Folder quoting_____________________________________________________________
