@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:26:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/31 17:29:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/31 20:16:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int			route_exit(void)
 {
 	if (g_prompt.prompt_func == main_prompt)
 	{
+		action_alloc_management(NULL, 1);
 		reset_canonical_input();
 		clean_readline42();
 		btin_exit(SUCCESS);

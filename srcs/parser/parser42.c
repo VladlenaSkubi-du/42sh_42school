@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/31 17:56:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/01/31 21:14:48 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		parser(char *line)
 	int			answer;
 	
 	tmp = 0;
+	answer = 0;
 	if (g_prompt.prompt_func == main_prompt)
 		init_dquote();
 	if (line == NULL || line[0] == 0)
@@ -32,8 +33,8 @@ int		parser(char *line)
 	g_cmd_size = ft_strlen(g_cmd);
 	//history
 	ft_get_techline();
-	while (back_to_readline() != 0)
-		;
+	if (back_to_readline() == OUT)
+		return (0);
 	if (pars_lex_exec(answer))
 		return (1); //TODO исправить
 	return (0);
