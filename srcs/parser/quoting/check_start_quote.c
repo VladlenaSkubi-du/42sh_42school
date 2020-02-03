@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 18:13:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/31 21:44:35 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/03 14:02:18 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,17 @@ void			init_dquote(void)
 int				back_to_readline(void)
 {
 	if (g_techline.len == 1 && g_techline.line[g_techline.len - 1] == SLASH)
-		escape_character();
+	{
+		if (escape_character() == OUT)
+			return (OUT);
+	}
 	else if (g_techline.len > 1 && g_techline.line[g_techline.len - 1] == SLASH
 		&& g_techline.line[g_techline.len - 2] != SLASH)
-		escape_character();
+		if (escape_character() == OUT)
+			return (OUT);
 	if (dquote_character() == OUT)
 		return (OUT);
 	g_prompt.prompt_func = main_prompt;
-	// printf("g_buf_cmd = %s - %zu\n", g_buf_cmd, g_len_buf_cmd);
 	// free(g_buf_cmd);
 	return (0);
 }

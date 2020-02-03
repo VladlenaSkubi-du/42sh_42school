@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:45:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/29 12:13:35 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/03 18:33:35 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,22 @@ int					count_first_env(void)
 	return (i);
 }
 
+static int					find_line_symbol(int *line, int *symbol,
+	char **arr, char *select)
+{
+	size_t			i;
+	size_t			j;
+
+	i = 0;
+	j = 0;
+	while (arr[i])
+	{
+		if (ft_strcmp(arr[i], select) == 0)
+			break ;
+	}
+	return (0);
+}
+
 //make variables: SHELL42 (==BASH), SHELL42_PID(==BASHPID),
 //SHELL42_CMDS(==BASH_CMDS),
 //SHELL42_SUBSHELL (==BASH_SUBSHELL) and so on
@@ -51,7 +67,7 @@ int					save_shell_variables(void)
 	char			*tmp;
 	size_t			size_tmp;
 
-	num = 6;
+	num = 9;
 	g_shvar = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
 	g_shvar[num] = NULL;
 	tmp = ft_itoa(getuid());
@@ -69,5 +85,8 @@ int					save_shell_variables(void)
 	g_shvar[4] = ft_strjoin("PPID=", tmp);
 	free(tmp);
 	g_shvar[5] = ft_strdup("42SH_PARSER=0");
+	g_shvar[6] = ft_strdup("HISTCMD=0");
+	g_shvar[7] = ft_strdup("HISTFILE=");
+	g_shvar[8] = ft_strdup("HISTFILESIZE=5");
 	return (0);
 }

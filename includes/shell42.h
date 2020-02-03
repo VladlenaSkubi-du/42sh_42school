@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/31 17:28:22 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/03 16:00:36 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ typedef struct		s_prompt
 {
 	int				(*prompt_func)(void);
 }					t_prompt;
+
+typedef struct		s_history
+{
+	char			**hist;
+	size_t			len;
+	size_t			last;
+	size_t			start;
+}					t_history;
 
 /*
 ** @SLASH is "\", @SCOLON is ";", @AND is "&", @DQUOTE is '"',
@@ -75,6 +83,7 @@ enum				e_techline
 char				**g_env;
 char				**g_shvar;
 t_prompt			g_prompt;
+t_history			g_hist;
 
 /*
 ** File environment42.c
