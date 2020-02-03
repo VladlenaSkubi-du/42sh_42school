@@ -17,7 +17,8 @@ READLINE42 = 		readline42/start_readline42.c \
 			readline42/print_readline_help.c \
 			$(READLINE_SIMPLE) \
 			$(KEY_ACTIONS) \
-			$(AUTO_COMPLETION)
+			$(AUTO_COMPLETION) \
+			$(HISTORY)
 
 READLINE_SIMPLE =	readline42/readline_simple/readline_simple.c \
 			readline42/readline_simple/str_edit_simple.c \
@@ -40,6 +41,8 @@ AUTO_COMPLETION =	readline42/auto_completion/start_completion.c \
 			readline42/auto_completion/cursor_position_completion.c \
 			readline42/auto_completion/output_buffer.c
 
+HISTORY = 			readline42/history/start_history.c
+
 PARSER = 			parser/parser42.c \
 			parser/brackets.c \
 			parser/find_spec.c \
@@ -60,13 +63,9 @@ QUOTING =			parser/quoting/check_start_quote.c \
 			parser/quoting/buffer_cmd_processing.c \
 			parser/quoting/block_processing.c
 
-BUILTIN = 			builtin/exit.c
+SIGNALS = 			signals/signals_processing42.c
 
-STACK_STRUCTURE = 	libft_42/stack_structure/ft_init_stack.c \
-			libft_42/stack_structure/ft_pop_stack.c \
-			libft_42/stack_structure/ft_push_stack.c \
-			libft_42/stack_structure/ft_clear_stack.c \
-			libft_42/stack_structure/ft_last_stack.c
+BUILTIN = 			builtin/exit.c
 
 LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_realloc.c \
@@ -77,13 +76,19 @@ LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_issign.c \
 			$(STACK_STRUCTURE)
 
+STACK_STRUCTURE = 	libft_42/stack_structure/ft_init_stack.c \
+			libft_42/stack_structure/ft_pop_stack.c \
+			libft_42/stack_structure/ft_push_stack.c \
+			libft_42/stack_structure/ft_clear_stack.c \
+			libft_42/stack_structure/ft_last_stack.c
+
 SOURCES =	main.c \
-			signals_processing42.c \
 			environment42.c \
 			error_handler42.c \
 			clean_all42.c \
 			$(READLINE42) \
 			$(PARSER) \
+			$(SIGNALS) \
 			$(BUILTIN) \
 			$(LIBFT_42)
 
@@ -111,10 +116,12 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)/readline42/readline_simple
 	@mkdir -p $(DIR_O)/readline42/key_actions
 	@mkdir -p $(DIR_O)/readline42/auto_completion
+	@mkdir -p $(DIR_O)/readline42/history
 	@mkdir -p $(DIR_O)/parser
 	@mkdir -p $(DIR_O)/parser/path_tree
 	@mkdir -p $(DIR_O)/parser/exec
 	@mkdir -p $(DIR_O)/parser/quoting
+	@mkdir -p $(DIR_O)/signals
 	@mkdir -p $(DIR_O)/builtin
 	@mkdir -p $(DIR_O)/libft_42
 	@mkdir -p $(DIR_O)/libft_42/stack_structure

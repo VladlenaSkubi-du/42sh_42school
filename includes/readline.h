@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/31 21:37:35 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/03 16:00:44 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -370,6 +370,13 @@ int								buffer_col_print(char *add,
 void							buffer_col_calc(t_completion *menu_buf);
 void							buffer_col_finish(t_completion *menu_buf);
 void							buf_add(char *str, size_t size);
+
+/*
+** Folder history______________________________________________________________
+*/
+
+int								start_history(void);
+void            				init_history(void);
 
 /*
 **_____________________________________________________________________________
