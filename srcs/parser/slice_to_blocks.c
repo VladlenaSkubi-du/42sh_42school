@@ -13,23 +13,25 @@
 #include "shell42.h"
 #include "parser.h"
 
-int	ft_block_start_fg(t_ltree *block)
+/*
+** Function add commands whith args and fd to list 
+*/
+
+int	ft_block_add_to_list(t_ltree *block, t_list *list)
 {
 	t_ltree	*sub;
 	t_ltree	final;
 	int		out_flag;
 	int		k;
 
-	k = -1;
-	while (k++)
-		final.fd[k] = k;	
 	while ((sub = ft_find_logic(block, &final)))
 	{
-		out_flag = exec_init(sub);	
-		if (out_flag != 0 && final.flags & LOG_AND)
-			break ;
-		if (out_flag == 0 && final.flags & LOG_OR)
-			break ;
+		k = -1;
+		while (k++)
+			final.fd[k] = k;
+		ft_find_redirection(&final);
+		add_list_to_end(list, ft_lstnew(&final, sizeof(t_ltree)));
+		block->flags &= ~GR_START;
 		block->start = final.end + 1;
 		final.end = block->end;
 		if (final.flags & LOG_AND || final.flags & LOG_OR)
@@ -38,35 +40,51 @@ int	ft_block_start_fg(t_ltree *block)
 	return (0);
 }
 
-int	ft_block_start_bg(t_ltree *block)
-{
-	// t_ltree	*sub;
+/*
+** Function start list commands
+*/
 
-	// while ((sub = ft_find_pipe(block, &final)))
-	// {
-	// 	//start in background
-	// }
-	return (0);
-}
+// int	ft_block_start(t_list *list)
+// {
+// 	t_ltree	*sub;
+// 	t_ltree	final;
+// 	int		out_flag;
+	
+// 	while ( ))
+// 	{
+// 		out_flag = exec_init(sub);	
+// 		if (out_flag != 0 && final.flags & LOG_AND)
+// 			break ;
+// 		if (out_flag == 0 && final.flags & LOG_OR)
+// 			break ;
+// 		block->start = final.end + 1;
+// 		final.end = block->end;
+// 		if (final.flags & LOG_AND || final.flags & LOG_OR)
+// 			block->start += 2;
+// 	}
+// 	return (0);
+// }
 
 /*
-** Fucntion slice command string to blocks and send it to execv
+** Fucntion slice command string to blocks and send add it to start list
 */
 
 int	ft_slice(void)
 {
 	t_ltree			block;
 	size_t			i;
+	t_list			*start_list;
 
 	i = 0;
 	block.start = 0;
-	block.flags = 0;
+	block.flags = GR_START;
+	start_list = NULL;
 	while (i <= g_techline.len)
 	{
 		if (g_techline.line[i] == SCOLON || g_cmd[i] == '\0')
 		{
 			block.end = i;
-			ft_block_start_fg(&block);
+			ft_block_add_to_list(&block, start_list);
 			block.start = i + 1;
 		}
 		if (g_techline.line[i] == AND && g_techline.line[i + 1] != AND && \
@@ -75,7 +93,8 @@ int	ft_slice(void)
 		 	g_techline.line[i - 1] != GTHAN && g_techline.line[i - 1] != LTHAN)
 		{
 			block.end = i;
-			ft_block_start_bg(&block);
+			block.flags |= IS_BG;
+			ft_block_add_to_list(&block, start_list);
 			block.start = i + 1;
 		}
 		i++;

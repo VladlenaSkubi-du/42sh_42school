@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/31 21:47:20 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/04 12:55:44 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ typedef struct stat		t_stat;
 # define PIPED_OUT 0x01
 # define PIPED_IN 0x02
 # define REDIRECTION 0x04
-# define LOG_AND 0x08
-# define LOG_OR 0x10
+# define IS_BG 0x08
+# define LOG_AND 0x10
+# define LOG_OR 0x20
+# define GR_START 0x40
 
 /*
 ** Struct to save and work with techline
@@ -137,8 +139,8 @@ int						ft_brackets(char *str, int end);
 ** File slice_to_blocks.c
 */
 
-int 					ft_block_start_fg(t_ltree *block);
-int						ft_block_start_bg(t_ltree *block);
+int 					ft_block_start(t_list *list);
+int						ft_block_add_to_list(t_ltree *block, t_list *list);
 int     				ft_slice(void);
 
 /*
@@ -147,7 +149,7 @@ int     				ft_slice(void);
 
 t_ltree					*ft_find_pipe(t_ltree *block, t_ltree *final, int *i);
 t_ltree					*ft_find_logic(t_ltree *block, t_ltree *final);
-t_ltree					*ft_find_redirection(t_ltree *block, t_ltree *final);
+void					ft_find_redirection(t_ltree *final);
 
 /*
 ** Folder quoting_____________________________________________________________
