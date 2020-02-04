@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   find_spec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 13:04:56 by rbednar           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/02/04 19:07:31 by rbednar          ###   ########.fr       */
+=======
+/*   Updated: 2020/02/03 12:17:22 by sschmele         ###   ########.fr       */
+>>>>>>> 1796f6d36b2840088633702a8495c184a8431233
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +88,23 @@ void		ft_find_redirection(t_ltree *final)
 	while (i < final->end)
 	{
 		if (g_techline.line[i] == GTHAN && (g_techline.line[i + 1] != GTHAN &&
-			g_techline.line[i + 1] != AND || g_techline.line[i + 1] == PIPE))
+			(g_techline.line[i + 1] != AND || g_techline.line[i + 1] == PIPE))) //Braces corrected
 		{
-			if ((fd_open = ft_atoi(g_cmd[i + 1])) >= 0)
+			if ((fd_open = ft_atoi(&g_cmd[i + 1])) >= 0)
 				final->fd[1] = fd_open;
 			else if ((fd_open = open(ft_word_to_redir(), O_CREAT | O_WRONLY | \
 				O_TRUNC | O_CLOEXEC | O_SYNC | O_NOCTTY, S_IRWXU)) != -1)
 				final->fd[1] = fd_open;
 		}
 	}
+	return (NULL); //Correct
+}
+
+char		*ft_word_to_redir(void) //Correct
+{
+	char	*file;
+
+	file = NULL;
+
+	return (file);
 }

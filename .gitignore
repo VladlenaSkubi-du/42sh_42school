@@ -12,3 +12,4 @@ objs/
 readline
 42sh
 CMakeLists.txt
+.42sh_history

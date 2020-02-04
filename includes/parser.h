@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/02/04 12:55:44 by rbednar          ###   ########.fr       */
+=======
+/*   Updated: 2020/02/04 19:15:52 by sschmele         ###   ########.fr       */
+>>>>>>> 1796f6d36b2840088633702a8495c184a8431233
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +109,7 @@ typedef struct			s_dquote
 }						t_dquote;
 
 /*
-**Global vars
+** Global vars
 */
 
 char					*g_cmd;
@@ -149,7 +153,23 @@ int     				ft_slice(void);
 
 t_ltree					*ft_find_pipe(t_ltree *block, t_ltree *final, int *i);
 t_ltree					*ft_find_logic(t_ltree *block, t_ltree *final);
+<<<<<<< HEAD
 void					ft_find_redirection(t_ltree *final);
+=======
+t_ltree					*ft_find_redirection(t_ltree *block, t_ltree *final);
+char					*ft_word_to_redir(void);
+
+/*
+** Folder assignment__________________________________________________________
+*/
+
+/*
+** File backend_variables.c
+*/
+
+int             		find_assignment_in_variables(size_t var,
+							size_t eq, size_t val);
+>>>>>>> 1796f6d36b2840088633702a8495c184a8431233
 
 /*
 ** Folder quoting_____________________________________________________________
