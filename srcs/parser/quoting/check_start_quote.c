@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 18:13:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/03 14:02:18 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/04 13:46:32 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void			init_dquote(void)
 
 int				back_to_readline(void)
 {
-	if (g_techline.len == 1 && g_techline.line[g_techline.len - 1] == SLASH)
+	if (g_techline.len == 1 && g_techline.line[g_techline.len - 1] == BSLASH)
 	{
 		if (escape_character() == OUT)
 			return (OUT);
 	}
-	else if (g_techline.len > 1 && g_techline.line[g_techline.len - 1] == SLASH
-		&& g_techline.line[g_techline.len - 2] != SLASH)
+	else if (g_techline.len > 1 && g_techline.line[g_techline.len - 1] == BSLASH
+		&& g_techline.line[g_techline.len - 2] != BSLASH)
 		if (escape_character() == OUT)
 			return (OUT);
 	if (dquote_character() == OUT)

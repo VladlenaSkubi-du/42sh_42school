@@ -1,38 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_all42.c                                      :+:      :+:    :+:   */
+/*   prompts_other.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/16 15:05:06 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/04 12:49:48 by sschmele         ###   ########.fr       */
+/*   Created: 2020/02/04 11:40:02 by sschmele          #+#    #+#             */
+/*   Updated: 2020/02/04 11:40:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
+#include "readline.h"
 
-int				clean_everything(void)
+int				pipe_prompt(void)
 {
-	ft_arrdel(g_env);
-	ft_arrdel(g_shvar);
-	ft_arrdel(g_hist.hist);
-    //другие clean
-	make_ctrl_y(2, NULL);
+	ft_putstr_fd("pipe> ", STDOUT_FILENO);
+	g_rline.prompt_len = 6;
 	return (0);
 }
 
-int				clean_readline42(void)
+int				subshell_prompt(void)
 {
-	free(g_rline.cmd);
+	ft_putstr_fd("subshell> ", STDOUT_FILENO);
+	g_rline.prompt_len = 10;
 	return (0);
 }
 
-int				clean_parser42(void)
+int				cursh_prompt(void)
 {
-	free(g_cmd);
-	g_cmd = NULL;
-	free(g_techline.line);
-	g_techline.line = NULL;
+	ft_putstr_fd("cursh> ", STDOUT_FILENO);
+	g_rline.prompt_len = 10;
+	return (0);
+}
+
+int				cmdandor_prompt(void)
+{
+	ft_putstr_fd("cmdandor> ", STDOUT_FILENO);
+	g_rline.prompt_len = 10;
 	return (0);
 }

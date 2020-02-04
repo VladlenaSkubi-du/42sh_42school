@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 18:24:47 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/31 21:21:08 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/04 13:45:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int					analyse_techline_compl(char *compl, char *tech,
 	i = pass_symbols(compl, tech, i, pool);
 	if (*pool == 1 || *pool == 3)
 		return (i);
-	if (tech[i] == SLASH || tech[i] == DQUOTE || tech[i] == SQUOTE ||
+	if (tech[i] == BSLASH || tech[i] == DQUOTE || tech[i] == SQUOTE ||
 		tech[i] == CPAREN || tech[i] == OBRACKET || tech[i] == CBRACKET ||
 		tech[i] == CBRACE || tech[i] == TILDA || tech[i] == GTHAN ||
 		tech[i] == LTHAN || tech[i] == AST || tech[i] == EQUAL ||
