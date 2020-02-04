@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/03 19:18:59 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/04 12:07:42 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int				interactive_shell(void)
 	char		room_termtype[2];
 	int			tmp;
 
+	start_history();
 	while (1)
 	{
 		init_readline();
@@ -58,7 +59,6 @@ int				start_readline42(int tmp)
 {
 	char		*cmd;
 
-	start_history();
 	if (tmp != 1)
 		cmd = readline_simple();
 	else

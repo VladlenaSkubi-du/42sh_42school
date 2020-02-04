@@ -41,7 +41,8 @@ AUTO_COMPLETION =	readline42/auto_completion/start_completion.c \
 			readline42/auto_completion/cursor_position_completion.c \
 			readline42/auto_completion/output_buffer.c
 
-HISTORY = 			readline42/history/start_history.c
+HISTORY = 			readline42/history/start_history.c \
+			readline42/history/history_processing.c
 
 PARSER = 			parser/parser42.c \
 			parser/brackets.c \
@@ -50,7 +51,8 @@ PARSER = 			parser/parser42.c \
 			parser/slice_to_blocks.c \
 			$(PATH_TREE) \
 			$(EXEC) \
-			$(QUOTING)
+			$(QUOTING) \
+			$(ASSIGNMENT)
 
 PATH_TREE = 		parser/path_tree/ft_block.c \
 			parser/path_tree/ft_path_help.c \
@@ -62,6 +64,8 @@ EXEC = 				parser/exec/exec_init.c \
 QUOTING =			parser/quoting/check_start_quote.c \
 			parser/quoting/buffer_cmd_processing.c \
 			parser/quoting/block_processing.c
+
+ASSIGNMENT =		parser/assignment/backend_variables.c
 
 SIGNALS = 			signals/signals_processing42.c
 
@@ -121,6 +125,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)/parser/path_tree
 	@mkdir -p $(DIR_O)/parser/exec
 	@mkdir -p $(DIR_O)/parser/quoting
+	@mkdir -p $(DIR_O)/parser/assignment
 	@mkdir -p $(DIR_O)/signals
 	@mkdir -p $(DIR_O)/builtin
 	@mkdir -p $(DIR_O)/libft_42
