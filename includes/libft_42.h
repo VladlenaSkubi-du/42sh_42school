@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_42.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:46:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/31 17:07:15 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/04 12:51:32 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void							swap_ints(int *a, int *b);
 int								ft_issign(char c);
 char							*ft_straddsy(char *dest, char sy);
 int								ft_strrchri(char *s, int c);
+void                            add_list_to_end(t_list *last, t_list *new);
 
 /*
 ** Folder stask_structure______________________________________________________

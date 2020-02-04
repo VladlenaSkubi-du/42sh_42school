@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 13:04:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/31 21:46:18 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/04 19:07:31 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,20 @@ t_ltree		*ft_find_logic(t_ltree *block, t_ltree *final)
 	int		i;
 
 	i = block->start;
-	final->flags = 0;
+	final->flags = block->flags;
 	final->start = block->start;
 	while (i <= block->end)
 	{
 		if (g_techline.line[i] == PIPE && g_techline.line[i + 1] == PIPE)
 		{
 			final->end = i - 1;
-			final->flags = LOG_OR;
+			final->flags |= LOG_OR;
 			return (ft_find_pipe(block, final, &i));
 		}
 		if (g_techline.line[i] == AND && g_techline.line[i + 1] == AND)
 		{
 			final->end = i - 1;
-			final->flags = LOG_AND;
+			final->flags |= LOG_AND;
 			return (ft_find_pipe(block, final, &i));
 		}
 		if (ft_find_pipe(block, final, &i))
@@ -75,11 +75,11 @@ t_ltree		*ft_find_pipe(t_ltree *block, t_ltree *final, int *i)
 }
 
 
-t_ltree		*ft_find_redirection(t_ltree *block, t_ltree *final)
+void		ft_find_redirection(t_ltree *final)
 {
 	size_t	i;
 	int		fd_open;
-		
+	
 	i = final->start;	
 	while (i < final->end)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_control.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 17:28:46 by hshawand          #+#    #+#             */
-/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:05:12 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,19 @@ int		nullify(void)
 	{
 		if (!nullifier)
 		{
-			if (*ptr == 5)
+			if (*ptr == DQUOTE)
 				nullifier = 1;
-			else if (*ptr == 6)
+			else if (*ptr == SQUOTE)
 				nullifier = 2;
 		}
-		else if ((nullifier == 1 && *ptr == 5) || (nullifier == 2 && *ptr == 6))
+		else if ((nullifier == 1 && *ptr == DQUOTE) || \
+				(nullifier == 2 && *ptr == SQUOTE))
 			nullifier = 0;
-		else
+		else if (nullifier == 2)
+			terminate(ptr);
+		else if (nullifier == 1 && (*ptr != DOLLAR || \
+		!((*ptr == OPAREN || *ptr == OBRACE) && \
+		g_techline.line[count - 1] == DOLLAR)
 			terminate(ptr);
 		ptr++;
 		count++;
