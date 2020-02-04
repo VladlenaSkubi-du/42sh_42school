@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:54:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/31 10:05:06 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/04 18:32:57 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int				main(int argc, char **argv)
 
 	save_environment();
 	save_shell_variables();
+	save_local_variables(NULL);
 	options(argc, argv);
 	if ((tmp = noninteractive_shell(argc, argv)) == -1)
 		return (1);

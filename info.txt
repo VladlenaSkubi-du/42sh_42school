@@ -296,3 +296,7 @@ terminate_current_pipeline ()
       killpg (pipeline_pgrp, SIGCONT);
     }
 }
+
+	while (ft_strncmp(g_shvar[i], "HISTFILE=",
+		ft_strchri(g_shvar[i], '=') + 1) != 0)
+		i++;

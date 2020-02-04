@@ -6,17 +6,17 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/31 21:14:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/04 19:18:29 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "parser.h"
 
-int		parser(char *line)
+int					parser(char *line)
 {
-	int			tmp;
-	int			answer;
+	int				tmp;
+	int				answer;
 	
 	tmp = 0;
 	answer = 0;
@@ -31,19 +31,60 @@ int		parser(char *line)
 	else
 		g_cmd = line;
 	g_cmd_size = ft_strlen(g_cmd);
-	//history
 	ft_get_techline();
 	if (back_to_readline() == OUT)
 		return (0);
+	add_to_history(g_cmd);
 	if (pars_lex_exec(answer))
 		return (1); //TODO исправить
 	return (0);
 }
 
+static int			perform_assignment(size_t eq)
+{
+	size_t			var;
+	size_t			value;
+	char			*find;
+
+	var = eq;
+	value = eq;
+	while (var > 0 && ft_isalnum(g_cmd[var]))
+		var--;
+	while (value < g_cmd_size && ft_isalnum(g_cmd[value]))
+		value++;
+	find = ft_strndup(g_cmd + var, eq);
+	find_assignment_in_variables(var, eq, value);
+	return (0);
+}
+
+static int			castrated_parser(void)
+{
+	size_t			i;
+	
+	i = 0;
+	while (i < g_techline.len)
+	{
+		if (g_techline.line[i] == EQUAL)
+		{
+			if ((i > 0 && i + 1 <= g_cmd_size) &&
+				ft_isalnum(g_cmd[i - 1]) && ft_isalnum(g_cmd[i + 1]))
+				perform_assignment(i);
+			else
+			{
+				error_handler(COMMAND_NOT_FOUND, "="); //TODO исправить и отправлять всю часть строки до разделителя
+				return (0); //переставить код возврата
+			}
+		}
+		i++;
+	}
+	return (0);
+}
+
 int		pars_lex_exec(int tmp)
 {
+	// castrated_parser();
 	nullify();
-	ft_putendl_fd(g_cmd, 1);
+	// ft_putendl_fd(g_cmd, 1);
 	// ft_slice();
 	clean_parser42();
 	if (tmp == 1)

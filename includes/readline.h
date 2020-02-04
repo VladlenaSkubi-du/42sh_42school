@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/31 21:37:35 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:38:15 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <term.h>
 # include <termios.h>
 # include <sys/ioctl.h>
+# include <fcntl.h>
 
 # include <stdio.h> //DELETE
 
@@ -125,6 +126,15 @@ int								main_prompt(void);
 int								dquote_prompt(void);
 int								heredoc_prompt(void);
 int								other_prompt(void);
+
+/*
+** File prompts_other.c
+*/
+
+int								pipe_prompt(void);
+int								subshell_prompt(void);
+int								cursh_prompt(void);
+int								cmdandor_prompt(void);
 
 /*
 ** File terminal_input_changes.c
@@ -370,6 +380,27 @@ int								buffer_col_print(char *add,
 void							buffer_col_calc(t_completion *menu_buf);
 void							buffer_col_finish(t_completion *menu_buf);
 void							buf_add(char *str, size_t size);
+
+/*
+** Folder history______________________________________________________________
+*/
+
+/*
+** File start_history.c
+*/
+
+int								start_history(void);
+char							*define_history_file(void);
+int								save_hist_buffer(int fd);
+void            				init_history(void);
+
+/*
+** File history_processing.c
+*/
+
+int                 			add_to_history(char *cmd);
+int                 			scroll_hist_buffer(size_t num);
+int								fill_in_file(void);
 
 /*
 **_____________________________________________________________________________

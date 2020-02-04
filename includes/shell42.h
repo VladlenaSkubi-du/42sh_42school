@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/31 17:28:22 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/04 19:15:09 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,33 @@
 # include "ft_printf.h" //If not used, delete
 # include "get_next_line.h" //If not used, delete
 
+# define 			MAX_HISTORY 10
+
 typedef struct		s_prompt
 {
 	int				(*prompt_func)(void);
 }					t_prompt;
 
 /*
-** @SLASH is "\", @SCOLON is ";", @AND is "&", @DQUOTE is '"',
+** @hist is an array with commands (not separated by \n but
+** separated as they came to parser)
+** @len is the number of lines (commands) in the history
+** @last is counter of the last command saved in the history
+** @start is a counter from which command from history file we start to
+** fill out buffer - not to rewrite the whole buffer to the file but to add
+** We need all
+*/
+
+typedef struct		s_history
+{
+	char			**hist;
+	size_t			len;
+	size_t			last;
+	size_t			start;
+}					t_history;
+
+/*
+** @BSLASH is "\", @SCOLON is ";", @AND is "&", @DQUOTE is '"',
 ** @SQUOTE is "'", @OPAREN is "(", @CPAREN is ")", @OBRACKET is "["
 ** @CBRACKET is "]", @OBRACE is "{", CBRACE is "}", @DOLLAR is "$",
 ** @TILDA is "~", @PIPE is "|", @GTHAN is ">", @LTHAN is "<",
@@ -46,7 +66,7 @@ typedef struct		s_prompt
 enum				e_techline
 {
 	SPACE = 1,
-	SLASH,
+	BSLASH,
 	SCOLON,
 	AND,
 	DQUOTE,
@@ -74,15 +94,19 @@ enum				e_techline
 
 char				**g_env;
 char				**g_shvar;
+char				**g_lovar;
 t_prompt			g_prompt;
+t_history			g_hist;
 
 /*
 ** File environment42.c
 */
 
 int					save_environment(void);
-int					count_first_env(void);
 int					save_shell_variables(void);
+int					save_local_variables(char *var);
+int					save_history_variables(void);
+size_t				find_in_variables(char **arr, size_t *j, char *name);
 
 /*
 ** File signals_processing42.c
