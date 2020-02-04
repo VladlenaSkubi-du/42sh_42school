@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 17:28:46 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/04 19:25:45 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/04 19:37:18 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,38 @@ int		nullify(void)
 	{
 		if (!nullifier)
 		{
-			if (*ptr == DQUOTE)
+			if (*ptr == DQUOTE && (*ptr - 1) != BSLASH)
+				nullifier = 1;
+			else if (*ptr == SQUOTE && (*ptr - 1) != BSLASH) // проверить условие бэкслеша!!!
+				nullifier = 2;
+		}
+		else if ((nullifier == 1 && *ptr == DQUOTE) || \
+				(nullifier == 2 && *ptr == SQUOTE))
+			nullifier = 0;
+		else if (nullifier == 2)
+			terminate(ptr);
+		else if (nullifier == 1 && (*ptr != DOLLAR || \
+		!((*ptr == OPAREN || *ptr == OBRACE) && \
+		g_techline.line[count - 1] == DOLLAR)))
+			terminate(ptr);
+		ptr++;
+		count++;
+	}
+	return (nullifier ? -1 : 0);
+}
+
+int		nullify_backslash(void) //обработка зануления
+{
+	char	*ptr;
+	char	nullifier;
+	size_t	count;
+
+	count = 0;
+	nullifier = 0;
+	ptr = g_techline.line;
+	while (count < g_cmd_size)
+	{
+		if (*ptr == DQUOTE)
 				nullifier = 1;
 			else if (*ptr == SQUOTE)
 				nullifier = 2;
