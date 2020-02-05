@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 17:28:46 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/05 20:05:57 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/05 21:56:08 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,20 @@ int		nullify_dquotes(char **ptr, int *nullifier, t_stack **stack)
 	else if (*nullifier == SQUOTE)
 		terminate(*ptr);
 	else if (*nullifier == DQUOTE && \
-			((**ptr != DOLLAR && *(*ptr - 1) != BSLASH) || \
+			((**ptr != DOLLAR && *(*ptr - 1) != BSLASH) && \
 			!((**ptr == OPAREN || **ptr == OBRACE) && \
 			*(*ptr - 1) == DOLLAR)))
 		terminate(*ptr);
 	else if (*nullifier != SQUOTE && **ptr == OPAREN)
-		*nullifier = ft_push_stack(stack, OPAREN);
+		!(ft_push_stack(stack, OPAREN)) ? *nullifier = OPAREN : 0;
 	else if (*nullifier == OPAREN && **ptr == CPAREN)
 		*nullifier = ft_pop_stack(stack);
 	else if (*nullifier != SQUOTE && **ptr == OBRACE)
-		*nullifier = ft_push_stack(stack, OBRACE);
+		!(ft_push_stack(stack, OBRACE)) ? *nullifier = OBRACE : 0;
 	else if (*nullifier == OBRACE && **ptr == CBRACE)
 		*nullifier = ft_pop_stack(stack);
+	else
+		nullify_backslash(ptr, nullifier);
 	return (0);
 }
 
@@ -87,14 +89,14 @@ int		nullify(char **techline, size_t cmd_size) //занулить все пос�
 		if (!nullifier)
 		{
 			if (*ptr == DQUOTE && (*ptr - 1) != BSLASH)
-				nullifier = DQUOTE && ft_push_stack(&stack, DQUOTE);
+				!(ft_push_stack(&stack, DQUOTE)) ? nullifier = DQUOTE : 0;				
 			else if (*ptr == SQUOTE && (*ptr - 1) != BSLASH)
-				nullifier = SQUOTE && ft_push_stack(&stack, SQUOTE);
+				!(ft_push_stack(&stack, SQUOTE)) ? nullifier = SQUOTE : 0;			
 		}
 		else
 			nullify_dquotes(&ptr, &nullifier, &stack);
 		ptr++;
-		count++
+		count++;
 	}
 	if (stack->data != 0)
 	{
