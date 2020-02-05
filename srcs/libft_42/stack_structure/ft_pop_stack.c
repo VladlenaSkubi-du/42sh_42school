@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 10:19:52 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/29 10:35:28 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/05 13:09:44 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int				ft_pop_stack(t_stack **head)
 	tmp = *head;
 	if ((*head)->next)
 		*head = (*head)->next;
+	else
+		return (0);
 	res = tmp->data;
 	free(tmp);
 	return (res);

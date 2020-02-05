@@ -6,7 +6,15 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/02/05 19:13:43 by rbednar          ###   ########.fr       */
+=======
+<<<<<<< Updated upstream
+/*   Updated: 2020/02/05 17:06:59 by rbednar          ###   ########.fr       */
+=======
+/*   Updated: 2020/02/05 15:00:43 by sschmele         ###   ########.fr       */
+>>>>>>> Stashed changes
+>>>>>>> caa1e6783a5b6fe14d4992c2d7ae427d9dfdb124
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +56,14 @@ static int			perform_assignment(size_t eq)
 	size_t			value;
 	char			*find;
 
-	var = eq;
-	value = eq;
+	var = eq - 1;
+	value = eq + 1;
 	while (var > 0 && ft_isalnum(g_cmd[var]))
 		var--;
 	while (value < g_cmd_size && ft_isalnum(g_cmd[value]))
 		value++;
 	find = ft_strndup(g_cmd + var, eq);
+	printf("%zu - %zu - %zu\n", var, eq, value);
 	find_assignment_in_variables(var, eq, value);
 	return (0);
 }
@@ -84,10 +93,19 @@ static int			castrated_parser(void)
 
 int		pars_lex_exec(int tmp)
 {
+<<<<<<< Updated upstream
 	// castrated_parser();
+<<<<<<< HEAD
 	nullify(&g_techline.line, g_cmd_size);
 	if (g_prompt.prompt_func != main_prompt)
 		return (0);
+=======
+	nullify(g_techline.line);
+=======
+	castrated_parser();
+	nullify();
+>>>>>>> Stashed changes
+>>>>>>> caa1e6783a5b6fe14d4992c2d7ae427d9dfdb124
 	// ft_putendl_fd(g_cmd, 1);
 	// ft_slice_fg();
 	clean_parser42();
