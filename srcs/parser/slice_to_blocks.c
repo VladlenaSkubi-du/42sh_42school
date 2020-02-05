@@ -65,6 +65,11 @@ int		ft_block_add_to_list(t_ltree *block, t_list **list)
 // 	return (0);
 // }
 
+/*
+** Fucntion slice command string to blocks and send add it to start 
+** list with BG flag
+*/
+
 int		ft_slice_bg(size_t *i, t_ltree	*block, t_list **start_list)
 {
 	if (g_techline.line[*i] == AND && g_techline.line[*i + 1] != AND && \
