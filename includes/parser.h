@@ -6,7 +6,11 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2020/02/05 17:30:18 by rbednar          ###   ########.fr       */
+=======
+/*   Updated: 2020/02/05 13:15:24 by sschmele         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +158,19 @@ t_ltree					*ft_find_pipe(t_ltree *block, t_ltree *final, int *i);
 t_ltree					*ft_find_logic(t_ltree *block, t_ltree *final);
 int						ft_find_redirection(t_ltree *final);
 char					*ft_word_to_redir(void);
+
+/*
+** Folder assignment__________________________________________________________
+*/
+
+/*
+** File backend_variables.c
+*/
+
+int             		find_assignment_in_variables(size_t var,
+							size_t eq, size_t val);
+int						insert_assign_to_arrays(char *find, size_t var,
+							size_t val, char **array);
 
 /*
 ** Folder quoting_____________________________________________________________

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 18:56:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/04 19:18:01 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/05 15:23:40 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,36 +21,28 @@ int             find_assignment_in_variables(size_t var, size_t eq, size_t val)
 	
 	li = -1;
 	sy = -1;
-	find = ft_strndup(g_cmd + var, eq);
+	find = ft_strndup(g_cmd + var, eq + 1);
 	li = find_in_variables(g_env, &sy, find);
 	if (li != -1)
-	{
-		free(find);
-		find = ft_strndup(g_cmd + var, val);
-		free(g_env[li]);
-		g_env[li] = find;
-		return (0);
-	}
+		return (insert_assign_to_arrays(find, var, val, &g_env[li]));
 	li = find_in_variables(g_shvar, &sy, find);
 	if (li != -1)
-	{
-		free(find);
-		find = ft_strndup(g_cmd + var, val);
-		free(g_shvar[li]);
-		g_shvar[li] = find;
-		return (0);
-	}
+		return (insert_assign_to_arrays(find, var, val, &g_shvar[li]));
 	li = find_in_variables(g_lovar, &sy, find);
 	if (li != -1)
-	{
-		free(find);
-		find = ft_strndup(g_cmd + var, val);
-		free(g_lovar[li]);
-		g_lovar[li] = find;
-		return (0);
-	}
+		return (insert_assign_to_arrays(find, var, val, &g_lovar[li]));
 	free(find);
 	find = ft_strndup(g_cmd + var, val);
 	save_local_variables(find);
+	return (0);
+}
+
+int				insert_assign_to_arrays(char *find, size_t var,
+					size_t val, char **array)
+{
+	free(find);
+	find = ft_strndup(g_cmd + var, val);
+	free(*array);
+	*array = find;
 	return (0);
 }
