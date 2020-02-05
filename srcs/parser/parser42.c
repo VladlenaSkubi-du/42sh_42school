@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/05 17:06:59 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/05 19:13:43 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,30 @@
 
 int					parser(char *line)
 {
-	int				tmp;
-	int				answer;
+	// int				tmp;
+	// int				answer;
 	
-	tmp = 0;
-	answer = 0;
-	if (g_prompt.prompt_func == main_prompt)
-		init_dquote();
-	if (line == NULL || line[0] == 0)
-	{
-		answer = check_null_line(line);
-		if (answer == 2)
-			return (0);
-	}
-	else
-		g_cmd = line;
+	// tmp = 0;
+	// answer = 0;
+	if (g_prompt.prompt_func == main_prompt
+		&& line == NULL || line[0] == 0)
+		return (0);
+	// if (g_prompt.prompt_func == main_prompt)
+	// 	init_dquote();
+	// if (line == NULL || line[0] == 0)
+	// {
+	// 	answer = check_null_line(line);
+	// 	if (answer == 2)
+	// 		return (0);
+	// }
+	// else
+	g_cmd = line;
 	g_cmd_size = ft_strlen(g_cmd);
 	ft_get_techline();
 	if (back_to_readline() == OUT)
 		return (0);
 	add_to_history(g_cmd);
-	if (pars_lex_exec(answer))
-		return (1); //TODO исправить
+	pars_lex_exec(0);
 	return (0);
 }
 
@@ -83,9 +85,11 @@ static int			castrated_parser(void)
 int		pars_lex_exec(int tmp)
 {
 	// castrated_parser();
-	nullify(g_techline.line);
+	nullify(&g_techline.line, g_cmd_size);
+	if (g_prompt.prompt_func != main_prompt)
+		return (0);
 	// ft_putendl_fd(g_cmd, 1);
-	// ft_slice();
+	// ft_slice_fg();
 	clean_parser42();
 	if (tmp == 1)
 	{

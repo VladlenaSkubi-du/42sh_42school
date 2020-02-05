@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/05 17:30:18 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/05 18:46:08 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,10 @@ char					get_tech_num(char check);
 ** File quote_control.c
 */
 
-int						nullify(char *techline);
+int						nullify(char **techline, size_t size);
 int						nullify_dquotes(char **ptr, int *nullifier, \
 						t_stack **stack);
+int						nullify_backslash(char **ptr, int *nullifier);
 
 /*
 ** File brackets.c

@@ -6,6 +6,7 @@ FLAGS += -g
 READLINE42 = 		readline42/start_readline42.c \
 			readline42/readline.c \
 			readline42/prompts.c \
+			readline42/prompts_other.c \
 			readline42/terminal_input_changes.c \
 			readline42/termcap_usage.c \
 			readline42/cursor_position.c \

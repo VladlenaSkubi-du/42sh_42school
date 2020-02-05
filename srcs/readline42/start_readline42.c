@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_readline42.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/04 12:07:42 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/05 19:21:10 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ int				interactive_shell(void)
 		termtype = getenv("TERM");
 		termtype = (termtype == NULL) ? "xterm-256color" : termtype;
 		tmp = tgetent(room_termtype, termtype);
-		if (start_readline42(tmp))
-			return (1);
+		start_readline42(tmp);
 	}
 	return (0);
 }
@@ -67,33 +66,18 @@ int				start_readline42(int tmp)
 	cmd = finalize_cmd(cmd);
 	clean_readline42();
 	signals_reroute(2);
-	if (parser(cmd))
-		return (1); //TODO erro
+	parser(cmd);
 	return (0);
 }
 
 char			*finalize_cmd(char *cmd)
 {
-	char		*sign;
-	char		*tmp;
-	char		*final;
-
 	check_menu();
-	final = NULL;
-	if (cmd == NULL)
-		return (final);
-	if (g_rline.cmd_len == 0)
-		return (NULL);
-	if ((sign = ft_strchr(cmd, '#')) != NULL)
-	{
-		tmp = ft_strndup(cmd, sign - cmd);
-		final = ft_strtrim(tmp);
-		free(tmp);
-		return (final);
-	}
+	if (cmd == NULL || g_rline.cmd_len == 0)
+		return (ft_strdup("\n"));
 	if (g_rline.cmd_len > 0)
-		final = ft_strtrim(cmd);
-	return (final);
+		cmd = ft_strrejoin(cmd, "\n");
+	return (cmd);
 }
 
 int				init_prompt(char flag)

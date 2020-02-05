@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_all42.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:05:06 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/04 12:49:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/05 20:03:38 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int				clean_everything(void)
 
 int				clean_readline42(void)
 {
-	free(g_rline.cmd);
+	if (g_rline.cmd)
+		free(g_rline.cmd);
 	return (0);
 }
 
