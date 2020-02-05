@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser42.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/04 19:18:29 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/05 17:06:59 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static int			castrated_parser(void)
 int		pars_lex_exec(int tmp)
 {
 	// castrated_parser();
-	nullify();
+	nullify(g_techline.line);
 	// ft_putendl_fd(g_cmd, 1);
 	// ft_slice();
 	clean_parser42();

@@ -78,6 +78,7 @@ LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_straddsy.c \
 			libft_42/ft_strrchri.c \
 			libft_42/ft_issign.c \
+			libft_42/ft_add_list.c \
 			$(STACK_STRUCTURE)
 
 STACK_STRUCTURE = 	libft_42/stack_structure/ft_init_stack.c \

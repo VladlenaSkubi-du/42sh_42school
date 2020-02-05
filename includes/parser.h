@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/04 19:25:19 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/05 17:30:18 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,9 @@ char					get_tech_num(char check);
 ** File quote_control.c
 */
 
-int						nullify(void);
+int						nullify(char *techline);
+int						nullify_dquotes(char **ptr, int *nullifier, \
+						t_stack **stack);
 
 /*
 ** File brackets.c
@@ -140,8 +142,9 @@ int						ft_brackets(char *str, int end);
 */
 
 int 					ft_block_start(t_list *list);
-int						ft_block_add_to_list(t_ltree *block, t_list *list);
-int     				ft_slice(void);
+int						ft_block_add_to_list(t_ltree *block, t_list **list);
+int     				ft_slice_fg(void);
+int     				ft_slice_bg(size_t *i, t_ltree	*block, t_list **start_list);
 
 /*
 ** File find_spec.c
@@ -149,23 +152,8 @@ int     				ft_slice(void);
 
 t_ltree					*ft_find_pipe(t_ltree *block, t_ltree *final, int *i);
 t_ltree					*ft_find_logic(t_ltree *block, t_ltree *final);
-<<<<<<< HEAD
-void					ft_find_redirection(t_ltree *final);
-=======
-t_ltree					*ft_find_redirection(t_ltree *block, t_ltree *final);
+int						ft_find_redirection(t_ltree *final);
 char					*ft_word_to_redir(void);
-
-/*
-** Folder assignment__________________________________________________________
-*/
-
-/*
-** File backend_variables.c
-*/
-
-int             		find_assignment_in_variables(size_t var,
-							size_t eq, size_t val);
->>>>>>> 1796f6d36b2840088633702a8495c184a8431233
 
 /*
 ** Folder quoting_____________________________________________________________
@@ -243,12 +231,12 @@ void					ft_addpath(char *name, t_path **buf);
 ** File exec_init.c
 */
 
-int		exec_init(t_ltree *pos);
+int						exec_init(t_ltree *pos);
 
 /*
 ** File exec_core.c
 */
 
-int		exec_core(char **exec_av, int flags);
+int						exec_core(char **exec_av, int flags);
 
 #endif

@@ -17,7 +17,7 @@
 ** Function add commands whith args and fd to list 
 */
 
-int	ft_block_add_to_list(t_ltree *block, t_list *list)
+int		ft_block_add_to_list(t_ltree *block, t_list **list)
 {
 	t_ltree	*sub;
 	t_ltree	final;
@@ -30,7 +30,7 @@ int	ft_block_add_to_list(t_ltree *block, t_list *list)
 		while (k++)
 			final.fd[k] = k;
 		ft_find_redirection(&final);
-		add_list_to_end(list, ft_lstnew(&final, sizeof(t_ltree)));
+		ft_add_list_to_end(list, ft_lstnew(&final, sizeof(t_ltree)));
 		block->flags &= ~GR_START;
 		block->start = final.end + 1;
 		final.end = block->end;
@@ -65,11 +65,27 @@ int	ft_block_add_to_list(t_ltree *block, t_list *list)
 // 	return (0);
 // }
 
+int		ft_slice_bg(size_t *i, t_ltree	*block, t_list **start_list)
+{
+	if (g_techline.line[*i] == AND && g_techline.line[*i + 1] != AND && \
+		g_techline.line[*i - 1] != AND && \
+		g_techline.line[*i + 1] != GTHAN && \
+		g_techline.line[*i + 1] != LTHAN && \
+		g_techline.line[*i - 1] != GTHAN && g_techline.line[*i - 1] != LTHAN)
+	{
+		block->end = *i;
+		block->flags |= IS_BG;
+		ft_block_add_to_list(block, start_list);
+		block->start = *i + 1;
+	}
+	return (0);
+}
+
 /*
 ** Fucntion slice command string to blocks and send add it to start list
 */
 
-int	ft_slice(void)
+int		ft_slice_fg(void)
 {
 	t_ltree			block;
 	size_t			i;
@@ -84,19 +100,10 @@ int	ft_slice(void)
 		if (g_techline.line[i] == SCOLON || g_cmd[i] == '\0')
 		{
 			block.end = i;
-			ft_block_add_to_list(&block, start_list);
+			ft_block_add_to_list(&block, &start_list);
 			block.start = i + 1;
 		}
-		if (g_techline.line[i] == AND && g_techline.line[i + 1] != AND && \
-			g_techline.line[i - 1] != AND && \
-			g_techline.line[i + 1] != GTHAN && g_techline.line[i + 1] != LTHAN && \
-		 	g_techline.line[i - 1] != GTHAN && g_techline.line[i - 1] != LTHAN)
-		{
-			block.end = i;
-			block.flags |= IS_BG;
-			ft_block_add_to_list(&block, start_list);
-			block.start = i + 1;
-		}
+		ft_slice_bg(&i, &block, &start_list);
 		i++;
 	}
 	return (0);
