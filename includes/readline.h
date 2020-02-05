@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/04 16:38:15 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:32:56 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,6 +323,9 @@ char							**get_variables(char *complete,
 									size_t *total, int *max_len);
 t_path							*fill_tree_with_variables(char *complete,
 									size_t *total, size_t len);
+int								insert_variables_to_tree(char *array,
+									char *complete, t_path **root,
+									size_t *total);
 char							**get_arguments(char **complete,
 									size_t *total, int *max_len);
 t_path							*fill_tree_with_arguments(char *path,
@@ -400,7 +403,7 @@ void            				init_history(void);
 
 int                 			add_to_history(char *cmd);
 int                 			scroll_hist_buffer(size_t num);
-int								fill_in_file(void);
+int								fill_hist_in_file(void);
 
 /*
 **_____________________________________________________________________________

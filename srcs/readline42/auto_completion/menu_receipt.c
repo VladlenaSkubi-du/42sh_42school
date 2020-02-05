@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 13:17:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/29 11:20:17 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:11:53 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,43 @@ char				**get_variables(char *complete, size_t *total, int *max_len)
 	return (menu);
 }
 
+int					insert_variables_to_tree(char *array, char *complete,
+						t_path **root, size_t *total)
+{
+	char			*tmp;
+	size_t			len;
+
+	len = ft_strlen(complete);
+	tmp = ft_strndup(array, ft_strchri(array, '='));
+	if (ft_strnequ(tmp, complete, len))
+		insert(tmp, root, total);
+	free(tmp);
+	return (0);
+}
+
 t_path				*fill_tree_with_variables(char *complete,
 						size_t *total, size_t len)
 {
 	size_t			i;
 	t_path			*root;
-	char			*tmp;
 
 	i = 0;
 	root = NULL;
 	while (g_env[i])
 	{
-		tmp = ft_strndup(g_env[i], ft_strchri(g_env[i], '='));
-		if (ft_strnequ(tmp, complete, len))
-			insert(tmp, &root, total);
-		free(tmp);
+		insert_variables_to_tree(g_env[i], complete, &root, total);
 		i++;
 	}
 	i = 0;
 	while (g_shvar[i])
 	{
-		tmp = ft_strndup(g_shvar[i], ft_strchri(g_shvar[i], '='));
-		if (ft_strnequ(tmp, complete, len))
-			insert(tmp, &root, total);
-		free(tmp);
+		insert_variables_to_tree(g_shvar[i], complete, &root, total);
+		i++;
+	}
+	i = 0;
+	while (g_lovar[i])
+	{
+		insert_variables_to_tree(g_lovar[i], complete, &root, total);
 		i++;
 	}
 	return (root);
