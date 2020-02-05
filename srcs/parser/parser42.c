@@ -6,15 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/02/05 19:13:43 by rbednar          ###   ########.fr       */
-=======
-<<<<<<< Updated upstream
-/*   Updated: 2020/02/05 17:06:59 by rbednar          ###   ########.fr       */
-=======
-/*   Updated: 2020/02/05 15:00:43 by sschmele         ###   ########.fr       */
->>>>>>> Stashed changes
->>>>>>> caa1e6783a5b6fe14d4992c2d7ae427d9dfdb124
+/*   Updated: 2020/02/05 21:58:24 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +21,7 @@ int					parser(char *line)
 	// tmp = 0;
 	// answer = 0;
 	if (g_prompt.prompt_func == main_prompt
-		&& line == NULL || line[0] == 0)
+		&& (line == NULL || line[0] == 0))
 		return (0);
 	// if (g_prompt.prompt_func == main_prompt)
 	// 	init_dquote();
@@ -43,8 +35,8 @@ int					parser(char *line)
 	g_cmd = line;
 	g_cmd_size = ft_strlen(g_cmd);
 	ft_get_techline();
-	if (back_to_readline() == OUT)
-		return (0);
+	// if (back_to_readline() == OUT)
+	// 	return (0);
 	add_to_history(g_cmd);
 	pars_lex_exec(0);
 	return (0);
@@ -93,20 +85,11 @@ static int			castrated_parser(void)
 
 int		pars_lex_exec(int tmp)
 {
-<<<<<<< Updated upstream
 	// castrated_parser();
-<<<<<<< HEAD
 	nullify(&g_techline.line, g_cmd_size);
+	// ft_putendl_fd(g_cmd, 1);
 	if (g_prompt.prompt_func != main_prompt)
 		return (0);
-=======
-	nullify(g_techline.line);
-=======
-	castrated_parser();
-	nullify();
->>>>>>> Stashed changes
->>>>>>> caa1e6783a5b6fe14d4992c2d7ae427d9dfdb124
-	// ft_putendl_fd(g_cmd, 1);
 	// ft_slice_fg();
 	clean_parser42();
 	if (tmp == 1)
