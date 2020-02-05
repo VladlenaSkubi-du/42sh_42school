@@ -6,7 +6,11 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2020/02/05 17:06:59 by rbednar          ###   ########.fr       */
+=======
+/*   Updated: 2020/02/05 15:00:43 by sschmele         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +50,14 @@ static int			perform_assignment(size_t eq)
 	size_t			value;
 	char			*find;
 
-	var = eq;
-	value = eq;
+	var = eq - 1;
+	value = eq + 1;
 	while (var > 0 && ft_isalnum(g_cmd[var]))
 		var--;
 	while (value < g_cmd_size && ft_isalnum(g_cmd[value]))
 		value++;
 	find = ft_strndup(g_cmd + var, eq);
+	printf("%zu - %zu - %zu\n", var, eq, value);
 	find_assignment_in_variables(var, eq, value);
 	return (0);
 }
@@ -82,8 +87,13 @@ static int			castrated_parser(void)
 
 int		pars_lex_exec(int tmp)
 {
+<<<<<<< Updated upstream
 	// castrated_parser();
 	nullify(g_techline.line);
+=======
+	castrated_parser();
+	nullify();
+>>>>>>> Stashed changes
 	// ft_putendl_fd(g_cmd, 1);
 	// ft_slice();
 	clean_parser42();

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:45:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/04 19:16:51 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/05 15:32:41 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,14 +110,13 @@ int					save_local_variables(char *var)
 	tmp[num] = 0;
 	i = 0;
 	while (g_lovar[i])
+	{
 		tmp[i] = g_lovar[i];
+		i++;
+	}
 	tmp[i] = ft_strdup(var);
 	free(g_lovar);
 	g_lovar = tmp;
-
-	i = 0;
-	while (g_lovar[i])
-		printf("%s\n", g_lovar[i]);
 	return (0);
 }
 
@@ -129,12 +128,18 @@ int					save_local_variables(char *var)
 size_t			find_in_variables(char **arr, size_t *j, char *name)
 {
 	size_t		i;
+	size_t		tmp;
 
 	i = 0;
-	while (arr[i] && ft_strncmp(arr[i], name,
-		(*j = ft_strchri(arr[i], '=') + 1)) != 0)
+	while (arr[i])
+	{
+		tmp = ft_strchri(arr[i], '=') + 1;
+		if (ft_strncmp(arr[i], name, tmp) == 0 && arr[i][tmp])
+		{
+			*j = tmp;
+			return (i);
+		}
 		i++;
-	if (arr[i] == 0 || arr[i] + *j == 0)
-		return (0);
-	return (i);
+	}
+	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 12:18:29 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/04 19:17:56 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/05 17:48:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,29 +53,53 @@ int                 scroll_hist_buffer(size_t num)
 	return (0);
 }
 
-int					fill_in_file(void)
+static int	print_all_vars(void)
+{
+	size_t	i;
+
+	i = 0;
+	printf("%.10s\n", "\n\nENVIRON");
+	while (g_env[i])
+		printf("%s\n", g_env[i++]);
+	i = 0;
+	printf("%.10s\n", "\n\nWORKING");
+	while (g_shvar[i])
+		printf("%s\n", g_shvar[i++]);
+	i = 0;
+	printf("%.10s\n", "\n\nLOCAL");
+	while (g_lovar[i])
+		printf("%s\n", g_lovar[i++]);
+	return (0);
+}
+
+int					fill_hist_in_file(void)
 {
 	size_t			i;
 	size_t			j;
 	int				fd;
 	int				user_len;
+
+	int tmp=0;
 	
+	//перед открытием файла проверка размера и буфера (вычитаем старт и длину)
+	j = 0;
 	i = find_in_variables(g_shvar, &j, "HISTFILE=");
-	fd = open(g_shvar[i] + j, O_APPEND);
-	if (fd == -1)
-		fd = creat(g_shvar[i] + j, S_IRUSR|S_IWUSR);
+	fd = open(g_shvar[i] + j, O_WRONLY | O_APPEND | O_CREAT | O_SYNC,
+		S_IRUSR | S_IWUSR);
 	i = find_in_variables(g_shvar, &j, "HISTFILESIZE=");
 	user_len = ft_atoi(g_shvar[i] + j);
-	if (user_len <= g_hist.len)
+	if (user_len < g_hist.len)
 		g_hist.start = g_hist.last - g_hist.len;
 	i = g_hist.start;
-	while (g_hist.hist[i] && i < g_hist.len - 1)
+	while (g_hist.hist[i] && i < g_hist.len)
 	{
 		write(fd, g_hist.hist[i], ft_strlen(g_hist.hist[i]));
 		write(fd, "\n", 1);
 		i++;
 	}
-	if (g_hist.hist[i])
-		write(fd, g_hist.hist[i], ft_strlen(g_hist.hist[i]));
+	close(fd);
 	return (0);
 }
+
+//если новый буфер не вмещается, то скролл нужно делать еще и в файле - перезапись файла
+//если уменьшился размер файла, то прошлый файл нужно ввобще затереть и поставить новый
