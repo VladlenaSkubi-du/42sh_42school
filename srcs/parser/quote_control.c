@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 17:28:46 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/06 13:56:46 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/06 15:45:58 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@ int		terminate(char *ptr)
 
 int		nullify_comment(char **ptr, int *nullifier, t_stack **stack)
 {
-	if (**ptr == COMENT && *nullifier != SQUOTE && *nullifier != OBRACE && \
-		*nullifier != DQUOTE || (*nullifier = COMENT && **ptr != ENTER))
+	if ((**ptr == COMENT && *nullifier != SQUOTE && *nullifier != OBRACE && \
+		*nullifier != DQUOTE) || (*nullifier == COMENT && **ptr != ENTER))
 	{
-		**ptr == SPACE;
-		!(ft_push_stack(stack, COMENT)) ? *nullifier = COMENT : 0;
+		**ptr = SPACE;
+		if (*nullifier != COMENT)
+			!(ft_push_stack(stack, COMENT)) ? *nullifier = COMENT : 0;
 	}
-	if (*nullifier = COMENT && **ptr == ENTER)
+	if (*nullifier == COMENT && **ptr == ENTER)
 		*nullifier = ft_pop_stack(stack);
 	return (0);
 }
