@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 12:18:29 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/06 15:19:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/06 15:58:27 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ int                 add_to_history(char *cmd)
 		if (g_hist.hist[g_hist.last][0] != 0)
 			g_hist.hist[g_hist.last] =
 				ft_strrejoin(g_hist.hist[g_hist.last], cmd);
+		clean_parser42();
+		g_cmd = ft_strdup(g_hist.hist[g_hist.last]);
+		g_cmd_size = ft_strlen(g_cmd);
+		ft_get_techline();
 	}
 	// в блоке возврата в ридлайн при закрытии ридлайна (любым способом увеличивается счетчик команд и промпт переводится на main)
 	// вместо буфера в счетчике команд можно использовать буфер истории - значение перезаписывается
@@ -52,6 +56,10 @@ int                 scroll_hist_buffer(size_t num)
 		i++;
 	}
 	g_hist.last -= num;
+	if (g_hist.start - num < g_hist.start)
+		g_hist.start -= num;
+	else
+		g_hist.start = 0;
 	return (0);
 }
 
@@ -76,30 +84,42 @@ static int	print_all_vars(void)
 
 int					fill_hist_in_file(void)
 {
-	size_t			i;
-	size_t			j;
-	int				fd;
-	int				user_len;
+	// size_t			i;
+	// size_t			j;
+	// char			*path;
+	// int				fd;
+	// int				user_len;
 
-	int tmp=0;
+	// int tmp=0;
 	
-	//перед открытием файла проверка размера и буфера (вычитаем старт и длину)
-	j = 0;
-	i = find_in_variables(g_shvar, &j, "HISTFILE=");
-	fd = open(g_shvar[i] + j, O_WRONLY | O_APPEND | O_CREAT | O_SYNC,
-		S_IRUSR | S_IWUSR);
-	i = find_in_variables(g_shvar, &j, "HISTFILESIZE=");
-	user_len = ft_atoi(g_shvar[i] + j);
-	if (user_len < g_hist.len)
-		g_hist.start = g_hist.last - g_hist.len;
-	i = g_hist.start;
-	while (g_hist.hist[i] && i < g_hist.len)
-	{
-		write(fd, g_hist.hist[i], ft_strlen(g_hist.hist[i]));
-		write(fd, "\n", 1);
-		i++;
-	}
-	close(fd);
+	// j = 0;
+	// i = find_in_variables(g_shvar, &j, "HISTFILE=");
+	// path = ft_strdup(g_shvar[i] + j);
+	// i = find_in_variables(g_shvar, &j, "HISTFILESIZE=");
+	// user_len = ft_atoi(g_shvar[i] + j);
+	// if (user_len < g_hist.len)
+	// {
+	// 	if (g_hist.last < g_hist.len)
+	// 	{
+	// 		fd = open(path, O_WRONLY | O_TRUNC | O_CREAT | O_SYNC,
+	// 			S_IRUSR | S_IWUSR);
+	// 		g_hist.start = 0;
+	// 	}
+	// 	//если нам задали меньший размер файла, чем у нас был, мы должны удалить файл и создать новый,
+	// 	//заполнив его настолько, насколько получается
+	// }
+	
+	// //перед открытием файла проверка размера и буфера (вычитаем старт и длину)
+	// fd = open(path, O_WRONLY | O_APPEND | O_CREAT | O_SYNC,
+	// 	S_IRUSR | S_IWUSR);
+	// i = g_hist.start;
+	// while (g_hist.hist[i] && i < g_hist.len)
+	// {
+	// 	write(fd, g_hist.hist[i], ft_strlen(g_hist.hist[i]));
+	// 	write(fd, "\n", 1);
+	// 	i++;
+	// }
+	// close(fd);
 	return (0);
 }
 
