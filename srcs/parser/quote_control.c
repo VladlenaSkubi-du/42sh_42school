@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 17:28:46 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/06 15:45:58 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/06 19:49:17 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		terminate(char *ptr)
 }
 
 /*
-** Function needs to nullify symbols in comments
+** Function needs to nullify symbols in comments and check if is EOF at end
 */
 
 int		nullify_comment(char **ptr, int *nullifier, t_stack **stack)
@@ -40,6 +40,8 @@ int		nullify_comment(char **ptr, int *nullifier, t_stack **stack)
 	}
 	if (*nullifier == COMENT && **ptr == ENTER)
 		*nullifier = ft_pop_stack(stack);
+	if (**ptr == EOF)
+		!(ft_push_stack(stack, EOF)) ? *nullifier = EOF : 0;
 	return (0);
 }
 
@@ -83,6 +85,37 @@ int		nullify_dquotes(char **ptr, int *nullifier, t_stack **stack)
 	return (0);
 }
 
+int		nullify_promt_check(t_stack	**stack)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	if ((*stack)->data != 0)
+		{
+			if ((*stack)->data == DQUOTE || (*stack)->data == SQUOTE)
+				g_prompt.prompt_func = dquote_prompt;
+			if ((*stack)->data == OPAREN)
+				g_prompt.prompt_func = subshell_prompt;
+			if ((*stack)->data == OBRACE)
+				g_prompt.prompt_func = cursh_prompt;
+			if ((*stack)->data == EOF)
+			{
+				g_prompt.prompt_func = main_prompt;
+				tmp = ft_strndup(g_cmd, g_cmd_size - 1);
+				free(g_cmd);
+				g_cmd = tmp;
+				g_cmd_size--;
+				tmp = ft_strndup(g_techline.line, g_cmd_size);
+				free(g_techline.line);
+				g_techline.line = tmp;
+				g_techline.len = g_cmd_size;
+			}	
+		}
+		else
+			g_prompt.prompt_func = main_prompt;
+	ft_clear_stack(stack);
+}
+
 /*
 ** Function to check quotes " ", ' ' and send to null
 ** symbols between them in techline
@@ -116,16 +149,6 @@ int		nullify(char **techline, size_t cmd_size)
 		ptr++;
 		count++;
 	}
-	if (stack->data != 0)
-	{
-		if (stack->data == DQUOTE || stack->data == SQUOTE)
-			g_prompt.prompt_func = dquote_prompt;
-		if (stack->data == OPAREN)
-			g_prompt.prompt_func = subshell_prompt;
-		if (stack->data == OBRACE)
-			g_prompt.prompt_func = cursh_prompt;
-	}
-	else
-		g_prompt.prompt_func = main_prompt;
+	
 	return (nullifier ? -1 : 0);
 }
