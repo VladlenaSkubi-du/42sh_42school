@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/05 20:11:14 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/06 13:30:28 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,8 @@ int						nullify(char **techline, size_t size);
 int						nullify_dquotes(char **ptr, int *nullifier, \
 						t_stack **stack);
 int						nullify_backslash(char **ptr, int *nullifier);
+int						nullify_comment(char **ptr, int *nullifier, \
+						t_stack **stack);
 
 /*
 ** File brackets.c

@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/05 21:58:24 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/06 13:12:13 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ char	get_tech_num(char check)
 	char	*base;
 	size_t	i;
 
-	base = " \\;&\"\'()[]{}$~|><*=\n";
+	base = " \\;&\"\'()[]{}$~|><*=\n#";
 	i = 0;
 	while (base[i])
 	{

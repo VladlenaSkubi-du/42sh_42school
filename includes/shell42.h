@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/05 17:05:45 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/06 13:12:18 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct		s_history
 ** @SQUOTE is "'", @OPAREN is "(", @CPAREN is ")", @OBRACKET is "["
 ** @CBRACKET is "]", @OBRACE is "{", CBRACE is "}", @DOLLAR is "$",
 ** @TILDA is "~", @PIPE is "|", @GTHAN is ">", @LTHAN is "<",
-** @AST is "*", @EQUAL = "=", @ENTER is "\n"
+** @AST is "*", @EQUAL = "=", @ENTER is "\n", @COMENT is "#"
 */
 
 enum				e_techline
@@ -84,7 +84,8 @@ enum				e_techline
 	LTHAN,
 	AST,
 	EQUAL,
-	ENTER
+	ENTER,
+	COMENT
 }					t_sign_techline;
 
 /*
