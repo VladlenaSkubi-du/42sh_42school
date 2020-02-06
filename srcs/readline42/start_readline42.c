@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_readline42.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/05 22:09:52 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/06 15:25:40 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int				start_readline42(int tmp)
 		readline();
 	reset_canonical_input();
 	check_menu();
-	cmd = ft_strdup(g_rline.cmd);
+	cmd = finalize_cmd(g_rline.cmd);
 	clean_readline42();
 	signals_reroute(2);
 	parser(cmd);
@@ -75,11 +75,11 @@ char			*finalize_cmd(char *cmd)
 {
 	char		*final;
 	
-	final = NULL;
+	// final = NULL;
 	
 	// if (g_rline.cmd_len == 0)
 	// 	return (ft_strdup("\n")); //иначе лишние переносы строки в строке!
-	final = ft_strjoin(cmd, ""); // тоже хз зачем тут \n добавлять
+	final = ft_strjoin(cmd, "\n"); // тоже хз зачем тут \n добавлять
 	return (final);
 }
 
