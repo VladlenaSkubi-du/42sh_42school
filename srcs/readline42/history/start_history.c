@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 14:02:53 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/05 15:54:24 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/06 15:16:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int				save_hist_buffer(int fd)
 		i++;
 	}
 	free(tmp);
-	g_hist.last = i;
+	g_hist.last = i - 1;
 	g_hist.start = i;
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history_processing.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 12:18:29 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/05 22:11:09 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/06 15:19:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ int                 add_to_history(char *cmd)
 {
 	if (g_hist.last >= g_hist.len)
 		scroll_hist_buffer(1);
-	g_hist.hist[g_hist.last] = ft_strdup(cmd);
 	if (g_prompt.prompt_func == main_prompt)
+	{
 		g_hist.last++;
+		g_hist.hist[g_hist.last] = ft_strdup(cmd);
+	}
 	else
 	{
 		if (g_hist.hist[g_hist.last][0] != 0)

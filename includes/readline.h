@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/05 14:32:56 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/06 14:43:06 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ typedef struct					s_completion
 }								t_completion;
 
 t_rline							g_rline;
-// t_prompt						g_prompt;
 struct winsize					g_screen;
 // struct termios					g_tty; //TODO убрать, если
 struct termios					g_backup_tty;
