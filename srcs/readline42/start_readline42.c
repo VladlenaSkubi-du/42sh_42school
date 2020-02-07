@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/07 13:31:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/07 16:08:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int				interactive_shell(void)
 
 int				start_readline42(int tmp)
 {
-	char		*cmd;
+	char		*final;
 
 	if (tmp != 1)
 		readline_simple();
@@ -64,25 +64,26 @@ int				start_readline42(int tmp)
 		readline();
 	reset_canonical_input();
 	check_menu();
-	cmd = finalize_cmd(g_rline.cmd);
+	final = finalize_cmd(g_rline.cmd);
 	clean_readline42();
 	signals_reroute(2);
-	parser(cmd);
+	parser(final);
 	return (0);
 }
 
 char			*finalize_cmd(char *cmd)
 {
-	char		*final;
+	char		*out;
 	
-	// final = NULL;
-	
-	// if (g_rline.cmd_len == 0)
-	// 	return (ft_strdup("\n")); //иначе лишние переносы строки в строке!
 	if (g_rline.cmd_len == 0)
-		return (ft_strdup(cmd));
-	final = ft_strjoin(cmd, "\n"); // тоже хз зачем тут \n добавлять
-	return (final);
+	{
+		out = ft_strdup(cmd);
+	}
+	else
+	{
+		out = ft_strjoin(cmd, "\n");
+	}
+	return (out);
 }
 
 int				init_prompt(char flag)

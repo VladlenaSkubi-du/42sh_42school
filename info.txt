@@ -300,3 +300,6 @@ terminate_current_pipeline ()
 	while (ft_strncmp(g_shvar[i], "HISTFILE=",
 		ft_strchri(g_shvar[i], '=') + 1) != 0)
 		i++;
+
+//printf("last %s\nfirst %s\nlast = %zu, len = %zu\n", g_hist.hist[g_hist.last - 1],
+g_hist.hist[g_hist.start], g_hist.last, g_hist.len);
