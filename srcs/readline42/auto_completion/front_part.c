@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:46:39 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/07 19:24:09 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int					print_menu(size_t pos_back, char **menu,
 	if (g_screen.ws_row - g_rline.str_num >= g_menu_buf.buf_lines)
 	{
 		while (++i < g_menu_buf.word_nb)
-			if (menu[i] && menu[i][0] && !(menu[i][0] == '.'))
+			if (menu[i] && menu[i][0])
 				buffer_col_print(menu[i], &g_menu_buf);
 		position_cursor_after_menu_back(len_x, g_menu_buf.buf_lines,
 			pos_back, g_rline.cmd_len);
