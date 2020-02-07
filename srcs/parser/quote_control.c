@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   quote_control.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 17:28:46 by hshawand          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/02/07 15:54:45 by sschmele         ###   ########.fr       */
+=======
+/*   Updated: 2020/02/07 19:29:27 by rbednar          ###   ########.fr       */
+>>>>>>> 62cebf48330d627295659a40f1374f4b4edc9dc8
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +26,6 @@ char	*g_sign[22] = {
 ** if (*ptr == 1 || *ptr == 3 || *ptr == 4 || *ptr == 9 || *ptr == 10
 ** || *ptr == 14 || *ptr == 15 || *ptr == 16 || *ptr == 17 || *ptr == 18)
 */
-
-int		terminate(char *ptr)
-{
-	*ptr = 0;
-	return (0);
-}
 
 /*
 ** Function needs to nullify symbols in comments and check if is EOF at end
@@ -54,8 +52,11 @@ int		nullify_comment(char **ptr, t_stack **stack)
 int		nullify_backslash(char **ptr, t_stack **stack)
 {
 	if (((*stack)->data == 0 || (*stack)->data == DQUOTE) \
-		&& **ptr == BSLASH)
-		terminate(&ptr[0][1]);
+		&& **ptr == BSLASH && ptr[0][1] != ENTER)
+		{
+			**ptr = 0;
+			ptr[0][1] = 0;
+		}	
 	return (0);
 }
 
@@ -72,13 +73,13 @@ int		nullify_dquotes(char **ptr, t_stack **stack)
 	else if ((*stack)->data == SQUOTE && **ptr == SQUOTE)
 		ft_pop_stack(stack);
 	else if ((*stack)->data == SQUOTE && **ptr != EOF)
-		terminate(*ptr);
+		**ptr = 0;
 	else if ((*stack)->data == DQUOTE && \
 			((**ptr != DOLLAR && *(*ptr - 1) != BSLASH) && \
-			**ptr != EOF && \
+			**ptr != EOF && **ptr != BSLASH && **ptr != ENTER &&\
 			!((**ptr == OPAREN || **ptr == OBRACE) && \
 			*(*ptr - 1) == DOLLAR)))
-		terminate(*ptr);
+		**ptr = 0;
 	else if ((*stack)->data != SQUOTE && **ptr == OPAREN)
 		ft_push_stack(stack, OPAREN);
 	else if ((*stack)->data == OPAREN && **ptr == CPAREN)
@@ -147,5 +148,13 @@ int		nullify(char **techline, size_t cmd_size)
 		ptr++;
 		count++;
 	}
-	return (nullify_promt_check(&stack));
+	printf("techline cur:");
+	count = -1;
+	while (++count < g_techline.len)
+		printf(" %d", g_techline.line[count]);
+	printf("\n");
+	return (nullify_promt_check(&stack)); //нужно написать функцию для обработки строки перед отправкой в парсер
+	// сделать Quote Removal
+	//The quote characters ( <backslash>, single-quote, and double-quote) that were present in the original word shall be removed unless they have themselves been quoted.
+	
 }
