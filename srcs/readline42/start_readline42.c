@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/06 15:25:40 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/07 13:31:03 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ char			*finalize_cmd(char *cmd)
 	
 	// if (g_rline.cmd_len == 0)
 	// 	return (ft_strdup("\n")); //иначе лишние переносы строки в строке!
+	if (g_rline.cmd_len == 0)
+		return (ft_strdup(cmd));
 	final = ft_strjoin(cmd, "\n"); // тоже хз зачем тут \n добавлять
 	return (final);
 }

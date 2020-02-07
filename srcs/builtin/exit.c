@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:03:04 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/05 15:24:53 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/07 13:05:56 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,15 @@
 
 int				btin_exit(t_exit_status status)
 {
-	//TODO чистка parser
-	fill_hist_in_file();
-	clean_everything();
+	//TODO чистка парсер
 	ft_putendl_fd("exit", STDOUT_FILENO);
+	if (fill_hist_in_file())
+	{
+		clean_everything();
+		error_handler(HISTORY_FILE_FAIL, NULL);
+		exit(HISTORY_FILE_FAIL);
+	}
+	clean_everything();
 	//TODO функция, по типу atexit баша, с каким статусом завершилась программа
 	exit(status);
 }
