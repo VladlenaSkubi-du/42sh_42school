@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:26:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/31 20:16:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/07 13:20:42 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,9 @@ int			route_exit(void)
 		clean_readline42();
 		btin_exit(SUCCESS);
 	}
-	if (g_prompt.prompt_func == other_prompt)
+	if (g_prompt.prompt_func != main_prompt)
 	{
-		g_rline.cmd = NULL;
-		return (OUT);
-	}
-	if (g_prompt.prompt_func == dquote_prompt)
-	{
-		g_rline.cmd = NULL;
+		g_rline.cmd = ft_straddsy(g_rline.cmd, EOF);
 		return (OUT);
 	}
 	return (0);

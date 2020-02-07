@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/03 13:41:28 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/07 13:01:45 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef enum		e_status
 	TERMINAL_EXISTS = 111,
 	TERMINAL_TO_NON,
 	TERMINAL_TO_CAN,
+	HISTORY_FILE_FAIL,
 	COMMAND_NOT_FOUND = 127,
 	SYNTAX_ERROR = 258
 }					t_exit_status;

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/31 17:27:59 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/07 14:03:21 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ int				error_handler(t_exit_status status, char *str)
 		ft_putendl_fd("terminal can't be changed, use -c flag", STDERR_FILENO); //TODO check
 	else if ((status & 0xFFFF) == TERMINAL_TO_CAN)
 		ft_putendl_fd("terminal can't be changed, reset the terminal",
+			STDERR_FILENO); //TODO check
+	else if ((status & 0xFFFF) == HISTORY_FILE_FAIL)
+		ft_putendl_fd("history of commands can't be fixed in .42sh_history",
 			STDERR_FILENO); //TODO check
 	else if ((status & 0xFFFF) == SYNTAX_ERROR)
 		syntax_errors(status, str);

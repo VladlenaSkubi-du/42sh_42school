@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/06 16:10:11 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/07 14:05:09 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include "ft_printf.h" //If not used, delete
 # include "get_next_line.h" //If not used, delete
 
-# define 			MAX_HISTORY 10
+# define 			MAX_HISTORY 50
 
 typedef struct		s_prompt
 {
@@ -53,6 +53,7 @@ typedef struct		s_history
 	size_t			len;
 	size_t			last;
 	size_t			start;
+	size_t			start_control;
 }					t_history;
 
 /*

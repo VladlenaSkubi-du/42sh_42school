@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   quote_control.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 17:28:46 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/07 13:13:16 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/07 14:26:43 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "parser.h"
+
+char	*g_sign[22] = {
+	"\0", " ", "\\", ";", "&", "\"", "\'", "(", ")", "[", "]",
+	"{", "}", "$", "~", "|", ">", "<", "*", "=", "\n", "#"};
 
 /*
 ** Dquote removed
@@ -31,8 +35,10 @@ int		terminate(char *ptr)
 
 int		nullify_comment(char **ptr, t_stack **stack)
 {
-	if ((**ptr == COMENT && (*stack)->data != SQUOTE && (*stack)->data != OBRACE && \
-		(*stack)->data != DQUOTE) || ((*stack)->data == COMENT && **ptr != ENTER))
+	if ((**ptr == COMENT && (*stack)->data != SQUOTE && \
+		(*stack)->data != OBRACE &&
+		(*stack)->data != DQUOTE) || ((*stack)->data == COMENT && \
+		**ptr != ENTER))
 	{
 		**ptr = SPACE;
 		if ((*stack)->data != COMENT)
@@ -65,10 +71,11 @@ int		nullify_dquotes(char **ptr, t_stack **stack)
 		ft_pop_stack(stack);
 	else if ((*stack)->data == SQUOTE && **ptr == SQUOTE)
 		ft_pop_stack(stack);
-	else if ((*stack)->data == SQUOTE)
+	else if ((*stack)->data == SQUOTE && **ptr != EOF)
 		terminate(*ptr);
 	else if ((*stack)->data == DQUOTE && \
 			((**ptr != DOLLAR && *(*ptr - 1) != BSLASH) && \
+			**ptr != EOF && \
 			!((**ptr == OPAREN || **ptr == OBRACE) && \
 			*(*ptr - 1) == DOLLAR)))
 		terminate(*ptr);
@@ -85,11 +92,8 @@ int		nullify_dquotes(char **ptr, t_stack **stack)
 	return (0);
 }
 
-int		nullify_promt_check(t_stack	**stack)
+int		nullify_promt_check(t_stack **stack)
 {
-	char	*tmp;
-
-	tmp = NULL;
 	if ((*stack)->data != 0)
 	{
 		if ((*stack)->data == DQUOTE || (*stack)->data == SQUOTE)
@@ -101,15 +105,10 @@ int		nullify_promt_check(t_stack	**stack)
 		if ((*stack)->data == EOF)
 		{
 			g_prompt.prompt_func = main_prompt;
-			tmp = ft_strndup(g_cmd, g_cmd_size - 1);
-			free(g_cmd);
-			g_cmd = tmp;
-			g_cmd_size--;
-			tmp = ft_strndup(g_techline.line, g_cmd_size);
-			free(g_techline.line);
-			g_techline.line = tmp;
-			g_techline.len = g_cmd_size;
-		}	
+			error_handler(SYNTAX_ERROR | (ERR_SQUOTE << 8),
+				g_sign[(*stack)->next->data]);
+			return (OUT);
+		}
 	}
 	else
 		g_prompt.prompt_func = main_prompt;
@@ -148,6 +147,5 @@ int		nullify(char **techline, size_t cmd_size)
 		ptr++;
 		count++;
 	}
-	nullify_promt_check(&stack);
-	return (0);
+	return (nullify_promt_check(&stack));
 }
