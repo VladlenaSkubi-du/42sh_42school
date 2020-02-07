@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/07 12:37:39 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/07 15:43:23 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ t_dquote				g_dquote;
 
 int						parser(char *line);
 int						pars_lex_exec(int tmp);
-int						check_null_line(char *line);
 int						ft_get_techline(void);
 char					get_tech_num(char check);
 

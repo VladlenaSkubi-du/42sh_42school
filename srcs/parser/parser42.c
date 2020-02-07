@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/07 14:00:56 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/07 22:02:25 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,10 @@ int					parser(char *line)
 {
 	if (g_prompt.prompt_func == main_prompt
 		&& (line == NULL || line[0] == 0))
+	{
+		free(line);
 		return (0);
-	// if (g_prompt.prompt_func == main_prompt)
-	// 	init_dquote();
-	// if (line == NULL || line[0] == 0)
-	// {
-	// 	answer = check_null_line(line);
-	// 	if (answer == 2)
-	// 		return (0);
-	// }
-	// else
+	}
 	g_cmd = line;
 	g_cmd_size = ft_strlen(g_cmd);
 	ft_get_techline();
@@ -52,6 +46,7 @@ static int			perform_assignment(size_t eq)
 	find = ft_strndup(g_cmd + var, eq);
 	printf("%zu - %zu - %zu\n", var, eq, value);
 	find_assignment_in_variables(var, eq, value);
+	free(find);
 	return (0);
 }
 
@@ -80,35 +75,20 @@ static int			castrated_parser(void)
 
 int		pars_lex_exec(int tmp)
 {
-	// castrated_parser();
+	castrated_parser();
 	if (nullify(&g_techline.line, g_cmd_size) == OUT)
 	{
-		
 		clean_parser42();
 		return (0);
 	}
 	// ft_putendl_fd(g_cmd, 1);
 	if (g_prompt.prompt_func != main_prompt)
+	{
+		clean_parser42();
 		return (0);
+	}
 	// ft_slice_fg();
 	clean_parser42();
-	return (0);
-}
-
-int		check_null_line(char *line)
-{
-	if (g_prompt.prompt_func == NULL)
-	{
-		free(line);
-		clean_everything();
-		exit(SUCCESS);
-	}
-	if (g_prompt.prompt_func == main_prompt)
-		return (2);
-	if (g_prompt.prompt_func == other_prompt)
-		return (ctrl_d_with_other_prompt());
-	if (g_prompt.prompt_func == dquote_prompt)
-		return (ctrl_d_with_dquote_prompt());
 	return (0);
 }
 

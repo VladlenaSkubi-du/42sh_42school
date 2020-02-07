@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 14:02:53 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/07 13:39:27 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/07 20:21:40 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void            init_history(void)
 		(tmp = ft_strchri(g_shvar[i], '=') + 1)) != 0)
 		i++;
 	g_hist.len = ft_atoi(&g_shvar[i][tmp]);
-	g_hist.hist = NULL;
 	g_hist.hist = (char**)ft_xmalloc(sizeof(char*) * (g_hist.len + 1));
 	g_hist.hist[g_hist.len] = 0;
 	g_hist.last = -1;
