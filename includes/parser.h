@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/06 19:11:26 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/07 12:37:39 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,11 +128,9 @@ char					get_tech_num(char check);
 */
 
 int						nullify(char **techline, size_t size);
-int						nullify_dquotes(char **ptr, int *nullifier, \
-						t_stack **stack);
-int						nullify_backslash(char **ptr, int *nullifier);
-int						nullify_comment(char **ptr, int *nullifier, \
-						t_stack **stack);
+int						nullify_dquotes(char **ptr, t_stack **stack);
+int						nullify_backslash(char **ptr, t_stack **stack);
+int						nullify_comment(char **ptr, t_stack **stack);
 int						nullify_promt_check(t_stack	**stack);
 
 /*
