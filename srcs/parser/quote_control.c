@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_control.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 17:28:46 by hshawand          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/02/07 15:54:45 by sschmele         ###   ########.fr       */
-=======
-/*   Updated: 2020/02/07 19:29:27 by rbednar          ###   ########.fr       */
->>>>>>> 62cebf48330d627295659a40f1374f4b4edc9dc8
+/*   Updated: 2020/02/08 16:24:50 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,11 +144,11 @@ int		nullify(char **techline, size_t cmd_size)
 		ptr++;
 		count++;
 	}
-	printf("techline cur:");
-	count = -1;
-	while (++count < g_techline.len)
-		printf(" %d", g_techline.line[count]);
-	printf("\n");
+	// printf("techline cur:");
+	// count = -1;
+	// while (++count < g_techline.len)
+		// printf(" %d", g_techline.line[count]);
+	// printf("\n");
 	return (nullify_promt_check(&stack)); //нужно написать функцию для обработки строки перед отправкой в парсер
 	// сделать Quote Removal
 	//The quote characters ( <backslash>, single-quote, and double-quote) that were present in the original word shall be removed unless they have themselves been quoted.
