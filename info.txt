@@ -303,3 +303,22 @@ terminate_current_pipeline ()
 
 //printf("last %s\nfirst %s\nlast = %zu, len = %zu\n", g_hist.hist[g_hist.last - 1],
 g_hist.hist[g_hist.start], g_hist.last, g_hist.len);
+
+// static int	print_all_vars(void)
+// {
+// 	size_t	i;
+
+// 	i = 0;
+// 	printf("%.10s\n", "\n\nENVIRON");
+// 	while (g_env[i])
+// 		printf("%s\n", g_env[i++]);
+// 	i = 0;
+// 	printf("%.10s\n", "\n\nWORKING");
+// 	while (g_shvar[i])
+// 		printf("%s\n", g_shvar[i++]);
+// 	i = 0;
+// 	printf("%.10s\n", "\n\nLOCAL");
+// 	while (g_lovar[i])
+// 		printf("%s\n", g_lovar[i++]);
+// 	return (0);
+// }
