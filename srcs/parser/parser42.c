@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/07 22:23:05 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/09 16:00:15 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int			perform_assignment(size_t eq)
 	value = eq + 1;
 	while (var > 0 && ft_isalnum(g_cmd[var]))
 		var--;
-	while (value < g_cmd_size && ft_isalnum(g_cmd[value]))
+	while (value < g_cmd_size)
 		value++;
 	find = ft_strndup(g_cmd + var, eq);
 	printf("%zu - %zu - %zu\n", var, eq, value);
@@ -60,11 +60,12 @@ static int			castrated_parser(void)
 		if (g_techline.line[i] == EQUAL)
 		{
 			if ((i > 0 && i + 1 <= g_cmd_size) &&
-				ft_isalnum(g_cmd[i - 1]) && ft_isalnum(g_cmd[i + 1]))
+				ft_isalnum(g_cmd[i - 1]) && g_cmd[i + 1])
 				perform_assignment(i);
 			else
 			{
-				error_handler(COMMAND_NOT_FOUND, "="); //TODO исправить и отправлять всю часть строки до разделителя
+				printf("Something wrong\n"); //TODO delete
+				// error_handler(COMMAND_NOT_FOUND, "="); //TODO исправить и отправлять всю часть строки до разделителя
 				return (0); //переставить код возврата
 			}
 		}

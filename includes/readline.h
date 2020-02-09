@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/08 20:41:06 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/09 16:08:59 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -403,6 +403,7 @@ int								check_if_histsize_changed(void);
 
 int                 			add_to_history(char *cmd);
 int								fill_hist_in_file(void);
+int								insert_hist_in_file(int fd);
 int								open_hist_file(int user_len, char *path);
 int                 			scroll_hist_buffer(size_t num);
 
