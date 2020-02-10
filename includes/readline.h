@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/10 13:02:24 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/10 17:31:55 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct					s_rline
 	size_t						cmd_len;
 	size_t						pos;
 	size_t						str_num;
+	size_t						last_str_len;
 	size_t						prompt_len;
 	size_t						cmd_buff_len;
 	short						flag;
@@ -159,7 +160,7 @@ int								position_cursor(char *cap, int x, int y);
 int								char_add(char c);
 int								str_shift(char *str, int shift);
 int								insert_char(char c);
-int								count_str_num(void);
+int								count_str_num(char c);
 
 /*
 ** File escape.c - router to the functions performing actions with
