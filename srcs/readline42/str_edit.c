@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:16:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/10 17:01:07 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int				insert_char(char c)
 	{
 		write(STDOUT_FILENO, &c, 1);
 		g_rline.cmd[g_rline.pos] = c;
-		g_rline.str_num = count_str_num();
+		count_str_num(c);
 		if (g_rline.pos + g_rline.prompt_len + 1 ==
 			g_screen.ws_col * g_rline.str_num)
 			putcap("sf");
@@ -69,16 +69,19 @@ int				insert_char(char c)
 	return (0);
 }
 
-int				count_str_num(void) //TODO if we catch the signal SIGWINCH
+int				count_str_num(char c) //TODO if we catch the signal SIGWINCH
 {
-	unsigned int	i;
+	// unsigned int	i;
 
-	i = 1;
+	// i = 1;
+	if (c == '\n')
+		g_rline.str_num++;
 	if (g_rline.cmd_len + g_rline.prompt_len > g_screen.ws_col)
 	{
-		while (g_rline.cmd_len + g_rline.prompt_len >
-			g_screen.ws_col * i)
-			i++;
+		// while (g_rline.cmd_len + g_rline.prompt_len >
+		// 	g_screen.ws_col * i)
+		// 	i++;
+		g_rline.str_num++;
 	}
-	return (i);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:53:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/31 09:30:27 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/10 17:03:53 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	init_readline(void)
 	g_rline.cmd = (char *)ft_xmalloc(CMD_SIZE + 1);
 	g_rline.cmd_len = 0;
 	g_rline.pos = 0;
-	g_rline.str_num = 0;
+	g_rline.str_num = 1;
 	g_rline.cmd_buff_len = CMD_SIZE + 1;
 	g_rline.flag = 0;
 }
