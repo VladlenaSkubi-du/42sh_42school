@@ -46,7 +46,6 @@ HISTORY = 			readline42/history/start_history.c \
 			readline42/history/history_processing.c
 
 PARSER = 			parser/parser42.c \
-			parser/brackets.c \
 			parser/find_spec.c \
 			parser/slice_to_blocks.c \
 			$(PATH_TREE) \
@@ -82,6 +81,7 @@ LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_issign.c \
 			libft_42/ft_add_list.c \
 			libft_42/ft_realloc_array.c \
+			libft_42/ft_lstclear.c \
 			$(STACK_STRUCTURE)
 
 STACK_STRUCTURE = 	libft_42/stack_structure/ft_init_stack.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser42.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/10 20:03:26 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/10 21:03:08 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,7 @@ int		pars_lex_exec(int tmp)
 	}
 	pre_parsing_cut_glue();
 	// ft_putendl_fd(g_cmd, 1);
-	if (g_prompt.prompt_func != main_prompt)
-	{
-		clean_parser42();
-		return (0);
-	}
-	// ft_slice_fg();
+	ft_slice_fg();
 	clean_parser42();
 	return (0);
 }

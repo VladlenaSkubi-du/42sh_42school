@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_42.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:46:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/08 20:43:33 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/10 21:00:58 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void                            ft_add_list_to_end(t_list **start,
                                     t_list *new_list);
 char				            **ft_realloc_array(char ***subj, int *len_subj,
 						            int len_needed);
+void	                        ft_lstclear(t_list **begin_list);
 
 /*
 ** Folder stask_structure______________________________________________________

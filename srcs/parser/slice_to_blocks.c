@@ -21,13 +21,12 @@ int		ft_block_add_to_list(t_ltree *block, t_list **list)
 {
 	t_ltree	*sub;
 	t_ltree	final;
-	int		out_flag;
 	int		k;
 
 	while ((sub = ft_find_logic(block, &final)))
 	{
 		k = -1;
-		while (k++)
+		while (++k <= 2)
 			final.fd[k] = k;
 		ft_find_redirection(&final);
 		ft_add_list_to_end(list, ft_lstnew(&final, sizeof(t_ltree)));
@@ -44,26 +43,33 @@ int		ft_block_add_to_list(t_ltree *block, t_list **list)
 ** Function start list commands
 */
 
-// int	ft_block_start(t_list *list)
-// {
-// 	t_ltree	*sub;
-// 	t_ltree	final;
-// 	int		out_flag;
+int	ft_block_start(t_list **list)
+{
+	t_ltree	*sub;
+	t_list	*start;
+	int		out_flag;
 	
-// 	while ( ))
-// 	{
-// 		out_flag = exec_init(sub);	
-// 		if (out_flag != 0 && final.flags & LOG_AND)
-// 			break ;
-// 		if (out_flag == 0 && final.flags & LOG_OR)
-// 			break ;
-// 		block->start = final.end + 1;
-// 		final.end = block->end;
-// 		if (final.flags & LOG_AND || final.flags & LOG_OR)
-// 			block->start += 2;
-// 	}
-// 	return (0);
-// }
+	start = *list;
+	while (start)
+	{
+		sub = (t_ltree *)(start->content);
+		out_flag = exec_init(sub);	
+		if (out_flag != 0 && sub->flags & LOG_AND)
+			while (!(sub->flags & GR_START) && start->next)
+			{
+				start = start->next;
+				sub = (t_ltree *)(start->content);
+			}
+		if (out_flag == 0 && sub->flags & LOG_OR)
+			while (!(sub->flags & GR_START) && start->next)
+			{
+				start = start->next;
+				sub = (t_ltree *)(start->content);
+			}
+		start = start->next;
+	}
+	return (0);
+}
 
 /*
 ** Fucntion slice command string to blocks and send add it to start 
@@ -96,6 +102,9 @@ int		ft_slice_fg(void)
 	size_t			i;
 	t_list			*start_list;
 
+	i = -1;
+	while (++i <= 2)
+		block.fd[i] = i;
 	i = 0;
 	block.start = 0;
 	block.flags = GR_START;
@@ -111,5 +120,7 @@ int		ft_slice_fg(void)
 		ft_slice_bg(&i, &block, &start_list);
 		i++;
 	}
+	ft_block_start(&start_list);
+	ft_lstclear(&start_list);
 	return (0);
 }

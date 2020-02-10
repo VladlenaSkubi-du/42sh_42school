@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/10 20:03:23 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/10 20:52:33 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,16 +124,10 @@ int						ft_get_techline(void);
 char					get_tech_num(char check);
 
 /*
-** File brackets.c
-*/
-
-int						ft_brackets(char *str, int end);
-
-/*
 ** File slice_to_blocks.c
 */
 
-int 					ft_block_start(t_list *list);
+int 					ft_block_start(t_list **list);
 int						ft_block_add_to_list(t_ltree *block, t_list **list);
 int     				ft_slice_fg(void);
 int     				ft_slice_bg(size_t *i, t_ltree	*block, t_list **start_list);
