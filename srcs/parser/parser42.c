@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/07 17:03:17 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/10 18:53:44 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int		pars_lex_exec(int tmp)
 		clean_parser42();
 		return (0);
 	}
+	pre_parsing_cut_glue();
 	// ft_putendl_fd(g_cmd, 1);
 	if (g_prompt.prompt_func != main_prompt)
 		return (0);
@@ -145,6 +146,7 @@ int		ft_get_techline(void)
 		i++;
 	}
 	g_techline.len = i;
+	g_techline.alloc_size = i;
 	return (0);
 }
 

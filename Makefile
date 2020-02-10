@@ -48,7 +48,6 @@ HISTORY = 			readline42/history/start_history.c \
 PARSER = 			parser/parser42.c \
 			parser/brackets.c \
 			parser/find_spec.c \
-			parser/quote_control.c \
 			parser/slice_to_blocks.c \
 			$(PATH_TREE) \
 			$(EXEC) \
@@ -64,7 +63,9 @@ EXEC = 				parser/exec/exec_init.c \
 
 QUOTING =			parser/quoting/check_start_quote.c \
 			parser/quoting/buffer_cmd_processing.c \
-			parser/quoting/block_processing.c
+			parser/quoting/block_processing.c \
+			parser/quoting/quote_control.c \
+			parser/quoting/pre_parsing_work.c
 
 ASSIGNMENT =		parser/assignment/backend_variables.c
 

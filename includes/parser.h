@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/07 12:37:39 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/10 19:36:43 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct  		s_tech
 {
    char					*line;
    size_t				len;
+   size_t				alloc_size;
 }               		t_tech;
 
 /*
@@ -124,16 +125,6 @@ int						ft_get_techline(void);
 char					get_tech_num(char check);
 
 /*
-** File quote_control.c
-*/
-
-int						nullify(char **techline, size_t size);
-int						nullify_dquotes(char **ptr, t_stack **stack);
-int						nullify_backslash(char **ptr, t_stack **stack);
-int						nullify_comment(char **ptr, t_stack **stack);
-int						nullify_promt_check(t_stack	**stack);
-
-/*
 ** File brackets.c
 */
 
@@ -204,6 +195,27 @@ int						clear_cmd_from_slash(int flag);
 char					*copy_without_slash_enter(char *cmd,
 							char *buf_cmd, size_t *cmd_len, int sl_en);
 int						check_quotes(int *flag_quotes, t_stack **check);
+
+/*
+** File quote_control.c
+*/
+
+int						nullify(char **techline, size_t size);
+int						nullify_dquotes(char **ptr, t_stack **stack,\
+						size_t *count);
+int						nullify_backslash(char **ptr, t_stack **stack,\
+						size_t *count);
+int						nullify_comment(char **ptr, t_stack **stack);
+int						nullify_promt_check(t_stack	**stack);
+
+/*
+** File pre_parsing_work.c
+*/
+
+int						pre_parsing_cut_glue(void);
+int						pre_parsing_squote(size_t *i);
+int						pre_parsing_back(size_t *i);
+int						ft_reglue(size_t *i, int num);
 
 /*
 ** Folder path_tree____________________________________________________________

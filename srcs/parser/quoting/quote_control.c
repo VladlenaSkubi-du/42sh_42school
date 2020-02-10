@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 17:28:46 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/07 19:29:27 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/10 19:56:59 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,19 @@ int		nullify_comment(char **ptr, t_stack **stack)
 	return (0);
 }
 
-int		nullify_backslash(char **ptr, t_stack **stack)
+int		nullify_backslash(char **ptr, t_stack **stack,\
+		size_t *count)
 {
 	if (((*stack)->data == 0 || (*stack)->data == DQUOTE) \
 		&& **ptr == BSLASH && ptr[0][1] != ENTER)
-		{
-			**ptr = 0;
-			ptr[0][1] = 0;
-		}	
+	{
+		**ptr = 0;
+		ptr[0][1] = 0;
+	}
+	if ((*stack)->data == 0 \
+		&& **ptr == BSLASH && ptr[0][1] == ENTER &&\
+		(g_cmd_size - *count) == 2)
+		ft_push_stack(stack, BSLASH);
 	return (0);
 }
 
@@ -61,7 +66,8 @@ int		nullify_backslash(char **ptr, t_stack **stack)
 ** also it send line to check brackets ( ) or { }
 */
 
-int		nullify_dquotes(char **ptr, t_stack **stack)
+int		nullify_dquotes(char **ptr, t_stack **stack,\
+		size_t *count)
 {
 	if ((*stack)->data == DQUOTE && **ptr == DQUOTE && \
 		*(*ptr - 1) != BSLASH)
@@ -84,8 +90,6 @@ int		nullify_dquotes(char **ptr, t_stack **stack)
 		ft_push_stack(stack, OBRACE);
 	else if ((*stack)->data == OBRACE && **ptr == CBRACE)
 		ft_pop_stack(stack);
-	nullify_backslash(ptr, stack);
-	nullify_comment(ptr, stack);
 	return (0);
 }
 
@@ -99,13 +103,15 @@ int		nullify_promt_check(t_stack **stack)
 			g_prompt.prompt_func = subshell_prompt;
 		if ((*stack)->data == OBRACE)
 			g_prompt.prompt_func = cursh_prompt;
+		if ((*stack)->data == BSLASH)
+			g_prompt.prompt_func = other_prompt;
 		if ((*stack)->data == EOF)
 		{
 			g_prompt.prompt_func = main_prompt;
 			error_handler(SYNTAX_ERROR | (ERR_SQUOTE << 8),
 				g_sign[(*stack)->next->data]);
-			return (OUT);
 		}
+		return (OUT);
 	}
 	else
 		g_prompt.prompt_func = main_prompt;
@@ -140,17 +146,21 @@ int		nullify(char **techline, size_t cmd_size)
 				ft_push_stack(&stack, SQUOTE);
 		}
 		else
-			nullify_dquotes(&ptr, &stack);
+			nullify_dquotes(&ptr, &stack, &count);
+		nullify_backslash(&ptr, &stack, &count);
+		nullify_comment(&ptr, &stack);
 		ptr++;
 		count++;
 	}
-	printf("techline cur:");
-	count = -1;
-	while (++count < g_techline.len)
-		printf(" %d", g_techline.line[count]);
-	printf("\n");
-	return (nullify_promt_check(&stack)); //нужно написать функцию для обработки строки перед отправкой в парсер
-	// сделать Quote Removal
-	//The quote characters ( <backslash>, single-quote, and double-quote) that were present in the original word shall be removed unless they have themselves been quoted.
-	
+	return (nullify_promt_check(&stack));
 }
+	// printf("g_cmd nul=%s\n", g_cmd);//печать для проверки
+	// printf("techline cur:");
+	// count = -1;
+	// while (++count < g_techline.len)
+	// 	printf("%3d", g_techline.line[count]);
+	// printf("\n");
+	//нужно написать функцию для обработки строки перед отправкой в парсер
+	// сделать Quote Removal
+	//The quote characters ( <backslash>, single-quote, and double-quote) that were present in 
+	//the original word shall be removed unless they have themselves been quoted.
