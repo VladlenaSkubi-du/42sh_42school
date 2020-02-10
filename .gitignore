@@ -11,5 +11,5 @@ objs/
 
 readline
 42sh
-CMakeLists.txt
+*.txt
 .42sh_history

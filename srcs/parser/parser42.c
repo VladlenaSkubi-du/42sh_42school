@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser42.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/02/10 18:53:44 by rbednar          ###   ########.fr       */
+=======
+/*   Updated: 2020/02/10 15:51:54 by sschmele         ###   ########.fr       */
+>>>>>>> 86b5288a9249ee665eaaa5e7d4014d81c207bd07
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +21,17 @@ int					parser(char *line)
 {
 	if (g_prompt.prompt_func == main_prompt
 		&& (line == NULL || line[0] == 0))
+	{
+		free(line);
 		return (0);
-	// if (g_prompt.prompt_func == main_prompt)
-	// 	init_dquote();
-	// if (line == NULL || line[0] == 0)
-	// {
-	// 	answer = check_null_line(line);
-	// 	if (answer == 2)
-	// 		return (0);
-	// }
-	// else
+	}
 	g_cmd = line;
 	g_cmd_size = ft_strlen(g_cmd);
 	ft_get_techline();
 	// if (back_to_readline() == OUT)
 	// 	return (0);
 	add_to_history(g_cmd);
+	g_hist.counter = g_hist.last + 1;
 	pars_lex_exec(0);
 	return (0);
 }
@@ -47,11 +46,12 @@ static int			perform_assignment(size_t eq)
 	value = eq + 1;
 	while (var > 0 && ft_isalnum(g_cmd[var]))
 		var--;
-	while (value < g_cmd_size && ft_isalnum(g_cmd[value]))
+	while (value < g_cmd_size)
 		value++;
 	find = ft_strndup(g_cmd + var, eq);
-	printf("%zu - %zu - %zu\n", var, eq, value);
+	// printf("%zu - %zu - %zu\n", var, eq, value);
 	find_assignment_in_variables(var, eq, value);
+	free(find);
 	return (0);
 }
 
@@ -65,11 +65,12 @@ static int			castrated_parser(void)
 		if (g_techline.line[i] == EQUAL)
 		{
 			if ((i > 0 && i + 1 <= g_cmd_size) &&
-				ft_isalnum(g_cmd[i - 1]) && ft_isalnum(g_cmd[i + 1]))
+				ft_isalnum(g_cmd[i - 1]) && g_cmd[i + 1])
 				perform_assignment(i);
 			else
 			{
-				error_handler(COMMAND_NOT_FOUND, "="); //TODO исправить и отправлять всю часть строки до разделителя
+				printf("Something wrong\n"); //TODO delete
+				// error_handler(COMMAND_NOT_FOUND, "="); //TODO исправить и отправлять всю часть строки до разделителя
 				return (0); //переставить код возврата
 			}
 		}
@@ -80,7 +81,7 @@ static int			castrated_parser(void)
 
 int		pars_lex_exec(int tmp)
 {
-	// castrated_parser();
+	castrated_parser();
 	if (nullify(&g_techline.line, g_cmd_size) == OUT)
 	{
 		clean_parser42();
@@ -89,26 +90,12 @@ int		pars_lex_exec(int tmp)
 	pre_parsing_cut_glue();
 	// ft_putendl_fd(g_cmd, 1);
 	if (g_prompt.prompt_func != main_prompt)
+	{
+		clean_parser42();
 		return (0);
+	}
 	// ft_slice_fg();
 	clean_parser42();
-	return (0);
-}
-
-int		check_null_line(char *line)
-{
-	if (g_prompt.prompt_func == NULL)
-	{
-		free(line);
-		clean_everything();
-		exit(SUCCESS);
-	}
-	if (g_prompt.prompt_func == main_prompt)
-		return (2);
-	if (g_prompt.prompt_func == other_prompt)
-		return (ctrl_d_with_other_prompt());
-	if (g_prompt.prompt_func == dquote_prompt)
-		return (ctrl_d_with_dquote_prompt());
 	return (0);
 }
 

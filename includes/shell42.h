@@ -6,7 +6,11 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/02/10 16:22:11 by rbednar          ###   ########.fr       */
+=======
+/*   Updated: 2020/02/10 12:42:12 by sschmele         ###   ########.fr       */
+>>>>>>> 86b5288a9249ee665eaaa5e7d4014d81c207bd07
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +34,7 @@
 # include "ft_printf.h" //If not used, delete
 # include "get_next_line.h" //If not used, delete
 
-# define 			MAX_HISTORY 50
+# define 			MAX_HISTORY 10
 
 typedef struct		s_prompt
 {
@@ -50,10 +54,11 @@ typedef struct		s_prompt
 typedef struct		s_history
 {
 	char			**hist;
-	size_t			len;
-	size_t			last;
-	size_t			start;
-	size_t			start_control;
+	int				len;
+	int				counter;
+	int				last;
+	int				start;
+	int				start_control;
 }					t_history;
 
 /*
@@ -116,8 +121,6 @@ size_t				find_in_variables(char **arr, size_t *j, char *name);
 */
 
 int					signal_ctrl_c(void);
-int					ctrl_d_with_other_prompt(void);
-int					ctrl_d_with_dquote_prompt(void);
 int					signals_reroute(int from);
 void				sig_readline(int sig);
 void				sig_fork(int sig);

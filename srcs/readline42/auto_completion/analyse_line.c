@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 18:24:47 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/04 13:45:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/10 12:27:09 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int					analyse_techline_compl(char *compl, char *tech,
 		compl[i] == '?' || compl[i] == '-' || compl[i] == '+' ||
 		compl[i] == ',')
 		return (-1);
-	if (compl[i] == '/')
+	if (compl[i] == '/' || compl[i] == '.')
 		return (route_to_arguments(compl, i, pool));
 	i = route_to_pools(tech, i, pool);
 	return (i);
@@ -110,6 +110,8 @@ int					route_to_arguments(char *compl, int i, int *pool)
 {
 	int				save_i;
 
+	if (compl[i] == '.')
+		return (i);
 	save_i = i;
 	*pool = 3;
 	while (i > 0 && (ft_isalnum(compl[i]) || compl[i] == '/'))

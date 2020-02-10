@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 14:00:01 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/30 18:56:25 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/07 16:14:08 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char			*init_buffer_cmd(size_t cmd_len, char *cmd, size_t *buf_len)
 	return (buf_cmd);
 }
 
-char            *add_buffer_cmd(char *buf_cmd, size_t cmd_len,
+char			*add_buffer_cmd(char *buf_cmd, size_t cmd_len,
                                     char *cmd, size_t *buf_len)
 {
     if (cmd == NULL || cmd[0] == 0)
@@ -39,7 +39,7 @@ char            *add_buffer_cmd(char *buf_cmd, size_t cmd_len,
     return (buf_cmd);
 }
 
-char            *add_buffer_last(char *buf_cmd, size_t cmd_len,
+char			*add_buffer_last(char *buf_cmd, size_t cmd_len,
                                     char *cmd, size_t *buf_len)
 {
     if (cmd == NULL || cmd[0] == 0)
