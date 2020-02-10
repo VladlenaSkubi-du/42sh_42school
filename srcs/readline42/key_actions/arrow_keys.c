@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 17:55:26 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/10 14:44:43 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 ** the line the cursor (== position) is on
 */
 
-int		key_right_proc(void)
+int		key_right_proc		(void)
 {
 	unsigned int	i;
 
@@ -69,10 +69,61 @@ int		key_left_proc(void)
 
 int		key_up_proc(void)
 {
-	return (incorrect_sequence());
+	// int			i;
+	// int			len;
+	
+	check_menu();
+	// if (g_hist.counter < 0)
+	// {
+	// 	g_hist.counter = 0;
+	// 	return (incorrect_sequence());
+	// }
+	// g_hist.counter--;
+	// clean_rline_cmd();
+	// i = 0;
+	// len = ft_strlen(g_hist.hist[g_hist.counter]);
+	// if (g_hist.hist[g_hist.counter][len - 1] == '\n')
+	// 	len--;
+	// while (i < len)
+	// {
+	// 	char_add(g_hist.hist[g_hist.counter][i]);
+	// 	i++;
+	// }
+	// printf("%zu\n", g_rline.str_num);
+	return (0);
+}
+
+int		clean_rline_cmd(void)
+{
+	while (g_rline.pos)
+		key_left_proc();
+	putcap("cd");
+	free(g_rline.cmd);
+	init_readline();
+	return (0);
 }
 
 int		key_down_proc(void)
 {
-	return (incorrect_sequence());
+	// int			i;
+	// int			len;
+	
+	check_menu();
+	// if (g_hist.counter == g_hist.last)
+	// {
+	// 	clean_rline_cmd();
+	// 	return (incorrect_sequence());
+	// }
+	// g_hist.counter++;
+	// clean_rline_cmd();
+	// i = 0;
+	// len = ft_strlen(g_hist.hist[g_hist.counter]);
+	// if (g_hist.hist[g_hist.counter][len - 1] == '\n')
+	// 	len--;
+	// while (i < len)
+	// {
+	// 	char_add(g_hist.hist[g_hist.counter][i]);
+	// 	i++;
+	// }
+	return (0);
 }

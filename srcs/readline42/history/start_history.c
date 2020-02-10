@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 14:02:53 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/09 16:24:32 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/10 14:43:16 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void			init_history(void)
 	g_hist.hist[g_hist.len] = 0;
 	g_hist.last = -1;
 	g_hist.start = 0;
+	g_hist.counter = 0;
 	g_hist.start_control = 0;
 }
 
@@ -103,6 +104,7 @@ int				save_hist_buffer(int fd)
 	free(tmp);
 	g_hist.last = i - 1;
 	g_hist.start = i;
+	g_hist.counter = i;
 	g_hist.start_control = g_hist.start;
 	return (0);
 }
