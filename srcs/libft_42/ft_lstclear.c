@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_list.c                                      :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/04 12:32:06 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/10 21:37:11 by rbednar          ###   ########.fr       */
+/*   Created: 2018/12/19 22:45:34 by rbednar           #+#    #+#             */
+/*   Updated: 2020/02/10 21:00:55 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft_42.h"
 
-void		ft_add_list_to_end(t_list **start, t_list *new)
+void	ft_lstclear(t_list **begin_list)
 {
-	t_list	*tmp;
+	t_list *tmp;
 
-	tmp = *start;
-	if (*start && new)
+	if (!(begin_list) || !(*begin_list))
+		return ;
+	while (*begin_list)
 	{
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
+		tmp = (*begin_list)->next;
+		if ((*begin_list)->content)
+			free((*begin_list)->content);
+		free((*begin_list));
+		*begin_list = tmp;
 	}
-	else if (*start == NULL)
-		*start = new;
+	*begin_list = NULL;
 }

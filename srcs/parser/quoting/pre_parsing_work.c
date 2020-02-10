@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_parsing_work.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 19:55:12 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/10 20:03:09 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/10 21:48:30 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,15 @@ int		pre_parsing_cut_glue(void)
 		}
 		else
 			pre_parsing_squote(&i);
+		if (end[i] == ENTER && (g_cmd_size - i) == 1)
+			ft_reglue(&i,1);
 		i++;
 	}
+	// printf("techline pre:");//печать для проверки
+	// i = -1;
+	// while (++i < g_techline.alloc_size)
+	// 	printf("%3d", g_techline.line[i]);
+	// printf("\n");
+	// printf("g_cmd pre=%s\n", g_cmd);
 	return (0);
 }
-// printf("techline pre:");//печать для проверки
-// i = -1;
-// while (++i < g_techline.alloc_size)
-// 	printf("%3d", g_techline.line[i]);
-// printf("\n");
-// printf("g_cmd pre=%s\n", g_cmd);

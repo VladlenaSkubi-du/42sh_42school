@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_spec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 13:04:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/05 17:05:46 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/10 21:29:41 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int			ft_find_redirection(t_ltree *final)
 					O_NOCTTY, S_IRWXU)) != -1)
 				final->fd[1] = fd_open;
 		}
+		i++;
 	}
 	return (0);
 }
