@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   ft_realloc_array.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/16 15:03:04 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/09 18:25:54 by sschmele         ###   ########.fr       */
+/*   Created: 2020/02/08 20:45:01 by sschmele          #+#    #+#             */
+/*   Updated: 2020/02/08 20:52:29 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
-#include "builtin42.h"
+#include "libft_42.h"
 
-int				btin_exit(t_exit_status status)
+char				**ft_realloc_array(char ***subj, int *len_subj,
+						int len_needed)
 {
-	//TODO чистка парсер
-	ft_putendl_fd("exit", STDOUT_FILENO);
-	fill_hist_in_file();
-	clean_everything();
-	//TODO функция, по типу atexit баша, с каким статусом завершилась программа
-	exit(status);
+	int				i;
+	char			**new;
+	char			**old;
+
+	i = 0;
+	old = *subj;
+	new = (char**)ft_xmalloc(sizeof(char*) * (len_needed + 1));
+	*len_subj = len_needed;
+	while (old[i])
+	{
+		new[i] = ft_strdup(old[i]);
+		i++;
+	}
+	ft_arrdel(old);
+	return (new);
 }

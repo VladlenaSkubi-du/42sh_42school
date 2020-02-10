@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 17:21:19 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/10 12:27:38 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int			make_ctrl_a(void)
 {
 	size_t			pos_old;
 
+	check_menu();
 	pos_old = g_rline.pos;
 	g_rline.pos = 0;
 	move_cursor_from_old_position(pos_old, 'l');
@@ -68,6 +69,7 @@ int			make_ctrl_e(void)
 {
 	size_t			pos_old;
 
+	check_menu();
 	pos_old = g_rline.pos;
 	g_rline.pos = g_rline.cmd_len - 1;
 	move_cursor_from_old_position(pos_old, 'r');

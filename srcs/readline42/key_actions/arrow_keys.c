@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 17:55:26 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/10 19:02:54 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,15 @@
 int		key_right_proc(void)
 {
 	unsigned int	i;
+	unsigned short	new_x;
 
 	i = 1;
 	if (g_rline.pos >= g_rline.cmd_len)
 		return (incorrect_sequence());
-	if (g_rline.str_num > 1)
-		i = on_which_line(g_rline.pos + g_rline.prompt_len, g_screen.ws_col);
-	if (g_rline.pos + g_rline.prompt_len < g_screen.ws_col * i - 1)
+	position_relative(&new_x, 0, g_rline.pos);
+	if (new_x < g_screen.ws_col - 1 && g_rline.cmd[g_rline.pos] != '\n')
 		putcap("nd");
-	else if (g_rline.pos + g_rline.prompt_len ==
-				g_screen.ws_col * i - 1)
+	else if (new_x == g_screen.ws_col - 1 || g_rline.cmd[g_rline.pos] == '\n')
 	{
 		putcap("cr");
 		putcap("do");
@@ -52,6 +51,7 @@ int		key_right_proc(void)
 int		key_left_proc(void)
 {
 	unsigned short	new_x;
+	unsigned short	enter_x;
 
 	position_relative(&new_x, 0, g_rline.pos);
 	if (g_rline.pos == 0)
@@ -60,7 +60,8 @@ int		key_left_proc(void)
 		putcap("le");
 	else if (new_x == 0)
 	{
-		position_cursor("ch", 0, g_screen.ws_col - 1);
+		position_relative(&enter_x, 0, g_rline.pos - 1);
+		position_cursor("ch", 0, enter_x);
 		putcap("up");
 	}
 	g_rline.pos--;
@@ -69,10 +70,60 @@ int		key_left_proc(void)
 
 int		key_up_proc(void)
 {
-	return (incorrect_sequence());
+	int			i;
+	int			len;
+	
+	check_menu();
+	if (g_hist.counter < 0)
+	{
+		g_hist.counter = 0;
+		return (incorrect_sequence());
+	}
+	g_hist.counter--;
+	clean_rline_cmd();
+	i = 0;
+	len = ft_strlen(g_hist.hist[g_hist.counter]);
+	if (g_hist.hist[g_hist.counter][len - 1] == '\n')
+		len--;
+	while (i < len)
+	{
+		char_add(g_hist.hist[g_hist.counter][i]);
+		i++;
+	}
+	return (0);
+}
+
+int		clean_rline_cmd(void)
+{
+	while (g_rline.pos)
+		key_left_proc();
+	putcap("cd");
+	free(g_rline.cmd);
+	init_readline();
+	return (0);
 }
 
 int		key_down_proc(void)
 {
-	return (incorrect_sequence());
+	int			i;
+	int			len;
+	
+	check_menu();
+	if (g_hist.counter == g_hist.last)
+	{
+		clean_rline_cmd();
+		return (incorrect_sequence());
+	}
+	g_hist.counter++;
+	clean_rline_cmd();
+	i = 0;
+	len = ft_strlen(g_hist.hist[g_hist.counter]);
+	if (g_hist.hist[g_hist.counter][len - 1] == '\n')
+		len--;
+	while (i < len)
+	{
+		char_add(g_hist.hist[g_hist.counter][i]);
+		i++;
+	}
+	return (0);
 }

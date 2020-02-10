@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_42.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:46:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/05 17:09:17 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/08 20:43:33 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,19 @@ void							swap_ints(int *a, int *b);
 int								ft_issign(char c);
 char							*ft_straddsy(char *dest, char sy);
 int								ft_strrchri(char *s, int c);
-void                            ft_add_list_to_end(t_list **start, t_list *new_list);
+void                            ft_add_list_to_end(t_list **start,
+                                    t_list *new_list);
+char				            **ft_realloc_array(char ***subj, int *len_subj,
+						            int len_needed);
 
 /*
 ** Folder stask_structure______________________________________________________
+*/
+
+/*
+** User makes his own safety for the pop-stack function because it returns data
+** that is int and it is impossible to return some "wrong" int to show the fail
+** Maybe one day I rewrite.
 */
 
 t_stack							*ft_init_stack(void);

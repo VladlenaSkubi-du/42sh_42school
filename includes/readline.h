@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/07 13:16:52 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/10 17:31:55 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct					s_rline
 	size_t						cmd_len;
 	size_t						pos;
 	size_t						str_num;
+	size_t						last_str_len;
 	size_t						prompt_len;
 	size_t						cmd_buff_len;
 	short						flag;
@@ -159,7 +160,7 @@ int								position_cursor(char *cap, int x, int y);
 int								char_add(char c);
 int								str_shift(char *str, int shift);
 int								insert_char(char c);
-int								count_str_num(void);
+int								count_str_num(char c);
 
 /*
 ** File escape.c - router to the functions performing actions with
@@ -237,6 +238,7 @@ int								key_right_proc(void);
 int								key_up_proc(void);
 int								key_left_proc(void);
 int								key_down_proc(void);
+int								clean_rline_cmd(void);
 
 /*
 ** File esc_word_proc.c
@@ -395,15 +397,17 @@ int								start_history(void);
 char							*define_history_file(void);
 int								save_hist_buffer(int fd);
 void            				init_history(void);
+int								check_if_histsize_changed(void);
 
 /*
 ** File history_processing.c
 */
 
 int                 			add_to_history(char *cmd);
-int                 			scroll_hist_buffer(size_t num);
 int								fill_hist_in_file(void);
+int								insert_hist_in_file(int fd);
 int								open_hist_file(int user_len, char *path);
+int                 			scroll_hist_buffer(size_t num);
 
 /*
 **_____________________________________________________________________________

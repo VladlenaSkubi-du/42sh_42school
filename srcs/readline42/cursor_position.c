@@ -6,39 +6,66 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:07:05 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/10 19:02:21 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
 
-unsigned int		on_which_line(size_t cmd_pos, unsigned short col)
-{
-	unsigned int	i;
+// unsigned int		on_which_line(size_t cmd_pos, unsigned short col)
+// {
+// 	unsigned int	i;
 
-	i = 1;
-	while (cmd_pos >= col * i)
-		i++;
-	return (i);
-}
+// 	i = 1;
+// 	while (cmd_pos >= col * i || (g_rline.cmd[cmd_pos - 1] &&
+// 		g_rline.cmd[cmd_pos - 1] == '\n'))
+// 		i++;
+// 	return (i);
+// }
 
 int					position_relative(unsigned short *x,
 						unsigned short *y, size_t analyse)
 {
-	if (g_rline.prompt_len + analyse < g_screen.ws_col)
+	size_t			i;
+	unsigned short	j;
+	unsigned short	k;
+
+	i = 0;
+	j = g_rline.prompt_len;
+	k = 1;
+	while (i < analyse && i < g_rline.cmd_len)
 	{
-		(x) ? *x = g_rline.prompt_len + analyse : 0;
-		(y) ? *y = 1 : 0;
+		if ((g_rline.cmd[i] && g_rline.cmd[i] == '\n') ||
+			j == g_screen.ws_col - 1)
+		{
+			j = -1;
+			k++;
+		}
+		j++;
+		i++;
 	}
-	else
-	{
-		(x) ? *x = (g_rline.prompt_len + analyse) % g_screen.ws_col : 0;
-		(y) ? *y = on_which_line(g_rline.prompt_len + analyse,
-			g_screen.ws_col) : 0;
-	}
+	(x) ? *x = j : 0;
+	(y) ? *y = k : 0;
 	return (0);
 }
+
+// int					position_relative(unsigned short *x,
+// 						unsigned short *y, size_t analyse)
+// {
+// 	if (g_rline.prompt_len + analyse < g_screen.ws_col)
+// 	{
+// 		(x) ? *x = g_rline.prompt_len + analyse : 0;
+// 		(y) ? *y = 1 : 0;
+// 	}
+// 	else
+// 	{
+// 		(x) ? *x = (g_rline.prompt_len + analyse) % g_screen.ws_col : 0;
+// 		(y) ? *y = on_which_line(g_rline.prompt_len + analyse,
+// 			g_screen.ws_col) : 0;
+// 	}
+// 	return (0);
+// }
 
 int					move_cursor_back_after_print(short flag)
 {
@@ -46,7 +73,6 @@ int					move_cursor_back_after_print(short flag)
 	unsigned short	new_x;
 	unsigned short	new_y;
 
-	g_rline.str_num = count_str_num();
 	tmp = 0;
 	if (flag == 0)
 	{

@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   quote_control.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 17:28:46 by hshawand          #+#    #+#             */
+<<<<<<< HEAD:srcs/parser/quoting/quote_control.c
 /*   Updated: 2020/02/10 19:56:59 by rbednar          ###   ########.fr       */
+=======
+/*   Updated: 2020/02/08 16:24:50 by sschmele         ###   ########.fr       */
+>>>>>>> 86b5288a9249ee665eaaa5e7d4014d81c207bd07:srcs/parser/quote_control.c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +111,7 @@ int		nullify_promt_check(t_stack **stack)
 			g_prompt.prompt_func = other_prompt;
 		if ((*stack)->data == EOF)
 		{
-			g_prompt.prompt_func = main_prompt;
+			g_prompt.prompt_func = main_prompt; //можно вынести в отдельную функцию
 			error_handler(SYNTAX_ERROR | (ERR_SQUOTE << 8),
 				g_sign[(*stack)->next->data]);
 		}
@@ -152,7 +156,19 @@ int		nullify(char **techline, size_t cmd_size)
 		ptr++;
 		count++;
 	}
+<<<<<<< HEAD:srcs/parser/quoting/quote_control.c
 	return (nullify_promt_check(&stack));
+=======
+	// printf("techline cur:");
+	// count = -1;
+	// while (++count < g_techline.len)
+		// printf(" %d", g_techline.line[count]);
+	// printf("\n");
+	return (nullify_promt_check(&stack)); //нужно написать функцию для обработки строки перед отправкой в парсер
+	// сделать Quote Removal
+	//The quote characters ( <backslash>, single-quote, and double-quote) that were present in the original word shall be removed unless they have themselves been quoted.
+	
+>>>>>>> 86b5288a9249ee665eaaa5e7d4014d81c207bd07:srcs/parser/quote_control.c
 }
 	// printf("g_cmd nul=%s\n", g_cmd);//печать для проверки
 	// printf("techline cur:");
