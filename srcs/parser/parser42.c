@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/09 16:00:15 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/10 14:43:53 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int					parser(char *line)
 	// if (back_to_readline() == OUT)
 	// 	return (0);
 	add_to_history(g_cmd);
+	g_hist.counter = g_hist.last + 1;
 	pars_lex_exec(0);
 	return (0);
 }
@@ -44,7 +45,7 @@ static int			perform_assignment(size_t eq)
 	while (value < g_cmd_size)
 		value++;
 	find = ft_strndup(g_cmd + var, eq);
-	printf("%zu - %zu - %zu\n", var, eq, value);
+	// printf("%zu - %zu - %zu\n", var, eq, value);
 	find_assignment_in_variables(var, eq, value);
 	free(find);
 	return (0);
@@ -88,7 +89,7 @@ int		pars_lex_exec(int tmp)
 		clean_parser42();
 		return (0);
 	}
-	// ft_slice_fg();
+	ft_slice_fg();
 	clean_parser42();
 	return (0);
 }

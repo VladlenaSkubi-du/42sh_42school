@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/09 16:08:59 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/10 13:02:24 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,6 +237,7 @@ int								key_right_proc(void);
 int								key_up_proc(void);
 int								key_left_proc(void);
 int								key_down_proc(void);
+int								clean_rline_cmd(void);
 
 /*
 ** File esc_word_proc.c

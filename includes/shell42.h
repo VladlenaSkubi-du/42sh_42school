@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/07 22:05:12 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/10 12:42:12 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct		s_history
 {
 	char			**hist;
 	int				len;
+	int				counter;
 	int				last;
 	int				start;
 	int				start_control;
