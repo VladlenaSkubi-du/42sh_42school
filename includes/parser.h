@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/10 20:52:33 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/11 17:34:38 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ char					get_tech_num(char check);
 */
 
 int 					ft_block_start(t_list **list);
+int						ft_block_foward(t_ltree **sub, t_list **start);
 int						ft_block_add_to_list(t_ltree *block, t_list **list);
 int     				ft_slice_fg(void);
 int     				ft_slice_bg(size_t *i, t_ltree	*block, t_list **start_list);
@@ -138,6 +139,13 @@ int     				ft_slice_bg(size_t *i, t_ltree	*block, t_list **start_list);
 
 t_ltree					*ft_find_pipe(t_ltree *block, t_ltree *final, int *i);
 t_ltree					*ft_find_logic(t_ltree *block, t_ltree *final);
+t_ltree					*ft_check_andor_pipes(t_ltree *block, t_ltree *final,\
+						t_list **list);
+
+/*
+** File redirection.c
+*/
+
 int						ft_find_redirection(t_ltree *final);
 char					*ft_word_to_redir(void);
 

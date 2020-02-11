@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 13:04:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/10 21:29:41 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/11 16:04:32 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,35 +74,30 @@ t_ltree		*ft_find_pipe(t_ltree *block, t_ltree *final, int *i)
 	return (NULL);
 }
 
-
-int			ft_find_redirection(t_ltree *final)
+t_ltree		*ft_check_andor_pipes(t_ltree *block, t_ltree *final, t_list **list)
 {
+	int		tmp;
+	t_ltree	*sub;
 	size_t	i;
-	int		fd_open;
-	
-	i = final->start;	
-	while (i < final->end)
-	{
-		if (g_techline.line[i] == GTHAN && (g_techline.line[i + 1] != GTHAN &&
-			(g_techline.line[i + 1] != AND || g_techline.line[i + 1] == PIPE))) //Braces corrected
+
+	tmp = final->flags;
+	sub = ft_find_logic(block, final);
+	if (!sub)
+		return (sub);
+	if (sub->end == g_techline.len)
+		if (tmp & LOG_AND || tmp & LOG_OR || 
+			sub->flags & PIPED_IN)
 		{
-			if ((fd_open = ft_atoi(&g_cmd[i + 1])) >= 0)
-				final->fd[1] = fd_open;
-			else if ((fd_open = open(((const char *)ft_word_to_redir()), \
-					O_CREAT | O_WRONLY | O_TRUNC | O_CLOEXEC | O_SYNC | \
-					O_NOCTTY, S_IRWXU)) != -1)
-				final->fd[1] = fd_open;
+			i = sub->start - 1;
+			while (++i <= g_techline.len)
+			{
+				if (g_techline.line[i] == 0)
+					break;
+			}
+			if (i == g_techline.len && (tmp & LOG_AND || tmp & LOG_OR))
+				g_prompt.prompt_func = cmdandor_prompt;
+			else if (i == g_techline.len && sub->flags & PIPED_IN)
+				g_prompt.prompt_func = pipe_prompt;
 		}
-		i++;
-	}
-	return (0);
-}
-
-char		*ft_word_to_redir(void) //Correct
-{
-	char	*file;
-
-	file = NULL;
-
-	return (file);
+	return (sub);			
 }
