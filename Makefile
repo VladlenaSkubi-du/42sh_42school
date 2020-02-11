@@ -48,6 +48,7 @@ HISTORY = 			readline42/history/start_history.c \
 PARSER = 			parser/parser42.c \
 			parser/find_spec.c \
 			parser/slice_to_blocks.c \
+			parser/redirection.c \
 			$(PATH_TREE) \
 			$(EXEC) \
 			$(QUOTING) \

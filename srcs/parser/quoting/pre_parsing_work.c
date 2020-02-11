@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 19:55:12 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/10 21:48:30 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/11 16:14:07 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,30 @@ int		pre_parsing_back(size_t *i)
 	return (0);
 }
 
+int		pre_parsing_andor_pipe(size_t *i)
+{
+	char	*end;
+
+	end = g_techline.line;
+	if ((end[*i] == PIPE && end[*i + 1] == PIPE) ||
+		(end[*i] == AND && end[*i + 1] == AND) ||
+		end[*i] == PIPE)
+	{
+		if (end[*i] == PIPE && end[*i + 1] != PIPE)
+			*i += 1;
+		else
+			*i += 2;		
+		while (end[*i] == SPACE)
+			(*i)++;
+		if (end[*i] == ENTER)
+		{
+			end[*i] = SPACE;
+			g_cmd[*i] = ' ';
+		}
+	}
+	return (0);
+}
+
 int		pre_parsing_squote(size_t *i)
 {
 	char	*end;
@@ -67,6 +91,7 @@ int		pre_parsing_squote(size_t *i)
 			(*i)++;
 		ft_reglue(i, 1);
 	}
+	pre_parsing_andor_pipe(i);
 	pre_parsing_back(i);
 	return (0);
 }

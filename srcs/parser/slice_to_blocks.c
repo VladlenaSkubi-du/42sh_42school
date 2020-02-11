@@ -23,7 +23,7 @@ int		ft_block_add_to_list(t_ltree *block, t_list **list)
 	t_ltree	final;
 	int		k;
 
-	while ((sub = ft_find_logic(block, &final)))
+	while ((sub = ft_check_andor_pipes(block, &final, list)))
 	{
 		k = -1;
 		while (++k <= 2)
@@ -35,6 +35,24 @@ int		ft_block_add_to_list(t_ltree *block, t_list **list)
 		final.end = block->end;
 		if (final.flags & LOG_AND || final.flags & LOG_OR)
 			block->start += 2;
+	}
+	return (0);
+}
+
+/*
+** Function forwards list commands until GR_START
+*/
+
+int	ft_block_foward(t_ltree **sub, t_list **start)
+{
+	while (*start)
+	{
+		if ((*start = (*start)->next))
+			*sub = (t_ltree *)((*start)->content);
+		else
+			break ;
+		if ((*sub)->flags & GR_START)
+			break ;
 	}
 	return (0);
 }
@@ -53,20 +71,13 @@ int	ft_block_start(t_list **list)
 	while (start)
 	{
 		sub = (t_ltree *)(start->content);
-		out_flag = exec_init(sub);	
-		if (out_flag != 0 && sub->flags & LOG_AND)
-			while (!(sub->flags & GR_START) && start->next)
-			{
-				start = start->next;
-				sub = (t_ltree *)(start->content);
-			}
-		if (out_flag == 0 && sub->flags & LOG_OR)
-			while (!(sub->flags & GR_START) && start->next)
-			{
-				start = start->next;
-				sub = (t_ltree *)(start->content);
-			}
-		start = start->next;
+		out_flag = exec_init(sub);
+		if (out_flag != 0 && (sub->flags & LOG_AND))
+			ft_block_foward(&sub, &start);
+		else if (out_flag == 0 && (sub->flags & LOG_OR))
+			ft_block_foward(&sub, &start);
+		else
+			start = start->next;
 	}
 	return (0);
 }
@@ -107,10 +118,10 @@ int		ft_slice_fg(void)
 		block.fd[i] = i;
 	i = 0;
 	block.start = 0;
-	block.flags = GR_START;
 	start_list = NULL;
 	while (i <= g_techline.len)
 	{
+		block.flags = GR_START;
 		if (g_techline.line[i] == SCOLON || g_cmd[i] == '\0')
 		{
 			block.end = i;
@@ -120,7 +131,8 @@ int		ft_slice_fg(void)
 		ft_slice_bg(&i, &block, &start_list);
 		i++;
 	}
-	ft_block_start(&start_list);
+	if (g_prompt.prompt_func == main_prompt)
+		ft_block_start(&start_list);
 	ft_lstclear(&start_list);
 	return (0);
 }
