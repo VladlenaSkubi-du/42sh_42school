@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_status.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/12 13:48:42 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/12 20:06:09 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 ** But we do the main_error_status + local_mask << 8
 */
 
-typedef enum		e_status
+enum				e_status
 {
 	SUCCESS,
 	PARSER_ERROR, //единица для отслеживания неверного выхода из программы
@@ -37,6 +37,6 @@ typedef enum		e_status
 	HISTORY_FILE_FAIL,
 	COMMAND_NOT_FOUND = 127,
 	SYNTAX_ERROR = 258
-}					t_exit_status;
+};
 
 #endif

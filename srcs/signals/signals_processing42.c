@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 12:43:36 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/07 15:41:53 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/12 14:36:38 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,20 @@
 
 int				signal_ctrl_c(void)
 {
+	size_t			pos_old;
+	
+	if (g_rline.cmd_len > 0)
+	{
+		check_menu();
+		pos_old = g_rline.pos;
+		if (!(g_rline.pos == 0 &&
+			g_rline.cmd_len == 0))
+		{
+			g_rline.pos = g_rline.cmd_len;
+			move_cursor_from_old_position(pos_old, 'r');
+		}
+		putcap("cd");
+	}
 	if (g_prompt.prompt_func != main_prompt)
 		g_prompt.prompt_func = main_prompt;
 	free(g_rline.cmd);
