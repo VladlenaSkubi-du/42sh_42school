@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_status.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/07 13:01:45 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/12 13:48:42 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define EXIT_STATUS_H
 
 # define	ERR_SQUOTE 0x1
+# define	ERR_REDIR 0x2
 
 /*
 ** In reality bash returns code "2" for all the internal errors + adds mask for

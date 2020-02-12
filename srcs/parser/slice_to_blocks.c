@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slice_to_blocks.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/23 17:43:51 by rbednar           #+#    #+#             */
-/*   Updated: 2020/01/23 17:43:51 by rbednar          ###   ########.fr       */
+/*   Created: 2020/02/12 15:01:01 by rbednar           #+#    #+#             */
+/*   Updated: 2020/02/12 16:07:59 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "parser.h"
 
 /*
-** Function add commands whith args and fd to list 
+** Function add commands whith args and fd to list
 */
 
 int		ft_block_add_to_list(t_ltree *block, t_list **list)
@@ -28,7 +28,11 @@ int		ft_block_add_to_list(t_ltree *block, t_list **list)
 		k = -1;
 		while (++k <= 2)
 			final.fd[k] = k;
-		ft_find_redirection(&final);
+		if ((k = ft_find_redirection(&final)) == OUT)
+		{
+			ft_lstclear(list);
+			return (OUT);
+		}
 		ft_add_list_to_end(list, ft_lstnew(&final, sizeof(t_ltree)));
 		block->flags &= ~GR_START;
 		block->start = final.end + 1;
@@ -43,7 +47,7 @@ int		ft_block_add_to_list(t_ltree *block, t_list **list)
 ** Function forwards list commands until GR_START
 */
 
-int	ft_block_foward(t_ltree **sub, t_list **start)
+int		ft_block_foward(t_ltree **sub, t_list **start)
 {
 	while (*start)
 	{
@@ -61,12 +65,12 @@ int	ft_block_foward(t_ltree **sub, t_list **start)
 ** Function start list commands
 */
 
-int	ft_block_start(t_list **list)
+int		ft_block_start(t_list **list)
 {
 	t_ltree	*sub;
 	t_list	*start;
 	int		out_flag;
-	
+
 	start = *list;
 	while (start)
 	{
@@ -79,15 +83,16 @@ int	ft_block_start(t_list **list)
 		else
 			start = start->next;
 	}
+	ft_lstclear(list);
 	return (0);
 }
 
 /*
-** Fucntion slice command string to blocks and send add it to start 
+** Fucntion slice command string to blocks and send add it to start
 ** list with BG flag
 */
 
-int		ft_slice_bg(size_t *i, t_ltree	*block, t_list **start_list)
+int		ft_slice_bg(size_t *i, t_ltree *block, t_list **start_list)
 {
 	if (g_techline.line[*i] == AND && g_techline.line[*i + 1] != AND && \
 		g_techline.line[*i - 1] != AND && \
@@ -97,7 +102,8 @@ int		ft_slice_bg(size_t *i, t_ltree	*block, t_list **start_list)
 	{
 		block->end = *i;
 		block->flags |= IS_BG;
-		ft_block_add_to_list(block, start_list);
+		if (ft_block_add_to_list(block, start_list) == OUT)
+			return (OUT);
 		block->start = *i + 1;
 	}
 	return (0);
@@ -116,23 +122,22 @@ int		ft_slice_fg(void)
 	i = -1;
 	while (++i <= 2)
 		block.fd[i] = i;
-	i = 0;
+	i = -1;
 	block.start = 0;
 	start_list = NULL;
-	while (i <= g_techline.len)
+	while (++i <= g_techline.len)
 	{
 		block.flags = GR_START;
+		if (ft_slice_bg(&i, &block, &start_list) == OUT)
+			return (OUT);
 		if (g_techline.line[i] == SCOLON || g_cmd[i] == '\0')
 		{
 			block.end = i;
-			ft_block_add_to_list(&block, &start_list);
+			if (ft_block_add_to_list(&block, &start_list) == OUT)
+				return (OUT);
 			block.start = i + 1;
 		}
-		ft_slice_bg(&i, &block, &start_list);
-		i++;
 	}
-	if (g_prompt.prompt_func == main_prompt)
-		ft_block_start(&start_list);
-	ft_lstclear(&start_list);
+	(g_prompt.prompt_func == main_prompt) ? ft_block_start(&start_list) : 0;
 	return (0);
 }
