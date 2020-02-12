@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:16:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/10 17:01:07 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/12 11:54:33 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int				insert_char(char c)
 		g_rline.cmd[g_rline.pos] = c;
 		putcap("cd");
 		ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
+		count_str_num(c);
 		g_rline.pos++;
 		move_cursor_back_after_print(0);
 	}
@@ -60,10 +61,10 @@ int				insert_char(char c)
 	{
 		write(STDOUT_FILENO, &c, 1);
 		g_rline.cmd[g_rline.pos] = c;
-		count_str_num(c);
 		if (g_rline.pos + g_rline.prompt_len + 1 ==
 			g_screen.ws_col * g_rline.str_num)
 			putcap("sf");
+		count_str_num(c);
 		g_rline.pos++;
 	}
 	return (0);
@@ -71,17 +72,36 @@ int				insert_char(char c)
 
 int				count_str_num(char c) //TODO if we catch the signal SIGWINCH
 {
-	// unsigned int	i;
-
-	// i = 1;
+	size_t		num_back;
+	
+	num_back = g_rline.str_num;
 	if (c == '\n')
 		g_rline.str_num++;
-	if (g_rline.cmd_len + g_rline.prompt_len > g_screen.ws_col)
-	{
-		// while (g_rline.cmd_len + g_rline.prompt_len >
-		// 	g_screen.ws_col * i)
-		// 	i++;
+	if (g_rline.cmd_len + g_rline.prompt_len ==
+		(g_screen.ws_col + 1) * num_back - (num_back - 1))
 		g_rline.str_num++;
+	return (0);
+}
+
+int				recount_str_num(size_t limit)
+{
+	size_t		i;
+
+	i = 0;
+	g_rline.str_num = 1;
+	while (i < limit)
+	{
+		if (g_rline.cmd[i] == '\n')
+			g_rline.str_num++;
+		if (i + g_rline.prompt_len ==
+			g_screen.ws_col * g_rline.str_num)
+		{
+			g_rline.str_num++;
+		}
+		// printf("%zu, %zu - %zu, wscol-num %zu\n", i, i + g_rline.prompt_len,
+		// 	g_screen.ws_col * g_rline.str_num - (g_rline.str_num - 1),
+		// 	g_screen.ws_col * g_rline.str_num);
+		i++;
 	}
 	return (0);
 }
