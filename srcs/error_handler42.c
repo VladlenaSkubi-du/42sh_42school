@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler42.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/12 16:37:42 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/12 20:06:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 
-int				error_handler(t_exit_status status, char *str)
+int				error_handler(int status, char *str)
 {
 	ft_putstr_fd("e-bash: ", STDERR_FILENO);
 	if ((status & 0xFFFF) == OPTIONS_REQUIRED)
@@ -29,7 +29,7 @@ int				error_handler(t_exit_status status, char *str)
 	return (0);
 }
 
-int				syntax_errors(t_exit_status status, char *str)
+int				syntax_errors(int status, char *str)
 {
 	if (status >> 9 & ERR_SQUOTE)
 	{

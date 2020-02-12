@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/12 14:29:03 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/12 20:06:26 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ enum				e_techline
 	ENTER,
 	COMENT,
 	GLUE
-}					t_sign_techline;
+};
 
 /*
 ** @g_env - global variable with (char **environ) parameters
@@ -125,8 +125,8 @@ void				sig_fork(int sig);
 ** File errors_handler42.c
 */
 
-int					error_handler(t_exit_status status, char *str);
-int					syntax_errors(t_exit_status status, char *str);
+int					error_handler(int status, char *str);
+int					syntax_errors(int status, char *str);
 
 /*
 ** File clean_all42.c

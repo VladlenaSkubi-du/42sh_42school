@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/12 11:16:01 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:41:30 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,7 @@ t_action_stack					*action_new(void);
 */
 
 int								backspace_process(void);
+int					backspace_newline(char *swap, size_t len_swap);
 int								delete_till_compl(size_t len_compl,
 									size_t delete);
 int								delete_process(void);

@@ -6,23 +6,12 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:07:05 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/12 12:17:11 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/12 20:02:50 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
-
-// unsigned int		on_which_line(size_t cmd_pos, unsigned short col)
-// {
-// 	unsigned int	i;
-
-// 	i = 1;
-// 	while (cmd_pos >= col * i || (g_rline.cmd[cmd_pos - 1] &&
-// 		g_rline.cmd[cmd_pos - 1] == '\n'))
-// 		i++;
-// 	return (i);
-// }
 
 int					position_relative(unsigned short *x,
 						unsigned short *y, size_t analyse)
@@ -36,12 +25,14 @@ int					position_relative(unsigned short *x,
 	k = 1;
 	while (i < analyse && i < g_rline.cmd_len)
 	{
-		if ((g_rline.cmd[i] && g_rline.cmd[i] == '\n') ||
-			j == g_screen.ws_col - 1)
+		if ((g_rline.cmd[i - 1] && g_rline.cmd[i - 1] == '\n') ||
+			j == g_screen.ws_col)
 		{
 			j = -1;
 			k++;
 		}
+		// if ((g_rline.cmd[i] && g_rline.cmd[i] == '\n') ||
+		// 	j == g_screen.ws_col - 1)
 		j++;
 		i++;
 	}
@@ -49,23 +40,6 @@ int					position_relative(unsigned short *x,
 	(y) ? *y = k : 0;
 	return (0);
 }
-
-// int					position_relative(unsigned short *x,
-// 						unsigned short *y, size_t analyse)
-// {
-// 	if (g_rline.prompt_len + analyse < g_screen.ws_col)
-// 	{
-// 		(x) ? *x = g_rline.prompt_len + analyse : 0;
-// 		(y) ? *y = 1 : 0;
-// 	}
-// 	else
-// 	{
-// 		(x) ? *x = (g_rline.prompt_len + analyse) % g_screen.ws_col : 0;
-// 		(y) ? *y = on_which_line(g_rline.prompt_len + analyse,
-// 			g_screen.ws_col) : 0;
-// 	}
-// 	return (0);
-// }
 
 int					move_cursor_back_after_print(short flag)
 {
@@ -83,8 +57,12 @@ int					move_cursor_back_after_print(short flag)
 			tmp = 1;
 		}
 	}
+	if (g_rline.pos == g_rline.cmd_len)
+		return (0);
 	position_relative(&new_x, &new_y, g_rline.pos);
 	position_cursor("ch", 0, new_x);
+	if (flag == 2)
+		tmp = 1;
 	if (g_rline.str_num + tmp - new_y == 1)
 		putcap("up");
 	else if (g_rline.str_num + tmp - new_y > 1)

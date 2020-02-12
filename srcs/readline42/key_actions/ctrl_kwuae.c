@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 17:21:19 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/12 12:17:12 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/12 15:32:13 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,14 @@ int			make_ctrl_u(void)
 	make_ctrl_y(0, save_yank);
 	swap = g_rline.cmd + g_rline.pos;
 	len_swap = ft_strlen(swap);
+	while (g_rline.pos)
+		key_left_proc();
 	g_rline.cmd_len = 0 + len_swap;
 	ft_strcpy(g_rline.cmd, swap);
 	ft_bzero(g_rline.cmd + len_swap, g_rline.cmd_buff_len - len_swap);
-	while (g_rline.pos)
-		key_left_proc();
 	putcap("cd");
 	ft_putstr_fd(g_rline.cmd, 1);
+	recount_str_num(g_rline.cmd_len);
 	move_cursor_back_after_print(0);
 	return (0);
 }
@@ -98,6 +99,7 @@ int			make_ctrl_w(void)
 		g_rline.cmd_buff_len - g_rline.cmd_len);
 	putcap("cd");
 	ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
+	recount_str_num(g_rline.cmd_len);
 	move_cursor_back_after_print(0);
 	return (0);
 }
