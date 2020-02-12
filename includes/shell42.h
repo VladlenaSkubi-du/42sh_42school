@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/12 14:29:03 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/12 19:02:02 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ enum				e_techline
 	ENTER,
 	COMENT,
 	GLUE
-}					t_sign_techline;
+};
 
 /*
 ** @g_env - global variable with (char **environ) parameters

@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/12 16:50:15 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/12 19:33:39 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ typedef struct stat		t_stat;
 # define LOG_AND 0x10
 # define LOG_OR 0x20
 # define GR_START 0x40
+
+enum					e_way
+{
+	REW,
+	FF
+};
 
 /*
 ** Struct to save and work with techline
@@ -151,7 +157,9 @@ t_ltree					*ft_check_andor_pipes(t_ltree *block, t_ltree *final,\
 */
 
 int						ft_find_redirection(t_ltree *final);
-char					*ft_word_to_redir(size_t *i, t_ltree *final);
+char					*ft_word_to_redir(size_t *i, t_ltree *final, int rew_ff);
+int						ft_word_to_redir_rew(size_t *i, t_ltree *final, 
+						long long *size, size_t *start);
 int						ft_null_redir(size_t i, long long num);
 int						ft_error_redir(t_ltree *final, size_t i);
 
@@ -159,7 +167,8 @@ int						ft_error_redir(t_ltree *final, size_t i);
 ** File redir_types.c
 */
 
-int		ft_redir_gthen(t_ltree *final, size_t *i);
+int						ft_redir_gthen(t_ltree *final, size_t *i);
+int						ft_redir_ggthen(t_ltree *final, size_t *i);
 
 /*
 ** Folder assignment__________________________________________________________
