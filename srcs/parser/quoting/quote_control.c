@@ -6,22 +6,22 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 17:28:46 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/10 21:23:46 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/12 16:24:40 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "parser.h"
 
-char	*g_sign[22] = {
-	"\0", " ", "\\", ";", "&", "\"", "\'", "(", ")", "[", "]",
-	"{", "}", "$", "~", "|", ">", "<", "*", "=", "\n", "#"};
-
 /*
 ** Dquote removed
 ** if (*ptr == 1 || *ptr == 3 || *ptr == 4 || *ptr == 9 || *ptr == 10
 ** || *ptr == 14 || *ptr == 15 || *ptr == 16 || *ptr == 17 || *ptr == 18)
 */
+
+static char	*g_sign[22] = {
+	"\0", " ", "\\", ";", "&", "\"", "\'", "(", ")", "[", "]",
+	"{", "}", "$", "~", "|", ">", "<", "*", "=", "\n", "#"};
 
 /*
 ** Function needs to nullify symbols in comments and check if is EOF at end
@@ -108,7 +108,7 @@ int		nullify_promt_check(t_stack **stack)
 		if ((*stack)->data == EOF)
 		{
 			g_prompt.prompt_func = main_prompt; //можно вынести в отдельную функцию
-			error_handler(SYNTAX_ERROR | (ERR_SQUOTE << 8),
+			error_handler(SYNTAX_ERROR | (ERR_SQUOTE << 9),
 				g_sign[(*stack)->next->data]);
 		}
 		return (OUT);
@@ -160,7 +160,4 @@ int		nullify(char **techline, size_t cmd_size)
 	// while (++count < g_techline.len)
 	// 	printf("%3d", g_techline.line[count]);
 	// printf("\n");
-	//нужно написать функцию для обработки строки перед отправкой в парсер
-	// сделать Quote Removal
-	//The quote characters ( <backslash>, single-quote, and double-quote) that were present in 
-	//the original word shall be removed unless they have themselves been quoted.
+	

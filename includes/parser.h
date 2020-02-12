@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/11 17:34:38 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/12 16:50:15 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,11 +143,23 @@ t_ltree					*ft_check_andor_pipes(t_ltree *block, t_ltree *final,\
 						t_list **list);
 
 /*
-** File redirection.c
+** Folder redirection_________________________________________________________
+*/
+
+/*
+** File redirect.c
 */
 
 int						ft_find_redirection(t_ltree *final);
-char					*ft_word_to_redir(void);
+char					*ft_word_to_redir(size_t *i, t_ltree *final);
+int						ft_null_redir(size_t i, long long num);
+int						ft_error_redir(t_ltree *final, size_t i);
+
+/*
+** File redir_types.c
+*/
+
+int		ft_redir_gthen(t_ltree *final, size_t *i);
 
 /*
 ** Folder assignment__________________________________________________________

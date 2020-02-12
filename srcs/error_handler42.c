@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler42.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/08 20:35:53 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/12 16:37:42 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,28 @@ int				error_handler(t_exit_status status, char *str)
 	else if ((status & 0xFFFF) == TERMINAL_TO_CAN)
 		ft_putendl_fd("terminal can't be changed, reset the terminal",
 			STDERR_FILENO); //TODO check
-	else if ((status & 0xFFFF) == SYNTAX_ERROR)
+	else if ((status & 0x102) == SYNTAX_ERROR)
 		syntax_errors(status, str);
 	return (0);
 }
 
 int				syntax_errors(t_exit_status status, char *str)
 {
-	if (status >> 8 & ERR_SQUOTE)
+	if (status >> 9 & ERR_SQUOTE)
 	{
 		ft_putstr_fd("unexpected EOF while looking for matching `", STDERR_FILENO);
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd("'", STDERR_FILENO);
+		ft_putstr_fd("e-bash: ", STDERR_FILENO);
+		ft_putstr_fd("syntax error: ", STDERR_FILENO);
+		ft_putendl_fd("unexpected end of file", STDERR_FILENO);
 	}
-	ft_putstr_fd("e-bash: ", STDERR_FILENO);
-	ft_putstr_fd("syntax error: ", STDERR_FILENO);
-	ft_putendl_fd("unexpected end of file", STDERR_FILENO);
+	if (status >> 9 & ERR_REDIR)
+	{
+		ft_putstr_fd("syntax error near unexpected token `", STDERR_FILENO);
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd("'", STDERR_FILENO);
+	}	
 	//изменение кода ошибки
 	return (0);
 }

@@ -48,11 +48,11 @@ HISTORY = 			readline42/history/start_history.c \
 PARSER = 			parser/parser42.c \
 			parser/find_spec.c \
 			parser/slice_to_blocks.c \
-			parser/redirection.c \
 			$(PATH_TREE) \
 			$(EXEC) \
 			$(QUOTING) \
-			$(ASSIGNMENT)
+			$(ASSIGNMENT) \
+			$(REDIRECTION)
 
 PATH_TREE = 		parser/path_tree/ft_block.c \
 			parser/path_tree/ft_path_help.c \
@@ -68,6 +68,9 @@ QUOTING =			parser/quoting/check_start_quote.c \
 			parser/quoting/pre_parsing_work.c
 
 ASSIGNMENT =		parser/assignment/backend_variables.c
+
+REDIRECTION = 		parser/redirection/redirect.c \
+			parser/redirection/redir_types.c
 
 SIGNALS = 			signals/signals_processing42.c
 
@@ -131,6 +134,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)/parser/exec
 	@mkdir -p $(DIR_O)/parser/quoting
 	@mkdir -p $(DIR_O)/parser/assignment
+	@mkdir -p $(DIR_O)/parser/redirection
 	@mkdir -p $(DIR_O)/signals
 	@mkdir -p $(DIR_O)/builtin
 	@mkdir -p $(DIR_O)/libft_42
