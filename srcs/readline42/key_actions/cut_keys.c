@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:26:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/07 21:53:24 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/12 12:12:57 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,15 @@ int			backspace_process(void)
 		undo(0);
 		swap = g_rline.cmd + g_rline.pos;
 		len_swap = ft_strlen(swap);
+		recount_str_num(g_rline.cmd_len - 1);
 		ft_strcpy(g_rline.cmd + g_rline.pos - 1, swap);
 		ft_bzero(g_rline.cmd + g_rline.pos - 1 + len_swap,
 			g_rline.cmd_buff_len - g_rline.cmd_len);
 		key_left_proc();
 		putcap("cd");
 		ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
-		move_cursor_back_after_print(1);
 		g_rline.cmd_len--;
+		move_cursor_back_after_print(1);
 	}
 	else
 		return (incorrect_sequence());
@@ -52,13 +53,14 @@ int			delete_process(void)
 		undo(0);
 		swap = g_rline.cmd + g_rline.pos + 1;
 		len_swap = ft_strlen(swap);
+		recount_str_num(g_rline.cmd_len - 1);
 		ft_strcpy(g_rline.cmd + g_rline.pos, swap);
 		ft_bzero(g_rline.cmd + g_rline.pos + len_swap,
 			g_rline.cmd_buff_len - g_rline.cmd_len);
 		putcap("cd");
 		ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
-		move_cursor_back_after_print(0);
 		g_rline.cmd_len--;
+		move_cursor_back_after_print(1);
 	}
 	else
 		return (incorrect_sequence());

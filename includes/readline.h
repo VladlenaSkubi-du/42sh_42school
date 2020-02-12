@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/10 17:31:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/12 11:16:01 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ int								char_add(char c);
 int								str_shift(char *str, int shift);
 int								insert_char(char c);
 int								count_str_num(char c);
+int								recount_str_num(size_t limit);
 
 /*
 ** File escape.c - router to the functions performing actions with
