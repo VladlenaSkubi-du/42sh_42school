@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/02/13 14:38:12 by rbednar          ###   ########.fr       */
-=======
-/*   Updated: 2020/02/12 20:06:26 by sschmele         ###   ########.fr       */
->>>>>>> 10d7faf905343b17aef872e3e5a7b1ee2df9c34c
+/*   Updated: 2020/02/13 20:36:59 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +88,8 @@ enum				e_techline
 	EQUAL,
 	ENTER,
 	COMENT,
-<<<<<<< HEAD
 	GLUE,
 	TEXT
-=======
-	GLUE
->>>>>>> 10d7faf905343b17aef872e3e5a7b1ee2df9c34c
 };
 
 /*
