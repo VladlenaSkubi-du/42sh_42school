@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 14:56:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/13 14:42:48 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int			esc_t_len_pos(char *word_first, size_t fi, size_t pos_back)
 	char			*word_second;
 	size_t			se;
 	char			delimiter;
+	unsigned short	end_x;
 
 	delimiter = g_rline.cmd[g_rline.pos - 1];
 	if (word_left_proc())
@@ -129,9 +130,12 @@ int			esc_t_len_pos(char *word_first, size_t fi, size_t pos_back)
 	ft_strcpy(g_rline.cmd + g_rline.pos + fi + 1, word_second);
 	putcap("cd");
 	ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
-	if (g_rline.cmd_len + g_rline.prompt_len ==
-		g_screen.ws_col * g_rline.str_num)
+	position_relative(&end_x, 0, g_rline.cmd_len - 1);
+	if (end_x == g_screen.ws_col - 1)
 		putcap("sf");
+	// if (g_rline.cmd_len + g_rline.prompt_len ==
+	// 	g_screen.ws_col * g_rline.str_num)
+		// putcap("sf");
 	g_rline.pos = pos_back;
 	free(word_first);
 	free(word_second);

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 20:06:56 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/12 20:07:00 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/13 13:59:57 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int		pars_lex_exec(int tmp)
 	}
 	pre_parsing_cut_glue();
 	// ft_putendl_fd(g_cmd, 1);
-	ft_slice_fg();
+	// ft_slice_fg();
 	clean_parser42();
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 17:55:26 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/10 19:02:54 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/13 18:11:33 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		key_up_proc(void)
 	int			len;
 	
 	check_menu();
-	if (g_hist.counter < 0)
+	if (g_hist.counter <= 0)
 	{
 		g_hist.counter = 0;
 		return (incorrect_sequence());
@@ -109,8 +109,9 @@ int		key_down_proc(void)
 	int			len;
 	
 	check_menu();
-	if (g_hist.counter == g_hist.last)
+	if (g_hist.counter >= g_hist.last)
 	{
+		g_hist.counter = g_hist.last + 1;
 		clean_rline_cmd();
 		return (incorrect_sequence());
 	}
