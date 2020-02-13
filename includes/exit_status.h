@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/12 18:59:41 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/13 18:30:55 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # define	ERR_SQUOTE 0x1
 # define	ERR_REDIR 0x2
+# define	ERR_BAD_FD 0x4
+# define	ERR_NO_ACC 0x8
+
 
 /*
 ** In reality bash returns code "2" for all the internal errors + adds mask for

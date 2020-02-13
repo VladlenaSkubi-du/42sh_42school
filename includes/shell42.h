@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/12 19:02:02 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/13 14:38:12 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ enum				e_techline
 	EQUAL,
 	ENTER,
 	COMENT,
-	GLUE
+	GLUE,
+	TEXT
 };
 
 /*

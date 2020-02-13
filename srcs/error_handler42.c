@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/12 16:37:42 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/13 18:57:17 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,17 @@ int				syntax_errors(t_exit_status status, char *str)
 		ft_putstr_fd("syntax error near unexpected token `", STDERR_FILENO);
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd("'", STDERR_FILENO);
-	}	
+	}
+	if (status >> 9 & ERR_BAD_FD)
+	{
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd(": Bad file descriptor", STDERR_FILENO);
+	}
+	if (status >> 9 & ERR_NO_ACC)
+	{
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd(": Permission denied", STDERR_FILENO);
+	}
 	//изменение кода ошибки
 	return (0);
 }

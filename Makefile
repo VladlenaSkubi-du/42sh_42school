@@ -70,7 +70,9 @@ QUOTING =			parser/quoting/check_start_quote.c \
 ASSIGNMENT =		parser/assignment/backend_variables.c
 
 REDIRECTION = 		parser/redirection/redirect.c \
-			parser/redirection/redir_types.c
+			parser/redirection/redir_types_out.c \
+			parser/redirection/redir_types_in.c \
+			parser/redirection/fd_block.c
 
 SIGNALS = 			signals/signals_processing42.c
 

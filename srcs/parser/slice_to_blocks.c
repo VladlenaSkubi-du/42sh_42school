@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:01:01 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/12 16:07:59 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/13 20:22:41 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,18 @@ int		ft_block_add_to_list(t_ltree *block, t_list **list)
 {
 	t_ltree	*sub;
 	t_ltree	final;
-	int		k;
 
+	final.flags = 0;
+	final.fd = NULL;
 	while ((sub = ft_check_andor_pipes(block, &final, list)))
 	{
-		k = -1;
-		while (++k <= 2)
-			final.fd[k] = k;
-		if ((k = ft_find_redirection(&final)) == OUT)
+		if ((ft_find_redirection(&final)) == OUT)
 		{
 			ft_lstclear(list);
 			return (OUT);
 		}
 		ft_add_list_to_end(list, ft_lstnew(&final, sizeof(t_ltree)));
+		final.fd == NULL ? free (final.fd) : 0;
 		block->flags &= ~GR_START;
 		block->start = final.end + 1;
 		final.end = block->end;
@@ -119,9 +118,6 @@ int		ft_slice_fg(void)
 	size_t			i;
 	t_list			*start_list;
 
-	i = -1;
-	while (++i <= 2)
-		block.fd[i] = i;
 	i = -1;
 	block.start = 0;
 	start_list = NULL;
