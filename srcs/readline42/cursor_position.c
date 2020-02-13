@@ -6,23 +6,12 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:07:05 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/12 12:17:11 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/13 19:41:09 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
-
-// unsigned int		on_which_line(size_t cmd_pos, unsigned short col)
-// {
-// 	unsigned int	i;
-
-// 	i = 1;
-// 	while (cmd_pos >= col * i || (g_rline.cmd[cmd_pos - 1] &&
-// 		g_rline.cmd[cmd_pos - 1] == '\n'))
-// 		i++;
-// 	return (i);
-// }
 
 int					position_relative(unsigned short *x,
 						unsigned short *y, size_t analyse)
@@ -30,60 +19,55 @@ int					position_relative(unsigned short *x,
 	size_t			i;
 	unsigned short	j;
 	unsigned short	k;
+	int				flag;
 
 	i = 0;
 	j = g_rline.prompt_len;
 	k = 1;
 	while (i < analyse && i < g_rline.cmd_len)
 	{
-		if ((g_rline.cmd[i] && g_rline.cmd[i] == '\n') ||
-			j == g_screen.ws_col - 1)
+		flag = 0;
+		if (j == g_screen.ws_col - 1)
 		{
 			j = -1;
 			k++;
+			flag = 1;
 		}
 		j++;
 		i++;
+		if (i > 0 && g_rline.cmd[i - 1] == '\n' && flag == 0)
+		{
+			j = 0;
+			k++;
+		}
 	}
 	(x) ? *x = j : 0;
 	(y) ? *y = k : 0;
 	return (0);
 }
 
-// int					position_relative(unsigned short *x,
-// 						unsigned short *y, size_t analyse)
-// {
-// 	if (g_rline.prompt_len + analyse < g_screen.ws_col)
-// 	{
-// 		(x) ? *x = g_rline.prompt_len + analyse : 0;
-// 		(y) ? *y = 1 : 0;
-// 	}
-// 	else
-// 	{
-// 		(x) ? *x = (g_rline.prompt_len + analyse) % g_screen.ws_col : 0;
-// 		(y) ? *y = on_which_line(g_rline.prompt_len + analyse,
-// 			g_screen.ws_col) : 0;
-// 	}
-// 	return (0);
-// }
-
 int					move_cursor_back_after_print(short flag)
 {
 	size_t			tmp;
 	unsigned short	new_x;
 	unsigned short	new_y;
+	unsigned short	end_x;
 
 	tmp = 0;
+	if (g_rline.pos == g_rline.cmd_len)
+		return (0);
+	position_relative(&new_x, &new_y, g_rline.pos);
 	if (flag == 0)
 	{
-		if (g_rline.cmd_len + g_rline.prompt_len ==
-		g_screen.ws_col * g_rline.str_num)
+		// if (g_rline.cmd_len + g_rline.prompt_len ==
+		// g_screen.ws_col * g_rline.str_num)
+		position_relative(&end_x, 0, g_rline.cmd_len - 1);
+		if (end_x == g_screen.ws_col - 1)
 		{
 			putcap("sf");
 			tmp = 1;
 		}
 	}
-	position_relative(&new_x, &new_y, g_rline.pos);
 	position_cursor("ch", 0, new_x);
 	if (g_rline.str_num + tmp - new_y == 1)
 		putcap("up");
@@ -122,3 +106,5 @@ int					move_cursor_from_old_position(size_t pos_old,
 	position_cursor("ch", 0, new_x);
 	return (0);
 }
+
+// int					count_line_width()

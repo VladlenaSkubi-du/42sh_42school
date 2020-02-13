@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:16:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/12 11:54:33 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/13 19:58:46 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,21 @@ int				char_add(char c)
 ** the cursor should jump to the next line
 */
 
-int				insert_char(char c)
+int					insert_char(char c)
 {
+	unsigned short	new_x;
+	// size_t			i;
+	unsigned short	end_y;
+	
 	if (g_rline.cmd[g_rline.pos] != '\0')
 	{
 		str_shift(g_rline.cmd + g_rline.pos, 1);
 		g_rline.cmd[g_rline.pos] = c;
 		putcap("cd");
 		ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
-		count_str_num(c);
+		position_relative(0, &end_y, g_rline.cmd_len - 1);
+		g_rline.str_num = end_y;
+		recount_str_num(g_rline.cmd_len - 1);
 		g_rline.pos++;
 		move_cursor_back_after_print(0);
 	}
@@ -61,8 +67,10 @@ int				insert_char(char c)
 	{
 		write(STDOUT_FILENO, &c, 1);
 		g_rline.cmd[g_rline.pos] = c;
-		if (g_rline.pos + g_rline.prompt_len + 1 ==
-			g_screen.ws_col * g_rline.str_num)
+		position_relative(&new_x, 0, g_rline.pos);
+		// if (g_rline.pos + g_rline.prompt_len + 1 ==
+		// 	g_screen.ws_col * g_rline.str_num)
+		if (new_x == g_screen.ws_col - 1)
 			putcap("sf");
 		count_str_num(c);
 		g_rline.pos++;
@@ -70,9 +78,9 @@ int				insert_char(char c)
 	return (0);
 }
 
-int				count_str_num(char c) //TODO if we catch the signal SIGWINCH
+int					count_str_num(char c)
 {
-	size_t		num_back;
+	size_t			num_back;
 	
 	num_back = g_rline.str_num;
 	if (c == '\n')
@@ -83,11 +91,13 @@ int				count_str_num(char c) //TODO if we catch the signal SIGWINCH
 	return (0);
 }
 
-int				recount_str_num(size_t limit)
+int					recount_str_num(size_t limit)
 {
-	size_t		i;
+	size_t			i;
+	size_t			j;
 
 	i = 0;
+	j = 0;
 	g_rline.str_num = 1;
 	while (i < limit)
 	{
@@ -95,12 +105,7 @@ int				recount_str_num(size_t limit)
 			g_rline.str_num++;
 		if (i + g_rline.prompt_len ==
 			g_screen.ws_col * g_rline.str_num)
-		{
 			g_rline.str_num++;
-		}
-		// printf("%zu, %zu - %zu, wscol-num %zu\n", i, i + g_rline.prompt_len,
-		// 	g_screen.ws_col * g_rline.str_num - (g_rline.str_num - 1),
-		// 	g_screen.ws_col * g_rline.str_num);
 		i++;
 	}
 	return (0);

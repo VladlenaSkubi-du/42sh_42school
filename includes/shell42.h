@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/02/13 14:38:12 by rbednar          ###   ########.fr       */
+=======
+/*   Updated: 2020/02/12 20:06:26 by sschmele         ###   ########.fr       */
+>>>>>>> 10d7faf905343b17aef872e3e5a7b1ee2df9c34c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +92,12 @@ enum				e_techline
 	EQUAL,
 	ENTER,
 	COMENT,
+<<<<<<< HEAD
 	GLUE,
 	TEXT
+=======
+	GLUE
+>>>>>>> 10d7faf905343b17aef872e3e5a7b1ee2df9c34c
 };
 
 /*
@@ -126,8 +134,8 @@ void				sig_fork(int sig);
 ** File errors_handler42.c
 */
 
-int					error_handler(t_exit_status status, char *str);
-int					syntax_errors(t_exit_status status, char *str);
+int					error_handler(int status, char *str);
+int					syntax_errors(int status, char *str);
 
 /*
 ** File clean_all42.c
