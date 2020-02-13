@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 17:28:46 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/12 16:24:40 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/13 17:59:26 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,7 @@ int		nullify_backslash(char **ptr, t_stack **stack,\
 	if (((*stack)->data == 0 || (*stack)->data == DQUOTE) \
 		&& **ptr == BSLASH && ptr[0][1] != ENTER)
 	{
-		**ptr = 0;
-		ptr[0][1] = 0;
+		ptr[0][1] = TEXT;
 	}
 	if ((*stack)->data == 0 \
 		&& **ptr == BSLASH && ptr[0][1] == ENTER &&\
@@ -75,13 +74,13 @@ int		nullify_dquotes(char **ptr, t_stack **stack,\
 	else if ((*stack)->data == SQUOTE && **ptr == SQUOTE)
 		ft_pop_stack(stack);
 	else if ((*stack)->data == SQUOTE && **ptr != EOF)
-		**ptr = 0;
+		**ptr = TEXT;
 	else if ((*stack)->data == DQUOTE && \
 			((**ptr != DOLLAR && *(*ptr - 1) != BSLASH) && \
 			**ptr != EOF && **ptr != BSLASH && **ptr != ENTER &&\
 			!((**ptr == OPAREN || **ptr == OBRACE) && \
 			*(*ptr - 1) == DOLLAR)))
-		**ptr = 0;
+		**ptr = TEXT;
 	else if ((*stack)->data != SQUOTE && **ptr == OPAREN)
 		ft_push_stack(stack, OPAREN);
 	else if ((*stack)->data == OPAREN && **ptr == CPAREN)
@@ -152,12 +151,11 @@ int		nullify(char **techline, size_t cmd_size)
 		ptr++;
 		count++;
 	}
-	return (nullify_promt_check(&stack));
-}
 	// printf("g_cmd nul=%s\n", g_cmd);//печать для проверки
 	// printf("techline cur:");
 	// count = -1;
 	// while (++count < g_techline.len)
 	// 	printf("%3d", g_techline.line[count]);
 	// printf("\n");
-	
+	return (nullify_promt_check(&stack));
+}

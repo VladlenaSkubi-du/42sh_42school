@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/12 19:33:39 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/13 19:01:21 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ typedef struct stat		t_stat;
 enum					e_way
 {
 	REW,
-	FF
+	FF,
+	IN_R,
+	OUT_R
 };
 
 /*
@@ -70,9 +72,20 @@ typedef struct  		s_ltree
 {
 	size_t				start; //index of start
 	size_t				end;
-	int					fd[3];
+	t_list				*fd;
 	int					flags;
 }              			t_ltree;
+
+/*
+** Struct needs for list of redirections before exec
+*/
+
+typedef struct  		s_fd
+{
+	int					fd_out;
+	int					fd_in;
+	int					type;
+}              			t_fd_redir;
 
 /*
 ** Struct to save and work with env
@@ -161,14 +174,32 @@ char					*ft_word_to_redir(size_t *i, t_ltree *final, int rew_ff);
 int						ft_word_to_redir_rew(size_t *i, t_ltree *final, 
 						long long *size, size_t *start);
 int						ft_null_redir(size_t i, long long num);
-int						ft_error_redir(t_ltree *final, size_t i);
+int						ft_error_redir(t_ltree *final, size_t i,
+						int flag, char **str);
 
 /*
-** File redir_types.c
+** File redir_types_out.c
 */
 
 int						ft_redir_gthen(t_ltree *final, size_t *i);
 int						ft_redir_ggthen(t_ltree *final, size_t *i);
+int						ft_redir_gathen(t_ltree *final, size_t *i);
+
+/*
+** File redir_types_in.c
+*/
+
+int						ft_redir_lthen(t_ltree *final, size_t *i);
+int						ft_redir_ggthen(t_ltree *final, size_t *i);
+int						ft_redir_lathen(t_ltree *final, size_t *i);
+
+/*
+** File fd_block.c
+*/
+
+int						add_redir_fd(t_ltree *final, t_fd_redir *redir);
+int						ft_check_n_redir_op(size_t i, t_ltree *final, int std);
+int						ft_check_redir_op_n(size_t i, t_ltree *final, int std);
 
 /*
 ** Folder assignment__________________________________________________________
