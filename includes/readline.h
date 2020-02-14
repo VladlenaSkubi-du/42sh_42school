@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/14 18:23:30 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/14 20:50:49 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,8 +226,9 @@ t_action_stack					*action_new(void);
 int								backspace_process(void);
 int								backspace_newline(char *swap, size_t len_swap);
 int								delete_process(void);
-int								route_exit(void);
 int								esc_r(void);
+int								delete_till_compl(size_t len_compl,
+									size_t delete);
 
 /*
 ** File arrow_keys.c
@@ -372,8 +373,6 @@ int								position_cursor_for_menu(size_t len);
 int								position_cursor_after_menu_back
 									(unsigned short len_x, int buf_lines,
 									size_t pos_back, size_t len);
-int								delete_till_compl(size_t len_compl,
-									size_t delete);
 
 /*
 ** File output_buffer.c

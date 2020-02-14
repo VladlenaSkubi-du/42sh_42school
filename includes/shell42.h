@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/13 20:36:59 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/14 20:52:10 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,9 @@ size_t				find_in_variables(char **arr, size_t *j, char *name);
 */
 
 int					signal_ctrl_c(void);
+int					signal_ctrl_d(void);
+int					route_exit(void);
 int					signals_reroute(int from);
-void				sig_readline(int sig);
 void				sig_fork(int sig);
 
 /*
