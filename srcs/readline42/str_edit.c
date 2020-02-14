@@ -6,14 +6,14 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:16:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/13 19:58:46 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/14 18:18:28 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
 
-int				str_shift(char *str, int shift)
+int					str_shift(char *str, int shift)
 {
 	char			*buff;
 
@@ -24,7 +24,7 @@ int				str_shift(char *str, int shift)
 	return (0);
 }
 
-int				char_add(char c)
+int					char_add(char c)
 {
 	if (g_rline.cmd_len >= g_rline.cmd_buff_len - 1)
 	{
@@ -48,18 +48,13 @@ int				char_add(char c)
 int					insert_char(char c)
 {
 	unsigned short	new_x;
-	// size_t			i;
-	unsigned short	end_y;
-	
+
 	if (g_rline.cmd[g_rline.pos] != '\0')
 	{
 		str_shift(g_rline.cmd + g_rline.pos, 1);
 		g_rline.cmd[g_rline.pos] = c;
 		putcap("cd");
-		ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
-		position_relative(0, &end_y, g_rline.cmd_len - 1);
-		g_rline.str_num = end_y;
-		recount_str_num(g_rline.cmd_len - 1);
+		insert_line_till_the_end(g_rline.pos, g_rline.cmd_len);
 		g_rline.pos++;
 		move_cursor_back_after_print(0);
 	}
@@ -68,26 +63,33 @@ int					insert_char(char c)
 		write(STDOUT_FILENO, &c, 1);
 		g_rline.cmd[g_rline.pos] = c;
 		position_relative(&new_x, 0, g_rline.pos);
-		// if (g_rline.pos + g_rline.prompt_len + 1 ==
-		// 	g_screen.ws_col * g_rline.str_num)
-		if (new_x == g_screen.ws_col - 1)
+		if (new_x == g_screen.ws_col - 1 && c != '\n')
 			putcap("sf");
-		count_str_num(c);
+		recount_str_num(g_rline.cmd_len - 1);
 		g_rline.pos++;
 	}
 	return (0);
 }
 
-int					count_str_num(char c)
+int					insert_line_till_the_end(size_t beg, size_t end)
 {
-	size_t			num_back;
-	
-	num_back = g_rline.str_num;
-	if (c == '\n')
-		g_rline.str_num++;
-	if (g_rline.cmd_len + g_rline.prompt_len ==
-		(g_screen.ws_col + 1) * num_back - (num_back - 1))
-		g_rline.str_num++;
+	size_t			i;
+	unsigned short	new_x;
+	unsigned short	end_y;
+	char			c;
+
+	i = beg;
+	while (i < end)
+	{
+		c = g_rline.cmd[i];
+		write(STDOUT_FILENO, &c, 1);
+		position_relative(&new_x, 0, i);
+		if (new_x == g_screen.ws_col - 1 && c != '\n')
+			putcap("sf");
+		i++;
+	}
+	position_relative(0, &end_y, g_rline.cmd_len - 1);
+	g_rline.str_num = end_y;
 	return (0);
 }
 

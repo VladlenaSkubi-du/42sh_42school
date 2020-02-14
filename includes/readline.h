@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/12 18:41:30 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/14 18:23:30 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct					s_rline
 	size_t						cmd_len;
 	size_t						pos;
 	size_t						str_num;
-	size_t						last_str_len;
 	size_t						prompt_len;
 	size_t						cmd_buff_len;
 	short						flag;
@@ -160,7 +159,7 @@ int								position_cursor(char *cap, int x, int y);
 int								char_add(char c);
 int								str_shift(char *str, int shift);
 int								insert_char(char c);
-int								count_str_num(char c);
+int								insert_line_till_the_end(size_t beg, size_t end);
 int								recount_str_num(size_t limit);
 
 /*
@@ -225,9 +224,7 @@ t_action_stack					*action_new(void);
 */
 
 int								backspace_process(void);
-int					backspace_newline(char *swap, size_t len_swap);
-int								delete_till_compl(size_t len_compl,
-									size_t delete);
+int								backspace_newline(char *swap, size_t len_swap);
 int								delete_process(void);
 int								route_exit(void);
 int								esc_r(void);
@@ -375,6 +372,8 @@ int								position_cursor_for_menu(size_t len);
 int								position_cursor_after_menu_back
 									(unsigned short len_x, int buf_lines,
 									size_t pos_back, size_t len);
+int								delete_till_compl(size_t len_compl,
+									size_t delete);
 
 /*
 ** File output_buffer.c
