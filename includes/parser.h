@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/13 20:36:34 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/14 20:24:06 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ enum					e_way
 	REW,
 	FF,
 	IN_R,
-	OUT_R
+	OUT_R,
+	CLOSE
 };
 
 /*
@@ -181,17 +182,19 @@ int						ft_error_redir(t_ltree *final, size_t i,
 ** File redir_types_out.c
 */
 
-int						ft_redir_gthen(t_ltree *final, size_t *i);
-int						ft_redir_ggthen(t_ltree *final, size_t *i);
-int						ft_redir_gathen(t_ltree *final, size_t *i);
+int						ft_redir_great(t_ltree *final, size_t *i);
+int						ft_redir_dgreat(t_ltree *final, size_t *i);
+int						ft_redir_greatand(t_ltree *final, size_t *i);
+int						ft_access_check(char **f_name, t_ltree *final,
+						size_t *i, int type);
 
 /*
 ** File redir_types_in.c
 */
 
-int						ft_redir_lthen(t_ltree *final, size_t *i);
-int						ft_redir_ggthen(t_ltree *final, size_t *i);
-int						ft_redir_lathen(t_ltree *final, size_t *i);
+int						ft_redir_less(t_ltree *final, size_t *i);
+int						ft_redir_dless(t_ltree *final, size_t *i);
+int						ft_redir_lessand(t_ltree *final, size_t *i);
 
 /*
 ** File fd_block.c
@@ -199,7 +202,11 @@ int						ft_redir_lathen(t_ltree *final, size_t *i);
 
 int						add_redir_fd(t_ltree *final, t_fd_redir *redir);
 int						ft_check_n_redir_op(size_t i, t_ltree *final, int std);
-int						ft_check_redir_op_n(size_t i, t_ltree *final, int std);
+int						ft_check_redir_op_n(char *find, int std);
+int						ft_num_or_word_out(char **f_name, t_fd_redir *fd_open,
+						size_t *i, t_ltree *final);
+int						ft_num_or_word_in(char **f_name, t_fd_redir *fd_open,
+						size_t *i, t_ltree *final);
 
 /*
 ** Folder assignment__________________________________________________________

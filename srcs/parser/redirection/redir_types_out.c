@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 14:04:36 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/13 20:26:31 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/14 21:01:28 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include "parser.h"
 
 /*
-** Function to detect ">"
+** Function to detect "[n]>word"
 */
 
-int		ft_redir_gthen(t_ltree *final, size_t *i)
+int		ft_redir_great(t_ltree *final, size_t *i)
 {
 	t_fd_redir	fd_open;
 	char		*f_name;
@@ -33,8 +33,8 @@ int		ft_redir_gthen(t_ltree *final, size_t *i)
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 		{
 			if ((fd_open.fd_in = open(f_name, O_CREAT | O_WRONLY | O_TRUNC |
-			O_CLOEXEC | O_SYNC | O_NOCTTY, S_IRWXU)) == -1)
-				return (ft_error_redir(final, *i, ERR_NO_ACC, &f_name));
+			O_CLOEXEC | O_SYNC | O_NOCTTY, S_IRUSR | S_IWUSR)) == -1)
+				return (ft_access_check(&f_name, final, i, S_IWUSR));
 			else
 				add_redir_fd(final, &fd_open);
 		}
@@ -46,10 +46,10 @@ int		ft_redir_gthen(t_ltree *final, size_t *i)
 }
 
 /*
-** Function to detect ">>"
+** Function to detect ">>word" (write to end)
 */
 
-int		ft_redir_ggthen(t_ltree *final, size_t *i)
+int		ft_redir_dgreat(t_ltree *final, size_t *i)
 {
 	t_fd_redir	fd_open;
 	char		*f_name;
@@ -64,23 +64,24 @@ int		ft_redir_ggthen(t_ltree *final, size_t *i)
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 		{
 			if ((fd_open.fd_in = open(f_name, O_CREAT | O_WRONLY | O_APPEND |
-			O_CLOEXEC | O_SYNC | O_NOCTTY, S_IRWXU)) == -1)
-				return (ft_error_redir(final, *i, ERR_NO_ACC, &f_name));
+				O_CLOEXEC | O_SYNC | O_NOCTTY, S_IRUSR | S_IWUSR)) == -1)
+				return (ft_access_check(&f_name, final, i, S_IWUSR));
 			else
 				add_redir_fd(final, &fd_open);
 		}
 		else
 			return (ft_error_redir(final, *i, ERR_REDIR, NULL));
 	}
-	(f_name != NULL) ? free(f_name) : 0;
+	free(f_name);
 	return (0);
 }
 
 /*
-** Function to detect ">&"
+** Function to detect "[n]>&[m]"
+** fcntl used to check access to write in fd
 */
 
-int		ft_redir_gathen(t_ltree *final, size_t *i)
+int		ft_redir_greatand(t_ltree *final, size_t *i)
 {
 	t_fd_redir	fd_open;
 	char		*f_name;
@@ -93,17 +94,39 @@ int		ft_redir_gathen(t_ltree *final, size_t *i)
 		ft_null_redir(*i, 2);
 		(*i) += 2;
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
-		{
-			if (((fd_open.fd_in = fcntl(ft_atoi(f_name), F_GETFL)) & O_ACCMODE)
-				!= O_RDWR && (fd_open.fd_in & O_ACCMODE) != O_WRONLY)
-				return (ft_error_redir(final, *i, ERR_BAD_FD, &f_name));
-			else
-				fd_open.fd_in = ft_atoi(f_name) >= 0 ?
-				add_redir_fd(final, &fd_open) : 0;
-		}
+			return (ft_num_or_word_out(&f_name, &fd_open, i, final));
 		else
 			return (ft_error_redir(final, *i, ERR_REDIR, NULL));
 	}
-	(f_name != NULL) ? free(f_name) : 0;
+	free(f_name);
 	return (0);
+}
+
+/*
+** Function needs to check access rights
+*/
+
+int		ft_access_check(char **f_name, t_ltree *final, size_t *i, int type)
+{
+	t_stat	*statbuf;
+	char 	*path;
+	int		st;
+
+	statbuf = (t_stat *)ft_xmalloc(sizeof(t_stat));
+	path = (char*)ft_xmalloc(MAXDIR);
+	getcwd(path, MAXDIR);
+	if (path[0] == 0)
+		free(path);
+	ft_strcat(path, "/");
+	ft_strcat(path, *f_name);
+	if ((st = stat(path, statbuf)) != -1)
+		if ((statbuf->st_mode & type) == 0)
+		{
+			free(path);
+			free(statbuf);
+			return (ft_error_redir(final, *i, ERR_NO_ACC, f_name));
+		}
+	free(path);
+	free(statbuf);
+	return (ft_error_redir(final, *i, ERR_NO_FILE, f_name));
 }

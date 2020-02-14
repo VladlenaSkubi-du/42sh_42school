@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/13 20:37:40 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/14 15:04:22 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ int				syntax_errors(int status, char *str)
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd(": Permission denied", STDERR_FILENO);
+	}
+	if (status >> 9 & ERR_NO_FILE)
+	{
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 	}
 	//изменение кода ошибки
 	return (0);

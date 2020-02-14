@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:46:57 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/13 20:12:12 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/14 20:10:43 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int			ft_error_redir(t_ltree *final, size_t i, int flag, char **str)
 		error_handler((SYNTAX_ERROR | (ERR_NO_ACC << 9)), *str);
 	else if (flag == ERR_BAD_FD)
 		error_handler((SYNTAX_ERROR | (ERR_BAD_FD << 9)), *str);
+	else if (flag == ERR_NO_FILE)
+		error_handler((SYNTAX_ERROR | (ERR_NO_FILE << 9)), *str);
 	else if (flag == ERR_REDIR && i < final->end)
 		error_handler((SYNTAX_ERROR | (ERR_REDIR << 9)),
 		g_sign[(int)g_techline.line[i]]);
@@ -65,11 +67,17 @@ int			ft_find_redirection(t_ltree *final)
 	ret = 0;
 	while (i < final->end)
 	{
-		if ((ret = ft_redir_gthen(final, &i)) == OUT)
+		if ((ret = ft_redir_great(final, &i)) == OUT)
 			break ;
-		if ((ret = ft_redir_ggthen(final, &i)) == OUT)
+		if ((ret = ft_redir_dgreat(final, &i)) == OUT)
 			break ;
-		if ((ret = ft_redir_gathen(final, &i)) == OUT)
+		if ((ret = ft_redir_greatand(final, &i)) == OUT)
+			break ;
+		if ((ret = ft_redir_less(final, &i)) == OUT)
+			break ;
+		if ((ret = ft_redir_dless(final, &i)) == OUT)
+			break ;
+		if ((ret = ft_redir_lessand(final, &i)) == OUT)
 			break ;
 		i++;
 	}
@@ -80,7 +88,7 @@ int			ft_find_redirection(t_ltree *final)
 ** Function to detect WORD of filename where/to need to redirect
 */
 
-char		*ft_word_to_redir(size_t *i, t_ltree *final, int rew_ff) //Correct
+char		*ft_word_to_redir(size_t *i, t_ltree *final, int rew_ff)
 {
 	char		*file;
 	long long	size;
@@ -105,7 +113,7 @@ char		*ft_word_to_redir(size_t *i, t_ltree *final, int rew_ff) //Correct
 	return (file);
 }
 
-int			ft_word_to_redir_rew(size_t *i, t_ltree *final, 
+int			ft_word_to_redir_rew(size_t *i, t_ltree *final,
 			long long *size, size_t *start)
 {
 	while (*i >= final->start && g_techline.line[*i] == 0)
@@ -124,5 +132,5 @@ int			ft_word_to_redir_rew(size_t *i, t_ltree *final,
 		else
 			*start = *i + 1;
 	}
-	return (0);		
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/13 20:37:21 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/14 14:50:30 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define	ERR_REDIR 0x2
 # define	ERR_BAD_FD 0x4
 # define	ERR_NO_ACC 0x8
+# define	ERR_NO_FILE 0x10
 
 
 /*

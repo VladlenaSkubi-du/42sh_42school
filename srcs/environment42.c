@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   environment42.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:45:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/05 15:32:41 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/14 20:45:21 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
-
-#define         	MAXDIR 100
 
 int					save_environment(void)
 {
