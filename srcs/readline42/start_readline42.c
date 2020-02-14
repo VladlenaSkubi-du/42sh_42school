@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/10 12:44:09 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/14 18:19:55 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int				start_readline42(int tmp)
 char			*finalize_cmd(char *cmd)
 {
 	char		*out;
-	
+
 	if (g_rline.cmd_len == 0)
 	{
 		out = ft_strdup(cmd);

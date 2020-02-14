@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 18:24:47 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/13 19:33:57 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/14 18:25:00 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,8 @@ int					route_to_arguments(char *compl, int i, int *pool)
 		return (i);
 	save_i = i;
 	*pool = 3;
-	while (i > 0 && (ft_isalnum(compl[i]) || compl[i] == '/' || compl[i] == '_'))
+	while (i > 0 && (ft_isalnum(compl[i]) ||
+		compl[i] == '/' || compl[i] == '_'))
 		i--;
 	if (compl[i] == ' ')
 		return (i + 1);

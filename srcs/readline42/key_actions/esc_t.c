@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 14:56:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/13 14:42:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/14 18:25:58 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 ** wrong - you get incorrect_sequence(): bell and out;
 */
 
-int			esc_t(void)
+int					esc_t(void)
 {
 	size_t			pos_back;
 	char			flag;
@@ -51,7 +51,7 @@ int			esc_t(void)
 	return (0);
 }
 
-int			esc_t_first_left(char flag, size_t pos_back)
+int					esc_t_first_left(char flag, size_t pos_back)
 {
 	if (word_left_proc())
 		return (1);
@@ -64,7 +64,7 @@ int			esc_t_first_left(char flag, size_t pos_back)
 	return (0);
 }
 
-int			esc_t_need_left(char *word_first, size_t fi, char *end)
+int					esc_t_need_left(char *word_first, size_t fi, char *end)
 {
 	char			*word_second;
 	size_t			se;
@@ -88,7 +88,7 @@ int			esc_t_need_left(char *word_first, size_t fi, char *end)
 	return (0);
 }
 
-int			esc_t_need_right(char *word_first, size_t fi, char *end)
+int					esc_t_need_right(char *word_first, size_t fi, char *end)
 {
 	char			*word_second;
 	size_t			se;
@@ -114,7 +114,7 @@ int			esc_t_need_right(char *word_first, size_t fi, char *end)
 	return (0);
 }
 
-int			esc_t_len_pos(char *word_first, size_t fi, size_t pos_back)
+int					esc_t_len_pos(char *word_first, size_t fi, size_t pos_back)
 {
 	char			*word_second;
 	size_t			se;
@@ -133,9 +133,6 @@ int			esc_t_len_pos(char *word_first, size_t fi, size_t pos_back)
 	position_relative(&end_x, 0, g_rline.cmd_len - 1);
 	if (end_x == g_screen.ws_col - 1)
 		putcap("sf");
-	// if (g_rline.cmd_len + g_rline.prompt_len ==
-	// 	g_screen.ws_col * g_rline.str_num)
-		// putcap("sf");
 	g_rline.pos = pos_back;
 	free(word_first);
 	free(word_second);
