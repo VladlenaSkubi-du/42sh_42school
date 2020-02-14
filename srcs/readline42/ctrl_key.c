@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 19:03:25 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/30 13:57:53 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/14 20:56:15 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int			ctrl_call(size_t call_num)
 	ctrl_action[6] = make_ctrl_e;
 	ctrl_action[7] = key_left_proc;
 	ctrl_action[8] = key_right_proc;
-	ctrl_action[9] = delete_process;
+	ctrl_action[9] = signal_ctrl_d;
 	ctrl_action[10] = backspace_process;
 	ctrl_action[11] = backspace_process;
 	ctrl_action[12] = make_ctrl_x;
