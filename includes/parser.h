@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/14 20:24:06 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/15 14:33:58 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,9 @@ typedef struct  		s_ltree
 	size_t				start; //index of start
 	size_t				end;
 	t_list				*fd;
+	char				**envir;
+	char				**args_v;
+	int					args_c;
 	int					flags;
 }              			t_ltree;
 

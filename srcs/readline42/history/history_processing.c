@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 12:18:29 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/09 18:27:24 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/15 17:14:58 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 ** symbol in the line only
 */
 
-int					add_to_history(char *cmd)
+int					add_to_history(char *cmd) //Когда будет запуск, сделать перезапись истории по командам, осторожнее с fc
 {
 	int				flag;
 
@@ -74,7 +74,7 @@ int					fill_hist_in_file(void)
 	else
 	{
 		user_len = ft_atoi(g_shvar[i] + j);
-		if (user_len < 0)
+		if (user_len < 0 || user_len > 32767)
 			user_len = MAX_HISTORY;
 	}
 	fd = open_hist_file(user_len, path);

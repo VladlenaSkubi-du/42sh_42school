@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser42.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/13 20:37:54 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/15 16:43:38 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,16 @@ static int			castrated_parser(void)
 	return (0);
 }
 
+static int			castrated_before_exec(t_ltree *sub)
+{
+	return (0);
+}
+
 int		pars_lex_exec(int tmp)
 {
-	castrated_parser();
+	t_ltree	*sub = NULL; //TODO delete
+	
+	castrated_parser(); //TODO delete
 	if (nullify(&g_techline.line, g_cmd_size) == OUT)
 	{
 		clean_parser42();
@@ -86,6 +93,7 @@ int		pars_lex_exec(int tmp)
 	pre_parsing_cut_glue();
 	// ft_putendl_fd(g_cmd, 1);
 	ft_slice_fg();
+	castrated_before_exec(sub); //TODO delete
 	clean_parser42();
 	return (0);
 }
