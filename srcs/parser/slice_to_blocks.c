@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:01:01 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/15 14:34:53 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/15 20:48:19 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int		ft_block_start(t_list **list)
 	while (start)
 	{
 		sub = (t_ltree *)(start->content);
-		// before_exec(sub);
-		out_flag = exec_init(sub);
+		before_exec(sub);
+		out_flag = exec_init(sub); //внутри exec выбор: builtin или нет
 		if (out_flag != 0 && (sub->flags & LOG_AND))
 			ft_block_foward(&sub, &start);
 		else if (out_flag == 0 && (sub->flags & LOG_OR))

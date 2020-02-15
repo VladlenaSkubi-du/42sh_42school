@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler42.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/14 15:04:22 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/15 18:05:58 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,12 @@ bash: -c: line 0: syntax error near unexpected token `;'
 bash: -c: line 0: `; ; '
 bash-3.2$ echo $?
 2
+*/
+
+/*bash-3.2$ bash --posix -c "fg"
+bash: line 0: fg: no job control
+bash-3.2$ bash --posix -c "bg"
+bash: line 0: bg: no job control
 */
 
 /*

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/15 14:33:58 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/15 20:47:48 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ typedef struct stat		t_stat;
 # define LOG_AND 0x10
 # define LOG_OR 0x20
 # define GR_START 0x40
+
+/*
+** Is used in before_execution.c
+*/
+
+# define ENV_BUFFER 1000
 
 enum					e_way
 {
@@ -166,6 +172,15 @@ t_ltree					*ft_check_andor_pipes(t_ltree *block, t_ltree *final,\
 						t_list **list);
 
 /*
+** File before_execution.c
+*/
+
+int						before_exec(t_ltree *sub);
+char					**init_exec_environ(void);
+int						add_local_exec_environ(char ***envir_exec,
+							char *add);
+
+/*
 ** Folder redirection_________________________________________________________
 */
 
@@ -174,7 +189,8 @@ t_ltree					*ft_check_andor_pipes(t_ltree *block, t_ltree *final,\
 */
 
 int						ft_find_redirection(t_ltree *final);
-char					*ft_word_to_redir(size_t *i, t_ltree *final, int rew_ff);
+char					*ft_word_to_redir(size_t *i, t_ltree *final,
+							int rew_ff);
 int						ft_word_to_redir_rew(size_t *i, t_ltree *final, 
 						long long *size, size_t *start);
 int						ft_null_redir(size_t i, long long num);
