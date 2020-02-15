@@ -76,7 +76,8 @@ REDIRECTION = 		parser/redirection/redirect.c \
 
 SIGNALS = 			signals/signals_processing42.c
 
-BUILTIN = 			builtin/exit.c
+BUILTIN = 			builtin/exit.c \
+			builtin/fc.c
 
 LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_realloc.c \
