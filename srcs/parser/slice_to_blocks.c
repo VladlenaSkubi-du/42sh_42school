@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slice_to_blocks.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:01:01 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/15 20:48:19 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/18 17:35:28 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		ft_block_add_to_list(t_ltree *block, t_list **list)
 			return (OUT);
 		}
 		ft_add_list_to_end(list, ft_lstnew(&final, sizeof(t_ltree)));
-		final.fd == NULL ? free (final.fd) : 0;
+		final.fd == NULL ? free(final.fd) : 0;
 		block->flags &= ~GR_START;
 		block->start = final.end + 1;
 		final.end = block->end;
@@ -56,6 +56,12 @@ int		ft_block_foward(t_ltree **sub, t_list **start)
 			break ;
 		if ((*sub)->flags & GR_START)
 			break ;
+		else
+		{
+			ft_arrdel((*sub)->envir);
+        	ft_arrdel((*sub)->args_v);
+		}
+		
 	}
 	return (0);
 }
@@ -76,6 +82,8 @@ int		ft_block_start(t_list **list)
 		sub = (t_ltree *)(start->content);
 		before_exec(sub);
 		out_flag = exec_init(sub); //внутри exec выбор: builtin или нет
+		ft_arrdel(sub->envir);
+        ft_arrdel(sub->args_v);
 		if (out_flag != 0 && (sub->flags & LOG_AND))
 			ft_block_foward(&sub, &start);
 		else if (out_flag == 0 && (sub->flags & LOG_OR))
@@ -122,6 +130,8 @@ int		ft_slice_fg(void)
 	i = -1;
 	block.start = 0;
 	start_list = NULL;
+	g_heredoc.start = g_techline.len;
+	g_heredoc.list = NULL;
 	while (++i <= g_techline.len)
 	{
 		block.flags = GR_START;

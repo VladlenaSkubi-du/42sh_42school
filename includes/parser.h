@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/15 20:47:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/18 17:26:36 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <pwd.h>
 # include <string.h>
 # include <fcntl.h>
+# include <time.h>
 
 # include <stdio.h> //DELETE
 
@@ -45,6 +46,8 @@ typedef struct stat		t_stat;
 */
 
 # define ENV_BUFFER 1000
+# define PATH_LEN 255
+# define TMPL "/tmp/tmp42sh_XXXXXX"
 
 enum					e_way
 {
@@ -135,6 +138,21 @@ typedef struct			s_dquote
 }						t_dquote;
 
 /*
+** Struct to save and work with here-docs
+*/
+
+typedef struct			s_here
+{
+	t_list				*list;
+	struct				s_stop
+	{
+		char			*stop_w;
+		int				fd;
+	};
+	size_t				start;
+}						t_here;
+
+/*
 ** Global vars
 */
 
@@ -142,6 +160,7 @@ char					*g_cmd;
 size_t					g_cmd_size;
 t_tech					g_techline;
 t_dquote				g_dquote;
+t_here					g_heredoc;
 
 /*
 ** File parser.c
@@ -214,6 +233,9 @@ int						ft_access_check(char **f_name, t_ltree *final,
 int						ft_redir_less(t_ltree *final, size_t *i);
 int						ft_redir_dless(t_ltree *final, size_t *i);
 int						ft_redir_lessand(t_ltree *final, size_t *i);
+int						ft_mkstemp(char *template);
+int						ft_heredoc(t_fd_redir *fd_open, char *f_name,
+						t_ltree *final, size_t *i);
 
 /*
 ** File fd_block.c
