@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:46:57 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/14 20:10:43 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/18 20:55:52 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int			ft_find_redirection(t_ltree *final)
 			break ;
 		i++;
 	}
-	return (ret);
+	return (ft_check_is_heredoc(ret));
 }
 
 /*
