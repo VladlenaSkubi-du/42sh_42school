@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:01:01 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/18 17:43:33 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/18 19:25:20 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int		ft_block_foward(t_ltree **sub, t_list **start)
 			ft_arrdel((*sub)->envir);
         	ft_arrdel((*sub)->args_v);
 		}
-		
 	}
 	return (0);
 }

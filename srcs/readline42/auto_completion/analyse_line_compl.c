@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   analyse_line.c                                     :+:      :+:    :+:   */
+/*   analyse_line_compl.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 18:24:47 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/14 18:25:00 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/18 18:06:55 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ int					route_to_pools(char *tech, int i, int *pool)
 	int				save_i;
 
 	save_i = i;
-	if (tech[i] == DOLLAR)
+	if (tech[i] == DOLLAR || (tech[i] == OBRACE && i > 0 &&
+		tech[i - 1] == DOLLAR))
 	{
 		*pool = 2;
 		return (i + 1);
