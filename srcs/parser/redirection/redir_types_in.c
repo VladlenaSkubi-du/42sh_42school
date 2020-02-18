@@ -6,12 +6,15 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:20:07 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/14 21:04:31 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/18 17:17:51 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "parser.h"
+
+static const char	g_letters[] =
+"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 /*
 ** Function to detect "[n]< word"
@@ -53,6 +56,7 @@ int		ft_redir_dless(t_ltree *final, size_t *i)
 {
 	t_fd_redir	fd_open;
 	char		*f_name;
+	int			tmp_fd;
 
 	f_name = NULL;
 	fd_open.type = IN_R;
@@ -62,9 +66,7 @@ int		ft_redir_dless(t_ltree *final, size_t *i)
 		ft_null_redir(*i, 2);
 		(*i) += 2;
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
-		{
-			//here document
-		}
+			return (ft_heredoc(&fd_open, f_name, final, i));
 		else
 			return (ft_error_redir(final, *i, ERR_REDIR, NULL));
 	}
@@ -95,4 +97,55 @@ int		ft_redir_lessand(t_ltree *final, size_t *i)
 	}
 	free(f_name);
 	return (0);
+}
+
+int		ft_heredoc(t_fd_redir *fd_open, char *f_name, t_ltree *final, size_t *i)
+{
+	if (g_prompt.prompt_func == main_prompt)
+	{
+		fd_open->fd_out = ft_tmpfile(TMPL);
+		add_redir_fd(final, fd_open);
+		ft_add_list_to_end(&(g_heredoc.list),
+			ft_lstnew(f_name, fd_open->fd_out));
+		if (final->end == g_techline.len)
+			g_prompt.prompt_func = heredoc_prompt;
+	}			
+	
+	g_prompt.prompt_func = main_prompt;
+	return (0);
+}
+
+/*
+** Generate a temporary file name based on TMPL.  TMPL must match the
+** rules for mk[s]temp (i.e. end in "XXXXXX").  The name constructed
+** does not exist at the time of the call to mkstemp.  TMPL is
+** overwritten with the result. Implementation of mkstemp by POSIX
+** but delete file when closed
+*/
+
+int		ft_tmpfile(char *tmpl)
+{
+	int		len;
+	char	*xxx;
+	int		fd;
+
+	len = ft_strlen(tmpl);
+	if (len < 6 || ft_strcmp(&tmpl[len - 6], "XXXXXX"))
+		return (-1);
+	xxx = &tmpl[len - 6];
+	while (fd < 0)
+	{
+		len = -1;
+		fd = open("/dev/random", O_RDONLY);
+		while (++len < 6)
+		{
+			read(fd, xxx[len], 1);
+			xxx[len] = g_letters[xxx[len] % 62];
+		}
+		close(fd);
+		fd = open(tmpl, O_RDWR | O_CREAT | O_EXCL | O_CLOEXEC,
+			S_IREAD | S_IWRITE);
+	}
+	unlink(tmpl);
+	return (fd);
 }
