@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   front_part_hist.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 13:14:32 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/02/18 13:16:34 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/02/18 17:07:22 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ int					make_ctrl_r_history(void)
 	return (OUT);
 }
 
-char			*get_the_answer_hist(unsigned short *len)
+char				*get_the_answer_hist(unsigned short *len)
 {
-	char		*find;
-	size_t		len_find;
-	char		c;
-	
+	char			*find;
+	size_t			len_find;
+	char			c;
+
 	find = (char*)ft_xmalloc(CMD_SIZE + 1);
 	c = 0;
-	while (read(STDOUT_FILENO, &c, 1) && c != '\n') //add deletion
+	while (read(STDOUT_FILENO, &c, 1) && c != '\n')
 	{
 		if (c == '\033')
 			return (free_find_hist(&find));
@@ -56,25 +56,24 @@ char			*get_the_answer_hist(unsigned short *len)
 			signal_ctrl_c();
 			return (free_find_hist(&find));
 		}
-		else
-			if (insert_valid_sy_hist(c,
-				len, &find, &len_find) == 1)
-				return (find);
+		else if (insert_valid_sy_hist(c,
+			len, &find, &len_find) == 1)
+			return (find);
 	}
 	if (find[0] == 0)
 		return (free_find_hist(&find));
 	return (find);
 }
 
-char			*free_find_hist(char **find)
+char				*free_find_hist(char **find)
 {
 	free(*find);
 	return (NULL);
 }
 
-int				insert_valid_sy_hist(char c,
-					unsigned short *len, char **find,
-					size_t *len_find)
+int					insert_valid_sy_hist(char c,
+						unsigned short *len, char **find,
+						size_t *len_find)
 {
 	if (ft_isprint(c) == 1)
 	{
@@ -92,11 +91,11 @@ int				insert_valid_sy_hist(char c,
 	return (0);
 }
 
-int				backspace_one_sy(char **find, size_t *len_find,
-					unsigned short *len)
+int					backspace_one_sy(char **find, size_t *len_find,
+						unsigned short *len)
 {
-	char		*tmp;
-	
+	char			*tmp;
+
 	tmp = *find;
 	if (*len_find > 0)
 	{

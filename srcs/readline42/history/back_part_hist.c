@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   back_part_hist.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:15:19 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/02/18 13:16:36 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/02/18 17:07:51 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int				find_in_history(char **find)
 int				print_new_cmd_from_history(int coincidence)
 {
 	size_t		i;
-	
+
 	i = 0;
 	esc_r();
 	while (g_hist.hist[coincidence][i])

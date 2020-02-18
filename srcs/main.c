@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:54:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/18 13:45:27 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/02/18 16:46:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int				main(int argc, char **argv)
 	int			tmp;
 
 	g_var_size = ENV_BUFFER;
-	save_environment();
+	save_environment_variables(NULL);
 	save_shell_variables();
 	save_local_variables(NULL);
 	options(argc, argv);

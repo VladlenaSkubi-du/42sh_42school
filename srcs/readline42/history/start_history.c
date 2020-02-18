@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 14:02:53 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/14 20:40:35 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/18 16:54:31 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ int				save_hist_buffer(int fd)
 		if (i >= g_hist.len)
 		{
 			g_hist.hist = ft_realloc_array(&g_hist.hist,
-				&g_hist.len, g_hist.len + MAX_HISTORY);
+				g_hist.len, g_hist.len + MAX_HISTORY);
+			g_hist.len += MAX_HISTORY;
 		}
 		g_hist.hist[i] = tmp;
 		tmp = NULL;
@@ -126,7 +127,8 @@ int				check_if_histsize_changed(void)
 	else if (user_len > 0 && user_len > g_hist.len)
 	{
 		g_hist.hist = ft_realloc_array(&g_hist.hist,
-			&g_hist.len, user_len);
+			g_hist.len, user_len);
+		g_hist.len = user_len;
 		g_hist.start = 0;
 	}
 	return (0);

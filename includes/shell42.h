@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/18 13:43:40 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/02/18 17:41:24 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 # define 			MAX_HISTORY 10
 # define			MAXDIR 255
-# define 			ENV_BUFFER 100
+# define 			ENV_BUFFER 35
 
 typedef struct		s_prompt
 {
@@ -110,11 +110,19 @@ t_history			g_hist;
 ** File environment42.c
 */
 
-int					save_environment(void);
+int					save_environment_variables(char *env_var);
 int					save_shell_variables(void);
-int					save_local_variables(char *var);
+int					save_local_variables(char *lovar);
 int					save_history_variables(void);
+
+/*
+** File variables_processing42.c
+*/
+
+int					realloc_all_gvariables_array(void);
 size_t				find_in_variables(char **arr, size_t *j, char *name);
+char				**init_exec_environ(void);
+int					add_new_to_exec_env(char ***array, char *add);
 
 /*
 ** File signals_processing42.c

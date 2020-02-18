@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/18 17:36:37 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/18 17:46:01 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct stat		t_stat;
 ** Is used in before_execution.c
 */
 
-# define ENV_BUFFER 1000
 # define PATH_LEN 255
 # define TMPL "/tmp/tmp42sh_XXXXXX"
 
@@ -128,15 +127,6 @@ typedef struct  		s_path
 	char				flag;
 }               		t_path;
 
-typedef struct			s_dquote
-{
-	char				*cmd_buf;
-	size_t				buf_len;
-	int					flag_esc;
-	int					flag_quote;
-	t_stack				*check;
-}						t_dquote;
-
 /*
 ** Struct to save and work with here-docs
 */
@@ -159,7 +149,6 @@ typedef struct			s_here
 char					*g_cmd;
 size_t					g_cmd_size;
 t_tech					g_techline;
-t_dquote				g_dquote;
 t_here					g_heredoc;
 
 /*
@@ -195,9 +184,6 @@ t_ltree					*ft_check_andor_pipes(t_ltree *block, t_ltree *final,\
 */
 
 int						before_exec(t_ltree *sub);
-char					**init_exec_environ(void);
-int						add_local_exec_environ(char ***envir_exec,
-							char *add);
 
 /*
 ** Folder redirection_________________________________________________________
@@ -265,37 +251,6 @@ int						insert_assign_to_arrays(char *find, size_t var,
 /*
 ** Folder quoting_____________________________________________________________
 */
-
-/*
-** File check_start_quote.c
-*/
-
-void					init_dquote(void);
-int						back_to_readline(void);
-int						escape_character(void);
-int						dquote_character(void);
-
-/*
-** File buffer_cmd_processing.c
-*/
-
-char					*init_buffer_cmd(size_t cmd_len, char *cmd,
-							size_t *buf_len);
-char            		*add_buffer_cmd(char *buf_cmd, size_t cmd_len,
-                            char *cmd, size_t *buf_len);
-char            		*add_buffer_last(char *buf_cmd, size_t cmd_len,
-                            char *cmd, size_t *buf_len);
-
-/*
-** File block_processing.c
-*/
-
-int						dquote_character_open(void);
-int						dquote_character_closed(void);
-int						clear_cmd_from_slash(int flag);
-char					*copy_without_slash_enter(char *cmd,
-							char *buf_cmd, size_t *cmd_len, int sl_en);
-int						check_quotes(int *flag_quotes, t_stack **check);
 
 /*
 ** File quote_control.c
