@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ctrl_key.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 19:03:25 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/14 20:56:15 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/17 13:12:20 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
-#define CTRL_NUM 17
+#define CTRL_NUM 18
 
 int			ctrl_call(size_t call_num)
 {
@@ -35,6 +35,7 @@ int			ctrl_call(size_t call_num)
 	ctrl_action[14] = make_ctrl_y_wrap;
 	ctrl_action[15] = auto_completion;
 	ctrl_action[16] = signal_ctrl_c;
+	ctrl_action[17] = make_ctrl_r_history;
 	return ((*ctrl_action[call_num])());
 }
 
@@ -73,5 +74,6 @@ int			ctrl_key(char sy)
 	ctrl_base[14] = '\031';
 	ctrl_base[15] = '\011';
 	ctrl_base[16] = '\003';
+	ctrl_base[17] = '\022';
 	return (ctrl_process(ctrl_base, sy));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals_processing42.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 12:43:36 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/14 20:52:09 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/17 13:43:45 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,25 @@ int				signals_reroute(int from)
 		signal(SIGCONT, SIG_DFL);
 	}
 	return (0);
+}
+
+void			sig_screen(int sig)
+{
+	// size_t		i;
+	
+	// i = 0;
+	// check_menu();
+	ioctl(1, TIOCGWINSZ, &g_screen);
+	// while (g_rline.pos)
+	// 	key_left_proc();
+	// position_cursor("ch", 0, 0);
+	// putcap("cd");
+	// g_prompt.prompt_func();
+	// while (i < g_rline.cmd_len)
+	// {
+	// 	insert_char(g_rline.cmd[i]);
+	// 	i++;
+	// }
 }
 
 void			sig_fork(int sig)
