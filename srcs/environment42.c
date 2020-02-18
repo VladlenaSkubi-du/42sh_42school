@@ -3,40 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   environment42.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:45:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/18 13:54:48 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/02/18 17:16:59 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 
-int					save_environment(void)
+int					save_environment_variables(char *env_var)
 {
 	extern char		**environ;
-	size_t			i;
+	static size_t	num;
 
-	g_env = (char**)ft_xmalloc((g_var_size + 1) * (sizeof(char*)));
-	i = 0;
-	while (environ[i])
+	if (env_var == NULL)
 	{
-		g_env[i] = ft_strdup(environ[i]);
-		i++;
+		g_env = (char**)ft_xmalloc((g_var_size + 1) * (sizeof(char*)));
+		while (environ[num])
+		{
+			g_env[num] = ft_strdup(environ[num]);
+			num++;
+		}
+		return (0);
 	}
+	if (num == g_var_size)
+		realloc_all_gvariables_array();
+	g_env[num] = ft_strdup(env_var);
+	num++;
 	return (0);
 }
-
-// int					count_first_env(void)
-// {
-// 	extern char		**environ;
-// 	int				i;
-
-// 	i = 0;
-// 	while (environ[i])
-// 		i++;
-// 	return (i);
-// }
 
 //make variables: SHELL42 (==BASH), SHELL42_PID(==BASHPID),
 //SHELL42_CMDS(==BASH_CMDS),
@@ -83,44 +79,18 @@ int					save_history_variables(void)
 	return (0);
 }
 
-int					save_local_variables(char *var)
+int					save_local_variables(char *lovar)
 {
 	static size_t	num;
-	char			**tmp;
-	size_t			i;
 
-	if (var == NULL)
+	if (lovar == NULL)
 	{
 		g_lovar = (char**)ft_xmalloc((g_var_size + 1) * (sizeof(char*)));
 		return (0);
 	}
-	tmp[num] = ft_strdup(var);
-	num++;
 	if (num == g_var_size)
-		realloc_all_variables_array();
+		realloc_all_gvariables_array();
+	g_lovar[num] = ft_strdup(lovar);
+	num++;
 	return (0);
-}
-
-/*
-** If we need to get line and symbol (after '=') from that the value of the
-** variable starts, we sent the name, int what array to search and an integer pointer
-*/
-
-size_t			find_in_variables(char **arr, size_t *j, char *name)
-{
-	size_t		i;
-	size_t		tmp;
-
-	i = 0;
-	while (arr[i])
-	{
-		tmp = ft_strchri(arr[i], '=') + 1;
-		if (ft_strncmp(arr[i], name, tmp) == 0 && arr[i][tmp])
-		{
-			*j = tmp;
-			return (i);
-		}
-		i++;
-	}
-	return (-1);
 }

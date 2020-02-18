@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_42.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:46:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/10 21:00:58 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/18 16:55:00 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char							*ft_straddsy(char *dest, char sy);
 int								ft_strrchri(char *s, int c);
 void                            ft_add_list_to_end(t_list **start,
                                     t_list *new_list);
-char				            **ft_realloc_array(char ***subj, int *len_subj,
+char				            **ft_realloc_array(char ***subj, int len_subj,
 						            int len_needed);
 void	                        ft_lstclear(t_list **begin_list);
 

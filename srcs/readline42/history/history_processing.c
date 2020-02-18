@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 12:18:29 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/15 17:14:58 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/18 17:05:13 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int					add_to_history(char *cmd) //Когда будет запуск, сдел
 		g_hist.last++;
 		g_hist.hist[g_hist.last] = ft_strdup(cmd);
 	}
-	else
+	else if (g_prompt.prompt_func != main_prompt &&
+		g_prompt.prompt_func != heredoc_prompt)
 	{
 		flag = (cmd[0] == EOF) ? EOF : 0;
 		if (g_hist.hist[g_hist.last][0] != 0 && flag == 0)
@@ -43,8 +44,7 @@ int					add_to_history(char *cmd) //Когда будет запуск, сдел
 				ft_strrejoin(g_hist.hist[g_hist.last], cmd);
 		clean_parser42();
 		g_cmd = ft_strdup(g_hist.hist[g_hist.last]);
-		if (flag == EOF)
-			g_cmd = ft_straddsy(g_cmd, EOF);
+		g_cmd = (flag == EOF) ? ft_straddsy(g_cmd, EOF) : g_cmd;
 		g_cmd_size = ft_strlen(g_cmd);
 		ft_get_techline();
 	}
@@ -95,7 +95,6 @@ int					insert_hist_in_file(int fd)
 	while (g_hist.hist[i] && i < g_hist.len)
 	{
 		tmp = ft_strlen(g_hist.hist[i]);
-		// printf("len = %d\n", tmp);
 		if (tmp > 0 && g_hist.hist[i][tmp - 1] == '\n')
 			tmp -= 1;
 		write(fd, g_hist.hist[i], tmp);

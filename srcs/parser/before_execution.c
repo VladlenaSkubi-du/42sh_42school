@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 19:35:23 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/15 20:50:23 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/18 17:26:55 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,42 +26,8 @@ int				before_exec(t_ltree *sub)
 	char		*add = NULL;
 	
 	sub->envir = init_exec_environ();
-	add_local_exec_environ(&sub->envir, add);
+	add_new_to_exec_env(&sub->envir, add);
 	//&sub->args_v
 	//&sub->args_c
-	return (0);
-}
-
-char			**init_exec_environ(void)
-{
-	char		**envir;
-	size_t		i;
-
-	envir = (char**)ft_xmalloc(sizeof(char*) * ENV_BUFFER);
-	i = 0;
-	while(g_env[i])
-	{
-		envir[i] = ft_strdup(g_env[i]);
-		i++;
-	}
-	return (envir);
-}
-
-int				add_local_exec_environ(char ***envir_exec, char *add)
-{
-	char		**envir;
-	size_t		i;
-
-	envir = *envir_exec;
-	i = 0;
-	while (envir[i])
-		i++;
-	if (i >= ENV_BUFFER - 1)
-	{
-		ft_putendl_fd("It is impossible to allocate so much memory",
-			STDOUT_FILENO);
-		exit(MALLOC_ERROR);
-	}
-	envir[i] = ft_strdup(add);
 	return (0);
 }

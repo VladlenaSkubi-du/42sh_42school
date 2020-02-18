@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser42.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/18 12:42:40 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/02/18 17:46:05 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ int					parser(char *line)
 	g_cmd = line;
 	g_cmd_size = ft_strlen(g_cmd);
 	ft_get_techline();
-	// if (back_to_readline() == OUT)
-	// 	return (0);
 	add_to_history(g_cmd);
 	g_hist.counter = g_hist.last + 1;
 	pars_lex_exec(0);

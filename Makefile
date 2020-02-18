@@ -64,10 +64,7 @@ PATH_TREE = 		parser/path_tree/ft_block.c \
 EXEC = 				parser/exec/exec_init.c \
 			parser/exec/exec_core.c
 
-QUOTING =			parser/quoting/check_start_quote.c \
-			parser/quoting/buffer_cmd_processing.c \
-			parser/quoting/block_processing.c \
-			parser/quoting/quote_control.c \
+QUOTING =			parser/quoting/quote_control.c \
 			parser/quoting/pre_parsing_work.c
 
 ASSIGNMENT =		parser/assignment/backend_variables.c
@@ -102,7 +99,7 @@ STACK_STRUCTURE = 	libft_42/stack_structure/ft_init_stack.c \
 
 SOURCES =	main.c \
 			environment42.c \
-			variables_processing.c \
+			variables_processing42.c \
 			error_handler42.c \
 			clean_all42.c \
 			$(READLINE42) \
