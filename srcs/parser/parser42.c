@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser42.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/15 19:33:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/18 12:42:40 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		pars_lex_exec(int tmp)
 		return (0);
 	}
 	pre_parsing_cut_glue();
-	// ft_slice_fg();
+	ft_slice_fg();
 	clean_parser42();
 	return (0);
 }

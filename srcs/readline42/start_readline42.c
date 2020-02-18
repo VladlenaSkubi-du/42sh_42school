@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_readline42.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/14 18:19:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/17 13:40:19 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int				interactive_shell(void)
 	int			tmp;
 
 	start_history();
+	signal(SIGWINCH, sig_screen);
 	while (1)
 	{
 		init_readline();
