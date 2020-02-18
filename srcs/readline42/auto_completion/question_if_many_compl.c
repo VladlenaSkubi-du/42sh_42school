@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   question_if_many.c                                 :+:      :+:    :+:   */
+/*   question_if_many_compl.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:59:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/17 17:13:30 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ int					ask_output(size_t total, int buf_lines,
 	return (1);
 }
 
+/*
+** Here we count how long are the values of @total and @buf_len
+** to get the full length of the question string and be able
+** to clean it after
+*/
+
 int					count_comment_len(unsigned short *total_len,
 						unsigned short *lines_len, size_t total,
 						int buf_lines)
@@ -57,6 +63,16 @@ int					count_comment_len(unsigned short *total_len,
 	}
 	return (0);
 }
+
+/*
+** If the answer is yes and all the options do not fit in the
+** terminal screen, we clear
+** the question and after, print all the options, a new prompt and
+** the cmd-line if it was filled (return 0 to print_menu and do there)
+** If the answer is other than y or Y, we just clear the question
+** and return back to the state as the cmd-line had before TAB was
+** pushed
+*/
 
 int					clean_output_question(int from, size_t pos_back,
 						unsigned short len, unsigned short len_x)
@@ -82,6 +98,12 @@ int					clean_output_question(int from, size_t pos_back,
 	putcap("cd");
 	return (0);
 }
+
+/*
+** If there are no options for completion, we clear the 
+** allocated @g_complete and @g_techline strings and ring
+** the bell
+*/
 
 int					clean_strings_compl(char *compl,
 						char *tech_line, int flag)
