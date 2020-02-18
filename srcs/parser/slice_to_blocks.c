@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slice_to_blocks.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:01:01 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/18 17:43:33 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/18 21:34:20 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int		ft_block_add_to_list(t_ltree *block, t_list **list)
 
 	final.flags = 0;
 	final.fd = NULL;
+	final.envir = NULL;
+	final.args_v = NULL;
 	while ((sub = ft_check_andor_pipes(block, &final, list)))
 	{
 		if ((ft_find_redirection(&final)) == OUT)
@@ -59,9 +61,8 @@ int		ft_block_foward(t_ltree **sub, t_list **start)
 		else
 		{
 			ft_arrdel((*sub)->envir);
-        	ft_arrdel((*sub)->args_v);
+			ft_arrdel((*sub)->args_v);
 		}
-		
 	}
 	return (0);
 }
@@ -83,7 +84,7 @@ int		ft_block_start(t_list **list)
 		before_exec(sub);
 		out_flag = exec_init(sub); //внутри exec выбор: builtin или нет
 		ft_arrdel(sub->envir);
-        ft_arrdel(sub->args_v);
+		ft_arrdel(sub->args_v);
 		if (out_flag != 0 && (sub->flags & LOG_AND))
 			ft_block_foward(&sub, &start);
 		else if (out_flag == 0 && (sub->flags & LOG_OR))
@@ -130,7 +131,7 @@ int		ft_slice_fg(void)
 	i = -1;
 	block.start = 0;
 	start_list = NULL;
-	g_heredoc.start = g_techline.len;
+	g_heredoc.start = g_techline.len + 1;
 	g_heredoc.list = NULL;
 	while (++i <= g_techline.len)
 	{

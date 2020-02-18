@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 14:04:36 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/14 21:01:28 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/18 20:16:45 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		ft_redir_great(t_ltree *final, size_t *i)
 		{
 			if ((fd_open.fd_in = open(f_name, O_CREAT | O_WRONLY | O_TRUNC |
 			O_CLOEXEC | O_SYNC | O_NOCTTY, S_IRUSR | S_IWUSR)) == -1)
-				return (ft_access_check(&f_name, final, i, S_IWUSR));
+				return (ft_access_check(&f_name, final, i, W_OK));
 			else
 				add_redir_fd(final, &fd_open);
 		}
@@ -65,7 +65,7 @@ int		ft_redir_dgreat(t_ltree *final, size_t *i)
 		{
 			if ((fd_open.fd_in = open(f_name, O_CREAT | O_WRONLY | O_APPEND |
 				O_CLOEXEC | O_SYNC | O_NOCTTY, S_IRUSR | S_IWUSR)) == -1)
-				return (ft_access_check(&f_name, final, i, S_IWUSR));
+				return (ft_access_check(&f_name, final, i, W_OK));
 			else
 				add_redir_fd(final, &fd_open);
 		}
@@ -108,25 +108,20 @@ int		ft_redir_greatand(t_ltree *final, size_t *i)
 
 int		ft_access_check(char **f_name, t_ltree *final, size_t *i, int type)
 {
-	t_stat	*statbuf;
-	char 	*path;
+	char	*path;
 	int		st;
 
-	statbuf = (t_stat *)ft_xmalloc(sizeof(t_stat));
 	path = (char*)ft_xmalloc(MAXDIR);
 	getcwd(path, MAXDIR);
 	if (path[0] == 0)
 		free(path);
 	ft_strcat(path, "/");
 	ft_strcat(path, *f_name);
-	if ((st = stat(path, statbuf)) != -1)
-		if ((statbuf->st_mode & type) == 0)
-		{
-			free(path);
-			free(statbuf);
-			return (ft_error_redir(final, *i, ERR_NO_ACC, f_name));
-		}
+	if ((st = access(path, type)) == -1)
+	{
+		free(path);
+		return (ft_error_redir(final, *i, ERR_NO_ACC, f_name));
+	}
 	free(path);
-	free(statbuf);
 	return (ft_error_redir(final, *i, ERR_NO_FILE, f_name));
 }
