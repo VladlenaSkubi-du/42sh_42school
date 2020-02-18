@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/18 13:17:15 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/02/18 19:25:06 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,9 +296,11 @@ int								auto_completion(void);
 char							**route_menu_receipt(char *tech_line,
 									size_t tech_len, size_t *total,
 									int *max_len);
-char							**route_by_prompts(size_t *total, int *max_len);
-int								insert_word_compl(void);
 int								check_menu(void);
+int								insert_word_compl(void);
+int								insert_word_by_letters_compl(size_t g_delete,
+									size_t g_len_compl,
+									char *menu_counter, int flag);
 
 /*
 ** File analyse_line_compl.c
@@ -373,6 +375,7 @@ int								position_cursor_for_menu(size_t len);
 int								position_cursor_after_menu_back
 									(unsigned short len_x, int buf_lines,
 									size_t pos_back, size_t len);
+char							**route_by_prompts(size_t *total, int *max_len);
 
 /*
 ** File output_buffer_compl.c
