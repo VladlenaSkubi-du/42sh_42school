@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/14 21:08:05 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/18 13:43:40 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 
 # define 			MAX_HISTORY 10
 # define			MAXDIR 255
+# define 			ENV_BUFFER 100
 
 typedef struct		s_prompt
 {
@@ -101,6 +102,7 @@ enum				e_techline
 char				**g_env;
 char				**g_shvar;
 char				**g_lovar;
+int					g_var_size;
 t_prompt			g_prompt;
 t_history			g_hist;
 
@@ -122,6 +124,7 @@ int					signal_ctrl_c(void);
 int					signal_ctrl_d(void);
 int					route_exit(void);
 int					signals_reroute(int from);
+void			sig_screen(int sig);
 void				sig_fork(int sig);
 
 /*

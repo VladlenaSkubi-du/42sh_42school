@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/15 20:47:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/18 13:42:49 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,6 @@ typedef struct stat		t_stat;
 # define LOG_AND 0x10
 # define LOG_OR 0x20
 # define GR_START 0x40
-
-/*
-** Is used in before_execution.c
-*/
-
-# define ENV_BUFFER 1000
 
 enum					e_way
 {

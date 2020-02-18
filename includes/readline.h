@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/14 20:50:49 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/18 13:17:15 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "readline_simple.h"
 # include "get_next_line.h" //If not used, delete
 
-# define CMD_SIZE	5
+# define CMD_SIZE	100
 # define OUT		42
 # define TAB		0x1
 
@@ -301,7 +301,7 @@ int								insert_word_compl(void);
 int								check_menu(void);
 
 /*
-** File analyse_line.c
+** File analyse_line_compl.c
 */
 
 char							*get_techline_compl(char *complete,
@@ -317,7 +317,7 @@ int								route_to_arguments(char *compl,
 									int i, int *pool);
 
 /*
-** File menu_receipt.c
+** File menu_receipt_compl.c
 */
 
 char							**get_variables(char *complete,
@@ -333,7 +333,7 @@ t_path							*fill_tree_with_arguments(char *path,
 									char *complete, size_t *total);
 
 /*
-** File front_part.c
+** File front_part_compl.c
 */
 
 int								print_menu(size_t pos_back, char **menu,
@@ -345,7 +345,7 @@ int								clean_menu(void);
 int								clean_menu_buf(void);
 
 /*
-** File question_if_many.c and also a small function (because of norm)
+** File question_if_many_compl.c and also a small function (because of norm)
 */
 
 int								ask_output(size_t total, int buf_lines,
@@ -375,7 +375,7 @@ int								position_cursor_after_menu_back
 									size_t pos_back, size_t len);
 
 /*
-** File output_buffer.c
+** File output_buffer_compl.c
 */
 
 t_completion					menu_buf_init(size_t total, int max_len);
@@ -408,6 +408,26 @@ int								fill_hist_in_file(void);
 int								insert_hist_in_file(int fd);
 int								open_hist_file(int user_len, char *path);
 int                 			scroll_hist_buffer(size_t num);
+
+/*
+** File front_part_hist.c
+*/
+
+int								make_ctrl_r_history(void);
+char							*get_the_answer_hist(unsigned short *len);
+int								insert_valid_sy_hist(char c,
+									unsigned short *len, char **find,
+									size_t *len_find);
+int								backspace_one_sy(char **find, size_t *len_find,
+									unsigned short *len);
+int								find_in_history(char **find);
+
+/*
+** File back_part_hist.c
+*/
+
+int								print_new_cmd_from_history(int coincidence);
+char							*free_find_hist(char **find);
 
 /*
 **_____________________________________________________________________________

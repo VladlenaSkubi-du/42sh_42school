@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment42.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:45:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/14 20:45:21 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/18 13:54:48 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,8 @@ int					save_environment(void)
 {
 	extern char		**environ;
 	size_t			i;
-	size_t			num;
 
-	i = 0;
-	while (environ[i])
-		i++;
-	num = i;
-	g_env = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
-	g_env[num] = NULL;
+	g_env = (char**)ft_xmalloc((g_var_size + 1) * (sizeof(char*)));
 	i = 0;
 	while (environ[i])
 	{
@@ -56,7 +50,6 @@ int					save_shell_variables(void)
 
 	num = 9;
 	g_shvar = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
-	g_shvar[num] = NULL;
 	tmp = ft_itoa(getuid());
 	g_shvar[0] = ft_strjoin("UID=", tmp);
 	free(tmp);
@@ -87,7 +80,6 @@ int					save_history_variables(void)
 	g_shvar[7] = ft_strjoin("HISTFILESIZE=", tmp);
 	free(tmp);
 	g_shvar[8] = ft_strdup("EDITOR=vim");
-	
 	return (0);
 }
 
@@ -97,24 +89,15 @@ int					save_local_variables(char *var)
 	char			**tmp;
 	size_t			i;
 
-	if (var == NULL && num == 0)
+	if (var == NULL)
 	{
-		g_lovar = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
-		g_lovar[num] = 0;
+		g_lovar = (char**)ft_xmalloc((g_var_size + 1) * (sizeof(char*)));
 		return (0);
 	}
+	tmp[num] = ft_strdup(var);
 	num++;
-	tmp = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
-	tmp[num] = 0;
-	i = 0;
-	while (g_lovar[i])
-	{
-		tmp[i] = g_lovar[i];
-		i++;
-	}
-	tmp[i] = ft_strdup(var);
-	free(g_lovar);
-	g_lovar = tmp;
+	if (num == g_var_size)
+		realloc_all_variables_array();
 	return (0);
 }
 

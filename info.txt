@@ -326,3 +326,6 @@ g_hist.hist[g_hist.start], g_hist.last, g_hist.len);
 Сделать: кнопки вверх-вниз и другие по ридлайну, доделать ctrl-up и ctrl-down
 Потом fс
 Потом !
+
+на очень узком терминале при нажатии на таба на программы - 
+большое меню- floating point exception

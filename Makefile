@@ -34,16 +34,18 @@ KEY_ACTIONS =		readline42/key_actions/ctrl_kwuae.c \
 			readline42/key_actions/cut_keys.c
 
 AUTO_COMPLETION =	readline42/auto_completion/start_completion.c \
-			readline42/auto_completion/front_part.c \
-			readline42/auto_completion/analyse_line.c \
-			readline42/auto_completion/menu_receipt.c \
-			readline42/auto_completion/question_if_many.c \
+			readline42/auto_completion/front_part_compl.c \
+			readline42/auto_completion/analyse_line_compl.c \
+			readline42/auto_completion/menu_receipt_compl.c \
+			readline42/auto_completion/question_if_many_compl.c \
 			readline42/auto_completion/path_processing_compl.c \
 			readline42/auto_completion/cursor_position_completion.c \
-			readline42/auto_completion/output_buffer.c
+			readline42/auto_completion/output_buffer_compl.c
 
 HISTORY = 			readline42/history/start_history.c \
-			readline42/history/history_processing.c
+			readline42/history/history_processing.c \
+			readline42/history/front_part_hist.c \
+			readline42/history/back_part_hist.c
 
 PARSER = 			parser/parser42.c \
 			parser/find_spec.c \
@@ -100,6 +102,7 @@ STACK_STRUCTURE = 	libft_42/stack_structure/ft_init_stack.c \
 
 SOURCES =	main.c \
 			environment42.c \
+			variables_processing.c \
 			error_handler42.c \
 			clean_all42.c \
 			$(READLINE42) \
