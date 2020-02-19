@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 20:15:50 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/19 17:25:36 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/19 20:30:12 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int		ft_check_heredoc_end(int ret)
 	t_stop	*find;
 	
 	tmp = g_heredoc.list;
+	null_here_line(void);
 	add_to_heredoc_buf(&g_heredoc.buf, g_cmd, &g_heredoc.buf_size);
 	lines_in = g_heredoc.buf;
 	i = -1;
@@ -85,9 +86,11 @@ int		ft_heredoc_fill(int ret)
 		find = (t_stop *)tmp->content;
 		while (lines_in[++i])
 		{
+			if (find->flag == MINUS)
+				here_tab_remove(&(lines_in[i]));
 			if (!ft_strcmp(find->stop_w, lines_in[i]) || lines_in[i][0] == EOF)
 				break ;
-			add_line_to_heredoc_fd(lines_in[i], find->fd);			
+			ft_putstr_fd(lines_in[i], find->fd);;			
 		}
 		tmp = tmp->next;
 	}
