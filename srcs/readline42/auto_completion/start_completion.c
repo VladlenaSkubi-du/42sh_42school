@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/31 21:36:56 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/18 19:48:25 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,22 +110,31 @@ char				**route_menu_receipt(char *tech_line,
 	return (menu);
 }
 
-char				**route_by_prompts(size_t *total, int *max_len)
+int					insert_word_compl(void)
 {
-	char			**menu;
-	t_path			*root;
+	size_t			len_option;
+	size_t			counter;
+	int				flag;
 
-	if (g_prompt.prompt_func == main_prompt)
-		menu = ft_path_pars("", path_parse_compl(), total, max_len);
-	else
+	flag = 0;
+	if (g_delete > 0)
+		delete_till_compl(g_len_compl, g_delete);
+	if (g_tablevel > 0 && g_total > 0)
 	{
-		root = fill_tree_with_arguments("./", "", total);
-		if (root == NULL)
-			return (NULL);
-		menu = ft_add_block(&root, *total, max_len);
-		ft_path_free(&root);
+		if (g_rline.pos > 1 && g_rline.cmd[g_rline.pos - 1] == '{' &&
+			g_rline.cmd[g_rline.pos - 2] == '$')
+			flag = 1;
+		if (g_tablevel - 1 < g_total)
+			counter = g_tablevel - 1;
+		else
+			counter = (g_tablevel - 1) % g_total;
+		len_option = ((flag == 1) ? ft_strlen(g_menu[counter]) + 1 :
+			ft_strlen(g_menu[counter]));
+		g_delete = len_option - g_len_compl;
+		insert_word_by_letters_compl(g_delete, g_len_compl, g_menu[counter], flag);
+		print_menu_buf_after_insert(g_rline.pos);
 	}
-	return (menu);
+	return (0);
 }
 
 /*
@@ -146,29 +155,19 @@ int					check_menu(void)
 	return (0);
 }
 
-int					insert_word_compl(void)
+int					insert_word_by_letters_compl(size_t delete, size_t len_compl,
+						char *menu_counter, int flag)
 {
-	size_t			len_option;
 	size_t			i;
-	size_t			counter;
 
 	i = 0;
-	if (g_delete > 0)
-		delete_till_compl(g_len_compl, g_delete);
-	if (g_tablevel > 0 && g_total > 0)
+	while (i < delete)
 	{
-		if (g_tablevel - 1 < g_total)
-			counter = g_tablevel - 1;
+		if (i == delete - 1 && flag == 1)
+			char_add('}');
 		else
-			counter = (g_tablevel - 1) % g_total;
-		len_option = ft_strlen(g_menu[counter]);
-		g_delete = len_option - g_len_compl;
-		while (i < g_delete)
-		{
-			char_add(g_menu[counter][g_len_compl + i]);
-			i++;
-		}
-		print_menu_buf_after_insert(g_rline.pos);
+			char_add(menu_counter[len_compl + i]);
+		i++;
 	}
 	return (0);
 }

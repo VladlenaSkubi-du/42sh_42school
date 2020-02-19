@@ -6,19 +6,19 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:07:05 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/14 18:24:42 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/19 17:40:46 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
 
-int					position_relative(unsigned short *x,
-						unsigned short *y, size_t analyse)
+int					position_relative(int *x,
+						int *y, size_t analyse)
 {
 	size_t			i;
-	unsigned short	j;
-	unsigned short	k;
+	int	j;
+	int	k;
 	int				flag;
 
 	i = 0;
@@ -27,13 +27,15 @@ int					position_relative(unsigned short *x,
 	flag = 0;
 	while (i < analyse && i < g_rline.cmd_len)
 	{
-		if (j == g_screen.ws_col - 1 || g_rline.cmd[i] == '\n')
+		if (j == g_screen.ws_col - 1 && g_rline.cmd[i] != '\n')
 			flag = 1;
+		else if (g_rline.cmd[i] == '\n')
+			flag = 2;
 		j++;
 		i++;
-		if (flag == 1)
+		if (flag == 1 || flag == 2)
 		{
-			k++;
+			((i < analyse && flag == 1) || flag == 2) ? k++ : 0;
 			j = 0;
 			flag = 0;
 		}
@@ -46,9 +48,9 @@ int					position_relative(unsigned short *x,
 int					move_cursor_back_after_print(short flag)
 {
 	size_t			tmp;
-	unsigned short	new_x;
-	unsigned short	new_y;
-	unsigned short	end_x;
+	int	new_x;
+	int	new_y;
+	int	end_x;
 
 	tmp = 0;
 	if (g_rline.pos == g_rline.cmd_len)
@@ -61,6 +63,8 @@ int					move_cursor_back_after_print(short flag)
 			tmp = 1;
 	}
 	position_cursor("ch", 0, new_x);
+	if (new_x == g_screen.ws_col - 1)
+		putcap("up");
 	if (g_rline.str_num + tmp - new_y == 1)
 		putcap("up");
 	else if (g_rline.str_num + tmp - new_y > 1)
@@ -75,9 +79,9 @@ int					move_cursor_back_after_print(short flag)
 int					move_cursor_from_old_position(size_t pos_old,
 						char direction)
 {
-	unsigned short	new_x;
-	unsigned short	new_y;
-	unsigned short	old_y;
+	int	new_x;
+	int	new_y;
+	int	old_y;
 
 	position_relative(0, &old_y, pos_old);
 	position_relative(&new_x, &new_y, g_rline.pos);
@@ -96,5 +100,30 @@ int					move_cursor_from_old_position(size_t pos_old,
 			position_cursor("DO", 0, new_y - old_y);
 	}
 	position_cursor("ch", 0, new_x);
+	return (0);
+}
+
+int					insert_word_by_letters(char *insert, size_t start)
+{
+	size_t			i;
+	static int		len;
+
+	i = 0;
+	if (insert == NULL)
+	{
+		len = start;
+		return (0);
+	}
+	while (insert[i])
+	{
+		write(STDOUT_FILENO, &insert[i], 1);
+		i++;
+		len++;
+		if (len == g_screen.ws_col - 1)
+		{
+			putcap("sf");
+			len = -1;
+		}
+	}
 	return (0);
 }

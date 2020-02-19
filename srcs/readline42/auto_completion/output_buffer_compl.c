@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   output_buffer.c                                    :+:      :+:    :+:   */
+/*   output_buffer_compl.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 16:43:04 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/19 12:33:02 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,16 @@ void					buffer_col_calc(t_completion *menu_buf)
 
 	menu_buf->buf_width = (g_screen.ws_col / menu_buf->word_len) *
 		menu_buf->word_len + 1;
+	if (menu_buf->buf_width == 1)
+		menu_buf->buf_width = g_screen.ws_col;
 	menu_buf->buf_lines = g_screen.ws_col / menu_buf->word_len;
-	menu_buf->buf_lines = menu_buf->word_nb / menu_buf->buf_lines
+	if (menu_buf->buf_lines != 0)
+	{
+		menu_buf->buf_lines = menu_buf->word_nb / menu_buf->buf_lines
 		+ (menu_buf->word_nb % menu_buf->buf_lines ? 1 : 0);
+	}
+	else
+		menu_buf->buf_lines = menu_buf->word_nb;
 	menu_buf->buffer = (char**)ft_xmalloc(sizeof(char*) *
 		(menu_buf->buf_lines + 1));
 	menu_buf->buffer[menu_buf->buf_lines] = 0;

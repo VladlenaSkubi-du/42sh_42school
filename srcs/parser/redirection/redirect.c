@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:46:57 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/19 13:41:54 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/19 19:28:51 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int			ft_find_redirection(t_ltree *final)
 			break ;
 		i++;
 	}
-	return (ret);
+	return (ft_check_is_heredoc(ret));
 }
 
 /*

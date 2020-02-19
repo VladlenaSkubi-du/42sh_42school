@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:20:07 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/19 20:21:31 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/19 20:45:09 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int		ft_heredoc_form(t_fd_redir *fd_open, char *f_name, t_ltree *final,
 	{
 		fd_open->fd_out = ft_tmpfile(TMPL);
 		add_redir_fd(final, fd_open);
-		g_heredoc.stop.stop_w = ft_strrejoin(f_name, "\n");
+		g_heredoc.stop.stop_w = ft_strdup(f_name);
 		g_heredoc.stop.fd = fd_open->fd_out;
 		g_heredoc.stop.flag = flag;
 		ft_add_list_to_end(&(g_heredoc.list),

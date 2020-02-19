@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 17:21:19 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/12 15:32:13 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/19 15:31:35 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ int			make_ctrl_u(void)
 	ft_strcpy(g_rline.cmd, swap);
 	ft_bzero(g_rline.cmd + len_swap, g_rline.cmd_buff_len - len_swap);
 	putcap("cd");
-	ft_putstr_fd(g_rline.cmd, 1);
+	// ft_putstr_fd(g_rline.cmd, 1);
+	insert_word_by_letters(NULL, g_rline.prompt_len);
+	insert_word_by_letters(g_rline.cmd, 0);
 	recount_str_num(g_rline.cmd_len);
 	move_cursor_back_after_print(0);
 	return (0);
@@ -98,7 +100,9 @@ int			make_ctrl_w(void)
 	ft_bzero(g_rline.cmd + g_rline.pos + len_swap,
 		g_rline.cmd_buff_len - g_rline.cmd_len);
 	putcap("cd");
-	ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
+	insert_word_by_letters(NULL, g_rline.prompt_len);
+	insert_word_by_letters(g_rline.cmd + g_rline.pos, 0);
+	// ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
 	recount_str_num(g_rline.cmd_len);
 	move_cursor_back_after_print(0);
 	return (0);

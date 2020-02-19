@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   front_part.c                                       :+:      :+:    :+:   */
+/*   front_part_compl.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:46:39 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/07 19:24:09 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/19 15:29:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_completion		g_menu_buf;
 int					print_menu(size_t pos_back, char **menu,
 						size_t total, int max_len)
 {
-	unsigned short	len_x;
+	int	len_x;
 	int				i;
 
 	i = -1;
@@ -57,7 +57,7 @@ int					print_menu(size_t pos_back, char **menu,
 
 int					print_menu_buf_after_insert(size_t pos_back)
 {
-	unsigned short	len_x;
+	int	len_x;
 
 	position_relative(&len_x, 0, g_rline.cmd_len);
 	position_cursor_for_menu(g_rline.cmd_len);
@@ -73,14 +73,16 @@ int					print_menu_buf_after_insert(size_t pos_back)
 ** printing new prompt and the line without any changes
 */
 
-int					after_big_menu(size_t pos_back, unsigned short len_x)
+int					after_big_menu(size_t pos_back, int len_x)
 {
 	putcap("sf");
 	g_rline.pos = 0;
 	position_cursor("ch", 0, 0);
 	g_rline.pos = pos_back;
 	g_prompt.prompt_func();
-	ft_putstr_fd(g_rline.cmd, 1);
+	// ft_putstr_fd(g_rline.cmd, 1);
+	insert_word_by_letters(NULL, g_rline.prompt_len);
+	insert_word_by_letters(g_rline.cmd, 0);
 	move_cursor_back_after_print(0);
 	g_rline.flag &= ~TAB;
 	return (0);

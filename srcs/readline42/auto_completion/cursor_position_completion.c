@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:51:01 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/14 20:49:00 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/19 13:55:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int					position_cursor_for_menu(size_t len)
 {
 	size_t			pos_old;
-	unsigned short	end_x;
+	int	end_x;
 
 	pos_old = g_rline.pos;
 	if (g_rline.pos == 0 && len == 0)
@@ -32,7 +32,7 @@ int					position_cursor_for_menu(size_t len)
 	return (0);
 }
 
-int					position_cursor_after_menu_back(unsigned short len_x,
+int					position_cursor_after_menu_back(int len_x,
 						int buf_lines, size_t pos_back, size_t len)
 {
 	size_t			i;
@@ -44,4 +44,26 @@ int					position_cursor_after_menu_back(unsigned short len_x,
 	g_rline.pos = pos_back;
 	move_cursor_from_old_position(len, 'l');
 	return (0);
+}
+
+/*
+** It is not logical to put this function here but because of norm...
+*/
+
+char				**route_by_prompts(size_t *total, int *max_len)
+{
+	char			**menu;
+	t_path			*root;
+
+	if (g_prompt.prompt_func == main_prompt)
+		menu = ft_path_pars("", path_parse_compl(), total, max_len);
+	else
+	{
+		root = fill_tree_with_arguments("./", "", total);
+		if (root == NULL)
+			return (NULL);
+		menu = ft_add_block(&root, *total, max_len);
+		ft_path_free(&root);
+	}
+	return (menu);
 }
