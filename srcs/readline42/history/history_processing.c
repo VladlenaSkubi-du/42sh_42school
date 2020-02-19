@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history_processing.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 12:18:29 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/18 17:05:13 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/19 12:20:12 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

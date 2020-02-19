@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:20:07 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/18 22:02:24 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/19 18:59:58 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		ft_heredoc_form(t_fd_redir *fd_open, char *f_name, t_ltree *final, size_t *
 	{
 		fd_open->fd_out = ft_tmpfile(TMPL);
 		add_redir_fd(final, fd_open);
-		g_heredoc.stop.stop_w = ft_strdup(f_name);
+		g_heredoc.stop.stop_w = ft_strrejoin(f_name, "\n");
 		g_heredoc.stop.fd = fd_open->fd_out;
 		ft_add_list_to_end(&(g_heredoc.list),
 			ft_lstnew(&g_heredoc.stop, sizeof(t_stop)));
@@ -117,7 +117,7 @@ int		ft_heredoc_form(t_fd_redir *fd_open, char *f_name, t_ltree *final, size_t *
 ** rules for mk[s]temp (i.e. end in "XXXXXX").  The name constructed
 ** does not exist at the time of the call to mkstemp.  TMPL is
 ** overwritten with the result. Implementation of mkstemp by POSIX
-** but delete file when closed
+** NOT delete file when closed!!! NEED TO unlink() file
 */
 
 int		ft_tmpfile(char *tmpl)
@@ -130,6 +130,7 @@ int		ft_tmpfile(char *tmpl)
 
 	len = ft_strlen(tmpl);
 	fd = -1;
+	buf = 0;
 	if (len < 6 || ft_strcmp(&tmpl[len - 6], "XXXXXX"))
 		return (-1);
 	tmp = ft_strdup(tmpl);
@@ -141,12 +142,12 @@ int		ft_tmpfile(char *tmpl)
 		while (++len < 6)
 		{
 			read(fd, &buf, 1);
-			xxx[len] = g_letters[(buf + 77) % 62];
+			xxx[len] = g_letters[(buf + 300) % 62];
 		}
 		close(fd);
 		fd = open(tmp, O_RDWR | O_CREAT | O_EXCL | O_CLOEXEC,
 			S_IREAD | S_IWRITE);
 	}
-	unlink(tmp);
+	free(tmp);
 	return (fd);
 }

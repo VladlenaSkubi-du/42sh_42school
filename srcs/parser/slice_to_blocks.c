@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:01:01 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/18 21:34:20 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/19 17:10:05 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,26 +126,26 @@ int		ft_slice_fg(void)
 {
 	t_ltree			block;
 	size_t			i;
-	t_list			*start_list;
 
 	i = -1;
 	block.start = 0;
-	start_list = NULL;
-	g_heredoc.start = g_techline.len + 1;
-	g_heredoc.list = NULL;
-	while (++i <= g_techline.len)
+	if (g_prompt.prompt_func != heredoc_prompt)
 	{
-		block.flags = GR_START;
-		if (ft_slice_bg(&i, &block, &start_list) == OUT)
-			return (OUT);
-		if (g_techline.line[i] == SCOLON || g_cmd[i] == '\0')
+		g_heredoc.list = NULL;
+		g_start_list = NULL;
+		while (++i <= g_techline.len)
 		{
-			block.end = i;
-			if (ft_block_add_to_list(&block, &start_list) == OUT)
+			block.flags = GR_START;
+			if (ft_slice_bg(&i, &block, &g_start_list) == OUT)
 				return (OUT);
-			block.start = i + 1;
+			if (g_techline.line[i] == SCOLON || g_cmd[i] == '\0')
+			{
+				block.end = i;
+				if (ft_block_add_to_list(&block, &g_start_list) == OUT)
+					return (OUT);
+				block.start = i + 1;
+			}
 		}
 	}
-	(g_prompt.prompt_func == main_prompt) ? ft_block_start(&start_list) : 0;
-	return (0);
+	return (ft_check_is_heredoc(0));
 }
