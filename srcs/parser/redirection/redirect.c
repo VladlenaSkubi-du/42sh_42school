@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:46:57 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/14 20:10:43 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/19 19:28:51 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int			ft_null_redir(size_t i, long long num)
 
 int			ft_error_redir(t_ltree *final, size_t i, int flag, char **str)
 {
+	ft_heredoc_rem();
 	if (flag == ERR_NO_ACC)
 		error_handler((SYNTAX_ERROR | (ERR_NO_ACC << 9)), *str);
 	else if (flag == ERR_BAD_FD)
@@ -81,7 +82,7 @@ int			ft_find_redirection(t_ltree *final)
 			break ;
 		i++;
 	}
-	return (ret);
+	return (ft_check_is_heredoc(ret));
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:16:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/14 18:18:28 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/19 16:54:41 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int					char_add(char c)
 
 int					insert_char(char c)
 {
-	unsigned short	new_x;
+	int	new_x;
 
 	if (g_rline.cmd[g_rline.pos] != '\0')
 	{
@@ -74,8 +74,8 @@ int					insert_char(char c)
 int					insert_line_till_the_end(size_t beg, size_t end)
 {
 	size_t			i;
-	unsigned short	new_x;
-	unsigned short	end_y;
+	int				new_x;
+	int				end_y;
 	char			c;
 
 	i = beg;

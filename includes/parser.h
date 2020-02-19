@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/18 19:28:22 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/19 19:31:13 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 typedef struct dirent	t_dirent;
 typedef struct stat		t_stat;
 
+# define HEREDOC_BUF 200
+
 /*
 ** Defines for FLAGS
 */
@@ -45,7 +47,6 @@ typedef struct stat		t_stat;
 ** Is used in before_execution.c
 */
 
-# define PATH_LEN 255
 # define TMPL "/tmp/tmp42sh_XXXXXX"
 
 enum					e_way
@@ -131,15 +132,21 @@ typedef struct  		s_path
 ** Struct to save and work with here-docs
 */
 
+typedef struct			s_stop
+{
+	char				*stop_w;
+	int					fd;
+}						t_stop;
+
 typedef struct			s_here
 {
 	t_list				*list;
-	struct				s_stop
-	{
-		char			*stop_w;
-		int				fd;
-	};
-	size_t				start;
+	t_stop				stop;
+	char				**buf;
+	char				*g_cmd_copy;
+	char				*g_techline_copy;
+	size_t				g_len_copy;
+	int					buf_size;
 }						t_here;
 
 /*
@@ -150,6 +157,7 @@ char					*g_cmd;
 size_t					g_cmd_size;
 t_tech					g_techline;
 t_here					g_heredoc;
+t_list					*g_start_list;
 
 /*
 ** File parser.c
@@ -212,6 +220,7 @@ int						ft_redir_greatand(t_ltree *final, size_t *i);
 int						ft_access_check(char **f_name, t_ltree *final,
 						size_t *i, int type);
 
+
 /*
 ** File redir_types_in.c
 */
@@ -219,8 +228,8 @@ int						ft_access_check(char **f_name, t_ltree *final,
 int						ft_redir_less(t_ltree *final, size_t *i);
 int						ft_redir_dless(t_ltree *final, size_t *i);
 int						ft_redir_lessand(t_ltree *final, size_t *i);
-int						ft_mkstemp(char *template);
-int						ft_heredoc(t_fd_redir *fd_open, char *f_name,
+int						ft_tmpfile(char *template);
+int						ft_heredoc_form(t_fd_redir *fd_open, char *f_name,
 						t_ltree *final, size_t *i);
 
 /*
@@ -234,6 +243,25 @@ int						ft_num_or_word_out(char **f_name, t_fd_redir *fd_open,
 						size_t *i, t_ltree *final);
 int						ft_num_or_word_in(char **f_name, t_fd_redir *fd_open,
 						size_t *i, t_ltree *final);
+
+/*
+** File here_doc.c
+*/
+
+int						ft_check_is_heredoc(int	ret);
+int						ft_check_heredoc_end(int ret);
+int						ft_heredoc_fill(int ret);
+int						ft_heredoc_rem(void);
+int						ft_g_init_heredoc();
+
+/*
+** File here_doc_buffer.c
+*/
+
+int						add_to_heredoc_buf(char ***array, char *add,
+						int *buf_size);
+int						add_line_to_heredoc_fd(char *line_in, int fd);
+int						recover_g_cmd_here(void);
 
 /*
 ** Folder assignment__________________________________________________________
@@ -321,5 +349,7 @@ int						exec_init(t_ltree *pos);
 */
 
 int						exec_core(char **exec_av, int flags);
+void					free_vec(char **vec);
+char					*get_env(char *var);
 
 #endif

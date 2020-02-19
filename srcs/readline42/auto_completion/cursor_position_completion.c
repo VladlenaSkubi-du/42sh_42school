@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:51:01 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/18 19:27:59 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/19 13:55:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int					position_cursor_for_menu(size_t len)
 {
 	size_t			pos_old;
-	unsigned short	end_x;
+	int	end_x;
 
 	pos_old = g_rline.pos;
 	if (g_rline.pos == 0 && len == 0)
@@ -32,7 +32,7 @@ int					position_cursor_for_menu(size_t len)
 	return (0);
 }
 
-int					position_cursor_after_menu_back(unsigned short len_x,
+int					position_cursor_after_menu_back(int len_x,
 						int buf_lines, size_t pos_back, size_t len)
 {
 	size_t			i;
