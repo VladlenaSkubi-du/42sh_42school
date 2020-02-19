@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/18 19:28:30 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/19 19:30:09 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,15 @@ static int			castrated_parser(void)
 int		pars_lex_exec(int tmp)
 {
 	castrated_parser(); //TODO delete
-	if (nullify(&g_techline.line, g_cmd_size) == OUT)
+	if (g_prompt.prompt_func != heredoc_prompt)
 	{
-		clean_parser42();
-		return (0);
+		if (nullify(&g_techline.line, g_cmd_size) == OUT)
+		{
+			clean_parser42();
+			return (0);
+		}
+		pre_parsing_cut_glue();
 	}
-	pre_parsing_cut_glue();
 	ft_slice_fg();
 	clean_parser42();
 	return (0);

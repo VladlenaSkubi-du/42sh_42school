@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/18 17:41:24 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/19 11:52:01 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int					signal_ctrl_c(void);
 int					signal_ctrl_d(void);
 int					route_exit(void);
 int					signals_reroute(int from);
-void			sig_screen(int sig);
+void				sig_screen(int sig);
 void				sig_fork(int sig);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/18 19:25:06 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/19 13:55:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,12 +186,13 @@ int								ctrl_call(size_t call_num);
 */
 
 unsigned int					on_which_line(size_t cmd_pos,
-									unsigned short col);
-int								position_relative(unsigned short *x,
-									unsigned short *y, size_t analyse);
+									int col);
+int								position_relative(int *x,
+									int *y, size_t analyse);
 int								move_cursor_back_after_print(short flag);
 int								move_cursor_from_old_position(size_t pos_old,
 									char direction);
+int								insert_word_by_letters(char *insert, size_t start);
 
 /*
 ** File undo_yank_call.c
@@ -341,7 +342,7 @@ t_path							*fill_tree_with_arguments(char *path,
 int								print_menu(size_t pos_back, char **menu,
 									size_t total, int max_len);
 int								after_big_menu(size_t pos_back,
-									unsigned short len_x);
+									int len_x);
 int								print_menu_buf_after_insert(size_t pos_back);
 int								clean_menu(void);
 int								clean_menu_buf(void);
@@ -351,12 +352,12 @@ int								clean_menu_buf(void);
 */
 
 int								ask_output(size_t total, int buf_lines,
-									size_t pos_back, unsigned short len_x);
-int								count_comment_len(unsigned short *total_len,
-									unsigned short *lines_len,
+									size_t pos_back, int len_x);
+int								count_comment_len(int *total_len,
+									int *lines_len,
 									size_t total, int buf_lines);
 int								clean_output_question(int from, size_t pos_back,
-									unsigned short len, unsigned short len_x);
+									int len, int len_x);
 int								clean_strings_compl(char *compl,
 									char *tech_line, int flag);
 
@@ -373,7 +374,7 @@ char							*path_parse_compl(void);
 
 int								position_cursor_for_menu(size_t len);
 int								position_cursor_after_menu_back
-									(unsigned short len_x, int buf_lines,
+									(int len_x, int buf_lines,
 									size_t pos_back, size_t len);
 char							**route_by_prompts(size_t *total, int *max_len);
 
@@ -417,12 +418,12 @@ int                 			scroll_hist_buffer(size_t num);
 */
 
 int								make_ctrl_r_history(void);
-char							*get_the_answer_hist(unsigned short *len);
+char							*get_the_answer_hist(int *len);
 int								insert_valid_sy_hist(char c,
-									unsigned short *len, char **find,
+									int *len, char **find,
 									size_t *len_find);
 int								backspace_one_sy(char **find, size_t *len_find,
-									unsigned short *len);
+									int *len);
 int								find_in_history(char **find);
 
 /*

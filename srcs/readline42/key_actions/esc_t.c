@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 14:56:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/14 18:25:58 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/19 15:36:06 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ int					esc_t_need_left(char *word_first, size_t fi, char *end)
 	ft_strcpy(g_rline.cmd + g_rline.pos + fi + 1, word_second);
 	ft_strcpy(g_rline.cmd + g_rline.pos + fi + 1 + se, end);
 	putcap("cd");
-	ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
+	insert_word_by_letters(NULL, g_rline.prompt_len);
+	insert_word_by_letters(g_rline.cmd + g_rline.pos, 0);
+	// ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
 	g_rline.pos = pos_old + fi;
 	move_cursor_back_after_print(0);
 	free(word_second);
@@ -107,7 +109,9 @@ int					esc_t_need_right(char *word_first, size_t fi, char *end)
 	swap_ints((int*)&g_rline.pos, (int*)&pos_old);
 	move_cursor_from_old_position(pos_old, 'l');
 	putcap("cd");
-	ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
+	insert_word_by_letters(NULL, g_rline.prompt_len);
+	insert_word_by_letters(g_rline.cmd + g_rline.pos, 0);
+	// ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
 	g_rline.pos = pos_old + 1 + se;
 	move_cursor_back_after_print(0);
 	free(word_second);
@@ -119,7 +123,7 @@ int					esc_t_len_pos(char *word_first, size_t fi, size_t pos_back)
 	char			*word_second;
 	size_t			se;
 	char			delimiter;
-	unsigned short	end_x;
+	int	end_x;
 
 	delimiter = g_rline.cmd[g_rline.pos - 1];
 	if (word_left_proc())
@@ -129,7 +133,9 @@ int					esc_t_len_pos(char *word_first, size_t fi, size_t pos_back)
 	g_rline.cmd[g_rline.pos + fi] = delimiter;
 	ft_strcpy(g_rline.cmd + g_rline.pos + fi + 1, word_second);
 	putcap("cd");
-	ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
+	insert_word_by_letters(NULL, g_rline.prompt_len);
+	insert_word_by_letters(g_rline.cmd + g_rline.pos, 0);
+	// ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
 	position_relative(&end_x, 0, g_rline.cmd_len - 1);
 	if (end_x == g_screen.ws_col - 1)
 		putcap("sf");
