@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:26:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/14 20:59:12 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/19 16:53:44 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int					backspace_process(void)
 
 int					backspace_newline(char *swap, size_t len_swap)
 {
-	unsigned short	new_x;
-	unsigned short	new_y;
+	int	new_x;
+	int	new_y;
 	size_t			pos_back;
 
 	pos_back = g_rline.pos;
@@ -82,7 +82,10 @@ int					delete_process(void)
 		ft_bzero(g_rline.cmd + g_rline.pos + len_swap,
 			g_rline.cmd_buff_len - g_rline.cmd_len);
 		putcap("cd");
-		ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
+		insert_line_till_the_end(g_rline.pos, g_rline.cmd_len - 1);
+		// insert_word_by_letters(NULL, g_rline.prompt_len);
+		// insert_word_by_letters(g_rline.cmd + g_rline.pos, 0);
+		// ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
 		recount_str_num(g_rline.cmd_len - 1);
 		g_rline.cmd_len--;
 		move_cursor_back_after_print(1);
@@ -119,7 +122,9 @@ int					delete_till_compl(size_t len_compl, size_t delete)
 		while (++i < delete)
 			key_left_proc();
 		putcap("cd");
-		ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
+		insert_word_by_letters(NULL, g_rline.prompt_len);
+		insert_word_by_letters(g_rline.cmd + g_rline.pos, 0);
+		// ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
 		g_rline.cmd_len -= delete;
 		move_cursor_back_after_print(1);
 	}

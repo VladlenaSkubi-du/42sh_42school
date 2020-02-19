@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   question_if_many_compl.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:59:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/17 17:13:30 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/02/19 16:25:10 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,29 @@
 #include "readline.h"
 
 int					ask_output(size_t total, int buf_lines,
-						size_t pos_back, unsigned short len_x)
+						size_t pos_back, int len_x)
 {
 	char			c;
-	unsigned short	len;
-	unsigned short	total_len;
-	unsigned short	lines_len;
+	int				len;
+	int				total_len;
+	int				lines_len;
+	char			*question;
 
 	count_comment_len(&total_len, &lines_len, total, buf_lines);
-	len = 29 + 16 + 10 + total_len + lines_len;
-	ft_printf("42sh: display all %u possibilities (%u lines)? [y or n] ",
-		total, buf_lines);
+	len = 20 + 16 + 18 + total_len + lines_len;
+	insert_word_by_letters(NULL, 0);
+	insert_word_by_letters("e-bash: display all ", 0);
+	question = ft_itoa(total);
+	insert_word_by_letters(question, 0);
+	insert_word_by_letters(" possibilities (", 0);
+	free(question);
+	question = ft_itoa(buf_lines);
+	insert_word_by_letters(question, 0);
+	insert_word_by_letters(" lines)? [y or n] ", 0);
+	free(question);
 	read(STDOUT_FILENO, &c, 1);
 	if (c == 'y' || c == 'Y')
-	{
-		clean_output_question(1, pos_back, len, len_x);
-		return (0);
-	}
+		return (clean_output_question(1, pos_back, len, len_x));
 	clean_output_question(0, pos_back, len, len_x);
 	return (1);
 }
@@ -41,8 +47,8 @@ int					ask_output(size_t total, int buf_lines,
 ** to clean it after
 */
 
-int					count_comment_len(unsigned short *total_len,
-						unsigned short *lines_len, size_t total,
+int					count_comment_len(int *total_len,
+						int *lines_len, size_t total,
 						int buf_lines)
 {
 	int				number;
@@ -75,27 +81,25 @@ int					count_comment_len(unsigned short *total_len,
 */
 
 int					clean_output_question(int from, size_t pos_back,
-						unsigned short len, unsigned short len_x)
+						int len, int len_x)
 {
-	unsigned short	lines_nb;
+	int				lines_nb;
 
-	if (len > g_screen.ws_col)
-	{
-		lines_nb = len / g_screen.ws_col + ((from == 0) ? 1 : 0);
-		position_cursor("UP", 0, lines_nb);
-	}
+	lines_nb = len / g_screen.ws_col + ((from == 0) ? 1 : 0);
+	if ((len + 1) % g_screen.ws_col == 0)
+		lines_nb += 1;
+	if (lines_nb > 1)
+		position_cursor("UP", 0, lines_nb - 1);
+	position_cursor("ch", 0, 0);
+	putcap("cd");
 	if (from == 0)
 	{
 		position_cursor("ch", 0, len_x);
-		if (len <= g_screen.ws_col)
-			putcap("up");
-		putcap("cd");
+		putcap("up");
 		g_rline.pos = pos_back;
 		move_cursor_from_old_position(g_rline.cmd_len, 'l');
 		return (0);
 	}
-	position_cursor("ch", 0, 0);
-	putcap("cd");
 	return (0);
 }
 

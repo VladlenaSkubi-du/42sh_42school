@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 15:41:23 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/12 15:38:19 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/19 15:37:32 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int			undo_wrap(void)
 
 int			undo_redraw(size_t pos_old)
 {
-	unsigned short	new_x;
+	int	new_x;
 
 	while (pos_old)
 	{
@@ -50,7 +50,9 @@ int			undo_redraw(size_t pos_old)
 		pos_old--;
 	}
 	putcap("cd");
-	ft_putstr_fd(g_rline.cmd, 1);
+	insert_word_by_letters(NULL, g_rline.prompt_len);
+	insert_word_by_letters(g_rline.cmd, 0);
+	// ft_putstr_fd(g_rline.cmd, 1);
 	recount_str_num(g_rline.cmd_len);
 	move_cursor_back_after_print(0);
 	return (0);
