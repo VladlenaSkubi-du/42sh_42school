@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 17:28:46 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/14 21:15:19 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/19 12:06:08 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		nullify_promt_check(t_stack **stack)
 			g_prompt.prompt_func = cursh_prompt;
 		if ((*stack)->data == BSLASH)
 			g_prompt.prompt_func = other_prompt;
-		if ((*stack)->data == EOF)
+		if ((*stack)->data == EOF && g_prompt.prompt_func != heredoc_prompt)
 		{
 			g_prompt.prompt_func = main_prompt; //можно вынести в отдельную функцию
 			error_handler(SYNTAX_ERROR | (ERR_SQUOTE << 9),

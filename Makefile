@@ -73,7 +73,8 @@ REDIRECTION = 		parser/redirection/redirect.c \
 			parser/redirection/redir_types_out.c \
 			parser/redirection/redir_types_in.c \
 			parser/redirection/fd_block.c \
-			parser/redirection/here_doc.c
+			parser/redirection/here_doc.c \
+			parser/redirection/here_doc_buffer.c
 
 SIGNALS = 			signals/signals_processing42.c
 

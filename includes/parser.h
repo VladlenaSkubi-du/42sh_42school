@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/18 22:13:53 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/19 16:56:28 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 
 typedef struct dirent	t_dirent;
 typedef struct stat		t_stat;
+
+# define HEREDOC_BUF 200
 
 /*
 ** Defines for FLAGS
@@ -140,7 +142,11 @@ typedef struct			s_here
 {
 	t_list				*list;
 	t_stop				stop;
-	size_t				start;
+	char				**buf;
+	char				*g_cmd_copy;
+	char				*g_techline_copy;
+	size_t				g_len_copy;
+	int					buf_size;
 }						t_here;
 
 /*
@@ -151,6 +157,7 @@ char					*g_cmd;
 size_t					g_cmd_size;
 t_tech					g_techline;
 t_here					g_heredoc;
+t_list					*g_start_list;
 
 /*
 ** File parser.c
@@ -244,9 +251,17 @@ int						ft_num_or_word_in(char **f_name, t_fd_redir *fd_open,
 int						ft_check_is_heredoc(int	ret);
 int						ft_check_heredoc_end(int ret);
 int						ft_heredoc_fill(int ret);
-int						ft_heredoc_rem(int ret);
+int						ft_heredoc_rem(void);
+int						ft_g_init_heredoc();
 
+/*
+** File here_doc_buffer.c
+*/
 
+int						add_to_heredoc_buf(char ***array, char *add,
+						int *buf_size);
+int						add_line_to_heredoc_fd(char *line_in, int fd);
+int						recover_g_cmd_here(void);
 
 /*
 ** Folder assignment__________________________________________________________

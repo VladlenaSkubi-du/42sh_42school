@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:46:57 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/18 20:55:52 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/19 13:41:54 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int			ft_null_redir(size_t i, long long num)
 
 int			ft_error_redir(t_ltree *final, size_t i, int flag, char **str)
 {
+	ft_heredoc_rem();
 	if (flag == ERR_NO_ACC)
 		error_handler((SYNTAX_ERROR | (ERR_NO_ACC << 9)), *str);
 	else if (flag == ERR_BAD_FD)
@@ -81,7 +82,7 @@ int			ft_find_redirection(t_ltree *final)
 			break ;
 		i++;
 	}
-	return (ft_check_is_heredoc(ret));
+	return (ret);
 }
 
 /*
