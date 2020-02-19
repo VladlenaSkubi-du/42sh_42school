@@ -6,12 +6,15 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 12:26:58 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/19 16:53:26 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/19 20:41:28 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "parser.h"
+
+static const char	g_letters[] =
+"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 int		add_to_heredoc_buf(char ***array, char *add, int *buf_size)
 {
@@ -29,17 +32,26 @@ int		add_to_heredoc_buf(char ***array, char *add, int *buf_size)
 	return (0);
 }
 
-int		add_line_to_heredoc_fd(char *line_in, int fd)
-{
-	int		len;
+/*
+** Function remove "\\n" and and find substitutions
+*/
 
-	len = ft_strlen(line_in);
-	if (line_in[len - 2] == '\\' && line_in[len - 1] == '\n')
+int		null_here_line(void)
+{
+	size_t	i;
+
+	i = -1;
+	while (++i <= g_cmd_size)
 	{
-		line_in[len - 2] = '\0';
-		line_in[len - 1] = '\0';
+		if (g_techline.line[i] == BSLASH && g_techline.line[i + 1] != ENTER)
+			g_techline.line[i + 1] = TEXT;
 	}
-	ft_putstr_fd(line_in, fd);
+	if (g_cmd[g_cmd_size - 2] == '\\' && g_cmd[g_cmd_size - 1] == '\n')
+	{
+		g_cmd[g_cmd_size - 2] = '\0';
+		g_cmd[g_cmd_size - 1] = '\0';
+	}
+	// substitution_replace
 	return (0);
 }
 
@@ -51,5 +63,58 @@ int		recover_g_cmd_here(void)
 	g_techline.line = ft_strdup(g_heredoc.g_cmd_copy);
 	g_techline.len = g_heredoc.g_len_copy;
 	g_techline.alloc_size = g_heredoc.g_len_copy;
+	return (0);
+}
+
+/*
+** Generate a temporary file name based on TMPL.  TMPL must match the
+** rules for mk[s]temp (i.e. end in "XXXXXX").  The name constructed
+** does not exist at the time of the call to mkstemp.  TMPL is
+** overwritten with the result. Implementation of mkstemp by POSIX
+** NOT delete file when closed!!! NEED TO unlink() file
+*/
+
+int		ft_tmpfile(char *tmpl)
+{
+	int		len;
+	char	*tmp;
+	char	*xxx;
+	int		fd;
+	int		buf;
+
+	len = ft_strlen(tmpl);
+	fd = -1;
+	buf = 0;
+	if (len < 6 || ft_strcmp(&tmpl[len - 6], "XXXXXX"))
+		return (-1);
+	tmp = ft_strdup(tmpl);
+	xxx = &tmp[len - 6];
+	while (fd < 0)
+	{
+		len = -1;
+		fd = open("/dev/random", O_RDONLY);
+		while (++len < 6)
+		{
+			read(fd, &buf, 1);
+			xxx[len] = g_letters[(buf + 300) % 62];
+		}
+		close(fd);
+		fd = open(tmp, O_RDWR | O_CREAT | O_EXCL | O_CLOEXEC,
+			S_IREAD | S_IWRITE);
+	}
+	free(tmp);
+	return (fd);
+}
+
+int		here_tab_remove(char **line)
+{
+	size_t	len;
+
+	len = ft_strlen(*line);
+	while ((*line)[0] == '\t')
+	{
+		ft_memmove(&(line[0]), &(line[1]), len);
+		len--;
+	}
 	return (0);
 }

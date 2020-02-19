@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/19 16:56:28 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/19 20:29:57 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ enum					e_way
 	FF,
 	IN_R,
 	OUT_R,
-	CLOSE
+	CLOSE,
+	MINUS
 };
 
 /*
@@ -135,6 +136,7 @@ typedef struct  		s_path
 typedef struct			s_stop
 {
 	char				*stop_w;
+	int					flag;
 	int					fd;
 }						t_stop;
 
@@ -227,10 +229,10 @@ int						ft_access_check(char **f_name, t_ltree *final,
 
 int						ft_redir_less(t_ltree *final, size_t *i);
 int						ft_redir_dless(t_ltree *final, size_t *i);
+int						ft_redir_dless_min(t_ltree *final, size_t *i);
 int						ft_redir_lessand(t_ltree *final, size_t *i);
-int						ft_tmpfile(char *template);
 int						ft_heredoc_form(t_fd_redir *fd_open, char *f_name,
-						t_ltree *final, size_t *i);
+						t_ltree *final, int flag);
 
 /*
 ** File fd_block.c
@@ -252,7 +254,7 @@ int						ft_check_is_heredoc(int	ret);
 int						ft_check_heredoc_end(int ret);
 int						ft_heredoc_fill(int ret);
 int						ft_heredoc_rem(void);
-int						ft_g_init_heredoc();
+int						ft_g_init_heredoc(void);
 
 /*
 ** File here_doc_buffer.c
@@ -260,8 +262,10 @@ int						ft_g_init_heredoc();
 
 int						add_to_heredoc_buf(char ***array, char *add,
 						int *buf_size);
-int						add_line_to_heredoc_fd(char *line_in, int fd);
+int						null_here_line(void);
 int						recover_g_cmd_here(void);
+int						ft_tmpfile(char *template);
+int						here_tab_remove(char **line);
 
 /*
 ** Folder assignment__________________________________________________________
