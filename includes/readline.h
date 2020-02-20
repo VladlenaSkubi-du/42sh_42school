@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/19 13:55:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/20 12:05:03 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define CMD_SIZE	100
 # define OUT		42
 # define TAB		0x1
+# define NEW_LINE	0x2
 
 /*
 ** @t_rline is for the whole readline part:
@@ -45,6 +46,8 @@ typedef struct					s_rline
 	char						*cmd;
 	size_t						cmd_len;
 	size_t						pos;
+	int							pos_x;
+	int							pos_y;
 	size_t						str_num;
 	size_t						prompt_len;
 	size_t						cmd_buff_len;
