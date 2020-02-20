@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 17:55:26 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/19 13:55:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/20 18:47:09 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,40 +30,18 @@
 
 int		key_right_proc(void)
 {
-	unsigned int	i;
-	int	new_x;
-
-	i = 1;
 	if (g_rline.pos >= g_rline.cmd_len)
 		return (incorrect_sequence());
-	position_relative(&new_x, 0, g_rline.pos);
-	if (new_x < g_screen.ws_col - 1 && g_rline.cmd[g_rline.pos] != '\n')
-		putcap("nd");
-	else if (new_x == g_screen.ws_col - 1 || g_rline.cmd[g_rline.pos] == '\n')
-	{
-		putcap("cr");
-		putcap("do");
-	}
+	front_move_one_char_right(g_rline.pos_x);
 	g_rline.pos++;
 	return (0);
 }
 
 int		key_left_proc(void)
 {
-	int	new_x;
-	int	enter_x;
-
-	position_relative(&new_x, 0, g_rline.pos);
 	if (g_rline.pos == 0)
 		return (incorrect_sequence());
-	if (new_x > 0)
-		putcap("le");
-	else if (new_x == 0)
-	{
-		position_relative(&enter_x, 0, g_rline.pos - 1);
-		position_cursor("ch", 0, enter_x);
-		putcap("up");
-	}
+	front_move_one_char_left(g_rline.pos_x);
 	g_rline.pos--;
 	return (0);
 }
@@ -97,7 +75,7 @@ int		clean_rline_cmd(void)
 {
 	while (g_rline.pos)
 		key_left_proc();
-	putcap("cd");
+	tputs(g_cap.cd, 1, printc);
 	free(g_rline.cmd);
 	init_readline();
 	return (0);

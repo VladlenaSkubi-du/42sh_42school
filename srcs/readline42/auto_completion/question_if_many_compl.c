@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:59:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/19 16:25:10 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/20 20:13:08 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,28 @@
 int					ask_output(size_t total, int buf_lines,
 						size_t pos_back, int len_x)
 {
-	char			c;
-	int				len;
-	int				total_len;
-	int				lines_len;
-	char			*question;
+	// char			c;
+	// int				len;
+	// int				total_len;
+	// int				lines_len;
+	// char			*question;
 
-	count_comment_len(&total_len, &lines_len, total, buf_lines);
-	len = 20 + 16 + 18 + total_len + lines_len;
-	insert_word_by_letters(NULL, 0);
-	insert_word_by_letters("e-bash: display all ", 0);
-	question = ft_itoa(total);
-	insert_word_by_letters(question, 0);
-	insert_word_by_letters(" possibilities (", 0);
-	free(question);
-	question = ft_itoa(buf_lines);
-	insert_word_by_letters(question, 0);
-	insert_word_by_letters(" lines)? [y or n] ", 0);
-	free(question);
-	read(STDOUT_FILENO, &c, 1);
-	if (c == 'y' || c == 'Y')
-		return (clean_output_question(1, pos_back, len, len_x));
-	clean_output_question(0, pos_back, len, len_x);
+	// count_comment_len(&total_len, &lines_len, total, buf_lines);
+	// len = 20 + 16 + 18 + total_len + lines_len;
+	// insert_word_by_letters(NULL, 0);
+	// insert_word_by_letters("e-bash: display all ", 0);
+	// question = ft_itoa(total);
+	// insert_word_by_letters(question, 0);
+	// insert_word_by_letters(" possibilities (", 0);
+	// free(question);
+	// question = ft_itoa(buf_lines);
+	// insert_word_by_letters(question, 0);
+	// insert_word_by_letters(" lines)? [y or n] ", 0);
+	// free(question);
+	// read(STDOUT_FILENO, &c, 1);
+	// if (c == 'y' || c == 'Y')
+	// 	return (clean_output_question(1, pos_back, len, len_x));
+	// clean_output_question(0, pos_back, len, len_x);
 	return (1);
 }
 
@@ -91,11 +91,11 @@ int					clean_output_question(int from, size_t pos_back,
 	if (lines_nb > 1)
 		position_cursor("UP", 0, lines_nb - 1);
 	position_cursor("ch", 0, 0);
-	putcap("cd");
+	tputs(g_cap.cd, 1, printc);
 	if (from == 0)
 	{
 		position_cursor("ch", 0, len_x);
-		putcap("up");
+		tputs(g_cap.up, 1, printc);
 		g_rline.pos = pos_back;
 		move_cursor_from_old_position(g_rline.cmd_len, 'l');
 		return (0);

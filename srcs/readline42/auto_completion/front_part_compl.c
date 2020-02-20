@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:46:39 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/19 15:29:47 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/20 20:12:04 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_completion		g_menu_buf;
 int					print_menu(size_t pos_back, char **menu,
 						size_t total, int max_len)
 {
-	int	len_x;
+	int				len_x;
 	int				i;
 
 	i = -1;
@@ -75,15 +75,16 @@ int					print_menu_buf_after_insert(size_t pos_back)
 
 int					after_big_menu(size_t pos_back, int len_x)
 {
-	putcap("sf");
+	tputs(g_cap.sf, 1, printc);
 	g_rline.pos = 0;
 	position_cursor("ch", 0, 0);
-	g_rline.pos = pos_back;
 	g_prompt.prompt_func();
-	// ft_putstr_fd(g_rline.cmd, 1);
-	insert_word_by_letters(NULL, g_rline.prompt_len);
-	insert_word_by_letters(g_rline.cmd, 0);
-	move_cursor_back_after_print(0);
+	g_rline.pos = pos_back;
+	front_insert_cmd_till_the_end();
+	// // ft_putstr_fd(g_rline.cmd, 1);
+	// insert_word_by_letters(NULL, g_rline.prompt_len);
+	// insert_word_by_letters(g_rline.cmd, 0);
+	// move_cursor_back_after_print(0);
 	g_rline.flag &= ~TAB;
 	return (0);
 }
@@ -99,8 +100,8 @@ int					clean_menu(void)
 
 	pos_back = g_rline.pos;
 	position_cursor_for_menu(g_rline.cmd_len);
-	putcap("cd");
-	putcap("up");
+	tputs(g_cap.cd, 1, printc);
+	tputs(g_cap.up, 1, printc);
 	g_rline.pos = pos_back;
 	move_cursor_from_old_position(g_rline.cmd_len, 'l');
 	clean_menu_buf();

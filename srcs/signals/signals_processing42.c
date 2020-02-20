@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 12:43:36 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/18 19:47:36 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/20 20:11:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int					signal_ctrl_c(void)
 			g_rline.pos = g_rline.cmd_len;
 			move_cursor_from_old_position(pos_old, 'r');
 		}
-		putcap("cd");
+		tputs(g_cap.cd, 1, printc);
 	}
 	if (g_prompt.prompt_func != main_prompt)
 		g_prompt.prompt_func = main_prompt;
@@ -60,11 +60,12 @@ int					signal_ctrl_d(void)
 		ft_strcpy(g_rline.cmd + g_rline.pos, swap);
 		ft_bzero(g_rline.cmd + g_rline.pos + len_swap,
 			g_rline.cmd_buff_len - g_rline.cmd_len);
-		putcap("cd");
-		ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
-		recount_str_num(g_rline.cmd_len - 1);
+		tputs(g_cap.cd, 1, printc);
+		front_insert_cmd_till_the_end();
+		// ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
+		// recount_str_num(g_rline.cmd_len - 1);
 		g_rline.cmd_len--;
-		move_cursor_back_after_print(1);
+		// move_cursor_back_after_print(1);
 	}
 	else
 		return (incorrect_sequence());

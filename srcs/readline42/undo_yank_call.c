@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 15:41:23 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/19 15:37:32 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/20 18:40:40 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,28 @@ int			undo_wrap(void)
 
 int			undo_redraw(size_t pos_old)
 {
-	int	new_x;
+	// int	new_x;
 
 	while (pos_old)
 	{
-		position_relative(&new_x, 0, pos_old);
-		if (pos_old == 0)
-			return (incorrect_sequence());
-		if (new_x > 0)
-			putcap("le");
-		else if (new_x == 0)
-		{
-			position_cursor("ch", 0, g_screen.ws_col - 1);
-			putcap("up");
-		}
+		// position_relative(&new_x, 0, pos_old);
+		// if (pos_old == 0)
+		// 	return (incorrect_sequence());
+		// if (new_x > 0)
+		// 	putcap("le");
+		// else if (new_x == 0)
+		// {
+		// 	position_cursor("ch", 0, g_screen.ws_col - 1);
+		// 	putcap("up");
+		// }
 		pos_old--;
 	}
-	putcap("cd");
-	insert_word_by_letters(NULL, g_rline.prompt_len);
-	insert_word_by_letters(g_rline.cmd, 0);
-	// ft_putstr_fd(g_rline.cmd, 1);
-	recount_str_num(g_rline.cmd_len);
-	move_cursor_back_after_print(0);
+	// putcap("cd");
+	// insert_word_by_letters(NULL, g_rline.prompt_len);
+	// insert_word_by_letters(g_rline.cmd, 0);
+	// // ft_putstr_fd(g_rline.cmd, 1);
+	// recount_str_num(g_rline.cmd_len);
+	// move_cursor_back_after_print(0);
 	return (0);
 }
 

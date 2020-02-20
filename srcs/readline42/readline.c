@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:53:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/10 17:03:53 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/20 20:30:27 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	*readline(void)
 {
 	char			temp;
 
+	init_termcap();
 	while (read(1, &temp, 1) && temp != '\n')
 	{
 		if (ioctl(1, TIOCGWINSZ, &g_screen))
@@ -63,9 +64,27 @@ char	*readline(void)
 
 void	init_readline(void)
 {
+	if (g_prompt.prompt_func == main_prompt)
+		g_rline.prompt_len = ft_strlen("e-bash> ");
+	else if (g_prompt.prompt_func == dquote_prompt)
+		g_rline.prompt_len = ft_strlen("dquote> ");
+	else if (g_prompt.prompt_func == heredoc_prompt)
+		g_rline.prompt_len = ft_strlen("heredoc> ");
+	else if (g_prompt.prompt_func == other_prompt)
+		g_rline.prompt_len = ft_strlen("> ");
+	else if (g_prompt.prompt_func == pipe_prompt)
+		g_rline.prompt_len = ft_strlen("pipe> ");
+	else if (g_prompt.prompt_func == subshell_prompt)
+		g_rline.prompt_len = ft_strlen("subshell> ");
+	else if (g_prompt.prompt_func == cursh_prompt)
+		g_rline.prompt_len = ft_strlen("cursh> ");
+	else if (g_prompt.prompt_func == cmdandor_prompt)
+		g_rline.prompt_len = ft_strlen("cmdandor> ");
 	g_rline.cmd = (char *)ft_xmalloc(CMD_SIZE + 1);
 	g_rline.cmd_len = 0;
 	g_rline.pos = 0;
+	g_rline.pos_x = g_rline.prompt_len;
+	g_rline.pos_y = 0;
 	g_rline.str_num = 1;
 	g_rline.cmd_buff_len = CMD_SIZE + 1;
 	g_rline.flag = 0;
