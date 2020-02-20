@@ -329,3 +329,20 @@ g_hist.hist[g_hist.start], g_hist.last, g_hist.len);
 
 на очень узком терминале при нажатии на таба на программы - 
 большое меню- floating point exception
+
+if (j == g_screen.ws_col - 1 && g_rline.cmd[i] != '\n')
+			flag = 1;
+		if (g_rline.cmd[i] == '\n')
+			flag = 2;
+		j++;
+		i++;
+		if (flag == 1)
+		{
+			if (i < analyse && g_rline.cmd[g_rline.])
+		}
+		if (flag == 1 || flag == 2)
+		{
+			((i < analyse && flag == 1) || flag == 2) ? k++ : 0;
+			j = 0;
+			flag = 0;
+		}

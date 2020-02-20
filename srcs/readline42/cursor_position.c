@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:07:05 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/19 17:40:46 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/19 20:48:25 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int					position_relative(int *x,
 						int *y, size_t analyse)
 {
 	size_t			i;
-	int	j;
-	int	k;
+	int				j;
+	int				k;
 	int				flag;
 
 	i = 0;
@@ -27,18 +27,7 @@ int					position_relative(int *x,
 	flag = 0;
 	while (i < analyse && i < g_rline.cmd_len)
 	{
-		if (j == g_screen.ws_col - 1 && g_rline.cmd[i] != '\n')
-			flag = 1;
-		else if (g_rline.cmd[i] == '\n')
-			flag = 2;
-		j++;
 		i++;
-		if (flag == 1 || flag == 2)
-		{
-			((i < analyse && flag == 1) || flag == 2) ? k++ : 0;
-			j = 0;
-			flag = 0;
-		}
 	}
 	(x) ? *x = j : 0;
 	(y) ? *y = k : 0;
@@ -63,7 +52,7 @@ int					move_cursor_back_after_print(short flag)
 			tmp = 1;
 	}
 	position_cursor("ch", 0, new_x);
-	if (new_x == g_screen.ws_col - 1)
+	if (new_x == g_screen.ws_col - 1 && g_rline.cmd[g_rline.pos] != '\n')
 		putcap("up");
 	if (g_rline.str_num + tmp - new_y == 1)
 		putcap("up");
