@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/19 20:45:24 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/20 16:01:53 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ enum					e_way
 	MINUS
 };
 
+typedef	struct			s_word
+{
+	size_t				start;
+	size_t				len;
+}						t_word;
+
 /*
 ** Struct to save and work with techline
 */
@@ -85,8 +91,8 @@ typedef struct  		s_ltree
 	size_t				end;
 	t_list				*fd;
 	char				**envir;
-	char				**args_v;
-	int					args_c;
+	char				**ar_v;
+	int					ar_c;
 	int					flags;
 }              			t_ltree;
 
@@ -194,6 +200,8 @@ t_ltree					*ft_check_andor_pipes(t_ltree *block, t_ltree *final,\
 */
 
 int						before_exec(t_ltree *sub);
+int						argv_forming(t_ltree *sub);
+t_word					ft_give_me_word(char const *s, char c, size_t len);
 
 /*
 ** Folder redirection_________________________________________________________

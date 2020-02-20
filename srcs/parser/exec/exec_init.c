@@ -71,17 +71,15 @@ int		get_argc(size_t pos_start, size_t pos_end)
 
 int		exec_init(t_ltree *pos)
 {
-	char	*exec_cmd;
-	char	**exec_av;
-//	int		exec_ac;
+	// char	*exec_cmd;
+	// char	**exec_av;
+	// int		exec_ac;
 
-	exec_cmd = (char *)ft_xmalloc(pos->end - pos->start + 2);
-	ft_memcpy(exec_cmd, g_cmd + pos->start, pos->end - pos->start);
-//	if ((exec_ac = get_argc(pos_start, pos_end)) == -1)
-//		return (-1);
-	if (!(exec_av = get_argv(exec_cmd)))
-		return (-1);
-	free(exec_cmd);
+	// exec_cmd = (char *)ft_xmalloc(pos->end - pos->start + 2);
+	// ft_memcpy(exec_cmd, g_cmd + pos->start, pos->end - pos->start);
+	// if ((exec_ac = get_argc(pos_start, pos_end)) == -1)
+	// 	return (-1);
+	// free(exec_cmd);
 	ft_lstclear(&pos->fd); // временно для проверки!!!
-	return (exec_core(exec_av, pos->flags));
+	return (exec_core(pos->ar_v, pos->flags));
 }
