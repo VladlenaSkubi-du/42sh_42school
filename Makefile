@@ -91,6 +91,7 @@ LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_add_list.c \
 			libft_42/ft_realloc_array.c \
 			libft_42/ft_lstclear.c \
+			libft_42/ft_count_words.c \
 			$(STACK_STRUCTURE)
 
 STACK_STRUCTURE = 	libft_42/stack_structure/ft_init_stack.c \
