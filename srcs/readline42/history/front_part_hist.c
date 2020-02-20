@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 13:14:32 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/02/19 15:30:24 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/20 20:14:02 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int					make_ctrl_r_history(void)
 	position_cursor_for_menu(g_rline.cmd_len);
 	len = 22;
 	// ft_putstr_fd("We search in history: ", STDOUT_FILENO);
-	insert_word_by_letters(NULL, 0);
-	insert_word_by_letters("We search in history: ", 0);
+	// insert_word_by_letters(NULL, 0);
+	// insert_word_by_letters("We search in history: ", 0);
 	find = get_the_answer_hist(&len);
 	clean_output_question(0, pos_back, len, len_x);
 	if (find == NULL)

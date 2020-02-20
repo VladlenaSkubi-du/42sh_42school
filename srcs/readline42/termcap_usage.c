@@ -6,27 +6,49 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:53:06 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/20 18:35:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
-#define TERMCAP_SIZE 20
 
 int				printc(int c)
 {
 	return (write(1, &c, 1));
 }
 
-/*static char	*left;
-static char	*right;
-static char	*up;
-static char	*down;
-static char	*cd_clear;
-static char	*scroll;
-static char	*absolute_line;
+/*
+** @g_cap.sf - code for scroll down one line in terminal
+** @g_cap.le - code for left one column from the current cursor position
+** @g_cap.nd - code for right one column from the current cursor position
+** @g_cap.up - code for up one line from the current cursor position
+** @g_cap.dow - code for down one line from the current cursor position
+** @g_cap.cd - code for clearing everything from the current cursor position
+** till the end of the terminal
+** @g_cap.cr - code for jumping to the end of the current line
 */
+
+int				init_termcap(void)
+{
+	char		*ptr;
+	
+	ptr = g_cap.sf;
+	tgetstr("sf", &ptr);
+	ptr = g_cap.le;
+	tgetstr("le", &ptr);
+	ptr = g_cap.nd;
+	tgetstr("nd", &ptr);
+	ptr = g_cap.up;
+	tgetstr("up", &ptr);
+	ptr = g_cap.dow;
+	tgetstr("do", &ptr);
+	ptr = g_cap.cd;
+	tgetstr("cd", &ptr);
+	ptr = g_cap.cr;
+	tgetstr("cr", &ptr);
+	return (0);
+}
 
 int				putcap(char *cap) //TODO наиболее используемые капы сохранить
 {

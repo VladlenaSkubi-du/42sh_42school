@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 17:21:19 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/19 15:31:35 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/20 19:14:17 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			make_ctrl_k(void)
 	save_yank = ft_strdup(g_rline.cmd + g_rline.pos);
 	g_rline.cmd_len -= ft_strlen(g_rline.cmd + g_rline.pos);
 	make_ctrl_y(0, save_yank);
-	putcap("cd");
+	tputs(g_cap.cd, 1, printc);
 	ft_bzero(g_rline.cmd + g_rline.pos, ft_strlen(g_rline.cmd + g_rline.pos));
 	return (0);
 }
@@ -43,17 +43,15 @@ int			make_ctrl_u(void)
 	make_ctrl_y(0, save_yank);
 	swap = g_rline.cmd + g_rline.pos;
 	len_swap = ft_strlen(swap);
+	front_set_cursor_jmp(&g_rline.pos,
+		&g_rline.pos_x, &g_rline.pos_y, 1);
 	while (g_rline.pos)
 		key_left_proc();
-	g_rline.cmd_len = 0 + len_swap;
 	ft_strcpy(g_rline.cmd, swap);
 	ft_bzero(g_rline.cmd + len_swap, g_rline.cmd_buff_len - len_swap);
-	putcap("cd");
-	// ft_putstr_fd(g_rline.cmd, 1);
-	insert_word_by_letters(NULL, g_rline.prompt_len);
-	insert_word_by_letters(g_rline.cmd, 0);
-	recount_str_num(g_rline.cmd_len);
-	move_cursor_back_after_print(0);
+	g_rline.cmd_len = 0 + len_swap;
+	tputs(g_cap.cd, 1, printc);
+	front_insert_cmd_till_the_end();
 	return (0);
 }
 
@@ -74,7 +72,7 @@ int			make_ctrl_e(void)
 
 	check_menu();
 	pos_old = g_rline.pos;
-	g_rline.pos = g_rline.cmd_len - 1;
+	g_rline.pos = g_rline.cmd_len;
 	move_cursor_from_old_position(pos_old, 'r');
 	return (0);
 }
@@ -91,6 +89,8 @@ int			make_ctrl_w(void)
 	pos_old = g_rline.pos;
 	if (word_left_proc())
 		return (0);
+	front_set_cursor_jmp(&g_rline.pos,
+		&g_rline.pos_x, &g_rline.pos_y, 1);
 	save_yank = ft_strndup(g_rline.cmd + g_rline.pos, pos_old);
 	make_ctrl_y(0, save_yank);
 	swap = g_rline.cmd + pos_old;
@@ -99,11 +99,7 @@ int			make_ctrl_w(void)
 	ft_strcpy(g_rline.cmd + g_rline.pos, swap);
 	ft_bzero(g_rline.cmd + g_rline.pos + len_swap,
 		g_rline.cmd_buff_len - g_rline.cmd_len);
-	putcap("cd");
-	insert_word_by_letters(NULL, g_rline.prompt_len);
-	insert_word_by_letters(g_rline.cmd + g_rline.pos, 0);
-	// ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
-	recount_str_num(g_rline.cmd_len);
-	move_cursor_back_after_print(0);
+	tputs(g_cap.cd, 1, printc);
+	front_insert_cmd_till_the_end();
 	return (0);
 }

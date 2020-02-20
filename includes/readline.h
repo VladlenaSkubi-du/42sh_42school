@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/20 12:05:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/20 20:34:02 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "readline_simple.h"
 # include "get_next_line.h" //If not used, delete
 
+# define TERMCAP_SIZE 20
 # define CMD_SIZE	100
 # define OUT		42
 # define TAB		0x1
@@ -53,6 +54,21 @@ typedef struct					s_rline
 	size_t						cmd_buff_len;
 	short						flag;
 }								t_rline;
+
+/*
+** The main termcap codes used
+*/
+
+typedef struct					s_cap
+{
+	char						sf[TERMCAP_SIZE];
+	char						le[TERMCAP_SIZE];
+	char						nd[TERMCAP_SIZE];
+	char						up[TERMCAP_SIZE];
+	char						dow[TERMCAP_SIZE];
+	char						cd[TERMCAP_SIZE];
+	char						cr[TERMCAP_SIZE];
+}								t_cap;
 
 /*
 ** @t_action_stack is for the "ctrl-x ctrl-u" action:
@@ -99,6 +115,7 @@ typedef struct					s_completion
 
 t_rline							g_rline;
 struct winsize					g_screen;
+t_cap							g_cap;
 // struct termios					g_tty; //TODO убрать, если
 struct termios					g_backup_tty;
 
@@ -110,7 +127,6 @@ int								interactive_shell(void);
 int								start_readline42(int tmp);
 char							*finalize_cmd(char *cmd);
 int								clean_readline42(void);
-int								init_prompt(char flag); //TODO DELETE
 
 /*
 ** File readline.c - the beginning of the work with readline
@@ -153,6 +169,7 @@ int								back_to_noncanonical_input(void);
 int								putcap(char *cap);
 int								printc(int c);
 int								position_cursor(char *cap, int x, int y);
+int								init_termcap(void);
 
 /*
 ** File str_edit.c - universal functions for changing the main command-string
@@ -162,8 +179,6 @@ int								position_cursor(char *cap, int x, int y);
 int								char_add(char c);
 int								str_shift(char *str, int shift);
 int								insert_char(char c);
-int								insert_line_till_the_end(size_t beg, size_t end);
-int								recount_str_num(size_t limit);
 
 /*
 ** File escape.c - router to the functions performing actions with
@@ -188,14 +203,23 @@ int								ctrl_call(size_t call_num);
 ** and move it after actions
 */
 
-unsigned int					on_which_line(size_t cmd_pos,
-									int col);
 int								position_relative(int *x,
 									int *y, size_t analyse);
-int								move_cursor_back_after_print(short flag);
+int								change_xy_by_terminal(int *xx,
+									int *yy, size_t *i);
 int								move_cursor_from_old_position(size_t pos_old,
 									char direction);
-int								insert_word_by_letters(char *insert, size_t start);
+
+/*
+** File front_cursor_changes.c
+*/
+
+int								front_set_cursor_jmp(size_t *pos, int *pos_x,
+									int *pos_y, int flag);
+int								front_insert_one_char(char c);
+int								front_move_one_char_right(int pos_x);
+int								front_move_one_char_left(int pos_x);
+int								front_insert_cmd_till_the_end(void);
 
 /*
 ** File undo_yank_call.c

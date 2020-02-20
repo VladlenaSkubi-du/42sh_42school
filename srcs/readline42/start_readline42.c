@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_readline42.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/17 13:40:19 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/02/20 20:33:51 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,4 @@ char			*finalize_cmd(char *cmd)
 		out = ft_strjoin(cmd, "\n");
 	}
 	return (out);
-}
-
-int				init_prompt(char flag)
-{
-	if (flag == 'm')
-		g_prompt.prompt_func = main_prompt;
-	else if (flag == 'd')
-		g_prompt.prompt_func = dquote_prompt;
-	else if (flag == 'h')
-		g_prompt.prompt_func = heredoc_prompt;
-	else if (flag == 'o')
-		g_prompt.prompt_func = other_prompt;
-	g_prompt.prompt_func();
-	return (0);
 }

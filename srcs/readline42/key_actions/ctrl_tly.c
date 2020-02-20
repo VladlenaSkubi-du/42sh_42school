@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 19:38:44 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/19 15:33:15 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/20 19:20:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,73 +19,68 @@ int			make_ctrl_l(void)
 
 	check_menu();
 	pos_back = g_rline.pos;
-	g_rline.pos = 0;
-	move_cursor_from_old_position(pos_back, 'l');
-	position_cursor("ch", 0, 0);
-	putcap("cd");
+	front_set_cursor_jmp(&g_rline.pos,
+		&g_rline.pos_x, &g_rline.pos_y, 1);
 	putcap("cl");
-	g_rline.pos = pos_back;
 	g_prompt.prompt_func();
-	insert_word_by_letters(NULL, g_rline.prompt_len);
-	insert_word_by_letters(g_rline.cmd, 0);
-	// ft_putstr_fd(g_rline.cmd, 1);
-	move_cursor_back_after_print(0);
+	g_rline.pos = 0;
+	front_insert_cmd_till_the_end();
 	return (0);
 }
 
 int			make_ctrl_t(void)
 {
-	size_t			pos_old;
+	// size_t			pos_old;
 
-	check_menu();
-	if (g_rline.cmd_len == 1)
-		return (incorrect_sequence());
-	undo(0);
-	if (g_rline.pos == 0 || g_rline.pos == g_rline.cmd_len)
-		return (make_ctrl_t_begend(g_rline.cmd_len));
-	else
-	{
-		swap_chars(g_rline.cmd, g_rline.pos, g_rline.pos - 1);
-		pos_old = g_rline.pos;
-		g_rline.pos--;
-		move_cursor_from_old_position(pos_old, 'l');
-		putcap("cd");
-		insert_word_by_letters(NULL, g_rline.prompt_len);
-		insert_word_by_letters(g_rline.cmd + g_rline.pos, 0);
-		// ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
-		g_rline.pos = pos_old + 1;
-		move_cursor_back_after_print(0);
-	}
+	// check_menu();
+	// if (g_rline.cmd_len == 1)
+	// 	return (incorrect_sequence());
+	// undo(0);
+	// if (g_rline.pos == 0 || g_rline.pos == g_rline.cmd_len)
+	// 	return (make_ctrl_t_begend(g_rline.cmd_len));
+	// else
+	// {
+	// 	swap_chars(g_rline.cmd, g_rline.pos, g_rline.pos - 1);
+	// 	pos_old = g_rline.pos;
+	// 	g_rline.pos--;
+	// 	move_cursor_from_old_position(pos_old, 'l');
+	// 	putcap("cd");
+	// 	insert_word_by_letters(NULL, g_rline.prompt_len);
+	// 	insert_word_by_letters(g_rline.cmd + g_rline.pos, 0);
+	// 	// ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
+	// 	g_rline.pos = pos_old + 1;
+	// 	move_cursor_back_after_print(0);
+	// }
 	return (0);
 }
 
 int			make_ctrl_t_begend(size_t len)
 {
-	size_t			pos_old;
+	// size_t			pos_old;
 
-	if (g_rline.pos == 0)
-	{
-		swap_chars(g_rline.cmd, g_rline.pos + 1, g_rline.pos);
-		putcap("cd");
-		insert_word_by_letters(NULL, g_rline.prompt_len);
-		insert_word_by_letters(g_rline.cmd, 0);
-		// ft_putstr_fd(g_rline.cmd, 1);
-		g_rline.pos += 2;
-		move_cursor_back_after_print(0);
-	}
-	else if (g_rline.pos == len)
-	{
-		swap_chars(g_rline.cmd, g_rline.pos - 1, g_rline.pos - 2);
-		pos_old = g_rline.pos;
-		g_rline.pos -= 2;
-		move_cursor_from_old_position(pos_old, 'l');
-		putcap("cd");
-		insert_word_by_letters(NULL, g_rline.prompt_len);
-		insert_word_by_letters(g_rline.cmd + g_rline.pos, 0);
-		// ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
-		g_rline.pos = pos_old;
-		move_cursor_back_after_print(0);
-	}
+	// if (g_rline.pos == 0)
+	// {
+	// 	swap_chars(g_rline.cmd, g_rline.pos + 1, g_rline.pos);
+	// 	putcap("cd");
+	// 	insert_word_by_letters(NULL, g_rline.prompt_len);
+	// 	insert_word_by_letters(g_rline.cmd, 0);
+	// 	// ft_putstr_fd(g_rline.cmd, 1);
+	// 	g_rline.pos += 2;
+	// 	move_cursor_back_after_print(0);
+	// }
+	// else if (g_rline.pos == len)
+	// {
+	// 	swap_chars(g_rline.cmd, g_rline.pos - 1, g_rline.pos - 2);
+	// 	pos_old = g_rline.pos;
+	// 	g_rline.pos -= 2;
+	// 	move_cursor_from_old_position(pos_old, 'l');
+	// 	putcap("cd");
+	// 	insert_word_by_letters(NULL, g_rline.prompt_len);
+	// 	insert_word_by_letters(g_rline.cmd + g_rline.pos, 0);
+	// 	// ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
+	// 	g_rline.pos = pos_old;
+	// 	move_cursor_back_after_print(0);
+	// }
 	return (0);
 }
 
@@ -119,26 +114,26 @@ int			make_ctrl_y(int mode, char *yank)
 
 int			yank_insert(char *yank_str, size_t len_yank)
 {
-	char			*save;
-	size_t			i;
+	// char			*save;
+	// size_t			i;
 
-	if (g_rline.pos < g_rline.cmd_len && g_rline.cmd[g_rline.pos])
-	{
-		save = ft_strdup(g_rline.cmd + g_rline.pos);
-		ft_bzero(g_rline.cmd + g_rline.pos, g_rline.cmd_buff_len - g_rline.pos);
-	}
-	else
-		save = NULL;
-	putcap("cd");
-	i = -1;
-	while (yank_str[++i])
-		char_add(yank_str[i]);
-	if (save)
-		ft_strcpy(g_rline.cmd + g_rline.pos, save);
-	insert_word_by_letters(NULL, g_rline.prompt_len);
-	insert_word_by_letters(g_rline.cmd + g_rline.pos, 0);
-	// ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
-	move_cursor_back_after_print(1);
-	free(save);
+	// if (g_rline.pos < g_rline.cmd_len && g_rline.cmd[g_rline.pos])
+	// {
+	// 	save = ft_strdup(g_rline.cmd + g_rline.pos);
+	// 	ft_bzero(g_rline.cmd + g_rline.pos, g_rline.cmd_buff_len - g_rline.pos);
+	// }
+	// else
+	// 	save = NULL;
+	// putcap("cd");
+	// i = -1;
+	// while (yank_str[++i])
+	// 	char_add(yank_str[i]);
+	// if (save)
+	// 	ft_strcpy(g_rline.cmd + g_rline.pos, save);
+	// insert_word_by_letters(NULL, g_rline.prompt_len);
+	// insert_word_by_letters(g_rline.cmd + g_rline.pos, 0);
+	// // ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
+	// move_cursor_back_after_print(1);
+	// free(save);
 	return (0);
 }
