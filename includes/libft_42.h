@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_42.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:46:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/20 15:49:09 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/21 16:00:09 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char				            **ft_realloc_array(char ***subj, int len_subj,
 void	                        ft_lstclear(t_list **begin_list);
 size_t	                        ft_count_words(char const *s, char c,
                                     size_t len);
+size_t			                ft_strlenchri(const char *s, char c);
 
 /*
 ** Folder stask_structure______________________________________________________

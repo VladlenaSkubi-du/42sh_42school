@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:46:39 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/20 20:12:04 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/21 19:30:52 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int					print_menu(size_t pos_back, char **menu,
 	int				i;
 
 	i = -1;
-	position_relative(&len_x, 0, g_rline.cmd_len);
+	len_x = 0;
+	// position_relative(&len_x, 0, g_rline.cmd_len);
 	position_cursor_for_menu(g_rline.cmd_len);
 	g_menu_buf = menu_buf_init(total, max_len);
 	if (g_screen.ws_row - g_rline.str_num >= g_menu_buf.buf_lines)
@@ -59,7 +60,8 @@ int					print_menu_buf_after_insert(size_t pos_back)
 {
 	int	len_x;
 
-	position_relative(&len_x, 0, g_rline.cmd_len);
+	len_x = 0;
+	// position_relative(&len_x, 0, g_rline.cmd_len);
 	position_cursor_for_menu(g_rline.cmd_len);
 	buffer_col_finish(&g_menu_buf);
 	position_cursor_after_menu_back(len_x, g_menu_buf.buf_lines,

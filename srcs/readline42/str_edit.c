@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:16:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/20 19:06:06 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/21 19:29:36 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,22 +68,22 @@ int					insert_char(char c)
 
 int					insert_line_till_the_end(size_t beg, size_t end)
 {
-	size_t			i;
-	int				new_x;
-	int				end_y;
-	char			c;
+	// size_t			i;
+	// int				new_x;
+	// int				end_y;
+	// char			c;
 
-	i = beg;
-	while (i < end)
-	{
-		c = g_rline.cmd[i];
-		write(STDOUT_FILENO, &c, 1);
-		position_relative(&new_x, 0, i);
-		if (new_x == g_screen.ws_col - 1 && c != '\n')
-			putcap("sf");
-		i++;
-	}
-	position_relative(0, &end_y, g_rline.cmd_len - 1);
-	g_rline.str_num = end_y;
-	return (0);
+	// i = beg;
+	// while (i < end)
+	// {
+	// 	c = g_rline.cmd[i];
+	// 	write(STDOUT_FILENO, &c, 1);
+	// 	position_relative(&new_x, 0, i);
+	// 	if (new_x == g_screen.ws_col - 1 && c != '\n')
+	// 		putcap("sf");
+	// 	i++;
+	// }
+	// position_relative(0, &end_y, g_rline.cmd_len - 1);
+	// g_rline.str_num = end_y;
+	// return (0);
 }

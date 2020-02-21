@@ -6,49 +6,32 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:07:05 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/20 18:35:53 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/21 19:49:28 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
 
-int					change_xy_by_terminal(int *xx, int *yy, size_t *i)
+int					count_x_position_new_line(size_t nl_pos)
 {
-	if (*xx < g_screen.ws_col - 1)
-        (*xx)++;
-    else
-    {
-        *xx = 0;
-        (*yy)++;
-    }
-	(*i)++;
-	return (0);
-}
-
-int					position_relative(int *x, int *y, size_t analyse)
-{
-	size_t			i;
-	int				xx;
-	int				yy;
-
-	i = 0;
-	xx = g_rline.prompt_len;
-	yy = 0;
-	while (i <= analyse && i < g_rline.cmd_len)
+	int				len;
+	
+	len = 0;
+	while (nl_pos)
 	{
-		if (i > 0 && g_rline.cmd[i - 1] == '\n')
-        {
-            yy++;
-            xx = 0;
-			i++;
-			continue ;
-        }
-        change_xy_by_terminal(&xx, &yy, &i);
+		len++;
+		if (g_rline.cmd[nl_pos] == '\n')
+			break ;
+		nl_pos--;
 	}
-	(x) ? *x = xx : 0;
-	(y) ? *y = yy : 0;
-	return (0);
+	if (nl_pos > 0)
+		len -= 1;
+	else
+		len += g_rline.prompt_len + 1;
+	if (len >= g_screen.ws_col)
+		len = len % g_screen.ws_col;
+	return (len);
 }
 
 /*

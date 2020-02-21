@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/20 20:34:02 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/21 19:26:00 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@
 # include "readline_simple.h"
 # include "get_next_line.h" //If not used, delete
 
-# define TERMCAP_SIZE 20
-# define CMD_SIZE	100
-# define OUT		42
-# define TAB		0x1
-# define NEW_LINE	0x2
+# define TERMCAP_SIZE 	20
+# define CMD_SIZE		100
+# define TAB			0x1
+# define NEW_LINE_SY	0x2
+# define NEW_LINE_TE	0x4
 
 /*
 ** @t_rline is for the whole readline part:
@@ -203,10 +203,7 @@ int								ctrl_call(size_t call_num);
 ** and move it after actions
 */
 
-int								position_relative(int *x,
-									int *y, size_t analyse);
-int								change_xy_by_terminal(int *xx,
-									int *yy, size_t *i);
+int								count_x_position_new_line(size_t nl_pos);
 int								move_cursor_from_old_position(size_t pos_old,
 									char direction);
 
