@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 16:59:26 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/20 19:05:09 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/21 19:48:03 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,12 @@ int					front_insert_one_char(char c)
 		g_rline.pos_y++;
 		g_rline.str_num++;
 		write(STDOUT_FILENO, &c, 1);
+		if (g_rline.flag & NEW_LINE_TE)
+		{
+			g_rline.str_num++;
+			g_rline.flag &= ~(NEW_LINE_TE);
+		}
+		g_rline.flag |= NEW_LINE_SY;
 		return (0);
 	}
 	if (g_rline.pos_x == g_screen.ws_col - 1)
@@ -63,11 +69,14 @@ int					front_insert_one_char(char c)
 		tputs(g_cap.sf, 1, printc);
 		g_rline.pos_x = 0;
 		g_rline.pos_y++;
+		g_rline.flag |= NEW_LINE_TE;
 		return (0);
 	}
 	write(STDOUT_FILENO, &c, 1);
-	if (g_rline.pos_x == 0)
+	if (g_rline.pos_x == 0 && !(g_rline.flag & NEW_LINE_SY))
 		g_rline.str_num++;
+	else if (g_rline.pos_x == 0 && (g_rline.flag & NEW_LINE_SY))
+		g_rline.flag &= ~(NEW_LINE_SY);
 	g_rline.pos_x++;
 	return (0);
 }
@@ -98,8 +107,9 @@ int					front_move_one_char_right(int pos_x)
 
 int					front_move_one_char_left(int pos_x)
 {
-	int				enter_x;
+	int				prev_x;
 
+	prev_x = 0;
 	if (pos_x > 0)
 	{
 		tputs(g_cap.le, 1, printc);
@@ -107,10 +117,13 @@ int					front_move_one_char_left(int pos_x)
 	}
 	else if (pos_x == 0)
 	{
-		position_relative(&enter_x, 0, g_rline.pos - 1);
-		position_cursor("ch", 0, enter_x);
+		if (g_rline.cmd[g_rline.pos - 1] == '\n')
+			prev_x = count_x_position_new_line(g_rline.pos - 2);
+		else
+			prev_x = g_screen.ws_col - 1;
+		position_cursor("ch", 0, prev_x);
 		tputs(g_cap.up, 1, printc);
-		g_rline.pos_x = enter_x;
+		g_rline.pos_x = prev_x;
 		g_rline.pos_y--;
 	}
 	return (0);
@@ -118,17 +131,14 @@ int					front_move_one_char_left(int pos_x)
 
 int					front_insert_cmd_till_the_end(void)
 {
-	int				i;
 	size_t			pos_back;
 	int				pos_x_back;
 	int				pos_y_back;
 
-	i = -1;
-	while (g_rline.pos + i != g_rline.cmd_len)
+	while (g_rline.pos != g_rline.cmd_len)
 	{
-		front_insert_one_char(g_rline.cmd[g_rline.pos + i]);
+		front_insert_one_char(g_rline.cmd[g_rline.pos]);
 		g_rline.pos++;
-		i++;
 	}
 	front_set_cursor_jmp(&pos_back, &pos_x_back, &pos_y_back, 0);
 	move_cursor_from_old_position(pos_back, 'l');

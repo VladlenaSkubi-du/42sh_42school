@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:53:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/20 20:30:27 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/21 12:28:51 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ char	*readline(void)
 		if (readline_choice(temp) == OUT)
 			break ;
 	}
-	if (g_rline.cmd_len > 0)
-	{
-		check_menu();
-		position_cursor_for_menu(g_rline.cmd_len);
-		putcap("cd");
-	}
-	else
+	// if (g_rline.cmd_len > 0)
+	// {
+	// 	check_menu();
+	// 	position_cursor_for_menu(g_rline.cmd_len);
+	// 	putcap("cd");
+	// }
+	// else
 		ft_putendl_fd(0, STDIN_FILENO);
 	action_alloc_management(NULL, 1);
 	return (g_rline.cmd);
