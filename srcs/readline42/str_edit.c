@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:16:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/21 19:29:36 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/22 20:34:07 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int					insert_char(char c)
 		tputs(g_cap.cd, 1, printc);
 		front_insert_one_char(g_rline.cmd[g_rline.pos]);
 		g_rline.pos++;
-		front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
+		front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x,
+			&g_rline.pos_y, 1);
 		front_insert_cmd_till_the_end();
 	}
 	else
@@ -64,26 +65,4 @@ int					insert_char(char c)
 		front_insert_one_char(c);
 	}
 	return (0);
-}
-
-int					insert_line_till_the_end(size_t beg, size_t end)
-{
-	// size_t			i;
-	// int				new_x;
-	// int				end_y;
-	// char			c;
-
-	// i = beg;
-	// while (i < end)
-	// {
-	// 	c = g_rline.cmd[i];
-	// 	write(STDOUT_FILENO, &c, 1);
-	// 	position_relative(&new_x, 0, i);
-	// 	if (new_x == g_screen.ws_col - 1 && c != '\n')
-	// 		putcap("sf");
-	// 	i++;
-	// }
-	// position_relative(0, &end_y, g_rline.cmd_len - 1);
-	// g_rline.str_num = end_y;
-	// return (0);
 }

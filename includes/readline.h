@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/21 19:26:00 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/22 21:24:56 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ int								init_termcap(void);
 int								char_add(char c);
 int								str_shift(char *str, int shift);
 int								insert_char(char c);
+int								front_insert_by_letters(char *str);
 
 /*
 ** File escape.c - router to the functions performing actions with
@@ -206,13 +207,14 @@ int								ctrl_call(size_t call_num);
 int								count_x_position_new_line(size_t nl_pos);
 int								move_cursor_from_old_position(size_t pos_old,
 									char direction);
+int								front_set_cursor_jmp(size_t *pos, int *pos_x,
+									int *pos_y, int flag);
 
 /*
 ** File front_cursor_changes.c
 */
 
-int								front_set_cursor_jmp(size_t *pos, int *pos_x,
-									int *pos_y, int flag);
+int								front_insert_by_letters(char *str);
 int								front_insert_one_char(char c);
 int								front_move_one_char_right(int pos_x);
 int								front_move_one_char_left(int pos_x);
@@ -377,9 +379,7 @@ int								clean_menu_buf(void);
 
 int								ask_output(size_t total, int buf_lines,
 									size_t pos_back, int len_x);
-int								count_comment_len(int *total_len,
-									int *lines_len,
-									size_t total, int buf_lines);
+int								count_comment_len(int *find, int num);
 int								clean_output_question(int from, size_t pos_back,
 									int len, int len_x);
 int								clean_strings_compl(char *compl,
@@ -400,6 +400,7 @@ int								position_cursor_for_menu(size_t len);
 int								position_cursor_after_menu_back
 									(int len_x, int buf_lines,
 									size_t pos_back, size_t len);
+int								front_move_one_char_left_menu(int pos_x);
 char							**route_by_prompts(size_t *total, int *max_len);
 
 /*

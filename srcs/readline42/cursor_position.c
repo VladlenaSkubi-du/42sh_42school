@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:07:05 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/21 19:49:28 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/22 18:49:32 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,33 @@ int					move_cursor_from_old_position(size_t pos_old,
 			front_move_one_char_right(g_rline.pos_x);
 			g_rline.pos++;
 		}
+	}
+	return (0);
+}
+
+/*
+** @Flag == 1 means "save position"
+** @flag == 0 means "return position"
+*/
+
+int					front_set_cursor_jmp(size_t *pos, int *pos_x,
+						int *pos_y, int flag)
+{
+	static size_t	pos_save;
+	static int		pos_x_save;
+	static int		pos_y_save;
+	
+	if (flag == 1)
+	{
+		pos_save = *pos;
+		pos_x_save = *pos_x;
+		pos_y_save = *pos_y;
+	}
+	if (flag == 0)
+	{
+		*pos = pos_save;
+		*pos_x = pos_x_save;
+		*pos_y = pos_y_save;
 	}
 	return (0);
 }

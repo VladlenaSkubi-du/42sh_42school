@@ -6,36 +6,22 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 16:59:26 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/21 19:48:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/22 21:15:31 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
 
-/*
-** @Flag == 1 means "save position"
-** @flag == 0 means "return position"
-*/
-
-int					front_set_cursor_jmp(size_t *pos, int *pos_x,
-						int *pos_y, int flag)
+int					front_insert_by_letters(char *str)
 {
-	static size_t	pos_save;
-	static int		pos_x_save;
-	static int		pos_y_save;
-	
-	if (flag == 1)
+	size_t			i;
+
+	i = 0;
+	while (str[i])
 	{
-		pos_save = *pos;
-		pos_x_save = *pos_x;
-		pos_y_save = *pos_y;
-	}
-	if (flag == 0)
-	{
-		*pos = pos_save;
-		*pos_x = pos_x_save;
-		*pos_y = pos_y_save;
+		front_insert_one_char(str[i]);
+		i++;
 	}
 	return (0);
 }
@@ -117,7 +103,8 @@ int					front_move_one_char_left(int pos_x)
 	}
 	else if (pos_x == 0)
 	{
-		if (g_rline.cmd[g_rline.pos - 1] == '\n')
+		if (g_rline.pos > 0 &&
+			g_rline.cmd[g_rline.pos - 1] == '\n')
 			prev_x = count_x_position_new_line(g_rline.pos - 2);
 		else
 			prev_x = g_screen.ws_col - 1;
