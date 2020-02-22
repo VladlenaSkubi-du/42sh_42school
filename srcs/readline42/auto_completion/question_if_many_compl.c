@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:59:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/20 20:13:08 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/22 16:06:32 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,28 @@
 int					ask_output(size_t total, int buf_lines,
 						size_t pos_back, int len_x)
 {
-	// char			c;
-	// int				len;
-	// int				total_len;
-	// int				lines_len;
-	// char			*question;
+	char			c;
+	int				len;
+	int				total_len;
+	char			*question;
 
-	// count_comment_len(&total_len, &lines_len, total, buf_lines);
-	// len = 20 + 16 + 18 + total_len + lines_len;
-	// insert_word_by_letters(NULL, 0);
-	// insert_word_by_letters("e-bash: display all ", 0);
-	// question = ft_itoa(total);
-	// insert_word_by_letters(question, 0);
-	// insert_word_by_letters(" possibilities (", 0);
-	// free(question);
-	// question = ft_itoa(buf_lines);
-	// insert_word_by_letters(question, 0);
-	// insert_word_by_letters(" lines)? [y or n] ", 0);
-	// free(question);
-	// read(STDOUT_FILENO, &c, 1);
-	// if (c == 'y' || c == 'Y')
-	// 	return (clean_output_question(1, pos_back, len, len_x));
-	// clean_output_question(0, pos_back, len, len_x);
+	count_comment_len(&total_len, total);
+	len = 20 + 16 + 18 + total_len;
+	count_comment_len(&total_len, buf_lines);
+	len += total_len;
+	front_insert_by_letters("e-bash: display all ");
+	question = ft_itoa(total);
+	front_insert_by_letters(question);
+	free(question);
+	front_insert_by_letters(" possibilities (");
+	question = ft_itoa(buf_lines);
+	front_insert_by_letters(question);
+	free(question);
+	front_insert_by_letters(" lines)? [y or n] ");
+	read(STDOUT_FILENO, &c, 1);
+	if (c == 'y' || c == 'Y')
+		return (clean_output_question(1, pos_back, len, len_x));
+	clean_output_question(0, pos_back, len, len_x);
 	return (1);
 }
 
@@ -47,24 +47,15 @@ int					ask_output(size_t total, int buf_lines,
 ** to clean it after
 */
 
-int					count_comment_len(int *total_len,
-						int *lines_len, size_t total,
-						int buf_lines)
+int					count_comment_len(int *find, int num)
 {
 	int				number;
 
-	*total_len = (total == 0) ? 1 : 0;
-	number = total;
+	*find = (num == 0) ? 1 : 0;
+	number = num;
 	while (number != 0)
 	{
-		(*total_len)++;
-		number /= 10;
-	}
-	*lines_len = (buf_lines == 0) ? 1 : 0;
-	number = buf_lines;
-	while (number != 0)
-	{
-		(*lines_len)++;
+		(*find)++;
 		number /= 10;
 	}
 	return (0);

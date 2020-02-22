@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/18 19:48:25 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/22 21:35:11 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ int					insert_word_compl(void)
 	size_t			len_option;
 	size_t			counter;
 	int				flag;
+	int				i;
 
 	flag = 0;
 	if (g_delete > 0)
@@ -124,14 +125,16 @@ int					insert_word_compl(void)
 		if (g_rline.pos > 1 && g_rline.cmd[g_rline.pos - 1] == '{' &&
 			g_rline.cmd[g_rline.pos - 2] == '$')
 			flag = 1;
-		if (g_tablevel - 1 < g_total)
-			counter = g_tablevel - 1;
-		else
-			counter = (g_tablevel - 1) % g_total;
+		counter = (g_tablevel - 1 < g_total) ? g_tablevel - 1 :
+			(g_tablevel - 1) % g_total;
 		len_option = ((flag == 1) ? ft_strlen(g_menu[counter]) + 1 :
 			ft_strlen(g_menu[counter]));
 		g_delete = len_option - g_len_compl;
-		insert_word_by_letters_compl(g_delete, g_len_compl, g_menu[counter], flag);
+		front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x,
+			&g_rline.pos_y, 1);
+		i = -1;
+		while (++i < g_delete)
+			char_add(g_menu[counter][g_len_compl + i]);
 		print_menu_buf_after_insert(g_rline.pos);
 	}
 	return (0);

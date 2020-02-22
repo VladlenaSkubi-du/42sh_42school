@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:46:39 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/21 19:30:52 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/22 21:35:02 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ int					print_menu(size_t pos_back, char **menu,
 	int				i;
 
 	i = -1;
-	len_x = 0;
-	// position_relative(&len_x, 0, g_rline.cmd_len);
 	position_cursor_for_menu(g_rline.cmd_len);
+	len_x = g_rline.pos_x;
 	g_menu_buf = menu_buf_init(total, max_len);
 	if (g_screen.ws_row - g_rline.str_num >= g_menu_buf.buf_lines)
 	{
@@ -58,13 +57,14 @@ int					print_menu(size_t pos_back, char **menu,
 
 int					print_menu_buf_after_insert(size_t pos_back)
 {
-	int	len_x;
+	size_t			len_back;
+	int				len_x_back;
+	int				len_y_back;
 
-	len_x = 0;
-	// position_relative(&len_x, 0, g_rline.cmd_len);
 	position_cursor_for_menu(g_rline.cmd_len);
 	buffer_col_finish(&g_menu_buf);
-	position_cursor_after_menu_back(len_x, g_menu_buf.buf_lines,
+	front_set_cursor_jmp(&len_back, &len_x_back, &len_y_back, 0);
+	position_cursor_after_menu_back(len_x_back, g_menu_buf.buf_lines,
 		pos_back, g_rline.cmd_len);
 	return (0);
 }
@@ -99,10 +99,17 @@ int					after_big_menu(size_t pos_back, int len_x)
 int					clean_menu(void)
 {
 	size_t			pos_back;
+	size_t			len_back;
+	int				len_x_back;
+	int				len_y_back;
 
 	pos_back = g_rline.pos;
 	position_cursor_for_menu(g_rline.cmd_len);
+	front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x,
+		&g_rline.pos_y, 1);
 	tputs(g_cap.cd, 1, printc);
+	front_set_cursor_jmp(&len_back, &len_x_back, &len_y_back, 0);
+	position_cursor("ch", 0, len_x_back);
 	tputs(g_cap.up, 1, printc);
 	g_rline.pos = pos_back;
 	move_cursor_from_old_position(g_rline.cmd_len, 'l');
