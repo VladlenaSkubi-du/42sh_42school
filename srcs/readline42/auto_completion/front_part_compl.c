@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:46:39 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/22 21:35:02 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/24 18:21:19 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,20 @@ int					print_menu(size_t pos_back, char **menu,
 						size_t total, int max_len)
 {
 	int				len_x;
+	int				len_y;
 	int				i;
 
 	i = -1;
-	position_cursor_for_menu(g_rline.cmd_len);
 	len_x = g_rline.pos_x;
+	len_y = g_rline.pos_y;
+	position_cursor_for_menu(g_rline.cmd_len);
 	g_menu_buf = menu_buf_init(total, max_len);
 	if (g_screen.ws_row - g_rline.str_num >= g_menu_buf.buf_lines)
 	{
 		while (++i < g_menu_buf.word_nb)
 			if (menu[i] && menu[i][0])
 				buffer_col_print(menu[i], &g_menu_buf);
-		position_cursor_after_menu_back(len_x, g_menu_buf.buf_lines,
-			pos_back, g_rline.cmd_len);
+		position_cursor_after_menu_back(len_x, len_y, g_menu_buf.buf_lines, pos_back);
 		g_rline.flag |= TAB;
 		return (0);
 	}
@@ -51,7 +52,7 @@ int					print_menu(size_t pos_back, char **menu,
 	while (++i < g_menu_buf.word_nb)
 		if (menu[i] && menu[i][0])
 			buffer_col_print(menu[i], &g_menu_buf);
-	after_big_menu(pos_back, len_x);
+	after_big_menu(pos_back, len_x, len_y);
 	return (0);
 }
 
@@ -64,30 +65,8 @@ int					print_menu_buf_after_insert(size_t pos_back)
 	position_cursor_for_menu(g_rline.cmd_len);
 	buffer_col_finish(&g_menu_buf);
 	front_set_cursor_jmp(&len_back, &len_x_back, &len_y_back, 0);
-	position_cursor_after_menu_back(len_x_back, g_menu_buf.buf_lines,
-		pos_back, g_rline.cmd_len);
-	return (0);
-}
-
-/*
-** After printing some kind of big menu (the number of lines is bigger
-** than the space left in the terminal) the behavior is as in bash -
-** printing new prompt and the line without any changes
-*/
-
-int					after_big_menu(size_t pos_back, int len_x)
-{
-	tputs(g_cap.sf, 1, printc);
-	g_rline.pos = 0;
-	position_cursor("ch", 0, 0);
-	g_prompt.prompt_func();
-	g_rline.pos = pos_back;
-	front_insert_cmd_till_the_end();
-	// // ft_putstr_fd(g_rline.cmd, 1);
-	// insert_word_by_letters(NULL, g_rline.prompt_len);
-	// insert_word_by_letters(g_rline.cmd, 0);
-	// move_cursor_back_after_print(0);
-	g_rline.flag &= ~TAB;
+	position_cursor_after_menu_back(len_x_back, len_y_back,
+		g_menu_buf.buf_lines, pos_back);
 	return (0);
 }
 
@@ -111,8 +90,7 @@ int					clean_menu(void)
 	front_set_cursor_jmp(&len_back, &len_x_back, &len_y_back, 0);
 	position_cursor("ch", 0, len_x_back);
 	tputs(g_cap.up, 1, printc);
-	g_rline.pos = pos_back;
-	move_cursor_from_old_position(g_rline.cmd_len, 'l');
+	move_cursor_from_old_position(pos_back, 'l');
 	clean_menu_buf();
 	return (0);
 }

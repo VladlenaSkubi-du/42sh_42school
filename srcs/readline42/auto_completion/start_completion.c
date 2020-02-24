@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/22 21:35:11 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/24 16:58:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,24 @@ int					auto_completion(void)
 	return (0);
 }
 
+char				**route_by_prompts(size_t *total, int *max_len)
+{
+	char			**menu;
+	t_path			*root;
+
+	if (g_prompt.prompt_func == main_prompt)
+		menu = ft_path_pars("", path_parse_compl(), total, max_len);
+	else
+	{
+		root = fill_tree_with_arguments("./", "", total);
+		if (root == NULL)
+			return (NULL);
+		menu = ft_add_block(&root, *total, max_len);
+		ft_path_free(&root);
+	}
+	return (menu);
+}
+
 /*
 ** If the @g_complete line is empty and @pool is 1, menu consists of all
 ** the binary-options found in the environmental variable PATH and
@@ -118,8 +136,7 @@ int					insert_word_compl(void)
 	int				i;
 
 	flag = 0;
-	if (g_delete > 0)
-		delete_till_compl(g_len_compl, g_delete);
+	(g_delete > 0) ? delete_till_compl(g_len_compl, g_delete) : 0;
 	if (g_tablevel > 0 && g_total > 0)
 	{
 		if (g_rline.pos > 1 && g_rline.cmd[g_rline.pos - 1] == '{' &&
@@ -130,11 +147,11 @@ int					insert_word_compl(void)
 		len_option = ((flag == 1) ? ft_strlen(g_menu[counter]) + 1 :
 			ft_strlen(g_menu[counter]));
 		g_delete = len_option - g_len_compl;
-		front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x,
-			&g_rline.pos_y, 1);
 		i = -1;
-		while (++i < g_delete)
+		while (++i < g_delete - flag)
 			char_add(g_menu[counter][g_len_compl + i]);
+		(flag > 0) ? char_add('}') : 0;
+		front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
 		print_menu_buf_after_insert(g_rline.pos);
 	}
 	return (0);
@@ -154,23 +171,6 @@ int					check_menu(void)
 		ft_arrdel(g_menu);
 		g_rline.flag &= ~TAB;
 		g_tablevel = 0;
-	}
-	return (0);
-}
-
-int					insert_word_by_letters_compl(size_t delete, size_t len_compl,
-						char *menu_counter, int flag)
-{
-	size_t			i;
-
-	i = 0;
-	while (i < delete)
-	{
-		if (i == delete - 1 && flag == 1)
-			char_add('}');
-		else
-			char_add(menu_counter[len_compl + i]);
-		i++;
 	}
 	return (0);
 }

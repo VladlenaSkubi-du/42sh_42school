@@ -6,12 +6,17 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:59:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/22 16:06:32 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/24 18:26:59 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
+
+/*
+** @pos_x_com is pos_x for comment
+*/
+
 
 int					ask_output(size_t total, int buf_lines,
 						size_t pos_back, int len_x)
@@ -20,25 +25,52 @@ int					ask_output(size_t total, int buf_lines,
 	int				len;
 	int				total_len;
 	char			*question;
+	int				pos_x_com;
 
+	pos_x_com = 0;
 	count_comment_len(&total_len, total);
 	len = 20 + 16 + 18 + total_len;
 	count_comment_len(&total_len, buf_lines);
 	len += total_len;
-	front_insert_by_letters("e-bash: display all ");
+	front_insert_by_letters("e-bash: display all ", &pos_x_com, 'c');
 	question = ft_itoa(total);
-	front_insert_by_letters(question);
+	front_insert_by_letters(question, &pos_x_com, 'c');
 	free(question);
-	front_insert_by_letters(" possibilities (");
+	front_insert_by_letters(" possibilities (", &pos_x_com, 'c');
 	question = ft_itoa(buf_lines);
-	front_insert_by_letters(question);
+	front_insert_by_letters(question, &pos_x_com, 'c');
 	free(question);
-	front_insert_by_letters(" lines)? [y or n] ");
+	front_insert_by_letters(" lines)? [y or n] ", &pos_x_com, 'c');
 	read(STDOUT_FILENO, &c, 1);
 	if (c == 'y' || c == 'Y')
 		return (clean_output_question(1, pos_back, len, len_x));
 	clean_output_question(0, pos_back, len, len_x);
 	return (1);
+}
+
+/*
+** After printing some kind of big menu (the number of lines is bigger
+** than the space left in the terminal) the behavior is as in bash -
+** printing new prompt and the line without any changes
+*/
+
+int					after_big_menu(size_t pos_back, int len_x, int len_y)
+{
+	tputs(g_cap.sf, 1, printc);
+	position_cursor("ch", 0, 0);
+	g_prompt.prompt_func();
+	g_rline.pos = pos_back;
+	g_rline.pos_x = len_x;
+	g_rline.pos_y = len_y;
+	front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
+	g_rline.pos = 0;
+	g_rline.pos_x = g_rline.prompt_len;
+	g_rline.pos_y = 0;
+	if (g_rline.prompt_len >= g_screen.ws_col)
+		g_rline.pos_x = g_screen.ws_col % g_rline.prompt_len;
+	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
+	g_rline.flag &= ~TAB;
+	return (0);
 }
 
 /*
@@ -87,8 +119,7 @@ int					clean_output_question(int from, size_t pos_back,
 	{
 		position_cursor("ch", 0, len_x);
 		tputs(g_cap.up, 1, printc);
-		g_rline.pos = pos_back;
-		move_cursor_from_old_position(g_rline.cmd_len, 'l');
+		move_cursor_from_old_position(pos_back, 'l');
 		return (0);
 	}
 	return (0);

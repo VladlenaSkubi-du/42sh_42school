@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 12:45:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/04 11:40:29 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/24 18:12:49 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,28 @@ int				other_prompt(void)
 	ft_putstr_fd("> ", STDOUT_FILENO);
 	g_rline.prompt_len = 2;
 	return (0);
+}
+
+size_t			prompt_len(void)
+{
+	size_t		len;
+	
+	len = 0;
+	if (g_prompt.prompt_func == main_prompt)
+		len = ft_strlen("e-bash> ");
+	else if (g_prompt.prompt_func == dquote_prompt)
+		len = ft_strlen("dquote> ");
+	else if (g_prompt.prompt_func == heredoc_prompt)
+		len = ft_strlen("heredoc> ");
+	else if (g_prompt.prompt_func == other_prompt)
+		len = ft_strlen("> ");
+	else if (g_prompt.prompt_func == pipe_prompt)
+		len = ft_strlen("pipe> ");
+	else if (g_prompt.prompt_func == subshell_prompt)
+		len = ft_strlen("subshell> ");
+	else if (g_prompt.prompt_func == cursh_prompt)
+		len = ft_strlen("cursh> ");
+	else if (g_prompt.prompt_func == cmdandor_prompt)
+		len = ft_strlen("cmdandor> ");
+	return (len);
 }

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/22 21:24:56 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/24 18:22:09 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct					s_rline
 	size_t						str_num;
 	size_t						prompt_len;
 	size_t						cmd_buff_len;
-	short						flag;
+	int							flag;
 }								t_rline;
 
 /*
@@ -144,6 +144,7 @@ int								main_prompt(void);
 int								dquote_prompt(void);
 int								heredoc_prompt(void);
 int								other_prompt(void);
+size_t							prompt_len(void);
 
 /*
 ** File prompts_other.c
@@ -179,7 +180,8 @@ int								init_termcap(void);
 int								char_add(char c);
 int								str_shift(char *str, int shift);
 int								insert_char(char c);
-int								front_insert_by_letters(char *str);
+int								front_insert_by_letters(char *str,
+									int *pos_x, char flag);
 
 /*
 ** File escape.c - router to the functions performing actions with
@@ -214,11 +216,22 @@ int								front_set_cursor_jmp(size_t *pos, int *pos_x,
 ** File front_cursor_changes.c
 */
 
-int								front_insert_by_letters(char *str);
-int								front_insert_one_char(char c);
 int								front_move_one_char_right(int pos_x);
 int								front_move_one_char_left(int pos_x);
-int								front_insert_cmd_till_the_end(void);
+int								front_move_one_char_left_menu(int pos_x);
+
+/*
+** File front_insertions.c
+*/
+
+int								front_insert_one_char(char c, int pos_x, char flag);
+int								front_insert_if_newline(int *pos_x, int *pos_y,
+									size_t *str_num, int *flag);
+int								front_insert_if_terminal(int *pos_x, int *pos_y,
+									size_t *str_num, int *flag);
+int								front_insert_if_line(int *pos_x, int *pos_y,
+									size_t *str_num, int *flag);
+int								front_insert_cmd_till_the_end(int str_num_print);
 
 /*
 ** File undo_yank_call.c
@@ -323,11 +336,9 @@ int								auto_completion(void);
 char							**route_menu_receipt(char *tech_line,
 									size_t tech_len, size_t *total,
 									int *max_len);
+char							**route_by_prompts(size_t *total, int *max_len);
 int								check_menu(void);
 int								insert_word_compl(void);
-int								insert_word_by_letters_compl(size_t g_delete,
-									size_t g_len_compl,
-									char *menu_counter, int flag);
 
 /*
 ** File analyse_line_compl.c
@@ -367,8 +378,6 @@ t_path							*fill_tree_with_arguments(char *path,
 
 int								print_menu(size_t pos_back, char **menu,
 									size_t total, int max_len);
-int								after_big_menu(size_t pos_back,
-									int len_x);
 int								print_menu_buf_after_insert(size_t pos_back);
 int								clean_menu(void);
 int								clean_menu_buf(void);
@@ -379,6 +388,8 @@ int								clean_menu_buf(void);
 
 int								ask_output(size_t total, int buf_lines,
 									size_t pos_back, int len_x);
+int								after_big_menu(size_t pos_back,
+									int len_x, int len_y);
 int								count_comment_len(int *find, int num);
 int								clean_output_question(int from, size_t pos_back,
 									int len, int len_x);
@@ -398,10 +409,7 @@ char							*path_parse_compl(void);
 
 int								position_cursor_for_menu(size_t len);
 int								position_cursor_after_menu_back
-									(int len_x, int buf_lines,
-									size_t pos_back, size_t len);
-int								front_move_one_char_left_menu(int pos_x);
-char							**route_by_prompts(size_t *total, int *max_len);
+									(int len_x, int len_y, int buf_lines, size_t pos_back);
 
 /*
 ** File output_buffer_compl.c

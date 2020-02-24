@@ -11,6 +11,7 @@ READLINE42 = 		readline42/start_readline42.c \
 			readline42/termcap_usage.c \
 			readline42/cursor_position.c \
 			readline42/front_cursor_changes.c \
+			readline42/front_insertions.c \
 			readline42/str_edit.c \
 			readline42/undo_yank_call.c \
 			readline42/undo.c \

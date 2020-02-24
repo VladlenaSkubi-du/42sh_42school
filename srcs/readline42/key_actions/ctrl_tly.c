@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 19:38:44 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/20 19:20:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/24 13:21:43 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			make_ctrl_l(void)
 	putcap("cl");
 	g_prompt.prompt_func();
 	g_rline.pos = 0;
-	front_insert_cmd_till_the_end();
+	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
 	return (0);
 }
 
