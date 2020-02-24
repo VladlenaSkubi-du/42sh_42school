@@ -18,14 +18,16 @@ char	*get_env(char *var)
 {
 	char	*val;
 	size_t	i;
+	size_t	len;
 
 	val = 0;
 	i = 0;
 	if (!g_env)
 		return (0);
+	len = ft_strlen(var);
 	while (g_env[i])
 	{
-		if (ft_strstr(g_env[i], var))
+		if (ft_strnstr(g_env[i], var, len))
 			break;
 		i++;
 	}
@@ -159,22 +161,22 @@ int	exec_core(char **exec_av, int flags)
 
 	if (!(path = path_init(exec_av)))
 		return (exec_clean(exec_av, path, -1));
-	(flags & PIPED_IN) && (pipe_prev = pipe_next[0]);
+	(flags & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
 	if ((flags & PIPED_OUT) && pipe(pipe_next) == -1)
 			return (exec_clean(exec_av, path, -1));
 	child_pid = fork();
 	if (!child_pid)
 	{
-		(flags & PIPED_OUT) && dup2(pipe_next[1], 1);
-		(flags & PIPED_IN) && dup2(pipe_prev, 0);
+		(flags & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
+		(flags & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
 		if (execve(path, exec_av, g_env) == -1)
 			exit(-1);
 	}
 	else if (child_pid < 0)
 		return (exec_clean(exec_av, path, -1));
 	wait(&child_pid);
-	(flags & PIPED_OUT) && close(pipe_next[1]);
-	(flags & PIPED_IN) && close(pipe_prev);
+	(flags & PIPED_OUT) ? close(pipe_next[1]) : 0;
+	(flags & PIPED_IN) ? close(pipe_prev) : 0;
 	return (exec_clean(exec_av, path, WIFEXITED(child_pid) ? \
 	WEXITSTATUS(child_pid) : (-1)));
 }
