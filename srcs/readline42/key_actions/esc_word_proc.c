@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 17:34:11 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/20 19:23:46 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/24 19:16:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,13 @@ int			word_left_proc(void)
 	else if (g_rline.pos == 0)
 		return (incorrect_sequence());
 	i = g_rline.pos - 1;
-	pos_old = g_rline.pos;
 	while (i > 0 && g_rline.cmd[i - 1] && g_rline.cmd[i])
 	{
 		if (ft_isalnum(g_rline.cmd[i]) && !ft_isalnum(g_rline.cmd[i - 1]))
 			break ;
 		i--;
 	}
-	g_rline.pos = i;
+	pos_old = i;
 	if (move_cursor_from_old_position(pos_old, 'l'))
 		return (-1);
 	return (0);
@@ -55,14 +54,13 @@ int			word_right_proc(void)
 		return (0);
 	}
 	i = g_rline.pos + 1;
-	pos_old = g_rline.pos;
 	while (g_rline.cmd[i] && g_rline.cmd[i - 1])
 	{
 		if (!ft_isalnum(g_rline.cmd[i]) && ft_isalnum(g_rline.cmd[i - 1]))
 			break ;
 		i++;
 	}
-	g_rline.pos = i;
+	pos_old = i;
 	if (move_cursor_from_old_position(pos_old, 'r'))
 		return (-1);
 	return (0);
@@ -71,7 +69,6 @@ int			word_right_proc(void)
 int			esc_d(void)
 {
 	size_t			pos_old;
-	size_t			pos_back;
 	char			*swap;
 	size_t			len_swap;
 	char			*save_yank;
@@ -88,15 +85,11 @@ int			esc_d(void)
 	ft_strcpy(g_rline.cmd + pos_old, swap);
 	ft_bzero(g_rline.cmd + pos_old + len_swap,
 		g_rline.cmd_buff_len - g_rline.cmd_len);
-	pos_back = g_rline.pos;
-	g_rline.pos = pos_old;
-	move_cursor_from_old_position(pos_back, 'l');
+	move_cursor_from_old_position(pos_old, 'l');
+	front_set_cursor_jmp(&g_rline.pos,
+		&g_rline.pos_x, &g_rline.pos_y, 1);
 	tputs(g_cap.cd, 1, printc);
-	// insert_word_by_letters(NULL, g_rline.prompt_len);
-	// insert_word_by_letters(g_rline.cmd + g_rline.pos, 0);
-	// // ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
-	// recount_str_num(g_rline.cmd_len);
-	// move_cursor_back_after_print(0);
+	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
 	return (0);
 }
 
@@ -119,13 +112,10 @@ char		*save_end(size_t pos_back)
 
 	end = NULL;
 	pos_now = g_rline.pos;
-	g_rline.pos = pos_back;
-	move_cursor_from_old_position(pos_now, 'r');
+	move_cursor_from_old_position(pos_back, 'r');
 	if (word_right_proc())
 		return (end);
 	end = ft_strdup(g_rline.cmd + g_rline.pos);
-	pos_back = g_rline.pos;
-	g_rline.pos = pos_now;
-	move_cursor_from_old_position(pos_back, 'l');
+	move_cursor_from_old_position(pos_now, 'l');
 	return (end);
 }

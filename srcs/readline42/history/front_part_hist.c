@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 13:14:32 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/02/21 19:30:09 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/24 19:22:15 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,17 @@
 
 int					make_ctrl_r_history(void)
 {
-	int	len;
-	int	len_x;
+	int				len;
+	int				len_x;
 	char			*find;
 	size_t			pos_back;
 	int				coincidence;
 
 	pos_back = g_rline.pos;
-	len_x = 0;
-	// position_relative(&len_x, 0, g_rline.cmd_len);
+	len_x = g_rline.pos_x;
 	position_cursor_for_menu(g_rline.cmd_len);
 	len = 22;
-	// ft_putstr_fd("We search in history: ", STDOUT_FILENO);
-	// insert_word_by_letters(NULL, 0);
-	// insert_word_by_letters("We search in history: ", 0);
+	front_insert_by_letters("We search in history: ", &coincidence, 'c');
 	find = get_the_answer_hist(&len);
 	clean_output_question(0, pos_back, len, len_x);
 	if (find == NULL)

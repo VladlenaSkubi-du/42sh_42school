@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/24 18:22:09 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/24 19:35:50 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,6 @@ int								front_set_cursor_jmp(size_t *pos, int *pos_x,
 
 int								front_move_one_char_right(int pos_x);
 int								front_move_one_char_left(int pos_x);
-int								front_move_one_char_left_menu(int pos_x);
 
 /*
 ** File front_insertions.c

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 12:43:36 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/24 13:22:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/24 19:33:49 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,11 @@ int					signal_ctrl_d(void)
 		ft_strcpy(g_rline.cmd + g_rline.pos, swap);
 		ft_bzero(g_rline.cmd + g_rline.pos + len_swap,
 			g_rline.cmd_buff_len - g_rline.cmd_len);
+		g_rline.cmd_len--;
+		front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x,
+			&g_rline.pos_y, 1);
 		tputs(g_cap.cd, 1, printc);
 		front_insert_cmd_till_the_end(g_rline.pos_y + 1);
-		// ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
-		// recount_str_num(g_rline.cmd_len - 1);
-		g_rline.cmd_len--;
-		// move_cursor_back_after_print(1);
 	}
 	else
 		return (incorrect_sequence());
@@ -107,21 +106,16 @@ int				signals_reroute(int from)
 
 void			sig_screen(int sig)
 {
-	// size_t		i;
-	
-	// i = 0;
-	// check_menu();
+	check_menu();
+	front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
+	move_cursor_from_old_position(0, 'l');
+	position_cursor("ch", 0, 0);
+	tputs(g_cap.cd, 1, printc);
 	ioctl(1, TIOCGWINSZ, &g_screen);
-	// while (g_rline.pos)
-	// 	key_left_proc();
-	// position_cursor("ch", 0, 0);
-	// putcap("cd");
-	// g_prompt.prompt_func();
-	// while (i < g_rline.cmd_len)
-	// {
-	// 	insert_char(g_rline.cmd[i]);
-	// 	i++;
-	// }
+	g_prompt.prompt_func();
+	if (g_rline.prompt_len >= g_screen.ws_col)
+		g_rline.pos_x = g_screen.ws_col % g_rline.prompt_len;
+	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
 }
 
 void			sig_fork(int sig)
