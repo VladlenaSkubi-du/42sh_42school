@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 17:55:26 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/20 18:47:09 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/24 19:25:58 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int		key_up_proc(void)
 		g_hist.counter = 0;
 		return (incorrect_sequence());
 	}
+	free(g_hist.hist[g_hist.counter]);
+	g_hist.hist[g_hist.counter] = ft_strdup(g_rline.cmd);
 	g_hist.counter--;
 	clean_rline_cmd();
 	i = 0;
@@ -93,6 +95,8 @@ int		key_down_proc(void)
 		clean_rline_cmd();
 		return (incorrect_sequence());
 	}
+	free(g_hist.hist[g_hist.counter]);
+	g_hist.hist[g_hist.counter] = ft_strdup(g_rline.cmd);
 	g_hist.counter++;
 	clean_rline_cmd();
 	i = 0;
