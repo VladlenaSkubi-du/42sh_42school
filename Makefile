@@ -128,9 +128,9 @@ all:	$(NAME)
 
 $(NAME): $(OBJS)
 	@make -C ./libft
-	@echo "\x1b[32;01mCompiling 42sh...\x1b[0m"
+	@echo "\033[32;01mCompiling 42sh...\033[0m"
 	@gcc $(FLAGS) $(OBJS) -o $(NAME) libft/libft.a -ltermcap
-	@echo "\x1b[32;01m42sh is ready\x1b[0m"
+	@echo "\033[32;01m42sh is ready\033[0m"
 
 $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)
