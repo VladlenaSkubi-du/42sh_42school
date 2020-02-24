@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 12:43:36 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/20 20:11:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/24 13:22:48 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int					signal_ctrl_d(void)
 		ft_bzero(g_rline.cmd + g_rline.pos + len_swap,
 			g_rline.cmd_buff_len - g_rline.cmd_len);
 		tputs(g_cap.cd, 1, printc);
-		front_insert_cmd_till_the_end();
+		front_insert_cmd_till_the_end(g_rline.pos_y + 1);
 		// ft_putstr_fd(g_rline.cmd + g_rline.pos, 1);
 		// recount_str_num(g_rline.cmd_len - 1);
 		g_rline.cmd_len--;

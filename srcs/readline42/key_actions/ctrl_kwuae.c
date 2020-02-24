@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 17:21:19 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/20 19:14:17 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/24 13:21:33 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int			make_ctrl_u(void)
 	ft_bzero(g_rline.cmd + len_swap, g_rline.cmd_buff_len - len_swap);
 	g_rline.cmd_len = 0 + len_swap;
 	tputs(g_cap.cd, 1, printc);
-	front_insert_cmd_till_the_end();
+	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
 	return (0);
 }
 
@@ -100,6 +100,6 @@ int			make_ctrl_w(void)
 	ft_bzero(g_rline.cmd + g_rline.pos + len_swap,
 		g_rline.cmd_buff_len - g_rline.cmd_len);
 	tputs(g_cap.cd, 1, printc);
-	front_insert_cmd_till_the_end();
+	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
 	return (0);
 }

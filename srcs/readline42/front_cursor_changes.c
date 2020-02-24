@@ -6,66 +6,12 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 16:59:26 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/22 21:15:31 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/24 16:49:09 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
-
-int					front_insert_by_letters(char *str)
-{
-	size_t			i;
-
-	i = 0;
-	while (str[i])
-	{
-		front_insert_one_char(str[i]);
-		i++;
-	}
-	return (0);
-}
-
-/*
-** When chars are inserted in the front part, position is changed
-** by the terminal automatically - so I increase counters x and y
-** after the changes are already done. @g_rline.pos is changed before
-** the call of the function - can be also after, no influence
-*/
-
-int					front_insert_one_char(char c)
-{
-	if (c == '\n')
-	{
-		g_rline.pos_x = 0;
-		g_rline.pos_y++;
-		g_rline.str_num++;
-		write(STDOUT_FILENO, &c, 1);
-		if (g_rline.flag & NEW_LINE_TE)
-		{
-			g_rline.str_num++;
-			g_rline.flag &= ~(NEW_LINE_TE);
-		}
-		g_rline.flag |= NEW_LINE_SY;
-		return (0);
-	}
-	if (g_rline.pos_x == g_screen.ws_col - 1)
-	{
-		write(STDOUT_FILENO, &c, 1);
-		tputs(g_cap.sf, 1, printc);
-		g_rline.pos_x = 0;
-		g_rline.pos_y++;
-		g_rline.flag |= NEW_LINE_TE;
-		return (0);
-	}
-	write(STDOUT_FILENO, &c, 1);
-	if (g_rline.pos_x == 0 && !(g_rline.flag & NEW_LINE_SY))
-		g_rline.str_num++;
-	else if (g_rline.pos_x == 0 && (g_rline.flag & NEW_LINE_SY))
-		g_rline.flag &= ~(NEW_LINE_SY);
-	g_rline.pos_x++;
-	return (0);
-}
 
 /*
 ** @pos_x is absolute calculation of position you have NOW,
@@ -116,18 +62,23 @@ int					front_move_one_char_left(int pos_x)
 	return (0);
 }
 
-int					front_insert_cmd_till_the_end(void)
+int					front_move_one_char_left_menu(int pos_x)
 {
-	size_t			pos_back;
-	int				pos_x_back;
-	int				pos_y_back;
+	int				prev_x;
 
-	while (g_rline.pos != g_rline.cmd_len)
+	prev_x = 0;
+	if (pos_x > 0)
 	{
-		front_insert_one_char(g_rline.cmd[g_rline.pos]);
-		g_rline.pos++;
+		tputs(g_cap.le, 1, printc);
+		g_rline.pos_x--;
 	}
-	front_set_cursor_jmp(&pos_back, &pos_x_back, &pos_y_back, 0);
-	move_cursor_from_old_position(pos_back, 'l');
+	else if (pos_x == 0)
+	{
+		prev_x = g_screen.ws_col - 1;
+		position_cursor("ch", 0, prev_x);
+		tputs(g_cap.up, 1, printc);
+		g_rline.pos_x = prev_x;
+		g_rline.pos_y--;
+	}
 	return (0);
 }
