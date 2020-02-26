@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 14:04:36 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/25 22:54:14 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/26 15:32:10 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		ft_redir_great(t_ltree *final, size_t *i)
 				add_redir_fd(final, &fd_open);
 		}
 		else
-			return (ERR_REDIR);
+			return (final->flags |= ERR_REDIR << 16);
 	}
 	(f_name != NULL) ? free(f_name) : 0;
 	return (0);
@@ -70,7 +70,7 @@ int		ft_redir_dgreat(t_ltree *final, size_t *i)
 				add_redir_fd(final, &fd_open);
 		}
 		else
-			return (ERR_REDIR);
+			return (final->flags |= ERR_REDIR << 16);
 	}
 	free(f_name);
 	return (0);
@@ -96,7 +96,7 @@ int		ft_redir_greatand(t_ltree *final, size_t *i)
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 			return (ft_num_or_word_out(&f_name, &fd_open, i, final));
 		else
-			return (ERR_REDIR);
+			return (final->flags |= ERR_REDIR << 16);
 	}
 	free(f_name);
 	return (0);
@@ -121,8 +121,8 @@ int		ft_access_check(char **f_name, t_ltree *final, size_t *i, int type)
 	if ((st = access(path, type)) == -1)
 	{
 		free(path);
-		return (ERR_NO_ACC);
+		return (final->flags |= ERR_NO_ACC << 16);
 	}
 	free(path);
-	return (ERR_NO_FILE);
+	return (final->flags |= ERR_NO_FILE << 16);
 }

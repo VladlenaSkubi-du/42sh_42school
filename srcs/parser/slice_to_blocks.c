@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:01:01 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/26 04:58:38 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/26 16:39:08 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ int		ft_block_add_to_list(t_ltree *block, t_list **list)
 	final = (t_ltree *)ft_xmalloc(sizeof(t_ltree));
 	while ((sub = ft_check_andor_pipes(block, final, list)))
 	{
+		if (sub->flags & ERR_OUT)
+		{
+			ft_lst_ltree_clear(list);
+			return (OUT);
+		}
 		block->flags &= ~GR_START;
 		block->start = final->end + 1;
 		before_exec(final, block);

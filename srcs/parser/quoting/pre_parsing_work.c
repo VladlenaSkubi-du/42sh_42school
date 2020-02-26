@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 19:55:12 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/26 03:40:08 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/26 17:47:05 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int		pre_parsing_cut_glue(t_ltree *sub)
 		}
 		else
 			pre_parsing_squote(&i, sub);
-		if (end[i] == ENTER && sub->l_cmd[i + 1] == '\0')
+		if (end[i] == ENTER)
 			ft_reglue(&i, 1, sub);
 		i++;
 	}

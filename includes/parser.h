@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/26 04:54:59 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/26 17:29:32 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct stat		t_stat;
 # define GR_START		0x00000040U
 # define ERR_IN			0x40000000U
 # define ERR_R			0x20000000U
-
+# define ERR_OUT		0x10000000U
 /*
 ** Is used in before_execution.c
 */
@@ -203,6 +203,7 @@ t_ltree					*ft_find_logic(t_ltree *block, t_ltree *final);
 t_ltree					*ft_check_andor_pipes(t_ltree *block, t_ltree *final,\
 						t_list **list);
 void					ft_lst_ltree_clear(t_list **begin_list);
+int						ft_correct_after_andor_pipe(size_t *i);
 
 /*
 ** File before_execution.c
@@ -212,6 +213,8 @@ int						before_exec(t_ltree *sub, t_ltree *block);
 int						argv_forming(t_ltree *sub);
 t_word					ft_give_me_word(char const *s, char c, size_t len);
 int						ft_local_copy_lines(t_ltree *sub);
+int						erroring_andor_pipe(t_ltree *final, size_t *i,
+						int tmp, size_t block_end);
 
 /*
 ** Folder redirection_________________________________________________________
