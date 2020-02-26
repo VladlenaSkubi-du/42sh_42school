@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 13:04:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/26 05:25:08 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/26 17:30:26 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_ltree		*ft_check_andor_pipes(t_ltree *block, t_ltree *final, t_list **list)
 	int		tmp;
 	size_t	i;
 
-	tmp = block->flags;
+	tmp = (*list != NULL) ? ((t_ltree *)(ft_lstlast(*list))->content)->flags : 0;
 	if (!ft_find_logic(block, final))
 		return (NULL);
 	if (final->end == g_techline.len)
@@ -85,14 +85,9 @@ t_ltree		*ft_check_andor_pipes(t_ltree *block, t_ltree *final, t_list **list)
 		{
 			i = final->start - 1;
 			while (++i < g_techline.len)
-			{
-				if (g_techline.line[i] != SPACE) // обработка ошибок!!! 
+				if (ft_correct_after_andor_pipe(&i)) // обработка ошибок!!! 
 					break;		// syntax error near unexpected token `;'
-			}
-			if (i == g_techline.len && ((tmp & LOG_AND) || (tmp & LOG_OR)))
-				g_prompt.prompt_func = cmdandor_prompt;
-			else if (i == g_techline.len && (final->flags & PIPED_IN))
-				g_prompt.prompt_func = pipe_prompt;
+			erroring_andor_pipe(final, &i, tmp, block->end);
 		}
 	return (final);			
 }
@@ -126,4 +121,27 @@ void	ft_lst_ltree_clear(t_list **begin_list)
 		*begin_list = tmp;
 	}
 	*begin_list = NULL;
+}
+
+int		ft_correct_after_andor_pipe(size_t *i)
+{
+	if (g_techline.line[*i] == WORD_P ||
+		g_techline.line[*i] == BSLASH ||
+		g_techline.line[*i] == DQUOTE ||
+		g_techline.line[*i] == SQUOTE ||
+		g_techline.line[*i] == OPAREN ||
+		g_techline.line[*i] == CPAREN ||
+		g_techline.line[*i] == OBRACE ||
+		g_techline.line[*i] == CBRACE ||
+		g_techline.line[*i] == OBRACKET ||
+		g_techline.line[*i] == CBRACKET ||
+		g_techline.line[*i] == DOLLAR ||
+		g_techline.line[*i] == TILDA ||
+		g_techline.line[*i] == AST ||
+		g_techline.line[*i] == EQUAL ||
+		// g_techline.line[*i] == ENTER ||
+		g_techline.line[*i] == COMENT ||
+		g_techline.line[*i] == TEXT)
+		return (1);
+	return (0);
 }

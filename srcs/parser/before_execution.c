@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 19:35:23 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/26 02:24:19 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/26 17:29:51 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,27 @@ int		ft_local_copy_lines(t_ltree *sub)
 	if (sub->end == g_techline.len)
 			sub->l_techline.line[sub->l_techline.len] = END_T;
 	sub->end = sub->l_techline.len;
+	return (0);
+}
+
+int		erroring_andor_pipe(t_ltree *final, size_t *i, int tmp, size_t bl_end)
+{
+	if (*i == g_techline.len || g_techline.line[*i] == COMENT)
+	{
+		final->flags |= ERR_OUT;
+		if ((tmp & LOG_AND) || (tmp & LOG_OR))
+			g_prompt.prompt_func = cmdandor_prompt;
+		else if (final->flags & PIPED_IN)
+			g_prompt.prompt_func = pipe_prompt;
+		return (OUT);
+	}
+	else if (*i == bl_end)
+	{
+		final->err_i = *i;
+		final->flags |= ERR_OUT;
+		final->flags |= ERR_REDIR << 16;
+		ft_error_redir(final);
+	}
+	g_prompt.prompt_func = main_prompt;
 	return (0);
 }

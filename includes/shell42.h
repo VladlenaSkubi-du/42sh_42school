@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/25 21:54:44 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/26 16:21:14 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include "ft_printf.h" //If not used, delete
 # include "get_next_line.h" //If not used, delete
 
-# define 			MAX_HISTORY 10
+# define 			MAX_HISTORY 100
 # define			MAXDIR 255
 # define 			ENV_BUFFER 200
 # define			OUT 42
