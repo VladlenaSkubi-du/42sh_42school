@@ -69,7 +69,8 @@ EXEC = 				parser/exec/exec_init.c \
 QUOTING =			parser/quoting/quote_control.c \
 			parser/quoting/pre_parsing_work.c
 
-ASSIGNMENT =		parser/assignment/backend_variables.c
+ASSIGNMENT =		parser/assignment/backend_variables.c \
+			parser/assignment/substitution.c
 
 REDIRECTION = 		parser/redirection/redirect.c \
 			parser/redirection/redir_types_out.c \

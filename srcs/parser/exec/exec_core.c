@@ -145,10 +145,9 @@ char	*path_init(char **exec_av)
 ** consider changing architecture to... well, something else
 */
 
-int	exec_clean(char **exec_av, char *path, int exit_status)
+int	exec_clean(char *path, int exit_status)
 {
 	free(path);
-	free_vec(exec_av);
 	return (exit_status);
 }
 
@@ -160,10 +159,10 @@ int	exec_core(char **exec_av, int flags)
 	static int		pipe_next[2];
 
 	if (!(path = path_init(exec_av)))
-		return (exec_clean(exec_av, path, -1));
+		return (exec_clean(path, -1));
 	(flags & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
 	if ((flags & PIPED_OUT) && pipe(pipe_next) == -1)
-			return (exec_clean(exec_av, path, -1));
+			return (exec_clean(path, -1));
 	child_pid = fork();
 	if (!child_pid)
 	{
@@ -173,10 +172,10 @@ int	exec_core(char **exec_av, int flags)
 			exit(-1);
 	}
 	else if (child_pid < 0)
-		return (exec_clean(exec_av, path, -1));
+		return (exec_clean(path, -1));
 	wait(&child_pid);
 	(flags & PIPED_OUT) ? close(pipe_next[1]) : 0;
 	(flags & PIPED_IN) ? close(pipe_prev) : 0;
-	return (exec_clean(exec_av, path, WIFEXITED(child_pid) ? \
+	return (exec_clean(path, WIFEXITED(child_pid) ? \
 	WEXITSTATUS(child_pid) : (-1)));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cursor_position_completion.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:51:01 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/24 16:58:22 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/25 22:42:25 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 int					position_cursor_for_menu(size_t len)
 {
-	size_t			pos_old;
-
-	pos_old = g_rline.pos;
 	if (g_rline.pos == 0 && len == 0)
 		tputs(g_cap.sf, 1, printc);
 	else

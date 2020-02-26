@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   menu_receipt.c                                     :+:      :+:    :+:   */
+/*   menu_receipt_compl.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 13:17:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/07 19:26:28 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/25 22:49:08 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,11 @@ char				**get_arguments(char **complete,
 t_path				*fill_tree_with_arguments(char *path,
 						char *complete, size_t *total)
 {
-	size_t			i;
 	t_path			*root;
 	size_t			len;
 	DIR				*dir_name;
 	struct dirent	*entry;
 
-	i = 0;
 	root = NULL;
 	if (path == NULL)
 		return (NULL);

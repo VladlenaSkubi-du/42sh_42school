@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cursor_position.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:07:05 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/22 18:49:32 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/25 22:38:52 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,6 @@ int					count_x_position_new_line(size_t nl_pos)
 int					move_cursor_from_old_position(size_t pos_old,
 						char direction)
 {
-	size_t			i;
-
-	i = 0;
 	if (direction == 'l')
 	{
 		while (g_rline.pos != pos_old)

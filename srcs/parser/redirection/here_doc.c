@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 20:15:50 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/19 20:46:23 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/26 02:46:01 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ int		ft_check_is_heredoc(int ret)
 			return (OUT);
 		ft_heredoc_fill(ret);
 	}
-	(g_prompt.prompt_func == main_prompt) ? ft_block_start(&g_start_list) : 0;
+	if (g_prompt.prompt_func == main_prompt)
+	{
+		ft_block_start(&g_start_list);
+		return (0);
+	}
 	return (ret);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/24 22:59:50 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/25 21:54:44 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ typedef struct		s_history
 
 enum				e_techline
 {
-	SPACE = 1,
+	WORD_P = 1,
+	SPACE ,
 	BSLASH,
 	SCOLON,
 	AND,
@@ -92,7 +93,8 @@ enum				e_techline
 	ENTER,
 	COMENT,
 	GLUE,
-	TEXT
+	TEXT,
+	END_T
 };
 
 /*

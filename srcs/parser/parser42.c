@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser42.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/24 20:11:20 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/26 00:41:32 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,11 @@ int		pars_lex_exec(int tmp)
 {
 	castrated_parser(); //TODO delete
 	if (g_prompt.prompt_func != heredoc_prompt)
-	{
 		if (nullify(&g_techline.line, g_cmd_size) == OUT)
 		{
 			clean_parser42();
 			return (0);
 		}
-		pre_parsing_cut_glue();
-	}
 	ft_slice_fg();
 	clean_parser42();
 	return (0);
@@ -97,7 +94,7 @@ int		pars_lex_exec(int tmp)
 char	get_tech_num(char check)
 {
 	char	*base;
-	size_t	i;
+	int		i;
 
 	base = " \\;&\"\'()[]{}$~|><*=\n#\t";
 	i = 0;
@@ -106,15 +103,15 @@ char	get_tech_num(char check)
 		if (base[i] == check)
 		{
 			if (i == 21)
-				return (1);
+				return (2);
 			else			
-				return (i + 1);
+				return (i + 2);
 		}
 		i++;
 	}
 	if (check == EOF)
 		return (EOF);
-	return (0);
+	return (1);
 }
 
 int		ft_get_techline(void)
@@ -122,13 +119,28 @@ int		ft_get_techline(void)
 	size_t	i;
 
 	i = 0;
-	g_techline.line = (char *)ft_xmalloc(g_cmd_size + 1);
+	g_techline.line = (char *)ft_xmalloc(g_cmd_size + 2);
 	while (g_cmd[i])
 	{
 		g_techline.line[i] = get_tech_num(g_cmd[i]);
 		i++;
 	}
 	g_techline.len = i;
-	g_techline.alloc_size = i;
+	g_techline.alloc_size = i + 1;
+	return (0);
+}
+
+int		ltree_init(t_ltree *final)
+{
+	final->start = 0;
+	final->end = 0;
+	final->flags = 0;
+	final->fd = NULL;
+	final->envir = NULL;
+	final->ar_v = NULL;
+	final->err = NULL;
+	final->err = 0;
+	final->l_cmd = NULL;
+	final->l_techline.line = NULL;
 	return (0);
 }

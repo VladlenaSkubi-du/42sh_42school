@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   analyse_line_compl.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 18:24:47 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/18 18:06:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/25 22:41:48 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,8 @@ int					route_to_pools(char *tech, int i, int *pool)
 
 int					route_to_arguments(char *compl, int i, int *pool)
 {
-	int				save_i;
-
 	if (compl[i] == '.')
 		return (i);
-	save_i = i;
 	*pool = 3;
 	while (i > 0 && (ft_isalnum(compl[i]) ||
 		compl[i] == '/' || compl[i] == '_'))

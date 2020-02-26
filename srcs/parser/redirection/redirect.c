@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:46:57 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/19 19:28:51 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/25 22:52:57 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,28 @@ int			ft_null_redir(size_t i, long long num)
 	return (0);
 }
 
-int			ft_error_redir(t_ltree *final, size_t i, int flag, char **str)
+int			ft_error_redir(t_ltree *final)
 {
-	ft_heredoc_rem();
-	if (flag == ERR_NO_ACC)
-		error_handler((SYNTAX_ERROR | (ERR_NO_ACC << 9)), *str);
-	else if (flag == ERR_BAD_FD)
-		error_handler((SYNTAX_ERROR | (ERR_BAD_FD << 9)), *str);
-	else if (flag == ERR_NO_FILE)
-		error_handler((SYNTAX_ERROR | (ERR_NO_FILE << 9)), *str);
-	else if (flag == ERR_REDIR && i < final->end)
+	if ((final->flags >> 16 & 0x1FFF) == ERR_NO_ACC)
+		error_handler((SYNTAX_ERROR | (ERR_NO_ACC << 9)), final->err);
+	else if ((final->flags >> 16 & 0x1FFF) == ERR_BAD_FD)
+		error_handler((SYNTAX_ERROR | (ERR_BAD_FD << 9)), final->err);
+	else if ((final->flags >> 16 & 0x1FFF) == ERR_NO_FILE)
+		error_handler((SYNTAX_ERROR | (ERR_NO_FILE << 9)), final->err);
+	else if ((final->flags >> 16 & 0x1FFF) == ERR_REDIR &&
+		final->err_i < final->end)
 		error_handler((SYNTAX_ERROR | (ERR_REDIR << 9)),
-		g_sign[(int)g_techline.line[i]]);
-	else if (flag == ERR_REDIR && final->end != g_techline.len)
+		g_sign[(int)final->l_techline.line[final->err_i]]);
+	else if ((final->flags >> 16 & 0x1FFF) == ERR_REDIR &&
+		final->l_techline.line[final->end] != END_T)
 		error_handler((SYNTAX_ERROR | (ERR_REDIR << 9)),
-		g_sign[(int)g_techline.line[final->end]]);
+		g_sign[(int)final->l_techline.line[final->end]]);
 	else
 		error_handler((SYNTAX_ERROR | (ERR_REDIR << 9)),
 		"newline");
-	(str && *str != NULL) ? free(*str) : 0;
-	return (OUT);
+	free(final->err);
+	final->err = NULL;
+	return (0);
 }
 
 /*
@@ -66,23 +68,23 @@ int			ft_find_redirection(t_ltree *final)
 
 	i = final->start;
 	ret = 0;
-	while (i < final->end)
+	while (i <= final->end)
 	{
-		if ((ret = ft_redir_great(final, &i)) == OUT)
+		if ((ret = ft_redir_great(final, &i)) != 0)
 			break ;
-		if ((ret = ft_redir_dgreat(final, &i)) == OUT)
+		if ((ret = ft_redir_dgreat(final, &i)) != 0)
 			break ;
-		if ((ret = ft_redir_greatand(final, &i)) == OUT)
+		if ((ret = ft_redir_greatand(final, &i)) != 0)
 			break ;
-		if ((ret = ft_redir_less(final, &i)) == OUT)
+		if ((ret = ft_redir_less(final, &i)) != 0)
 			break ;
-		if ((ret = ft_redir_dless(final, &i)) == OUT)
+		if ((ret = ft_redir_dless(final, &i)) != 0)
 			break ;
-		if ((ret = ft_redir_lessand(final, &i)) == OUT)
+		if ((ret = ft_redir_lessand(final, &i)) != 0)
 			break ;
 		i++;
 	}
-	return (ft_check_is_heredoc(ret));
+	return (ret);
 }
 
 /*
