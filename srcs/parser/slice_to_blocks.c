@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:01:01 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/26 16:39:08 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/27 01:50:28 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,22 @@
 
 int		ft_block_add_to_list(t_ltree *block, t_list **list)
 {
-	t_ltree	*sub;
 	t_ltree	*final;
 
 	final = (t_ltree *)ft_xmalloc(sizeof(t_ltree));
-	while ((sub = ft_check_andor_pipes(block, final, list)))
+	while (ft_check_andor_pipes(block, final, list))
 	{
-		if (sub->flags & ERR_OUT)
+		if (final->flags & ERR_OUT)
 		{
 			ft_lst_ltree_clear(list);
 			return (OUT);
 		}
 		block->flags &= ~GR_START;
 		block->start = final->end + 1;
-		before_exec(final, block);
+		if (before_exec(final, block, list) == OUT)
+			return (OUT);
 		ft_add_list_to_end(list, ft_lstnew(final, sizeof(t_ltree)));
-		if (final->flags & LOG_AND || final->flags & LOG_OR)
+		if (final->flags & LOG_AND_OUT || final->flags & LOG_OR_OUT)
 			block->start += 1;
 		ltree_init(final);
 	}
@@ -71,15 +71,20 @@ int		ft_block_start(t_list **list)
 	int		out_flag;
 
 	start = *list;
+	out_flag = 0;
 	while (start)
 	{
 		sub = (t_ltree *)(start->content);
 		if (!(sub->flags & ERR_IN))
 		{
-			out_flag = exec_init(sub); //внутри exec выбор: builtin или нет
-			if ((out_flag != 0 && (sub->flags & LOG_AND)) ||
-				(out_flag == 0 && (sub->flags & LOG_OR)))
-				ft_block_foward(&sub, &start);
+			if ((out_flag != 0 && (sub->flags & LOG_AND_IN)) ||
+				(out_flag == 0 && (sub->flags & LOG_OR_IN)))
+			{
+				start = start->next;
+				continue ;
+			}
+			out_flag = exec_init(sub);
+			// ft_block_foward(&sub, &start);
 		}
 		else if (sub->flags & ERR_R)
 			ft_error_redir(sub);

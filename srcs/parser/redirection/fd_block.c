@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:16:37 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/25 22:35:24 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/27 01:26:37 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int		ft_num_or_word_out(char **f_name, t_fd_redir *fd_open,
 	{
 		if (((fd_open->fd_in = fcntl(fd_ret, F_GETFL)) & O_ACCMODE)
 			!= O_WRONLY && (fd_open->fd_in & O_ACCMODE) != O_RDWR)
-			return (ERR_BAD_FD);
+			return (final->flags |= ERR_IN | ERR_BAD_FD << 16);
 		else
 			(fd_open->fd_in = fd_ret) >= 0 ?
 			add_redir_fd(final, fd_open) : 0;
@@ -137,7 +137,7 @@ int		ft_num_or_word_in(char **f_name, t_fd_redir *fd_open,
 	{
 		if (((fd_open->fd_out = fcntl(fd_ret, F_GETFL)) & O_ACCMODE)
 			!= O_WRONLY && (fd_open->fd_out & O_ACCMODE) != O_RDWR)
-			return (ERR_BAD_FD);
+			return (final->flags |= ERR_IN | ERR_BAD_FD << 16);
 		else
 			(fd_open->fd_out = fd_ret) >= 0 ?
 			add_redir_fd(final, fd_open) : 0;

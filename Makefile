@@ -96,6 +96,7 @@ LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_lstclear.c \
 			libft_42/ft_count_words.c \
 			libft_42/ft_strlenchri.c \
+			libft_42/ft_find_token.c \
 			$(STACK_STRUCTURE)
 
 STACK_STRUCTURE = 	libft_42/stack_structure/ft_init_stack.c \

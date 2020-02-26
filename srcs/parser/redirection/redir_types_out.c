@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 14:04:36 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/26 15:32:10 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/27 01:18:58 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int		ft_redir_great(t_ltree *final, size_t *i)
 
 	f_name = NULL;
 	fd_open.type = OUT_R;
-	if (g_techline.line[*i] == GTHAN && (g_techline.line[*i + 1] != GTHAN &&
-		(g_techline.line[*i + 1] != AND || g_techline.line[*i + 1] == PIPE)))
+	if (final->l_tline.line[*i] == GTHAN && (final->l_tline.line[*i + 1] != GTHAN &&
+		(final->l_tline.line[*i + 1] != AND || final->l_tline.line[*i + 1] == PIPE)))
 	{
 		fd_open.fd_out = ft_check_n_redir_op(*i, final, STDOUT_FILENO);
 		ft_null_redir(*i, 1);
@@ -39,7 +39,7 @@ int		ft_redir_great(t_ltree *final, size_t *i)
 				add_redir_fd(final, &fd_open);
 		}
 		else
-			return (final->flags |= ERR_REDIR << 16);
+			return (final->flags |= ERR_OUT | ERR_REDIR << 16);
 	}
 	(f_name != NULL) ? free(f_name) : 0;
 	return (0);
@@ -56,7 +56,7 @@ int		ft_redir_dgreat(t_ltree *final, size_t *i)
 
 	f_name = NULL;
 	fd_open.type = OUT_R;
-	if (g_techline.line[*i] == GTHAN && g_techline.line[*i + 1] == GTHAN)
+	if (final->l_tline.line[*i] == GTHAN && final->l_tline.line[*i + 1] == GTHAN)
 	{
 		fd_open.fd_out = ft_check_n_redir_op(*i, final, STDOUT_FILENO);
 		ft_null_redir(*i, 2);
@@ -70,7 +70,7 @@ int		ft_redir_dgreat(t_ltree *final, size_t *i)
 				add_redir_fd(final, &fd_open);
 		}
 		else
-			return (final->flags |= ERR_REDIR << 16);
+			return (final->flags |= ERR_OUT | ERR_REDIR << 16);
 	}
 	free(f_name);
 	return (0);
@@ -88,7 +88,7 @@ int		ft_redir_greatand(t_ltree *final, size_t *i)
 
 	f_name = NULL;
 	fd_open.type = OUT_R;
-	if (g_techline.line[*i] == GTHAN && (g_techline.line[*i + 1] == AND))
+	if (final->l_tline.line[*i] == GTHAN && (final->l_tline.line[*i + 1] == AND))
 	{
 		fd_open.fd_out = ft_check_n_redir_op(*i, final, STDOUT_FILENO);
 		ft_null_redir(*i, 2);
@@ -121,8 +121,8 @@ int		ft_access_check(char **f_name, t_ltree *final, size_t *i, int type)
 	if ((st = access(path, type)) == -1)
 	{
 		free(path);
-		return (final->flags |= ERR_NO_ACC << 16);
+		return (final->flags |= ERR_IN | ERR_NO_ACC << 16);
 	}
 	free(path);
-	return (final->flags |= ERR_NO_FILE << 16);
+	return (final->flags |= ERR_IN | ERR_NO_FILE << 16);
 }

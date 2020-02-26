@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/26 17:29:32 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/27 01:48:15 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@ typedef struct stat		t_stat;
 # define PIPED_IN		0x00000002U
 # define REDIRECTION	0x00000004U
 # define IS_BG			0x00000008U
-# define LOG_AND		0x00000010U
-# define LOG_OR			0x00000020U
-# define GR_START		0x00000040U
+# define LOG_AND_IN		0x00000010U
+# define LOG_AND_OUT	0x00000020U
+# define LOG_OR_IN		0x00000040U
+# define LOG_OR_OUT		0x00000080U
+# define GR_START		0x00000100U
 # define ERR_IN			0x40000000U
 # define ERR_R			0x20000000U
 # define ERR_OUT		0x10000000U
@@ -91,7 +93,7 @@ typedef struct  		s_tech
 typedef struct  		s_ltree
 {
 	char				*l_cmd;
-	t_tech				l_techline;
+	t_tech				l_tline;
 	size_t				start; //index of start
 	size_t				end;
 	t_list				*fd;
@@ -99,6 +101,7 @@ typedef struct  		s_ltree
 	char				**ar_v;
 	int					ar_c;
 	int					flags;
+	char				*token;
 	char				*err;
 	size_t				err_i;
 }              			t_ltree;
@@ -209,7 +212,7 @@ int						ft_correct_after_andor_pipe(size_t *i);
 ** File before_execution.c
 */
 
-int						before_exec(t_ltree *sub, t_ltree *block);
+int						before_exec(t_ltree *sub, t_ltree *block, t_list **lst);
 int						argv_forming(t_ltree *sub);
 t_word					ft_give_me_word(char const *s, char c, size_t len);
 int						ft_local_copy_lines(t_ltree *sub);

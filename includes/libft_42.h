@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_42.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:46:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/21 16:00:09 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/27 00:02:20 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	                        ft_lstclear(t_list **begin_list);
 size_t	                        ft_count_words(char const *s, char c,
                                     size_t len);
 size_t			                ft_strlenchri(const char *s, char c);
+char                            *ft_find_token_sep(char *str);
 
 /*
 ** Folder stask_structure______________________________________________________

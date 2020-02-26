@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 13:04:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/26 17:30:26 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/27 01:52:30 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ t_ltree		*ft_find_logic(t_ltree *block, t_ltree *final)
 	{
 		if (g_techline.line[i] == PIPE && g_techline.line[i + 1] == PIPE)
 		{
-			final->flags |= LOG_OR;
+			final->flags |= LOG_OR_OUT;
 			return (ft_find_pipe(block, final, &i));
 		}
 		if (g_techline.line[i] == AND && g_techline.line[i + 1] == AND)
 		{
-			final->flags |= LOG_AND;
+			final->flags |= LOG_AND_OUT;
 			return (ft_find_pipe(block, final, &i));
 		}
 		if (ft_find_pipe(block, final, &i))
@@ -55,7 +55,8 @@ t_ltree		*ft_find_pipe(t_ltree *block, t_ltree *final, int *i)
 		block->flags |= PIPED_OUT;
 		return (final);
 	}
-	if (*i == block->end || (final->flags & LOG_AND) || (final->flags & LOG_OR))
+	if (*i == block->end || final->flags & LOG_AND_OUT ||
+		final->flags & LOG_OR_OUT)
 	{
 		final->start = block->start;
 		final->end = *i;
@@ -76,19 +77,20 @@ t_ltree		*ft_check_andor_pipes(t_ltree *block, t_ltree *final, t_list **list)
 	int		tmp;
 	size_t	i;
 
-	tmp = (*list != NULL) ? ((t_ltree *)(ft_lstlast(*list))->content)->flags : 0;
+	tmp = (*list != NULL) ? ((t_ltree *)(ft_lstlast(list))->content)->flags : 0;
 	if (!ft_find_logic(block, final))
 		return (NULL);
-	if (final->end == g_techline.len)
-		if ((tmp & LOG_AND) || (tmp & LOG_OR) || 
-			(final->flags & PIPED_IN))
-		{
-			i = final->start - 1;
-			while (++i < g_techline.len)
-				if (ft_correct_after_andor_pipe(&i)) // обработка ошибок!!! 
-					break;		// syntax error near unexpected token `;'
-			erroring_andor_pipe(final, &i, tmp, block->end);
-		}
+	if (tmp & LOG_AND_OUT || tmp & LOG_OR_OUT || 
+		final->flags & PIPED_IN)
+	{
+		final->flags |= (tmp & LOG_OR_OUT) ? LOG_OR_IN : 0;
+		final->flags |= (tmp & LOG_AND_OUT) ? LOG_AND_IN : 0;
+		i = final->start - 1;
+		while (++i < block->end)
+			if (ft_correct_after_andor_pipe(&i)) // обработка ошибок!!! 
+				break;		// syntax error near unexpected token `;'
+		erroring_andor_pipe(final, &i, tmp, block->end);
+	}
 	return (final);			
 }
 
@@ -110,11 +112,12 @@ void	ft_lst_ltree_clear(t_list **begin_list)
 		{
 			buf = (t_ltree *)(*begin_list)->content;
 			free(buf->l_cmd);
-			free(buf->l_techline.line);
+			free(buf->l_tline.line);
 			ft_arrdel(buf->envir);
 			ft_arrdel(buf->ar_v);
 			ft_lstclear(&buf->fd);
 			free(buf->err);
+			free(buf->token);
 			free((*begin_list)->content);
 		}
 		free((*begin_list));
@@ -126,6 +129,8 @@ void	ft_lst_ltree_clear(t_list **begin_list)
 int		ft_correct_after_andor_pipe(size_t *i)
 {
 	if (g_techline.line[*i] == WORD_P ||
+		g_techline.line[*i] == PIPE ||
+		g_techline.line[*i] == AND ||
 		g_techline.line[*i] == BSLASH ||
 		g_techline.line[*i] == DQUOTE ||
 		g_techline.line[*i] == SQUOTE ||
@@ -139,7 +144,6 @@ int		ft_correct_after_andor_pipe(size_t *i)
 		g_techline.line[*i] == TILDA ||
 		g_techline.line[*i] == AST ||
 		g_techline.line[*i] == EQUAL ||
-		// g_techline.line[*i] == ENTER ||
 		g_techline.line[*i] == COMENT ||
 		g_techline.line[*i] == TEXT)
 		return (1);
