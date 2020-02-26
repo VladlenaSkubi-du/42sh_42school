@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   before_execution.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 19:35:23 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/20 17:37:24 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/26 02:24:19 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,21 @@
 ** argc and argv variables
 */
 
-int		before_exec(t_ltree *sub)
+int		before_exec(t_ltree *sub, t_ltree *block)
 {
-	// char		*add = NULL;
+	char		*add = NULL;
+	int			err;
 	
-	// sub->envir = init_exec_environ();
+	ft_local_copy_lines(sub);
+	// ft_substitution(sub);
+	sub->envir = init_exec_environ();
 	// add_new_to_exec_env(&sub->envir, add);
+	pre_parsing_cut_glue(sub);
+	if ((err = ft_find_redirection(sub)) != 0)
+	{
+		sub->flags |= ERR_IN;
+		sub->flags |= err << 16;
+	}
 	argv_forming(sub);
 	return (0);
 }
@@ -39,17 +48,18 @@ int		argv_forming(t_ltree *sub)
 	int		count;
 
 	p = sub->start;
-	sub->ar_c = ft_count_words(&(g_techline.line[sub->start]), SPACE,
-				sub->end - sub->start + 1);
+	sub->ar_c = ft_count_words(&(sub->l_techline.line[0]), SPACE,
+				sub->l_techline.len);
 	sub->ar_v = (char **)ft_xmalloc(sizeof(char *) * (sub->ar_c + 1));
 	i = 0;
 	count = 0;
 	while (count < sub->ar_c)
 	{
-		word = ft_give_me_word(&(g_techline.line[p]), SPACE, sub->end - p);
+		word = ft_give_me_word(&(sub->l_techline.line[p]), SPACE,
+			sub->l_techline.len - p);
 		word.start += p;
 		(sub->ar_v)[i] = (char *)ft_xmalloc(sizeof(char) * (word.len + 1));
-		ft_memcpy((sub->ar_v)[i], g_cmd + word.start, word.len);
+		ft_memcpy((sub->ar_v)[i], sub->l_cmd + word.start, word.len);
 		p = word.start + word.len;
 		i++;
 		count++;
@@ -76,4 +86,19 @@ t_word	ft_give_me_word(char const *s, char c, size_t len)
 	}
 	k.len = l;
 	return (k);
+}
+
+int		ft_local_copy_lines(t_ltree *sub)
+{
+	sub->l_cmd = ft_strndup(&g_cmd[sub->start], sub->end - sub->start);
+	sub->l_techline.line = ft_strndup(&g_techline.line[sub->start],
+		sub->end - sub->start + 1);
+	sub->l_techline.len = sub->end - sub->start;
+	sub->l_techline.alloc_size = sub->end - sub->start + 1;
+	sub->l_techline.line[sub->l_techline.len] = 0;
+	sub->start = 0;
+	if (sub->end == g_techline.len)
+			sub->l_techline.line[sub->l_techline.len] = END_T;
+	sub->end = sub->l_techline.len;
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output_buffer_compl.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 16:43:04 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/02/19 12:33:02 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/25 22:45:25 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_completion			menu_buf_init(size_t total, int max_len)
 	menu_buf.buffer = NULL;
 	menu_buf.buf_lines = 0;
 	menu_buf.buf_width = 0;
-	max_len = (max_len == 8) ? (max_len)++ : max_len;
+	(max_len == 8) ? (max_len)++ : 0;
 	while (max_len % 8 != 0)
 		max_len++;
 	menu_buf.word_len = max_len + 1;

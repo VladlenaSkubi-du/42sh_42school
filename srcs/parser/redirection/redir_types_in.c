@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_types_in.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:20:07 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/19 20:45:09 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/25 19:04:44 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		ft_redir_less(t_ltree *final, size_t *i)
 				add_redir_fd(final, &fd_open);
 		}
 		else
-			return (ft_error_redir(final, *i, ERR_REDIR, NULL));
+			return (ERR_REDIR);
 	}
 	free(f_name);
 	return (0);
@@ -65,7 +65,7 @@ int		ft_redir_dless(t_ltree *final, size_t *i)
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 			return (ft_heredoc_form(&fd_open, f_name, final, 0));
 		else
-			return (ft_error_redir(final, *i, ERR_REDIR, NULL));
+			return (ERR_REDIR);
 	}
 	free(f_name);
 	return (0);
@@ -91,7 +91,7 @@ int		ft_redir_dless_min(t_ltree *final, size_t *i)
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 			return (ft_heredoc_form(&fd_open, f_name, final, MINUS));
 		else
-			return (ft_error_redir(final, *i, ERR_REDIR, NULL));
+			return (ERR_REDIR);
 	}
 	free(f_name);
 	return (0);
@@ -116,7 +116,7 @@ int		ft_redir_lessand(t_ltree *final, size_t *i)
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 			return (ft_num_or_word_in(&f_name, &fd_open, i, final));
 		else
-			return (ft_error_redir(final, *i, ERR_REDIR, NULL));
+			return (ERR_REDIR);
 	}
 	free(f_name);
 	return (0);

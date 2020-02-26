@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/24 20:08:39 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/26 04:54:59 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,15 @@ typedef struct stat		t_stat;
 ** Defines for FLAGS
 */
 
-# define PIPED_OUT 0x01
-# define PIPED_IN 0x02
-# define REDIRECTION 0x04
-# define IS_BG 0x08
-# define LOG_AND 0x10
-# define LOG_OR 0x20
-# define GR_START 0x40
+# define PIPED_OUT		0x00000001U
+# define PIPED_IN		0x00000002U
+# define REDIRECTION	0x00000004U
+# define IS_BG			0x00000008U
+# define LOG_AND		0x00000010U
+# define LOG_OR			0x00000020U
+# define GR_START		0x00000040U
+# define ERR_IN			0x40000000U
+# define ERR_R			0x20000000U
 
 /*
 ** Is used in before_execution.c
@@ -88,6 +90,8 @@ typedef struct  		s_tech
 
 typedef struct  		s_ltree
 {
+	char				*l_cmd;
+	t_tech				l_techline;
 	size_t				start; //index of start
 	size_t				end;
 	t_list				*fd;
@@ -95,6 +99,8 @@ typedef struct  		s_ltree
 	char				**ar_v;
 	int					ar_c;
 	int					flags;
+	char				*err;
+	size_t				err_i;
 }              			t_ltree;
 
 /*
@@ -151,10 +157,10 @@ typedef struct			s_here
 {
 	t_list				*list;
 	t_stop				stop;
-	char				**buf;
 	char				*g_cmd_copy;
 	char				*g_techline_copy;
 	size_t				g_len_copy;
+	char				**buf;
 	int					buf_size;
 }						t_here;
 
@@ -169,13 +175,14 @@ t_here					g_heredoc;
 t_list					*g_start_list;
 
 /*
-** File parser.c
+** File parser42.c
 */
 
 int						parser(char *line);
 int						pars_lex_exec(int tmp);
 int						ft_get_techline(void);
 char					get_tech_num(char check);
+int						ltree_init(t_ltree *final);
 
 /*
 ** File slice_to_blocks.c
@@ -195,14 +202,16 @@ t_ltree					*ft_find_pipe(t_ltree *block, t_ltree *final, int *i);
 t_ltree					*ft_find_logic(t_ltree *block, t_ltree *final);
 t_ltree					*ft_check_andor_pipes(t_ltree *block, t_ltree *final,\
 						t_list **list);
+void					ft_lst_ltree_clear(t_list **begin_list);
 
 /*
 ** File before_execution.c
 */
 
-int						before_exec(t_ltree *sub);
+int						before_exec(t_ltree *sub, t_ltree *block);
 int						argv_forming(t_ltree *sub);
 t_word					ft_give_me_word(char const *s, char c, size_t len);
+int						ft_local_copy_lines(t_ltree *sub);
 
 /*
 ** Folder redirection_________________________________________________________
@@ -218,8 +227,7 @@ char					*ft_word_to_redir(size_t *i, t_ltree *final,
 int						ft_word_to_redir_rew(size_t *i, t_ltree *final, 
 						long long *size, size_t *start);
 int						ft_null_redir(size_t i, long long num);
-int						ft_error_redir(t_ltree *final, size_t i,
-						int flag, char **str);
+int						ft_error_redir(t_ltree *final);
 
 /*
 ** File redir_types_out.c
@@ -290,6 +298,12 @@ int						insert_assign_to_arrays(char *find, size_t var,
 							size_t val, char **array);
 
 /*
+** File substitution.c
+*/
+
+int						ft_substitution(t_ltree *sub);
+
+/*
 ** Folder quoting_____________________________________________________________
 */
 
@@ -309,10 +323,11 @@ int						nullify_promt_check(t_stack	**stack);
 ** File pre_parsing_work.c
 */
 
-int						pre_parsing_cut_glue(void);
-int						pre_parsing_squote(size_t *i);
-int						pre_parsing_back(size_t *i);
-int						ft_reglue(size_t *i, int num);
+int						pre_parsing_cut_glue(t_ltree *sub);
+int						pre_parsing_squote(size_t *i, t_ltree *sub);
+int						pre_parsing_back(size_t *i, t_ltree *sub);
+int						pre_parsing_andor_pipe(size_t *i, t_ltree *sub);
+int						ft_reglue(size_t *i, int num, t_ltree *sub);
 
 /*
 ** Folder path_tree____________________________________________________________

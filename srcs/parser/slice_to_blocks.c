@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slice_to_blocks.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:01:01 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/20 17:35:46 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/26 04:58:38 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,20 @@
 int		ft_block_add_to_list(t_ltree *block, t_list **list)
 {
 	t_ltree	*sub;
-	t_ltree	final;
+	t_ltree	*final;
 
-	final.flags = 0;
-	final.fd = NULL;
-	final.envir = NULL;
-	final.ar_v = NULL;
-	while ((sub = ft_check_andor_pipes(block, &final, list)))
+	final = (t_ltree *)ft_xmalloc(sizeof(t_ltree));
+	while ((sub = ft_check_andor_pipes(block, final, list)))
 	{
-		if ((ft_find_redirection(&final)) == OUT)
-		{
-			ft_lstclear(list);
-			return (OUT);
-		}
-		ft_add_list_to_end(list, ft_lstnew(&final, sizeof(t_ltree)));
-		final.fd == NULL ? free(final.fd) : 0;
 		block->flags &= ~GR_START;
-		block->start = final.end + 1;
-		final.end = block->end;
-		if (final.flags & LOG_AND || final.flags & LOG_OR)
-			block->start += 2;
+		block->start = final->end + 1;
+		before_exec(final, block);
+		ft_add_list_to_end(list, ft_lstnew(final, sizeof(t_ltree)));
+		if (final->flags & LOG_AND || final->flags & LOG_OR)
+			block->start += 1;
+		ltree_init(final);
 	}
+	free(final);
 	return (0);
 }
 
@@ -58,11 +51,6 @@ int		ft_block_foward(t_ltree **sub, t_list **start)
 			break ;
 		if ((*sub)->flags & GR_START)
 			break ;
-		else
-		{
-			ft_arrdel((*sub)->envir);
-			ft_arrdel((*sub)->ar_v);
-		}
 	}
 	return (0);
 }
@@ -81,17 +69,19 @@ int		ft_block_start(t_list **list)
 	while (start)
 	{
 		sub = (t_ltree *)(start->content);
-		before_exec(sub);
-		out_flag = exec_init(sub); //внутри exec выбор: builtin или нет
-		ft_arrdel(sub->envir);
-		if (out_flag != 0 && (sub->flags & LOG_AND))
-			ft_block_foward(&sub, &start);
-		else if (out_flag == 0 && (sub->flags & LOG_OR))
-			ft_block_foward(&sub, &start);
-		else
+		if (!(sub->flags & ERR_IN))
+		{
+			out_flag = exec_init(sub); //внутри exec выбор: builtin или нет
+			if ((out_flag != 0 && (sub->flags & LOG_AND)) ||
+				(out_flag == 0 && (sub->flags & LOG_OR)))
+				ft_block_foward(&sub, &start);
+		}
+		else if (sub->flags & ERR_R)
+			ft_error_redir(sub);
+		if (start)
 			start = start->next;
 	}
-	ft_lstclear(list);
+	ft_lst_ltree_clear(list);
 	return (0);
 }
 
@@ -124,10 +114,10 @@ int		ft_slice_bg(size_t *i, t_ltree *block, t_list **start_list)
 int		ft_slice_fg(void)
 {
 	t_ltree			block;
-	size_t			i;
+	size_t			i; 
 
 	i = -1;
-	block.start = 0;
+	ltree_init(&block);
 	if (g_prompt.prompt_func != heredoc_prompt)
 	{
 		g_heredoc.list = NULL;
@@ -146,5 +136,5 @@ int		ft_slice_fg(void)
 			}
 		}
 	}
-	return (ft_check_is_heredoc(0));
+	return (ft_check_is_heredoc(OUT));
 }

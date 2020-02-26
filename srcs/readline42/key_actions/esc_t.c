@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   esc_t.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 14:56:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/24 19:15:51 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/25 22:40:46 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,8 @@ int					esc_t_need_left(char *word_first, size_t fi, char *end)
 {
 	char			*word_second;
 	size_t			se;
-	size_t			pos_old;
 	char			delimiter;
 
-	pos_old = g_rline.pos;
 	delimiter = g_rline.cmd[g_rline.pos - 1];
 	if (word_left_proc())
 		return (0);
