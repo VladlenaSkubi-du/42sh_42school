@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 19:55:12 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/26 17:47:05 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/27 00:52:19 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@ int		ft_reglue(size_t *i, int num, t_ltree *sub)
 	size_t	size;
 
 	ft_memmove(&(sub->l_cmd[*i]), &(sub->l_cmd[*i + num]),
-	sub->l_techline.len - (*i + num - 1));
-	ft_memmove(&(sub->l_techline.line[*i]), &(sub->l_techline.line[*i + num]),
-	sub->l_techline.len - (*i + num - 1));
-	sub->l_techline.len -= num;
-	z = sub->l_techline.len;
+	sub->l_tline.len - (*i + num - 1));
+	ft_memmove(&(sub->l_tline.line[*i]), &(sub->l_tline.line[*i + num]),
+	sub->l_tline.len - (*i + num - 1));
+	sub->l_tline.len -= num;
+	z = sub->l_tline.len;
 	size = z + num;
 	while (++z <= size)
 	{
 		sub->l_cmd[z] = '\0';
-		sub->l_techline.line[z] = '\0';
+		sub->l_tline.line[z] = '\0';
 	}
 	return (0);
 }
@@ -42,7 +42,7 @@ int		pre_parsing_back(size_t *i, t_ltree *sub)
 {
 	char	*end;
 
-	end = sub->l_techline.line;
+	end = sub->l_tline.line;
 	if (end[*i] == BSLASH && end[*i + 1] == ENTER)
 		ft_reglue(i, 2, sub);
 	if (end[*i] == BSLASH && end[*i + 1] == BSLASH)
@@ -59,7 +59,7 @@ int		pre_parsing_andor_pipe(size_t *i, t_ltree *sub)
 {
 	char	*end;
 
-	end = sub->l_techline.line;
+	end = sub->l_tline.line;
 	if ((end[*i] == PIPE && end[*i + 1] == PIPE) ||
 		(end[*i] == AND && end[*i + 1] == AND) ||
 		end[*i] == PIPE)
@@ -83,7 +83,7 @@ int		pre_parsing_squote(size_t *i, t_ltree *sub)
 {
 	char	*end;
 
-	end = sub->l_techline.line;
+	end = sub->l_tline.line;
 	if (end[*i] == SQUOTE)
 	{
 		ft_reglue(i, 1, sub);
@@ -107,8 +107,8 @@ int		pre_parsing_cut_glue(t_ltree *sub)
 	size_t	i;
 
 	i = 0;
-	end = sub->l_techline.line;
-	while (i < sub->l_techline.len)
+	end = sub->l_tline.line;
+	while (i < sub->l_tline.len)
 	{
 		if (end[i] == DQUOTE)
 		{
@@ -129,8 +129,8 @@ int		pre_parsing_cut_glue(t_ltree *sub)
 	}
 	// printf("techline pre:");//печать для проверки
 	// i = -1;
-	// while (++i < sub->l_techline.len + 1)
-	// 	printf("%3d", sub->l_techline.line[i]);
+	// while (++i < sub->l_tline.len + 1)
+	// 	printf("%3d", sub->l_tline.line[i]);
 	// printf("\n");
 	// printf("l_cmd pre=%s<end\n", sub->l_cmd);
 	return (0);

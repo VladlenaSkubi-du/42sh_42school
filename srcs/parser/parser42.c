@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/26 13:39:13 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/27 01:48:43 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,11 +136,12 @@ int		ltree_init(t_ltree *final)
 	final->end = 0;
 	final->flags = 0;
 	final->fd = NULL;
+	final->token = NULL;
 	final->envir = NULL;
 	final->ar_v = NULL;
 	final->err = NULL;
 	final->err_i = 0;
 	final->l_cmd = NULL;
-	final->l_techline.line = NULL;
+	final->l_tline.line = NULL;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:20:07 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/26 15:31:24 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/27 01:25:53 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ int		ft_redir_less(t_ltree *final, size_t *i)
 
 	f_name = NULL;
 	fd_open.type = IN_R;
-	if (g_techline.line[*i] == LTHAN && (g_techline.line[*i + 1] != LTHAN &&
-		(g_techline.line[*i + 1] != AND || g_techline.line[*i + 1] == PIPE)))
+	if (final->l_tline.line[*i] == LTHAN &&
+		(final->l_tline.line[*i + 1] != LTHAN &&
+		(final->l_tline.line[*i + 1] != AND ||
+		final->l_tline.line[*i + 1] == PIPE)))
 	{
 		fd_open.fd_in = ft_check_n_redir_op(*i, final, STDIN_FILENO);
 		ft_null_redir(*i, 1);
@@ -39,7 +41,7 @@ int		ft_redir_less(t_ltree *final, size_t *i)
 				add_redir_fd(final, &fd_open);
 		}
 		else
-			return (final->flags |= ERR_REDIR << 16);
+			return (final->flags |= ERR_OUT | ERR_REDIR << 16);
 	}
 	free(f_name);
 	return (0);
@@ -56,8 +58,8 @@ int		ft_redir_dless(t_ltree *final, size_t *i)
 
 	f_name = NULL;
 	fd_open.type = IN_R;
-	if (g_techline.line[*i] == LTHAN && g_techline.line[*i + 1] == LTHAN &&
-		g_cmd[*i + 2] != '-')
+	if (final->l_tline.line[*i] == LTHAN && final->l_tline.line[*i + 1] == LTHAN
+		&&	final->l_cmd[*i + 2] != '-')
 	{
 		fd_open.fd_in = ft_check_n_redir_op(*i, final, STDIN_FILENO);
 		ft_null_redir(*i, 2);
@@ -65,7 +67,7 @@ int		ft_redir_dless(t_ltree *final, size_t *i)
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 			return (ft_heredoc_form(&fd_open, f_name, final, 0));
 		else
-			return (final->flags |= ERR_REDIR << 16);
+			return (final->flags |= ERR_OUT | ERR_REDIR << 16);
 	}
 	free(f_name);
 	return (0);
@@ -82,8 +84,8 @@ int		ft_redir_dless_min(t_ltree *final, size_t *i)
 
 	f_name = NULL;
 	fd_open.type = IN_R;
-	if (g_techline.line[*i] == LTHAN && g_techline.line[*i + 1] == LTHAN &&
-		g_cmd[*i + 2] == '-')
+	if (final->l_tline.line[*i] == LTHAN && final->l_tline.line[*i + 1] == LTHAN
+		&& final->l_cmd[*i + 2] == '-')
 	{
 		fd_open.fd_in = ft_check_n_redir_op(*i, final, STDIN_FILENO);
 		ft_null_redir(*i, 3);
@@ -91,7 +93,7 @@ int		ft_redir_dless_min(t_ltree *final, size_t *i)
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 			return (ft_heredoc_form(&fd_open, f_name, final, MINUS));
 		else
-			return (final->flags |= ERR_REDIR << 16);
+			return (final->flags |= ERR_OUT | ERR_REDIR << 16);
 	}
 	free(f_name);
 	return (0);
@@ -108,7 +110,7 @@ int		ft_redir_lessand(t_ltree *final, size_t *i)
 
 	f_name = NULL;
 	fd_open.type = IN_R;
-	if (g_techline.line[*i] == LTHAN && (g_techline.line[*i + 1] == AND))
+	if (final->l_tline.line[*i] == LTHAN && (final->l_tline.line[*i + 1] == AND))
 	{
 		fd_open.fd_in = ft_check_n_redir_op(*i, final, STDIN_FILENO);
 		ft_null_redir(*i, 2);
@@ -116,7 +118,7 @@ int		ft_redir_lessand(t_ltree *final, size_t *i)
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 			return (ft_num_or_word_in(&f_name, &fd_open, i, final));
 		else
-			return (final->flags & ERR_REDIR << 16);
+			return (final->flags |= ERR_OUT | ERR_REDIR << 16);
 	}
 	free(f_name);
 	return (0);

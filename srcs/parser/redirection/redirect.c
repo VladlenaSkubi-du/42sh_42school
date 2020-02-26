@@ -6,16 +6,12 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:46:57 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/25 22:52:57 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/27 02:00:13 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "parser.h"
-
-static char	*g_sign[22] = {
-	"\0", " ", "\\", ";", "&", "\"", "\'", "(", ")", "[", "]",
-	"{", "}", "$", "~", "|", ">", "<", "*", "=", "\n", "#"};
 
 /*
 ** Function to null NUM symbols in g_techline and g_cmd since "i" index
@@ -41,17 +37,15 @@ int			ft_error_redir(t_ltree *final)
 		error_handler((SYNTAX_ERROR | (ERR_BAD_FD << 9)), final->err);
 	else if ((final->flags >> 16 & 0x1FFF) == ERR_NO_FILE)
 		error_handler((SYNTAX_ERROR | (ERR_NO_FILE << 9)), final->err);
-	else if ((final->flags >> 16 & 0x1FFF) == ERR_REDIR &&
-		final->err_i < final->end)
-		error_handler((SYNTAX_ERROR | (ERR_REDIR << 9)),
-		g_sign[(int)final->l_techline.line[final->err_i]]);
-	else if ((final->flags >> 16 & 0x1FFF) == ERR_REDIR &&
-		final->l_techline.line[final->end] != END_T)
-		error_handler((SYNTAX_ERROR | (ERR_REDIR << 9)),
-		g_sign[(int)final->l_techline.line[final->end]]);
-	else
-		error_handler((SYNTAX_ERROR | (ERR_REDIR << 9)),
-		"newline");
+	else if ((final->flags >> 16 & 0x1FFF) & ERR_REDIR)
+	{
+		final->err = ft_find_token_sep(&final->l_cmd[final->err_i]);
+		final->err == NULL ? final->err = ft_strdup(final->token) : 0;
+		if (final->err_i <= final->end)
+			error_handler((SYNTAX_ERROR | (ERR_REDIR << 9)), final->err);
+		else if (final->l_tline.line[final->end] == END_T)
+			error_handler((SYNTAX_ERROR | (ERR_REDIR << 9)), "newline");
+	}
 	free(final->err);
 	final->err = NULL;
 	return (0);
@@ -84,6 +78,7 @@ int			ft_find_redirection(t_ltree *final)
 			break ;
 		i++;
 	}
+	final->err_i = i;
 	return (ret);
 }
 
@@ -101,17 +96,17 @@ char		*ft_word_to_redir(size_t *i, t_ltree *final, int rew_ff)
 	start = 0;
 	if (rew_ff == FF)
 	{
-		while (*i < final->end && g_techline.line[*i] == SPACE)
+		while (*i < final->end && final->l_tline.line[*i] == SPACE)
 			(*i)++;
 		start = *i;
-		while (*i < final->end && g_techline.line[*i] == 0)
+		while (*i < final->end && final->l_tline.line[*i] == 0)
 			size++ && (*i)++;
 	}
 	else if (rew_ff == REW)
 		ft_word_to_redir_rew(i, final, &size, &start);
 	if (size == 0)
 		size = -1;
-	file = ft_strndup(&g_cmd[start], size);
+	file = ft_strndup(&final->l_cmd[start], size);
 	ft_null_redir(start, size);
 	return (file);
 }
@@ -119,9 +114,9 @@ char		*ft_word_to_redir(size_t *i, t_ltree *final, int rew_ff)
 int			ft_word_to_redir_rew(size_t *i, t_ltree *final,
 			long long *size, size_t *start)
 {
-	while (*i >= final->start && g_techline.line[*i] == 0)
+	while (*i >= final->start && final->l_tline.line[*i] == 0)
 	{
-		if (!(ft_isdigit(g_cmd[*i])))
+		if (!(ft_isdigit(final->l_cmd[*i])))
 		{
 			*size = -1;
 			break ;

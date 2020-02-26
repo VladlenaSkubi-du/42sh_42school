@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_count_words.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 22:55:13 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/20 17:27:27 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/26 23:50:43 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft_42.h"
 
 size_t	ft_count_words(char const *s, char c, size_t len)
 {
