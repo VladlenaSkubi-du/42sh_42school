@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:46:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/27 00:02:20 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/28 21:51:43 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ size_t	                        ft_count_words(char const *s, char c,
                                     size_t len);
 size_t			                ft_strlenchri(const char *s, char c);
 char                            *ft_find_token_sep(char *str);
+int						        ft_gnl(const int fd, char **line);
 
 /*
 ** Folder stask_structure______________________________________________________

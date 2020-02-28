@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables_processing42.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:27:42 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/02/18 19:46:07 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/02/27 23:49:35 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int					realloc_all_gvariables_array(void)
 ** variable starts, we sent the name, int what array to search and an integer pointer
 */
 
-size_t				find_in_variables(char **arr, size_t *j, char *name)
+size_t				 find_in_variables(char **arr, size_t *j, char *name)
 {
 	size_t			i;
 	size_t			tmp;

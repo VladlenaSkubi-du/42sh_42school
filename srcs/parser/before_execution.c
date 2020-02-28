@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 19:35:23 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/27 01:56:59 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/28 19:42:19 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,10 @@
 
 int		before_exec(t_ltree *sub, t_ltree *block, t_list **list)
 {
-	char		*add = NULL;
 	int			err;
 	
 	sub->token = ft_find_token_sep(&g_cmd[sub->end]);
 	ft_local_copy_lines(sub);
-	// ft_substitution(sub);
-	sub->envir = init_exec_environ();
-	// add_new_to_exec_env(&sub->envir, add);
 	pre_parsing_cut_glue(sub);
 	if ((err = ft_find_redirection(sub)) & ERR_OUT)
 	{
@@ -38,6 +34,11 @@ int		before_exec(t_ltree *sub, t_ltree *block, t_list **list)
 		ft_lst_ltree_clear(list);
 		return (OUT);
 	}
+	sub->envir = init_exec_environ();
+	// if (assignment(sub) == CONTINUE)
+		// sub->flags |= ERR_IN | ERR_CONT;
+	// add_new_to_exec_env(&sub->envir, add);
+	ft_substitution(sub);
 	argv_forming(sub);
 	return (0);
 }

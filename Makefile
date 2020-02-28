@@ -70,7 +70,9 @@ QUOTING =			parser/quoting/quote_control.c \
 			parser/quoting/pre_parsing_work.c
 
 ASSIGNMENT =		parser/assignment/backend_variables.c \
-			parser/assignment/substitution.c
+			parser/assignment/substitution.c \
+			parser/assignment/ft_curv_var.c \
+			parser/assignment/tilda.c
 
 REDIRECTION = 		parser/redirection/redirect.c \
 			parser/redirection/redir_types_out.c \
@@ -97,6 +99,7 @@ LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_count_words.c \
 			libft_42/ft_strlenchri.c \
 			libft_42/ft_find_token.c \
+			libft_42/ft_gnl.c \
 			$(STACK_STRUCTURE)
 
 STACK_STRUCTURE = 	libft_42/stack_structure/ft_init_stack.c \

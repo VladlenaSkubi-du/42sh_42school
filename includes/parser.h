@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/27 01:48:15 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/28 19:34:19 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct stat		t_stat;
 # define GR_START		0x00000100U
 # define ERR_IN			0x40000000U
 # define ERR_R			0x20000000U
+# define ERR_CONT		0x08000000U
 # define ERR_OUT		0x10000000U
 /*
 ** Is used in before_execution.c
@@ -61,7 +62,10 @@ enum					e_way
 	IN_R,
 	OUT_R,
 	CLOSE,
-	MINUS
+	MINUS,
+	CONTINUE,
+	LINE,
+	ASSIGN
 };
 
 typedef	struct			s_word
@@ -183,7 +187,7 @@ t_list					*g_start_list;
 
 int						parser(char *line);
 int						pars_lex_exec(int tmp);
-int						ft_get_techline(void);
+int						ft_get_techline(char *cmd, t_tech *result);
 char					get_tech_num(char check);
 int						ltree_init(t_ltree *final);
 
@@ -298,16 +302,33 @@ int						here_tab_remove(char **line);
 ** File backend_variables.c
 */
 
-int             		find_assignment_in_variables(size_t var,
+int             		find_assignment_in_variables(t_ltree *sub, size_t var,
 							size_t eq, size_t val);
-int						insert_assign_to_arrays(char *find, size_t var,
-							size_t val, char **array);
+int						insert_assign_to_arrays(char *find, char *insert,
+							char **array, t_ltree *sub);
 
 /*
 ** File substitution.c
 */
 
 int						ft_substitution(t_ltree *sub);
+int						insert_str_in_loc_strs(t_ltree *sub,
+							char **insert, size_t *i, int flag);
+
+/*
+** File ft_curv_var.c
+*/
+
+int						ft_find_curv_var(t_ltree *sub);
+
+/*
+** File substitution.c
+*/
+
+int						ft_find_tilda(t_ltree *sub, int flag);
+int						ft_getdir_by_name(t_ltree *sub, size_t *i, int flag);
+int						ft_get_home(t_ltree *sub, size_t *i, int flag);
+int						ft_find_dir_info(t_ltree *sub, char *user, size_t *i);
 
 /*
 ** Folder quoting_____________________________________________________________
