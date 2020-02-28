@@ -23,16 +23,16 @@ char	*get_env(char *var)
 	val = 0;
 	i = 0;
 	if (!g_env)
-		return (0);
+		return (NULL);
 	len = ft_strlen(var);
 	while (g_env[i])
 	{
-		if (ft_strnstr(g_env[i], var, len))
+		if (!ft_strncmp(g_env[i], var, len))
 			break;
 		i++;
 	}
 	if (g_env[i])
-		val = ft_strdup(g_env[i] + ft_strlen(var) + 1);
+		val = ft_strdup(g_env[i] + len + 1);
 	return (val);
 }
 

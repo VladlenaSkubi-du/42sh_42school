@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history_processing.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 12:18:29 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/19 12:20:12 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/28 16:57:53 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int					add_to_history(char *cmd) //Когда будет запуск, сдел
 		g_cmd = ft_strdup(g_hist.hist[g_hist.last]);
 		g_cmd = (flag == EOF) ? ft_straddsy(g_cmd, EOF) : g_cmd;
 		g_cmd_size = ft_strlen(g_cmd);
-		ft_get_techline();
+		ft_get_techline(g_cmd, &g_techline);
 	}
 	return (0);
 }

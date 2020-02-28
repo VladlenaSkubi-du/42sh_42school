@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 19:55:12 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/27 00:52:19 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/02/28 21:22:35 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,11 +127,11 @@ int		pre_parsing_cut_glue(t_ltree *sub)
 			ft_reglue(&i, 1, sub);
 		i++;
 	}
-	// printf("techline pre:");//печать для проверки
-	// i = -1;
-	// while (++i < sub->l_tline.len + 1)
-	// 	printf("%3d", sub->l_tline.line[i]);
-	// printf("\n");
-	// printf("l_cmd pre=%s<end\n", sub->l_cmd);
+		// printf("techline pre:");//печать для проверки
+		// i = -1;
+		// while (++i < sub->l_tline.len + 1)
+		// 	printf("%3d", sub->l_tline.line[i]);
+		// printf("\n");
+		// printf("l_cmd pre=%s<end\n", sub->l_cmd);
 	return (0);
 }
