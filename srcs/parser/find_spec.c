@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_spec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 13:04:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/27 01:52:30 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/01 14:41:23 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ t_ltree		*ft_check_andor_pipes(t_ltree *block, t_ltree *final, t_list **list)
 	int		tmp;
 	size_t	i;
 
-	tmp = (*list != NULL) ? ((t_ltree *)(ft_lstlast(list))->content)->flags : 0;
+	if (*list != NULL)
+		tmp = ((t_ltree *)(ft_lstlast(list))->content)->flags;
+	else
+		tmp = 0;
 	if (!ft_find_logic(block, final))
 		return (NULL);
 	if (tmp & LOG_AND_OUT || tmp & LOG_OR_OUT || 
@@ -87,7 +90,7 @@ t_ltree		*ft_check_andor_pipes(t_ltree *block, t_ltree *final, t_list **list)
 		final->flags |= (tmp & LOG_AND_OUT) ? LOG_AND_IN : 0;
 		i = final->start - 1;
 		while (++i < block->end)
-			if (ft_correct_after_andor_pipe(&i)) // РѕР±СЂР°Р±РѕС‚РєР° РѕС€РёР±РѕРє!!! 
+			if (ft_correct_after_andor_pipe(&i)) // обработка ошибок!!! 
 				break;		// syntax error near unexpected token `;'
 		erroring_andor_pipe(final, &i, tmp, block->end);
 	}
