@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_42.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:46:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/28 21:51:43 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/01 14:59:06 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void                            ft_add_list_to_end(t_list **start,
                                     t_list *new_list);
 char				            **ft_realloc_array(char ***subj, int len_subj,
 						            int len_needed);
-void	                        ft_lstclear(t_list **begin_list);
+void                            ft_lstclear(t_list **begin_list);
+t_list	            			*ft_lstlast(t_list **begin_list);
 size_t	                        ft_count_words(char const *s, char c,
                                     size_t len);
 size_t			                ft_strlenchri(const char *s, char c);

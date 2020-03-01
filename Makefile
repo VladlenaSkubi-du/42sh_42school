@@ -96,6 +96,7 @@ LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_add_list.c \
 			libft_42/ft_realloc_array.c \
 			libft_42/ft_lstclear.c \
+			libft_42/ft_lstlast.c \
 			libft_42/ft_count_words.c \
 			libft_42/ft_strlenchri.c \
 			libft_42/ft_find_token.c \
