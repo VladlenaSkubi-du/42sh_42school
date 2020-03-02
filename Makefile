@@ -111,6 +111,7 @@ STACK_STRUCTURE = 	libft_42/stack_structure/ft_init_stack.c \
 			libft_42/stack_structure/ft_last_stack.c
 
 SOURCES =	main.c \
+			options_proc42.c \
 			environment42.c \
 			variables_processing42.c \
 			error_handler42.c \

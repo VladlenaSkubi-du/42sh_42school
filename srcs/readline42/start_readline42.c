@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/24 18:08:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/02 12:47:28 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 int				interactive_shell(void)
 {
 	char		*termtype;
-	char		room_termtype[2];
+	char		room_termtype[100];
 	int			tmp;
 
 	start_history();
@@ -40,6 +40,8 @@ int				interactive_shell(void)
 		if (set_noncanonical_input() == -1)
 		{
 			error_handler(TERMINAL_TO_NON, NULL);
+			clean_readline42();
+			clean_everything();
 			exit(TERMINAL_TO_NON);
 		}
 		g_prompt.prompt_func();

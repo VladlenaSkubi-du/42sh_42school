@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:54:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/18 16:46:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/02 16:10:02 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int				options(int argc, char **argv)
 	}
 	if (argc == 2 && ft_strcmp(argv[1], "-c") == 0)
 	{
-		error_handler(OPTIONS_REQUIRED, NULL);
+		error_handler(OPTIONS_REQUIRED | (ERR_EBASH_C << 9), "e-bash");
 		exit(OPTIONS_REQUIRED);
 	}
 	return (0);
@@ -51,11 +51,11 @@ int				main(int argc, char **argv)
 {
 	int			tmp;
 
+	options(argc, argv);
 	g_var_size = ENV_BUFFER;
 	save_environment_variables(NULL);
 	save_shell_variables();
 	save_local_variables(NULL);
-	options(argc, argv);
 	if ((tmp = noninteractive_shell(argc, argv)) == -1)
 		return (1);
 	else if (tmp == 1)

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 14:02:53 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/18 16:54:31 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/02 14:38:13 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ void			init_history(void)
 	g_hist.hist = (char**)ft_xmalloc(sizeof(char*) * (g_hist.len + 1));
 	g_hist.hist[g_hist.len] = 0;
 	g_hist.last = -1;
-	g_hist.start = 0;
 	g_hist.counter = 0;
-	g_hist.start_control = 0;
 }
 
 /*
@@ -90,7 +88,8 @@ int				save_hist_buffer(int fd)
 	char		*tmp;
 
 	i = 0;
-	while (get_next_line(fd, &tmp) == 1)
+	tmp = NULL;
+	while (ft_gnl(fd, &tmp) > 0)
 	{
 		if (i >= g_hist.len)
 		{
@@ -98,15 +97,12 @@ int				save_hist_buffer(int fd)
 				g_hist.len, g_hist.len + MAX_HISTORY);
 			g_hist.len += MAX_HISTORY;
 		}
-		g_hist.hist[i] = tmp;
-		tmp = NULL;
+		g_hist.hist[i] = ft_strdup(tmp);
+		free(tmp);
 		i++;
 	}
-	free(tmp);
 	g_hist.last = i - 1;
-	g_hist.start = i;
 	g_hist.counter = i;
-	g_hist.start_control = g_hist.start;
 	return (0);
 }
 
@@ -122,14 +118,11 @@ int				check_if_histsize_changed(void)
 	user_len = ft_atoi(g_shvar[i] + j);
 	if (user_len < 0)
 		return (0);
-	else if (user_len == 0)
-		g_hist.start = 0;
 	else if (user_len > 0 && user_len > g_hist.len)
 	{
 		g_hist.hist = ft_realloc_array(&g_hist.hist,
 			g_hist.len, user_len);
 		g_hist.len = user_len;
-		g_hist.start = 0;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/15 18:05:58 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/02 18:38:10 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int				error_handler(int status, char *str)
 {
 	ft_putstr_fd("e-bash: ", STDERR_FILENO);
-	if ((status & 0xFFFF) == OPTIONS_REQUIRED)
-		ft_putendl_fd("-c: option requires an argument", STDERR_FILENO);
+	if ((status & 0x102) == 0)
+		options_errors(status, str);
 	else if ((status & 0xFFFF) == TERMINAL_EXISTS)
 		ft_putendl_fd("terminal does not exist, use -c flag", STDERR_FILENO); //TODO check
 	else if ((status & 0xFFFF) == TERMINAL_TO_NON)
@@ -26,6 +26,21 @@ int				error_handler(int status, char *str)
 			STDERR_FILENO); //TODO check
 	else if ((status & 0x102) == SYNTAX_ERROR)
 		syntax_errors(status, str);
+	return (0);
+}
+
+int				options_errors(int status, char *str)
+{
+	if (status >> 9 & ERR_EBASH_C)
+	{
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd(": -c: option requires an argument", STDERR_FILENO);
+	}
+	else if (status >> 9 & ERR_BUILTIN)
+	{
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd(": option requires an argument", STDERR_FILENO);
+	}
 	return (0);
 }
 
@@ -46,6 +61,12 @@ int				syntax_errors(int status, char *str)
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd("'", STDERR_FILENO);
 	}
+	syntax_errors_files(status, str);
+	return (0);
+}
+
+int			syntax_errors_files(int status, char *str)
+{
 	if (status >> 9 & ERR_BAD_FD)
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
@@ -61,10 +82,8 @@ int				syntax_errors(int status, char *str)
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 	}
-	//изменение кода ошибки
 	return (0);
 }
-
 /*
 ** Errors possible in NON-INTERACTIVE MODE: 
 ** bash --posix -c "."

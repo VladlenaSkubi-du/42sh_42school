@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:53:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/02 11:37:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/02 12:37:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	init_readline(void)
 	if (ioctl(1, TIOCGWINSZ, &g_screen))
 	{
 		ft_putendl_fd("Can't get terminal dimensions", 2);
+		clean_everything();
 		exit(TERMINAL_EXISTS);
 	}
 	g_rline.prompt_len = prompt_len();

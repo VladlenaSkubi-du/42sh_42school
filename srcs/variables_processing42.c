@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables_processing42.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:27:42 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/03/02 18:13:38 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/02 19:33:32 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int					realloc_all_gvariables_array(void)
 {
-	ft_realloc_array(&g_env, g_var_size, g_var_size * 2);
-	ft_realloc_array(&g_lovar, g_var_size, g_var_size * 2);
+	g_env = ft_realloc_array(&g_env, g_var_size, g_var_size * 2);
+	g_lovar = ft_realloc_array(&g_lovar, g_var_size, g_var_size * 2);
 	g_var_size *= 2;
 	return (0);
 }

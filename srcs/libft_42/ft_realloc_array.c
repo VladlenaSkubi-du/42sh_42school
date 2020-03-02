@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_realloc_array.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 20:45:01 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/19 12:36:36 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/02 12:56:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ char				**ft_realloc_array(char ***subj, int len_subj,
 		i++;
 	}
 	ft_arrdel(old);
+	old = NULL;
 	return (new);
 }

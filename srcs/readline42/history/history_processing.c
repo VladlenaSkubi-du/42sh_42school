@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history_processing.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 12:18:29 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/28 16:57:53 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/02 15:22:17 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int					insert_hist_in_file(int fd)
 	int				i;
 	int				tmp;
 
-	i = g_hist.start;
+	i = 0;
 	while (g_hist.hist[i] && i < g_hist.len)
 	{
 		tmp = ft_strlen(g_hist.hist[i]);
@@ -112,19 +112,10 @@ int					open_hist_file(int user_len, char *path)
 
 	default_path = define_history_file();
 	// printf("user_len = %d - %d\n", user_len, g_hist.len);
-	if (g_hist.start != g_hist.start_control ||
-		user_len < g_hist.len || user_len == 0)
-	{
-		fd = open(path, O_WRONLY | O_TRUNC | O_CREAT | O_SYNC,
-			S_IRUSR | S_IWUSR);
-		if (user_len < g_hist.len && user_len > 0)
-			g_hist.start = g_hist.last - user_len + 1;
-		else if (user_len == 0)
-			g_hist.len = 0;
-	}
-	else
-		fd = open(path, O_WRONLY | O_APPEND | O_CREAT | O_SYNC,
-			S_IRUSR | S_IWUSR);
+	fd = open(path, O_WRONLY | O_TRUNC | O_CREAT | O_SYNC,
+		S_IRUSR | S_IWUSR);
+	if (user_len == 0)
+		g_hist.len = 0;
 	if (ft_strcmp(path, default_path) != 0 && fd < 0)
 		open_hist_file(user_len, default_path);
 	free(default_path);
@@ -149,6 +140,5 @@ int					scroll_hist_buffer(size_t num)
 		i++;
 	}
 	g_hist.last -= num;
-	g_hist.start = 0;
 	return (0);
 }
