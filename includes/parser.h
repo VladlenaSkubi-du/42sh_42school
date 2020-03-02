@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/02 17:58:09 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/03 01:43:00 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ enum					e_way
 	MINUS,
 	CONTINUE,
 	LINE,
-	ASSIGN
+	ASSIGN,
+	LARGE,
+	SMALL
 };
 
 typedef	struct			s_word
@@ -219,7 +221,8 @@ int						ft_correct_after_andor_pipe(size_t *i);
 int						before_exec(t_ltree *sub, t_ltree *block, t_list **lst);
 int						argv_forming(t_ltree *sub);
 t_word					ft_give_me_word(char const *s, char c, size_t len);
-int						ft_local_copy_lines(t_ltree *sub);
+int						ft_local_copy_lines(t_ltree *sub, char *cmd,
+							t_tech *tline);
 int						erroring_andor_pipe(t_ltree *final, size_t *i,
 						int tmp, size_t block_end);
 
@@ -299,17 +302,17 @@ int						here_tab_remove(char **line);
 */
 
 /*
-** File ft_curv_var.c
+** File ft_find_var.c
 */
 
 int	   					ft_find_var(t_ltree *sub);
 char					*ft_find_var_value(char **find);
+int						ft_param_empty(t_ltree *sub, char **find, size_t *i);
 
 /*
 ** File backend_variables.c
 */
 
-int						ft_find_var(t_ltree *sub);
 int             		find_assignment_in_variables(t_ltree *sub, size_t var,
 							size_t eq, size_t val);
 int						insert_assign_to_arrays(char *find, char *insert,
@@ -328,9 +331,30 @@ int						insert_str_in_loc_strs(t_ltree *sub,
 */
 
 int						ft_find_curv_var(t_ltree *sub);
+int						ft_type_param_check(t_ltree *sub, char **find,
+							size_t *i);
+int						ft_param_colon_dash(t_ltree *sub,
+							char *line, char *oper, size_t *i);
+int						ft_param_colon_equal(t_ltree *sub,
+							char *line, char *oper, size_t *i);
+int						ft_param_colon_qmark(t_ltree *sub,
+							char *line, char *oper, size_t *i);
+int						ft_param_colon_plus(t_ltree *sub,
+							char *line, char *oper, size_t *i);
 
 /*
-** File substitution.c
+** File ft_substring_var.c
+*/
+
+int						ft_substring_len(t_ltree *sub, char *find,
+							char *oper, size_t *i);
+int						ft_substring_s_l_prefix(t_ltree *sub,
+							char *find, char *oper, size_t *i);
+int						ft_substring_s_l_suffix(t_ltree *sub,
+								char *find, char *oper, size_t *i);
+
+/*
+** File tilda.c
 */
 
 int						ft_find_tilda(t_ltree *sub, int flag);

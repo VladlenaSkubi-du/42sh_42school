@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/02 19:33:13 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/02 23:19:11 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 # define 			MAX_HISTORY 100
 # define			MAXDIR 255
-# define 			ENV_BUFFER 4
+# define 			ENV_BUFFER 100
 # define			OUT 42
 
 typedef struct		s_prompt

@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 19:35:23 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/02 17:29:19 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/03 00:06:14 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		before_exec(t_ltree *sub, t_ltree *block, t_list **list)
 	int	err;
 	
 	sub->token = ft_find_token_sep(&g_cmd[sub->end]);
-	ft_local_copy_lines(sub);
+	ft_local_copy_lines(sub, g_cmd, &g_techline);
 	pre_parsing_cut_glue(sub);
 	if ((err = ft_find_redirection(sub)) & ERR_OUT)
 	{
@@ -35,11 +35,11 @@ int		before_exec(t_ltree *sub, t_ltree *block, t_list **list)
 		return (OUT);
 	}
 	sub->envir = init_exec_environ();
+	if ((err = ft_substitution(sub)) & (ERR_OUT |ERR_IN))
+		return (OUT);
 	// if (assignment(sub) == CONTINUE)
 		// sub->flags |= ERR_IN | ERR_CONT;
 	// add_new_to_exec_env(&sub->envir, add);
-	if ((err = ft_substitution(sub)) & (ERR_OUT |ERR_IN))
-		return (OUT);
 	argv_forming(sub);
 	return (0);
 }
@@ -92,16 +92,16 @@ t_word	ft_give_me_word(char const *s, char c, size_t len)
 	return (k);
 }
 
-int		ft_local_copy_lines(t_ltree *sub)
+int		ft_local_copy_lines(t_ltree *sub, char *cmd, t_tech *tline)
 {
-	sub->l_cmd = ft_strndup(&g_cmd[sub->start], sub->end - sub->start);
-	sub->l_tline.line = ft_strndup(&g_techline.line[sub->start],
+	sub->l_cmd = ft_strndup(&cmd[sub->start], sub->end - sub->start);
+	sub->l_tline.line = ft_strndup(&tline->line[sub->start],
 		sub->end - sub->start + 1);
 	sub->l_tline.len = sub->end - sub->start;
 	sub->l_tline.alloc_size = sub->end - sub->start + 1;
 	sub->l_tline.line[sub->l_tline.len] = 0;
 	sub->start = 0;
-	if (sub->end == g_techline.len)
+	if (sub->end == tline->len && tline->line[tline->len] == END_T)
 			sub->l_tline.line[sub->l_tline.len] = END_T;
 	sub->end = sub->l_tline.len;
 	return (0);
