@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:46:57 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/27 02:00:13 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/02 16:17:50 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char		*ft_word_to_redir(size_t *i, t_ltree *final, int rew_ff)
 		while (*i < final->end && final->l_tline.line[*i] == SPACE)
 			(*i)++;
 		start = *i;
-		while (*i < final->end && final->l_tline.line[*i] == 0)
+		while (*i < final->end && final->l_tline.line[*i] == WORD_P)
 			size++ && (*i)++;
 	}
 	else if (rew_ff == REW)
@@ -114,7 +114,7 @@ char		*ft_word_to_redir(size_t *i, t_ltree *final, int rew_ff)
 int			ft_word_to_redir_rew(size_t *i, t_ltree *final,
 			long long *size, size_t *start)
 {
-	while (*i >= final->start && final->l_tline.line[*i] == 0)
+	while (*i >= final->start && final->l_tline.line[*i] == WORD_P)
 	{
 		if (!(ft_isdigit(final->l_cmd[*i])))
 		{

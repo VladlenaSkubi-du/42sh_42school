@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_control.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 17:28:46 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/19 12:06:08 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/02 18:41:11 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		nullify_comment(char **ptr, t_stack **stack)
 }
 
 int		nullify_backslash(char **ptr, t_stack **stack,\
-		size_t *count)
+		size_t *count, size_t size)
 {
 	if (((*stack)->data == 0 || (*stack)->data == DQUOTE) \
 		&& **ptr == BSLASH && ptr[0][1] != ENTER)
@@ -55,7 +55,7 @@ int		nullify_backslash(char **ptr, t_stack **stack,\
 	}
 	if ((*stack)->data == 0 \
 		&& **ptr == BSLASH && ptr[0][1] == ENTER &&\
-		(g_cmd_size - *count) == 2)
+		(size - *count) == 2)
 		ft_push_stack(stack, BSLASH);
 	return (0);
 }
@@ -68,16 +68,17 @@ int		nullify_backslash(char **ptr, t_stack **stack,\
 int		nullify_dquotes(char **ptr, t_stack **stack,\
 		size_t *count)
 {
-	if ((*stack)->data == DQUOTE && **ptr == DQUOTE && \
-		*(*ptr - 1) != BSLASH)
+	if ((*stack)->data == DOLLAR && **ptr != WORD_P && **ptr != DOLLAR)
+		ft_pop_stack(stack);
+	if ((*stack)->data == DQUOTE && **ptr == DQUOTE)
 		ft_pop_stack(stack);
 	else if ((*stack)->data == SQUOTE && **ptr == SQUOTE)
 		ft_pop_stack(stack);
 	else if ((*stack)->data == SQUOTE && **ptr != EOF)
 		**ptr = TEXT;
 	else if ((*stack)->data == DQUOTE && \
-			((**ptr != DOLLAR && *(*ptr - 1) != BSLASH) && \
-			**ptr != EOF && **ptr != BSLASH && **ptr != ENTER &&\
+			(**ptr != DOLLAR && **ptr != EOF &&
+			**ptr != BSLASH && **ptr != ENTER &&\
 			!((**ptr == OPAREN || **ptr == OBRACE) && \
 			*(*ptr - 1) == DOLLAR)))
 		**ptr = TEXT;
@@ -89,6 +90,8 @@ int		nullify_dquotes(char **ptr, t_stack **stack,\
 		ft_push_stack(stack, OBRACE);
 	else if ((*stack)->data == OBRACE && **ptr == CBRACE)
 		ft_pop_stack(stack);
+	else if ((*stack)->data == OBRACE || (*stack)->data == OPAREN)
+		**ptr = TEXT;
 	return (0);
 }
 
@@ -106,7 +109,7 @@ int		nullify_promt_check(t_stack **stack)
 			g_prompt.prompt_func = other_prompt;
 		if ((*stack)->data == EOF && g_prompt.prompt_func != heredoc_prompt)
 		{
-			g_prompt.prompt_func = main_prompt; //можно вынести в отдельную функцию
+			g_prompt.prompt_func = main_prompt;
 			error_handler(SYNTAX_ERROR | (ERR_SQUOTE << 9),
 				g_sign[(*stack)->next->data]);
 		}
@@ -132,30 +135,30 @@ int		nullify(char **techline, size_t cmd_size)
 	size_t	count;
 	t_stack	*stack;
 
-	count = 0;
+	count = -1;
 	ptr = *techline;
 	stack = ft_init_stack();
-	while (count < cmd_size)
+	while (++count < cmd_size)
 	{
+		if (*ptr == DOLLAR && (stack->data == DQUOTE || stack->data == 0))
+			ft_push_stack(&stack, *ptr);
 		if (!(stack->data))
 		{
-			if (*ptr == DQUOTE && (*ptr - 1) != BSLASH)
-				ft_push_stack(&stack, DQUOTE);
-			else if (*ptr == SQUOTE && (*ptr - 1) != BSLASH)
-				ft_push_stack(&stack, SQUOTE);
+			if (*ptr == DQUOTE || *ptr == SQUOTE)
+				ft_push_stack(&stack, *ptr);
 		}
 		else
 			nullify_dquotes(&ptr, &stack, &count);
-		nullify_backslash(&ptr, &stack, &count);
+		nullify_backslash(&ptr, &stack, &count, cmd_size);
 		nullify_comment(&ptr, &stack);
 		ptr++;
-		count++;
 	}
-	// printf("g_cmd nul=%s\n", g_cmd);//печать для проверки
-	// printf("techline cur:");
-	// count = -1;
-	// while (++count < g_techline.len)
-	// 	printf("%3d", g_techline.line[count]);
-	// printf("\n");
+		// printf("g_cmd nul=%s\n", g_cmd);//печать для проверки
+		// printf("techline cur:");
+		// count = -1;
+		// while (++count < g_techline.len)
+		// 	printf("%3d", g_techline.line[count]);
+		// printf("\n");
 	return (nullify_promt_check(&stack));
 }
+	
