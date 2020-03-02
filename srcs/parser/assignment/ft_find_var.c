@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 12:58:47 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/02 18:14:20 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/03 02:05:27 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,26 @@ char	*ft_find_var_value(char **find)
 	res = NULL;
 	if ((li = find_in_variables(g_env, &sj, *find)) != -1)
 		res = ft_strdup(&g_env[li][sj]);
-	if ((li = find_in_variables(g_shvar, &sj, *find)) != -1)
+	else if ((li = find_in_variables(g_shvar, &sj, *find)) != -1)
 		res = ft_strdup(&g_shvar[li][sj]);
-	if ((li = find_in_variables(g_lovar, &sj, *find)) != -1)
+	else if ((li = find_in_variables(g_lovar, &sj, *find)) != -1)
 		res = ft_strdup(&g_lovar[li][sj]);
 	free(*find);
 	return (res);	
+}
+
+int		ft_param_empty(t_ltree *sub, char **find, size_t *i)
+{
+	char	*tmp;
+	size_t	size;
+	
+	size = ft_strlen(*find);
+	if ((tmp = ft_find_var_value(find)) != NULL)
+	{
+		ft_reglue(i, size + 2, sub);
+		insert_str_in_loc_strs(sub, &tmp, i, TEXT);
+	}		
+	else
+		ft_reglue(i, size + 3, sub);
+	return (0);
 }

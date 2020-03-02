@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 22:26:57 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/02 18:03:07 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/03 01:56:32 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@ int		ft_substitution(t_ltree *sub)
 	while (err)
 	{
 		ft_find_tilda(sub, LINE);
-		if ((err = ft_find_var(sub)) & ERR_OUT)
+		ft_find_var(sub);
+		if ((err = ft_find_curv_var(sub)) & ERR_OUT)
 			break ;
-		// if ((err = ft_find_curv_var(sub)) & ERR_OUT)
-		// 	break ;
 		// if ((err = ft_find_sub_subshell(sub)) & ERR_OUT)
 		// 	break ;
 		// if ((err = ft_find_globbing(sub)) & ERR_OUT)
@@ -74,13 +73,6 @@ int     insert_str_in_loc_strs(t_ltree *sub, char **insert, size_t *i, int flag)
 	ft_strcpy(buf + *i, sub->l_tline.line + *i - ft_strlen(*insert) + 1);
 	free(sub->l_tline.line);
 	sub->l_tline.line = buf;
-	free(*insert);
+	free(*insert); 
 	return (0);
 }
-
-		// printf("techline pre:");//печать для проверки
-		// *i = -1;
-		// while (++*i < sub->l_tline.alloc_size - 1)
-		// 	printf("%3d", sub->l_tline.line[*i]);
-		// printf("\n");
-		// printf("l_cmd pre=%s<end\n", sub->l_cmd);
