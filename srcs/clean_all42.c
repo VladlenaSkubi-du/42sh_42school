@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_all42.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:05:06 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/02 19:01:32 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/02 19:33:23 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int				clean_everything(void)
 	ft_arrdel(g_shvar);
 	ft_arrdel(g_lovar);
 	ft_arrdel(g_hist.hist);
-    //другие clean
 	make_ctrl_y(2, NULL);
 	return (0);
 }

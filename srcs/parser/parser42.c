@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser42.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/28 19:36:13 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/02 20:04:50 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,48 +30,20 @@ int		parser(char *line)
 	return (0);
 }
 
-// static int			perform_assignment(size_t eq)
-// {
-// 	size_t			var;
-// 	size_t			value;
-// 	char			*find;
+static int			castrated_parser(void)
+{
+	char 	**argv_fc;
+	int		i;
 
-// 	var = eq - 1;
-// 	value = eq + 1;
-// 	while (var > 0 && ft_isalnum(g_cmd[var]))
-// 		var--;
-// 	while (value < g_cmd_size)
-// 		value++;
-// 	find = ft_strndup(g_cmd + var, eq);
-// 	// printf("%zu - %zu - %zu\n", var, eq, value);
-// 	find_assignment_in_variables(var, eq, value);
-// 	free(find);
-// 	return (0);
-// }
-
-// static int			castrated_parser(void)
-// {
-// 	size_t			i;
-	
-// 	i = 0;
-// 	while (i < g_techline.len)
-// 	{
-// 		if (g_techline.line[i] == EQUAL)
-// 		{
-// 			if ((i > 0 && i + 1 <= g_cmd_size) &&
-// 				ft_isalnum(g_cmd[i - 1]) && g_cmd[i + 1])
-// 				perform_assignment(i);
-// 			else
-// 			{
-// 				printf("Something wrong\n"); //TODO delete
-// 				// error_handler(COMMAND_NOT_FOUND, "="); //TODO исправить и отправлять всю часть строки до разделителя
-// 				return (0); //переставить код возврата
-// 			}
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
+	argv_fc = ft_strsplit(g_cmd, ' ');
+	i = 0;
+	while (argv_fc[i])
+		i++;
+	if (ft_strcmp(argv_fc[0], "fc") == 0)
+		btin_fc(i - 1, argv_fc, g_env);
+	ft_arrdel(argv_fc);
+	return (0);
+}
 
 int		pars_lex_exec(int tmp)
 {

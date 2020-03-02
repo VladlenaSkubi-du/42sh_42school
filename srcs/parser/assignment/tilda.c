@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tilda.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 16:13:08 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/28 22:10:37 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/02 13:33:23 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		ft_find_dir_info(t_ltree *sub, char *user, size_t *i)
 	
 	line = NULL;
 	if ((fd = open("/etc/passwd", O_RDONLY)) != -1)
-		while ((ft_gnl(fd, &line)) > 0)
+		while (ft_gnl(fd, &line) > 0)
 		{
 			info = ft_strsplit(line, ':');
 			free(line);

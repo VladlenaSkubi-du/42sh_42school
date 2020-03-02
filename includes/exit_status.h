@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_status.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/14 14:50:30 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/02 18:34:26 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # define	ERR_BAD_FD 0x4
 # define	ERR_NO_ACC 0x8
 # define	ERR_NO_FILE 0x10
+# define	ERR_EBASH_C 0x20
+# define	ERR_BUILTIN 0x40
 
 
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   analyse_line_compl.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 18:24:47 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/25 22:41:48 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/02 15:25:42 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,14 @@ int					analyse_techline_compl(char *compl, char *tech,
 
 int					pass_symbols(char *compl, char *tech, int i, int *pool)
 {
-	while (i > 0 && (tech[i] == 0 && ft_isalnum(compl[i])))
+	while (i > 0 && (tech[i] == WORD_P && ft_isalnum(compl[i])))
 		i--;
-	if (tech[i] == 0 && ft_isalnum(compl[i]))
+	if (tech[i] == WORD_P && ft_isalnum(compl[i]))
 	{
 		*pool = (g_prompt.prompt_func == main_prompt) ? 1 : 3;
 		return (i);
 	}
-	if (tech[i] == 0 && compl[i] == '/')
+	if (tech[i] == WORD_P && compl[i] == '/')
 	{
 		*pool = 3;
 		return (i);

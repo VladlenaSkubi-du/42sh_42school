@@ -168,7 +168,7 @@ int	exec_core(char **exec_av, int flags)
 	{
 		(flags & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
 		(flags & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
-		if (execve(path, exec_av, g_env) == -1)
+		if (execve(path, exec_av, g_env) == -1) //TODO испрвить на все виды очисток
 			exit(-1);
 	}
 	else if (child_pid < 0)

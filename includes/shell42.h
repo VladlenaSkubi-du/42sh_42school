@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/02 19:08:22 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/02 19:33:13 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 # define 			MAX_HISTORY 100
 # define			MAXDIR 255
-# define 			ENV_BUFFER 400
+# define 			ENV_BUFFER 4
 # define			OUT 42
 
 typedef struct		s_prompt
@@ -56,8 +56,6 @@ typedef struct		s_history
 	int				len;
 	int				counter;
 	int				last;
-	int				start;
-	int				start_control;
 }					t_history;
 
 /*
@@ -110,6 +108,13 @@ t_prompt			g_prompt;
 t_history			g_hist;
 
 /*
+** File options_proc42.c
+*/
+
+int					find_options(char *flags_arr, char **arr, int flag, char *prog);
+int					options_proc(char arrij, char *flags_arr, int flag, int *final);
+
+/*
 ** File environment42.c
 */
 
@@ -143,7 +148,9 @@ void				sig_fork(int sig);
 */
 
 int					error_handler(int status, char *str);
+int					options_errors(int status, char *str);
 int					syntax_errors(int status, char *str);
+int					syntax_errors_files(int status, char *str);
 
 /*
 ** File clean_all42.c
