@@ -6,25 +6,47 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 22:26:57 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/28 21:37:32 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/02 18:03:07 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "parser.h"
 
+/*
+** It finds all typs of substitution
+** '~'(tilda), $WORD, ${parameter}, $(command), [glo]bb*ing
+*/
+
 int		ft_substitution(t_ltree *sub)
 {
-	ft_find_tilda(sub, LINE);
-	// ft_find_var(sub);
-	// ft_find_curv_var(sub);
-	// ft_find_sub_subshell(sub);
-	// ft_find_globbing(sub);
-	return (0);
+	int	err;
+	
+	err = 1;
+	while (err)
+	{
+		ft_find_tilda(sub, LINE);
+		if ((err = ft_find_var(sub)) & ERR_OUT)
+			break ;
+		// if ((err = ft_find_curv_var(sub)) & ERR_OUT)
+		// 	break ;
+		// if ((err = ft_find_sub_subshell(sub)) & ERR_OUT)
+		// 	break ;
+		// if ((err = ft_find_globbing(sub)) & ERR_OUT)
+		// 	break ;
+		err = 0;
+	}
+	if (err & (ERR_OUT | ERR_IN))
+	{
+		err & ERR_OUT ? ft_error_redir(sub) : 0;
+		ft_lst_ltree_clear(&g_start_list);
+	}
+	return (err);
 }
 
 /*
 ** It gets insert string and insert it to l_cmd and l_tline of sub
+** has two types of work - added real techline insert or just TEXT (quoted)
 */
 
 int     insert_str_in_loc_strs(t_ltree *sub, char **insert, size_t *i, int flag)

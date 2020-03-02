@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 19:35:23 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/28 19:42:19 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/02 17:29:19 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 int		before_exec(t_ltree *sub, t_ltree *block, t_list **list)
 {
-	int			err;
+	int	err;
 	
 	sub->token = ft_find_token_sep(&g_cmd[sub->end]);
 	ft_local_copy_lines(sub);
@@ -38,7 +38,8 @@ int		before_exec(t_ltree *sub, t_ltree *block, t_list **list)
 	// if (assignment(sub) == CONTINUE)
 		// sub->flags |= ERR_IN | ERR_CONT;
 	// add_new_to_exec_env(&sub->envir, add);
-	ft_substitution(sub);
+	if ((err = ft_substitution(sub)) & (ERR_OUT |ERR_IN))
+		return (OUT);
 	argv_forming(sub);
 	return (0);
 }

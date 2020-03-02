@@ -71,6 +71,7 @@ QUOTING =			parser/quoting/quote_control.c \
 
 ASSIGNMENT =		parser/assignment/backend_variables.c \
 			parser/assignment/substitution.c \
+			parser/assignment/ft_find_var.c \
 			parser/assignment/ft_curv_var.c \
 			parser/assignment/tilda.c
 

@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/02/28 19:34:19 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/02 17:58:09 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,9 +299,17 @@ int						here_tab_remove(char **line);
 */
 
 /*
+** File ft_curv_var.c
+*/
+
+int	   					ft_find_var(t_ltree *sub);
+char					*ft_find_var_value(char **find);
+
+/*
 ** File backend_variables.c
 */
 
+int						ft_find_var(t_ltree *sub);
 int             		find_assignment_in_variables(t_ltree *sub, size_t var,
 							size_t eq, size_t val);
 int						insert_assign_to_arrays(char *find, char *insert,
@@ -342,7 +350,7 @@ int						nullify(char **techline, size_t size);
 int						nullify_dquotes(char **ptr, t_stack **stack,\
 						size_t *count);
 int						nullify_backslash(char **ptr, t_stack **stack,\
-						size_t *count);
+						size_t *count, size_t size);
 int						nullify_comment(char **ptr, t_stack **stack);
 int						nullify_promt_check(t_stack	**stack);
 
