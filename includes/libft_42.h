@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_42.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:46:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/01 14:59:06 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/02 12:19:07 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdlib.h>
 
 # include "exit_status.h"
-# include "libft.h"
 
 # include "ft_printf.h" //If not used, delete
 # include "get_next_line.h" //If not used, delete
@@ -41,7 +40,7 @@ void                            ft_add_list_to_end(t_list **start,
 char				            **ft_realloc_array(char ***subj, int len_subj,
 						            int len_needed);
 void                            ft_lstclear(t_list **begin_list);
-t_list	            			*ft_lstlast(t_list **begin_list);
+// t_list	            			*ft_lstlast(t_list **begin_list);
 size_t	                        ft_count_words(char const *s, char c,
                                     size_t len);
 size_t			                ft_strlenchri(const char *s, char c);
@@ -49,7 +48,7 @@ char                            *ft_find_token_sep(char *str);
 int						        ft_gnl(const int fd, char **line);
 
 /*
-** Folder stask_structure______________________________________________________
+** Folder stack_structure______________________________________________________
 */
 
 /*

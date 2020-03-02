@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 19:38:44 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/24 19:03:40 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/02 12:19:15 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int			make_ctrl_l(void)
 	g_rline.pos = 0;
 	g_rline.pos_x = g_rline.prompt_len;
 	if (g_rline.prompt_len >= g_screen.ws_col)
-		g_rline.pos_x = g_screen.ws_col % g_rline.prompt_len;
+		g_rline.pos_x = g_rline.prompt_len % g_screen.ws_col;
 	g_rline.pos_y = 0;
 	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
 	return (0);

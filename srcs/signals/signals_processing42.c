@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 12:43:36 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/24 19:33:49 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/02 12:09:31 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void			sig_screen(int sig)
 	ioctl(1, TIOCGWINSZ, &g_screen);
 	g_prompt.prompt_func();
 	if (g_rline.prompt_len >= g_screen.ws_col)
-		g_rline.pos_x = g_screen.ws_col % g_rline.prompt_len;
+		g_rline.pos_x = g_rline.prompt_len % g_screen.ws_col;
 	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
 }
 

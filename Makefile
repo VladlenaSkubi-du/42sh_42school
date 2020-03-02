@@ -96,12 +96,12 @@ LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_add_list.c \
 			libft_42/ft_realloc_array.c \
 			libft_42/ft_lstclear.c \
-			libft_42/ft_lstlast.c \
 			libft_42/ft_count_words.c \
 			libft_42/ft_strlenchri.c \
 			libft_42/ft_find_token.c \
 			libft_42/ft_gnl.c \
 			$(STACK_STRUCTURE)
+			# libft_42/ft_lstlast.c \
 
 STACK_STRUCTURE = 	libft_42/stack_structure/ft_init_stack.c \
 			libft_42/stack_structure/ft_pop_stack.c \

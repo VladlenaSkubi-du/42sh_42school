@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 11:48:24 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/01 14:59:33 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/02 12:16:13 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,6 @@ char				*ft_strremerge(char *s1, size_t len_s1, char *s2, size_t n);
 char				*ft_restrsub(char *s, int start, int len);
 char				*ft_utoa_base(unsigned long nb, int base);
 void				ft_arrdel(char **arr);
+t_list	            *ft_lstlast(t_list **begin_list);
 
 #endif
