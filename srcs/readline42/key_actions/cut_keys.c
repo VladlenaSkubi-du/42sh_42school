@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:26:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/24 13:22:54 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/03 12:49:38 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ int					esc_r(void)
 	while (g_rline.pos)
 		key_left_proc();
 	tputs(g_cap.cd, 1, printc);
-	free(g_rline.cmd);
-	init_readline();
+	ft_bzero(g_rline.cmd, g_rline.cmd_len);
+	g_rline.cmd_len = 0;
 	return (0);
 }
 

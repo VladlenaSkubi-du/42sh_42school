@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:46:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/02 12:19:07 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/03 14:40:35 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 
 typedef struct					s_stack
 {
-    int							data;
-    struct s_stack				*next;
+	int							data;
+	struct s_stack				*next;
 }								t_stack;
 
 void							*ft_realloc(void *subj, size_t len_subj,
@@ -36,16 +36,17 @@ int								ft_issign(char c);
 char							*ft_straddsy(char *dest, char sy);
 int								ft_strrchri(char *s, int c);
 void                            ft_add_list_to_end(t_list **start,
-                                    t_list *new_list);
+									t_list *new_list);
 char				            **ft_realloc_array(char ***subj, int len_subj,
-						            int len_needed);
+									int len_needed);
 void                            ft_lstclear(t_list **begin_list);
 // t_list	            			*ft_lstlast(t_list **begin_list);
 size_t	                        ft_count_words(char const *s, char c,
-                                    size_t len);
+									size_t len);
 size_t			                ft_strlenchri(const char *s, char c);
 char                            *ft_find_token_sep(char *str);
 int						        ft_gnl(const int fd, char **line);
+int								ft_strdiff(char const *s1, char const *s2);
 
 /*
 ** Folder stack_structure______________________________________________________

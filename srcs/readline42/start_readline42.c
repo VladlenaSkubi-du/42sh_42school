@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/02 12:47:28 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/03 13:27:24 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int				interactive_shell(void)
 		termtype = (termtype == NULL) ? "xterm-256color" : termtype;
 		tmp = tgetent(room_termtype, termtype);
 		start_readline42(tmp);
+		ft_bzero(room_termtype, 100);
 	}
 	return (0);
 }

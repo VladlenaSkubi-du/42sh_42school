@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 12:43:36 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/02 12:09:31 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/03 17:04:48 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,16 +106,17 @@ int				signals_reroute(int from)
 
 void			sig_screen(int sig)
 {
-	check_menu();
-	front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
-	move_cursor_from_old_position(0, 'l');
-	position_cursor("ch", 0, 0);
-	tputs(g_cap.cd, 1, printc);
-	ioctl(1, TIOCGWINSZ, &g_screen);
-	g_prompt.prompt_func();
-	if (g_rline.prompt_len >= g_screen.ws_col)
-		g_rline.pos_x = g_rline.prompt_len % g_screen.ws_col;
-	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
+	printf("hello\n");
+	// check_menu();
+	// front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
+	// move_cursor_from_old_position(0, 'l');
+	// position_cursor("ch", 0, 0);
+	// tputs(g_cap.cd, 1, printc);
+	// ioctl(1, TIOCGWINSZ, &g_screen);
+	// g_prompt.prompt_func();
+	// if (g_rline.prompt_len >= g_screen.ws_col)
+	// 	g_rline.pos_x = g_rline.prompt_len % g_screen.ws_col;
+	// front_insert_cmd_till_the_end(g_rline.pos_y + 1);
 }
 
 void			sig_fork(int sig)

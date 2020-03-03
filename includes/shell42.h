@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/02 23:19:11 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/03 19:14:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include "ft_printf.h" //If not used, delete
 # include "get_next_line.h" //If not used, delete
 
-# define 			MAX_HISTORY 100
+# define 			MAX_HISTORY 50
 # define			MAXDIR 255
 # define 			ENV_BUFFER 100
 # define			OUT 42
@@ -56,6 +56,7 @@ typedef struct		s_history
 	int				len;
 	int				counter;
 	int				last;
+	int				start;
 }					t_history;
 
 /*
@@ -111,8 +112,10 @@ t_history			g_hist;
 ** File options_proc42.c
 */
 
-int					find_options(char *flags_arr, char **arr, int flag, char *prog);
-int					options_proc(char arrij, char *flags_arr, int flag, int *final);
+int					find_options(int num, char *flags_arr[num], char **arr, int flag);
+int					options_in_arg(char *arri, int num, char *flags_arr[num], int *final);
+int					options_proc(char arrij, char *flags_arr, int *final);
+int					suboptions_proc(char *arri, int num, char *flags_arr[num], int *final);
 
 /*
 ** File environment42.c
@@ -159,5 +162,6 @@ int					syntax_errors_files(int status, char *str);
 int					clean_everything(void);
 int					clean_readline42(void);
 int					clean_parser42(void);
+int					clean_termcap(void);
 
 #endif

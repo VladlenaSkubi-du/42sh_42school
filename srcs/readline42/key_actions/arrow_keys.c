@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 17:55:26 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/02 19:33:43 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/03 19:13:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,65 +48,80 @@ int		key_left_proc(void)
 
 int		key_up_proc(void)
 {
-	int			i;
-	int			len;
+	int				i;
+	int				len;
 
 	check_menu();
 	if (g_hist.counter <= 0)
 	{
 		g_hist.counter = 0;
-		return (incorrect_sequence());
+		return (0);
 	}
-	free(g_hist.hist[g_hist.counter]);
-	g_hist.hist[g_hist.counter] = ft_strdup(g_rline.cmd);
-	g_hist.counter--;
-	clean_rline_cmd();
-	i = 0;
-	len = ft_strlen(g_hist.hist[g_hist.counter]);
-	if (g_hist.hist[g_hist.counter][len - 1] == '\n')
-		len--;
-	while (i < len)
+	if (g_hist.counter > g_hist.last)
+		save_current_grline(1);
+	if (g_rline.cmd[0] && g_hist.counter <= g_hist.last)
 	{
-		char_add(g_hist.hist[g_hist.counter][i]);
-		i++;
+		free(g_hist.hist[g_hist.counter]);
+		g_hist.hist[g_hist.counter] = ft_strdup(g_rline.cmd);
 	}
+	(g_rline.cmd[0]) ? esc_r() : 0;
+	g_hist.counter--;
+	i = -1;
+	len = ft_strlen(g_hist.hist[g_hist.counter]);
+	if (len > 0 && g_hist.hist[g_hist.counter][len - 1] == '\n')
+		len--;
+	while (++i < len)
+		char_add(g_hist.hist[g_hist.counter][i]);
 	return (0);
 }
 
-int		clean_rline_cmd(void)
+int		save_current_grline(int flag)
 {
-	while (g_rline.pos)
-		key_left_proc();
-	tputs(g_cap.cd, 1, printc);
-	free(g_rline.cmd);
-	init_readline();
+	static char		*current;
+	static size_t	len;
+	int				i;
+
+	if (flag == 1)
+	{
+		current = ft_strdup(g_rline.cmd);
+		len = g_rline.cmd_len;
+	}
+	else if (flag == 0)
+	{
+		i = -1;
+		while (++i < len)
+			char_add(current[i]);
+		free(current);
+		current = NULL;
+		len = 0;
+	}
 	return (0);
 }
 
 int		key_down_proc(void)
 {
-	int			i;
-	int			len;
+	int				i;
+	int				len;
 
 	check_menu();
+	if (g_rline.cmd[0] && g_hist.counter <= g_hist.last)
+	{
+		free(g_hist.hist[g_hist.counter]);
+		g_hist.hist[g_hist.counter] = ft_strdup(g_rline.cmd);
+	}
+	(g_rline.cmd[0]) ? esc_r() : 0;
 	if (g_hist.counter >= g_hist.last)
 	{
+		save_current_grline(0);
 		g_hist.counter = g_hist.last + 1;
-		clean_rline_cmd();
-		return (incorrect_sequence());
+		return (0);
 	}
-	free(g_hist.hist[g_hist.counter]);
-	g_hist.hist[g_hist.counter] = ft_strdup(g_rline.cmd);
 	g_hist.counter++;
-	clean_rline_cmd();
-	i = 0;
+	i = -1;
 	len = ft_strlen(g_hist.hist[g_hist.counter]);
-	if (g_hist.hist[g_hist.counter][len - 1] == '\n')
+	if (len > 0 && g_hist.hist[g_hist.counter][len - 1] == '\n')
 		len--;
-	while (i < len)
-	{
+	while (++i < len)
 		char_add(g_hist.hist[g_hist.counter][i]);
-		i++;
-	}
 	return (0);
 }

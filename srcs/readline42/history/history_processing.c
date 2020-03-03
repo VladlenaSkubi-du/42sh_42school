@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 12:18:29 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/02 15:22:17 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/03 18:38:00 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,20 @@ int					fill_hist_in_file(void)
 	free(path);
 	if (fd < 0)
 		return (0);
-	insert_hist_in_file(fd);
+	insert_hist_in_file(fd, user_len);
 	close(fd);
 	return (0);
 }
 
-int					insert_hist_in_file(int fd)
+int					insert_hist_in_file(int fd, int user_len)
 {
 	int				i;
 	int				tmp;
 
+	if (user_len < g_hist.start)
+		scroll_hist_buffer(g_hist.counter - user_len);
+	if (user_len == g_hist.start)
+		scroll_hist_buffer(1);
 	i = 0;
 	while (g_hist.hist[i] && i < g_hist.len)
 	{
@@ -134,7 +138,7 @@ int					scroll_hist_buffer(size_t num)
 		i++;
 	}
 	i = 0;
-	while (i < g_hist.len - num)
+	while (i < g_hist.len - num || i < g_hist.counter)
 	{
 		g_hist.hist[i] = g_hist.hist[i + num];
 		i++;
