@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/24 19:35:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/03 17:47:00 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,7 +277,7 @@ int								key_right_proc(void);
 int								key_up_proc(void);
 int								key_left_proc(void);
 int								key_down_proc(void);
-int								clean_rline_cmd(void);
+int								save_current_grline(int flag);
 
 /*
 ** File esc_word_proc.c
@@ -441,7 +441,7 @@ int								check_if_histsize_changed(void);
 
 int                 			add_to_history(char *cmd);
 int								fill_hist_in_file(void);
-int								insert_hist_in_file(int fd);
+int								insert_hist_in_file(int fd, int user_len);
 int								open_hist_file(int user_len, char *path);
 int                 			scroll_hist_buffer(size_t num);
 

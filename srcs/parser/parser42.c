@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser42.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/03 01:15:15 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/03 19:15:43 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,14 @@ static int			castrated_parser(void)
 {
 	char 	**argv_fc;
 	int		i;
+	size_t	len;
 
 	argv_fc = ft_strsplit(g_cmd, ' ');
 	i = 0;
 	while (argv_fc[i])
 		i++;
+	len = ft_strlen(argv_fc[i - 1]);
+	argv_fc[i - 1][len - 1] = '\0';
 	if (ft_strcmp(argv_fc[0], "fc") == 0)
 		btin_fc(i - 1, argv_fc, g_env);
 	ft_arrdel(argv_fc);

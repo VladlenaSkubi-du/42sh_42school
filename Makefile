@@ -86,7 +86,8 @@ REDIRECTION = 		parser/redirection/redirect.c \
 SIGNALS = 			signals/signals_processing42.c
 
 BUILTIN = 			builtin/exit.c \
-			builtin/fc.c
+			builtin/fc.c \
+			builtin/usages.c
 
 LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_realloc.c \
@@ -102,6 +103,7 @@ LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_strlenchri.c \
 			libft_42/ft_find_token.c \
 			libft_42/ft_gnl.c \
+			libft_42/ft_strdiff.c \
 			$(STACK_STRUCTURE)
 			# libft_42/ft_lstlast.c \
 

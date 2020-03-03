@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:45:45 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/15 16:40:57 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/03 14:01:43 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,12 @@
 
 int				btin_exit(int status);
 int             btin_fc(int argc, char **argv, char **environ);
+
+/*
+** File usages.c
+*/
+
+int				usage_btin(char *str);
+int				usage_btin_fc(void);
 
 #endif

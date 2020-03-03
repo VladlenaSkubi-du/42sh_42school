@@ -1,22 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fc.c                                               :+:      :+:    :+:   */
+/*   ft_strdiff.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/15 14:10:50 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/03 18:46:12 by sschmele         ###   ########.fr       */
+/*   Created: 2020/03/03 14:36:51 by sschmele          #+#    #+#             */
+/*   Updated: 2020/03/03 14:41:07 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
-#include "builtin42.h"
+#include "libft_42.h"
 
-int                 btin_fc(int argc, char **argv, char **environ)
+int		ft_strdiff(char const *s1, char const *s2)
 {
-	int				flags;
-	
-	flags = find_options(1, (char*[]){"erlns"}, argv, 1);
-	return (0);
+	int i;
+
+	if (s1 == 0 || s2 == 0)
+		return (0);
+	else if (*s1 == '\0' && *s2 == '\0')
+		return (1);
+	i = 0;
+	while (s1[i] || s2[i])
+	{
+		if (s1[i] == s2[i])
+			i++;
+		else
+			return (0);
+	}
+	if (s1[i] == '\0' && s2[i] != '\0')
+		return (0);
+	if (s1[i] != '\0' && s2[i] == '\0')
+		return (0);
+	return (1);
 }
