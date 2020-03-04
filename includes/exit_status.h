@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/02 18:34:26 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/04 13:30:02 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 enum				e_status
 {
 	SUCCESS,
-	PARSER_ERROR, //единица для отслеживания неверного выхода из программы
+	VARIABLE_ERROR,
 	OPTIONS_REQUIRED = 2,
 	MALLOC_ERROR = 12,
 	TERMINAL_EXISTS = 111,
