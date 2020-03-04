@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 12:58:47 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/03 02:05:27 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/03 14:06:37 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,31 @@ int		ft_find_var(t_ltree *sub)
 			}		
 			else
 				ft_reglue(&i, size, sub);
+		}
+	}
+	return (0);
+}
+
+/*
+** Function finds and substitudes vars of type "${parameter}"
+*/
+
+int		ft_find_curv_var(t_ltree *sub)
+{
+	size_t	i;
+	size_t	size;
+	char	*find;
+
+	i = -1;
+	while (++i < sub->l_tline.len)
+	{
+		if (sub->l_tline.line[i] == DOLLAR && sub->l_tline.line[i + 1] == OBRACE)
+		{
+			size = 2;
+			while (i + size < sub->end && sub->l_tline.line[i + size] != CBRACE)
+				size++;
+			find = ft_strndup(&sub->l_cmd[i + 2], size - 2);
+			ft_type_param_check(sub, &find, &i);
 		}
 	}
 	return (0);

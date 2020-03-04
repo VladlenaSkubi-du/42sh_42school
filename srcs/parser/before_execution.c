@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 19:35:23 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/03 00:06:14 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/03 16:30:30 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		before_exec(t_ltree *sub, t_ltree *block, t_list **list)
 	int	err;
 	
 	sub->token = ft_find_token_sep(&g_cmd[sub->end]);
-	ft_local_copy_lines(sub, g_cmd, &g_techline);
+	ft_local_copy_lines(sub, g_cmd, g_techline.line);
 	pre_parsing_cut_glue(sub);
 	if ((err = ft_find_redirection(sub)) & ERR_OUT)
 	{
@@ -92,17 +92,15 @@ t_word	ft_give_me_word(char const *s, char c, size_t len)
 	return (k);
 }
 
-int		ft_local_copy_lines(t_ltree *sub, char *cmd, t_tech *tline)
+int		ft_local_copy_lines(t_ltree *sub, char *cmd, char *tline)
 {
 	sub->l_cmd = ft_strndup(&cmd[sub->start], sub->end - sub->start);
-	sub->l_tline.line = ft_strndup(&tline->line[sub->start],
+	sub->l_tline.line = ft_strndup(&tline[sub->start],
 		sub->end - sub->start + 1);
 	sub->l_tline.len = sub->end - sub->start;
 	sub->l_tline.alloc_size = sub->end - sub->start + 1;
 	sub->l_tline.line[sub->l_tline.len] = 0;
 	sub->start = 0;
-	if (sub->end == tline->len && tline->line[tline->len] == END_T)
-			sub->l_tline.line[sub->l_tline.len] = END_T;
 	sub->end = sub->l_tline.len;
 	return (0);
 }

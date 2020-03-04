@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 17:28:46 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/02 18:41:11 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/03 17:46:22 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ int		nullify_promt_check(t_stack **stack)
 {
 	if ((*stack)->data != 0)
 	{
+		if ((*stack)->data == DOLLAR)
+			ft_pop_stack(stack);
 		if ((*stack)->data == DQUOTE || (*stack)->data == SQUOTE)
 			g_prompt.prompt_func = dquote_prompt;
 		if ((*stack)->data == OPAREN)
@@ -138,7 +140,7 @@ int		nullify(char **techline, size_t cmd_size)
 	count = -1;
 	ptr = *techline;
 	stack = ft_init_stack();
-	while (++count < cmd_size)
+	while (++count <= cmd_size)
 	{
 		if (*ptr == DOLLAR && (stack->data == DQUOTE || stack->data == 0))
 			ft_push_stack(&stack, *ptr);

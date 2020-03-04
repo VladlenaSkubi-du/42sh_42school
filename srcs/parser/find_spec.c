@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 13:04:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/02 13:10:06 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/03 16:47:09 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_ltree		*ft_check_andor_pipes(t_ltree *block, t_ltree *final, t_list **list)
 }
 
 /*
-** Function clear list of t_ltree type
+** Function clear list of t_ltree type. It uses ft_one_ltree_clear
 */
 
 void	ft_lst_ltree_clear(t_list **begin_list)
@@ -114,14 +114,7 @@ void	ft_lst_ltree_clear(t_list **begin_list)
 		if ((*begin_list)->content)
 		{
 			buf = (t_ltree *)(*begin_list)->content;
-			free(buf->l_cmd);
-			free(buf->l_tline.line);
-			ft_arrdel(buf->envir);
-			ft_arrdel(buf->ar_v);
-			ft_lstclear(&buf->fd);
-			free(buf->err);
-			free(buf->token);
-			free((*begin_list)->content);
+			ft_one_ltree_clear(buf);
 		}
 		free((*begin_list));
 		*begin_list = tmp;

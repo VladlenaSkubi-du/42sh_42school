@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 22:26:57 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/03 01:56:32 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/04 12:57:28 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int		ft_substitution(t_ltree *sub)
 		// 	break ;
 		// if ((err = ft_find_globbing(sub)) & ERR_OUT)
 		// 	break ;
+		// !history_sub
 		err = 0;
 	}
 	if (err & (ERR_OUT | ERR_IN))
