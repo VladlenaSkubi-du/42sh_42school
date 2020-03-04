@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/03 13:51:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/04 14:00:51 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,12 @@
 int				error_handler(int status, char *str)
 {
 	ft_putstr_fd("e-bash: ", STDERR_FILENO);
-	if ((status & 0x102) == OPTIONS_REQUIRED)
+	if ((status & 0x102) == VARIABLE_ERROR)
+	{
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd(": readonly variable", STDERR_FILENO);
+	}
+	else if ((status & 0x102) == OPTIONS_REQUIRED)
 		options_errors(status, str);
 	else if ((status & 0xFFFF) == TERMINAL_EXISTS)
 		ft_putendl_fd("terminal does not exist, use -c flag", STDERR_FILENO); //TODO check
@@ -26,6 +31,7 @@ int				error_handler(int status, char *str)
 			STDERR_FILENO); //TODO check
 	else if ((status & 0x102) == SYNTAX_ERROR)
 		syntax_errors(status, str);
+	exit_status_variable(status);
 	return (0);
 }
 

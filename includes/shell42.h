@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/03 19:14:47 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/04 13:53:00 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 
 # define 			MAX_HISTORY 50
 # define			MAXDIR 255
+# define			MAX_EXIT_STATUS 10
 # define 			ENV_BUFFER 100
 # define			OUT 42
 
@@ -102,6 +103,7 @@ enum				e_techline
 */
 
 char				**g_env;
+char				**g_rdovar;
 char				**g_shvar;
 char				**g_lovar;
 int					g_var_size;
@@ -122,9 +124,10 @@ int					suboptions_proc(char *arri, int num, char *flags_arr[num], int *final);
 */
 
 int					save_environment_variables(char *env_var);
+int					save_readonly_variables(void);
 int					save_shell_variables(void);
 int					save_local_variables(char *lovar);
-int					save_history_variables(void);
+int                 exit_status_variable(int status);
 
 /*
 ** File variables_processing42.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/03 16:42:10 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/04 14:02:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -318,6 +318,7 @@ int             		find_assignment_in_variables(t_ltree *sub, size_t var,
 							size_t eq, size_t val);
 int						insert_assign_to_arrays(char *find, char *insert,
 							char **array, t_ltree *sub);
+int						check_readonly_variables(char *find);
 
 /*
 ** File substitution.c
