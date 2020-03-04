@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/03 17:47:00 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/04 19:13:08 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <stdio.h> //DELETE
 
 # include "readline_simple.h"
-# include "get_next_line.h" //If not used, delete
 
 # define TERMCAP_SIZE 	20
 # define CMD_SIZE		100

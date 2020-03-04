@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:54:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/02 16:10:02 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/04 19:07:51 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,13 @@ int				options(int argc, char **argv)
 int				noninteractive_shell(int argc, char **argv)
 {
 	char		*cmd;
+	size_t		li;
+	size_t		sy;
 
 	if (argc > 2 && ft_strcmp(argv[1], "-c") == 0)
 	{
+		li = find_in_variables(g_rdovar, &sy, "42SH_NONINTERACTIVE=");
+		g_rdovar[li][sy] = '1';
 		cmd = ft_strdup(argv[2]); //TODO строка может быть нулевой
 		g_prompt.prompt_func = NULL;
 		if (parser(cmd))
@@ -54,12 +58,13 @@ int				main(int argc, char **argv)
 	options(argc, argv);
 	g_var_size = ENV_BUFFER;
 	save_environment_variables(NULL);
-	save_shell_variables();
+	save_readonly_variables();
 	save_local_variables(NULL);
 	if ((tmp = noninteractive_shell(argc, argv)) == -1)
 		return (1);
 	else if (tmp == 1)
 		return (0);
+	save_shell_variables();
 	g_prompt.prompt_func = main_prompt;
 	if (interactive_shell())
 		return (1); //TODO исправить после вынесения exit_status

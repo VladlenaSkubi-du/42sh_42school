@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   backend_variables.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 18:56:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/04 19:15:17 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/04 19:37:15 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			find_assignment_in_variables(char *sub, size_t var,
 	sy = -1;
 	find = ft_strndup(sub + var, eq - var);
 	if ((li = find_in_variables(g_rdovar, &sy, find)) != -1)
-		return (OUT); //выход из парсера в ридлайн
+		return (OUT);
 	if ((li = find_in_variables(g_env, &sy, find)) != -1)
 		return (insert_assign_to_arrays(find, ft_strndup(sub + var,
 			val - var),	&g_env[li]));
@@ -75,7 +75,7 @@ int			assignment_in_curv_var(t_ltree *sub, char **line,
 	if ((j = find_assignment_in_variables(*line, 0, j, ft_strlen(*line))) == OUT)
 		return (ft_error_vars(sub, ERR_OUT | VARIABLE_ERROR,
 			ft_strndup(*line, ft_strchri(*line, '='))));
-	free (*line);
+	free(*line);
 	insert_str_in_loc_strs(sub, &buf->l_cmd, i, TEXT);
 	buf->l_cmd = NULL;
 	ft_one_ltree_clear(buf);

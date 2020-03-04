@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/04 13:53:00 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/04 19:12:52 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ void				sig_fork(int sig);
 */
 
 int					error_handler(int status, char *str);
+int					variable_errors(int status, char *str);
 int					options_errors(int status, char *str);
 int					syntax_errors(int status, char *str);
 int					syntax_errors_files(int status, char *str);

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:45:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/04 14:01:31 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/04 20:17:13 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int					save_readonly_variables(void)
 	char			*tmp;
 	size_t			size_tmp;
 
-	num = 7;
+	num = 8;
 	g_rdovar = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
 	g_rdovar[0] = (char*)ft_xmalloc(MAX_EXIT_STATUS);
 	g_rdovar[0] = ft_strcpy(g_rdovar[0], "?=0");
@@ -72,6 +72,7 @@ int					save_readonly_variables(void)
 	g_rdovar[5] = ft_strjoin("PPID=", tmp);
 	free(tmp);
 	g_rdovar[6] = ft_strdup("42SH_PARSER=0");
+	g_rdovar[7] = ft_strdup("42SH_NONINTERACTIVE=0");
 	return (0);
 }
 
@@ -93,7 +94,7 @@ int					save_shell_variables(void)
 	tmp = ft_itoa(MAX_HISTORY);
 	g_shvar[1] = ft_strjoin("HISTFILESIZE=", tmp);
 	free(tmp);
-	g_shvar[2] = ft_strdup("EDITOR=vim");
+	g_shvar[2] = ft_strdup("FCEDIT=vim");
 	return (0);
 }
 

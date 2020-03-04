@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_find_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 12:58:47 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/04 18:55:38 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/04 19:35:40 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,6 @@ int			ft_error_vars(t_ltree *sub, int err, char *msg)
 	sub->flags |= ERR_OUT;
 	sub->err_i |= err;
 	sub->err = ft_strdup(msg);
-	error_handler(sub->err_i, sub->err);
+	error_handler(sub->err_i | (ERR_RDONLY << 9), sub->err);
 	return (err);
 }

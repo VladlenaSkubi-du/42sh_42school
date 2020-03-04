@@ -6,18 +6,19 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 16:13:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/04 14:00:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/04 19:21:49 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 
-#define ERR_OPTION		-1
-#define CONTINUE		0
-#define STOP			1
-#define NUM_OPTION		2
-#define SUBOPTION		3
-#define OPTION_FOUND	4
+#define ERR_OPTION			-1
+#define CONTINUE			0
+#define STOP				1
+#define NUM_OPTION			2
+#define SUBOPTION			3
+#define OPTION_FOUND		4
+#define SUBOPTION_STARTS	16
 
 /*
 ** @flag that comes to a function means that numbers can stay in the function
@@ -69,7 +70,7 @@ int			find_options(int num, char *flags_arr[num], char **arr, int flag)
 			break ;
 	}
 	printf("%d\n", final);
-	return (0);
+	return (final);
 }
 
 int			options_in_arg(char *arri, int num, char *flags_arr[num], int *final)
@@ -117,6 +118,8 @@ int			options_proc(char arrij, char *flags_arr, int *final)
 		return (NUM_OPTION);
 	else if (!(*final & 0x1) && (arrij >= '0' && arrij <= '9'))
 		return (ERR_OPTION);
+	else if (ft_isalpha(arrij) == 0)
+		return (ERR_OPTION);
 	while (flags_arr[++k])
 	{
 		if (arrij == flags_arr[k])
@@ -138,7 +141,7 @@ int			suboptions_proc(char *arri, int num, char *flags_arr[num], int *final)
 	
 	if (arri[2] == '\0')
 		return (STOP);
-	len = 16;
+	len = SUBOPTION_STARTS;
 	len_arg = ft_strlen(arri);
 	mask = 1;
 	i = 0;
