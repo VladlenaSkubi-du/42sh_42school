@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   backend_variables.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 18:56:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/04 19:37:15 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/04 20:31:51 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			find_assignment_in_variables(char *sub, size_t var,
 	sy = -1;
 	find = ft_strndup(sub + var, eq - var);
 	if ((li = find_in_variables(g_rdovar, &sy, find)) != -1)
-		return (OUT);
+		return (ERR_OUT | VARIABLE_ERROR); //выход из парсера в ридлайн
 	if ((li = find_in_variables(g_env, &sy, find)) != -1)
 		return (insert_assign_to_arrays(find, ft_strndup(sub + var,
 			val - var),	&g_env[li]));
@@ -72,14 +72,14 @@ int			assignment_in_curv_var(t_ltree *sub, char **line,
 	oper[1] = '\0';
 	j = oper - *line;
 	*line = ft_strrejoin(*line, buf->l_cmd);
-	if ((j = find_assignment_in_variables(*line, 0, j, ft_strlen(*line))) == OUT)
-		return (ft_error_vars(sub, ERR_OUT | VARIABLE_ERROR,
-			ft_strndup(*line, ft_strchri(*line, '='))));
-	free(*line);
+	if ((j = find_assignment_in_variables(*line, 0, j, ft_strlen(*line))) ==
+		ERR_OUT | VARIABLE_ERROR)
+		sub->err = ft_strndup(*line, ft_strchri(*line, '='));
+	free (*line);
 	insert_str_in_loc_strs(sub, &buf->l_cmd, i, TEXT);
 	buf->l_cmd = NULL;
 	ft_one_ltree_clear(buf);
-	return (0);
+	return (sub->err_i |= j);
 }
 
 int			ft_colon_check(int *len, char **line, char **oper, size_t *j)
