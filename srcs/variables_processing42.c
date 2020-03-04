@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables_processing42.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:27:42 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/03/03 19:15:25 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/04 18:25:29 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ size_t				 find_in_variables(char **arr, size_t *j, char *name)
 	size_t			tmp;
 
 	i = 0;
+	if (!arr)
+		return (-1);
 	while (arr[i])
 	{
 		tmp = ft_strchri(arr[i], '=') + 1;
-		if (ft_strncmp(arr[i], name, tmp) == 0 && arr[i][tmp])
+		if (ft_strncmp(arr[i], name, tmp - 1) == 0) //да, всё так и должно быть!
 		{
 			*j = tmp;
 			return (i);

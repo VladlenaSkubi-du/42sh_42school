@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 12:58:47 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/03 14:06:37 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/04 18:55:38 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		ft_find_curv_var(t_ltree *sub)
 			while (i + size < sub->end && sub->l_tline.line[i + size] != CBRACE)
 				size++;
 			find = ft_strndup(&sub->l_cmd[i + 2], size - 2);
-			ft_type_param_check(sub, &find, &i);
+			return (ft_type_param_check(sub, &find, &i));
 		}
 	}
 	return (0);
@@ -79,7 +79,9 @@ char	*ft_find_var_value(char **find)
 	li = -1;
 	sj = -1;
 	res = NULL;
-	if ((li = find_in_variables(g_env, &sj, *find)) != -1)
+	if ((li = find_in_variables(g_rdovar, &sj, *find)) != -1)
+		res = ft_strdup(&g_env[li][sj]);
+	else if ((li = find_in_variables(g_env, &sj, *find)) != -1)
 		res = ft_strdup(&g_env[li][sj]);
 	else if ((li = find_in_variables(g_shvar, &sj, *find)) != -1)
 		res = ft_strdup(&g_shvar[li][sj]);
@@ -103,4 +105,13 @@ int		ft_param_empty(t_ltree *sub, char **find, size_t *i)
 	else
 		ft_reglue(i, size + 3, sub);
 	return (0);
+}
+
+int			ft_error_vars(t_ltree *sub, int err, char *msg)
+{
+	sub->flags |= ERR_OUT;
+	sub->err_i |= err;
+	sub->err = ft_strdup(msg);
+	error_handler(sub->err_i, sub->err);
+	return (err);
 }
