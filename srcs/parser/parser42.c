@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/04 14:01:51 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/04 20:15:15 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static int			castrated_parser(void)
 	len = ft_strlen(argv_fc[i - 1]);
 	argv_fc[i - 1][len - 1] = '\0';
 	if (ft_strcmp(argv_fc[0], "fc") == 0)
-		btin_fc(i - 1, argv_fc, g_env);
-	ft_arrdel(argv_fc);
+		btin_fc(i, argv_fc, g_env);
+	// ft_arrdel(argv_fc);
 	return (0);
 }
 
@@ -57,7 +57,7 @@ int		pars_lex_exec(int tmp)
 			clean_parser42();
 			return (0);
 		}
-	ft_slice_fg();
+	// ft_slice_fg();
 	clean_parser42();
 	return (0);
 }

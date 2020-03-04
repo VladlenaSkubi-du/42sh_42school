@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables_processing42.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:27:42 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/03/04 18:25:29 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/04 19:26:54 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/04 13:30:02 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/04 19:12:43 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 # define	ERR_NO_FILE 0x10
 # define	ERR_EBASH_C 0x20
 # define	ERR_BUILTIN 0x40
-
+# define	ERR_HISTORY 0x80
+# define	ERR_RDONLY 0x100
 
 /*
 ** In reality bash returns code "2" for all the internal errors + adds mask for
