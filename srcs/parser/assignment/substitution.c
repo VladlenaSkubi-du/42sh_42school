@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 22:26:57 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/04 12:57:28 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/04 20:21:46 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int		ft_substitution(t_ltree *sub)
 		// !history_sub
 		err = 0;
 	}
-	if (err & (ERR_OUT | ERR_IN))
+	if (err & ERR_OUT)
 	{
-		err & ERR_OUT ? ft_error_redir(sub) : 0;
+		err & ERR_R ? ft_error_redir(sub) : ft_error_vars(sub, 0, NULL);
 		ft_lst_ltree_clear(&g_start_list);
 	}
 	return (err);
