@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:46:57 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/02 16:17:50 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/04 18:55:19 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ int			ft_error_redir(t_ltree *final)
 		else if (final->l_tline.line[final->end] == END_T)
 			error_handler((SYNTAX_ERROR | (ERR_REDIR << 9)), "newline");
 	}
-	free(final->err);
-	final->err = NULL;
 	return (0);
 }
 

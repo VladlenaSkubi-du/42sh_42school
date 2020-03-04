@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/04 14:02:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/04 19:00:27 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,16 +309,20 @@ int	   					ft_find_var(t_ltree *sub);
 int						ft_find_curv_var(t_ltree *sub);
 char					*ft_find_var_value(char **find);
 int						ft_param_empty(t_ltree *sub, char **find, size_t *i);
+int						ft_error_vars(t_ltree *sub, int err, char *msg);
 
 /*
 ** File backend_variables.c
 */
 
-int             		find_assignment_in_variables(t_ltree *sub, size_t var,
+int             		find_assignment_in_variables(char *sub, size_t var,
 							size_t eq, size_t val);
 int						insert_assign_to_arrays(char *find, char *insert,
-							char **array, t_ltree *sub);
-int						check_readonly_variables(char *find);
+							char **array);
+int						assignment_in_curv_var(t_ltree *sub,
+							char **line, char *oper, size_t *i);
+int						ft_colon_check(int *len, char **line,
+							char **oper, size_t *j);
 
 /*
 ** File substitution.c
