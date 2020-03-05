@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 12:43:36 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/03 17:04:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/05 20:12:27 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,17 +90,18 @@ int					route_exit(void)
 
 int				signals_reroute(int from)
 {
-	if (from == 2)
-	{
-		signal(SIGINT, sig_fork);
-	}
-	else
-	{
-		signal(SIGTSTP, SIG_DFL);
-		signal(SIGINT, SIG_DFL);
-		signal(SIGTERM, SIG_DFL);
-		signal(SIGCONT, SIG_DFL);
-	}
+	// if (from == 2)
+	// {
+	// 	signal(SIGINT, sig_fork);
+	// 	signal(SIGWINCH, SIG_DFL);
+	// }
+	// else
+	// {
+	// 	signal(SIGTSTP, SIG_DFL);
+	// 	signal(SIGINT, SIG_DFL);
+	// 	signal(SIGTERM, SIG_DFL);
+	// 	signal(SIGCONT, SIG_DFL);
+	// }
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/05 13:55:23 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/05 19:06:32 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int			syntax_errors_files(int status, char *str)
 	}
 	return (0);
 }
+
 /*
 ** Errors possible in NON-INTERACTIVE MODE: 
 ** bash --posix -c "."
