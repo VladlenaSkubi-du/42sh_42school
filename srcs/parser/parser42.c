@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/05 20:10:29 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/05 21:33:25 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int			castrated_parser(void)
 
 int		pars_lex_exec(int tmp)
 {
-	castrated_parser(); //TODO delete
+	// castrated_parser(); //TODO delete
 	if (g_prompt.prompt_func != heredoc_prompt)
 		if (nullify(&g_techline.line, g_cmd_size) == OUT)
 		{

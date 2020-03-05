@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/05 20:55:43 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/05 21:33:11 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int			syntax_errors_files(int status, char *str)
 	}
 	return (0);
 }
+
 /*
 ** Errors possible in NON-INTERACTIVE MODE: 
 ** bash --posix -c "."
