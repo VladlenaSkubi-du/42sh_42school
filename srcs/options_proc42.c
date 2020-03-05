@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 16:13:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/04 19:21:49 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/05 13:56:58 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,10 @@ int			options_in_arg(char *arri, int num, char *flags_arr[num], int *final)
 				return (ERR_OPTION);
 			return (CONTINUE);
 		}
+		else if (res == CONTINUE)
+			return (CONTINUE);
 	}
-	return (CONTINUE);
+	return (ERR_OPTION);
 }
 
 /*

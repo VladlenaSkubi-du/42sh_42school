@@ -87,6 +87,7 @@ SIGNALS = 			signals/signals_processing42.c
 
 BUILTIN = 			builtin/exit.c \
 			builtin/fc.c \
+			builtin/init_structures.c \
 			builtin/usages.c
 
 LIBFT_42 =			libft_42/ft_xmalloc.c \

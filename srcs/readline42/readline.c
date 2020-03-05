@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:53:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/02 12:37:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/05 14:09:32 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char	*readline(void)
 	else
 		ft_putendl_fd(0, STDIN_FILENO);
 	action_alloc_management(NULL, 1);
+	save_current_grline(2);
 	return (g_rline.cmd);
 }
 

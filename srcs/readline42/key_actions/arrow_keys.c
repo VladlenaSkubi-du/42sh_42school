@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 17:55:26 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/03 19:13:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/05 14:08:53 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,9 @@ int		save_current_grline(int flag)
 		i = -1;
 		while (++i < len)
 			char_add(current[i]);
+	}
+	else if (flag == 2)
+	{
 		free(current);
 		current = NULL;
 		len = 0;
@@ -113,6 +116,7 @@ int		key_down_proc(void)
 	if (g_hist.counter >= g_hist.last)
 	{
 		save_current_grline(0);
+		save_current_grline(2);
 		g_hist.counter = g_hist.last + 1;
 		return (0);
 	}

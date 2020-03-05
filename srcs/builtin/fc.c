@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 14:10:50 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/04 20:11:54 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/05 14:31:43 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,40 +41,16 @@ int                 btin_fc(int argc, char **argv, char **environ)
 	flags = 0;
 	fc_arg = init_btin_fc();
 	flags = find_options(1, (char*[]){"erlns"}, argv, 1);
-	if (flags != 1)
-		btin_fc_check_options(argv, &flags, &fc_arg);
-	return (0);
-}
-
-t_btin_fc			init_btin_fc(void)
-{
-	t_btin_fc		fc;
-
-	fc.editor = "vim";
-	fc.arg_l_first = -17;
-	fc.arg_l_first = -1;
-	fc.arg_s_comp = NULL;
-	fc.arg_s_first = -1;
-	return (fc);
-}
-
-int					btin_fc_check_options(char **argv, int *flags,
-						t_btin_fc *fc_arg)
-{
-	if ((*flags & FLAG_E) && (*flags & FLAG_L))
-		*flags &= ~FLAG_E;
-	if ((*flags & FLAG_E) && (*flags & FLAG_S))
-		*flags &= ~FLAG_E;
-	if ((*flags & FLAG_N) && !(*flags & FLAG_L))
-		*flags &= ~FLAG_N;
-	if (!((*flags & FLAG_E) || (*flags & FLAG_L) || (*flags & FLAG_S)))
-		return (0);
-	btin_fc_fill_structure(argv, flags, &fc_arg);
+	if ((flags & FLAG_N) && !(flags & FLAG_L))
+		flags &= ~FLAG_N;
+	if (flags != 1 && ((flags & FLAG_E) || (flags & FLAG_L) || (flags & FLAG_S)))
+		btin_fc_fill_structure(argv, &flags, &fc_arg);
+		// btin_fc_check_options(argv, &flags, &fc_arg);
 	return (0);
 }
 
 int					btin_fc_fill_structure(char **argv, int *flags,
-						t_btin_fc **fc_arg)
+						t_btin_fc *fc_arg)
 {
 	int				i;
 	int				j;
@@ -84,23 +60,27 @@ int					btin_fc_fill_structure(char **argv, int *flags,
 	while (argv[++i])
 	{
 		if (argv[i][0] != '-')
-			continue ;
+		{
+			fc_arg->arg_e_first = ft_atoi(argv[i]);
+		}
 		while (argv[i][++j])
 		{
-			if (argv[i][j] == 'l' && argv[i][j + 1] && argv[i][j + 1] == 's')
-				*flags &= ~FLAG_L;
-			else if (argv[i][j] == 'l' && (*flags & FLAG_S))
-				*flags &= ~FLAG_S;
-			else if (argv[i][j] == 's' && (*flags & FLAG_L))
-				*flags &= ~FLAG_L;
-			if (argv[i][j] == 'l')
-				btin_fc_l_args(argv, i, fc_arg);
+			if (argv[i][j] == 'n' || argv[i][j] == 'r')
+				continue ;
+			(argv[i][1] && argv[i][1] == 'e') ? btin_fc_e_args(argv, i, j, &fc_arg) : 0;
+			(argv[i][1] && argv[i][1] == 'l') ? btin_fc_l_args(argv, i, j, &fc_arg) : 0;
+			(argv[i][1] && argv[i][1] == 's') ? btin_fc_s_args(argv, i, j, &fc_arg) : 0;
 		}
 	}
 	return (0);
 }
 
-int					btin_fc_l_args(char **argv, int i, t_btin_fc **fc_arg)
+int					btin_fc_e_args(char **argv, int i, int j, t_btin_fc **fc_arg)
+{
+	return (0);
+}
+
+int					btin_fc_l_args(char **argv, int i, int j, t_btin_fc **fc_arg)
 {
 	t_btin_fc		*tmp;
 
@@ -111,7 +91,14 @@ int					btin_fc_l_args(char **argv, int i, t_btin_fc **fc_arg)
 		tmp->arg_l_first = -17;
 	if (tmp->arg_l_last == 0 && argv[i + 2] && argv[i + 2][0] != '0')
 		tmp->arg_l_first = -1;
+	// if (argv[i][j] == 'l' && (*flags & FLAG_S))
+	// 			*flags &= ~FLAG_S; - если у л есть аргументы, он первый - он важнее, но если нет, идет к s
 	//если он не может отработать по аргументам одно он лезет в другое ААААААА
 	printf("%d - %d\n", tmp->arg_l_first, tmp->arg_l_last);
+	return (0);
+}
+
+int					btin_fc_s_args(char **argv, int i, int j, t_btin_fc **fc_arg)
+{
 	return (0);
 }
