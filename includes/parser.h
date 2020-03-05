@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/04 19:00:27 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/05 19:03:33 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,9 +357,17 @@ int						ft_substring_s_l_prefix(t_ltree *sub,
 							char **line, char *oper, size_t *i);
 int						ft_substring_s_l_suffix(t_ltree *sub,
 								char **line, char *oper, size_t *i);
+
+/*
+** File param_help_func.c
+*/
+
 int						ft_param_word_sub(t_ltree *sub,
 							char **line, char *oper, size_t *i);
 void					ft_one_ltree_clear(t_ltree *buf);
+int     				ft_param_error_msg(t_ltree *sub, char **find,
+							char *oper, size_t *i);
+char					*ft_parsing_str(char *str);
 
 /*
 ** File tilda.c

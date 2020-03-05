@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_status.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/04 20:29:43 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/05 18:16:47 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 
 # define	ERR_HISTORY 0x1
 # define	ERR_RDONLY 0x2
+# define	ERR_UNSET 0x4
+# define	ERR_SET 0x8
 
 /*
 ** In reality bash returns code "2" for all the internal errors + adds mask for
