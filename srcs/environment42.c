@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:45:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/04 20:17:13 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/05 14:07:03 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int					save_readonly_variables(void)
 	num = 8;
 	g_rdovar = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
 	g_rdovar[0] = (char*)ft_xmalloc(MAX_EXIT_STATUS);
-	g_rdovar[0] = ft_strcpy(g_rdovar[0], "?=0");
+	ft_strcpy(g_rdovar[0], "?=0");
 	tmp = ft_itoa(getuid());
 	g_rdovar[1] = ft_strjoin("UID=", tmp);
 	free(tmp);
@@ -125,7 +125,7 @@ int                 exit_status_variable(int status)
 
     tmp = ft_itoa(status);
     ft_bzero(&g_rdovar[0][2], MAX_EXIT_STATUS - 2);
-    g_rdovar[0] = ft_strcpy(&g_rdovar[0][2], tmp);
+   	ft_strcpy(&g_rdovar[0][2], tmp);
     free(tmp);
     return (0);
 }

@@ -348,3 +348,18 @@ if (j == g_screen.ws_col - 1 && g_rline.cmd[i] != '\n')
 Потом fс
 Потом !
 Сигналы переделать
+
+// if ((*flags & FLAG_E) && (*flags & FLAG_L))
+	// 	*flags &= ~FLAG_E;
+	// if ((*flags & FLAG_E) && (*flags & FLAG_S))
+	// 	*flags &= ~FLAG_E;
+	// if ((*flags & FLAG_N) && !(*flags & FLAG_L))
+	// 	*flags &= ~FLAG_N;
+	// if (!((*flags & FLAG_E) || (*flags & FLAG_L) || (*flags & FLAG_S)))
+	// 	return (0);
+	// btin_fc_fill_structure(argv, flags, &fc_arg);
+
+if (argv[i][j] == 'l' && argv[i][j + 1] && argv[i][j + 1] == 's')
+				*flags &= ~FLAG_L;
+			else if (argv[i][j] == 's' && (*flags & FLAG_L))
+				*flags &= ~FLAG_L;

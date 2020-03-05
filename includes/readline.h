@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/04 19:13:08 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/05 13:16:03 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -463,6 +463,7 @@ int								find_in_history(char **find);
 
 int								print_new_cmd_from_history(int coincidence);
 char							*free_find_hist(char **find);
+int								delete_from_history();
 
 /*
 **_____________________________________________________________________________

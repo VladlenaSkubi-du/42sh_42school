@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/04 19:59:04 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/05 13:55:23 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 int				error_handler(int status, char *str)
 {
 	ft_putstr_fd("e-bash: ", STDERR_FILENO);
-	if ((status & 0xFFFF) == VARIABLE_ERROR)
+	if ((status & 0x1) == VARIABLE_ERROR)
 		variable_errors(status, str);
-	else if ((status & 0xFFFF) == OPTIONS_REQUIRED)
+	else if ((status & 0x2) == OPTIONS_REQUIRED)
 		options_errors(status, str);
-	else if ((status & 0xFFFF) == TERMINAL_EXISTS)
+	else if (status == TERMINAL_EXISTS)
 		ft_putendl_fd("terminal does not exist, use -c flag", STDERR_FILENO); //TODO check
-	else if ((status & 0xFFFF) == TERMINAL_TO_NON)
+	else if (status == TERMINAL_TO_NON)
 		ft_putendl_fd("terminal can't be changed, use -c flag", STDERR_FILENO); //TODO check
-	else if ((status & 0xFFFF) == TERMINAL_TO_CAN)
+	else if (status == TERMINAL_TO_CAN)
 		ft_putendl_fd("terminal can't be changed, reset the terminal",
 			STDERR_FILENO); //TODO check
 	else if ((status & 0x102) == SYNTAX_ERROR)
