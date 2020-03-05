@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_curv_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 12:55:34 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/04 17:43:34 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/05 21:05:51 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 int		ft_type_param_check(t_ltree *sub, char **find, size_t *i)
 {
 	char	*oper;
-	
+
 	if ((oper = ft_strstr(*find, "-")))
 		return (ft_param_colon_dash(sub, find, oper, i));
 	else if ((oper = ft_strstr(*find, "=")))
@@ -60,8 +60,8 @@ int		ft_param_colon_dash(t_ltree *sub, char **find, char *oper, size_t *i)
 	int		colon;
 	char	*tmp;
 	size_t	size;
-	
-	colon = (*(oper - 1) == ':') ? 1 : 0;	
+
+	colon = (*(oper - 1) == ':') ? 1 : 0;
 	size = ft_strlen(*find);
 	tmp = (colon) ? ft_strndup(*find, oper - *find - 1) :
 		ft_strndup(*find, oper - *find);
@@ -94,7 +94,7 @@ int		ft_param_colon_equal(t_ltree *sub, char **find, char *oper, size_t *i)
 	int		colon;
 	char	*tmp;
 	size_t	size;
-	
+
 	colon = (*(oper - 1) == ':') ? 1 : 0;
 	size = ft_strlen(*find);
 	tmp = (colon) ? ft_strndup(*find, oper - *find - 1) :
@@ -117,7 +117,7 @@ int		ft_param_colon_equal(t_ltree *sub, char **find, char *oper, size_t *i)
 	}
 	return (assignment_in_curv_var(sub, find, oper, i));
 }
- 
+
 /*
 ** Function finds and substitudes classic vars of types
 ** ${parameter:?[word]} and ${parameter?[word]}
@@ -126,11 +126,30 @@ int		ft_param_colon_equal(t_ltree *sub, char **find, char *oper, size_t *i)
 int		ft_param_colon_qmark(t_ltree *sub, char **find, char *oper, size_t *i)
 {
 	int		colon;
-	
+	char	*tmp;
+	size_t	size;
+
 	colon = (*(oper - 1) == ':') ? 1 : 0;
-	
-	
-	return (0);
+	size = ft_strlen(*find);
+	tmp = (colon) ? ft_strndup(*find, oper - *find - 1) :
+		ft_strndup(*find, oper - *find);
+	if ((tmp = ft_find_var_value(&tmp)) != NULL)
+	{
+		if (*tmp != '\0')
+		{
+			free(*find);
+			ft_reglue(i, size + 2, sub);
+			return (insert_str_in_loc_strs(sub, &tmp, i, TEXT));
+		}
+		else if (*tmp == '\0' && !colon)
+		{
+			free(*find);
+			return (ft_reglue(i, size + 3, sub));
+		}
+		else
+			return (ft_param_error_msg(sub, find, oper, i));
+	}
+	return (ft_param_error_msg(sub, find, oper, i));
 }
 
 /*
@@ -141,9 +160,25 @@ int		ft_param_colon_qmark(t_ltree *sub, char **find, char *oper, size_t *i)
 int		ft_param_colon_plus(t_ltree *sub, char **find, char *oper, size_t *i)
 {
 	int		colon;
-	
+	char	*tmp;
+	size_t	size;
+
 	colon = (*(oper - 1) == ':') ? 1 : 0;
-	
-	
-	return (0);
+	size = ft_strlen(*find);
+	tmp = (colon) ? ft_strndup(*find, oper - *find - 1) :
+		ft_strndup(*find, oper - *find);
+	if ((tmp = ft_find_var_value(&tmp)) != NULL)
+	{
+		if (*tmp != '\0')
+			return (ft_param_word_sub(sub, find, oper, i));
+		else if (*tmp == '\0' && colon)
+		{
+			free(*find);
+			return (ft_reglue(i, size + 3, sub));
+		}
+		else
+			return (ft_param_word_sub(sub, find, oper, i));
+	}
+	free(*find);
+	return (ft_reglue(i, size + 3, sub));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   backend_variables.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 18:56:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/04 20:31:51 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/05 20:50:55 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,28 +57,19 @@ int			assignment_in_curv_var(t_ltree *sub, char **line,
 {
 	size_t	j;
 	int		len;
-	t_ltree *buf;
+	char	*buf;
 	
 	ft_colon_check(&len, line, &oper, &j);
-	buf = (t_ltree *)ft_xmalloc(sizeof(t_ltree));
-	ltree_init(buf);
-	buf->l_cmd = ft_strdup(oper + 1);
-	ft_get_techline(buf->l_cmd, &buf->l_tline);
-	buf->end = buf->l_tline.len;
-	nullify(&buf->l_tline.line, buf->l_tline.len);
-	pre_parsing_cut_glue(buf);
-	ft_substitution(buf);
+	buf = ft_parsing_str(oper + 1);
 	ft_reglue(i, len + 2, sub);
 	oper[1] = '\0';
 	j = oper - *line;
-	*line = ft_strrejoin(*line, buf->l_cmd);
+	*line = ft_strrejoin(*line, buf);
 	if ((j = find_assignment_in_variables(*line, 0, j, ft_strlen(*line))) ==
-		ERR_OUT | VARIABLE_ERROR)
+		(ERR_OUT | VARIABLE_ERROR))
 		sub->err = ft_strndup(*line, ft_strchri(*line, '='));
 	free (*line);
-	insert_str_in_loc_strs(sub, &buf->l_cmd, i, TEXT);
-	buf->l_cmd = NULL;
-	ft_one_ltree_clear(buf);
+	insert_str_in_loc_strs(sub, &buf, i, TEXT);
 	return (sub->err_i |= j);
 }
 
@@ -87,8 +78,8 @@ int			ft_colon_check(int *len, char **line, char **oper, size_t *j)
 	*len = ft_strlen(*line);
 	if ((*j = ft_strchri(*line, ':')) != -1)
 	{
-		ft_memmove(&(*line[*j]), &(*line[*j + 1]), *len - *j);
-		*line[--(*len)] = '\0';
+		ft_memmove(&(line[0][*j]), &(line[0][*j + 1]), *len - *j);
+		line[0][--(*len)] = '\0';
 		*oper -= 1;
 		(*len)++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_spec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 13:04:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/03 16:47:09 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/05 21:15:24 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ t_ltree		*ft_check_andor_pipes(t_ltree *block, t_ltree *final, t_list **list)
 	int		tmp;
 	size_t	i;
 
-	if (*list != NULL)
-		tmp = ((t_ltree *)(ft_lstlast(list))->content)->flags;
+	if (*list)
+		tmp = ((t_ltree *)(ft_lstlast(list)->content))->flags;
 	else
 		tmp = 0;
 	if (!ft_find_logic(block, final))
@@ -91,7 +91,7 @@ t_ltree		*ft_check_andor_pipes(t_ltree *block, t_ltree *final, t_list **list)
 		i = final->start - 1;
 		while (++i < block->end)
 			if (ft_correct_after_andor_pipe(&i))
-				break;
+				break ;
 		erroring_andor_pipe(final, &i, tmp, block->end);
 	}
 	return (final);			
