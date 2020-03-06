@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_parsing_work.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 19:55:12 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/02 18:41:04 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/06 20:41:43 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		ft_reglue(size_t *i, int num, t_ltree *sub)
 	ft_memmove(&(sub->l_tline.line[*i]), &(sub->l_tline.line[*i + num]),
 	sub->l_tline.len - (*i + num - 1));
 	sub->l_tline.len -= num;
+	sub->end -= num;
 	z = sub->l_tline.len;
 	size = z + num;
 	while (++z <= size)

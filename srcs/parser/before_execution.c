@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   before_execution.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 19:35:23 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/04 18:37:49 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/06 22:06:24 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int		before_exec(t_ltree *sub, t_ltree *block, t_list **list)
 	sub->envir = init_exec_environ();
 	if ((err = ft_substitution(sub)) & (ERR_OUT | ERR_IN))
 		return (OUT);
-	// if (assignment(sub) == CONTINUE)
-		// sub->flags |= ERR_IN | ERR_CONT;
+	if (assignment(sub) == CONTINUE)
+		sub->flags |= ERR_IN | ERR_CONT;
 	// add_new_to_exec_env(&sub->envir, add);
 	argv_forming(sub);
 	return (0);

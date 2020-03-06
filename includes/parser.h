@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/05 19:03:33 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/06 21:13:48 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,16 +302,6 @@ int						here_tab_remove(char **line);
 */
 
 /*
-** File ft_find_var.c
-*/
-
-int	   					ft_find_var(t_ltree *sub);
-int						ft_find_curv_var(t_ltree *sub);
-char					*ft_find_var_value(char **find);
-int						ft_param_empty(t_ltree *sub, char **find, size_t *i);
-int						ft_error_vars(t_ltree *sub, int err, char *msg);
-
-/*
 ** File backend_variables.c
 */
 
@@ -325,12 +315,34 @@ int						ft_colon_check(int *len, char **line,
 							char **oper, size_t *j);
 
 /*
+** File assignment.c
+*/
+
+int						assignment(t_ltree *sub);
+int						get_assign_and_add(t_ltree *sub, size_t *var,
+							size_t *eq, size_t *val);
+
+/*
+** Folder substitution________________________________________________________
+*/
+
+/*
 ** File substitution.c
 */
 
 int						ft_substitution(t_ltree *sub);
 int						insert_str_in_loc_strs(t_ltree *sub,
 							char **insert, size_t *i, int flag);
+
+/*
+** File ft_find_var.c
+*/
+
+int	   					ft_find_var(t_ltree *sub);
+int						ft_find_curv_var(t_ltree *sub);
+char					*ft_find_var_value(char **find);
+int						ft_param_empty(t_ltree *sub, char **find, size_t *i);
+int						ft_error_vars(t_ltree *sub, int err, char *msg);
 
 /*
 ** File ft_curv_var.c
