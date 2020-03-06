@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:42:28 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/05 20:48:45 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/06 20:32:30 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,20 @@ char	*ft_parsing_str(char *str)
 	t_ltree *buf;
 	char	*ret;
 
-	buf = (t_ltree *)ft_xmalloc(sizeof(t_ltree));
-	ltree_init(buf);
-	buf->l_cmd = ft_strdup(str);
-	ft_get_techline(buf->l_cmd, &buf->l_tline);
-	buf->end = buf->l_tline.len;
-	nullify(&buf->l_tline.line, buf->l_tline.len);
-	pre_parsing_cut_glue(buf);
-	ft_substitution(buf);
-	ret = buf->l_cmd;
-	buf->l_cmd = NULL;
-	ft_one_ltree_clear(buf);
+	ret = NULL;
+	if (str)
+	{
+		buf = (t_ltree *)ft_xmalloc(sizeof(t_ltree));
+		ltree_init(buf);
+		buf->l_cmd = ft_strdup(str);
+		ft_get_techline(buf->l_cmd, &buf->l_tline);
+		buf->end = buf->l_tline.len;
+		nullify(&buf->l_tline.line, buf->l_tline.len);
+		pre_parsing_cut_glue(buf);
+		ft_substitution(buf);
+		ret = buf->l_cmd;
+		buf->l_cmd = NULL;
+		ft_one_ltree_clear(buf);
+	}
 	return (ret);
 }

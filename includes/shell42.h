@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/06 14:41:24 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/06 21:36:22 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int                 exit_status_variable(int status);
 int					realloc_all_gvariables_array(void);
 size_t				find_in_variables(char **arr, size_t *j, char *name);
 char				**init_exec_environ(void);
-int					add_new_to_exec_env(char ***array, char *add);
+int					add_new_to_exec_env(char ***array, char **add);
 
 /*
 ** File signals_processing42.c

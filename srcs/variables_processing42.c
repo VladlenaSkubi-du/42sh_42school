@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables_processing42.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:27:42 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/03/04 19:26:54 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/06 21:36:25 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char				**init_exec_environ(void)
 	return (envir);
 }
 
-int					add_new_to_exec_env(char ***array, char *add)
+int					add_new_to_exec_env(char ***array, char **add)
 {
 	size_t			i;
 	char			**tmp;
@@ -75,6 +75,6 @@ int					add_new_to_exec_env(char ***array, char *add)
 		ft_realloc_array(&tmp, g_var_size, g_var_size * 2);
 		realloc_all_gvariables_array();
 	}
-	tmp[i] = ft_strdup(add);
+	tmp[i] = *add;
 	return (0);
 }

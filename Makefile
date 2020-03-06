@@ -56,6 +56,7 @@ PARSER = 			parser/parser42.c \
 			$(PATH_TREE) \
 			$(EXEC) \
 			$(QUOTING) \
+			$(SUBSTITUTION) \
 			$(ASSIGNMENT) \
 			$(REDIRECTION)
 
@@ -69,13 +70,15 @@ EXEC = 				parser/exec/exec_init.c \
 QUOTING =			parser/quoting/quote_control.c \
 			parser/quoting/pre_parsing_work.c
 
+SUBSTITUTION = 		parser/substitution/substitution.c \
+			parser/substitution/ft_find_var.c \
+			parser/substitution/ft_curv_var.c \
+			parser/substitution/param_help_func.c \
+			parser/substitution/ft_substring_var.c \
+			parser/substitution/tilda.c
+
 ASSIGNMENT =		parser/assignment/backend_variables.c \
-			parser/assignment/substitution.c \
-			parser/assignment/ft_find_var.c \
-			parser/assignment/ft_curv_var.c \
-			parser/assignment/param_help_func.c \
-			parser/assignment/ft_substring_var.c \
-			parser/assignment/tilda.c
+			parser/assignment/assignment.c
 
 REDIRECTION = 		parser/redirection/redirect.c \
 			parser/redirection/redir_types_out.c \
@@ -157,6 +160,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)/parser/exec
 	@mkdir -p $(DIR_O)/parser/quoting
 	@mkdir -p $(DIR_O)/parser/assignment
+	@mkdir -p $(DIR_O)/parser/substitution
 	@mkdir -p $(DIR_O)/parser/redirection
 	@mkdir -p $(DIR_O)/signals
 	@mkdir -p $(DIR_O)/builtin

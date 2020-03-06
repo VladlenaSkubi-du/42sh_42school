@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:46:57 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/04 18:55:19 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/06 20:33:49 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int			ft_find_redirection(t_ltree *final)
 char		*ft_word_to_redir(size_t *i, t_ltree *final, int rew_ff)
 {
 	char		*file;
+	char		*buf;
 	long long	size;
 	size_t		start;
 
@@ -97,14 +98,16 @@ char		*ft_word_to_redir(size_t *i, t_ltree *final, int rew_ff)
 		while (*i < final->end && final->l_tline.line[*i] == SPACE)
 			(*i)++;
 		start = *i;
-		while (*i < final->end && final->l_tline.line[*i] == WORD_P)
+		while (*i < final->end && final->l_tline.line[*i] != SPACE)
 			size++ && (*i)++;
 	}
 	else if (rew_ff == REW)
 		ft_word_to_redir_rew(i, final, &size, &start);
 	if (size == 0)
 		size = -1;
-	file = ft_strndup(&final->l_cmd[start], size);
+	buf = ft_strndup(&final->l_cmd[start], size);
+	file = ft_parsing_str(buf);
+	free(buf);
 	ft_null_redir(start, size);
 	return (file);
 }
