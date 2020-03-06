@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment42.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:45:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/06 18:21:02 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/06 22:40:02 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int					save_local_variables(char *lovar)
 	}
 	if (num == g_var_size)
 		realloc_all_gvariables_array();
-	g_lovar[num] = ft_strdup(lovar);
+	g_lovar[num] = lovar;
 	num++;
 	return (0);
 }
