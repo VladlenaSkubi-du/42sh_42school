@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:45:45 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/05 20:28:22 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/06 18:31:45 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 typedef	struct	s_btin_fc
 {
 	char		*editor;
+	int			flag;
 	int			arg_e_first;
 	int			arg_e_last;
 	int			arg_l_first;
@@ -45,6 +46,8 @@ int				btin_fc_no_args(char **argv, t_btin_fc **fc_arg, int flags);
 int				btin_fc_e_args(char **argv, int j, t_btin_fc **fc_arg);
 int				btin_fc_l_args(char **argv, int j, t_btin_fc **fc_arg);
 int				btin_fc_s_args(char **argv, int j, t_btin_fc **fc_arg);
+int				btin_fc_route_execution(t_btin_fc *fc_arg);
+int				btin_fc_check_numeric_args(t_btin_fc **fc_arg);
 
 /*
 ** File init_structures.c
