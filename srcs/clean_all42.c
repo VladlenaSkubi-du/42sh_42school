@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:05:06 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/04 18:14:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/06 16:56:03 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int				clean_everything(void)
 {
-	ft_arrdel(g_env);
-	ft_arrdel(g_rdovar);
-	ft_arrdel(g_shvar);
-	ft_arrdel(g_lovar);
-	ft_arrdel(g_hist.hist);
-	make_ctrl_y(2, NULL);
+	// ft_arrdel(g_env);
+	// ft_arrdel(g_rdovar);
+	// ft_arrdel(g_shvar);
+	// ft_arrdel(g_lovar);
+	// ft_arrdel(g_hist.hist);
+	// make_ctrl_y(2, NULL);
 	clean_termcap();
 	return (0);
 }
