@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 20:20:14 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/07 18:41:45 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/07 19:07:49 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,11 @@ int		get_assign_and_add(t_ltree *sub, size_t *var, size_t *eq, size_t *val)
 	if (i == sub->l_tline.len)
 	{
 		sub->flags |= ERR_IN | ERR_CONT;
-		return (find_assignment_in_variables(sub->l_cmd, *var, *eq, *val));
+		if (sub->flags |= find_assignment_in_vars(sub->l_cmd,
+			*var, *eq, *val) & (ERR_OUT | VARIABLE_ERROR))
+			sub->err = ft_strndup(&sub->l_cmd[*var], *eq - *var);
+		*eq = *val;
+		return (0);
 	}
 	else
 	{

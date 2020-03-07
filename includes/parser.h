@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/07 18:18:06 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/07 18:54:37 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,7 +305,7 @@ int						here_tab_remove(char **line);
 ** File backend_variables.c
 */
 
-int             		find_assignment_in_variables(char *sub, size_t var,
+int             		find_assignment_in_vars(char *sub, size_t var,
 							size_t eq, size_t val);
 int						insert_assign_to_arrays(char *find, char *insert,
 							char **array);

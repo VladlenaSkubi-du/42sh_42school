@@ -6,14 +6,14 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 18:56:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/07 18:14:10 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/07 18:54:37 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "parser.h"
 
-int			find_assignment_in_variables(char *sub, size_t var,
+int			find_assignment_in_vars(char *sub, size_t var,
 				size_t eq, size_t val)
 {
 	size_t		li;
@@ -65,7 +65,7 @@ int			assignment_in_curv_var(t_ltree *sub, char **line,
 	oper[1] = '\0';
 	j = oper - *line;
 	*line = ft_strrejoin(*line, buf);
-	if ((j = find_assignment_in_variables(*line, 0, j, ft_strlen(*line))) ==
+	if ((j = find_assignment_in_vars(*line, 0, j, ft_strlen(*line))) ==
 		(ERR_OUT | VARIABLE_ERROR))
 		sub->err = ft_strndup(*line, ft_strchri(*line, '='));
 	free (*line);
