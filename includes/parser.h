@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/06 21:13:48 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/07 18:18:06 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,6 +321,7 @@ int						ft_colon_check(int *len, char **line,
 int						assignment(t_ltree *sub);
 int						get_assign_and_add(t_ltree *sub, size_t *var,
 							size_t *eq, size_t *val);
+int						it_is_command(t_ltree *sub, size_t *i, size_t *var);
 
 /*
 ** Folder substitution________________________________________________________
