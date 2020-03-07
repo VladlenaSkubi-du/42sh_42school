@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables_processing42.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:27:42 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/03/06 21:36:25 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/07 19:51:40 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,25 @@ char				**init_exec_environ(void)
 
 int					add_new_to_exec_env(char ***array, char **add)
 {
-	size_t			i;
-	char			**tmp;
+	size_t		i;
+	size_t		li;
+	size_t		sy;
+	char		find;
 
 	i = 0;
-	tmp = *array;
-	while (tmp[i])
-		i++;
-	if (i == g_var_size)
+	find = ft_strndup(*add, ft_strrchi(*add, '='));
+	if ((li = find_in_variables(g_env, &sy, find)) != -1)
+		return (insert_assign_to_arrays(find, *add,	&g_env[li]));
+	else
 	{
-		ft_realloc_array(&tmp, g_var_size, g_var_size * 2);
-		realloc_all_gvariables_array();
-	}
-	tmp[i] = *add;
+		while (array[0][i])
+			i++;
+		if (i == g_var_size)
+		{
+			ft_realloc_array(array, g_var_size, g_var_size * 2);
+			realloc_all_gvariables_array();
+		}
+		array[0][i] = *add;
+	}	
 	return (0);
 }
