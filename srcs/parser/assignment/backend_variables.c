@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   backend_variables.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 18:56:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/05 20:50:55 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/07 18:14:10 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,18 @@ int			find_assignment_in_variables(char *sub, size_t var,
 		return (ERR_OUT | VARIABLE_ERROR); //выход из парсера в ридлайн
 	if ((li = find_in_variables(g_env, &sy, find)) != -1)
 		return (insert_assign_to_arrays(find, ft_strndup(sub + var,
-			val - var),	&g_env[li]));
+			val - var + 1),	&g_env[li]));
 	else if ((li = find_in_variables(g_shvar, &sy, find)) != -1)
 	{
-		insert_assign_to_arrays(find, ft_strndup(sub + var, val - var),
+		insert_assign_to_arrays(find, ft_strndup(sub + var, val - var + 1),
 			&g_shvar[li]);
 		return (check_if_histsize_changed());
 	}
 	else if ((li = find_in_variables(g_lovar, &sy, find)) != -1)
 		return (insert_assign_to_arrays(find, ft_strndup(sub + var,
-			val - var), &g_lovar[li]));
+			val - var + 1), &g_lovar[li]));
 	free(find);
-	find = ft_strndup(sub + var, val - var);
+	find = ft_strndup(sub + var, val - var + 1);
 	save_local_variables(find);
 	return (0);
 }
