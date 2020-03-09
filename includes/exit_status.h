@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_status.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/05 18:16:47 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/09 18:15:38 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 # define	ERR_NO_FILE 0x10
 
 # define	ERR_EBASH_C 0x1
-# define	ERR_BUILTIN 0x2
+# define	ERR_BTIN_INVALID 0x2
+# define	ERR_BTIN_ARG 0x4
 
 # define	ERR_HISTORY 0x1
 # define	ERR_RDONLY 0x2
