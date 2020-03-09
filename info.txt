@@ -383,3 +383,38 @@ static int		max_args;
 		tmp->arg_e_first = ft_atoi(argv[i + 1]);
 	else if (argv[i + 1] && !(ft_isdigit(argv[i + 1]) || argv[i + 2] == '-'))
 		flag = -1;
+
+if (argv[i][0] != '-' || (argv[i][0] == '-' && ft_isdigit(argv[i][1]))) //только числа
+		{
+			temp->flag |= FLAG_E;
+			tmp = btin_fc_no_args(&argv[i], fc_arg, *flags);
+			return ((tmp == HIST_ERROR) ? HIST_ERROR : HIST_EXEC);
+		}
+		tmp = 0;	
+		while (!(argv[i][tmp] == 'e' || argv[i][tmp] == 'l' || argv[i][tmp] == 's'))
+			tmp++;
+		if (argv[i][tmp] == 'e')
+		{
+			tmp = btin_fc_e_args(&argv[i], tmp, fc_arg);
+			return ((tmp == HIST_ERROR) ? HIST_ERROR : HIST_EXEC);
+		}
+		if (argv[i][tmp] == 'l')
+		{
+			tmp = btin_fc_l_args(&argv[i], tmp, fc_arg);
+			return ((tmp == HIST_ERROR) ? HIST_ERROR : HIST_EXEC);
+		}
+		if (argv[i][tmp] == 's')
+		{
+			tmp = btin_fc_s_args(&argv[i], tmp, fc_arg);
+			return ((tmp == HIST_ERROR) ? HIST_ERROR : HIST_EXEC);
+		}
+
+
+if (fc_arg->editor == NULL)
+		{
+			li = find_in_variables(g_shvar, &sy, "FCEDIT=");
+			if (g_shvar[li][sy])
+				fc_arg->editor = &g_rdovar[li][sy];
+			else
+				fc_arg->editor = "vim";
+		}

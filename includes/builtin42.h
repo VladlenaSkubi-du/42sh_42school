@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   builtin42.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:45:45 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/06 18:31:45 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/09 23:58:45 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTIN42_H
 # define BUILTIN42_H
 
+# define		POSIX_FC_DIFF 16
+
 typedef	struct	s_btin_fc
 {
-	char		*editor;
 	int			flag;
-	int			arg_e_first;
-	int			arg_e_last;
-	int			arg_l_first;
-	int			arg_l_last;
-	char		*arg_s_comp;
-	int			arg_s_first;
+	char		*editor;
+	int			first;
+	int			last;
+	char		*s_comp;
+	char		*s_cmd;
 }				t_btin_fc;
 
 int				btin_exit(int status);
@@ -40,14 +40,18 @@ int				usage_btin_fc(void);
 */
 
 int             btin_fc(int argc, char **argv, char **environ);
-int				btin_fc_fill_structure(char **argv, int *flags,
+int				btin_fc_find_mode(char **argv, int argc, int *flags,
 					t_btin_fc **fc_arg);
-int				btin_fc_no_args(char **argv, t_btin_fc **fc_arg, int flags);
-int				btin_fc_e_args(char **argv, int j, t_btin_fc **fc_arg);
-int				btin_fc_l_args(char **argv, int j, t_btin_fc **fc_arg);
-int				btin_fc_s_args(char **argv, int j, t_btin_fc **fc_arg);
-int				btin_fc_route_execution(t_btin_fc *fc_arg);
-int				btin_fc_check_numeric_args(t_btin_fc **fc_arg);
+int				btin_fc_edit_mode(char **argv, int *flags,
+					t_btin_fc **fc_arg);
+int				btin_fc_list_mode(char **argv, int *flags,
+					t_btin_fc **fc_arg);
+int				btin_fc_exec_mode(char **argv, int *flags,
+					t_btin_fc **fc_arg);
+int				btin_fc_save_editor(char **argv, int i, t_btin_fc **fc_arg);
+int				btin_fc_route_execution(int flags, t_btin_fc *fc_arg);
+int				btin_fc_one_int(int value);
+int				btin_fc_two_ints(t_btin_fc **fc_arg);
 
 /*
 ** File init_structures.c

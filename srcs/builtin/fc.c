@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fc.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 14:10:50 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/06 18:30:47 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/10 00:00:20 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int                 btin_fc(int argc, char **argv, char **environ)
 	t_btin_fc		*fc_arg;
 	size_t			li;
 	size_t			sy;
-	int				tmp;
 
 	li = find_in_variables(g_rdovar, &sy, "42SH_NONINTERACTIVE=");
 	if (g_rdovar[li][sy] == '1')
@@ -50,199 +49,187 @@ int                 btin_fc(int argc, char **argv, char **environ)
 	flags = 0;
 	fc_arg = init_btin_fc();
 	flags = find_options(1, (char*[]){"elsrn"}, argv, 1);
+	if (flags < 1)
+		return (0);
+		
+	printf("flags are: ");
+	if (flags & FLAG_E)
+		printf("-e\n");
+	if (flags & FLAG_L)
+		printf("-l\n"); 
+	if (flags & FLAG_S)
+		printf("-s\n");
+	
 	if ((flags & FLAG_N) && !(flags & FLAG_L))
 		flags &= ~FLAG_N;
-	if (flags != 1 && ((flags & FLAG_E) || (flags & FLAG_L) || (flags & FLAG_S)))
-	{
-		tmp = btin_fc_fill_structure(argv, &flags, &fc_arg);
-		if (tmp == HIST_ERROR)
-			return (0);
-	}
-	else
-	{
-		fc_arg->flag |= FLAG_E;
-		tmp = btin_fc_no_args(argv, &fc_arg, flags);
-		if (tmp == HIST_ERROR)
-			return (0);
-	}
-	btin_fc_route_execution(fc_arg);
+	if (btin_fc_find_mode(argv, argc, &flags, &fc_arg) == HIST_ERROR)
+		return (0);
+	btin_fc_route_execution(flags, fc_arg);
 	free(fc_arg);
 	return (0);
 }
 
-int					btin_fc_fill_structure(char **argv, int *flags,
+int					btin_fc_find_mode(char **argv, int argc, int *flags,
 						t_btin_fc **fc_arg)
 {
 	int				i;
-	int				tmp;
-	t_btin_fc		*temp;
+	int				j;
 	
-	i = 0;
-	temp = *fc_arg;
-	while (argv[++i])
+	i = 1;
+	j = 0;
+	if (argv[i][0] && !(argv[i][0] == '-'))
+		return (btin_fc_edit_mode(&argv[i], flags, fc_arg));
+	while (argv[i][++j])
 	{
-		if (argv[i][0] != '-' || (argv[i][0] == '-' && ft_isdigit(argv[i][1]))) //только числа
+		if (argv[i][j] == 'e' && argc == (i + 1) && !argv[i][j + 1])
 		{
-			temp->flag |= FLAG_E;
-			tmp = btin_fc_no_args(&argv[i], fc_arg, *flags);
-			return ((tmp == HIST_ERROR) ? HIST_ERROR : HIST_EXEC);
+			error_handler(OPTIONS_REQUIRED | (ERR_BTIN_ARG << 9), "fc: -e");
+			return (HIST_ERROR);
 		}
-		tmp = 0;	
-		while (!(argv[i][tmp] == 'e' || argv[i][tmp] == 'l' || argv[i][tmp] == 's'))
-			tmp++;
-		if (argv[i][tmp] == 'e')
-		{
-			tmp = btin_fc_e_args(&argv[i], tmp, fc_arg);
-			return ((tmp == HIST_ERROR) ? HIST_ERROR : HIST_EXEC);
-		}
-		if (argv[i][tmp] == 'l')
-		{
-			tmp = btin_fc_l_args(&argv[i], tmp, fc_arg);
-			return ((tmp == HIST_ERROR) ? HIST_ERROR : HIST_EXEC);
-		}
-		if (argv[i][tmp] == 's')
-		{
-			tmp = btin_fc_s_args(&argv[i], tmp, fc_arg);
-			return ((tmp == HIST_ERROR) ? HIST_ERROR : HIST_EXEC);
-		}
+		else if (argv[i][j] == 'e' && ((argc > (i + 1) || argv[i][j + 1])))
+			if ((i = btin_fc_save_editor(argv, i, fc_arg)) < argc)
+				return (btin_fc_find_mode(&argv[i], argc, flags, fc_arg));
 	}
+	if (argv[i][j - 1] == 's')
+		return (btin_fc_exec_mode(&argv[i], flags, fc_arg));
+	else if (argv[i][j - 1] == 'l')
+		return (btin_fc_list_mode(&argv[i], flags, fc_arg));
+	return (btin_fc_edit_mode(&argv[i], flags, fc_arg));
+}
+
+int					btin_fc_edit_mode(char **argv, int *flags,
+						t_btin_fc **fc_arg)
+{
+	
 	return (0);
 }
 
-/*
-** There can be no more than 2 arguments and in our program no arguments is an
-** edit (e) mode.
-** From the very beginning here comes only digits and other signs except of '-'
-*/
-
-int					btin_fc_no_args(char **argv, t_btin_fc **fc_arg, int flags)
+int					btin_fc_list_mode(char **argv, int *flags, t_btin_fc **fc_arg)
 {
 	int				i;
-	t_btin_fc		*tmp;
 
-	tmp = *fc_arg;
-	i = 0;
-	tmp->arg_e_first = ft_atoi(argv[i]);
-	tmp->flag |= ARG_FIRST;
-	while (argv[++i])
+	i = 1;
+	if (!argv[i])
 	{
-		if (!(ft_isdigit(argv[i][0]) || (argv[i][0] == '-' && argv[i][1]
-			&& ft_isdigit(argv[i][1]))))
+		(*fc_arg)->flag |= ARG_FIRST;
+		(*fc_arg)->flag |= ARG_SECOND;
+		(*fc_arg)->last = g_hist.last;
+		(*fc_arg)->first = (g_hist.last - POSIX_FC_DIFF > 0) ? 
+			g_hist.last - POSIX_FC_DIFF : 0;
+		if (*flags & FLAG_E)
+			*flags &= ~FLAG_E;
+		else if (*flags & FLAG_S)
+			*flags &= ~FLAG_E;
+		return (0);
+	}
+	if (argv[i][0] == '-' && argv[i][1] == 'e' && !(argv[i][2] || argv[i + 1]))
+	{
+		error_handler(OPTIONS_REQUIRED | (ERR_BTIN_ARG << 9), "fc: -e");
+		return (HIST_ERROR);
+	}
+	else if (argv[i][0] == '-' && argv[i][1] == 'e')
+	{
+		i = btin_fc_save_editor(argv, i, fc_arg);
+		return (btin_fc_list_mode(&argv[i], flags, fc_arg));
+	}
+	if (argv[i][0] == '-' && argv[i][1] == 's')
+		return (btin_fc_exec_mode(&argv[i], flags, fc_arg));
+	if (ft_isdigit(argv[i][0]) || (argv[i][0] == '-' && ft_isdigit(argv[i][1])))
+	{
+		(*fc_arg)->flag |= ARG_FIRST;
+		(*fc_arg)->first = ft_atoi(argv[i]);
+		i++;
+		if (!argv[i])
+		{
+			(*fc_arg)->first = btin_fc_one_int((*fc_arg)->first);
+			return (0);
+		}
+		else if (!(ft_isdigit(argv[i][0]) || (argv[i][0] == '-' &&
+			ft_isdigit(argv[i][1]))))
 		{
 			error_handler(VARIABLE_ERROR | (ERR_HISTORY << 9), "fc");
 			return (HIST_ERROR);
 		}
-		if (i == 1)
-		{
-			tmp->arg_e_last = ft_atoi(argv[i]);
-			tmp->flag |= ARG_SECOND;
-		}
-		if (i > 1)
-			break ;
+		(*fc_arg)->flag |= ARG_SECOND;
+		(*fc_arg)->last = ft_atoi(argv[i]);
+		btin_fc_two_ints(fc_arg);
+		return (0);
 	}
-	// btin_fc_check_numeric_args(fc_arg);
-	return (HIST_SEARCH);
+	return (0);
 }
 
-int					btin_fc_e_args(char **argv, int j, t_btin_fc **fc_arg)
+int					btin_fc_exec_mode(char **argv, int *flags, t_btin_fc **fc_arg)
 {
-	t_btin_fc		*tmp;
-	int				i;
+	return (0);
+}
 
-	tmp = *fc_arg;
-	i = 0;
-	if (argv[i][j + 1])
+int					btin_fc_save_editor(char **argv, int i, t_btin_fc **fc_arg)
+{
+	if (argv[i][2])
+		(*fc_arg)->editor = &argv[i][2];
+	else
 	{
-		tmp->editor = &argv[i][j + 1];
 		i++;
+		(*fc_arg)->editor = argv[i];
 	}
-	else if (!argv[i][j + 1] && argv[i + 1])
-	{
-		tmp->editor = argv[i + 1];
-		i += 2;
-	}
-	// if (argv[i] && argv[i][0] && (ft_isdigit(argv[i][0] ||
-	// 	(argv[i][0] == '-' && argv[i][1] && ft_isdigit(argv[i][1])))))
-		
-	return (HIST_EXEC);
+	return (i);
+} 
+
+int					btin_fc_one_int(int value)
+{
+	int				final;
+
+	final = g_hist.last;
+	if (value < 0)
+		return (g_hist.last + value);
+	if (value < g_hist.last)
+		return (value);
+	return (final);
 }
 
-int					btin_fc_l_args(char **argv, int j, t_btin_fc **fc_arg)
+int					btin_fc_two_ints(t_btin_fc **fc_arg)
 {
 	t_btin_fc		*tmp;
 
 	tmp = *fc_arg;
-	// tmp->arg_l_first = (argv[i + 1]) ? ft_atoi(argv[i + 1]) : tmp->arg_l_first;
-	// tmp->arg_l_last = (argv[i + 2]) ? ft_atoi(argv[i + 2]) : tmp->arg_l_last;
-	// if (tmp->arg_l_first == 0 && argv[i + 1] && argv[i + 1][0] != '0')
-	// 	tmp->arg_l_first = -17;
-	// if (tmp->arg_l_last == 0 && argv[i + 2] && argv[i + 2][0] != '0')
-	// 	tmp->arg_l_first = -1;
-	// // if (argv[i][j] == 'l' && (*flags & FLAG_S))
-	// // 			*flags &= ~FLAG_S; - если у л есть аргументы, он первый - он важнее, но если нет, идет к s
-	// //если он не может отработать по аргументам одно он лезет в другое ААААААА
-	// printf("%d - %d\n", tmp->arg_l_first, tmp->arg_l_last);
 	return (0);
 }
 
-int					btin_fc_s_args(char **argv, int j, t_btin_fc **fc_arg)
+int					btin_fc_route_execution(int flags, t_btin_fc *fc_arg)
 {
-	return (0);
-}
-
-int					btin_fc_route_execution(t_btin_fc *fc_arg)
-{
-	size_t			li;
-	size_t			sy;
-	
-	if (fc_arg->arg_e_first >= 0 || fc_arg->arg_e_last >= 0)
+	if (flags & FLAG_E)
 	{
-		if (fc_arg->editor == NULL)
-		{
-			li = find_in_variables(g_shvar, &sy, "FCEDIT=");
-			if (g_shvar[li][sy])
-				fc_arg->editor = &g_rdovar[li][sy];
-			else
-				fc_arg->editor = "vim";
-		}
+		printf("editor = %s\n", fc_arg->editor);
+		if (fc_arg->flag & ARG_FIRST)
+			printf("first = %d\n", fc_arg->first);
+		if (fc_arg->flag & ARG_SECOND)
+			printf("last = %d\n", fc_arg->last);
+		if (flags & FLAG_R)
+			printf("reverse");
 	}
-	return (0);
-}
-
-/*
-** Here we count the value according to the history buffer size and
-** we need to know
-*/
-
-int					btin_fc_check_numeric_args(t_btin_fc **fc_arg)
-{
-	t_btin_fc		*tmp;
-	int				diff;
-	size_t			li;
-	size_t			sy;
-	int				histsize;
-
-	tmp = *fc_arg;
-	li = find_in_variables(g_shvar, &sy, "HISTFILESIZE=");
-	if ((tmp->flag & FLAG_E) || (tmp->flag & FLAG_L))
+	else if (flags & FLAG_L)
 	{
-		if ((tmp->flag & ARG_FIRST) && (tmp->flag & ARG_SECOND))
-		{
-			diff = (ARG_FIRST > ARG_SECOND) ? ARG_FIRST - ARG_SECOND : ARG_SECOND - ARG_FIRST;
-			if (diff > (histsize = ft_atoi(&g_shvar[li][sy])))
-			{
-				tmp->arg_e_first = (ARG_FIRST > ARG_SECOND) ? g_hist.last : 0;
-				tmp->arg_e_last = (ARG_FIRST > ARG_SECOND) ? 0 : g_hist.last;
-			}
-			else
-			{
-				if (ARG_FIRST > histsize)
-				{
-					tmp->arg_e_first = (ARG_FIRST > ARG_SECOND) ? g_hist.last : 0;
-				}
-			}
-			
-		}
+		if (fc_arg->flag & ARG_FIRST)
+			printf("first = %d\n", fc_arg->first);
+		if (fc_arg->flag & ARG_SECOND)
+			printf("last = %d\n", fc_arg->last);
+		if (flags & FLAG_R)
+			printf("reverse");
+		if (flags & FLAG_N)
+			printf("without numbers");
+		else
+			printf("with numbers");
+	}
+	else if (flags & FLAG_S)
+	{
+		if (fc_arg->first != g_hist.last)
+			printf("command = %s\n", g_hist.hist[fc_arg->first]);
+		else
+			printf("last command = %s\n", g_hist.hist[fc_arg->first]);
+		if (fc_arg->s_comp)
+			printf("assignment: %s\n", fc_arg->s_comp);
+		if (fc_arg->s_cmd)
+			printf("find command: %s\n", fc_arg->s_cmd);
 	}
 	return (0);
 }

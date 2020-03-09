@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assignment.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 20:20:14 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/07 19:48:45 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/09 18:50:50 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int		get_assign_and_add(t_ltree *sub, size_t *var, size_t *eq, size_t *val)
 	if (i == sub->l_tline.len)
 	{
 		sub->flags |= ERR_IN | ERR_CONT;
-		if (sub->flags |= find_assignment_in_vars(sub->l_cmd,
-			*var, *eq, *val) & (ERR_OUT | VARIABLE_ERROR))
+		if ((sub->flags |= find_assignment_in_vars(sub->l_cmd,
+			*var, *eq, *val)) & (ERR_OUT | VARIABLE_ERROR))
 			sub->err = ft_strndup(&sub->l_cmd[*var], *eq - *var);
 		*eq = *val;
 		return (0);

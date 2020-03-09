@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables_processing42.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:27:42 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/03/07 19:51:40 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/09 18:49:50 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ int					add_new_to_exec_env(char ***array, char **add)
 	size_t		i;
 	size_t		li;
 	size_t		sy;
-	char		find;
+	char		*find;
 
 	i = 0;
-	find = ft_strndup(*add, ft_strrchi(*add, '='));
+	find = ft_strndup(*add, ft_strrchri(*add, '='));
 	if ((li = find_in_variables(g_env, &sy, find)) != -1)
 		return (insert_assign_to_arrays(find, *add,	&g_env[li]));
 	else

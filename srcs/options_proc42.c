@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   options_proc42.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 16:13:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/05 13:56:58 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/09 21:14:20 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,12 @@ int			find_options(int num, char *flags_arr[num], char **arr, int flag)
 		res = options_in_arg(arr[i], num, flags_arr, &final);
 		if (res == ERR_OPTION)
 		{
-			error_handler(OPTIONS_REQUIRED | (ERR_BUILTIN << 9), arr[0]);
-			return (0);
+			error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), arr[0]);
+			return (ERR_OPTION);
 		}
 		else if (res == STOP)
 			break ;
 	}
-	printf("%d\n", final);
 	return (final);
 }
 
@@ -77,15 +76,17 @@ int			options_in_arg(char *arri, int num, char *flags_arr[num], int *final)
 {
 	int     j;
 	int		res;
+	int		tmp;
 	
 	j = 0;
+	tmp = -1;
 	while (arri[++j])
 	{
 		res = options_proc(arri[j], flags_arr[0], final);
 		if (res == ERR_OPTION)
 			return (ERR_OPTION);
-		else if (res == NUM_OPTION)
-			return (CONTINUE);
+		else if (res == NUM_OPTION && !(tmp == -1 || tmp == NUM_OPTION))
+			return (ERR_OPTION);
 		else if (res == SUBOPTION)
 		{
 			res = suboptions_proc(arri, num, flags_arr, final);
@@ -95,10 +96,9 @@ int			options_in_arg(char *arri, int num, char *flags_arr[num], int *final)
 				return (ERR_OPTION);
 			return (CONTINUE);
 		}
-		else if (res == CONTINUE)
-			return (CONTINUE);
+		tmp = res;
 	}
-	return (ERR_OPTION);
+	return (CONTINUE);
 }
 
 /*
