@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/05 13:16:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/10 20:10:04 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@
 # define TAB			0x1
 # define NEW_LINE_SY	0x2
 # define NEW_LINE_TE	0x4
+
+# define RED			"\033[31m"
+# define ORANGE			"\033[38;5;208m"
+# define YELLOW			"\033[33m"
+# define GREEN			"\033[32m"
+# define BLUE			"\033[36m"
+# define PURPLE			"\033[35m"
+# define DEFAULT		"\033[0m"
 
 /*
 ** @t_rline is for the whole readline part:
@@ -176,11 +184,12 @@ int								init_termcap(void);
 ** and dealing with other global-parameters of the command string
 */
 
-int								char_add(char c);
+int								char_add(char c, char *color);
 int								str_shift(char *str, int shift);
-int								insert_char(char c);
+int								insert_char(char c, char *color);
 int								front_insert_by_letters(char *str,
 									int *pos_x, char flag);
+int								front_write_one_char(char c, char *color);
 
 /*
 ** File escape.c - router to the functions performing actions with
@@ -222,7 +231,8 @@ int								front_move_one_char_left(int pos_x);
 ** File front_insertions.c
 */
 
-int								front_insert_one_char(char c, int pos_x, char flag);
+int								front_insert_one_char(char c, int pos_x,
+									char flag, char *color);
 int								front_insert_if_newline(int *pos_x, int *pos_y,
 									size_t *str_num, int *flag);
 int								front_insert_if_terminal(int *pos_x, int *pos_y,
@@ -252,6 +262,12 @@ void							action_alloc_management(t_action_stack **start,
 int								action_add(t_action_stack **start,
 									t_action_stack **end, size_t *num);
 t_action_stack					*action_new(void);
+
+/*
+** File colors.c
+*/
+
+char							*colors_process(int sequence_num);
 
 /*
 ** Actions in the folder key_actions___________________________________________
@@ -321,6 +337,12 @@ int								make_ctrl_l(void);
 int								make_ctrl_y(int mode, char *yank);
 int								yank_insert(char *yank_str,
 									size_t len_yank);
+
+/*
+** File easter_egg.c
+*/
+
+int								kirill_lgbt(char sy);
 
 /*
 ** Folder auto_completion ______________________________________________________
@@ -429,10 +451,27 @@ void							buf_add(char *str, size_t size);
 */
 
 int								start_history(void);
+void            				init_history_buffer(void);
 char							*define_history_file(void);
+
+/*
+** File history_buffer_proc.c
+*/
+
+int								scroll_hist_buffer(size_t num);
 int								save_hist_buffer(int fd);
-void            				init_history(void);
 int								check_if_histsize_changed(void);
+int								add_to_history(char *cmd);
+int								make_hist_buffer_smaller(int size);
+
+/*
+** File history_file_proc.c
+*/
+
+int								fill_hist_in_file(void);
+int								insert_hist_in_file(int fd, int user_len);
+int								open_hist_file(int user_len, char *path);
+int                 			read_hist_from_file(int fd);
 
 /*
 ** File history_processing.c

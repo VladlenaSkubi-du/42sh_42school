@@ -18,6 +18,7 @@ READLINE42 = 		readline42/start_readline42.c \
 			readline42/escape.c \
 			readline42/ctrl_key.c \
 			readline42/print_readline_help.c \
+			readline42/colors.c \
 			$(READLINE_SIMPLE) \
 			$(KEY_ACTIONS) \
 			$(AUTO_COMPLETION) \
@@ -33,7 +34,8 @@ KEY_ACTIONS =		readline42/key_actions/ctrl_kwuae.c \
 			readline42/key_actions/arrow_keys.c \
 			readline42/key_actions/esc_word_proc.c \
 			readline42/key_actions/esc_t.c \
-			readline42/key_actions/cut_keys.c
+			readline42/key_actions/cut_keys.c \
+			readline42/key_actions/easter_egg.c
 
 AUTO_COMPLETION =	readline42/auto_completion/start_completion.c \
 			readline42/auto_completion/front_part_compl.c \
@@ -45,6 +47,8 @@ AUTO_COMPLETION =	readline42/auto_completion/start_completion.c \
 			readline42/auto_completion/output_buffer_compl.c
 
 HISTORY = 			readline42/history/start_history.c \
+			readline42/history/history_buffer_proc.c \
+			readline42/history/history_file_proc.c \
 			readline42/history/history_processing.c \
 			readline42/history/front_part_hist.c \
 			readline42/history/back_part_hist.c

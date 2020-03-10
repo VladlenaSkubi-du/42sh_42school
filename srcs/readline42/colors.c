@@ -1,15 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   history_processing.c                               :+:      :+:    :+:   */
+/*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/04 12:18:29 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/10 19:12:07 by sschmele         ###   ########.fr       */
+/*   Created: 2020/03/10 16:37:12 by sschmele          #+#    #+#             */
+/*   Updated: 2020/03/10 17:04:17 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
 
+#define COLOR_NUM 6
+
+char			*colors_process(int sequence_num)
+{
+	char	    *seq_action[COLOR_NUM];
+
+	seq_action[0] = RED;
+	seq_action[1] = ORANGE;
+	seq_action[2] = YELLOW;
+	seq_action[3] = GREEN;
+	seq_action[4] = BLUE;
+	seq_action[5] = PURPLE;
+	return (seq_action[sequence_num]);
+}

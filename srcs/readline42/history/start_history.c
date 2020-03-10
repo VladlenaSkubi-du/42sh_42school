@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_history.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 14:02:53 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/05 21:33:35 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/10 20:22:17 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int				start_history(void)
 	size_t		j;
 	size_t		i;
 
-	init_history();
+	init_history_buffer();
 	i = find_in_variables(g_shvar, &j, "HISTFILE=");
 	fd = open(g_shvar[i] + j, O_RDONLY);
 	// printf("FD %d - %s\n", fd, g_shvar[i]);
@@ -40,13 +40,13 @@ int				start_history(void)
 	return (0);
 }
 
-void			init_history(void)
+void			init_history_buffer(void)
 {
 	size_t		i;
 	int			tmp;
 
 	i = 0;
-	while (ft_strncmp(g_shvar[i], "HISTFILESIZE=",
+	while (ft_strncmp(g_shvar[i], "HISTSIZE=",
 		(tmp = ft_strchri(g_shvar[i], '=') + 1)) != 0)
 		i++;
 	g_hist.len = ft_atoi(&g_shvar[i][tmp]);
@@ -55,6 +55,7 @@ void			init_history(void)
 	g_hist.last = -1;
 	g_hist.start = 0;
 	g_hist.counter = 0;
+	g_hist.last_fc = 1;
 }
 
 /*
@@ -80,52 +81,42 @@ char			*define_history_file(void)
 }
 
 /*
-** We save the buffer if it exists amd change the working variable $HISTCMD
+** Numeration in the file starts with 1 but in the history buffer - from 0.
+** We should make one line - the last in the buffer empty, because after
+** the buffer is scrolled, a new cmd will lie there
+** In the end of each command there is '\n' lying - if there was ctrl-d
+** exit from readline when the prompt was not main-prompt - there is a EOF
+** symbol in the line only
 */
 
-int				save_hist_buffer(int fd)
+int				add_to_history(char *cmd) //Когда будет запуск, сделать перезапись истории по командам, осторожнее с fc
 {
-	size_t		i;
-	char		*tmp;
+	int			flag;
 
-	i = 0;
-	tmp = NULL;
-	while (ft_gnl(fd, &tmp) > 0)
+	flag = 0;
+	if (g_hist.last + 1 > g_hist.len - 1 &&
+		g_prompt.prompt_func == main_prompt)
+		scroll_hist_buffer(1);
+	if (g_prompt.prompt_func == main_prompt)
 	{
-		if (i >= g_hist.len)
-		{
-			g_hist.hist = ft_realloc_array(&g_hist.hist,
-				g_hist.len, g_hist.len + MAX_HISTORY);
-			g_hist.len += MAX_HISTORY;
-		}
-		g_hist.hist[i] = ft_strdup(tmp);
-		free(tmp);
-		i++;
+		g_hist.last++;
+		g_hist.hist[g_hist.last] = ft_strdup(cmd);
+		g_hist.last_fc++;
+		if (g_hist.last_fc == MAX_HISTBUF || g_hist.last_fc == 32767)
+			g_hist.last_fc = 1;
 	}
-	free(tmp);
-	g_hist.last = i - 1;
-	g_hist.counter = i;
-	g_hist.start = i;
-	return (0);
-}
-
-int				check_if_histsize_changed(void)
-{
-	size_t		i;
-	size_t		j;
-	int			user_len;
-
-	i = find_in_variables(g_shvar, &j, "HISTFILESIZE=");
-	if (!ft_isdigit(g_shvar[i][j]))
-		return (0);
-	user_len = ft_atoi(g_shvar[i] + j);
-	if (user_len < 0)
-		return (0);
-	else if (user_len > 0 && user_len > g_hist.len)
+	else if (g_prompt.prompt_func != main_prompt &&
+		g_prompt.prompt_func != heredoc_prompt)
 	{
-		g_hist.hist = ft_realloc_array(&g_hist.hist,
-			g_hist.len, user_len);
-		g_hist.len = user_len;
+		flag = (cmd[0] == EOF) ? EOF : 0;
+		if (g_hist.hist[g_hist.last][0] != 0 && flag == 0)
+			g_hist.hist[g_hist.last] =
+				ft_strrejoin(g_hist.hist[g_hist.last], cmd);
+		clean_parser42();
+		g_cmd = ft_strdup(g_hist.hist[g_hist.last]);
+		g_cmd = (flag == EOF) ? ft_straddsy(g_cmd, EOF) : g_cmd;
+		g_cmd_size = ft_strlen(g_cmd);
+		ft_get_techline(g_cmd, &g_techline);
 	}
 	return (0);
 }

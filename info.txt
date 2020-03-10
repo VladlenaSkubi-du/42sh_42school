@@ -418,3 +418,8 @@ if (fc_arg->editor == NULL)
 			else
 				fc_arg->editor = "vim";
 		}
+
+		// if (res == ERR_OPTION && tmp != CONTINUE)
+		// 	return (ERR_OPTION);
+		// else if (res == ERR_OPTION && tmp == CONTINUE)
+		// 	return (CONTINUE);

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:16:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/24 16:37:00 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/10 17:14:59 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int					str_shift(char *str, int shift)
 	return (0);
 }
 
-int					char_add(char c)
+int					char_add(char c, char *color)
 {
 	if (g_rline.cmd_len >= g_rline.cmd_buff_len - 1)
 	{
@@ -35,7 +35,7 @@ int					char_add(char c)
 	}
 	undo(0);
 	g_rline.cmd_len++;
-	insert_char(c);
+	insert_char(c, color);
 	return (0);
 }
 
@@ -45,14 +45,14 @@ int					char_add(char c)
 ** the cursor should jump to the next line
 */
 
-int					insert_char(char c)
+int					insert_char(char c, char *color)
 {
 	if (g_rline.cmd[g_rline.pos] != '\0')
 	{
 		str_shift(g_rline.cmd + g_rline.pos, 1);
 		g_rline.cmd[g_rline.pos] = c;
 		tputs(g_cap.cd, 1, printc);
-		front_insert_one_char(g_rline.cmd[g_rline.pos], g_rline.pos_x, 'm');
+		front_insert_one_char(g_rline.cmd[g_rline.pos], g_rline.pos_x, 'm', color);
 		g_rline.pos++;
 		front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x,
 			&g_rline.pos_y, 1);
@@ -62,7 +62,7 @@ int					insert_char(char c)
 	{
 		g_rline.cmd[g_rline.pos] = c;
 		g_rline.pos++;
-		front_insert_one_char(c, g_rline.pos_y, 'm');
+		front_insert_one_char(c, g_rline.pos_y, 'm', color);
 	}
 	return (0);
 }
@@ -74,11 +74,24 @@ int					front_insert_by_letters(char *str, int *pos_x, char flag)
 	i = 0;
 	while (str[i])
 	{
-		front_insert_one_char(str[i], *pos_x, 'c');
+		front_insert_one_char(str[i], *pos_x, 'c', NULL);
 		(*pos_x) = i;
 		if (*pos_x == g_screen.ws_col - 1)
 			*pos_x = 0;
 		i++;
 	}
+	return (0);
+}
+
+int					front_write_one_char(char c, char *color)
+{
+	if (color != NULL)
+	{
+		write(STDOUT_FILENO, color, ft_strlen(color));
+		write(STDOUT_FILENO, &c, 1);
+		write(STDOUT_FILENO, DEFAULT, ft_strlen(DEFAULT));
+	}
+	else
+		write(STDOUT_FILENO, &c, 1);
 	return (0);
 }

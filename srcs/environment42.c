@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment42.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:45:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/06 22:40:02 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/10 12:16:44 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,13 @@ int					save_shell_variables(void)
 	tmp = define_history_file();
 	g_shvar[0] = ft_strjoin("HISTFILE=", tmp);
 	free(tmp);
-	tmp = ft_itoa(MAX_HISTORY);
-	g_shvar[1] = ft_strjoin("HISTFILESIZE=", tmp);
+	tmp = ft_itoa(MAX_HISTBUF);
+	g_shvar[1] = ft_strjoin("HISTSIZE=", tmp);
 	free(tmp);
-	g_shvar[2] = ft_strdup("FCEDIT=vim");
+	tmp = ft_itoa(MAX_HISTFILE);
+	g_shvar[2] = ft_strjoin("HISTFILESIZE=", tmp);
+	free(tmp);
+	g_shvar[3] = ft_strdup("FCEDIT=vim");
 	return (0);
 }
 

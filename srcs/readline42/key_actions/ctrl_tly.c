@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 19:38:44 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/02 12:19:15 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/10 16:29:56 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int			yank_insert(char *yank_str, size_t len_yank)
 	tputs(g_cap.cd, 1, printc);
 	i = -1;
 	while (yank_str[++i])
-		char_add(yank_str[i]);
+		char_add(yank_str[i], NULL);
 	if (save)
 		ft_strcpy(g_rline.cmd + g_rline.pos, save);
 	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
