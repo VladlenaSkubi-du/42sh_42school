@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   options_proc42.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 16:13:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/09 21:14:20 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/10 11:28:27 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,10 @@ int			find_options(int num, char *flags_arr[num], char **arr, int flag)
 	return (final);
 }
 
+/*
+** 
+*/
+
 int			options_in_arg(char *arri, int num, char *flags_arr[num], int *final)
 {
 	int     j;
@@ -84,7 +88,7 @@ int			options_in_arg(char *arri, int num, char *flags_arr[num], int *final)
 	{
 		res = options_proc(arri[j], flags_arr[0], final);
 		if (res == ERR_OPTION)
-			return (ERR_OPTION);
+			return ((tmp != CONTINUE) ? ERR_OPTION : CONTINUE);
 		else if (res == NUM_OPTION && !(tmp == -1 || tmp == NUM_OPTION))
 			return (ERR_OPTION);
 		else if (res == SUBOPTION)

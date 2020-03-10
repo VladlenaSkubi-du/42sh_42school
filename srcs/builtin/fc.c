@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fc.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 14:10:50 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/10 00:00:20 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/10 18:11:48 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,9 +178,15 @@ int					btin_fc_save_editor(char **argv, int i, t_btin_fc **fc_arg)
 int					btin_fc_one_int(int value)
 {
 	int				final;
+	int				temp;
+	int				start;
 
-	final = g_hist.last;
+	temp = 0;
+	final = g_hist.last_fc;
 	if (value < 0)
+	{
+		final += value;
+	}
 		return (g_hist.last + value);
 	if (value < g_hist.last)
 		return (value);
@@ -190,8 +196,13 @@ int					btin_fc_one_int(int value)
 int					btin_fc_two_ints(t_btin_fc **fc_arg)
 {
 	t_btin_fc		*tmp;
+	
 
 	tmp = *fc_arg;
+	if (!((tmp->flag & ARG_FIRST) && (tmp->flag & ARG_SECOND)))
+		return (0);
+	if (tmp->first < 0)
+		tmp->first = btin_fc_one_int(tmp->first);
 	return (0);
 }
 

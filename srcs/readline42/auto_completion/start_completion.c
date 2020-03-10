@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/24 16:58:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/10 16:28:12 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,8 +149,8 @@ int					insert_word_compl(void)
 		g_delete = len_option - g_len_compl;
 		i = -1;
 		while (++i < g_delete - flag)
-			char_add(g_menu[counter][g_len_compl + i]);
-		(flag > 0) ? char_add('}') : 0;
+			char_add(g_menu[counter][g_len_compl + i], NULL);
+		(flag > 0) ? char_add('}', NULL) : 0;
 		front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
 		print_menu_buf_after_insert(g_rline.pos);
 	}

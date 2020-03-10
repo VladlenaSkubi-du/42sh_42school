@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:53:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/05 14:09:32 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/10 16:26:17 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int		readline_choice(char sy)
 	else if (ft_isprint(sy))
 	{
 		check_menu();
-		char_add(sy);
+		char_add(sy, NULL);
+		kirill_lgbt(sy);
 	}
 	return (0);
 }

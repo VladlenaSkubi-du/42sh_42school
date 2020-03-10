@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:07:04 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/10 16:40:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 int				sequence_process(int sequence_num)
 {
-	int				(*seq_action[ESC_NUM])(void);
+	int		(*seq_action[ESC_NUM])(void);
 
 	seq_action[0] = key_right_proc;
 	seq_action[1] = key_up_proc;

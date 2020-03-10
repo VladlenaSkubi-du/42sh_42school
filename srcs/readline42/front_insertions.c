@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 15:49:41 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/24 16:51:31 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/10 16:54:51 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,30 @@
 ** the call of the function - can be also after, no influence
 */
 
-int					front_insert_one_char(char c, int pos_x, char flag)
+int					front_insert_one_char(char c, int pos_x,
+						char flag, char *color)
 {
 	if (flag == 'm')
 	{
 		if (c == '\n')
 		{
-			write(STDOUT_FILENO, &c, 1);
+			front_write_one_char(c, color);
 			return (front_insert_if_newline(&g_rline.pos_x, &g_rline.pos_y,
 				&g_rline.str_num, &g_rline.flag));
 		}
 		if (g_rline.pos_x == g_screen.ws_col - 1)
 		{
-			write(STDOUT_FILENO, &c, 1);
+			front_write_one_char(c, color);
 			return (front_insert_if_terminal(&g_rline.pos_x, &g_rline.pos_y,
 				&g_rline.str_num, &g_rline.flag));
 		}
-		write(STDOUT_FILENO, &c, 1);
+		front_write_one_char(c, color);
 		return (front_insert_if_line(&g_rline.pos_x, &g_rline.pos_y,
 				&g_rline.str_num, &g_rline.flag));
 	}
 	if (flag == 'c')
 	{
-		write(STDOUT_FILENO, &c, 1);
+		front_write_one_char(c, color);
 		if (pos_x == g_screen.ws_col - 1)
 			tputs(g_cap.sf, 1, printc);
 	}
@@ -98,7 +99,7 @@ int					front_insert_cmd_till_the_end(int str_num_print)
 		g_rline.str_num = str_num_print;
 	while (g_rline.pos < g_rline.cmd_len)
 	{
-		front_insert_one_char(g_rline.cmd[g_rline.pos], g_rline.pos_x, 'm');
+		front_insert_one_char(g_rline.cmd[g_rline.pos], g_rline.pos_x, 'm', NULL);
 		g_rline.pos++;
 	}
 	front_set_cursor_jmp(&pos_back, &pos_x_back, &pos_y_back, 0);
