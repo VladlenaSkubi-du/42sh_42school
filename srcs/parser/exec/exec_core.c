@@ -151,31 +151,36 @@ int	exec_clean(char *path, int exit_status)
 	return (exit_status);
 }
 
-int	exec_core(t_ltree *pos)
+
+/*
+** Delete pipe process and simplify, leaving only dealing with EXECPATH
+*/
+
+int	exec_core(char **exec_av, int flags)
 {
 	pid_t			child_pid;
 	char			*path;
-	static int		pipe_prev;
-	static int		pipe_next[2];
+//	static int		pipe_prev;
+//	static int		pipe_next[2];
 
 	if (!(path = path_init(pos->ar_v)))
 		return (exec_clean(path, -1));
-	(pos->flags & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
-	if ((pos->flags & PIPED_OUT) && pipe(pipe_next) == -1)
-			return (exec_clean(path, -1));
-	child_pid = fork();
-	if (!child_pid)
-	{
-		(pos->flags & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
-		(pos->flags & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
-		if (execve(path, pos->ar_v, pos->envir) == -1) //TODO испрвить на все виды очисток
+//	(flags & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
+//	if ((flags & PIPED_OUT) && pipe(pipe_next) == -1)
+//			return (exec_clean(path, -1));
+//	child_pid = fork();
+//	if (!child_pid)
+//	{
+//		(flags & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
+//		(flags & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
+		if (execve(path, exec_av, g_env) == -1) //TODO испрвить на все виды очисток
 			exit(-1);
-	}
-	else if (child_pid < 0)
-		return (exec_clean(path, -1));
-	wait(&child_pid);
-	(pos->flags & PIPED_OUT) ? close(pipe_next[1]) : 0;
-	(pos->flags & PIPED_IN) ? close(pipe_prev) : 0;
+//	}
+//	else if (child_pid < 0)
+//		return (exec_clean(path, -1));
+//	wait(&child_pid);
+//	(flags & PIPED_OUT) ? close(pipe_next[1]) : 0;
+//	(flags & PIPED_IN) ? close(pipe_prev) : 0;
 	return (exec_clean(path, WIFEXITED(child_pid) ? \
 	WEXITSTATUS(child_pid) : (-1)));
 }
