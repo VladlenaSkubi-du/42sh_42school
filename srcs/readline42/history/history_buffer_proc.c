@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 19:07:04 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/11 13:36:26 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/11 14:17:25 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,7 @@ int				check_if_histsize_changed(void)
 			g_hist.len, user_len);
 		g_hist.len = user_len;
 	}
-	else if (user_len > 0 && user_len < g_hist.len)
-	{
-		scroll_hist_buffer(g_hist.len - user_len + 1);
-		make_hist_buffer_smaller(user_len);
-	}
-	else if (user_len == 0)
-		make_hist_buffer_smaller(user_len); //TODO проверить
+	else if (user_len >= 0 && user_len < g_hist.len)
+		g_hist.hist = make_hist_buffer_smaller(user_len); //TODO проверить
 	return (0);
 }
