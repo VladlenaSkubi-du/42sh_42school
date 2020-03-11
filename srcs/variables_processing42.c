@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables_processing42.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:27:42 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/03/09 18:49:50 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/11 13:41:19 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int					realloc_all_gvariables_array(void)
 ** variable starts, we sent the name, int what array to search and an integer pointer
 */
 
-size_t				 find_in_variables(char **arr, size_t *j, char *name)
+size_t				find_in_variables(char **arr, size_t *j, char *name)
 {
 	size_t			i;
 	size_t			tmp;
@@ -35,10 +35,10 @@ size_t				 find_in_variables(char **arr, size_t *j, char *name)
 		return (-1);
 	while (arr[i])
 	{
-		tmp = ft_strchri(arr[i], '=') + 1;
-		if (ft_strncmp(arr[i], name, tmp - 1) == 0) //да, всё так и должно быть!
+		tmp = ft_strchri(arr[i], '=');
+		if (ft_strncmp(arr[i], name, tmp) == 0)
 		{
-			*j = tmp;
+			*j = tmp + 1;
 			return (i);
 		}
 		i++;

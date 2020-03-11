@@ -163,7 +163,7 @@ int	exec_core(char **exec_av, int flags)
 //	static int		pipe_prev;
 //	static int		pipe_next[2];
 
-	if (!(path = path_init(exec_av)))
+	if (!(path = path_init(pos->ar_v)))
 		return (exec_clean(path, -1));
 //	(flags & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
 //	if ((flags & PIPED_OUT) && pipe(pipe_next) == -1)

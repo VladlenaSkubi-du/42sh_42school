@@ -13,3 +13,4 @@ readline
 42sh
 *.txt
 .42sh_history
+.swp

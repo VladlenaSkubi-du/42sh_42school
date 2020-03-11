@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assignment.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 20:20:14 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/09 18:50:50 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/11 14:07:31 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int		assignment(t_ltree *sub)
 		{
 			var = eq - 1;
 			val = eq + 1;
-			while (sub->l_tline.line[var] != SPACE && var != -1)
+			while (sub->l_tline.line[var] != SPACE && var != 0)
 				var--;
-			var++;
+			var != 0 ? var++ : 0;
 			while (sub->l_tline.line[val] != SPACE && val < sub->l_tline.len)
 				val++;
 			val--;

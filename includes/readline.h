@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/10 20:10:04 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/11 11:41:10 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -453,6 +453,9 @@ void							buf_add(char *str, size_t size);
 int								start_history(void);
 void            				init_history_buffer(void);
 char							*define_history_file(void);
+int								add_to_history(char *cmd);
+int								add_other_prompts_history(char *cmd,
+									int flag);
 
 /*
 ** File history_buffer_proc.c
@@ -461,8 +464,7 @@ char							*define_history_file(void);
 int								scroll_hist_buffer(size_t num);
 int								save_hist_buffer(int fd);
 int								check_if_histsize_changed(void);
-int								add_to_history(char *cmd);
-int								make_hist_buffer_smaller(int size);
+char							**make_hist_buffer_smaller(int size);
 
 /*
 ** File history_file_proc.c
