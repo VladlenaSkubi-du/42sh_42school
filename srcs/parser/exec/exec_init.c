@@ -80,6 +80,6 @@ int		exec_init(t_ltree *pos)
 	// if ((exec_ac = get_argc(pos_start, pos_end)) == -1)
 	// 	return (-1);
 	// free(exec_cmd);
-	ft_lstclear(&pos->fd); // временно для проверки!!!
+	// ft_lstclear(&pos->fd); // временно для проверки!!!
 	return (exec_core(pos));
 }

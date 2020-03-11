@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 12:55:34 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/05 21:05:51 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/11 19:49:42 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		ft_type_param_check(t_ltree *sub, char **find, size_t *i)
 		return (ft_param_colon_dash(sub, find, oper, i));
 	else if ((oper = ft_strstr(*find, "=")))
 		return (ft_param_colon_equal(sub, find, oper, i));
-	else if ((oper = ft_strstr(*find, "?")))
+	else if ((oper = ft_strstr(*find, "?")) && oper != *find)
 		return (ft_param_colon_qmark(sub, find, oper, i));
 	else if ((oper = ft_strstr(*find, "+")))
 		return (ft_param_colon_plus(sub, find, oper, i));

@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:01:01 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/05 21:52:11 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/11 19:39:13 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,10 @@ int		ft_block_start(t_list **list)
 				continue ;
 			}
 			out_flag = exec_init(sub);
-			// ft_block_foward(&sub, &start);
 		}
 		else if (sub->flags & ERR_R)
 			ft_error_redir(sub);
-		if (start)
-			start = start->next;
+		start = start->next;
 	}
 	ft_lst_ltree_clear(list);
 	return (0);
@@ -123,8 +121,8 @@ int		ft_slice_bg(size_t *i, t_ltree *block, t_list **start_list)
 
 int		ft_slice_fg(void)
 {
-	t_ltree			block;
-	size_t			i; 
+	t_ltree		block;
+	size_t		i;
 
 	i = -1;
 	ltree_init(&block);
