@@ -148,6 +148,7 @@ char	*path_init(char **exec_av)
 int	exec_clean(char *path, int exit_status)
 {
 	free(path);
+	exit_status_variable(exit_status);
 	return (exit_status);
 }
 
@@ -156,7 +157,7 @@ int	exec_clean(char *path, int exit_status)
 ** Delete pipe process and simplify, leaving only dealing with EXECPATH
 */
 
-int	exec_core(char **exec_av, int flags)
+int		exec_core(t_ltree *pos)
 {
 	pid_t			child_pid;
 	char			*path;
@@ -173,7 +174,7 @@ int	exec_core(char **exec_av, int flags)
 //	{
 //		(flags & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
 //		(flags & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
-		if (execve(path, exec_av, g_env) == -1) //TODO испрвить на все виды очисток
+		if (execve(path, pos->ar_v, pos->envir) == -1) //TODO испрвить на все виды очисток
 			exit(-1);
 //	}
 //	else if (child_pid < 0)

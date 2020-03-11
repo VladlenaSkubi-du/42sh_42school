@@ -1,3 +1,5 @@
+#include "shell42.h"
+#include "parser.h"
 
 int		job_new(job **jobs)
 {
