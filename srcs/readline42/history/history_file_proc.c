@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 19:09:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/10 19:58:36 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/11 13:56:09 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,8 @@ int					insert_hist_in_file(int fd, int user_len)
 	int				i;
 	int				tmp;
 
-	if (user_len < g_hist.start)
-		scroll_hist_buffer(g_hist.counter - user_len);
-	if (user_len == g_hist.start)
-		scroll_hist_buffer(1);
+	if (user_len < g_hist.len)
+		g_hist.hist = make_hist_buffer_smaller(user_len);
 	i = 0;
 	while (g_hist.hist[i] && i < g_hist.len)
 	{
@@ -88,7 +86,6 @@ int					insert_hist_in_file(int fd, int user_len)
 			tmp -= 1;
 		write(fd, g_hist.hist[i], tmp);
 		write(fd, "\n", 1);
-		// printf("%d - %.*s\n", i + 1, tmp, g_hist.hist[i]);
 		i++;
 	}
 	return (0);

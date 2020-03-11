@@ -423,3 +423,6 @@ if (fc_arg->editor == NULL)
 		// 	return (ERR_OPTION);
 		// else if (res == ERR_OPTION && tmp == CONTINUE)
 		// 	return (CONTINUE);
+
+	if (g_hist.last_fc == MAX_HISTBUF || g_hist.last_fc == 32767)
+			g_hist.last_fc = 1;
