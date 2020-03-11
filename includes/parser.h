@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/07 18:54:37 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/11 14:00:17 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -464,7 +464,7 @@ int						exec_init(t_ltree *pos);
 ** File exec_core.c
 */
 
-int						exec_core(char **exec_av, int flags);
+int						exec_core(t_ltree *pos);
 void					free_vec(char **vec);
 char					*get_env(char *var);
 

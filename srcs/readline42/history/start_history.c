@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 14:02:53 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/10 20:22:17 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/11 11:55:11 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ int				start_history(void)
 		return (0);
 	save_hist_buffer(fd);
 
-	// i = 0;
-	// while (g_hist.hist[i])
-	// {
-	// 	printf("%lu - %s\n", i + 1, g_hist.hist[i]);
-	// 	i++;
-	// }
+	i = 0;
+	while (g_hist.hist[i])
+	{
+		printf("%lu - %s\n", i + 1, g_hist.hist[i]);
+		i++;
+	}
 
 	close(fd);
 	return (0);
@@ -102,21 +102,25 @@ int				add_to_history(char *cmd) //Когда будет запуск, сдел�
 		g_hist.last++;
 		g_hist.hist[g_hist.last] = ft_strdup(cmd);
 		g_hist.last_fc++;
-		if (g_hist.last_fc == MAX_HISTBUF || g_hist.last_fc == 32767)
-			g_hist.last_fc = 1;
 	}
 	else if (g_prompt.prompt_func != main_prompt &&
 		g_prompt.prompt_func != heredoc_prompt)
 	{
 		flag = (cmd[0] == EOF) ? EOF : 0;
-		if (g_hist.hist[g_hist.last][0] != 0 && flag == 0)
-			g_hist.hist[g_hist.last] =
-				ft_strrejoin(g_hist.hist[g_hist.last], cmd);
-		clean_parser42();
-		g_cmd = ft_strdup(g_hist.hist[g_hist.last]);
-		g_cmd = (flag == EOF) ? ft_straddsy(g_cmd, EOF) : g_cmd;
-		g_cmd_size = ft_strlen(g_cmd);
-		ft_get_techline(g_cmd, &g_techline);
+		add_other_prompts_history(cmd, flag);
 	}
+	return (0);
+}
+
+int				add_other_prompts_history(char *cmd, int flag)
+{
+	if (g_hist.hist[g_hist.last][0] != 0 && flag == 0)
+		g_hist.hist[g_hist.last] =
+			ft_strrejoin(g_hist.hist[g_hist.last], cmd);
+	clean_parser42();
+	g_cmd = ft_strdup(g_hist.hist[g_hist.last]);
+	g_cmd = (flag == EOF) ? ft_straddsy(g_cmd, EOF) : g_cmd;
+	g_cmd_size = ft_strlen(g_cmd);
+	ft_get_techline(g_cmd, &g_techline);
 	return (0);
 }
