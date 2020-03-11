@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 19:09:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/11 13:56:09 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/11 15:30:27 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int					open_hist_file(int user_len, char *path)
 	char			*default_path;
 
 	default_path = define_history_file();
-	// printf("user_len = %d - %d\n", user_len, g_hist.len);
+	// printf("file - %s\n", path);
 	fd = open(path, O_WRONLY | O_TRUNC | O_CREAT | O_SYNC,
 		S_IRUSR | S_IWUSR);
 	if (user_len == 0)

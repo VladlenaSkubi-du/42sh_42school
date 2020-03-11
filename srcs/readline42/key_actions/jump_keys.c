@@ -1,0 +1,69 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   jump_keys.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/11 16:03:54 by sschmele          #+#    #+#             */
+/*   Updated: 2020/03/11 19:52:58 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "shell42.h"
+#include "readline.h"
+
+int				jump_up(void)
+{
+	int			pos_x_goal;
+	
+	if (g_rline.str_num < 2 || g_rline.pos_y == 0)
+		return (incorrect_sequence());
+	pos_x_goal = g_rline.pos_x;
+	while (g_rline.pos_x != 0 && g_rline.pos)
+		key_left_proc();
+	if (g_rline.pos_x == 0)
+	{
+		key_left_proc();
+		if (g_rline.pos_y == 0 && g_rline.pos_x >
+			pos_x_goal + g_rline.prompt_len)
+		{
+			while (g_rline.pos_x != pos_x_goal + g_rline.prompt_len
+				&& g_rline.pos)
+				key_left_proc();
+		}
+		else if (g_rline.pos_y > 0 && g_rline.pos_x > pos_x_goal)
+		{
+			while (g_rline.pos_x != pos_x_goal && g_rline.pos)
+				key_left_proc();
+		}
+	}
+	return (0);
+}
+
+int				jump_down(void)
+{
+	int			pos_x_goal;
+	int			flag;
+
+	if (g_rline.str_num < 2 || g_rline.pos_y == g_rline.str_num - 1)
+		return (incorrect_sequence());
+	pos_x_goal = (g_rline.pos_y == 0) ? g_rline.pos_x - g_rline.prompt_len :
+		g_rline.pos_x;
+	flag = (pos_x_goal == 0) ? 1 : 0;
+	if (pos_x_goal == 0)
+		key_right_proc();
+	while (g_rline.pos_x != 0)
+		key_right_proc();
+	if (g_rline.pos_x == 0 && (pos_x_goal > 0 || flag == 1))
+	{
+		key_right_proc();
+		if (flag == 1)
+			return (key_left_proc());
+		while (g_rline.pos_x < pos_x_goal && g_rline.pos_x != 0 &&
+			g_rline.pos < g_rline.cmd_len)
+			key_right_proc();
+		(g_rline.pos_x == 0) ? key_left_proc() : 0;
+	}
+	return (0);
+}

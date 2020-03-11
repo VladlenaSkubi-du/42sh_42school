@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 14:02:53 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/11 11:55:11 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/11 15:30:18 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ int				start_history(void)
 	init_history_buffer();
 	i = find_in_variables(g_shvar, &j, "HISTFILE=");
 	fd = open(g_shvar[i] + j, O_RDONLY);
-	// printf("FD %d - %s\n", fd, g_shvar[i]);
-	if (fd == -1)
+	// printf("FD = %d - %s\n", fd, g_shvar[i]);
+	if (fd < 0)
 		return (0);
 	save_hist_buffer(fd);
 
-	i = 0;
-	while (g_hist.hist[i])
-	{
-		printf("%lu - %s\n", i + 1, g_hist.hist[i]);
-		i++;
-	}
+	// i = 0;
+	// while (g_hist.hist[i])
+	// {
+	// 	printf("%lu - %s\n", i + 1, g_hist.hist[i]);
+	// 	i++;
+	// }
 
 	close(fd);
 	return (0);

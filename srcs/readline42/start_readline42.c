@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/03 13:27:24 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/11 15:01:07 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int				interactive_shell(void)
 	int			tmp;
 
 	start_history();
-	signal(SIGWINCH, sig_screen);
+	// signal(SIGWINCH, sig_screen);
 	while (1)
 	{
 		init_readline();

@@ -35,6 +35,7 @@ KEY_ACTIONS =		readline42/key_actions/ctrl_kwuae.c \
 			readline42/key_actions/esc_word_proc.c \
 			readline42/key_actions/esc_t.c \
 			readline42/key_actions/cut_keys.c \
+			readline42/key_actions/jump_keys.c \
 			readline42/key_actions/easter_egg.c
 
 AUTO_COMPLETION =	readline42/auto_completion/start_completion.c \

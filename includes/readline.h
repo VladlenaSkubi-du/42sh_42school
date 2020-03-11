@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/11 11:41:10 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/11 16:30:20 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -343,6 +343,13 @@ int								yank_insert(char *yank_str,
 */
 
 int								kirill_lgbt(char sy);
+
+/*
+** File jump_keys.c
+*/
+
+int             				jump_up(void);
+int             				jump_down(void);
 
 /*
 ** Folder auto_completion ______________________________________________________

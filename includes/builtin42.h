@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin42.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:45:45 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/09 23:58:45 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/11 18:38:50 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ typedef	struct	s_btin_fc
 	char		*editor;
 	int			first;
 	int			last;
+	int			first_buf;
+	int			last_buf;
 	char		*s_comp;
 	char		*s_cmd;
 }				t_btin_fc;
