@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/11 12:18:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/11 15:14:41 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ enum				e_techline
 */
 
 char				**g_env;
+int					g_env_num;
 char				**g_rdovar;
 char				**g_shvar;
 char				**g_lovar;

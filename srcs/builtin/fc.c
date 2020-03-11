@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 14:10:50 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/10 18:11:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/11 18:56:56 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int					btin_fc_list_mode(char **argv, int *flags, t_btin_fc **fc_arg)
 		i++;
 		if (!argv[i])
 		{
-			(*fc_arg)->first = btin_fc_one_int((*fc_arg)->first);
+			(*fc_arg)->first_buf = btin_fc_one_int((*fc_arg)->first);
 			return (0);
 		}
 		else if (!(ft_isdigit(argv[i][0]) || (argv[i][0] == '-' &&
@@ -177,20 +177,21 @@ int					btin_fc_save_editor(char **argv, int i, t_btin_fc **fc_arg)
 
 int					btin_fc_one_int(int value)
 {
-	int				final;
-	int				temp;
-	int				start;
+	int				final_buf;
 
-	temp = 0;
-	final = g_hist.last_fc;
+	final_buf = g_hist.last - 1;
 	if (value < 0)
 	{
-		final += value;
+		final_buf += value;
+		if (final_buf < 0)
+			final_buf = 0;
 	}
-		return (g_hist.last + value);
-	if (value < g_hist.last)
-		return (value);
-	return (final);
+	else if (value >= 0)
+	{
+		if (value > 0 && value < g_hist.last - 1)
+			final_buf = value;
+	}
+	return (final_buf);
 }
 
 int					btin_fc_two_ints(t_btin_fc **fc_arg)
@@ -201,8 +202,10 @@ int					btin_fc_two_ints(t_btin_fc **fc_arg)
 	tmp = *fc_arg;
 	if (!((tmp->flag & ARG_FIRST) && (tmp->flag & ARG_SECOND)))
 		return (0);
-	if (tmp->first < 0)
-		tmp->first = btin_fc_one_int(tmp->first);
+	tmp->first_buf = btin_fc_one_int(tmp->first);
+	tmp->first = g_hist.last_fc - g_hist.len + 1 + tmp->first_buf;
+	tmp->last_buf = btin_fc_one_int(tmp->last);
+	tmp->last = g_hist.last_fc - g_hist.len + 1 + tmp->last_buf;
 	return (0);
 }
 

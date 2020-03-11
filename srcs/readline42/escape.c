@@ -6,13 +6,13 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:07:04 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/10 16:40:47 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/11 16:30:10 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
-#define ESC_NUM 10
+#define ESC_NUM 12
 
 /*
 ** Function pointer array, should return function call
@@ -32,6 +32,8 @@ int				sequence_process(int sequence_num)
 	seq_action[7] = word_right_proc;
 	seq_action[8] = esc_d;
 	seq_action[9] = esc_t;
+	seq_action[10] = jump_up;
+	seq_action[11] = jump_down;
 	return ((*seq_action[sequence_num])());
 }
 
@@ -99,5 +101,7 @@ int				escape_init(void)
 	seq_base[7] = "f";
 	seq_base[8] = "d";
 	seq_base[9] = "t";
+	seq_base[10] = "[1;5A";
+	seq_base[11] = "[1;5B";
 	return (escape_check(seq_base));
 }

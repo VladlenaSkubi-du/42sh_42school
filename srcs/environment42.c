@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:45:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/11 11:34:26 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:45:35 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int					save_environment_variables(char *env_var)
 			g_env[num] = ft_strdup(environ[num]);
 			num++;
 		}
+		g_env_num = num;
 		return (0);
 	}
 	if (num == g_var_size)
@@ -56,7 +57,7 @@ int					save_readonly_variables(void)
 	num = 9;
 	g_rdovar = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
 	g_rdovar[0] = (char*)ft_xmalloc(MAX_EXIT_STATUS);
-	ft_strcpy(g_rdovar[0], "?=0");
+	g_rdovar[0] = ft_strcpy(g_rdovar[0], "?=0");
 	tmp = ft_itoa(getuid());
 	g_rdovar[1] = ft_strdup("0=e-bash");
 	g_rdovar[2] = ft_strjoin("UID=", tmp);
@@ -86,10 +87,14 @@ int					save_shell_variables(void)
 {
 	size_t			num;
 	char			*tmp;
+	size_t			li;
+	size_t			co;
 
 	num = 4;
 	g_shvar = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
-	tmp = define_history_file();
+	li = find_in_variables(g_env, &co, "HOME=");
+	tmp = (li >= g_env_num) ? define_history_file() :
+		ft_strjoin(&g_env[li][co], "/.42sh_history");
 	g_shvar[0] = ft_strjoin("HISTFILE=", tmp);
 	free(tmp);
 	tmp = ft_itoa(MAX_HISTBUF);
