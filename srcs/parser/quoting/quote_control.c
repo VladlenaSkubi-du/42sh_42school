@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 17:28:46 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/03 17:46:22 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/13 00:17:13 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ int		nullify(char **techline, size_t cmd_size)
 		// printf("g_cmd nul=%s\n", g_cmd);//печать для проверки
 		// printf("techline cur:");
 		// count = -1;
-		// while (++count < g_techline.len)
+		// while (++count <= g_techline.len)
 		// 	printf("%3d", g_techline.line[count]);
 		// printf("\n");
 	return (nullify_promt_check(&stack));

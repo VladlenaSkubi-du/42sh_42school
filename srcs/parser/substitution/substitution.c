@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   substitution.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 22:26:57 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/05 19:11:19 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/13 00:25:20 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,46 @@ int		ft_substitution(t_ltree *sub)
 		ft_lst_ltree_clear(&g_start_list);
 	}
 	return (err);
+}
+
+int		before_add(t_ltree *sub, t_list **list)
+{
+	int	err;
+	
+	sub->token = ft_find_token_sep(&g_cmd[sub->end]);
+	ft_local_copy_lines(sub, g_cmd, g_techline.line);
+	pre_parsing_cut_glue(sub);
+	if ((err = ft_find_redirection(sub)) & ERR_OUT)
+	{
+		ft_error_redir(sub);
+		ft_lst_ltree_clear(list);
+		return (OUT);
+	}
+	sub->envir = init_exec_environ();
+	return (0);
+}
+
+int		ft_check_null(t_ltree *sub, t_list **list)
+{
+	size_t i;
+
+	i = sub->start;
+	while (i <= sub->l_tline.len)
+	{
+		if (sub->l_tline.line[i] != SPACE)
+			break ;
+		i++;
+	}
+	if (i == sub->end && sub->l_tline.line[sub->end] == END_T)
+		sub->flags |= ERR_IN;
+	else if (i == sub->end)
+	{	
+		sub->flags |= ERR_OUT | ERR_REDIR << 16;
+		ft_error_redir(sub);
+		ft_lst_ltree_clear(list);
+		return (OUT);
+	}
+	return (0);	
 }
 
 /*

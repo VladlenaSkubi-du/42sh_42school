@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler42.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/09 18:16:29 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/13 00:12:40 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 int				error_handler(int status, char *str)
 {
 	ft_putstr_fd("e-bash: ", STDERR_FILENO);
-	if ((status & 0x1FF) & VARIABLE_ERROR)
+	if ((status & 0x1FF) == VARIABLE_ERROR)
 		variable_errors(status, str);
-	else if ((status & 0x1FF) & OPTIONS_REQUIRED)
+	else if ((status & 0x1FF) == OPTIONS_REQUIRED)
 		options_errors(status, str);
-	else if ((status & 0x1FF) & TERMINAL_EXISTS)
+	else if ((status & 0x1FF) == TERMINAL_EXISTS)
 		ft_putendl_fd("terminal does not exist, use -c flag", STDERR_FILENO); //TODO check
-	else if ((status & 0x1FF) & TERMINAL_TO_NON)
+	else if ((status & 0x1FF) == TERMINAL_TO_NON)
 		ft_putendl_fd("terminal can't be changed, use -c flag", STDERR_FILENO); //TODO check
-	else if ((status & 0x1FF) & TERMINAL_TO_CAN)
+	else if ((status & 0x1FF) == TERMINAL_TO_CAN)
 		ft_putendl_fd("terminal can't be changed, reset the terminal",
 			STDERR_FILENO); //TODO check
-	else if ((status & 0x1FF) & SYNTAX_ERROR)
+	else if ((status & 0x1FF) == SYNTAX_ERROR)
 		syntax_errors(status, str);
 	exit_status_variable(status);
 	return (0);
