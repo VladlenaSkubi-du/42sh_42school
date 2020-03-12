@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment42.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:45:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/11 20:06:09 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/12 21:31:55 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,17 +114,19 @@ int					save_shell_variables(void)
 
 int					save_local_variables(char *lovar)
 {
-	static size_t	num;
+	size_t	num;
 
-	if (lovar == NULL)
+	if (g_lovar == NULL)
 	{
 		g_lovar = (char**)ft_xmalloc((g_var_size + 1) * (sizeof(char*)));
 		return (0);
 	}
+	num = 0;
+	while (g_lovar[num])
+		num++;
 	if (num == g_var_size)
 		realloc_all_gvariables_array();
 	g_lovar[num] = lovar;
-	num++;
 	return (0);
 }
 

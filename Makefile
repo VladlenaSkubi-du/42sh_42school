@@ -102,6 +102,7 @@ FC =				builtin/fc/fc.c \
 
 BUILTIN = 			builtin/exit.c \
 			builtin/set.c \
+			builtin/unset.c \
 			builtin/init_structures.c \
 			builtin/usages.c \
 			$(FC)

@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 16:54:47 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/12 19:08:25 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/12 20:43:36 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int			ft_input_buildins(t_path **root, size_t *len, char *find)
 
 	i = 0;
 	str_len = ft_strlen(find);
+	g_buildins_func[14] = NULL;
 	while (g_buildins[i])
 	{
 		if (ft_strnequ(g_buildins[i], find, str_len))
