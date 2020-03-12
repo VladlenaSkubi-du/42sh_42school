@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 16:13:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/10 11:28:27 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/12 20:29:06 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int			find_options(int num, char *flags_arr[num], char **arr, int flag)
 }
 
 /*
-** 
+** Accepts argument after the valid flag as GNU lib does
 */
 
 int			options_in_arg(char *arri, int num, char *flags_arr[num], int *final)

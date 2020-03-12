@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 19:07:04 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/11 18:48:25 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/12 15:48:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int					scroll_hist_buffer(size_t num)
 		i++;
 	}
 	g_hist.last -= num;
-	g_hist.last_fc = g_hist.last;
 	g_hist.counter = g_hist.last + 1;
 	return (0);
 }
@@ -55,7 +54,7 @@ int				save_hist_buffer(int fd)
 	g_hist.last = i - 1;
 	g_hist.counter = i;
 	g_hist.start = i;
-	g_hist.last_fc = g_hist.last;
+	g_hist.last_fc = (g_hist.last > 0) ? g_hist.last + 1 : 1;
 	if (g_hist.counter > MAX_HISTBUF)
 		g_hist.hist = make_hist_buffer_smaller(MAX_HISTBUF);
 	return (0);
@@ -67,6 +66,8 @@ char			**make_hist_buffer_smaller(int size)
 	size_t		i;
 	size_t		j;
 
+	if (size > HISTORY_LIMIT)
+		size = 500;
 	i = (g_hist.counter >= size) ? g_hist.counter - size : 0;
 	j = 0;
 	history = (char**)ft_xmalloc(sizeof(char*) * (size + 1));
@@ -80,8 +81,6 @@ char			**make_hist_buffer_smaller(int size)
 	g_hist.start = 0;
 	g_hist.last = g_hist.len - 1;
 	g_hist.counter = g_hist.len;
-	if (g_hist.last_fc > g_hist.len)
-		g_hist.last_fc = g_hist.last;
 	ft_arrdel(g_hist.hist);
 	return (history);
 }

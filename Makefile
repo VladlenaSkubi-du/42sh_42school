@@ -94,11 +94,18 @@ REDIRECTION = 		parser/redirection/redirect.c \
 
 SIGNALS = 			signals/signals_processing42.c
 
+FC =				builtin/fc/fc.c \
+			builtin/fc/fc_modes_l.c \
+			builtin/fc/fc_modes_s.c \
+			builtin/fc/fc_modes_e.c \
+			builtin/fc/fc_exec.c
+
 BUILTIN = 			builtin/exit.c \
 			builtin/fc.c \
 			builtin/set.c \
 			builtin/init_structures.c \
-			builtin/usages.c
+			builtin/usages.c \
+			$(FC)
 
 LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_realloc.c \
@@ -170,6 +177,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)/parser/redirection
 	@mkdir -p $(DIR_O)/signals
 	@mkdir -p $(DIR_O)/builtin
+	@mkdir -p $(DIR_O)/builtin/fc
 	@mkdir -p $(DIR_O)/libft_42
 	@mkdir -p $(DIR_O)/libft_42/stack_structure
 	gcc $(FLAGS) -c -I includes -o $@ $<

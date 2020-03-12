@@ -426,3 +426,24 @@ if (fc_arg->editor == NULL)
 
 	if (g_hist.last_fc == MAX_HISTBUF || g_hist.last_fc == 32767)
 			g_hist.last_fc = 1;
+
+
+
+
+
+
+
+g_hist.last_fc - g_hist.len + 1 + tmp->first_buf
+
+
+// if (argv[i][j] == 'e' && argc == (i + 1) && !argv[i][j + 1])
+			// {
+			// 	error_handler(OPTIONS_REQUIRED | (ERR_BTIN_ARG << 9), "fc: -e");
+			// 	return (HIST_ERROR);
+			// }
+			// else if (argv[i][j] == 'e' && ((argc > (i + 1) || argv[i][j + 1])))
+			// {
+			// 	i = btin_fc_save_editor(argv, i, fc_arg);
+			// 	j = 0;
+			// 	break ;
+			// }
