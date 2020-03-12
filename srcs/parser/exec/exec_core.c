@@ -198,18 +198,20 @@ int		exec_core(t_ltree *pos)
 	(pos->flags & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
 	if ((pos->flags & PIPED_OUT) && pipe(pipe_next) == -1)
 			return (exec_clean(path, -1));
-	child_pid = fork();
-	if (!child_pid)
+	if (ft_buildins_check(pos, 1) == -1)
 	{
-		(pos->flags & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
-		(pos->flags & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
-		if (ft_buildins_check(pos, 1) == -1)
+		child_pid = fork();
+		if (!child_pid)
+		{
+			(pos->flags & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
+			(pos->flags & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
 			if (execve(path, pos->ar_v, pos->envir) == -1) //TODO испрвить на все виды очисток
 				exit(-1);
+		}
+		else if (child_pid < 0)
+			return (exec_clean(path, -1));
+		wait(&child_pid);
 	}
-	else if (child_pid < 0)
-		return (exec_clean(path, -1));
-	wait(&child_pid);
 	(pos->flags & PIPED_OUT) ? close(pipe_next[1]) : 0;
 	(pos->flags & PIPED_IN) ? close(pipe_prev) : 0;
 	return (exec_clean(path, WIFEXITED(child_pid) ? \

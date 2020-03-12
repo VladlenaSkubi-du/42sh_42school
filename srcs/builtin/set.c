@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 16:57:49 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/12 18:37:09 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/12 18:49:47 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static int	sorting_vars(t_path **root, size_t *len)
 	while (g_lovar[++i])
 		insert(g_lovar[i], root, len);
 	i = -1;
-	// while (g_rdovar[++i])
-	// 	insert(g_rdovar[i], root, len); нужны ли эти переменные в set?
+	while (g_rdovar[++i])
+		insert(g_rdovar[i], root, len); //нужны ли эти переменные в set?
 	return (0);	
 }
 
