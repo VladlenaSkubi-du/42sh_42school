@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:45:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/12 21:56:21 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/12 22:13:59 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int					save_readonly_variables(void)
 
 	num = 9;
 	g_rdovar = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
-	g_rdovar[0] = (char*)ft_xmalloc(MAX_EXIT_STATUS);
+	g_rdovar[0] = (char*)ft_xmalloc(sizeof(char) * MAX_EXIT_STATUS);
 	g_rdovar[0] = ft_strcpy(g_rdovar[0], "?=0");
 	tmp = ft_itoa(getuid());
 	g_rdovar[1] = ft_strdup("0=e-bash");

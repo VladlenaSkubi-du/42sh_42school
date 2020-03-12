@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/11 20:17:01 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/13 00:22:54 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ int						ft_correct_after_andor_pipe(size_t *i);
 ** File before_execution.c
 */
 
-int						before_exec(t_ltree *sub, t_ltree *block, t_list **lst);
+int						before_exec(t_ltree *sub, t_list **lst);
 int						argv_forming(t_ltree *sub);
 t_word					ft_give_me_word(char const *s, char c, size_t len);
 int						ft_local_copy_lines(t_ltree *sub, char *cmd,
@@ -331,6 +331,8 @@ int						it_is_command(t_ltree *sub, size_t *i, size_t *var);
 */
 
 int						ft_substitution(t_ltree *sub);
+int						before_add(t_ltree *sub, t_list **lst);
+int						ft_check_null(t_ltree *final, t_list **list);
 int						insert_str_in_loc_strs(t_ltree *sub,
 							char **insert, size_t *i, int flag);
 

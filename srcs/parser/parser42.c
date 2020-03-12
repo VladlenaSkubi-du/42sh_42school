@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser42.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/12 20:41:52 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/12 23:53:02 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,15 @@ int		ft_get_techline(char *cmd, t_tech *result)
 	size_t	i;
 
 	i = 0;
-	result->line = (char *)ft_xmalloc(ft_strlen(cmd) + 1);
+	result->line = (char *)ft_xmalloc(ft_strlen(cmd) + 2);
 	while (cmd[i])
 	{
 		result->line[i] = get_tech_num(cmd[i]);
 		i++;
 	}
+	result->line[i] = END_T;
 	result->len = i;
-	result->alloc_size = i;
+	result->alloc_size = i + 2;
 	return (0);
 }
 

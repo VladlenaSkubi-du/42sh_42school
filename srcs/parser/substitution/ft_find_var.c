@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_find_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 12:58:47 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/05 20:53:09 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/12 22:21:55 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*ft_find_var_value(char **find)
 	sj = -1;
 	res = NULL;
 	if ((li = find_in_variables(g_rdovar, &sj, *find)) != -1)
-		res = ft_strdup(&g_env[li][sj]);
+		res = ft_strdup(&g_rdovar[li][sj]);
 	else if ((li = find_in_variables(g_env, &sj, *find)) != -1)
 		res = ft_strdup(&g_env[li][sj]);
 	else if ((li = find_in_variables(g_shvar, &sj, *find)) != -1)

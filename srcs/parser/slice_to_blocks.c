@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slice_to_blocks.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:01:01 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/11 19:39:13 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/13 00:24:24 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ int		ft_block_add_to_list(t_ltree *block, t_list **list)
 		}
 		block->flags &= ~GR_START;
 		block->start = final->end + 1;
-		if (before_exec(final, block, list) == OUT)
+		if (before_add(final, list) == OUT)
 			return (OUT);
+		if (ft_check_null(final, list) == OUT)
+			return (OUT);		
 		ft_add_list_to_end(list, ft_lstnew(final, sizeof(t_ltree)));
 		if (final->flags & LOG_AND_OUT || final->flags & LOG_OR_OUT)
 			block->start += 1;
@@ -75,6 +77,8 @@ int		ft_block_start(t_list **list)
 	while (start)
 	{
 		sub = (t_ltree *)(start->content);
+		if (before_exec(sub, list) == OUT)
+			sub->flags |= ERR_IN;
 		if (!(sub->flags & ERR_IN))
 		{
 			if ((out_flag != 0 && (sub->flags & LOG_AND_IN)) ||
