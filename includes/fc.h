@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fc.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:29:20 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/12 19:26:47 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/12 21:25:25 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int				btin_fc_exec_mode_add_comp(t_btin_fc **fc_arg, char *comp);
 
 int				btin_fc_edit_mode(char **argv, int *flags,
 					t_btin_fc **fc_arg);
+int				btin_fc_edit_mode_flags_off(int *flags);
 
 /*
 ** File fc_exec.c

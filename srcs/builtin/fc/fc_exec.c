@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fc_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:34:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/12 20:41:59 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/12 21:24:47 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ int					btin_fc_route_execution(int flags, t_btin_fc *fc_arg)
 		else
 			printf("last command = %s\n", g_hist.hist[fc_arg->first]);
 		if (fc_arg->s_comp)
-			printf("assignment: %s\n", fc_arg->s_comp);
+		{
+			int i = -1;
+			while (fc_arg->s_comp[++i])
+				printf("assignment: %s\n", fc_arg->s_comp[i]);
+		}
 		if (fc_arg->s_cmd)
 			printf("find command: %s\n", fc_arg->s_cmd);
 	}
