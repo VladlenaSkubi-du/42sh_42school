@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 14:02:53 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/11 15:30:18 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/12 15:43:52 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ int				add_to_history(char *cmd) //Когда будет запуск, сдел�
 		g_hist.last++;
 		g_hist.hist[g_hist.last] = ft_strdup(cmd);
 		g_hist.last_fc++;
+		if (g_hist.last_fc == g_hist.len || g_hist.last_fc == HISTORY_LIMIT)
+			g_hist.last_fc = 1;
 	}
 	else if (g_prompt.prompt_func != main_prompt &&
 		g_prompt.prompt_func != heredoc_prompt)
