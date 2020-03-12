@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fc.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 14:10:50 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/12 20:41:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/12 21:25:53 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int					btin_fc_find_mode(char **argv, int argc, int *flags,
 	i = 0;
 	while (argv[++i])
 	{
-		if (!argv[i][0] == '-' || (argv[i][0] == '-' && ft_isdigit(argv[i][1])))
+		if (!(argv[i][0] == '-') || (argv[i][0] == '-' && ft_isdigit(argv[i][1])))
 			return (btin_fc_edit_mode(&argv[i], flags, fc_arg));
 		j = 0;
 		while (argv[i][++j])

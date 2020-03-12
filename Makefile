@@ -101,7 +101,6 @@ FC =				builtin/fc/fc.c \
 			builtin/fc/fc_exec.c
 
 BUILTIN = 			builtin/exit.c \
-			builtin/fc.c \
 			builtin/set.c \
 			builtin/init_structures.c \
 			builtin/usages.c \
