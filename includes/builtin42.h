@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin42.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:45:45 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/11 18:38:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/12 17:29:13 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,11 @@ int				btin_fc_two_ints(t_btin_fc **fc_arg);
 */
 
 t_btin_fc		*init_btin_fc(void);
+
+/*
+** File set.c
+*/
+
+int				btin_set(void);
 
 #endif

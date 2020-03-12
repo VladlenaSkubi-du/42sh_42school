@@ -96,6 +96,7 @@ SIGNALS = 			signals/signals_processing42.c
 
 BUILTIN = 			builtin/exit.c \
 			builtin/fc.c \
+			builtin/set.c \
 			builtin/init_structures.c \
 			builtin/usages.c
 
