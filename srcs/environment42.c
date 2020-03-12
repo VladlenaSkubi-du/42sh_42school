@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:45:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/12 21:31:55 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/12 21:56:21 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@
 int					save_environment_variables(char *env_var)
 {
 	extern char		**environ;
-	static size_t	num;
+	size_t			num;
 
-	if (env_var == NULL)
+	num = 0;
+	if (g_env == NULL)
 	{
 		g_env = (char**)ft_xmalloc((g_var_size + 1) * (sizeof(char*)));
 		while (environ[num])
@@ -37,10 +38,10 @@ int					save_environment_variables(char *env_var)
 		g_env_num = num;
 		return (0);
 	}
-	if (num == g_var_size)
-		realloc_all_gvariables_array();
+	while (g_env[num])
+		num++;
+	(num == g_var_size) ? realloc_all_gvariables_array() : 0;
 	g_env[num] = ft_strdup(env_var);
-	num++;
 	return (0);
 }
 
