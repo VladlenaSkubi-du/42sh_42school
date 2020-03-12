@@ -6,16 +6,14 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 16:54:47 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/12 17:42:51 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/12 19:08:25 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "parser.h"
+#include "buildins_list.h"
 
-static char	*g_buildins[] = {"alias", "unalias", \
-	"hash", "set", "unset", "export", \
-	"cd", "exit", "echo", "type", "fg", "bg", "jobs", "fc", NULL};
 /*
 ** Functions to insert t_path element prev or next
 */

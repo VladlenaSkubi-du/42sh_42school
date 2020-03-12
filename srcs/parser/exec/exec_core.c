@@ -1,13 +1,6 @@
 #include "shell42.h"
 #include "parser.h"
-
-static char	*g_buildins[] = {"alias", "unalias", \
-	"hash", "set", "unset", "export", \
-	"cd", "exit", "echo", "type", "fg", "bg", "jobs", "fc", NULL};
-
-static int (*g_buildins_func[15])() = {NULL, NULL, \
-	NULL, btin_set, NULL, NULL, \
-	NULL, btin_exit, NULL, NULL, NULL, NULL, NULL};
+#include "buildins_list.h"
 
 void	free_vec(char **vec)
 {
