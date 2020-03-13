@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:56:18 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/12 20:41:57 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/13 11:21:51 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int					btin_fc_exec_mode(char **argv, int *flags,
 int					btin_fc_exec_mode_no_args(int *flags, t_btin_fc **fc_arg)
 {
 	(*fc_arg)->flag |= ARG_FIRST;
-	(*fc_arg)->first_buf = btin_fc_one_int(-1);
+	(*fc_arg)->first_buf = g_hist.last;
 	btin_fc_exec_mode_flags_off(flags);
 	return (0);
 }

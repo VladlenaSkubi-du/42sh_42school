@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 14:02:53 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/12 15:43:52 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/13 10:04:54 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ int				start_history(void)
 		return (0);
 	save_hist_buffer(fd);
 
-	// i = 0;
-	// while (g_hist.hist[i])
-	// {
-	// 	printf("%lu - %s\n", i + 1, g_hist.hist[i]);
-	// 	i++;
-	// }
+	i = 0;
+	while (g_hist.hist[i])
+	{
+		printf("%lu - %s\n", i + 1, g_hist.hist[i]);
+		i++;
+	}
 
 	close(fd);
 	return (0);

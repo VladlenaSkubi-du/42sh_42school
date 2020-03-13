@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler42.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/13 00:12:40 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/13 12:02:58 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,11 @@ int				options_errors(int status, char *str)
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd(": invalid option", STDERR_FILENO);
-		usage_btin(str);
 	}
 	else if (status >> 9 & ERR_BTIN_ARG)
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd(": option requires an argument", STDERR_FILENO);
-		usage_btin(str);
 	}
 	return (0);
 }

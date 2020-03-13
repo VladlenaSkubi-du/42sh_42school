@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/11 16:30:20 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/13 11:23:07 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -486,11 +486,7 @@ int                 			read_hist_from_file(int fd);
 ** File history_processing.c
 */
 
-int                 			add_to_history(char *cmd);
-int								fill_hist_in_file(void);
-int								insert_hist_in_file(int fd, int user_len);
-int								open_hist_file(int user_len, char *path);
-int                 			scroll_hist_buffer(size_t num);
+int                 			delete_last_history_element(void);
 
 /*
 ** File front_part_hist.c

@@ -447,3 +447,16 @@ g_hist.last_fc - g_hist.len + 1 + tmp->first_buf
 			// 	j = 0;
 			// 	break ;
 			// }
+
+ft_modes_l
+
+	// if (argv[i][0] == '-' && argv[i][1] == 'e' && !(argv[i][2] || argv[i + 1]))
+	// {
+	// 	error_handler(OPTIONS_REQUIRED | (ERR_BTIN_ARG << 9), "fc: -e");
+	// 	return (HIST_ERROR);
+	// }
+	// else if (argv[i][0] == '-' && argv[i][1] == 'e')
+	// {
+	// 	i = btin_fc_save_editor(argv, i, fc_arg);
+	// 	return (btin_fc_list_mode(&argv[i], flags, fc_arg));
+	// }

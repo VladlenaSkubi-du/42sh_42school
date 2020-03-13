@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser42.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/12 23:53:02 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/13 09:28:21 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ static int			castrated_parser(void)
 
 int		pars_lex_exec(int tmp)
 {
-	// castrated_parser(); //TODO delete
+	castrated_parser(); //TODO delete
 	if (g_prompt.prompt_func != heredoc_prompt)
 		if (nullify(&g_techline.line, g_cmd_size) == OUT)
 		{
 			clean_parser42();
 			return (0);
 		}
-	ft_slice_fg();
+	// ft_slice_fg();
 	clean_parser42();
 	return (0);
 }
