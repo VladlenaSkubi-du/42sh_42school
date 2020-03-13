@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 19:24:05 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/12 20:40:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/13 11:34:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,24 @@ int					btin_fc_edit_mode(char **argv, int *flags,
 						t_btin_fc **fc_arg)
 {
 	int				i;
+	size_t			li;
+	size_t			sy;
 	
 	i = 0;
+	if ((*fc_arg)->editor == NULL)
+	{
+		li = find_in_variables(g_shvar, &sy, "FCEDIT=");
+		if (g_shvar[li][sy])
+			(*fc_arg)->editor = &g_shvar[li][sy];
+		else
+			(*fc_arg)->editor = "vim";
+	}
 	if (!argv[i])
 	{
 		(*fc_arg)->flag |= ARG_FIRST;
-		(*fc_arg)->first_buf = btin_fc_one_int(-1);
+		(*fc_arg)->first_buf = g_hist.last;
 		btin_fc_edit_mode_flags_off(flags);
+		return (0);
 	}
 	if (ft_isdigit(argv[i][0]) || (argv[i][0] == '-' && ft_isdigit(argv[i][1])))
 	{
@@ -43,7 +54,9 @@ int					btin_fc_edit_mode_flags_off(int *flags)
 {
 	if (*flags & FLAG_L)
 		*flags &= ~FLAG_L;
-	else if (*flags & FLAG_S)
+	if (*flags & FLAG_S)
 		*flags &= ~FLAG_S;
+	if (!(*flags & FLAG_E))
+		*flags |= FLAG_E;
 	return (0);
 }

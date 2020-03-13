@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fc.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 14:10:50 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/12 21:25:53 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/13 13:12:29 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int                 btin_fc(int argc, char **argv, char **environ)
 	li = find_in_variables(g_rdovar, &sy, "42SH_NONINTERACTIVE=");
 	if (g_rdovar[li][sy] == '1')
 		return (0);
+	delete_last_history_element();
 	flags = 0;
 	fc_arg = init_btin_fc();
 	flags = find_options(1, (char*[]){"elsrn"}, argv, 1);
@@ -66,6 +67,7 @@ int					btin_fc_find_mode(char **argv, int argc, int *flags,
 	int				tmp;
 	
 	i = 0;
+	tmp = -1;
 	while (argv[++i])
 	{
 		if (!(argv[i][0] == '-') || (argv[i][0] == '-' && ft_isdigit(argv[i][1])))
@@ -75,6 +77,11 @@ int					btin_fc_find_mode(char **argv, int argc, int *flags,
 		{
 			if ((tmp = btin_fc_save_editor(argv, i, fc_arg)) == HIST_ERROR)
 				return (HIST_ERROR);
+			else if (tmp == HIST_EXEC)
+			{
+				j = 0;
+				break ;
+			}
 			else if (tmp != i)
 			{
 				i = tmp;
@@ -82,9 +89,9 @@ int					btin_fc_find_mode(char **argv, int argc, int *flags,
 				break ;
 			}
 		}
-		if (j > 0 && argv[i][j - 1] == 's')
+		if (j > 0 && tmp != HIST_EXEC && argv[i][j - 1] == 's')
 			return (btin_fc_exec_mode(&argv[i], flags, fc_arg));
-		else if (j > 0 && argv[i][j - 1] == 'l')
+		else if (j > 0 && tmp != HIST_EXEC && argv[i][j - 1] == 'l')
 			return (btin_fc_list_mode(&argv[i], flags, fc_arg));
 	}
 	return (btin_fc_edit_mode(&argv[i], flags, fc_arg));
@@ -95,12 +102,16 @@ int					btin_fc_save_editor(char **argv, int i, t_btin_fc **fc_arg)
 	if (argv[i][0] == '-' && argv[i][1] == 'e' && !(argv[i + 1] || argv[i][2]))
 	{
 		error_handler(OPTIONS_REQUIRED | (ERR_BTIN_ARG << 9), "fc: -e");
+		usage_btin("fc");
 		return (HIST_ERROR);
 	}
 	else if (argv[i][0] == '-' && argv[i][1] == 'e' && (argv[i + 1] || argv[i][2]))
 	{
 		if (argv[i][2])
+		{
 			(*fc_arg)->editor = &argv[i][2];
+			return (HIST_EXEC);
+		}
 		else
 		{
 			i++;
@@ -114,17 +125,17 @@ int					btin_fc_one_int(int value)
 {
 	int				final_buf;
 
-	final_buf = g_hist.last - 1;
-	if (value < 0)
+	final_buf = g_hist.last;
+	if (value <= 0)
 	{
 		final_buf += value;
 		if (final_buf < 0)
 			final_buf = 0;
 	}
-	else if (value >= 0)
+	else if (value > 0)
 	{
-		if (value > 0 && value < g_hist.last - 1)
-			final_buf = value;
+		if (value > 0 && value < g_hist.last)
+			final_buf = value - 1;
 	}
 	return (final_buf);
 }
@@ -137,12 +148,12 @@ int					btin_fc_two_ints(t_btin_fc **fc_arg)
 	if (!((tmp->flag & ARG_FIRST) && (tmp->flag & ARG_SECOND)))
 		return (0);
 	tmp->first_buf = btin_fc_one_int(tmp->first);
-	tmp->first = (g_hist.last_fc < g_hist.last) ?
-		g_hist.last_fc - (g_hist.len - tmp->first_buf) :
-		g_hist.last_fc + g_hist.len - (g_hist.len - tmp->first_buf);
+	// tmp->first = (g_hist.last_fc < g_hist.last) ?
+	// 	g_hist.last_fc - (g_hist.len - tmp->first_buf) :
+	// 	g_hist.last_fc + g_hist.len - (g_hist.len - tmp->first_buf);
 	tmp->last_buf = btin_fc_one_int(tmp->last);
-	tmp->last = (g_hist.last_fc < g_hist.last) ?
-		g_hist.last_fc - (g_hist.len - tmp->last_buf) :
-		g_hist.last_fc + g_hist.len - (g_hist.len - tmp->last_buf);
+	// tmp->last = (g_hist.last_fc < g_hist.last) ?
+	// 	g_hist.last_fc - (g_hist.len - tmp->last_buf) :
+	// 	g_hist.last_fc + g_hist.len - (g_hist.len - tmp->last_buf);
 	return (0);
 }

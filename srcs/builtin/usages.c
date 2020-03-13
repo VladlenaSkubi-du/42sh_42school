@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   usages.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 13:52:18 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/12 17:10:51 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/13 12:01:02 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int             usage_btin(char *str)
 {
     ft_putstr_fd(str, STDERR_FILENO);
     ft_putstr_fd(": usage: ", STDERR_FILENO);
-    if (ft_strcmp(str, "fc") == 0)  
+    if (ft_strncmp(str, "fc", 2) == 0)  
         usage_btin_fc();
     return (0);
 }

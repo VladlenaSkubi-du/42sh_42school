@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 16:13:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/12 20:29:06 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/13 12:05:05 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int			find_options(int num, char *flags_arr[num], char **arr, int flag)
 		if (res == ERR_OPTION)
 		{
 			error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), arr[0]);
+			usage_btin(arr[0]);
 			return (ERR_OPTION);
 		}
 		else if (res == STOP)
