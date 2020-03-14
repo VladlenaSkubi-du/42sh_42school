@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:34:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/13 09:59:21 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/14 20:31:06 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@
 int					btin_fc_route_execution(int flags, t_btin_fc *fc_arg)
 {
 	int				i;
+	//проверка на пустой буфер истории
 
 	printf("HISTORY\n");
-	i = -1;
-	while (g_hist.hist[++i])
-		printf("%d - %s\n", i + 1, g_hist.hist[i]);
-	printf("FC_EXECUTION\n");
+	btin_history();
 	
 	if (flags & FLAG_E)
 	{

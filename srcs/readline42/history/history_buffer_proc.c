@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 19:07:04 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/12 15:48:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/14 14:31:44 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char			**make_hist_buffer_smaller(int size)
 	i = (g_hist.counter >= size) ? g_hist.counter - size : 0;
 	j = 0;
 	history = (char**)ft_xmalloc(sizeof(char*) * (size + 1));
-	while (g_hist.hist[i] && j < size)
+	while (g_hist.hist[i] && j < size + 1)
 	{
 		history[j] = ft_strdup(g_hist.hist[i]);
 		i++;

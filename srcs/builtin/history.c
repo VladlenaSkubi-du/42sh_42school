@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   history_processing.c                               :+:      :+:    :+:   */
+/*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/04 12:18:29 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/14 14:42:24 by sschmele         ###   ########.fr       */
+/*   Created: 2020/03/14 20:18:03 by sschmele          #+#    #+#             */
+/*   Updated: 2020/03/14 20:31:09 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
-#include "readline.h"
+#include "builtin42.h"
 
-int                 delete_last_history_element(void)
+int					btin_history(void)
 {
-    free(g_hist.hist[g_hist.last]);
-    g_hist.hist[g_hist.last] = NULL;
-    g_hist.counter--;
-    g_hist.last--;
-    g_hist.last_fc--;
-    if (g_hist.last_fc < 1)
-       g_hist.last_fc =  g_hist.len - 1;
-    return (0);
+	int				i;
+	int				num;
+	int				tmp;
+
+	i = 0;
+	num = g_hist.last_fc - g_hist.last;
+	while (g_hist.hist[i] && i < g_hist.len)
+	{
+		tmp = ft_strlen(g_hist.hist[i]);
+		if (tmp > 0 && g_hist.hist[i][tmp - 1] == '\n')
+			tmp -= 1;
+		ft_printf("%5d  %.*s\n", num, tmp, g_hist.hist[i]);
+		num++;
+		i++;
+	}
+	return (0);
 }

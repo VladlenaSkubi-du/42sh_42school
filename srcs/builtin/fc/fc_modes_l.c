@@ -6,35 +6,73 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:19:41 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/12 20:40:38 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/14 20:40:19 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "builtin42.h"
 
-int					btin_fc_list_mode(char **argv, int *flags,
+int					btin_fc_list_mode(char **argv, int j, int *flags,
 						t_btin_fc **fc_arg)
 {
 	int				i;
 	int				tmp;
 
-	i = 1;
-	if (!argv[i])
-		return (btin_fc_list_mode_no_args(flags, fc_arg));
-	if ((tmp = btin_fc_save_editor(argv, i, fc_arg)) == HIST_ERROR)
-		return (HIST_ERROR);
-	else if (tmp != i)
-		return (btin_fc_list_mode(&argv[tmp], flags, fc_arg));
-	if (argv[i][0] == '-' && argv[i][1] == 's')
-		return (btin_fc_exec_mode(&argv[i], flags, fc_arg));
-	if (ft_isdigit(argv[i][0]) || (argv[i][0] == '-' && ft_isdigit(argv[i][1])))
+	i = 0;
+	while (argv[i][++j])
 	{
-		if (btin_fc_list_mode_num_args(argv, i, flags, fc_arg) == HIST_ERROR)
+		if ((tmp = btin_fc_save_editor(argv, i, j, fc_arg)) == HIST_ERROR)
 			return (HIST_ERROR);
-		btin_fc_list_mode_flags_off(flags);
+		else if (tmp == HIST_EXEC)
+		{
+			j = 0;
+			break ;
+		}
+		else if (tmp != i)
+		{
+			i = tmp;
+			j = 0;
+			break ;
+		}
+		if (argv[i][j] == 's')
+			return (btin_fc_exec_mode(&argv[i], j, flags, fc_arg));
 	}
-	return (0);
+	while (argv[++i])
+	{
+		if (ft_isdigit(argv[i][0]) || (argv[i][0] == '-' && ft_isdigit(argv[i][1])))
+		{
+			if (btin_fc_list_mode_num_args(argv, i, flags, fc_arg) == HIST_ERROR)
+				return (HIST_ERROR);
+			btin_fc_list_mode_flags_off(flags);
+			return (0);
+		}
+		if (argv[i][0] != '-')
+		{
+			error_handler(VARIABLE_ERROR | (ERR_HISTORY << 9), "fc");
+			return (HIST_ERROR);
+		}
+		j = 0;
+		while (argv[i][++j])
+		{
+			if ((tmp = btin_fc_save_editor(argv, i, j, fc_arg)) == HIST_ERROR)
+				return (HIST_ERROR);
+			else if (tmp == HIST_EXEC)
+			{
+				j = 0;
+				break ;
+			}
+			else if (tmp != i)
+			{
+				i = tmp;
+				j = 0;
+				break ;
+			}
+			if (argv[i][j] == 's')
+				return (btin_fc_exec_mode(&argv[i], j, flags, fc_arg));
+		}
+	}
+	return (btin_fc_list_mode_no_args(flags, fc_arg));
 }
 
 int					btin_fc_list_mode_no_args(int *flags, t_btin_fc **fc_arg)
@@ -57,9 +95,13 @@ int					btin_fc_list_mode_num_args(char **argv, int i,
 	if (!argv[i])
 	{
 		(*fc_arg)->first_buf = btin_fc_one_int((*fc_arg)->first);
-		(*fc_arg)->first = (g_hist.last_fc < g_hist.last) ?
-			g_hist.last_fc - (g_hist.len - (*fc_arg)->first_buf) :
-			g_hist.last_fc + g_hist.len - (g_hist.len - (*fc_arg)->first_buf);
+		(*fc_arg)->last_buf = btin_fc_one_int(-1);
+		(*fc_arg)->last = g_hist.last_fc - 1;
+		(*fc_arg)->first = ((*fc_arg)->last -
+			((*fc_arg)->last_buf - (*fc_arg)->first_buf) < 1) ?
+			g_hist.len + ((*fc_arg)->last -
+			((*fc_arg)->last_buf - (*fc_arg)->first_buf)) :
+			(*fc_arg)->last - ((*fc_arg)->last_buf - (*fc_arg)->first_buf);
 		return (0);
 	}
 	else if (!(ft_isdigit(argv[i][0]) || (argv[i][0] == '-' &&

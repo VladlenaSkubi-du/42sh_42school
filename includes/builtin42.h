@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin42.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:45:45 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/12 21:32:40 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/14 20:24:44 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,11 @@ int				btin_set(void);
 */
 
 int				btin_unset(t_ltree *pos);
+
+/*
+** File history.c
+*/
+
+int                btin_history(void);
 
 #endif
