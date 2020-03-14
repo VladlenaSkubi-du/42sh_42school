@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/12 21:32:39 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/14 18:13:56 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # include "get_next_line.h" //If not used, delete
 
 # define			HISTORY_LIMIT 32767
-# define 			MAX_HISTFILE 10
-# define 			MAX_HISTBUF 10
+# define 			MAX_HISTFILE 5
+# define 			MAX_HISTBUF 5
 # define			MAXDIR 255
 # define			MAX_EXIT_STATUS 10
 # define 			ENV_BUFFER 100

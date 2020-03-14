@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 19:24:05 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/13 11:34:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/14 20:15:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int					btin_fc_edit_mode(char **argv, int *flags,
 	size_t			sy;
 	
 	i = 0;
+	delete_last_history_element();
 	if ((*fc_arg)->editor == NULL)
 	{
 		li = find_in_variables(g_shvar, &sy, "FCEDIT=");
@@ -38,7 +39,7 @@ int					btin_fc_edit_mode(char **argv, int *flags,
 	}
 	if (ft_isdigit(argv[i][0]) || (argv[i][0] == '-' && ft_isdigit(argv[i][1])))
 	{
-		if (btin_fc_list_mode_num_args(argv, i, flags, fc_arg) == HIST_ERROR)
+		if (btin_fc_edit_mode_num_args(argv, i, flags, fc_arg) == HIST_ERROR)
 			return (HIST_ERROR);
 		btin_fc_edit_mode_flags_off(flags);
 	}
@@ -47,6 +48,29 @@ int					btin_fc_edit_mode(char **argv, int *flags,
 		error_handler(VARIABLE_ERROR | (ERR_HISTORY << 9), "fc");
 		return (HIST_ERROR);
 	}
+	return (0);
+}
+
+int					btin_fc_edit_mode_num_args(char **argv, int i,
+						int *flags, t_btin_fc **fc_arg)
+{
+	(*fc_arg)->flag |= ARG_FIRST;
+	(*fc_arg)->first = ft_atoi(argv[i]);
+	i++;
+	if (!argv[i])
+	{
+		(*fc_arg)->first_buf = btin_fc_one_int((*fc_arg)->first);
+		return (0);
+	}
+	else if (!(ft_isdigit(argv[i][0]) || (argv[i][0] == '-' &&
+		ft_isdigit(argv[i][1]))))
+	{
+		error_handler(VARIABLE_ERROR | (ERR_HISTORY << 9), "fc");
+		return (HIST_ERROR);
+	}
+	(*fc_arg)->flag |= ARG_SECOND;
+	(*fc_arg)->last = ft_atoi(argv[i]);
+	btin_fc_two_ints(fc_arg);
 	return (0);
 }
 

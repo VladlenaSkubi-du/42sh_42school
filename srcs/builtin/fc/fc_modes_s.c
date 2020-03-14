@@ -6,26 +6,27 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:56:18 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/13 11:21:51 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/14 19:06:55 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "builtin42.h"
 
-int					btin_fc_exec_mode(char **argv, int *flags,
+int					btin_fc_exec_mode(char **argv, int j, int *flags,
 						t_btin_fc **fc_arg)
 {
 	int				i;
 	int				tmp;
 
 	i = 1;
+	delete_last_history_element();
 	if (!argv[i])
 		return (btin_fc_exec_mode_no_args(flags, fc_arg));
-	if ((tmp = btin_fc_save_editor(argv, i, fc_arg)) == HIST_ERROR)
+	if ((tmp = btin_fc_save_editor(argv, i, 0, fc_arg)) == HIST_ERROR)
 		return (HIST_ERROR);
 	else if (tmp != i)
-		return (btin_fc_exec_mode(&argv[tmp], flags, fc_arg));
+		return (btin_fc_exec_mode(&argv[tmp], j, flags, fc_arg));
 	return (btin_fc_exec_mode_proc(&argv[i], flags, fc_arg));
 }
 

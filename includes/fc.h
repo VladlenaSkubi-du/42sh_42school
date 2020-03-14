@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fc.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:29:20 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/12 21:25:25 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/14 20:15:29 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # define		POSIX_FC_DIFF 16
 
-# define		HIST_ERROR -1
-# define		HIST_EXEC 0
+# define		HIST_ERROR -2
+# define		HIST_EXEC -1
 # define		HIST_SEARCH 1
 
 # define		FLAG_N 0x2
@@ -47,7 +47,8 @@ typedef	struct	s_btin_fc
 
 int				btin_fc_find_mode(char **argv, int argc, int *flags,
 					t_btin_fc **fc_arg);
-int				btin_fc_save_editor(char **argv, int i, t_btin_fc **fc_arg);
+int				btin_fc_save_editor(char **argv, int i,
+					int j, t_btin_fc **fc_arg);
 int				btin_fc_one_int(int value);
 int				btin_fc_two_ints(t_btin_fc **fc_arg);
 
@@ -55,7 +56,7 @@ int				btin_fc_two_ints(t_btin_fc **fc_arg);
 ** File fc_modes_l.c
 */
 
-int				btin_fc_list_mode(char **argv, int *flags,
+int				btin_fc_list_mode(char **argv, int j, int *flags,
 					t_btin_fc **fc_arg);
 int				btin_fc_list_mode_no_args(int *flags, t_btin_fc **fc_arg);
 int				btin_fc_list_mode_num_args(char **argv, int i,
@@ -66,7 +67,7 @@ int				btin_fc_list_mode_flags_off(int *flags);
 ** File fc_mode_s.c
 */
 
-int				btin_fc_exec_mode(char **argv, int *flags,
+int				btin_fc_exec_mode(char **argv, int j, int *flags,
 					t_btin_fc **fc_arg);
 
 int				btin_fc_exec_mode_no_args(int *flags, t_btin_fc **fc_arg);
@@ -81,6 +82,8 @@ int				btin_fc_exec_mode_add_comp(t_btin_fc **fc_arg, char *comp);
 
 int				btin_fc_edit_mode(char **argv, int *flags,
 					t_btin_fc **fc_arg);
+int				btin_fc_edit_mode_num_args(char **argv, int i,
+					int *flags, t_btin_fc **fc_arg);
 int				btin_fc_edit_mode_flags_off(int *flags);
 
 /*

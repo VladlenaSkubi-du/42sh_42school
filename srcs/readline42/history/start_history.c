@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 14:02:53 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/13 10:04:54 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/14 20:43:50 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ int				start_history(void)
 		return (0);
 	save_hist_buffer(fd);
 
-	i = 0;
-	while (g_hist.hist[i])
-	{
-		printf("%lu - %s\n", i + 1, g_hist.hist[i]);
-		i++;
-	}
+	// i = 0;
+	// while (g_hist.hist[i])
+	// {
+	// 	printf("%lu - %s\n", i + 1, g_hist.hist[i]);
+	// 	i++;
+	// }
 
 	close(fd);
 	return (0);
@@ -49,13 +49,13 @@ void			init_history_buffer(void)
 	while (ft_strncmp(g_shvar[i], "HISTSIZE=",
 		(tmp = ft_strchri(g_shvar[i], '=') + 1)) != 0)
 		i++;
-	g_hist.len = ft_atoi(&g_shvar[i][tmp]);
+	g_hist.len = ft_atoi(&g_shvar[i][tmp]) + 1;
 	g_hist.hist = (char**)ft_xmalloc(sizeof(char*) * (g_hist.len + 1));
 	g_hist.hist[g_hist.len] = 0;
 	g_hist.last = -1;
 	g_hist.start = 0;
 	g_hist.counter = 0;
-	g_hist.last_fc = 1;
+	g_hist.last_fc = 0;
 }
 
 /*
@@ -94,7 +94,7 @@ int				add_to_history(char *cmd) //Когда будет запуск, сдел�
 	int			flag;
 
 	flag = 0;
-	if (g_hist.last + 1 > g_hist.len - 1 &&
+	if (g_hist.last + 1 >= g_hist.len - 1 &&
 		g_prompt.prompt_func == main_prompt)
 		scroll_hist_buffer(1);
 	if (g_prompt.prompt_func == main_prompt)
@@ -102,7 +102,7 @@ int				add_to_history(char *cmd) //Когда будет запуск, сдел�
 		g_hist.last++;
 		g_hist.hist[g_hist.last] = ft_strdup(cmd);
 		g_hist.last_fc++;
-		if (g_hist.last_fc == g_hist.len || g_hist.last_fc == HISTORY_LIMIT)
+		if (g_hist.last_fc == HISTORY_LIMIT)
 			g_hist.last_fc = 1;
 	}
 	else if (g_prompt.prompt_func != main_prompt &&
