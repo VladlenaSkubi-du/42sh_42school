@@ -25,6 +25,84 @@ typedef struct job
     int stdin, stdout, stderr;  /* standard i/o channels */
 }   job;
 
+process *find_process(job *j, pid_t child_pid)
+{
+	process *proc;
+
+	proc = j->first_process;
+	while (proc && proc->pid != child_pid)
+		proc = proc->next;
+	return (proc);
+}
+
+int		job_is_stopped(job *j)
+{
+	process		*p;
+
+	p = j->first_process;
+	while (p)
+	{
+		if (!p->completed && !p->stopped)
+			return (0);
+		p = p->next;
+	}
+	return (1);
+}
+
+int		job_is_completed(job *j)
+{
+	process		*p;
+
+	p = j->first_process;
+	while (p)
+	{
+		if (!p->completed)
+			return (0);
+		p = p->next;
+	}
+	return (1);
+}
+
+job		*find_job (pid_t pgid)
+{
+ 	job *j;
+
+	j = first_job;
+	while (j)
+	{
+		if (j->pgid == pgid)
+			return (j);
+		j = j->next;
+	}
+	return (NULL);
+}
+
+void	process_update(process *p, int status)
+{
+	(WIFEXITED(status)) && (p->completed = 1);
+	(WIFSTOPPED(status)) && (p->stopped = 1);
+	p->status = status;
+}
+
+/* Call this handler in case SIGCHLD is raised */
+void	child_handler(int sig)
+{
+	int		child_pid;
+	int		child_pgid;
+	int		status;
+	job		*j;
+	process	*proc;
+
+	child_pid = waitpid(0, &status, WUNTRACED);
+	child_pgid = getpgid(child_pid);
+	j = find_job(child_pgid);
+	proc = find_process(j, child_pid);
+	process_update(proc, status);
+	if (job_is_completed(j))
+	{
+		/* Remove job from job list */
+	}
+}
 
 /* REWRITE */
 void	launch_process (process *p, pid_t pgid, int stream[3], int foreground)

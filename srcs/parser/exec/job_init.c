@@ -95,7 +95,6 @@ int     job_init(t_ltree *entity)
 	{
 		foreground = !(entity->flags & IS_BG);
 		ret += job_launch(jobs, foreground);
-		ret += job_clean(jobs);
 	}
 	return (ret);
 }
