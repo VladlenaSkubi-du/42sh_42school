@@ -98,6 +98,7 @@ FC =				builtin/fc/fc.c \
 			builtin/fc/fc_modes_l.c \
 			builtin/fc/fc_modes_s.c \
 			builtin/fc/fc_modes_e.c \
+			builtin/fc/fc_nums_calc.c \
 			builtin/fc/fc_exec.c
 
 BUILTIN = 			builtin/exit.c \
