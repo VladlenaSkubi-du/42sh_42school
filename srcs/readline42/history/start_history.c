@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 14:02:53 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/14 20:43:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/16 17:55:33 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ int				add_to_history(char *cmd) //Когда будет запуск, сдел�
 
 	flag = 0;
 	if (g_hist.last + 1 >= g_hist.len - 1 &&
-		g_prompt.prompt_func == main_prompt)
+		g_prompt.prompt_func == main_prompt && g_hist.len > 0)
 		scroll_hist_buffer(1);
-	if (g_prompt.prompt_func == main_prompt)
+	if (g_prompt.prompt_func == main_prompt && g_hist.len > 0)
 	{
 		g_hist.last++;
 		g_hist.hist[g_hist.last] = ft_strdup(cmd);
@@ -106,7 +106,7 @@ int				add_to_history(char *cmd) //Когда будет запуск, сдел�
 			g_hist.last_fc = 1;
 	}
 	else if (g_prompt.prompt_func != main_prompt &&
-		g_prompt.prompt_func != heredoc_prompt)
+		g_prompt.prompt_func != heredoc_prompt && g_hist.len > 0)
 	{
 		flag = (cmd[0] == EOF) ? EOF : 0;
 		add_other_prompts_history(cmd, flag);

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:19:41 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/14 20:40:19 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/16 18:00:30 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ int					btin_fc_list_mode(char **argv, int j, int *flags,
 	int				tmp;
 
 	i = 0;
+	if (g_hist.len < 1)
+	{
+		error_handler(VARIABLE_ERROR | (ERR_HISTORY << 9), "fc");
+		return (HIST_ERROR);
+	}
 	while (argv[i][++j])
 	{
 		if ((tmp = btin_fc_save_editor(argv, i, j, fc_arg)) == HIST_ERROR)
@@ -81,7 +86,8 @@ int					btin_fc_list_mode_no_args(int *flags, t_btin_fc **fc_arg)
 	(*fc_arg)->flag |= ARG_SECOND;
 	(*fc_arg)->last = -1;
 	(*fc_arg)->first = -17;
-	btin_fc_two_ints(fc_arg);
+	if (btin_fc_two_ints__list(fc_arg) == HIST_ERROR)
+		return (HIST_ERROR);
 	btin_fc_list_mode_flags_off(flags);
 	return (0);
 }
@@ -94,14 +100,10 @@ int					btin_fc_list_mode_num_args(char **argv, int i,
 	i++;
 	if (!argv[i])
 	{
-		(*fc_arg)->first_buf = btin_fc_one_int((*fc_arg)->first);
-		(*fc_arg)->last_buf = btin_fc_one_int(-1);
-		(*fc_arg)->last = g_hist.last_fc - 1;
-		(*fc_arg)->first = ((*fc_arg)->last -
-			((*fc_arg)->last_buf - (*fc_arg)->first_buf) < 1) ?
-			g_hist.len + ((*fc_arg)->last -
-			((*fc_arg)->last_buf - (*fc_arg)->first_buf)) :
-			(*fc_arg)->last - ((*fc_arg)->last_buf - (*fc_arg)->first_buf);
+		(*fc_arg)->flag |= ARG_SECOND;
+		(*fc_arg)->last = -1;
+		if (btin_fc_two_ints__list(fc_arg) == HIST_ERROR)
+			return (HIST_ERROR);
 		return (0);
 	}
 	else if (!(ft_isdigit(argv[i][0]) || (argv[i][0] == '-' &&
@@ -112,7 +114,8 @@ int					btin_fc_list_mode_num_args(char **argv, int i,
 	}
 	(*fc_arg)->flag |= ARG_SECOND;
 	(*fc_arg)->last = ft_atoi(argv[i]);
-	btin_fc_two_ints(fc_arg);
+	if (btin_fc_two_ints__list(fc_arg) == HIST_ERROR)
+		return (HIST_ERROR);
 	return (0);
 }
 

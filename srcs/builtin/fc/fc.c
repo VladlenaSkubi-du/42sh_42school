@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 14:10:50 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/14 20:13:21 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/16 17:59:00 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,39 +129,3 @@ int					btin_fc_save_editor(char **argv, int i,
 	}
 	return (i);
 } 
-
-int					btin_fc_one_int(int value)
-{
-	int				final_buf;
-
-	final_buf = g_hist.last;
-	if (value <= 0)
-	{
-		value = (value == 0) ? -1 : value;
-		final_buf += value;
-		if (final_buf < 0)
-			final_buf = 0;
-	}
-	else if (value > 0)
-	{
-		if (value - 1 > 0 && value - 1 < g_hist.last)
-			final_buf = value - 1; //было -1
-	}
-	return (final_buf);
-}
-
-int					btin_fc_two_ints(t_btin_fc **fc_arg)
-{
-	t_btin_fc		*tmp;
-
-	tmp = *fc_arg;
-	if (!((tmp->flag & ARG_FIRST) && (tmp->flag & ARG_SECOND)))
-		return (0);
-	tmp->last_buf = btin_fc_one_int(tmp->last);
-	tmp->last = g_hist.last_fc - 1;
-	tmp->first_buf = btin_fc_one_int(tmp->first);
-	tmp->first = (tmp->last - (tmp->last_buf - tmp->first_buf) < 1) ?
-		g_hist.len + (tmp->last - (tmp->last_buf - tmp->first_buf)) :
-		tmp->last - (tmp->last_buf - tmp->first_buf);
-	return (0);
-}

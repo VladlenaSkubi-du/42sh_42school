@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 19:24:05 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/14 20:15:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/16 17:58:41 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ int					btin_fc_edit_mode(char **argv, int *flags,
 	size_t			sy;
 	
 	i = 0;
+	if (g_hist.len < 1)
+	{
+		error_handler(VARIABLE_ERROR | (ERR_HISTORY << 9), "fc");
+		return (HIST_ERROR);
+	}
 	delete_last_history_element();
 	if ((*fc_arg)->editor == NULL)
 	{
@@ -59,7 +64,7 @@ int					btin_fc_edit_mode_num_args(char **argv, int i,
 	i++;
 	if (!argv[i])
 	{
-		(*fc_arg)->first_buf = btin_fc_one_int((*fc_arg)->first);
+		(*fc_arg)->first_buf = btin_fc_one_int__edit((*fc_arg)->first);
 		return (0);
 	}
 	else if (!(ft_isdigit(argv[i][0]) || (argv[i][0] == '-' &&
@@ -70,7 +75,7 @@ int					btin_fc_edit_mode_num_args(char **argv, int i,
 	}
 	(*fc_arg)->flag |= ARG_SECOND;
 	(*fc_arg)->last = ft_atoi(argv[i]);
-	btin_fc_two_ints(fc_arg);
+	btin_fc_two_ints__edit(fc_arg);
 	return (0);
 }
 

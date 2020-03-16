@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:29:20 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/14 20:15:29 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/16 18:53:55 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ int				btin_fc_find_mode(char **argv, int argc, int *flags,
 					t_btin_fc **fc_arg);
 int				btin_fc_save_editor(char **argv, int i,
 					int j, t_btin_fc **fc_arg);
-int				btin_fc_one_int(int value);
-int				btin_fc_two_ints(t_btin_fc **fc_arg);
 
 /*
 ** File fc_modes_l.c
@@ -91,5 +89,16 @@ int				btin_fc_edit_mode_flags_off(int *flags);
 */
 
 int				btin_fc_route_execution(int flags, t_btin_fc *fc_arg);
+
+/*
+** File fc_num_calc.c
+*/
+
+int				btin_fc_one_int__edit(int value);
+int				btin_fc_two_ints__edit(t_btin_fc **fc_arg);
+int				btin_fc_two_ints__list(t_btin_fc **fc_arg);
+int				btin_fc_positive_int__list(int value,
+					int from, int to, char flag);
+int				btin_fc_calculate_nums__list(int buffer, int from);
 
 #endif
