@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   before_execution.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 19:35:23 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/13 00:06:10 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/17 16:17:50 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ int		before_exec(t_ltree *sub, t_list **list)
 	if ((err = ft_substitution(sub)) & (ERR_OUT | ERR_IN))
 		return (OUT);
 	assignment(sub);
-	if (sub->flags & (ERR_OUT | VARIABLE_ERROR))
+	if (sub->flags & (ERR_OUT))
 	{
-	 	ft_error_vars(sub, 0, NULL);
+	 	sub->err_i = ERR_OUT | VARIABLE_ERROR;
+		ft_error_vars(sub, 0, NULL);
 		ft_lst_ltree_clear(&g_start_list);
 		return (OUT);
 	}

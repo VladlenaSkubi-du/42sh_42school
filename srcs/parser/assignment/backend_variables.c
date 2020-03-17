@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   backend_variables.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 18:56:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/07 18:54:37 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/17 15:24:08 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			find_assignment_in_vars(char *sub, size_t var,
 	sy = -1;
 	find = ft_strndup(sub + var, eq - var);
 	if ((li = find_in_variables(g_rdovar, &sy, find)) != -1)
-		return (ERR_OUT | VARIABLE_ERROR); //выход из парсера в ридлайн
+		return (ERR_OUT); //выход из парсера в ридлайн
 	if ((li = find_in_variables(g_env, &sy, find)) != -1)
 		return (insert_assign_to_arrays(find, ft_strndup(sub + var,
 			val - var + 1),	&g_env[li]));
@@ -66,7 +66,7 @@ int			assignment_in_curv_var(t_ltree *sub, char **line,
 	j = oper - *line;
 	*line = ft_strrejoin(*line, buf);
 	if ((j = find_assignment_in_vars(*line, 0, j, ft_strlen(*line))) ==
-		(ERR_OUT | VARIABLE_ERROR))
+		(ERR_OUT))
 		sub->err = ft_strndup(*line, ft_strchri(*line, '='));
 	free (*line);
 	insert_str_in_loc_strs(sub, &buf, i, TEXT);
