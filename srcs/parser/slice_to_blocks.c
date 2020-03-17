@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slice_to_blocks.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:01:01 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/13 00:24:24 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/17 14:33:08 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int		ft_block_add_to_list(t_ltree *block, t_list **list)
 	{
 		if (final->flags & ERR_OUT)
 		{
+			ft_one_ltree_clear(final);
 			ft_lst_ltree_clear(list);
 			return (OUT);
 		}

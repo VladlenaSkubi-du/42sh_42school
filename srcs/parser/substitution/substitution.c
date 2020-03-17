@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   substitution.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 22:26:57 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/13 00:25:20 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/17 14:33:38 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int		before_add(t_ltree *sub, t_list **list)
 	if ((err = ft_find_redirection(sub)) & ERR_OUT)
 	{
 		ft_error_redir(sub);
+		ft_one_ltree_clear(sub);
 		ft_lst_ltree_clear(list);
 		return (OUT);
 	}
@@ -77,7 +78,9 @@ int		ft_check_null(t_ltree *sub, t_list **list)
 	else if (i == sub->end)
 	{	
 		sub->flags |= ERR_OUT | ERR_REDIR << 16;
+		sub->err_i = i;
 		ft_error_redir(sub);
+		ft_one_ltree_clear(sub);
 		ft_lst_ltree_clear(list);
 		return (OUT);
 	}

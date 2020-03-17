@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_all42.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:05:06 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/11 14:08:43 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/17 14:11:03 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int				clean_everything(void)
 	ft_arrdel(g_shvar);
 	ft_arrdel(g_lovar);
 	ft_arrdel(g_hist.hist);
+	ft_lst_ltree_clear(&g_start_list);
 	make_ctrl_y(2, NULL);
 	clean_termcap();
 	return (0);

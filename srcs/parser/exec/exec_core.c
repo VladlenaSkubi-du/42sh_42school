@@ -157,7 +157,6 @@ int	exec_clean(char *path, int exit_status)
 ** Check if programm to start is buildin and if it is - start builtin
 */
 
-/*
 int		ft_buildins_check(t_ltree *pos, int flag)
 {
 	int	i;
@@ -175,35 +174,37 @@ int		ft_buildins_check(t_ltree *pos, int flag)
 	}
 	return (-1);
 }
-*/
 
 /*
 ** Delete pipe process and simplify, leaving only dealing with EXECPATH
 */
 
-int	exec_core(t_ltree *pos)
+int		exec_core(t_ltree *pos)
 {
 	pid_t			child_pid;
 	char			*path;
 	static int		pipe_prev;
 	static int		pipe_next[2];
 
-	if (!(path = path_init(pos->ar_v)))
+	if (!(path = path_init(pos->ar_v)) && ft_buildins_check(pos, 0) == -1)
 		return (exec_clean(path, -1));
 	(pos->flags & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
 	if ((pos->flags & PIPED_OUT) && pipe(pipe_next) == -1)
 			return (exec_clean(path, -1));
-	child_pid = fork();
-	if (!child_pid)
+	if (ft_buildins_check(pos, 1) == -1)
 	{
-		(pos->flags & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
-		(pos->flags & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
-		if (execve(path, pos->ar_v, pos->envir) == -1) //TODO испрвить на все виды очисток
-			exit(-1);
+		child_pid = fork();
+		if (!child_pid)
+		{
+			(pos->flags & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
+			(pos->flags & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
+			if (execve(path, pos->ar_v, pos->envir) == -1) //TODO испрвить на все виды очисток
+				exit(-1);
+		}
+		else if (child_pid < 0)
+			return (exec_clean(path, -1));
+		wait(&child_pid);
 	}
-	else if (child_pid < 0)
-		return (exec_clean(path, -1));
-	wait(&child_pid);
 	(pos->flags & PIPED_OUT) ? close(pipe_next[1]) : 0;
 	(pos->flags & PIPED_IN) ? close(pipe_prev) : 0;
 	return (exec_clean(path, WIFEXITED(child_pid) ? \
