@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/13 00:22:54 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/18 14:33:22 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,8 +306,6 @@ int						here_tab_remove(char **line);
 
 int             		find_assignment_in_vars(char *sub, size_t var,
 							size_t eq, size_t val);
-int						insert_assign_to_arrays(char *find, char *insert,
-							char **array);
 int						assignment_in_curv_var(t_ltree *sub,
 							char **line, char *oper, size_t *i);
 int						ft_colon_check(int *len, char **line,
