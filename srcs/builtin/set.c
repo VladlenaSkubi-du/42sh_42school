@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 16:57:49 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/18 14:25:55 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/18 15:30:06 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 static int	sorting_vars(t_path **root, size_t *len)
 {
 	size_t	i;
+	size_t	li;
+	size_t	sy;
 
 	i = -1;
 	while (g_env[++i])
@@ -26,9 +28,10 @@ static int	sorting_vars(t_path **root, size_t *len)
 	i = -1;
 	while (g_lovar[++i])
 		insert(g_lovar[i], root, len);
-	i = -1;
+	li = find_in_variables(g_rdovar, &sy, "42SH=");
+	i = li - 1;
 	while (g_rdovar[++i])
-		insert(g_rdovar[i], root, len); //нужны ли эти переменные в set - да нужны
+		insert(g_rdovar[i], root, len);
 	return (0);	
 }
 
