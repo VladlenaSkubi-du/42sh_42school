@@ -94,6 +94,10 @@ REDIRECTION = 		parser/redirection/redirect.c \
 
 SIGNALS = 			signals/signals_processing42.c
 
+SHELL_VARIABLES =	shell_variables/environment42.c \
+			shell_variables/variables_processing42.c \
+			shell_variables/variables_array_processing42.c
+
 FC =				builtin/fc/fc.c \
 			builtin/fc/fc_modes_l.c \
 			builtin/fc/fc_modes_s.c \
@@ -135,13 +139,12 @@ STACK_STRUCTURE = 	libft_42/stack_structure/ft_init_stack.c \
 
 SOURCES =	main.c \
 			options_proc42.c \
-			environment42.c \
-			variables_processing42.c \
 			error_handler42.c \
 			clean_all42.c \
 			$(READLINE42) \
 			$(PARSER) \
 			$(SIGNALS) \
+			$(SHELL_VARIABLES) \
 			$(BUILTIN) \
 			$(LIBFT_42)
 
@@ -178,6 +181,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)/parser/substitution
 	@mkdir -p $(DIR_O)/parser/redirection
 	@mkdir -p $(DIR_O)/signals
+	@mkdir -p $(DIR_O)/shell_variables
 	@mkdir -p $(DIR_O)/builtin
 	@mkdir -p $(DIR_O)/builtin/fc
 	@mkdir -p $(DIR_O)/libft_42

@@ -3,50 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   environment42.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:45:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/13 11:34:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/18 14:49:29 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 
 /*
-** Can be changed by assignment or export and added by export-builtin
+** Environmental shell variables - are dinamic, exist within the session,
+** the function save_environment_variables saves the parent process
+** environ to e-bash @g_env.
+**
+** Can be changed by assignment (HOME=aaa)
+** or export (export HOME=aaa)
+** and a new line added by export-builtin (export FOO=bar)
 */
 
-int					save_environment_variables(char *env_var)
+int					save_environment_variables(void)
 {
 	extern char		**environ;
 	size_t			num;
 
 	num = 0;
-	if (g_env == NULL)
+	g_env = (char**)ft_xmalloc((g_var_size + 1) * (sizeof(char*)));
+	while (environ[num])
 	{
-		g_env = (char**)ft_xmalloc((g_var_size + 1) * (sizeof(char*)));
-		while (environ[num])
+		if (num == g_var_size)
 		{
-			if (num == g_var_size)
-			{
-				g_env = ft_realloc_array(&g_env, g_var_size, g_var_size * 2);
-				g_var_size *= 2;
-			}
-			g_env[num] = ft_strdup(environ[num]);
-			num++;
+			g_env = ft_realloc_array(&g_env, g_var_size, g_var_size * 2);
+			g_var_size *= 2;
 		}
-		g_env_num = num;
-		return (0);
-	}
-	while (g_env[num])
+		g_env[num] = ft_strdup(environ[num]);
 		num++;
-	(num == g_var_size) ? realloc_all_gvariables_array() : 0;
-	g_env[num] = ft_strdup(env_var);
+	};
 	return (0);
 }
 
 /*
-** Can be read by the user and corrected only within the shell-program
+** Shell readonly variables - always static, array @g_rdovar
+**
+** Can be only read by the user and corrected only within e-bash program
 */
 
 int					save_readonly_variables(void)
@@ -80,8 +79,11 @@ int					save_readonly_variables(void)
 }
 
 /*
-** Can be changed by assignment, can NOT be added
-** If there is an export variable - is transferred to the g_env
+** Shell working variables - always static, array @g_shvar
+**
+** Can be changed by assignment (HISTFILE=5), can NOT be added
+** If there is an export variable (export HISTFILE=5)
+** the variable starts to be visible in @g_env (by env command)
 */
 
 int					save_shell_variables(void)
@@ -94,7 +96,7 @@ int					save_shell_variables(void)
 	num = 4;
 	g_shvar = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
 	li = find_in_variables(g_env, &co, "HOME=");
-	tmp = (li >= g_env_num) ? define_history_file() :
+	tmp = (li < 0) ? define_history_file() :
 		ft_strjoin(&g_env[li][co], "/.42sh_history");
 	g_shvar[0] = ft_strjoin("HISTFILE=", tmp);
 	free(tmp);
@@ -109,25 +111,19 @@ int					save_shell_variables(void)
 }
 
 /*
-** Can be changed by assignment and added -
-** local variables that exist within a session
+** Shell local variables - dinamic, exist within the session
+** @g_lovar in e-bash
+** 
+** Can be added and changed by assignment (fuu=bar)
+** And if already exists in @g_lovar and
+** is used in export (export fuu=bbb),
+** the variable starts to be visible in @g_env (by env command)
 */
 
-int					save_local_variables(char *lovar)
+int					save_local_variables(void)
 {
-	size_t	num;
 
-	if (g_lovar == NULL)
-	{
-		g_lovar = (char**)ft_xmalloc((g_var_size + 1) * (sizeof(char*)));
-		return (0);
-	}
-	num = 0;
-	while (g_lovar[num])
-		num++;
-	if (num == g_var_size)
-		realloc_all_gvariables_array();
-	g_lovar[num] = lovar;
+	g_lovar = (char**)ft_xmalloc((g_var_size + 1) * (sizeof(char*)));
 	return (0);
 }
 

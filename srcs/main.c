@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:54:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/05 19:05:52 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/18 13:15:29 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int				main(int argc, char **argv)
 
 	options(argc, argv);
 	g_var_size = ENV_BUFFER;
-	save_environment_variables(NULL);
+	save_environment_variables();
 	save_readonly_variables();
-	save_local_variables(NULL);
+	save_local_variables();
 	if ((tmp = noninteractive_shell(argc, argv)) == -1)
 		return (1);
 	else if (tmp == 1)
@@ -71,4 +71,4 @@ int				main(int argc, char **argv)
 	return (0);
 }
 
-//кучу всяких чисток всего и вся по выходу при ошибкахvalgrin
+//кучу всяких чисток всего и вся по выходу при ошибках valgrin

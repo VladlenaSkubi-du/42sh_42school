@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler42.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/17 15:50:17 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/18 14:05:07 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
+
+/*
+** Enum structure for exxors is defined in exit_status.h
+** status that comes is always a value from enum structure
+** with binary shift to define the error type
+**
+** For example: error_handler(OPTIONS_REQUIRED | (ERR_EBASH_C << 9), "e-bash");
+** where OPTIONS_REQUIRED is equal 2, if we after check exit status
+** with echo $?, there will be 2
+** But there are many errors that exit with 2, so we define error type
+** by making shift << 9 and activating bits according to the mask defined in
+** exit_status.h
+** We decided that status always shifts by 9
+**
+** @status is an int with activated "exit" and error type bits
+** @str is a name that is put after "e-bash: [NAME]: [TEXT]"
+*/
 
 int				error_handler(int status, char *str)
 {
@@ -31,6 +48,10 @@ int				error_handler(int status, char *str)
 	exit_status_variable(status);
 	return (0);
 }
+
+/*
+** Variable errors are errors that exit with 1
+*/
 
 int				variable_errors(int status, char *str)
 {
@@ -56,6 +77,10 @@ int				variable_errors(int status, char *str)
 	return (0);
 }
 
+/*
+** Option errors are errors that exit with 2
+*/
+
 int				options_errors(int status, char *str)
 {
 	if (status >> 9 & ERR_EBASH_C)
@@ -75,6 +100,10 @@ int				options_errors(int status, char *str)
 	}
 	return (0);
 }
+
+/*
+** Syntax errors are errors that exit with 258
+*/
 
 int				syntax_errors(int status, char *str)
 {
@@ -96,6 +125,10 @@ int				syntax_errors(int status, char *str)
 	syntax_errors_files(status, str);
 	return (0);
 }
+
+/*
+** Continuetion of syntax_errors
+*/
 
 int			syntax_errors_files(int status, char *str)
 {
