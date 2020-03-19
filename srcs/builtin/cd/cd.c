@@ -57,7 +57,7 @@ static void ft_error(char *name, int en)
     if (en == 3)
         ft_putstr_fd(": permission dinaed: ", 2);
     if (en == 4)
-        ft_putstr_fd(": not a directory: ", 2);
+        error_handler(VARIABLE_ERROR | (ERR_CD << 9), ": not a directory ");
     if (en == 5)
         ft_putstr_fd(": too many arguments", 2);
     else
