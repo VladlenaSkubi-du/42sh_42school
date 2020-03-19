@@ -175,6 +175,21 @@ int		ft_buildins_check(t_ltree *pos, int flag)
 	return (-1);
 }
 
+int		fd_list_process(t_ltree *pos)
+{
+	t_list		*fd_list;
+	t_fd_redir	*redir;
+
+	fd_list = pos->fd;
+	while (fd_list)
+	{
+		redir = (t_fd_redir *)fd_list->content;
+		dup2(redir->fd_out, redir->fd_in);
+		fd_list = fd_list->next;
+	}
+	return (0);
+}
+
 /*
 ** Delete pipe process and simplify, leaving only dealing with EXECPATH
 */
@@ -196,6 +211,7 @@ int		exec_core(t_ltree *pos)
 		child_pid = fork();
 		if (!child_pid)
 		{
+			fd_list_process(pos);
 			(pos->flags & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
 			(pos->flags & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
 			if (execve(path, pos->ar_v, pos->envir) == -1) //TODO испрвить на все виды очисток
