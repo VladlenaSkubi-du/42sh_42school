@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser42.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:19:56 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/16 19:37:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/18 16:49:30 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,25 @@ int		parser(char *line)
 	return (0);
 }
 
-static int			castrated_parser(void)
-{
-	char 	**argv_fc;
-	int		i;
-	size_t	len;
+// static int			castrated_parser(void)
+// {
+// 	char 	**argv_fc;
+// 	int		i;
+// 	size_t	len;
 
-	argv_fc = ft_strsplit(g_cmd, ' ');
-	i = 0;
-	while (argv_fc[i])
-		i++;
-	len = ft_strlen(argv_fc[i - 1]);
-	argv_fc[i - 1][len - 1] = '\0';
-	if (ft_strcmp(argv_fc[0], "fc") == 0)
-		btin_fc(i, argv_fc, g_env);
-	if (ft_strcmp(argv_fc[0], "history") == 0)
-		btin_history();
-	ft_arrdel(argv_fc);
-	return (0);
-}
+// 	argv_fc = ft_strsplit(g_cmd, ' ');
+// 	i = 0;
+// 	while (argv_fc[i])
+// 		i++;
+// 	len = ft_strlen(argv_fc[i - 1]);
+// 	argv_fc[i - 1][len - 1] = '\0';
+// 	if (ft_strcmp(argv_fc[0], "fc") == 0)
+// 		btin_fc(i, argv_fc, g_env);
+// 	if (ft_strcmp(argv_fc[0], "history") == 0)
+// 		btin_history();
+// 	ft_arrdel(argv_fc);
+// 	return (0);
+// }
 
 int		pars_lex_exec(int tmp)
 {

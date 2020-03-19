@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fc.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 14:10:50 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/16 17:59:00 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/18 16:48:56 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 ** to start, everything after is ignored
 */
 
-int                 btin_fc(int argc, char **argv, char **environ)
+int                 btin_fc(t_ltree *pos)
 {
 	int				flags;
 	t_btin_fc		*fc_arg;
@@ -36,7 +36,7 @@ int                 btin_fc(int argc, char **argv, char **environ)
 		return (0);
 	flags = 0;
 	fc_arg = init_btin_fc();
-	flags = find_options(1, (char*[]){"elsrn"}, argv, 1);
+	flags = find_options(1, (char*[]){"elsrn"}, pos->ar_v, 1);
 	if (flags < 1)
 		return (0);
 		
@@ -50,7 +50,7 @@ int                 btin_fc(int argc, char **argv, char **environ)
 	
 	if ((flags & FLAG_N) && !(flags & FLAG_L))
 		flags &= ~FLAG_N;
-	if (btin_fc_find_mode(argv, argc, &flags, &fc_arg) == HIST_ERROR)
+	if (btin_fc_find_mode(pos->ar_v, pos->ar_c, &flags, &fc_arg) == HIST_ERROR)
 		return (0);
 	btin_fc_route_execution(flags, fc_arg);
 	//btin_fc_exec_mode_add_comp(fc_arg, NULL); - добавить в exec

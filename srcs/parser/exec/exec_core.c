@@ -1,6 +1,6 @@
 #include "shell42.h"
 #include "parser.h"
-#include "buildins_list.h"
+#include "builtins_list.h"
 
 void	free_vec(char **vec)
 {
@@ -157,17 +157,17 @@ int	exec_clean(char *path, int exit_status)
 ** Check if programm to start is buildin and if it is - start builtin
 */
 
-int		ft_buildins_check(t_ltree *pos, int flag)
+int		ft_builtins_check(t_ltree *pos, int flag)
 {
 	int	i;
 
 	i = 0;
-	while (g_buildins[i])
+	while (g_builtins[i])
 	{
-		if (!ft_strcmp(pos->ar_v[0], g_buildins[i]))
+		if (!ft_strcmp(pos->ar_v[0], g_builtins[i]))
 		{
 			if (flag)
-				g_buildins_func[i](pos);
+				g_builtins_func[i](pos);
 			return (i);
 		}
 		i++;
@@ -201,12 +201,12 @@ int		exec_core(t_ltree *pos)
 	static int		pipe_prev;
 	static int		pipe_next[2];
 
-	if (!(path = path_init(pos->ar_v)) && ft_buildins_check(pos, 0) == -1)
+	if (!(path = path_init(pos->ar_v)) && ft_builtins_check(pos, 0) == -1)
 		return (exec_clean(path, -1));
 	(pos->flags & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
 	if ((pos->flags & PIPED_OUT) && pipe(pipe_next) == -1)
 			return (exec_clean(path, -1));
-	if (ft_buildins_check(pos, 1) == -1)
+	if (ft_builtins_check(pos, 1) == -1)
 	{
 		child_pid = fork();
 		if (!child_pid)

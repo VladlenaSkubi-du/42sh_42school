@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assignment.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 20:20:14 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/12 16:52:10 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/19 13:33:43 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		assignment(t_ltree *sub)
 			val = eq + 1;
 			while (sub->l_tline.line[var] != SPACE && var != 0)
 				var--;
-			var != 0 ? var++ : 0;
+			(sub->l_tline.line[var] == SPACE) ? var++ : 0;
 			while (sub->l_tline.line[val] != SPACE && val < sub->l_tline.len)
 				val++;
 			val--;
@@ -53,7 +53,7 @@ int		get_assign_and_add(t_ltree *sub, size_t *var, size_t *eq, size_t *val)
 	{
 		sub->flags |= ERR_IN | ERR_CONT;
 		if ((sub->flags |= find_assignment_in_vars(sub->l_cmd,
-			*var, *eq, *val)) & (ERR_OUT | VARIABLE_ERROR))
+			*var, *eq, *val)) & (ERR_OUT))
 			sub->err = ft_strndup(&sub->l_cmd[*var], *eq - *var);
 		*eq = *val;
 		return (0);

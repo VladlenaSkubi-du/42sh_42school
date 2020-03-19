@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/14 18:13:56 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/18 14:53:51 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ enum				e_techline
 */
 
 char				**g_env;
-int					g_env_num;
 char				**g_rdovar;
 char				**g_shvar;
 char				**g_lovar;
@@ -124,13 +123,17 @@ int					options_proc(char arrij, char *flags_arr, int *final);
 int					suboptions_proc(char *arri, int num, char *flags_arr[num], int *final);
 
 /*
+** Folder shell_variables______________________________________________________
+*/
+
+/*
 ** File environment42.c
 */
 
-int					save_environment_variables(char *env_var);
+int					save_environment_variables(void);
 int					save_readonly_variables(void);
 int					save_shell_variables(void);
-int					save_local_variables(char *lovar);
+int					save_local_variables(void);
 int                 exit_status_variable(int status);
 
 /*
@@ -140,6 +143,15 @@ int                 exit_status_variable(int status);
 int					realloc_all_gvariables_array(void);
 size_t				find_in_variables(char **arr, size_t *j, char *name);
 char				**init_exec_environ(void);
+int					insert_assign_to_arrays(char *find, char *insert,
+						char **array);
+
+/*
+** File variables_array_processing.c
+*/
+
+int					add_to_environment_variables(char *add);
+int					add_to_local_variables(char *add);
 int					add_new_to_exec_env(char ***array, char **add);
 
 /*

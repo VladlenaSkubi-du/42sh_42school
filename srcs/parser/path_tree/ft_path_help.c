@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path_help.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 16:54:47 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/12 20:43:36 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/18 16:32:50 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "parser.h"
-#include "buildins_list.h"
+#include "builtins_list.h"
 
 /*
 ** Functions to insert t_path element prev or next
@@ -55,11 +55,11 @@ int			ft_input_buildins(t_path **root, size_t *len, char *find)
 
 	i = 0;
 	str_len = ft_strlen(find);
-	g_buildins_func[14] = NULL;
-	while (g_buildins[i])
+	g_builtins_func[14] = NULL;
+	while (g_builtins[i])
 	{
-		if (ft_strnequ(g_buildins[i], find, str_len))
-			insert(g_buildins[i], root, len);
+		if (ft_strnequ(g_builtins[i], find, str_len))
+			insert(g_builtins[i], root, len);
 		i++;
 	}
 	return (0);
