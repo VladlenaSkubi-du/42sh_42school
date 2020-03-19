@@ -34,7 +34,7 @@ int             btin_fc(t_ltree *pos);
 /*
 ** Folder cd, file cd.c
 */
-void            btin_cd(t_ltree *pos);
+int             btin_cd(t_ltree *pos);
 
 /*
 ** File init_structures.c
