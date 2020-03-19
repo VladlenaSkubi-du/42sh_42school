@@ -185,7 +185,7 @@ void    ft_cd_pars(char **argv, int i, char **env, t_cd *cd_flags)
         ft_change_path(env, argv[i]);
 }
 
-void    btin_cd(t_ltree *pos)
+int         btin_cd(t_ltree *pos)
 {
     size_t  i;
     t_cd    *cd_flags;
@@ -206,4 +206,5 @@ void    btin_cd(t_ltree *pos)
         printf("%s\n", env[i]);
         i++;
     }*/
+    return (0);
 }
