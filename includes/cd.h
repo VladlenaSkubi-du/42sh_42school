@@ -7,6 +7,6 @@ typedef struct      s_cd
     size_t          l;
 }                   t_cd;
 
-void                btin_cd(t_ltree *pos);
+int                 btin_cd(t_ltree *pos);
 
 #endif
