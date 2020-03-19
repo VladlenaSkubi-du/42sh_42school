@@ -14,6 +14,7 @@
 # define BUILTIN42_H
 
 # include "fc.h"
+# include "cd.h"
 
 int				btin_exit(int status);
 
@@ -28,8 +29,12 @@ int				usage_btin_fc(void);
 /*
 ** Folder fc, file fc.c
 */
-
 int             btin_fc(t_ltree *pos);
+
+/*
+** Folder cd, file cd.c
+*/
+void            btin_cd(t_ltree *pos);
 
 /*
 ** File init_structures.c
