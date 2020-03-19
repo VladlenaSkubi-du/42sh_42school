@@ -74,6 +74,10 @@ int				variable_errors(int status, char *str)
 	{
 		ft_putendl_fd(str, STDERR_FILENO);
 	}
+    else if (status >> 9 & ERR_CD)
+    {
+		ft_putstr_fd(str, STDERR_FILENO);
+    }
 	return (0);
 }
 
