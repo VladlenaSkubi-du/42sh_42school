@@ -167,7 +167,10 @@ int		ft_builtins_check(t_ltree *pos, int flag)
 		if (!ft_strcmp(pos->ar_v[0], g_builtins[i]))
 		{
 			if (flag)
+			{
+				fd_list_process(pos);
 				g_builtins_func[i](pos);
+			}
 			return (i);
 		}
 		i++;
