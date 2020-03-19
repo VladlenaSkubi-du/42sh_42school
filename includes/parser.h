@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/18 14:33:22 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/19 13:58:48 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,7 @@ char					*ft_word_to_redir(size_t *i, t_ltree *final,
 							int rew_ff);
 int						ft_word_to_redir_rew(size_t *i, t_ltree *final, 
 						long long *size, size_t *start);
-int						ft_null_redir(size_t i, long long num);
+int						ft_null_redir(t_ltree *pos, size_t i, long long num);
 int						ft_error_redir(t_ltree *final);
 
 /*

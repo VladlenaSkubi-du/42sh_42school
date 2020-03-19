@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_types_out.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 14:04:36 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/27 01:18:58 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/19 14:04:30 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		ft_redir_great(t_ltree *final, size_t *i)
 		(final->l_tline.line[*i + 1] != AND || final->l_tline.line[*i + 1] == PIPE)))
 	{
 		fd_open.fd_out = ft_check_n_redir_op(*i, final, STDOUT_FILENO);
-		ft_null_redir(*i, 1);
+		ft_null_redir(final, *i, 1);
 		(*i)++;
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 		{
@@ -59,7 +59,7 @@ int		ft_redir_dgreat(t_ltree *final, size_t *i)
 	if (final->l_tline.line[*i] == GTHAN && final->l_tline.line[*i + 1] == GTHAN)
 	{
 		fd_open.fd_out = ft_check_n_redir_op(*i, final, STDOUT_FILENO);
-		ft_null_redir(*i, 2);
+		ft_null_redir(final, *i, 2);
 		(*i) += 2;
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 		{
@@ -91,7 +91,7 @@ int		ft_redir_greatand(t_ltree *final, size_t *i)
 	if (final->l_tline.line[*i] == GTHAN && (final->l_tline.line[*i + 1] == AND))
 	{
 		fd_open.fd_out = ft_check_n_redir_op(*i, final, STDOUT_FILENO);
-		ft_null_redir(*i, 2);
+		ft_null_redir(final, *i, 2);
 		(*i) += 2;
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 			return (ft_num_or_word_out(&f_name, &fd_open, i, final));
