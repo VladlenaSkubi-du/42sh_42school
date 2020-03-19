@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 14:10:50 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/18 16:48:56 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/18 19:47:08 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ int                 btin_fc(t_ltree *pos)
 		return (0);
 	flags = 0;
 	fc_arg = init_btin_fc();
-	flags = find_options(1, (char*[]){"elsrn"}, pos->ar_v, 1);
-	if (flags < 1)
-		return (0);
+	flags = find_options(1, (char*[]){"elsrn"}, pos->ar_v);
 		
 	printf("flags are: ");
 	if (flags & FLAG_E)

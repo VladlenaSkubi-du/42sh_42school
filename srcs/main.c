@@ -6,30 +6,60 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:54:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/18 13:15:29 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/19 17:37:48 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 
-int				options(int argc, char **argv)
+int				check_42sh_c_option(int argc, char **argv)
 {
-	if (argc == 2 && ft_strcmp(argv[1], "--readline") == 0)
+	int			i;
+
+	i = 0;
+	while (argv[++i])
 	{
-		print_help(2);
-		exit(SUCCESS);
-	}
-	if (argc == 2 && ft_strcmp(argv[1], "--simple") == 0)
-	{
-		print_help(3);
-		exit(SUCCESS);
-	}
-	if (argc == 2 && ft_strcmp(argv[1], "-c") == 0)
-	{
-		error_handler(OPTIONS_REQUIRED | (ERR_EBASH_C << 9), "e-bash");
-		exit(OPTIONS_REQUIRED);
+		if (argv[i][0] == '-' && argv[i][1] == 'c')
+		{
+			if (!(ft_strcmp(argv[i], "-c") == 0 && argv[i + 1]))
+			{
+				error_handler(OPTIONS_REQUIRED | (ERR_EBASH_C << 9), argv[0]);
+				usage_btin(argv[0]);
+				exit(OPTIONS_REQUIRED);
+			}
+			else
+				noninteractive_shell(argc, &argv[i + 1]);
+		}
+		else if (!(argv[i][0] == '-' && argv[i][1] == '-'))
+		{
+			error_handler(OPTIONS_REQUIRED | (ERR_EBASH_C << 9), argv[0]);
+			usage_btin(argv[0]);
+			exit(OPTIONS_REQUIRED);
+		}
 	}
 	return (0);
+}
+
+int				check_42sh_options(int argc, char **argv)
+{
+	int			flags;
+	int			mask;
+	int			i;
+
+	flags = find_options(OPTIONS_NUM,
+		(char*[]){"c", "--version", "--help", "--readline", "--simple"}, argv);
+	if (flags < 0)
+		exit(OPTIONS_REQUIRED);
+	mask = 1;
+	mask = mask << SUBOPTION_STARTS;
+	i = 0;
+	while (i < OPTIONS_NUM)
+	{
+		if (flags & (mask << i))
+			print_help(i + 1);
+		i++;
+	}
+	return (check_42sh_c_option(argc, argv));
 }
 
 int				noninteractive_shell(int argc, char **argv)
@@ -38,32 +68,22 @@ int				noninteractive_shell(int argc, char **argv)
 	size_t		li;
 	size_t		sy;
 
-	if (argc > 2 && ft_strcmp(argv[1], "-c") == 0)
-	{
-		li = find_in_variables(g_rdovar, &sy, "42SH_NONINTERACTIVE=");
-		g_rdovar[li][sy] = '1';
-		cmd = ft_strdup(argv[2]); //TODO строка может быть нулевой
-		g_prompt.prompt_func = NULL;
-		if (parser(cmd))
-			return (-1); //TODO исправить после вынесения exit_status
-		return (1);
-	}
-	return (0);
+	li = find_in_variables(g_rdovar, &sy, "42SH_NONINTERACTIVE=");
+	g_rdovar[li][sy] = '1';
+	cmd = ft_strdup(argv[0]); //TODO строка может быть нулевой
+	g_prompt.prompt_func = NULL;
+	parser(cmd);
+	li = find_in_variables(g_rdovar, &sy, "?=");
+	exit(ft_atoi(&g_rdovar[li][sy]));
 }
 
 int				main(int argc, char **argv)
 {
-	int			tmp;
-
-	options(argc, argv);
 	g_var_size = ENV_BUFFER;
 	save_environment_variables();
 	save_readonly_variables();
 	save_local_variables();
-	if ((tmp = noninteractive_shell(argc, argv)) == -1)
-		return (1);
-	else if (tmp == 1)
-		return (0);
+	check_42sh_options(argc, argv);
 	save_shell_variables();
 	g_prompt.prompt_func = main_prompt;
 	if (interactive_shell())
