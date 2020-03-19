@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:46:57 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/17 14:13:12 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/19 14:38:02 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 ** Function to null NUM symbols in g_techline and g_cmd since "i" index
 */
 
-int			ft_null_redir(size_t i, long long num)
+int			ft_null_redir(t_ltree *pos, size_t i, long long num)
 {
 	while (num > 0)
 	{
-		g_cmd[i] = ' ';
-		g_techline.line[i] = SPACE;
+		pos->l_cmd[i] = ' ';
+		pos->l_tline.line[i] = SPACE;
 		num--;
 		i++;
 	}
@@ -106,15 +106,16 @@ char		*ft_word_to_redir(size_t *i, t_ltree *final, int rew_ff)
 	if (size == 0)
 		size = -1;
 	buf = ft_strndup(&final->l_cmd[start], size);
-	file = ft_parsing_str(buf);
-	free(buf);
-	ft_null_redir(start, size);
+	file = (rew_ff == FF) ? ft_parsing_str(buf) : buf;
+	(rew_ff == FF) ? free(buf) : 0;
+	ft_null_redir(final, start, size);
 	return (file);
 }
 
 int			ft_word_to_redir_rew(size_t *i, t_ltree *final,
 			long long *size, size_t *start)
 {
+	*i -= 1;
 	while (*i >= final->start && final->l_tline.line[*i] == WORD_P)
 	{
 		if (!(ft_isdigit(final->l_cmd[*i])))
@@ -122,7 +123,8 @@ int			ft_word_to_redir_rew(size_t *i, t_ltree *final,
 			*size = -1;
 			break ;
 		}
-		(*size)++ && (*i)--;
+		(*size)++;
+		(*i)--;
 	}
 	if (*size != -1)
 	{

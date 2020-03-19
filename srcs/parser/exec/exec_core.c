@@ -175,9 +175,43 @@ int		ft_builtins_check(t_ltree *pos, int flag)
 	return (-1);
 }
 
+int		fd_list_process(t_ltree *pos)
+{
+	t_list		*fd_list;
+	t_fd_redir	*redir;
+
+	fd_list = pos->fd;
+	while (fd_list)
+	{
+		redir = (t_fd_redir *)fd_list->content;
+		dup2(redir->fd_in, redir->fd_out);
+		fd_list = fd_list->next;
+	}
+	return (0);
+}
+
 /*
 ** Delete pipe process and simplify, leaving only dealing with EXECPATH
 */
+
+int		std_save(int mode)
+{
+	static int	save[3];
+
+	if (!mode)
+	{
+		save[0] = dup(STDIN_FILENO);
+		save[1] = dup(STDOUT_FILENO);
+		save[2] = dup(STDERR_FILENO);
+	}
+	else
+	{
+		dup2(save[0], STDIN_FILENO);
+		dup2(save[1], STDOUT_FILENO);
+		dup2(save[2], STDERR_FILENO);
+	}
+	return (0);
+}
 
 int		exec_core(t_ltree *pos)
 {
@@ -191,13 +225,15 @@ int		exec_core(t_ltree *pos)
 	(pos->flags & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
 	if ((pos->flags & PIPED_OUT) && pipe(pipe_next) == -1)
 			return (exec_clean(path, -1));
+	std_save(0);
+	fd_list_process(pos);
+	(pos->flags & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
+	(pos->flags & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
 	if (ft_builtins_check(pos, 1) == -1)
 	{
 		child_pid = fork();
 		if (!child_pid)
 		{
-			(pos->flags & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
-			(pos->flags & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
 			if (execve(path, pos->ar_v, pos->envir) == -1) //TODO испрвить на все виды очисток
 				exit(-1);
 		}
@@ -207,6 +243,7 @@ int		exec_core(t_ltree *pos)
 	}
 	(pos->flags & PIPED_OUT) ? close(pipe_next[1]) : 0;
 	(pos->flags & PIPED_IN) ? close(pipe_prev) : 0;
+	std_save(1);
 	return (exec_clean(path, WIFEXITED(child_pid) ? \
 	WEXITSTATUS(child_pid) : (-1)));
 }

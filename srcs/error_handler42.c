@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/18 14:05:07 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/19 18:23:01 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int				error_handler(int status, char *str)
 			STDERR_FILENO); //TODO check
 	else if ((status & 0x1FF) == SYNTAX_ERROR)
 		syntax_errors(status, str);
-	exit_status_variable(status);
+	exit_status_variable(status & 0x7F);
 	return (0);
 }
 
@@ -74,6 +74,11 @@ int				variable_errors(int status, char *str)
 	{
 		ft_putendl_fd(str, STDERR_FILENO);
 	}
+    else if (status >> 9 & ERR_CD)
+    {
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd(": Not a directory", STDERR_FILENO);
+    }
 	return (0);
 }
 

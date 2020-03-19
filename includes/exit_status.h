@@ -27,6 +27,7 @@
 # define	ERR_RDONLY 0x2
 # define	ERR_UNSET 0x4
 # define	ERR_SET 0x8
+# define	ERR_CD 0x10
 
 /*
 ** In reality bash returns code "2" for all the internal errors + adds mask for
