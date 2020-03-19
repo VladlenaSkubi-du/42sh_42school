@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_block.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:16:37 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/27 01:26:37 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/19 14:42:02 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,21 @@ int		add_redir_fd(t_ltree *final, t_fd_redir *redir)
 int		ft_check_n_redir_op(size_t i, t_ltree *final, int std)
 {
 	char	*find;
+	int		count;
 	int		ret;
 
 	find = ft_word_to_redir(&i, final, REW);
+	count = 0;
 	if (find)
 	{
-		while (*find)
+		while (find[count])
 		{
-			if (*find == TEXT)
+			if (find[count] == TEXT)
 			{
 				free(find);
 				return (std);
 			}
-			(*find)++;
+			count++;
 		}
 		ret = ft_atoi(find);
 		free(find);

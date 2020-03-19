@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_types_in.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:20:07 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/27 01:25:53 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/19 14:05:28 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		ft_redir_less(t_ltree *final, size_t *i)
 		final->l_tline.line[*i + 1] == PIPE)))
 	{
 		fd_open.fd_in = ft_check_n_redir_op(*i, final, STDIN_FILENO);
-		ft_null_redir(*i, 1);
+		ft_null_redir(final, *i, 1);
 		(*i)++;
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 		{
@@ -62,7 +62,7 @@ int		ft_redir_dless(t_ltree *final, size_t *i)
 		&&	final->l_cmd[*i + 2] != '-')
 	{
 		fd_open.fd_in = ft_check_n_redir_op(*i, final, STDIN_FILENO);
-		ft_null_redir(*i, 2);
+		ft_null_redir(final, *i, 2);
 		(*i) += 2;
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 			return (ft_heredoc_form(&fd_open, f_name, final, 0));
@@ -88,7 +88,7 @@ int		ft_redir_dless_min(t_ltree *final, size_t *i)
 		&& final->l_cmd[*i + 2] == '-')
 	{
 		fd_open.fd_in = ft_check_n_redir_op(*i, final, STDIN_FILENO);
-		ft_null_redir(*i, 3);
+		ft_null_redir(final, *i, 3);
 		(*i) += 3;
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 			return (ft_heredoc_form(&fd_open, f_name, final, MINUS));
@@ -113,7 +113,7 @@ int		ft_redir_lessand(t_ltree *final, size_t *i)
 	if (final->l_tline.line[*i] == LTHAN && (final->l_tline.line[*i + 1] == AND))
 	{
 		fd_open.fd_in = ft_check_n_redir_op(*i, final, STDIN_FILENO);
-		ft_null_redir(*i, 2);
+		ft_null_redir(final, *i, 2);
 		(*i) += 2;
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 			return (ft_num_or_word_in(&f_name, &fd_open, i, final));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_processing_compl.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:53:36 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/28 16:57:38 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/19 19:08:28 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ char				*find_path_compl(char *compl, int tmp)
 	if (compl && compl[0] && tmp != -1)
 	{
 		i = g_rline.pos - 1;
-		while (i > 0 && (ft_isalnum(g_rline.cmd[i]) ||
-			g_rline.cmd[i] == '.' || g_rline.cmd[i] == '/'))
+		while (i > 0 && (ft_isalnum(g_rline.cmd[i]) || g_rline.cmd[i] == '.' ||
+			g_rline.cmd[i] == '/' || g_rline.cmd[i] == '_'))
 			i--;
 		j = g_rline.pos - 1;
 		while (j > 0 && (ft_isalnum(g_rline.cmd[j])
