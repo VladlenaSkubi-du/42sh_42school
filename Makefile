@@ -105,13 +105,16 @@ FC =				builtin/fc/fc.c \
 			builtin/fc/fc_nums_calc.c \
 			builtin/fc/fc_exec.c
 
+CD =        builtin/cd/cd.c
+
 BUILTIN = 			builtin/exit.c \
 			builtin/set.c \
 			builtin/unset.c \
 			builtin/history.c \
 			builtin/init_structures.c \
 			builtin/usages.c \
-			$(FC)
+			$(FC) \
+            $(CD)
 
 LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_realloc.c \
@@ -184,6 +187,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)/shell_variables
 	@mkdir -p $(DIR_O)/builtin
 	@mkdir -p $(DIR_O)/builtin/fc
+	@mkdir -p $(DIR_O)/builtin/cd
 	@mkdir -p $(DIR_O)/libft_42
 	@mkdir -p $(DIR_O)/libft_42/stack_structure
 	gcc $(FLAGS) -c -I includes -o $@ $<

@@ -15,11 +15,11 @@
 
 static char		*g_builtins[] = {"alias_fff", "unalias_fff", \
 	"hash_fff", "set", "unset", "export_fff", \
-	"cd_ff", "exit", "echo_bi", "type_fff", "fg_ff", "bg_ff", "jobs_ff", "fc", \
+	"cd", "exit", "echo_bi", "type_fff", "fg_ff", "bg_ff", "jobs_ff", "fc", \
 	"history", NULL};
 
 static int 		(*g_builtins_func[16])() = {NULL, NULL, \
-	NULL, btin_set, btin_unset, NULL, NULL, btin_exit, \
+	NULL, btin_set, btin_unset, NULL, btin_cd, btin_exit, \
 	NULL, NULL, NULL, NULL, NULL, btin_fc, btin_history, NULL};
 
 #endif
