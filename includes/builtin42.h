@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin42.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:45:45 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/14 20:24:44 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/18 16:47:48 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define BUILTIN42_H
 
 # include "fc.h"
+# include "cd.h"
 
 int				btin_exit(int status);
 
@@ -28,8 +29,12 @@ int				usage_btin_fc(void);
 /*
 ** Folder fc, file fc.c
 */
+int             btin_fc(t_ltree *pos);
 
-int             btin_fc(int argc, char **argv, char **environ);
+/*
+** Folder cd, file cd.c
+*/
+void            btin_cd(t_ltree *pos);
 
 /*
 ** File init_structures.c
@@ -53,6 +58,6 @@ int				btin_unset(t_ltree *pos);
 ** File history.c
 */
 
-int                btin_history(void);
+int				btin_history(void);
 
 #endif
