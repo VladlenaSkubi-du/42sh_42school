@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:01:01 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/17 14:33:08 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/19 13:20:24 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ int		ft_block_start(t_list **list)
 		}
 		else if (sub->flags & ERR_R)
 			ft_error_redir(sub);
+		else if (sub->flags & ERR_OUT)
+			break ;	
 		start = start->next;
 	}
 	ft_lst_ltree_clear(list);

@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 20:20:14 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/17 15:34:19 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/19 13:33:43 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		assignment(t_ltree *sub)
 			val = eq + 1;
 			while (sub->l_tline.line[var] != SPACE && var != 0)
 				var--;
-			var != 0 ? var++ : 0;
+			(sub->l_tline.line[var] == SPACE) ? var++ : 0;
 			while (sub->l_tline.line[val] != SPACE && val < sub->l_tline.len)
 				val++;
 			val--;
