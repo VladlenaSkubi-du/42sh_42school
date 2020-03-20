@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 19:35:23 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/17 16:17:50 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/20 18:03:22 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int		before_exec(t_ltree *sub, t_list **list)
 		return (OUT);
 	}
 	argv_forming(sub);
+	if (sub->flags & ERR_R)
+		ft_error_redir(sub);
 	return (0);
 }
 
@@ -94,7 +96,6 @@ int		ft_local_copy_lines(t_ltree *sub, char *cmd, char *tline)
 		sub->end - sub->start + 1);
 	sub->l_tline.len = sub->end - sub->start;
 	sub->l_tline.alloc_size = sub->end - sub->start + 1;
-	// sub->l_tline.line[sub->l_tline.len] = 0;
 	sub->start = 0;
 	sub->end = sub->l_tline.len;
 	return (0);

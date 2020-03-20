@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path_help.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 16:54:47 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/19 15:59:30 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/20 17:20:27 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int			ft_input_buildins(t_path **root, size_t *len, char *find)
 
 	i = 0;
 	str_len = ft_strlen(find);
-	// g_builtins_func[BUILTINS_NUM] = NULL; //TODO check
+	g_builtins_func[BUILTINS_NUM] = NULL;
 	while (g_builtins[i])
 	{
 		if (ft_strnequ(g_builtins[i], find, str_len))

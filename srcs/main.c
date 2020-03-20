@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:54:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/19 17:37:48 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/20 17:51:15 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int				noninteractive_shell(int argc, char **argv)
 	size_t		li;
 	size_t		sy;
 
-	li = find_in_variables(g_rdovar, &sy, "42SH_NONINTERACTIVE=");
+	li = find_in_variables(g_rdovar, &sy, "42SH_NONINTERACTIVE");
 	g_rdovar[li][sy] = '1';
 	cmd = ft_strdup(argv[0]); //TODO строка может быть нулевой
 	g_prompt.prompt_func = NULL;

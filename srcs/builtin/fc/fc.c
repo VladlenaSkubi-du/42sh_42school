@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fc.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 14:10:50 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/20 16:50:17 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/20 17:49:52 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int                 btin_fc(t_ltree *pos)
 	size_t			li;
 	size_t			sy;
 
-	li = find_in_variables(g_rdovar, &sy, "42SH_NONINTERACTIVE=");
+	li = find_in_variables(g_rdovar, &sy, "42SH_NONINTERACTIVE");
 	if (g_rdovar[li][sy] == '1')
 	{
 		error_handler(NONINERACTIVE, pos->ar_v[0]);
