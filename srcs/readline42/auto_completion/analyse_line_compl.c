@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   analyse_line_compl.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 18:24:47 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/02 15:25:42 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/19 18:47:04 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ int					pass_symbols(char *compl, char *tech, int i, int *pool)
 	if (tech[i] == WORD_P && compl[i] == '/')
 	{
 		*pool = 3;
+		// while (i > 0 && (tech[i] == WORD_P &&
+		// 	(ft_isalnum(compl[i]) || compl[i] == '/')))
+		// 	i--;
 		return (i);
 	}
 	if (tech[i] == SPACE && i == 0)

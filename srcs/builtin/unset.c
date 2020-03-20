@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 18:43:04 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/12 21:15:09 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/18 18:15:35 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int	unset_from_array(char **arr, t_ltree *pos, int i)
 	while (arr[i])
 	{
 		arr[i] = arr[i + 1];
+		i++;
 	}
 	return (0);
 }

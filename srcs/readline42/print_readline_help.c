@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_readline_help.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 20:00:31 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/24 13:31:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/19 17:34:13 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,24 @@ void		print_help(short flag)
 
 	space = "     ";
 	undo = 10;
-	ft_putendl_fd("42sh, version 0.0.1", 1);
-	ft_putendl_fd("42sh long options:", 1);
-	ft_printf("%s--readline\n", space);
-	ft_printf("%s--simple\n", space);
-	print_readline_help(flag, undo, space);
+	if (flag == 1)
+	{
+		ft_putendl_fd("e-bash, version 0.0.1", 1);
+		ebash_long_options();
+	}
+	if (flag == 2)
+	{
+		usage_btin("./42sh");
+		exit(SUCCESS);
+	}
+	if (flag > 2)
+		print_readline_help(flag, undo, space);
 }
 
 void		print_readline_help(short flag, short undo, char *space)
 {
-	ft_putendl_fd("Keyboard Shortcuts:", 1);
+	ft_putendl_fd(((flag == 2) ? "Keyboard Shortcuts for readline:" :
+		"Keyboard Shortcuts for simple readline:"), 1);
 	ft_printf("%sMoving the cursor:\n", space);
 	ft_printf("%s'Ctrl + a' - Go to the beginning of the line\n", space);
 	ft_printf("%s'Ctrl + e' - Go to the end of the line\n", space);

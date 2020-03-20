@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/18 14:53:51 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/19 17:23:00 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@
 # define			MAX_EXIT_STATUS 10
 # define 			ENV_BUFFER 100
 # define			OUT 42
+
+# define			OPTIONS_NUM		5
+# define			FLAG_42SH_C		0x1
 
 typedef struct		s_prompt
 {
@@ -114,10 +117,18 @@ t_prompt			g_prompt;
 t_history			g_hist;
 
 /*
+** File main.c
+*/
+
+int					check_42sh_options(int argc, char **argv);
+int					check_42sh_c_option(int argc, char **argv);
+int					noninteractive_shell(int argc, char **argv);
+
+/*
 ** File options_proc42.c
 */
 
-int					find_options(int num, char *flags_arr[num], char **arr, int flag);
+int					find_options(int num, char *flags_arr[num], char **arr);
 int					options_in_arg(char *arri, int num, char *flags_arr[num], int *final);
 int					options_proc(char arrij, char *flags_arr, int *final);
 int					suboptions_proc(char *arri, int num, char *flags_arr[num], int *final);

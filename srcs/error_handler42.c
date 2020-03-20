@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler42.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/19 12:58:54 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/19 18:23:01 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

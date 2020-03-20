@@ -233,8 +233,10 @@ int		exec_core(t_ltree *pos)
 	{
 		child_pid = fork();
 		if (!child_pid)
+		{
 			if (execve(path, pos->ar_v, pos->envir) == -1) //TODO испрвить на все виды очисток
 				exit(-1);
+		}
 		else if (child_pid < 0)
 			return (exec_clean(path, -1));
 		wait(&child_pid);

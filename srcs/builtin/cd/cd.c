@@ -126,7 +126,7 @@ int     ft_cd_pars(char **argv, int i, char **env, t_cd *cd_flags)
     return (0);
 }
 
-int     btin_cd(t_ltree *pos)
+int         btin_cd(t_ltree *pos)
 {
     size_t  i;
     t_cd    *cd_flags;

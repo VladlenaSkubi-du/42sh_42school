@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fc.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:29:20 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/16 18:53:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/18 19:34:28 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 # define		HIST_EXEC -1
 # define		HIST_SEARCH 1
 
-# define		FLAG_N 0x2
-# define		FLAG_R 0x4
-# define		FLAG_S 0x8
-# define		FLAG_L 0x10
-# define		FLAG_E 0x20
+# define		FLAG_N 0x1
+# define		FLAG_R 0x2
+# define		FLAG_S 0x4
+# define		FLAG_L 0x8
+# define		FLAG_E 0x10
 # define		ARG_FIRST 0x1
 # define		ARG_SECOND 0x2
 # define		ARG_SECOND 0x2
