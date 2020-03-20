@@ -60,7 +60,7 @@ int  ft_error(char *name, int en)
     else if (en == 2)
         tmp = ft_strrejoin(tmp, ": no such file or directory");
     else if (en == 3)
-        tmp = ft_strrejoin(tmp, ": permission dinaed");
+        tmp = ft_strrejoin(tmp, ": permission denied");
     else if (en == 4)
         tmp = ft_strrejoin(tmp, ": not a directory");
     else if (en == 5)

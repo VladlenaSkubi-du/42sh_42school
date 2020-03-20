@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 14:10:50 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/18 19:47:08 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/20 16:50:17 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ int                 btin_fc(t_ltree *pos)
 
 	li = find_in_variables(g_rdovar, &sy, "42SH_NONINTERACTIVE=");
 	if (g_rdovar[li][sy] == '1')
+	{
+		error_handler(NONINERACTIVE, pos->ar_v[0]);
 		return (0);
+	}
 	flags = 0;
 	fc_arg = init_btin_fc();
 	flags = find_options(1, (char*[]){"elsrn"}, pos->ar_v);
