@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:45:45 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/18 16:47:48 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/19 17:55:52 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "fc.h"
 # include "cd.h"
+
+# define SUBOPTION_STARTS			16
 
 int				btin_exit(int status);
 
@@ -25,6 +27,8 @@ int				btin_exit(int status);
 
 int				usage_btin(char *str);
 int				usage_btin_fc(void);
+int             usage_42sh(void);
+int				ebash_long_options(void);
 
 /*
 ** Folder fc, file fc.c
@@ -34,7 +38,8 @@ int             btin_fc(t_ltree *pos);
 /*
 ** Folder cd, file cd.c
 */
-int             btin_cd(t_ltree *pos);
+
+int				btin_cd(t_ltree *pos);
 
 /*
 ** File init_structures.c

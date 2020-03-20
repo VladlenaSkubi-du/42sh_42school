@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   options_proc42.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 16:13:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/14 13:58:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/18 22:19:55 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,22 @@
 #define ERR_OPTION			-1
 #define CONTINUE			0
 #define STOP				1
-#define NUM_OPTION			2
+#define NUM_ARG				2
 #define SUBOPTION			3
 #define OPTION_FOUND		4
-#define SUBOPTION_STARTS	16
 
 /*
-** @flag that comes to a function means that numbers can stay in the function
-** after "-" (eg. fc-builtin). If @flag == 0 and there is a number after "-"
-** it is considered as an error
-** Because of the norm we had to put this flag in the end of the "final" that
-** the function returns
-**
-** So the @final will be:
+** The @final will be:
 ** 0000 0000 0000 0000
 ** 0000 0000 0000 0000
 ** 0000 0000 0000 0000 - sector for "suboptions" with "--"
-** 0000 0000 0000 0001 - anyway because of the flag, here bits where "options"
+** 0000 0000 0000 0000 - sector where bits are "options"
 ** will be activated
 **
 ** Example:
+** We send to the function: find_options(3, (char*[]){"elsrn", "--help", --usage""},
+** pos->ar_v) where 3 is the number of lines in the array, char*[] is the array
+** itself, pos->ar_v is the argv array
 ** If @flags_arr[3]{"erlns", "--help", "--usage"} and
 ** @arr {"fc, "-r", "1", "10", "--help" "--" "--usage"}
 **
@@ -42,11 +38,11 @@
 ** 0000 0000 0000 0000
 ** 0000 0000 0000 0000
 ** 0000 0000 0000 0001 - "help" activated
-** 0000 0000 0000 0101 - "r" and "numbers" activated
+** 0000 0000 0000 0100 - "r" activated
 ** usage is not activated because after "--" everything is regarded as arguments
 */
 
-int			find_options(int num, char *flags_arr[num], char **arr, int flag)
+int			find_options(int num, char *flags_arr[num], char **arr)
 {
 	int     i;
 	int		final;
@@ -54,8 +50,6 @@ int			find_options(int num, char *flags_arr[num], char **arr, int flag)
 
 	i = 0;
 	final = 0;
-	if (flag == 1)
-		final |= 0x1;
 	while (arr[++i])
 	{
 		if (arr[i][0] != '-')
@@ -90,8 +84,8 @@ int			options_in_arg(char *arri, int num, char *flags_arr[num], int *final)
 		res = options_proc(arri[j], flags_arr[0], final);
 		if (res == ERR_OPTION)
 			return ((tmp != CONTINUE) ? ERR_OPTION : CONTINUE);
-		else if (res == NUM_OPTION && !(tmp == -1 || tmp == NUM_OPTION))
-			return (ERR_OPTION);
+		// else if (res == NUM_OPTION && !(tmp == -1 || tmp == NUM_OPTION))
+		// 	return (ERR_OPTION);
 		else if (res == SUBOPTION)
 		{
 			res = suboptions_proc(arri, num, flags_arr, final);
@@ -117,16 +111,10 @@ int			options_proc(char arrij, char *flags_arr, int *final)
 	int		mask;
 
 	k = -1;
-	len = ft_strlen(flags_arr) + 1;
+	len = ft_strlen(flags_arr);
 	mask = 1;
 	if (arrij == '-')
 		return (SUBOPTION);
-	if ((*final & 0x1) && (arrij >= '0' && arrij <= '9'))
-		return (NUM_OPTION);
-	else if (!(*final & 0x1) && (arrij >= '0' && arrij <= '9'))
-		return (ERR_OPTION);
-	else if (ft_isalpha(arrij) == 0)
-		return (ERR_OPTION);
 	while (flags_arr[++k])
 	{
 		if (arrij == flags_arr[k])
@@ -136,6 +124,8 @@ int			options_proc(char arrij, char *flags_arr, int *final)
 			return (CONTINUE);
 		}
 	}
+	if (arrij >= '0' && arrij <= '9')
+		return (NUM_ARG);
 	return (ERR_OPTION);
 }
 
@@ -154,7 +144,7 @@ int			suboptions_proc(char *arri, int num, char *flags_arr[num], int *final)
 	i = 0;
 	while (++i < num)
 	{
-		if (ft_strdiff(arri, flags_arr[i]) == 1)
+		if (ft_strcmp(arri, flags_arr[i]) == 0)
 		{
 			len += i - 1;
 			mask = mask << len;
