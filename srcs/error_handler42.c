@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/19 18:23:01 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/20 16:47:28 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,18 @@ int				error_handler(int status, char *str)
 	else if ((status & 0x1FF) == OPTIONS_REQUIRED)
 		options_errors(status, str);
 	else if ((status & 0x1FF) == TERMINAL_EXISTS)
-		ft_putendl_fd("terminal does not exist, use -c flag", STDERR_FILENO); //TODO check
+		ft_putendl_fd("terminal does not exist, use -c flag", STDERR_FILENO);
 	else if ((status & 0x1FF) == TERMINAL_TO_NON)
-		ft_putendl_fd("terminal can't be changed, use -c flag", STDERR_FILENO); //TODO check
+		ft_putendl_fd("terminal can't be changed, use -c flag", STDERR_FILENO);
 	else if ((status & 0x1FF) == TERMINAL_TO_CAN)
 		ft_putendl_fd("terminal can't be changed, reset the terminal",
 			STDERR_FILENO); //TODO check
+	else if ((status & 0x1FF) == NONINERACTIVE)
+	{
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd(": can't be launched in non-interactive mode",
+			STDERR_FILENO);
+	}
 	else if ((status & 0x1FF) == SYNTAX_ERROR)
 		syntax_errors(status, str);
     exit_status_variable(status & 0x7F);
@@ -71,9 +77,7 @@ int				variable_errors(int status, char *str)
 		ft_putendl_fd(": parameter null or not set", STDERR_FILENO);
 	}
 	else if (status >> 9 & ERR_SET)
-	{
 		ft_putendl_fd(str, STDERR_FILENO);
-	}
     else if (status >> 9 & ERR_CD)
     {
         ft_putendl_fd(str, STDERR_FILENO);
