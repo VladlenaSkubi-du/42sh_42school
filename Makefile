@@ -105,7 +105,8 @@ FC =				builtin/fc/fc.c \
 			builtin/fc/fc_nums_calc.c \
 			builtin/fc/fc_exec.c
 
-CD =        builtin/cd/cd.c
+CD =        builtin/cd/cd.c \
+            builtin/cd/cd_valid.c
 
 BUILTIN = 			builtin/exit.c \
 			builtin/set.c \
