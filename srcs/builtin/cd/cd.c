@@ -47,27 +47,30 @@ size_t  ft_cd_flags(char **argv, t_cd *cd_flags)
     return (i);
 }
 
-static void ft_error(char *name, int en)
+int  ft_error(char *name, int en)
 {
-    ft_putstr_fd("cd", 2);
+    char    *tmp;
+
+    tmp = ft_strdup("cd: ");
+    if (name)
+        tmp = ft_strrejoin(tmp, name);
+    //ft_putstr_fd("cd", 2);
     if (en == 1)
-        ft_putstr_fd(": string not in pwd: ", 2);
-    if (en == 2)
-        ft_putstr_fd(": no such file or directory: ", 2);
-    if (en == 3)
-        ft_putstr_fd(": permission dinaed: ", 2);
-    if (en == 4)
-        error_handler(VARIABLE_ERROR | (ERR_CD << 9), ": not a directory ");
-    if (en == 5)
-        ft_putstr_fd(": too many arguments", 2);
-    else
-    {
-        ft_putstr_fd(name, 2);
-        ft_putchar_fd('\n', 2);
-    }
+        tmp = ft_strrejoin(tmp, ": string not in pwd");
+    else if (en == 2)
+        tmp = ft_strrejoin(tmp, ": no such file or directory");
+    else if (en == 3)
+        tmp = ft_strrejoin(tmp, ": permission dinaed");
+    else if (en == 4)
+        tmp = ft_strrejoin(tmp, ": not a directory");
+    else if (en == 5)
+        tmp = ft_strrejoin(tmp, "too many arguments");
+    error_handler(VARIABLE_ERROR | (ERR_CD << 9), tmp);
+    free(tmp);
+    return (1);
 }
 
-void    ft_change_path(char **env, char *path)
+int     ft_change_path(char **env, char *path)
 {
     size_t  j;
     size_t  i;
@@ -77,7 +80,7 @@ void    ft_change_path(char **env, char *path)
     if (chdir(path) == -1)
     {
         ft_error(path, 3);
-        return ;
+        return (1);
     }
     getcwd(dir, 999);
     i = find_in_variables(env, &j, "OLDPWD");
@@ -88,21 +91,22 @@ void    ft_change_path(char **env, char *path)
     //printf("%s\n", dir);
     env[k] = ft_strjoin("PWD=", dir);
     //printf("%s, %s\n", env[i], env[k]);
+    return (0);
 }
 
-void    ft_cd_env(char **env, char *name, int flag)
+int     ft_cd_env(char **env, char *name, int flag)
 {
     size_t  j;
     size_t  i;
 
     if ((i = find_in_variables(env, &j, name)) == -1)
-        return ;
+        return (0);
     if (flag)
         ft_putendl(env[i] + j);
-    ft_change_path(env, env[i] + j);
+    return (ft_change_path(env, env[i] + j));
 }
 
-void    ft_cd_pars(char **argv, int i, char **env, t_cd *cd_flags)
+int     ft_cd_pars(char **argv, int i, char **env, t_cd *cd_flags)
 {
     struct stat buff;
 
@@ -111,11 +115,15 @@ void    ft_cd_pars(char **argv, int i, char **env, t_cd *cd_flags)
     else if (argv[i][0] == '-' && ft_strlen(argv[i]) == 1)
         ft_cd_env(env, "OLDPWD", 1);
     else if (stat(argv[i], &buff) < 0)
-        ft_error(argv[i], 2);
+    {
+        if (ft_check_cdpath(ft_strjoin("/", argv[i]), env))
+            return (ft_error(argv[i], 2));
+    }
     else if (!S_ISDIR(buff.st_mode))
-        ft_error(argv[i], 4);
+        return (ft_error(argv[i], 4));
     else
-        ft_change_path(env, argv[i]);
+        return (ft_change_path(env, argv[i]));
+    return (0);
 }
 
 int     btin_cd(t_ltree *pos)
@@ -125,7 +133,16 @@ int     btin_cd(t_ltree *pos)
 
     cd_flags = ft_xmalloc(sizeof(t_cd *));
     i = ft_cd_flags(pos->ar_v, cd_flags);
-    ft_cd_pars(pos->ar_v, i, g_env, cd_flags);
+    if (ft_valid_cd(pos->ar_v, i))
+    {
+        free(cd_flags);
+        return (1);
+    }
+    if (ft_cd_pars(pos->ar_v, i, g_env, cd_flags))
+    {
+        free(cd_flags);
+        return (1);
+    }
     free(cd_flags);
     return (0);
 }

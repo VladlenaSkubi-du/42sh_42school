@@ -45,7 +45,7 @@ int				error_handler(int status, char *str)
 			STDERR_FILENO); //TODO check
 	else if ((status & 0x1FF) == SYNTAX_ERROR)
 		syntax_errors(status, str);
-	exit_status_variable(status & 0x7F);
+    exit_status_variable(status & 0x7F);
 	return (0);
 }
 
@@ -76,7 +76,7 @@ int				variable_errors(int status, char *str)
 	}
     else if (status >> 9 & ERR_CD)
     {
-		ft_putstr_fd(str, STDERR_FILENO);
+        ft_putendl_fd(str, STDERR_FILENO);
     }
 	return (0);
 }

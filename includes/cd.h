@@ -8,5 +8,7 @@ typedef struct      s_cd
 }                   t_cd;
 
 int                 btin_cd(t_ltree *pos);
-
+int                 ft_valid_cd(char **argv, int i);
+int                 ft_error(char *name, int en);
+int                 ft_check_cdpath(char *path, char **env);
 #endif
