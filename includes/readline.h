@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/13 11:23:07 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/20 14:06:24 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ struct termios					g_backup_tty;
 */
 
 int								interactive_shell(void);
+int								check_terminal(void);
 int								start_readline42(int tmp);
 char							*finalize_cmd(char *cmd);
 int								clean_readline42(void);
