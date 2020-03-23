@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/19 13:58:48 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/23 19:00:03 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -293,8 +293,13 @@ int						add_to_heredoc_buf(char ***array, char *add,
 						int *buf_size);
 int						null_here_line(void);
 int						recover_g_cmd_here(void);
-int						ft_tmpfile(char *template);
 int						here_tab_remove(char **line);
+
+/*
+** File ft_tmpfile.c
+*/
+
+int						ft_tmpfile(char *template);
 
 /*
 ** Folder assignment__________________________________________________________
