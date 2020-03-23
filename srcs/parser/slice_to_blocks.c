@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:01:01 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/19 13:20:24 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/20 18:06:53 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		ft_block_start(t_list **list)
 	{
 		sub = (t_ltree *)(start->content);
 		if (before_exec(sub, list) == OUT)
-			sub->flags |= ERR_IN;
+			break ;
 		if (!(sub->flags & ERR_IN))
 		{
 			if ((out_flag != 0 && (sub->flags & LOG_AND_IN)) ||
@@ -90,10 +90,6 @@ int		ft_block_start(t_list **list)
 			}
 			out_flag = exec_init(sub);
 		}
-		else if (sub->flags & ERR_R)
-			ft_error_redir(sub);
-		else if (sub->flags & ERR_OUT)
-			break ;	
 		start = start->next;
 	}
 	ft_lst_ltree_clear(list);
