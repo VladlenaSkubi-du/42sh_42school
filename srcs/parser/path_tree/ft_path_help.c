@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path_help.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 16:54:47 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/20 17:20:27 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/20 22:02:24 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,17 @@ int			ft_insert_next(t_path **current, t_path **parent, \
 }
 
 /*
-** Input buildins to tree
+** Input builtins to tree
 */
 
-int			ft_input_buildins(t_path **root, size_t *len, char *find)
+int			ft_input_builtins(t_path **root, size_t *len, char *find)
 {
 	int		i;
 	size_t	str_len;
 
 	i = 0;
 	str_len = ft_strlen(find);
-	g_builtins_func[BUILTINS_NUM] = NULL;
+	g_builtins_func[BUILTINS_NUM - 1] = NULL;
 	while (g_builtins[i])
 	{
 		if (ft_strnequ(g_builtins[i], find, str_len))

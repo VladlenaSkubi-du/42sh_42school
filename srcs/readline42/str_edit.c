@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   str_edit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:16:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/10 17:14:59 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/23 12:59:16 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
 
-int					str_shift(char *str, int shift)
+int					str_shift(char *str, int shift) //TODO check
 {
 	char			*buff;
 
