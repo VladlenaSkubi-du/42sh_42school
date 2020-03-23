@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   options_proc42.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 16:13:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/18 22:19:55 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/23 14:27:06 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,14 +132,12 @@ int			options_proc(char arrij, char *flags_arr, int *final)
 int			suboptions_proc(char *arri, int num, char *flags_arr[num], int *final)
 {
 	size_t	len;
-	size_t	len_arg;
 	int		mask;
 	int		i;
 	
 	if (arri[2] == '\0')
 		return (STOP);
 	len = SUBOPTION_STARTS;
-	len_arg = ft_strlen(arri);
 	mask = 1;
 	i = 0;
 	while (++i < num)
