@@ -136,6 +136,7 @@ int         btin_cd(t_ltree *pos)
 
     cd_flags = ft_xmalloc(sizeof(t_cd *));
     i = ft_cd_flags(pos->ar_v, cd_flags);
+    //printf("argv = %s, argc = %d, i = %d\n", pos->ar_v[i], pos->ar_c, i);
     if (ft_valid_cd(pos->ar_v, i))
     {
         free(cd_flags);
