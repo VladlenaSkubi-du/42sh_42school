@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_all42.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:05:06 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/18 13:53:59 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/20 16:56:18 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int				clean_everything(void)
 	ft_arrdel(g_env);
 	ft_arrdel(g_rdovar);
 	ft_arrdel(g_lovar);
-	// ft_lst_ltree_clear(&g_start_list); //TODO пересмотреть логику
 	return (0);
 }
 

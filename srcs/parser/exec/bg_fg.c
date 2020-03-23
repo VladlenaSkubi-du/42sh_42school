@@ -2,6 +2,14 @@
    restore the saved terminal modes and send the process group a
    SIGCONT signal to wake it up before we block.  */
 
+
+/* STOP! We are doing this through signals! */
+
+void	wait_for_job (job *j)
+{
+	while (!job_is_stopped (j) && !job_is_completed (j));
+}
+
 void	put_job_in_foreground (job *j, int cont)
 {
 	/* Put the job into the foreground.  */

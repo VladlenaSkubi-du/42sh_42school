@@ -148,8 +148,9 @@ char	*path_init(char **exec_av)
 
 int	exec_clean(char *path, int exit_status)
 {
+	if (path)
+		exit_status_variable(exit_status);
 	free(path);
-	exit_status_variable(exit_status);
 	return (exit_status);
 }
 
@@ -160,6 +161,7 @@ int	exec_clean(char *path, int exit_status)
 int		ft_builtins_check(t_ltree *pos, int flag)
 {
 	int	i;
+	int	exit;
 
 	i = 0;
 	while (g_builtins[i])
@@ -167,7 +169,10 @@ int		ft_builtins_check(t_ltree *pos, int flag)
 		if (!ft_strcmp(pos->ar_v[0], g_builtins[i]))
 		{
 			if (flag)
-				g_builtins_func[i](pos);
+			{
+				exit = g_builtins_func[i](pos);
+				exit_status_variable(exit);
+			}
 			return (i);
 		}
 		i++;
