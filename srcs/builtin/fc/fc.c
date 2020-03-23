@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fc.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 14:10:50 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/20 18:28:33 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/24 00:29:13 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,75 +35,69 @@ int                 btin_fc(t_ltree *pos)
 	if (g_rdovar[li][sy] == '1')
 	{
 		error_handler(NONINERACTIVE, pos->ar_v[0]);
-		return (0);
+		return (NONINERACTIVE);
 	}
-	flags = 0;
 	fc_arg = init_btin_fc();
 	flags = find_options(1, (char*[]){"elsrn"}, pos->ar_v);
-		
-	printf("flags are: ");
-	if (flags & FLAG_E)
-		printf("-e\n");
-	if (flags & FLAG_L)
-		printf("-l\n"); 
-	if (flags & FLAG_S)
-		printf("-s\n");
-	
-	if ((flags & FLAG_N) && !(flags & FLAG_L))
-		flags &= ~FLAG_N;
-	if (btin_fc_find_mode(pos->ar_v, pos->ar_c, &flags, &fc_arg) == HIST_ERROR)
+	if (flags < 0)
 		return (0);
-	btin_fc_route_execution(flags, fc_arg);
+	flags = 0;
+	if (btin_fc_find_mode(pos->ar_v, &fc_arg, &flags) == HIST_ERROR)
+		return (0);
+	btin_fc_route_execution(fc_arg, flags);
 	//btin_fc_exec_mode_add_comp(fc_arg, NULL); - добавить в exec
 	free(fc_arg);
 	return (0);
 }
 
-int					btin_fc_find_mode(char **argv, int argc, int *flags,
-						t_btin_fc **fc_arg)
+int					btin_fc_find_mode(char **argv, t_btin_fc **fc_arg,
+						int *flags)
 {
 	int				i;
-	int				j;
-	int				tmp;
-	int				flag;
 	
 	i = 0;
-	tmp = -1;
-	flag = 0;
 	while (argv[++i])
 	{
 		if (!(argv[i][0] == '-') || (argv[i][0] == '-' && ft_isdigit(argv[i][1])))
-			return (btin_fc_edit_mode(&argv[i], flags, fc_arg));
-		j = 0;
-		if (!argv[i][j + 1])
+			return (btin_fc_edit_mode(&argv[i], fc_arg, flags));
+		if (argv[i][0] == '-' && !argv[i][1])
 		{
-			error_handler(VARIABLE_ERROR | (ERR_HISTORY << 9), "fc");
+			error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
 			return (HIST_ERROR);
 		}
-		while (argv[i][++j])
-		{
-			if ((tmp = btin_fc_save_editor(argv, i, j, fc_arg)) == HIST_ERROR)
-				return (HIST_ERROR);
-			else if (tmp == HIST_EXEC)
-			{
-				j = 0;
-				break ;
-			}
-			else if (tmp != i)
-			{
-				i = tmp;
-				j = 0;
-				break ;
-			}
-			if (argv[i][j] == 's')
-				return (btin_fc_exec_mode(&argv[i], j, flags, fc_arg));
-			else if (argv[i][j] == 'l')
-				flag = j;
-		}
-		if (flag > 0)
-			return (btin_fc_list_mode(&argv[i], j, flags, fc_arg));
+		else if (argv[i][0] == '-' && argv[i][1] == '-' && !argv[i][2])
+			break ;
+		i = btin_fc_other_args(argv, i, fc_arg, flags);
+		if (i == HIST_ERROR || i == HIST_EXEC)
+			return (i);
 	}
-	return (btin_fc_edit_mode(&argv[i], flags, fc_arg));
+	return (btin_fc_edit_mode(&argv[i], fc_arg, flags));
+}
+
+int					btin_fc_other_args(char **argv, int i, t_btin_fc **fc_arg, int *flags)
+{
+	int				j;
+	int				tmp;
+	int				flag;
+
+	j = 0;
+	flag = 0;
+	while (argv[i][++j])
+	{
+		if ((tmp = btin_fc_save_editor(argv, i, j, fc_arg)) == HIST_ERROR)
+			return (HIST_ERROR);
+		else if (tmp == HIST_EXEC || tmp != i)
+			return (i = (tmp == HIST_EXEC) ? i : tmp);
+		if (argv[i][j] == 's')
+			return (btin_fc_exec_mode(&argv[i], j, fc_arg, flags));
+		else if (argv[i][j] == 'l')
+			flag = j;
+		else if (btin_fc_other_flags(argv[i][j], flags) == HIST_ERROR)
+			return (HIST_ERROR);
+	}
+	if (flag > 0)
+		return (btin_fc_list_mode(&argv[i], j, fc_arg, flags));
+	return (i);
 }
 
 int					btin_fc_save_editor(char **argv, int i,

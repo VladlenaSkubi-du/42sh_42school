@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   back_part_hist.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:15:19 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/03/10 16:28:20 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/23 15:49:14 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
 
-int				find_in_history(char **find)
+int				find_in_history(char *find)
 {
 	int			i;
 	char		*found;
@@ -21,15 +21,11 @@ int				find_in_history(char **find)
 	i = g_hist.last;
 	while (i >= 0)
 	{
-		found = ft_strstr(g_hist.hist[i], *find);
+		found = ft_strstr(g_hist.hist[i], find);
 		if (found != NULL)
-		{
-			free(*find);
 			return (i);
-		}
 		i--;
 	}
-	free(*find);
 	return (-1);
 }
 

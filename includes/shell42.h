@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/23 14:57:12 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/24 00:55:05 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define			HISTORY_LIMIT 32767
 # define 			MAX_HISTFILE 5
 # define 			MAX_HISTBUF 5
-# define			MAXDIR 255
+# define			MAXDIR 1000
 # define			MAX_EXIT_STATUS 10
 # define 			ENV_BUFFER 100
 # define			OUT 42
