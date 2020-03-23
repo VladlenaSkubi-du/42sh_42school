@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_buffer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 12:26:58 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/19 20:41:28 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/23 18:03:45 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,14 @@ int		add_to_heredoc_buf(char ***array, char *add, int *buf_size)
 int		null_here_line(void)
 {
 	size_t	i;
+	char	*tmp;
 
 	i = -1;
+	tmp = ft_parsing_str(g_cmd);
+	g_prompt.prompt_func = heredoc_prompt;
+	free(g_cmd);
+	g_cmd = tmp;
+	g_cmd_size = ft_strlen(g_cmd);
 	while (++i <= g_cmd_size)
 	{
 		if (g_techline.line[i] == BSLASH && g_techline.line[i + 1] != ENTER)
@@ -51,7 +57,6 @@ int		null_here_line(void)
 		g_cmd[g_cmd_size - 2] = '\0';
 		g_cmd[g_cmd_size - 1] = '\0';
 	}
-	// substitution_replace
 	return (0);
 }
 
@@ -100,7 +105,7 @@ int		ft_tmpfile(char *tmpl)
 		}
 		close(fd);
 		fd = open(tmp, O_RDWR | O_CREAT | O_EXCL | O_CLOEXEC,
-			S_IREAD | S_IWRITE);
+			0666);
 	}
 	free(tmp);
 	return (fd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_all42.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:05:06 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/20 16:56:18 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/23 16:24:40 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int				clean_everything(void)
 	size_t		li;
 	size_t		sy;
 	
-	li = find_in_variables(g_rdovar, &sy, "42SH_NONINTERACTIVE=");
+	li = find_in_variables(g_rdovar, &sy, "42SH_NONINTERACTIVE");
 	if (g_rdovar[li][sy] == '0')
 	{
 		ft_arrdel(g_hist.hist);
@@ -63,7 +63,8 @@ int				clean_parser42(void)
 		free(g_cmd);
 	if (g_techline.line)
 		free(g_techline.line);
-	ft_lst_ltree_clear(&g_start_list);
+	if (g_prompt.prompt_func != heredoc_prompt)
+		ft_lst_ltree_clear(&g_start_list);
 	return (0);
 }
 
