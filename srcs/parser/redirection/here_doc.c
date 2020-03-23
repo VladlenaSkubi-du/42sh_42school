@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 20:15:50 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/26 02:46:01 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/23 18:21:27 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		ft_check_is_heredoc(int ret)
 	else if (g_heredoc.list != NULL)
 	{
 		if (ft_check_heredoc_end(ret) == OUT)
-			return (OUT);
+			return (0);
 		ft_heredoc_fill(ret);
 	}
 	if (g_prompt.prompt_func == main_prompt)
@@ -68,7 +68,7 @@ int		ft_check_heredoc_end(int ret)
 		if (tmp != NULL && lines_in[i] == NULL)
 			return (OUT);
 	}
-	return(ret);
+	return(0);
 }
 
 /*
@@ -94,7 +94,7 @@ int		ft_heredoc_fill(int ret)
 				here_tab_remove(&(lines_in[i]));
 			if (!ft_strcmp(find->stop_w, lines_in[i]) || lines_in[i][0] == EOF)
 				break ;
-			ft_putstr_fd(lines_in[i], find->fd);;			
+			ft_putendl_fd(lines_in[i], find->fd);;			
 		}
 		tmp = tmp->next;
 	}

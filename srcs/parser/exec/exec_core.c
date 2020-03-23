@@ -192,7 +192,10 @@ int		fd_list_process(t_ltree *pos)
 		if (redir->type == OUT_R)
 			dup2(redir->fd_in, redir->fd_out);
 		else
-			dup2(redir->fd_out, redir->fd_in);		
+		{
+			lseek(redir->fd_out, 0, SEEK_SET);
+			dup2(redir->fd_out, redir->fd_in);
+		}		
 		fd_list = fd_list->next;
 	}
 	return (0);
