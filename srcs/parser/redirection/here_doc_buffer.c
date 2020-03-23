@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 12:26:58 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/23 18:03:45 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/23 18:38:51 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int		recover_g_cmd_here(void)
 ** rules for mk[s]temp (i.e. end in "XXXXXX").  The name constructed
 ** does not exist at the time of the call to mkstemp.  TMPL is
 ** overwritten with the result. Implementation of mkstemp by POSIX
-** NOT delete file when closed!!! NEED TO unlink() file
 */
 
 int		ft_tmpfile(char *tmpl)
@@ -90,10 +89,7 @@ int		ft_tmpfile(char *tmpl)
 	len = ft_strlen(tmpl);
 	fd = -1;
 	buf = 0;
-	if (len < 6 || ft_strcmp(&tmpl[len - 6], "XXXXXX"))
-		return (-1);
-	tmp = ft_strdup(tmpl);
-	xxx = &tmp[len - 6];
+	(tmp = ft_strdup(tmpl)) != NULL ? xxx = &tmp[len - 6] : 0;	
 	while (fd < 0)
 	{
 		len = -1;
@@ -104,9 +100,9 @@ int		ft_tmpfile(char *tmpl)
 			xxx[len] = g_letters[(buf + 300) % 62];
 		}
 		close(fd);
-		fd = open(tmp, O_RDWR | O_CREAT | O_EXCL | O_CLOEXEC,
-			0666);
+		fd = open(tmp, O_RDWR | O_CREAT | O_EXCL | O_CLOEXEC, 0666);
 	}
+	unlink(tmp);
 	free(tmp);
 	return (fd);
 }
