@@ -18,6 +18,13 @@
 
 # define SUBOPTION_STARTS			16
 
+typedef struct  s_ec
+{
+    int         e;
+    int         n;
+    int         up_e;
+}               t_ec;
+
 int				btin_exit(int status);
 
 
@@ -65,4 +72,8 @@ int				btin_unset(t_ltree *pos);
 
 int				btin_history(void);
 
+/*
+** File echo.c
+*/
+int             btin_echo(t_ltree *pos);
 #endif
