@@ -117,6 +117,7 @@ BUILTIN = 			builtin/exit.c \
 			builtin/history.c \
 			builtin/init_structures.c \
 			builtin/usages.c \
+            builtin/echo.c \
 			$(FC) \
             $(CD)
 
