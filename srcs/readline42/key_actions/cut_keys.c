@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cut_keys.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 14:26:57 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/03 12:49:38 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/24 16:31:36 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ int					delete_process(void)
 
 	check_menu();
 	if (g_rline.pos == 0 && g_rline.cmd_len == 0)
-		return (incorrect_sequence());
+	{
+		if (route_exit() == OUT)
+			return (OUT);
+	}
 	if (g_rline.pos < g_rline.cmd_len)
 	{
 		undo(0);
@@ -90,7 +93,7 @@ int					esc_r(void)
 	while (g_rline.pos)
 		key_left_proc();
 	tputs(g_cap.cd, 1, printc);
-	ft_bzero(g_rline.cmd, g_rline.cmd_len);
+	ft_bzero(g_rline.cmd, g_rline.cmd_buff_len);
 	g_rline.cmd_len = 0;
 	return (0);
 }
