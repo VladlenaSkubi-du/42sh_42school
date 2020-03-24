@@ -3,56 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   fc_modes_s.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:56:18 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/16 13:36:45 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/24 00:40:52 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "builtin42.h"
 
-int					btin_fc_exec_mode(char **argv, int j, int *flags,
-						t_btin_fc **fc_arg)
+int					btin_fc_exec_mode(char **argv, int j, t_btin_fc **fc_arg,
+						int *flags)
+{
+	int				i;
+
+	if (g_hist.len > 0)
+		delete_last_history_element();
+	if (g_hist.len < 1)
+	{
+		error_handler(VARIABLE_ERROR | (ERR_HISTORY_EXEC << 9), "fc");
+		return (HIST_ERROR);
+	}
+	i = btin_fc_exec_check_line_args(argv, j, fc_arg, flags);
+	if (i == HIST_ERROR)
+		return (HIST_ERROR);
+	if (argv[++i])
+		return (btin_fc_exec_check_other_args(&argv[i], fc_arg, flags));
+	return (btin_fc_exec_no_args(fc_arg, flags));
+}
+
+int					btin_fc_exec_check_line_args(char **argv, int j,
+						t_btin_fc **fc_arg, int *flags)
 {
 	int				i;
 	int				tmp;
 
-	i = 1;
-	delete_last_history_element();
-	if (!argv[i])
-		return (btin_fc_exec_mode_no_args(flags, fc_arg));
-	if ((tmp = btin_fc_save_editor(argv, i, 0, fc_arg)) == HIST_ERROR)
-		return (HIST_ERROR);
-	else if (tmp != i)
-		return (btin_fc_exec_mode(&argv[tmp], j, flags, fc_arg));
-	return (btin_fc_exec_mode_proc(&argv[i], flags, fc_arg));
+	i = 0;
+	if (argv[i][0] != '-' && (tmp = ft_strchri(argv[i], '=')) >= 0)
+		return (btin_fc_exec_mode_comp(&argv[i], fc_arg, flags));
+	(argv[i][0] != '-') ? (*fc_arg)->s_cmd = argv[i] : 0;
+	if (argv[i][0] != '-')
+		return (btin_fc_exec_mode_flags_off(flags));
+	while (argv[i][++j])
+	{
+		if ((tmp = btin_fc_save_editor(argv, i, j, fc_arg)) == HIST_ERROR)
+			return (HIST_ERROR);
+		else if (tmp == HIST_EXEC || tmp != i)
+			return (i = (tmp == HIST_EXEC) ? i : tmp);
+		if (argv[i][j] == 'r' || argv[i][j] == 'n' || argv[i][j] == 'l')
+			continue;
+		else if (!(argv[i][j] == 'r' || argv[i][j] == 'n' || argv[i][j] == 'l'))
+		{
+			error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), "fc");
+			usage_btin("fc");
+			return (HIST_ERROR);
+		}
+	}
+	return (i);
 }
 
-int					btin_fc_exec_mode_no_args(int *flags, t_btin_fc **fc_arg)
+int					btin_fc_exec_check_other_args(char **argv,
+						t_btin_fc **fc_arg, int *flags)
 {
-	(*fc_arg)->flag |= ARG_FIRST;
-	(*fc_arg)->first_buf = g_hist.last;
-	btin_fc_exec_mode_flags_off(flags);
-	return (0);
-}
-
-int					btin_fc_exec_mode_flags_off(int *flags)
-{
-	if (*flags & FLAG_E)
-		*flags &= ~FLAG_E;
-	else if (*flags & FLAG_L)
-		*flags &= ~FLAG_L;
-	else if (*flags & FLAG_R)
-		*flags &= ~FLAG_R;
-	return (0);
-}
-
-int					btin_fc_exec_mode_proc(char **argv, int *flags,
-						t_btin_fc **fc_arg)
-{
-	char			*tmp;
 	int				i;
 
 	i = -1;
@@ -63,35 +76,61 @@ int					btin_fc_exec_mode_proc(char **argv, int *flags,
 		{
 			(*fc_arg)->flag |= ARG_FIRST;
 			(*fc_arg)->first = ft_atoi(argv[i]);
-			(*fc_arg)->first_buf = btin_fc_one_int__edit((*fc_arg)->first);
-			return (btin_fc_exec_mode_flags_off(flags));
+			return ((btin_fc_one_int__exec(fc_arg) == HIST_ERROR) ?
+				HIST_ERROR : btin_fc_exec_mode_flags_off(flags));
 		}
-		if ((tmp = ft_strchr(argv[i], '=')) != NULL)
+		i = btin_fc_exec_check_invalid(&argv[i], fc_arg, flags);
+		if (i == HIST_ERROR || i == HIST_EXEC)
+			return (i);
+		i = btin_fc_exec_check_line_args(argv, 0, fc_arg, flags);
+		if (i == HIST_ERROR || i == HIST_EXEC)
+			return (i);
+	}
+	return (btin_fc_exec_no_args(fc_arg, flags));
+}
+
+int					btin_fc_exec_mode_comp(char **argv,
+						t_btin_fc **fc_arg, int *flags)
+{
+	int				i;
+	int				tmp;
+
+	i = 0;
+	while (argv[++i])
+	{
+		if ((tmp = ft_strchri(argv[i], '=')) >= 0)
 		{
 			(!(*fc_arg)->s_comp) ? (*fc_arg)->s_comp =
 				(char**)ft_xmalloc(sizeof(char*) * FC_COMP_ARRAY) : 0;
 			btin_fc_exec_mode_add_comp(fc_arg, argv[i]);
 			continue;
 		}
+		if (ft_isdigit(argv[i][0]) || (argv[i][0] == '-'
+			&& ft_isdigit(argv[i][1])))
+		{
+			(*fc_arg)->flag |= ARG_FIRST;
+			(*fc_arg)->first = ft_atoi(argv[i]);
+			btin_fc_one_int__exec(fc_arg);
+			return (btin_fc_exec_mode_flags_off(flags));
+		}
 		(*fc_arg)->s_cmd = argv[i];
-		return (0);
+		return (btin_fc_exec_mode_flags_off(flags));
 	}
-	return (0);
+	return (btin_fc_exec_no_args(fc_arg, flags));
 }
 
-int					btin_fc_exec_mode_add_comp(t_btin_fc **fc_arg, char *comp)
+int					btin_fc_exec_check_invalid(char **argv,
+						t_btin_fc **fc_arg, int *flags)
 {
-	static int		i;
+	int				i;
 
-	if (comp != NULL)
+	i = 0;
+	if (argv[i][0] == '-' && !argv[i][1])
 	{
-		(*fc_arg)->s_comp[i] = comp;
-		i++;
+		error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
+		return (HIST_ERROR);
 	}
-	else
-	{
-		free((*fc_arg)->s_comp);
-		i = 0;
-	}
-	return (0);
+	if (argv[i][0] == '-' && argv[i][1] == '-' && !argv[i][2])
+		return (btin_fc_exec_mode_comp(&argv[i], fc_arg, flags));
+	return (i);
 }

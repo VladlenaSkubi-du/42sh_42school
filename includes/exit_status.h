@@ -6,28 +6,41 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/20 16:44:39 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/22 23:02:04 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXIT_STATUS_H
 # define EXIT_STATUS_H
 
-# define	ERR_SQUOTE 0x1
-# define	ERR_REDIR 0x2
-# define	ERR_BAD_FD 0x4
-# define	ERR_NO_ACC 0x8
-# define	ERR_NO_FILE 0x10
+/*
+** Variable errors are errors that exit with 1
+*/
+
+# define	ERR_HISTORY_NUM 0x1
+# define	ERR_HISTORY_EXEC 0x2
+# define	ERR_RDONLY 0x4
+# define	ERR_UNSET 0x8
+# define	ERR_SET 0x10
+# define	ERR_CD 0x20
+
+/*
+** Option errors are errors that exit with 2
+*/
 
 # define	ERR_EBASH_C 0x1
 # define	ERR_BTIN_INVALID 0x2
 # define	ERR_BTIN_ARG 0x4
 
-# define	ERR_HISTORY 0x1
-# define	ERR_RDONLY 0x2
-# define	ERR_UNSET 0x4
-# define	ERR_SET 0x8
-# define	ERR_CD 0x10
+/*
+** Syntax errors are errors that exit with 258
+*/
+
+# define	ERR_SQUOTE 0x1
+# define	ERR_REDIR 0x2
+# define	ERR_BAD_FD 0x4
+# define	ERR_NO_ACC 0x8
+# define	ERR_NO_FILE 0x10
 
 /*
 ** In reality bash returns code "2" for all the internal errors + adds mask for

@@ -3,97 +3,99 @@
 /*                                                        :::      ::::::::   */
 /*   fc_modes_l.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:19:41 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/16 18:00:30 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/24 00:29:14 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "builtin42.h"
 
-int					btin_fc_list_mode(char **argv, int j, int *flags,
-						t_btin_fc **fc_arg)
+int					btin_fc_list_mode(char **argv, int j, t_btin_fc **fc_arg,
+						int *flags)
+{
+	int				i;
+
+	if (g_hist.len < 1)
+	{
+		error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
+		return (HIST_ERROR);
+	}
+	i = btin_fc_list_check_line_args(argv, j, fc_arg, flags);
+	if (i == HIST_ERROR || i == HIST_EXEC)
+		return (i);
+	if (argv[++i])
+		return (btin_fc_list_check_other_args(&argv[i], fc_arg, flags));
+	return (btin_fc_list_mode_no_args(fc_arg, flags));
+}
+
+int					btin_fc_list_check_line_args(char **argv, int j,
+						t_btin_fc **fc_arg, int *flags)
 {
 	int				i;
 	int				tmp;
 
 	i = 0;
-	if (g_hist.len < 1)
-	{
-		error_handler(VARIABLE_ERROR | (ERR_HISTORY << 9), "fc");
-		return (HIST_ERROR);
-	}
 	while (argv[i][++j])
 	{
 		if ((tmp = btin_fc_save_editor(argv, i, j, fc_arg)) == HIST_ERROR)
 			return (HIST_ERROR);
-		else if (tmp == HIST_EXEC)
-		{
-			j = 0;
-			break ;
-		}
-		else if (tmp != i)
-		{
-			i = tmp;
-			j = 0;
-			break ;
-		}
+		else if (tmp == HIST_EXEC || tmp != i)
+			return (i = (tmp == HIST_EXEC) ? i : tmp);
 		if (argv[i][j] == 's')
-			return (btin_fc_exec_mode(&argv[i], j, flags, fc_arg));
-	}
-	while (argv[++i])
-	{
-		if (ft_isdigit(argv[i][0]) || (argv[i][0] == '-' && ft_isdigit(argv[i][1])))
-		{
-			if (btin_fc_list_mode_num_args(argv, i, flags, fc_arg) == HIST_ERROR)
-				return (HIST_ERROR);
-			btin_fc_list_mode_flags_off(flags);
-			return (0);
-		}
-		if (argv[i][0] != '-')
-		{
-			error_handler(VARIABLE_ERROR | (ERR_HISTORY << 9), "fc");
+			return (btin_fc_exec_mode(&argv[i], j, fc_arg, flags));
+		if (btin_fc_other_flags(argv[i][j], flags) == HIST_ERROR)
 			return (HIST_ERROR);
-		}
-		j = 0;
-		while (argv[i][++j])
-		{
-			if ((tmp = btin_fc_save_editor(argv, i, j, fc_arg)) == HIST_ERROR)
-				return (HIST_ERROR);
-			else if (tmp == HIST_EXEC)
-			{
-				j = 0;
-				break ;
-			}
-			else if (tmp != i)
-			{
-				i = tmp;
-				j = 0;
-				break ;
-			}
-			if (argv[i][j] == 's')
-				return (btin_fc_exec_mode(&argv[i], j, flags, fc_arg));
-		}
 	}
-	return (btin_fc_list_mode_no_args(flags, fc_arg));
+	return (i);
 }
 
-int					btin_fc_list_mode_no_args(int *flags, t_btin_fc **fc_arg)
+int					btin_fc_list_check_other_args(char **argv,
+						t_btin_fc **fc_arg, int *flags)
 {
-	(*fc_arg)->flag |= ARG_FIRST;
-	(*fc_arg)->flag |= ARG_SECOND;
-	(*fc_arg)->last = -1;
-	(*fc_arg)->first = -17;
-	if (btin_fc_two_ints__list(fc_arg) == HIST_ERROR)
-		return (HIST_ERROR);
-	btin_fc_list_mode_flags_off(flags);
-	return (0);
+	int				i;
+
+	i = 0;
+	while (argv[i])
+	{
+		if (argv[i][0] != '-' || (argv[i][0] == '-' && !argv[i][1]))
+		{
+			error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
+			return (HIST_ERROR);
+		}
+		if (argv[i][0] == '-' && argv[i][1] == '-' && !argv[i][2])
+			return (btin_fc_list_nums_no_error(&argv[i + 1], fc_arg, flags));
+		if (ft_isdigit(argv[i][0]) || (argv[i][0] == '-' && ft_isdigit(argv[i][1])))
+		{
+			return (btin_fc_list_mode_num_args(argv, i, fc_arg, flags) == HIST_ERROR ?
+				HIST_ERROR : btin_fc_list_mode_flags_off(flags));
+		}
+		i = btin_fc_list_check_line_args(&argv[i], 0, fc_arg, flags);
+		if (i == HIST_ERROR || i == HIST_EXEC)
+			return (i);
+		i++;
+	}
+	return (btin_fc_list_mode_no_args(fc_arg, flags));
+}
+
+int					btin_fc_list_nums_no_error(char **argv,
+						t_btin_fc **fc_arg, int *flags)
+{
+	if (!argv[0])
+		return (btin_fc_list_mode_no_args(fc_arg, flags));
+	if (ft_isdigit(argv[0][0]) || (argv[0][0] == '-' && ft_isdigit(argv[0][1])))
+	{
+		return (btin_fc_list_mode_num_args(argv, 0, fc_arg, flags) == HIST_ERROR ?
+			HIST_ERROR : btin_fc_list_mode_flags_off(flags));
+	}
+	error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
+	return (HIST_ERROR);
 }
 
 int					btin_fc_list_mode_num_args(char **argv, int i,
-						int *flags, t_btin_fc **fc_arg)
+						t_btin_fc **fc_arg, int *flags)
 {
 	(*fc_arg)->flag |= ARG_FIRST;
 	(*fc_arg)->first = ft_atoi(argv[i]);
@@ -102,28 +104,17 @@ int					btin_fc_list_mode_num_args(char **argv, int i,
 	{
 		(*fc_arg)->flag |= ARG_SECOND;
 		(*fc_arg)->last = -1;
-		if (btin_fc_two_ints__list(fc_arg) == HIST_ERROR)
-			return (HIST_ERROR);
-		return (0);
+		return ((btin_fc_two_ints__list(fc_arg, flags) == HIST_ERROR) ?
+			HIST_ERROR : 0);
 	}
 	else if (!(ft_isdigit(argv[i][0]) || (argv[i][0] == '-' &&
 		ft_isdigit(argv[i][1]))))
 	{
-		error_handler(VARIABLE_ERROR | (ERR_HISTORY << 9), "fc");
+		error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
 		return (HIST_ERROR);
 	}
 	(*fc_arg)->flag |= ARG_SECOND;
 	(*fc_arg)->last = ft_atoi(argv[i]);
-	if (btin_fc_two_ints__list(fc_arg) == HIST_ERROR)
-		return (HIST_ERROR);
-	return (0);
-}
-
-int					btin_fc_list_mode_flags_off(int *flags)
-{
-	if (*flags & FLAG_E)
-		*flags &= ~FLAG_E;
-	else if (*flags & FLAG_S)
-		*flags &= ~FLAG_S;
-	return (0);
+	return ((btin_fc_two_ints__list(fc_arg, flags) == HIST_ERROR) ?
+		HIST_ERROR : 0);
 }
