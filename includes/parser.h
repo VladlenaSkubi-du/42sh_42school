@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/24 00:54:55 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/24 11:54:55 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,12 @@ int						erroring_andor_pipe(t_ltree *final, size_t *i,
 */
 
 /*
+** File ft_tmpfile.c
+*/
+
+int						ft_tmpfile(char *template);
+
+/*
 ** File redirect.c
 */
 
@@ -296,12 +302,6 @@ int						recover_g_cmd_here(void);
 int						here_tab_remove(char **line);
 
 /*
-** File ft_tmpfile.c
-*/
-
-int						ft_tmpfile(char *template);
-
-/*
 ** Folder assignment__________________________________________________________
 */
 
@@ -324,6 +324,7 @@ int						assignment(t_ltree *sub);
 int						get_assign_and_add(t_ltree *sub, size_t *var,
 							size_t *eq, size_t *val);
 int						it_is_command(t_ltree *sub, size_t *i, size_t *var);
+int						is_it_argv_n(t_ltree *sub, size_t var);
 
 /*
 ** Folder substitution________________________________________________________
