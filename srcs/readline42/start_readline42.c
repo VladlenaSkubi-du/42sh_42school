@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/23 16:08:50 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/24 11:53:52 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int				interactive_shell(void)
 	pid_t		group_pid;
 
 	group_pid = getpgrp();
-	// if (tcgetpgrp(STDIN_FILENO) != group_pid) //вылетает дебаггер временно выключено
-	// 	kill(group_pid, SIGTTIN);
+	if (tcgetpgrp(STDIN_FILENO) != group_pid) //вылетает дебаггер временно выключено
+		kill(group_pid, SIGTTIN);
 	start_history();
 	while (1)
 	{
