@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/24 00:55:05 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/24 14:44:34 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,15 +166,29 @@ int					add_to_local_variables(char *add);
 int					add_new_to_exec_env(char ***array, char **add);
 
 /*
+** Folder signals____________________________________________________________
+*/
+
+/*
 ** File signals_processing42.c
 */
 
-int					signal_ctrl_c(void);
-int					signal_ctrl_d(void);
-int					route_exit(void);
 int					signals_reroute(int from);
-void				sig_screen(int sig);
-void				sig_fork(int sig);
+void				signal_ctrl_c_readline(int sig);
+void				signal_screen_readline(int sig);
+
+/*
+** File signals_parser.c
+*/
+
+void				signal_ctrl_c_parser(int sig);
+void				signal_ctrl_z_parser(int sig);
+void				signal_ctrl_bslash_parser(int sig);
+void				signal_ctrl_y_parser(int sig);
+
+/*
+**_____________________________________________________________________________
+*/
 
 /*
 ** File errors_handler42.c

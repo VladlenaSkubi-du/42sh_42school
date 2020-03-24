@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_readline42.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:30:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/24 11:53:52 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/24 14:33:43 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ int				interactive_shell(void)
 	pid_t		group_pid;
 
 	group_pid = getpgrp();
-	if (tcgetpgrp(STDIN_FILENO) != group_pid) //вылетает дебаггер временно выключено
-		kill(group_pid, SIGTTIN);
+	// if (tcgetpgrp(STDIN_FILENO) != group_pid) //вылетает дебаггер временно выключено
+	// 	kill(group_pid, SIGTTIN);
 	start_history();
 	while (1)
 	{
-		// signal(SIGWINCH, sig_screen);
 		init_readline();
+		signals_reroute(1);
 		check_terminal();
 		g_prompt.prompt_func();
 		termtype = getenv("TERM");

@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/23 15:50:18 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/24 14:45:01 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ int								clean_readline42(void);
 char							*readline(void);
 void							init_readline(void);
 int								readline_choice(char sy);
+int								route_exit(void);
 
 /*
 ** File prompts.c
