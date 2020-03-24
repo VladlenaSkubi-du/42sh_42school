@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 17:28:46 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/13 00:17:13 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/24 17:40:10 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ int		nullify_comment(char **ptr, t_stack **stack)
 int		nullify_backslash(char **ptr, t_stack **stack,\
 		size_t *count, size_t size)
 {
-	if (((*stack)->data == 0 || (*stack)->data == DQUOTE) \
+	if (((*stack)->data == 0 || ((*stack)->data == DQUOTE && \
+		ptr[0][1] == DOLLAR && ptr[0][1] == SQUOTE &&
+		ptr[0][1] == DQUOTE && ptr[0][1] == BSLASH))
 		&& **ptr == BSLASH && ptr[0][1] != ENTER)
 	{
 		ptr[0][1] = TEXT;

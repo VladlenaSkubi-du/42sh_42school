@@ -170,7 +170,7 @@ all:	$(NAME)
 $(NAME): $(OBJS)
 	@make -C ./libft
 	@echo "\033[32;01mCompiling 42sh...\033[0m"
-	@gcc $(FLAGS) $(OBJS) -o $(NAME) libft/libft.a -ltermcap
+	@gcc $(FLAGS) $(OBJS) -o $(NAME) $(LIBFT) -ltermcap
 	@echo "\033[32;01m42sh is ready\033[0m"
 
 $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
