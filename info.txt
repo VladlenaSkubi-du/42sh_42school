@@ -460,3 +460,7 @@ ft_modes_l
 	// 	i = btin_fc_save_editor(argv, i, fc_arg);
 	// 	return (btin_fc_list_mode(&argv[i], flags, fc_arg));
 	// }
+
+		// if ((from > to && !((value >= 1 && value < to) ||
+	// 	(value >= from && value <= HISTORY_LIMIT))) ||
+	// 	(from < to && !(value >= from && value < to)) || (from == to))

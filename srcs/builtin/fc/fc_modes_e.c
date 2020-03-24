@@ -3,30 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   fc_modes_e.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 19:24:05 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/16 17:58:41 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/24 00:49:00 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "builtin42.h"
 
-int					btin_fc_edit_mode(char **argv, int *flags,
-						t_btin_fc **fc_arg)
+int					btin_fc_edit_mode(char **argv, t_btin_fc **fc_arg,
+						int *flags) //проверить на другие флаги, больше тестов
 {
-	int				i;
 	size_t			li;
 	size_t			sy;
-	
-	i = 0;
+
+	if (g_hist.len > 0)
+		delete_last_history_element();
 	if (g_hist.len < 1)
 	{
-		error_handler(VARIABLE_ERROR | (ERR_HISTORY << 9), "fc");
+		error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
 		return (HIST_ERROR);
 	}
-	delete_last_history_element();
 	if ((*fc_arg)->editor == NULL)
 	{
 		li = find_in_variables(g_shvar, &sy, "FCEDIT=");
@@ -35,29 +34,32 @@ int					btin_fc_edit_mode(char **argv, int *flags,
 		else
 			(*fc_arg)->editor = "vim";
 	}
+	return (btin_fc_edit_other_args(argv, fc_arg, flags));
+}
+
+int					btin_fc_edit_other_args(char **argv,
+						t_btin_fc **fc_arg, int *flags)
+{
+	int				i;
+	
+	i = 0;
 	if (!argv[i])
-	{
-		(*fc_arg)->flag |= ARG_FIRST;
-		(*fc_arg)->first_buf = g_hist.last;
-		btin_fc_edit_mode_flags_off(flags);
-		return (0);
-	}
+		return (btin_fc_edit_no_args(fc_arg, flags));
 	if (ft_isdigit(argv[i][0]) || (argv[i][0] == '-' && ft_isdigit(argv[i][1])))
 	{
-		if (btin_fc_edit_mode_num_args(argv, i, flags, fc_arg) == HIST_ERROR)
-			return (HIST_ERROR);
-		btin_fc_edit_mode_flags_off(flags);
+		return ((btin_fc_edit_mode_num_args(argv, i, fc_arg, flags) == HIST_ERROR) ?
+			HIST_ERROR : btin_fc_edit_mode_flags_off(flags));
 	}
 	else
 	{
-		error_handler(VARIABLE_ERROR | (ERR_HISTORY << 9), "fc");
+		error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
 		return (HIST_ERROR);
 	}
 	return (0);
 }
 
 int					btin_fc_edit_mode_num_args(char **argv, int i,
-						int *flags, t_btin_fc **fc_arg)
+						t_btin_fc **fc_arg, int *flags)
 {
 	(*fc_arg)->flag |= ARG_FIRST;
 	(*fc_arg)->first = ft_atoi(argv[i]);
@@ -70,7 +72,7 @@ int					btin_fc_edit_mode_num_args(char **argv, int i,
 	else if (!(ft_isdigit(argv[i][0]) || (argv[i][0] == '-' &&
 		ft_isdigit(argv[i][1]))))
 	{
-		error_handler(VARIABLE_ERROR | (ERR_HISTORY << 9), "fc");
+		error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
 		return (HIST_ERROR);
 	}
 	(*fc_arg)->flag |= ARG_SECOND;
@@ -79,13 +81,36 @@ int					btin_fc_edit_mode_num_args(char **argv, int i,
 	return (0);
 }
 
-int					btin_fc_edit_mode_flags_off(int *flags)
+int					btin_fc_one_int__edit(int value)
 {
-	if (*flags & FLAG_L)
-		*flags &= ~FLAG_L;
-	if (*flags & FLAG_S)
-		*flags &= ~FLAG_S;
-	if (!(*flags & FLAG_E))
-		*flags |= FLAG_E;
+	int				final_buf;
+
+	final_buf = g_hist.last;
+	if (value <= 0)
+	{
+		value = (value == 0) ? -1 : value;
+		final_buf += value;
+		if (final_buf < 0)
+			final_buf = 0;
+	}
+	else if (value > 0)
+	{
+		if (value - 1 > 0 && value - 1 < g_hist.last)
+			final_buf = value - 1;
+		else
+			final_buf = (g_hist.last > 0) ? final_buf - 1 : 0;
+	}
+	return (final_buf);
+}
+
+int					btin_fc_two_ints__edit(t_btin_fc **fc_arg)
+{
+	t_btin_fc		*tmp;
+
+	tmp = *fc_arg;
+	if (!((tmp->flag & ARG_FIRST) && (tmp->flag & ARG_SECOND)))
+		return (0);
+	tmp->last_buf = btin_fc_one_int__edit(tmp->last);
+	tmp->first_buf = btin_fc_one_int__edit(tmp->first);
 	return (0);
 }

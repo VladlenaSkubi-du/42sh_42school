@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/24 11:43:12 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/24 11:54:55 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -445,7 +445,7 @@ int						ft_insert_prev(t_path **current,
 int						ft_insert_next(t_path **current,
 							t_path **parent, t_path **temp, size_t *len);
 int						ft_path_free(t_path **root);
-int						ft_input_buildins(t_path **root, size_t *len, char *find);
+int						ft_input_builtins(t_path **root, size_t *len, char *find);
 
 /*
 ** File ft_block.c funcs to add and spend massive char **str of exe files

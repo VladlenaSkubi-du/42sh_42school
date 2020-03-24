@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/20 16:47:28 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/22 22:31:56 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,15 @@ int				variable_errors(int status, char *str)
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd(": readonly variable", STDERR_FILENO);
 	}
-	else if (status >> 9 & ERR_HISTORY)
+	else if (status >> 9 & ERR_HISTORY_NUM)
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd(": history specification out of range", STDERR_FILENO);
+	}
+	else if (status >> 9 & ERR_HISTORY_EXEC)
+	{
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd(": no command found", STDERR_FILENO);
 	}
 	else if (status >> 9 & ERR_UNSET)
 	{

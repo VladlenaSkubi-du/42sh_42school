@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/20 14:06:24 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/23 15:50:18 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -500,7 +500,7 @@ int								insert_valid_sy_hist(char c,
 									size_t *len_find);
 int								backspace_one_sy(char **find, size_t *len_find,
 									int *len);
-int								find_in_history(char **find);
+int								find_in_history(char *find);
 
 /*
 ** File back_part_hist.c
