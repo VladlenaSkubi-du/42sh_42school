@@ -93,7 +93,8 @@ REDIRECTION = 		parser/redirection/redirect.c \
 			parser/redirection/here_doc.c \
 			parser/redirection/here_doc_buffer.c
 
-SIGNALS = 			signals/signals_processing42.c
+SIGNALS = 			signals/signals_processing42.c \
+			signals/signals_parser.c
 
 SHELL_VARIABLES =	shell_variables/environment42.c \
 			shell_variables/variables_processing42.c \
