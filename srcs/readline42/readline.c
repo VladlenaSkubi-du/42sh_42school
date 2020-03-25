@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:53:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/11 15:57:36 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/24 16:33:57 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*readline(void)
 	char			temp;
 
 	init_termcap();
-	while (read(1, &temp, 1) && temp != '\n')
+	while (read(1, &temp, 1) > 0 && temp != '\n')
 	{
 		if (readline_choice(temp) == OUT)
 			break ;
@@ -78,4 +78,23 @@ void	init_readline(void)
 	g_rline.str_num = 1;
 	g_rline.cmd_buff_len = CMD_SIZE + 1;
 	g_rline.flag = 0;
+}
+
+int					route_exit(void)
+{
+	if (g_prompt.prompt_func == main_prompt)
+	{
+		check_menu();
+		action_alloc_management(NULL, 1);
+		reset_canonical_input();
+		clean_readline42();
+		btin_exit(SUCCESS);
+	}
+	if (g_prompt.prompt_func != main_prompt)
+	{
+		check_menu();
+		g_rline.cmd = ft_straddsy(g_rline.cmd, EOF);
+		return (OUT);
+	}
+	return (0);
 }

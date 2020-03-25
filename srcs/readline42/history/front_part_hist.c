@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 13:14:32 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/03/23 15:49:25 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/24 14:25:42 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char				*get_the_answer_hist(int *len)
 			continue;
 		else if (c == '\003')
 		{
-			signal_ctrl_c();
+			signal_ctrl_c_readline(0); //TODO check
 			return (free_find_hist(&find));
 		}
 		else if (insert_valid_sy_hist(c,
