@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:46:57 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/19 14:38:02 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/23 14:32:49 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ int			ft_error_redir(t_ltree *final)
 	{
 		final->err = ft_find_token_sep(&final->l_cmd[final->err_i]);
 		final->err == NULL ? final->err = ft_strdup(final->token) : 0;
-		if (final->err_i <= final->end || final->l_tline.line[final->end] != END_T)
+		if (final->err_i < final->end ||
+			(final->err_i == final->end &&
+			final->l_tline.line[final->end] != END_T))
 			error_handler((SYNTAX_ERROR | (ERR_REDIR << 9)), final->err);
 		else if (final->l_tline.line[final->end] == END_T)
 			error_handler((SYNTAX_ERROR | (ERR_REDIR << 9)), "newline");

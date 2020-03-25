@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/20 14:06:24 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/24 14:45:01 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ int								clean_readline42(void);
 char							*readline(void);
 void							init_readline(void);
 int								readline_choice(char sy);
+int								route_exit(void);
 
 /*
 ** File prompts.c
@@ -500,7 +501,7 @@ int								insert_valid_sy_hist(char c,
 									size_t *len_find);
 int								backspace_one_sy(char **find, size_t *len_find,
 									int *len);
-int								find_in_history(char **find);
+int								find_in_history(char *find);
 
 /*
 ** File back_part_hist.c

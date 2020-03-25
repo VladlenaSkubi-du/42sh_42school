@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assignment.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 20:20:14 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/19 13:33:43 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/24 11:52:02 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,18 @@ int		assignment(t_ltree *sub)
 	{
 		if (sub->l_tline.line[eq] == EQUAL)
 		{
-			var = eq - 1;
-			val = eq + 1;
+			var = (eq != 0) ? eq - 1 : 0;
+			val = (eq != sub->end) ?  eq + 1 : sub->end;
 			while (sub->l_tline.line[var] != SPACE && var != 0)
 				var--;
 			(sub->l_tline.line[var] == SPACE) ? var++ : 0;
 			while (sub->l_tline.line[val] != SPACE && val < sub->l_tline.len)
 				val++;
 			val--;
-			get_assign_and_add(sub, &var, &eq, &val);
+			if (is_it_argv_n(sub, var) == OUT)
+				break ;
+			if (get_assign_and_add(sub, &var, &eq, &val) == OUT)
+				break ;
 		}
 		eq++;
 	}
@@ -75,5 +78,16 @@ int		it_is_command(t_ltree *sub, size_t *i, size_t *var)
 		(*i)++;
 	if (*i == *var)
 		ft_reglue(i, 1, sub);
-	return (0);
+	return (OUT);
+}
+
+int		is_it_argv_n(t_ltree *sub, size_t var)
+{
+	var > sub->start ? var-- : 0;
+	while (var > sub->start && sub->l_tline.line[var] == SPACE)
+		var--;
+	if (var == sub->start)
+		return (0);
+	else
+		return (OUT);
 }

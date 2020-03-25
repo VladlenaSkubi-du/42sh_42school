@@ -5,6 +5,7 @@ typedef struct		s_cd
 {
 	size_t			p;
 	size_t			l;
+	size_t			link;
 }					t_cd;
 
 int                 ft_valid_cd(char **argv, int i);
