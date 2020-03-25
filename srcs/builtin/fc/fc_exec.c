@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:34:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/23 17:54:02 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/25 03:10:47 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int					btin_fc_route_execution(t_btin_fc *fc_arg, int flags)
 			cmd = make_history_assignments(fc_arg, cmd);
 			printf("command to launch: %s\n", cmd);
 			free(cmd);
+			btin_fc_exec_mode_add_comp(&fc_arg, NULL); //- добавить в exec
 		}
 	}
 	return (0);
@@ -83,18 +84,23 @@ char				*make_history_assignments(t_btin_fc *fc_arg, char *cmd)
 	
 	buf_len = CMD_SIZE;
 	buf = (char*)ft_xmalloc(buf_len + 1);
-	ft_strcpy(buf, cmd);
+	eq = ft_strlen(cmd) - 1;
+	if (cmd[eq] == '\n')
+		ft_strncpy(buf, cmd, eq);
+	else
+		ft_strcpy(buf, cmd);
 	i = -1;
 	while (fc_arg->s_comp[++i])
 	{
 		eq = ft_strchri(fc_arg->s_comp[i], '=');
 		what = ft_strndup(fc_arg->s_comp[i], eq);
-		if (ft_strstr(cmd, what) == NULL)
+		if (ft_strstr(buf, what) == NULL)
 		{
 			free(what);
 			continue ;
 		}
-		buf = insert_history_assignment(buf, buf_len, fc_arg->s_comp[i] + eq, what);
+		buf = insert_history_assignment(buf, buf_len,
+			fc_arg->s_comp[i] + eq + 1, what);
 		printf("command to launch: %d -  %s\n", i, buf);
 	}
 	return (buf);
@@ -107,21 +113,25 @@ char				*insert_history_assignment(char *buf, int buf_len,
 	int				len_what;
 	int				len_change;
 	int				len_cmd;
+	char			*tmp;
 
-	ptr = ft_strstr(buf, what) - buf;
+	tmp = ft_strstr(buf, what);
+	ptr = tmp - buf;
 	len_cmd = ft_strlen(buf);
 	len_change = ft_strlen(change);
-	if (ptr == 0)
+	len_what = ft_strlen(what);
+	if (len_what == 0)
 		return (insert_history_assignment_whole_line
 			(buf, buf_len, change, len_change));
-	len_what = ft_strlen(what);
-	str_shift(buf + ptr, len_what * -1);
+	tmp = ft_strdup(buf + ptr + len_what);
 	if (len_cmd - len_what + len_change >= buf_len)
 	{
 		buf = ft_realloc(buf, len_cmd, buf_len, buf_len * 2);
 		buf_len *= 2;
 	}
 	ft_strcpy(buf + ptr, change);
+	ft_strcpy(buf + ptr + len_change, tmp);
+	free(tmp);
 	return (buf);
 }
 
