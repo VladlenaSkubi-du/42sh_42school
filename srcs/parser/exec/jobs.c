@@ -1,29 +1,5 @@
 #include "shell42.h"
-#include "parser.h"
-
-/* A process is a single process.  */
-typedef struct  process
-{
-    struct process *next;       /* next process in pipeline */
-    char **argv;                /* for exec */
-	char **envp;				/* ADDED BY ME */
-    pid_t pid;                  /* process ID */
-    char completed;             /* true if process has completed */
-    char stopped;               /* true if process has stopped */
-    int status;                 /* reported status value */
-}   process;
-
-/* A job is a pipeline of processes.  */
-typedef struct job
-{
-    struct job *next;           /* next active job */
-    char *command;              /* command line, used for messages */
-    process *first_process;     /* list of processes in this job */
-    pid_t pgid;                 /* process group ID */
-    char notified;              /* true if user told about stopped job */
-    struct termios tmodes;      /* saved terminal modes */
-    int stdin, stdout, stderr;  /* standard i/o channels */
-}   job;
+#include "jobs.h"
 
 /* Notify the user about stopped or terminated jobs.
    Delete terminated jobs from the active job list.  */
@@ -38,7 +14,7 @@ void	free_job(job *j)
 		j->first_process = j->first_process->next;
 		free_vec(temp->argv);
 		free_vec(temp->envp);
-		free(temp)
+		free(temp);
 	}
 	free(j);
 }
@@ -46,13 +22,12 @@ void	free_job(job *j)
 void	do_job_notification (void)
 {
 	job *j, *jlast, *jnext;
-	process *p;
 
 	/* Update status information for child processes. Not needed ? */
 //	update_status ();
 
 	jlast = NULL;
-	for (j = first_job; j; j = jnext)
+	for (j = g_first_job; j; j = jnext)
 	{
 		jnext = j->next;
 
@@ -60,11 +35,11 @@ void	do_job_notification (void)
 		completed and delete it from the list of active jobs.  */
 		if (job_is_completed (j))
 		{
-			format_job_info (j, "completed");
+	//		format_job_info (j, "completed");
 			if (jlast)
 				jlast->next = jnext;
 			else
-				first_job = jnext;
+				g_first_job = jnext;
 			free_job (j);
 		}
 
@@ -72,7 +47,7 @@ void	do_job_notification (void)
 		marking them so that we won’t do this more than once.  */
 		else if (job_is_stopped (j) && !j->notified)
 		{
-			format_job_info (j, "stopped");
+	//		format_job_info (j, "stopped");
 			j->notified = 1;
 			jlast = j;
 		}
@@ -125,7 +100,7 @@ job		*find_job (pid_t pgid)
 {
  	job *j;
 
-	j = first_job;
+	j = g_first_job;
 	while (j)
 	{
 		if (j->pgid == pgid)
@@ -160,17 +135,18 @@ void	child_handler(int sig)
 	{
 		/* Background handler? */
 	}
+	signal(SIGCHLD, child_handler);
 }
 
 /* REWRITE */
 
 
 /* REWRITE */
-void launch_job (job *j, int foreground)
+int	 launch_job (job *j, int foreground)
 {
 	process	*p;
 	pid_t	pid;
-	int 	mypipe[2]
+	int 	mypipe[2];
 	int		infile;
 	int		outfile;
 
@@ -184,7 +160,7 @@ void launch_job (job *j, int foreground)
 			if (pipe (mypipe) < 0)
 			{
 				perror ("pipe");
-				exit (1);
+				return (-1);
 			}
 				outfile = mypipe[1];
 		}
@@ -200,13 +176,13 @@ void launch_job (job *j, int foreground)
 		{
 			/* The fork failed.  */
 			perror ("fork");
-			exit (1);
+			return (-1);
 		}
 		else
 		{
 			/* This is the parent process.  */
 			p->pid = pid;
-			if (shell_is_interactive)
+			if (g_is_interactive)
 			{
 				if (!j->pgid)
 				j->pgid = pid;
@@ -221,11 +197,12 @@ void launch_job (job *j, int foreground)
 		infile = mypipe[0];
 		p = p->next;
 	}
-	format_job_info (j, "launched");
-	if (!shell_is_interactive)
+//	format_job_info (j, "launched");
+	if (!g_is_interactive)
 		wait_for_job (j);
 	else if (foreground)
 		put_job_in_foreground (j, 0);
 	else
 		put_job_in_background (j, 0);
+	return (0);
 }
