@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:56:18 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/24 00:40:52 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/25 03:03:57 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int					btin_fc_exec_check_other_args(char **argv,
 						t_btin_fc **fc_arg, int *flags)
 {
 	int				i;
+	int				tmp;
 
 	i = -1;
 	while (argv[++i])
@@ -79,12 +80,13 @@ int					btin_fc_exec_check_other_args(char **argv,
 			return ((btin_fc_one_int__exec(fc_arg) == HIST_ERROR) ?
 				HIST_ERROR : btin_fc_exec_mode_flags_off(flags));
 		}
-		i = btin_fc_exec_check_invalid(&argv[i], fc_arg, flags);
-		if (i == HIST_ERROR || i == HIST_EXEC)
-			return (i);
-		i = btin_fc_exec_check_line_args(argv, 0, fc_arg, flags);
-		if (i == HIST_ERROR || i == HIST_EXEC)
-			return (i);
+		tmp = btin_fc_exec_check_invalid(&argv[i], fc_arg, flags);
+		if (tmp == HIST_ERROR || tmp == HIST_EXEC)
+			return (tmp);
+		tmp = btin_fc_exec_check_line_args(&argv[i], 0, fc_arg, flags);
+		if (tmp == HIST_ERROR || tmp == HIST_EXEC)
+			return (tmp);
+		i = (tmp > i) ? tmp : i;
 	}
 	return (btin_fc_exec_no_args(fc_arg, flags));
 }
@@ -95,7 +97,7 @@ int					btin_fc_exec_mode_comp(char **argv,
 	int				i;
 	int				tmp;
 
-	i = 0;
+	i = -1;
 	while (argv[++i])
 	{
 		if ((tmp = ft_strchri(argv[i], '=')) >= 0)

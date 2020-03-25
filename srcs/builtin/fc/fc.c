@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 14:10:50 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/24 00:29:13 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/25 02:11:07 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int                 btin_fc(t_ltree *pos)
 	if (btin_fc_find_mode(pos->ar_v, &fc_arg, &flags) == HIST_ERROR)
 		return (0);
 	btin_fc_route_execution(fc_arg, flags);
-	//btin_fc_exec_mode_add_comp(fc_arg, NULL); - добавить в exec
 	free(fc_arg);
 	return (0);
 }

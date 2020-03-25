@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 19:55:12 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/13 00:18:35 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/24 17:40:16 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,11 @@ int		pre_parsing_back(size_t *i, t_ltree *sub)
 		ft_reglue(i, 1, sub);
 		(*i)++;
 	}
-	if (end[*i] == BSLASH)
+	if (end[*i] == BSLASH && end[*i + 1] != TEXT)
+	{
 		ft_reglue(i, 1, sub);
+		end[*i] = TEXT;
+	}
 	return (0);
 }
 
