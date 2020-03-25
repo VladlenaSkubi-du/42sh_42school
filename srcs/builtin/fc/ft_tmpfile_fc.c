@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/23 18:45:45 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/25 21:35:44 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/25 21:40:06 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int  ft_init_tmp(int *len, int *fd, int *buf, char *tmpl)
 ** use "tmp42sh_fc_XXXXXX" like 'tmpl'
 */
 
-int		    ft_tmpfile_fc(char *tmpl, char *tmp_nameto_vim)
+int		    ft_tmpfile_fc(char *tmpl, char **tmp_nameto_vim)
 {
 	int		len;
 	char	*tmp;
@@ -61,6 +61,6 @@ int		    ft_tmpfile_fc(char *tmpl, char *tmp_nameto_vim)
 		close(fd);
 		fd = open(tmp, O_RDWR | O_CREAT | O_EXCL | O_CLOEXEC, 0666);
 	}
-    tmp_nameto_vim = tmp;
+    *tmp_nameto_vim = tmp;
 	return (fd);
 }
