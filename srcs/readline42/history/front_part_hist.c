@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   front_part_hist.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 13:14:32 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/02/24 19:22:15 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/24 14:25:42 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int					make_ctrl_r_history(void)
 	clean_output_question(0, pos_back, len, len_x);
 	if (find == NULL)
 		return (OUT);
-	coincidence = find_in_history(&find);
+	coincidence = find_in_history(find);
+	free(find);
 	if (coincidence < 0)
 		return (incorrect_sequence());
 	print_new_cmd_from_history(coincidence);
@@ -53,7 +54,7 @@ char				*get_the_answer_hist(int *len)
 			continue;
 		else if (c == '\003')
 		{
-			signal_ctrl_c();
+			signal_ctrl_c_readline(0); //TODO check
 			return (free_find_hist(&find));
 		}
 		else if (insert_valid_sy_hist(c,

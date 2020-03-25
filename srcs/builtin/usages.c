@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   usages.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 13:52:18 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/19 17:31:18 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/23 14:25:43 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ int				usage_btin_fc(void)
 
 int				usage_42sh(void)
 {
-	char		*space;
-	
-	space = "     ";
 	ft_putendl_fd("e-bash [long option] [option] ...", STDOUT_FILENO);
 	ebash_long_options();
 	ft_putstr_fd("e-bash options: ", STDOUT_FILENO);

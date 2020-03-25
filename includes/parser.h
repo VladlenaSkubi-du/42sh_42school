@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/19 13:58:48 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/25 11:21:19 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,12 @@ int						erroring_andor_pipe(t_ltree *final, size_t *i,
 */
 
 /*
+** File ft_tmpfile.c
+*/
+
+int						ft_tmpfile(char *template);
+
+/*
 ** File redirect.c
 */
 
@@ -293,7 +299,6 @@ int						add_to_heredoc_buf(char ***array, char *add,
 						int *buf_size);
 int						null_here_line(void);
 int						recover_g_cmd_here(void);
-int						ft_tmpfile(char *template);
 int						here_tab_remove(char **line);
 
 /*
@@ -319,6 +324,7 @@ int						assignment(t_ltree *sub);
 int						get_assign_and_add(t_ltree *sub, size_t *var,
 							size_t *eq, size_t *val);
 int						it_is_command(t_ltree *sub, size_t *i, size_t *var);
+int						is_it_argv_n(t_ltree *sub, size_t var);
 
 /*
 ** Folder substitution________________________________________________________
@@ -439,7 +445,7 @@ int						ft_insert_prev(t_path **current,
 int						ft_insert_next(t_path **current,
 							t_path **parent, t_path **temp, size_t *len);
 int						ft_path_free(t_path **root);
-int						ft_input_buildins(t_path **root, size_t *len, char *find);
+int						ft_input_builtins(t_path **root, size_t *len, char *find);
 
 /*
 ** File ft_block.c funcs to add and spend massive char **str of exe files

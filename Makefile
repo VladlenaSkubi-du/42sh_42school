@@ -90,13 +90,15 @@ ASSIGNMENT =		parser/assignment/backend_variables.c \
 			parser/assignment/assignment.c
 
 REDIRECTION = 		parser/redirection/redirect.c \
+			parser/redirection/ft_tmpfile.c \
 			parser/redirection/redir_types_out.c \
 			parser/redirection/redir_types_in.c \
 			parser/redirection/fd_block.c \
 			parser/redirection/here_doc.c \
 			parser/redirection/here_doc_buffer.c
 
-SIGNALS = 			signals/signals_processing42.c
+SIGNALS = 			signals/signals_processing42.c \
+			signals/signals_parser.c
 
 SHELL_VARIABLES =	shell_variables/environment42.c \
 			shell_variables/variables_processing42.c \
@@ -107,6 +109,8 @@ FC =				builtin/fc/fc.c \
 			builtin/fc/fc_modes_s.c \
 			builtin/fc/fc_modes_e.c \
 			builtin/fc/fc_nums_calc.c \
+			builtin/fc/fc_modes_flags.c \
+			builtin/fc/fc_modes_no_arguments.c \
 			builtin/fc/fc_exec.c
 
 CD =        builtin/cd/cd.c \
@@ -118,6 +122,7 @@ BUILTIN = 			builtin/exit.c \
 			builtin/history.c \
 			builtin/init_structures.c \
 			builtin/usages.c \
+            builtin/echo.c \
 			$(FC) \
             $(CD)
 
@@ -171,7 +176,7 @@ all:	$(NAME)
 $(NAME): $(OBJS)
 	@make -C ./libft
 	@echo "\033[32;01mCompiling 42sh...\033[0m"
-	@gcc $(FLAGS) $(OBJS) -o $(NAME) libft/libft.a -ltermcap
+	@gcc $(FLAGS) $(OBJS) -o $(NAME) $(LIBFT) -ltermcap
 	@echo "\033[32;01m42sh is ready\033[0m"
 
 $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h

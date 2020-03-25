@@ -30,8 +30,9 @@ int     ft_check_cdpath(char *path, char **env)
 
 int     ft_check_cd_args(char **argv, int i)
 {
-    if (argv[i + 1])
+    if (argv[i] && argv[i + 1])
     {
+        printf("%s\n", argv[i + 1]);
         ft_error(NULL, 5);
         return (1);
     }

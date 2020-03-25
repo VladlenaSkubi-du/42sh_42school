@@ -34,16 +34,27 @@ size_t  ft_cd_flags(char **argv, t_cd *cd_flags)
     size_t  i;
 
     i = 1;
+    cd_flags->l = 0;
+    cd_flags->p = 0;
+    cd_flags->link = 0;
     while (argv[i] && argv[i][0] == '-')
     {
         if (ft_strlen(argv[i]) != 2 || (argv[i][1] != 'P' && argv[i][1] != 'L'))
             return (i);
         if (argv[i][1] == 'P')
+        {
             cd_flags->p = 1;
+            cd_flags->l = 0;
+        }
         else if (argv[i][1] == 'L')
+        {
             cd_flags->l = 1;
+            cd_flags->p = 0;
+        }
         i++;
     }
+    if (!cd_flags->p)
+        cd_flags->l = 1;
     return (i);
 }
 
@@ -70,18 +81,26 @@ int  ft_error(char *name, int en)
     return (1);
 }
 
-int     ft_change_path(char **env, char *path)
+int     ft_to_dir(char *path)
+{
+    
+    if (chdir(path) == -1)
+    {
+        ft_error(path, 3);
+        return (1);
+    }
+    return (0);
+}
+
+int     ft_change_path(char **env, char *path, t_cd *cd_flags)
 {
     size_t  j;
     size_t  i;
     size_t  k;
     char    dir[999];
 
-    if (chdir(path) == -1)
-    {
-        ft_error(path, 3);
+    if (ft_to_dir(path))
         return (1);
-    }
     getcwd(dir, 999);
     i = find_in_variables(env, &j, "OLDPWD");
     free(env[i]);
@@ -94,7 +113,7 @@ int     ft_change_path(char **env, char *path)
     return (0);
 }
 
-int     ft_cd_env(char **env, char *name, int flag)
+int     ft_cd_env(char **env, char *name, int flag, t_cd *cd_flags)
 {
     size_t  j;
     size_t  i;
@@ -103,42 +122,47 @@ int     ft_cd_env(char **env, char *name, int flag)
         return (0);
     if (flag)
         ft_putendl(env[i] + j);
-    return (ft_change_path(env, env[i] + j));
+    return (ft_change_path(env, env[i] + j, cd_flags));
 }
 
-int     ft_cd_pars(char **argv, int i, char **env, t_cd *cd_flags)
+int     ft_cd_pars(char *path, char **env, t_cd *cd_flags)
 {
     struct stat buff;
 
-    if (!argv[i])
-        ft_cd_env(env, "HOME", 0);
-    else if (argv[i][0] == '-' && ft_strlen(argv[i]) == 1)
-        ft_cd_env(env, "OLDPWD", 1);
-    else if (stat(argv[i], &buff) < 0)
+    if (!path)
+        ft_cd_env(env, "HOME", 0, cd_flags);
+    else if (path[0] == '-' && ft_strlen(path) == 1)
+        ft_cd_env(env, "OLDPWD", 1, cd_flags);
+    else if (stat(path, &buff) < 0)
     {
-        if (ft_check_cdpath(ft_strjoin("/", argv[i]), env))
-            return (ft_error(argv[i], 2));
+        if (ft_check_cdpath(ft_strjoin("/", path), env))
+            return (ft_error(path, 2));
     }
     else if (!S_ISDIR(buff.st_mode))
-        return (ft_error(argv[i], 4));
+        return (ft_error(path, 4));
     else
-        return (ft_change_path(env, argv[i]));
+        return (ft_change_path(env, path, cd_flags));
     return (0);
 }
 
 int         btin_cd(t_ltree *pos)
 {
-    size_t  i;
-    t_cd    *cd_flags;
+    size_t      i;
+    struct stat buff;
+    t_cd        *cd_flags;
 
     cd_flags = ft_xmalloc(sizeof(t_cd *));
     i = ft_cd_flags(pos->ar_v, cd_flags);
+    //printf("argv = %s, argc = %d, i = %d\n", pos->ar_v[i], pos->ar_c, i);
     if (ft_valid_cd(pos->ar_v, i))
     {
         free(cd_flags);
         return (1);
     }
-    if (ft_cd_pars(pos->ar_v, i, g_env, cd_flags))
+    stat(pos->ar_v[i], &buff);
+    if (S_ISLNK(buff.st_mode))
+        cd_flags->link = 1;
+    if (ft_cd_pars(pos->ar_v[i], g_env, cd_flags))
     {
         free(cd_flags);
         return (1);

@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   history_processing.c                               :+:      :+:    :+:   */
+/*   signals_parser.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/04 12:18:29 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/24 00:40:19 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/03/24 13:33:05 by vladlenasku       #+#    #+#             */
+/*   Updated: 2020/03/24 14:02:12 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
-#include "readline.h"
 
-int		delete_last_history_element(void)
+void				signal_ctrl_c_parser(int sig)
 {
-	free(g_hist.hist[g_hist.last]);
-	g_hist.hist[g_hist.last] = NULL;
-	g_hist.counter--;
-	g_hist.last--;
-	if (g_hist.last_fc < 1)
-	   g_hist.last_fc =  g_hist.len - 1;
-	return (0);
+	ft_putendl_fd("\nstopped by signal SIGINT", STDOUT_FILENO);
+}
+
+void				signal_ctrl_z_parser(int sig)
+{
+	ft_putendl_fd("\nSIGSTP, to do", STDOUT_FILENO);
+}
+
+void				signal_ctrl_bslash_parser(int sig)
+{
+	ft_putendl_fd("\nSIGQUIT, to do", STDOUT_FILENO);
+}
+
+void				signal_ctrl_y_parser(int sig)
+{
+	ft_putendl_fd("\nSIGCONT, to do", STDOUT_FILENO);
 }
