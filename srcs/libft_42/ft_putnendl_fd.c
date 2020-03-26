@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_putnendl_fd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/19 22:45:34 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/26 22:17:10 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/03/26 22:12:12 by vladlenasku       #+#    #+#             */
+/*   Updated: 2020/03/26 22:12:49 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "libft_42.h"
 
-void	ft_lstclear(t_list **begin_list)
+void				ft_putnendl_fd(char *str, int n, int fd)
 {
-	t_list *tmp;
+	int				i;
 
-	if (!(begin_list) || !(*begin_list))
-		return ;
-	while (*begin_list)
+	i = 0;
+	while (i < n && str[i])
 	{
-		tmp = (*begin_list)->next;
-		if ((*begin_list)->content)
-			free((*begin_list)->content);
-		free((*begin_list));
-		*begin_list = tmp;
+		ft_putchar_fd(str[i], fd);
+		i++;
 	}
-	*begin_list = NULL;
+	ft_putchar_fd('\n', fd);
 }

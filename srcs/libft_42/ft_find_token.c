@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_find_token.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@sdudent.21-school.ru>     +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 23:49:50 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/17 14:03:59 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/26 22:16:35 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "shell42.h"
 #include "libft_42.h"
 
 static char    *ft_find_token_sep_one(char *str)

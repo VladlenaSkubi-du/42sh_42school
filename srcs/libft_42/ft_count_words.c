@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_count_words.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 22:55:13 by rbednar           #+#    #+#             */
-/*   Updated: 2020/02/26 23:50:43 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/26 22:16:09 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "shell42.h"
 #include "libft_42.h"
 
 size_t	ft_count_words(char const *s, char c, size_t len)

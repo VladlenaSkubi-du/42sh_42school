@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_gnl.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 21:47:27 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/03 17:23:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/26 22:16:49 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "shell42.h"
 #include "libft_42.h"
 
 #define TAIL ft_add_tail

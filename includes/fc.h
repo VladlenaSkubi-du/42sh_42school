@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:29:20 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/26 19:40:39 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/26 23:17:34 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,10 @@ int				btin_fc_exec_mode_add_comp(t_btin_fc **fc_arg, char *comp);
 ** File fc_exec.c
 */
 
-int				btin_fc_route_execution(t_btin_fc *fc_arg, int flags);
-int				btin_fc_execute_edition(t_btin_fc *fc_arg, int flags);
+int				btin_fc_route_execution(t_btin_fc *fc_arg, int flags,
+					char **envir);
+int				btin_fc_execute_edition(t_btin_fc *fc_arg, int flags,
+					char **envir);
 int				btin_fc_execute_list(t_btin_fc *fc_arg, int flags);
 int				btin_fc_execute_list_reverse(t_btin_fc *fc_arg, int flags);
 
@@ -145,5 +147,25 @@ char			*insert_history_assignment(char *buf, int buf_len,
 					char *change, char *what);
 char			*insert_history_assignment_whole_line(char *buf, int buf_len,
 					char *change, int len_change);
+
+/*
+** File fc_exec_modes_e.c
+*/
+
+int					btin_fc_execute_edition(t_btin_fc *fc_arg, int flags, char **envir);
+t_ltree				*btin_fc_before_exec(t_btin_fc *fc_arg,
+						char **envir, char *tmpfile);
+int					btin_fc_write_to_tmpfile(t_btin_fc *fc_arg,
+						int flags, int fd);
+int					btin_fc_execute_edit_reverse(t_btin_fc *fc_arg,
+						int flags, int fd);
+int					btin_fc_execute_edit(t_btin_fc *fc_arg,
+						int flags, int fd);
+
+/*
+** File fc_tmpfile.c
+*/
+
+int					ft_tmpfile_fc(char *tmpl, char **tmp_nameto_vim);
 
 #endif

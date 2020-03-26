@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tmpfile.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/23 18:45:45 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/23 18:57:44 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/26 22:50:55 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		    ft_tmpfile(char *tmpl)
 	if (ft_init_tmp(&len, &fd, &buf, tmpl) == -1)
         return (-1);
 	(tmp = ft_strdup(tmpl)) != NULL ? xxx = &tmp[len - 6] : 0;
-	while (fd < 0)
+	while (fd < 0) //make timeout
 	{
 		len = -1;
 		fd = open("/dev/random", O_RDONLY);
@@ -57,7 +57,7 @@ int		    ft_tmpfile(char *tmpl)
 		close(fd);
 		fd = open(tmp, O_RDWR | O_CREAT | O_EXCL | O_CLOEXEC, 0666);
 	}
-    unlink(tmp);
+	unlink(tmp);
 	free(tmp);
 	return (fd);
 }

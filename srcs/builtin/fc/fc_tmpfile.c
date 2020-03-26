@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tmpfile_fc.c                                    :+:      :+:    :+:   */
+/*   fc_tmpfile.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/23 18:45:45 by rbednar           #+#    #+#             */
-/*   Updated: 2020/03/25 21:40:06 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/26 23:17:15 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int  ft_init_tmp(int *len, int *fd, int *buf, char *tmpl)
 ** use "tmp42sh_fc_XXXXXX" like 'tmpl'
 */
 
-int		    ft_tmpfile_fc(char *tmpl, char **tmp_nameto_vim)
+int			ft_tmpfile_fc(char *tmpl, char **tmp_nameto_vim)
 {
 	int		len;
 	char	*tmp;
@@ -49,7 +49,7 @@ int		    ft_tmpfile_fc(char *tmpl, char **tmp_nameto_vim)
 	if (ft_init_tmp(&len, &fd, &buf, tmpl) == -1)
         return (-1);
 	(tmp = ft_strdup(tmpl)) != NULL ? xxx = &tmp[len - 6] : 0;
-	while (fd < 0)
+	while (fd < 0) //make timeout
 	{
 		len = -1;
 		fd = open("/dev/random", O_RDONLY);
@@ -59,7 +59,7 @@ int		    ft_tmpfile_fc(char *tmpl, char **tmp_nameto_vim)
 			xxx[len] = g_letters[(buf + 300) % 62];
 		}
 		close(fd);
-		fd = open(tmp, O_RDWR | O_CREAT | O_EXCL | O_CLOEXEC, 0666);
+		fd = open(tmp, O_RDWR | O_CREAT | O_EXCL | O_CLOEXEC, 0666); //to check CLOEXEC
 	}
     *tmp_nameto_vim = tmp;
 	return (fd);

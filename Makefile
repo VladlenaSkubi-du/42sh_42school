@@ -112,7 +112,9 @@ FC =				builtin/fc/fc.c \
 			builtin/fc/fc_modes_flags.c \
 			builtin/fc/fc_modes_no_arguments.c \
 			builtin/fc/fc_exec.c \
-			builtin/fc/fc_exec_mode_s.c
+			builtin/fc/fc_exec_mode_s.c \
+			builtin/fc/fc_exec_mode_e.c \
+			builtin/fc/fc_tmpfile.c
 
 CD =        builtin/cd/cd.c \
             builtin/cd/cd_flags.c \
@@ -146,7 +148,8 @@ LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_strlenchri.c \
 			libft_42/ft_find_token.c \
 			libft_42/ft_gnl.c \
-			libft_42/ft_strdiff.c \
+			libft_42/ft_putnstr_fd.c \
+			libft_42/ft_putnendl_fd.c \
 			$(STACK_STRUCTURE)
 			# libft_42/ft_lstlast.c \
 
