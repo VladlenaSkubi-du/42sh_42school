@@ -110,7 +110,11 @@ FC =				builtin/fc/fc.c \
 			builtin/fc/fc_exec.c
 
 CD =        builtin/cd/cd.c \
-            builtin/cd/cd_valid.c
+            builtin/cd/cd_flags.c \
+            builtin/cd/cd_valid.c \
+            builtin/cd/cd_parser.c \
+            builtin/cd/cd_change_path.c \
+            builtin/cd/cd_new_path.c
 
 BUILTIN = 			builtin/exit.c \
 			builtin/set.c \
@@ -119,6 +123,7 @@ BUILTIN = 			builtin/exit.c \
 			builtin/init_structures.c \
 			builtin/usages.c \
             builtin/echo.c \
+            builtin/pwd.c \
 			$(FC) \
             $(CD)
 

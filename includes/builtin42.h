@@ -75,5 +75,13 @@ int				btin_history(void);
 /*
 ** File echo.c
 */
+
 int             btin_echo(t_ltree *pos);
+
+/*
+** File pwd.c
+*/
+
+int             btin_pwd(void);
+ 
 #endif

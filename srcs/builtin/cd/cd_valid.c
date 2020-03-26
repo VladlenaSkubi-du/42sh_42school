@@ -1,7 +1,7 @@
 #include "shell42.h"
 #include "builtin42.h"
 
-int     ft_check_cdpath(char *path, char **env)
+int     ft_check_cdpath(char *path, char **env)  ///ПЕРЕПИСАТЬ
 {
     size_t  i;
     size_t  j;
@@ -16,8 +16,11 @@ int     ft_check_cdpath(char *path, char **env)
     {
         if ((chdir(tmp = ft_strjoin(cdpath[i], path))) != -1)
             break ;
+        free(tmp);
         i++;
     }
+    if (tmp)
+        free(tmp);
     ft_strdel(&path);
     if (cdpath[i])
     {
@@ -32,7 +35,6 @@ int     ft_check_cd_args(char **argv, int i)
 {
     if (argv[i] && argv[i + 1])
     {
-        printf("%s\n", argv[i + 1]);
         ft_error(NULL, 5);
         return (1);
     }
