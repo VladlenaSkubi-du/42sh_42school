@@ -1,6 +1,5 @@
 #include "shell42.h"
 #include "jobs.h"
-#include "readline.h"
 
 job		*job_new(void)
 {

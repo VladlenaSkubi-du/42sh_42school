@@ -3,28 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/25 11:21:19 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/26 20:19:56 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
-
-# include <dirent.h>
-# include <sys/dir.h>
-# include <sys/stat.h>
-# include <sys/wait.h>
-# include <grp.h>
-# include <sys/xattr.h>
-# include <time.h>
-# include <pwd.h>
-# include <string.h>
-# include <fcntl.h>
-
-# include <stdio.h> //DELETE
 
 typedef struct dirent	t_dirent;
 typedef struct stat		t_stat;

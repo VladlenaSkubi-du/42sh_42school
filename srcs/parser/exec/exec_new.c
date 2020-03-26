@@ -3,7 +3,6 @@
 */
 
 #include "shell42.h"
-#include "parser.h"
 #include "builtins_list.h"
 #include "jobs.h"
 

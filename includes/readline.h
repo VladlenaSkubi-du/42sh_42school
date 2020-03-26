@@ -6,20 +6,12 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/26 18:23:39 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/26 20:18:18 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef READLINE_H
 # define READLINE_H
-
-# include <curses.h>
-# include <term.h>
-# include <termios.h>
-# include <sys/ioctl.h>
-# include <fcntl.h>
-
-# include <stdio.h> //DELETE
 
 # include "readline_simple.h"
 
