@@ -242,7 +242,7 @@ int						ft_tmpfile(char *template);
 int						ft_find_redirection(t_ltree *final);
 char					*ft_word_to_redir(size_t *i, t_ltree *final,
 							int rew_ff);
-int						ft_word_to_redir_rew(size_t *i, t_ltree *final, 
+int						ft_word_to_redir_rew(size_t *i, t_ltree *final,
 						long long *size, size_t *start);
 int						ft_null_redir(t_ltree *pos, size_t i, long long num);
 int						ft_error_redir(t_ltree *final);
@@ -472,5 +472,7 @@ int						exec_init(t_ltree *pos);
 int						exec_core(t_ltree *pos);
 void					free_vec(char **vec);
 char					*get_env(char *var);
+int						exec_clean(char *path, int exit_status);
+char					*path_init(char **exec_av);
 
 #endif
