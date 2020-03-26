@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_completion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 15:27:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/10 16:28:12 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/26 18:06:45 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,8 +149,8 @@ int					insert_word_compl(void)
 		g_delete = len_option - g_len_compl;
 		i = -1;
 		while (++i < g_delete - flag)
-			char_add(g_menu[counter][g_len_compl + i], NULL);
-		(flag > 0) ? char_add('}', NULL) : 0;
+			char_add_without_undo(g_menu[counter][g_len_compl + i], NULL);
+		(flag > 0) ? char_add_without_undo('}', NULL) : 0;
 		front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
 		print_menu_buf_after_insert(g_rline.pos);
 	}

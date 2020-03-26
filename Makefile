@@ -107,7 +107,8 @@ FC =				builtin/fc/fc.c \
 			builtin/fc/fc_nums_calc.c \
 			builtin/fc/fc_modes_flags.c \
 			builtin/fc/fc_modes_no_arguments.c \
-			builtin/fc/fc_exec.c
+			builtin/fc/fc_exec.c \
+			builtin/fc/fc_exec_mode_s.c
 
 CD =        builtin/cd/cd.c \
             builtin/cd/cd_valid.c
