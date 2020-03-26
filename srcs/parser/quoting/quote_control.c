@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 17:28:46 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/24 17:40:10 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/25 11:22:14 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,15 @@ int		nullify_backslash(char **ptr, t_stack **stack,\
 		size_t *count, size_t size)
 {
 	if (((*stack)->data == 0 || ((*stack)->data == DQUOTE && \
-		ptr[0][1] == DOLLAR && ptr[0][1] == SQUOTE &&
-		ptr[0][1] == DQUOTE && ptr[0][1] == BSLASH))
+		(ptr[0][1] == DOLLAR || ptr[0][1] == SQUOTE ||
+		ptr[0][1] == DQUOTE || ptr[0][1] == BSLASH)))
 		&& **ptr == BSLASH && ptr[0][1] != ENTER)
 	{
 		ptr[0][1] = TEXT;
+		(*ptr)++;
 	}
+	else if (**ptr == BSLASH && ptr[0][1] != ENTER && (*stack)->data == DQUOTE)
+		**ptr = TEXT;
 	if ((*stack)->data == 0 \
 		&& **ptr == BSLASH && ptr[0][1] == ENTER &&\
 		(size - *count) == 2)
@@ -82,7 +85,7 @@ int		nullify_dquotes(char **ptr, t_stack **stack,\
 			(**ptr != DOLLAR && **ptr != EOF &&
 			**ptr != BSLASH && **ptr != ENTER &&\
 			!((**ptr == OPAREN || **ptr == OBRACE) && \
-			*(*ptr - 1) == DOLLAR)))
+			*(*ptr - 1) == DOLLAR)) && **ptr != SPACE)
 		**ptr = TEXT;
 	else if ((*stack)->data != SQUOTE && **ptr == OPAREN)
 		ft_push_stack(stack, OPAREN);
