@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/24 14:44:34 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/25 13:37:50 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

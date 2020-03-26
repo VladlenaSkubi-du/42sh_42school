@@ -70,7 +70,11 @@ PATH_TREE = 		parser/path_tree/ft_block.c \
 			parser/path_tree/ft_path.c
 
 EXEC = 				parser/exec/exec_init.c \
-			parser/exec/exec_core.c
+			parser/exec/exec_core.c \
+			parser/exec/bg_fg.c \
+			parser/exec/exec_new.c \
+			parser/exec/job_init.c \
+			parser/exec/jobs.c \
 
 QUOTING =			parser/quoting/quote_control.c \
 			parser/quoting/pre_parsing_work.c
@@ -111,7 +115,11 @@ FC =				builtin/fc/fc.c \
 			builtin/fc/fc_exec_mode_s.c
 
 CD =        builtin/cd/cd.c \
-            builtin/cd/cd_valid.c
+            builtin/cd/cd_flags.c \
+            builtin/cd/cd_valid.c \
+            builtin/cd/cd_parser.c \
+            builtin/cd/cd_change_path.c \
+            builtin/cd/cd_new_path.c
 
 BUILTIN = 			builtin/exit.c \
 			builtin/set.c \
@@ -120,6 +128,7 @@ BUILTIN = 			builtin/exit.c \
 			builtin/init_structures.c \
 			builtin/usages.c \
             builtin/echo.c \
+            builtin/pwd.c \
 			$(FC) \
             $(CD)
 

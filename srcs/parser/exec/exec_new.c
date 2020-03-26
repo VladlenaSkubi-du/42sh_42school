@@ -5,24 +5,23 @@
 #include "shell42.h"
 #include "parser.h"
 #include "builtins_list.h"
+#include "jobs.h"
 
-int		exec_vp((process *p)
+int		exec_vp(process *p)
 {
-	pid_t			child_pid;
-	char			*path;
+	if (!(g_path = path_init(p->argv)))
+		return (exec_clean(g_path, -1));
 
-	if (!(path = path_init(pos->ar_v)))
-		return (exec_clean(path, -1));
-
-	(execve(path, p->argv, p->envp) == -1) //TODO испрвить на все виды очисток
-	return (exec_clean(path, 0);
+	if (execve(g_path, p->argv, p->envp) == -1) //TODO испрвить на все виды очисток
+		exit(-1);
+	return (0);
 }
 
 void	launch_process (process *p, pid_t pgid, int stream[3], int foreground)
 {
 	pid_t pid;
 
- 	if (shell_is_interactive)
+ 	if (g_is_interactive)
 	{
       /* Put the process into the process group and give the process group
          the terminal, if appropriate.
@@ -32,7 +31,7 @@ void	launch_process (process *p, pid_t pgid, int stream[3], int foreground)
 		 if (pgid == 0) pgid = pid;
 		 setpgid (pid, pgid);
 		 if (foreground)
-		 	tcsetpgrp(shell_terminal, pgid);
+		 	tcsetpgrp(STDIN_FILENO, pgid);
 
 		/* Set the handling for job control signals back to the default.  */
 		signal(SIGINT, SIG_DFL);
@@ -62,5 +61,6 @@ void	launch_process (process *p, pid_t pgid, int stream[3], int foreground)
 
 	/* Exec the new process.  Make sure we exit.  */
 	exec_vp(p);
-//	exit(1);
+	exec_clean(g_path, 0);
+	exit(1);
 }
