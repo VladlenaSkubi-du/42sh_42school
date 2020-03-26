@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   undo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 15:50:21 by sschmele          #+#    #+#             */
-/*   Updated: 2020/01/31 20:40:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/26 18:14:21 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_action_stack	*action_new(void)
 	new->cmd_b = (char*)ft_xmalloc(g_rline.cmd_buff_len + 1);
 	ft_strcpy(new->cmd_b, g_rline.cmd);
 	new->pos_b = g_rline.pos;
+	new->pos_x_b = g_rline.pos_x;
+	new->pos_y_b = g_rline.pos_y;
 	new->num_b = g_rline.str_num;
 	new->next = 0;
 	new->prev = 0;
@@ -70,23 +72,22 @@ void			action_alloc_management(t_action_stack **start, int mode)
 void			action_pull(t_action_stack **start, size_t *num)
 {
 	t_action_stack			*temp;
-	size_t					pos_old;
+	int						i;
 
 	if (start && *start)
 	{
 		temp = *start;
-		ft_bzero(g_rline.cmd, g_rline.cmd_buff_len);
-		ft_strcpy(g_rline.cmd, (*start)->cmd_b); // QUESTIONABLE
-		pos_old = g_rline.pos;
-		g_rline.cmd_len = ft_strlen(g_rline.cmd);
-		g_rline.pos = (*start)->pos_b;
-		g_rline.str_num = (*start)->num_b;
+		esc_r();
+		i = -1;
+		while ((*start)->cmd_b[++i])
+			char_add_without_undo((*start)->cmd_b[i], NULL);
+		while (g_rline.pos != (*start)->pos_b)
+			key_left_proc();
 		*start = (*start)->next;
 		*start && ((*start)->prev = 0);
 		free(temp->cmd_b);
 		free(temp);
 		(*num)--;
-		undo_redraw(pos_old);
 	}
 }
 

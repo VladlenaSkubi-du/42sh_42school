@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:45:45 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/19 17:55:52 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/25 17:08:25 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,13 @@ int				btin_cd(t_ltree *pos);
 
 t_btin_fc		*init_btin_fc(void);
 
+
 /*
 ** File set.c
 */
 
 int				btin_set(void);
+int				btin_return_exit_status(void);
 
 /*
 ** File unset.c

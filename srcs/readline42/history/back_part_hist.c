@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:15:19 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/03/23 15:49:14 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/26 18:06:55 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int				print_new_cmd_from_history(int coincidence)
 	esc_r();
 	while (g_hist.hist[coincidence][i])
 	{
-		char_add(g_hist.hist[coincidence][i], NULL);
+		char_add_without_undo(g_hist.hist[coincidence][i], NULL);
 		i++;
 	}
 	return (0);
