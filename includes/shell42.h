@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/26 20:32:09 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/26 22:14:12 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include <pwd.h>
 # include <string.h>
 # include <fcntl.h>
+# include <stdlib.h>
 
 # include <stdio.h> //DELETE
 

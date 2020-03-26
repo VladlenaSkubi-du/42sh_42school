@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/22 22:31:56 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/26 22:31:03 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int				error_handler(int status, char *str)
 		ft_putendl_fd(": can't be launched in non-interactive mode",
 			STDERR_FILENO);
 	}
+	else if ((status & 0x1FF) == TMPFILE)
+		ft_putendl_fd("can't open a temporal file", STDERR_FILENO); //TODO check
 	else if ((status & 0x1FF) == SYNTAX_ERROR)
 		syntax_errors(status, str);
     exit_status_variable(status & 0x7F);

@@ -6,40 +6,28 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:34:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/26 19:37:32 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/26 22:39:34 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "builtin42.h"
 
-int					btin_fc_route_execution(t_btin_fc *fc_arg, int flags)
+int					btin_fc_route_execution(t_btin_fc *fc_arg, int flags,
+						char **envir)
 {
 
 	if (flags & FLAG_E)
-		btin_fc_execute_edition(fc_arg, flags);
+		return (btin_fc_execute_edition(fc_arg, flags, envir));
 	else if (flags & FLAG_L)
 	{
 		if (flags & FLAG_R)
-			btin_fc_execute_list_reverse(fc_arg, flags);
+			return (btin_fc_execute_list_reverse(fc_arg, flags));
 		else
-			btin_fc_execute_list(fc_arg, flags);		
-		return (0);
+			return (btin_fc_execute_list(fc_arg, flags));		
 	}
 	else if (flags & FLAG_S)
-		btin_fc_execute_execution(fc_arg, flags);
-	return (0);
-}
-
-int					btin_fc_execute_edition(t_btin_fc *fc_arg, int flags)
-{
-	printf("editor = %s\n", fc_arg->editor);
-	if (fc_arg->flag & ARG_FIRST)
-		printf("first_buf = %d, cmd = %s\n", fc_arg->first_buf, g_hist.hist[fc_arg->first_buf]);
-	if (fc_arg->flag & ARG_SECOND)
-		printf("last_buf = %d, cmd = %s\n", fc_arg->last_buf, g_hist.hist[fc_arg->last_buf]);
-	if (flags & FLAG_R)
-		printf("reverse\n");
+		return (btin_fc_execute_execution(fc_arg, flags));
 	return (0);
 }
 
