@@ -74,7 +74,7 @@ EXEC = 				parser/exec/exec_init.c \
 			parser/exec/bg_fg.c \
 			parser/exec/exec_new.c \
 			parser/exec/job_init.c \
-			parser/exec/jobs.c \
+			parser/exec/jobs.c
 
 QUOTING =			parser/quoting/quote_control.c \
 			parser/quoting/pre_parsing_work.c
