@@ -114,6 +114,8 @@ char	*path_search(char *name)
 		path_array++;
 	}
 	free_vec(to_clean);
+	if (!ret)
+		error_handler(COMMAND_NOT_FOUND, name);
 	return (ret);  /* Returns zero if we did not find anything */
 }
 
@@ -129,8 +131,16 @@ char	*path_init(char **exec_av)
 		ret = path_search(*exec_av);
 	else /* Execution path case */
 	{
-		if (access(*exec_av, X_OK) == -1)
+		if (access(*exec_av, F_OK) == -1)
+		{
+			error_handler(ERR_NO_FILE, *exec_av);
 			return (0);
+		}
+		else if (access(*exec_av, X_OK) == -1)
+		{
+			error_handler(COMMAND_NOT_FOUND, *exec_av);
+			return (0);
+		}
 		ret = ft_strdup(exec_av[0]);
 	}
 	return (ret); /* ret could be NULL */
@@ -195,7 +205,7 @@ int		fd_list_process(t_ltree *pos)
 		{
 			lseek(redir->fd_out, 0, SEEK_SET);
 			dup2(redir->fd_out, redir->fd_in);
-		}		
+		}
 		fd_list = fd_list->next;
 	}
 	return (0);
@@ -231,7 +241,7 @@ int		exec_core(t_ltree *pos)
 	static int		pipe_prev;
 	static int		pipe_next[2];
 
-	if (!(path = path_init(pos->ar_v)) && ft_builtins_check(pos, 0) == -1)
+	if (ft_builtins_check(pos, 0) == -1 && !(path = path_init(pos->ar_v)))
 		return (exec_clean(path, -1));
 	(pos->flags & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
 	if ((pos->flags & PIPED_OUT) && pipe(pipe_next) == -1)
