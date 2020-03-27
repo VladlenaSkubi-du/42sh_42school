@@ -56,7 +56,7 @@ int				error_handler_continuation(int status, char *str)
 	else if ((status & 0x1FF) == COMMAND_NOT_FOUND)
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd("command not found", STDERR_FILENO);
+		ft_putendl_fd(": command not found", STDERR_FILENO);
 	}
 	return (0);
 }
@@ -170,7 +170,7 @@ int			syntax_errors_files(int status, char *str)
 }
 
 /*
-** Errors possible in NON-INTERACTIVE MODE: 
+** Errors possible in NON-INTERACTIVE MODE:
 ** bash --posix -c "."
 bash: line 0: .: filename argument required
 .: usage: . filename [arguments]
@@ -224,5 +224,5 @@ bash: line 0: bg: no job control
 
 /*
 ** Errors possible in INTERACTIVE MODE:
-** 
+**
 */
