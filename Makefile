@@ -71,6 +71,8 @@ PATH_TREE = 		parser/path_tree/ft_block.c \
 
 EXEC = 				parser/exec/exec_init.c \
 			parser/exec/exec_core.c \
+			parser/exec/exec_utils.c \
+			parser/exec/path_parse.c \
 			parser/exec/bg_fg.c \
 			parser/exec/exec_new.c \
 			parser/exec/job_init.c \
