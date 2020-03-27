@@ -93,11 +93,18 @@ int		fd_list_process(t_ltree *pos)
 	{
 		redir = (t_fd_redir *)fd_list->content;
 		if (redir->type == OUT_R)
-			dup2(redir->fd_in, redir->fd_out);
+		{
+			if (redir->fd_in != CLOSE)
+				dup2(redir->fd_in, redir->fd_out);
+			else
+				close(redir->fd_out);
+		}
 		else
 		{
-			lseek(redir->fd_out, 0, SEEK_SET);
-			dup2(redir->fd_out, redir->fd_in);
+			if (redir->fd_out != CLOSE)
+				dup2(redir->fd_out, redir->fd_in);
+			else
+				close(redir->fd_in);
 		}
 		fd_list = fd_list->next;
 	}

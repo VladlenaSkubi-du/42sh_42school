@@ -32,7 +32,7 @@ size_t				find_in_variables(char **arr, size_t *j, char *name)
 {
 	size_t			i;
 	size_t			tmp;
-	size_t			len_name;
+	size_t			len_name; 
 
 	i = 0;
 	if (!arr)

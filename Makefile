@@ -214,12 +214,12 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	gcc $(FLAGS) -c -I includes -o $@ $<
 
 clean:
-	@echo "\033[34mDeleting ft_select o-files\033[0m"
+	@echo "\033[34mDeleting 42sh o-files\033[0m"
 	@/bin/rm -Rf $(DIR_O)
 	@make clean --directory ./libft
 
 fclean: clean
-	@echo "\033[34mDeleting ft_select binary\033[0m"
+	@echo "\033[34mDeleting 42sh binary\033[0m"
 	@/bin/rm -f $(NAME)
 	@make fclean --directory ./libft
 

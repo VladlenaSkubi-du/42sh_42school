@@ -89,7 +89,7 @@ int		ft_num_or_word_out(char **f_name, t_fd_redir *fd_open,
 	if ((fd_ret = ft_check_redir_op_n(*f_name, -1)) == -1)
 	{
 		if (!(ft_strcmp(*f_name, "-")))
-			(fd_open->fd_in = CLOSE) >= 0 ? add_redir_fd(final, fd_open) : 0;
+			(fd_open->fd_in = CLOSE) == CLOSE ? add_redir_fd(final, fd_open) : 0;
 		else if ((fd_open->fd_in = open(*f_name, O_CREAT | O_WRONLY | O_TRUNC |
 			O_CLOEXEC | O_SYNC | O_NOCTTY, S_IRUSR | S_IWUSR)) == -1)
 			return (ft_access_check(f_name, final, i, W_OK));
@@ -116,7 +116,7 @@ int		ft_num_or_word_in(char **f_name, t_fd_redir *fd_open,
 	if ((fd_ret = ft_check_redir_op_n(*f_name, -1)) == -1)
 	{
 		if (!(ft_strcmp(*f_name, "-")))
-			(fd_open->fd_out = CLOSE) >= 0 ? add_redir_fd(final, fd_open) : 0;
+			(fd_open->fd_out = CLOSE) == CLOSE ? add_redir_fd(final, fd_open) : 0;
 		else if ((fd_open->fd_in = open(*f_name, O_RDONLY |
 			O_CLOEXEC | O_SYNC | O_NOCTTY)) == -1)
 			return (ft_access_check(f_name, final, i, R_OK));
