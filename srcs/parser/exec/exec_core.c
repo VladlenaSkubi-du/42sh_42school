@@ -115,7 +115,7 @@ char	*path_search(char *name)
 	}
 	free_vec(to_clean);
 	if (!ret)
-		error_handler(COMMAND_NOT_FOUND, name);
+		error_handler(COMMAND_NOT_FOUND | (ERR_COMMAND << 9), name);
 	return (ret);  /* Returns zero if we did not find anything */
 }
 
@@ -133,12 +133,13 @@ char	*path_init(char **exec_av)
 	{
 		if (access(*exec_av, F_OK) == -1)
 		{
-			error_handler(ERR_NO_FILE, *exec_av);
+			error_handler(COMMAND_NOT_FOUND |
+				(ERR_FILE_DIRECTORY << 9), *exec_av);
 			return (0);
 		}
 		else if (access(*exec_av, X_OK) == -1)
 		{
-			error_handler(COMMAND_NOT_FOUND, *exec_av);
+			error_handler(COMMAND_NON_EXECUTABLE, *exec_av);
 			return (0);
 		}
 		ret = ft_strdup(exec_av[0]);
