@@ -31,9 +31,8 @@ int		ft_error(char *name, int en)
     char	*new_name;
 
 	tmp = ft_strdup("cd: ");
-	new_name = ft_cut_name(name);
 	if (name) 
-		tmp = ft_strrejoin(tmp, new_name);
+		tmp = ft_strrejoin(tmp, name);
 	//ft_putstr_fd("cd", 2);
 	if (en == 1)
 		tmp = ft_strrejoin(tmp, ": string not in pwd");
@@ -53,10 +52,10 @@ int		ft_error(char *name, int en)
     return (1);
 }
 
-int		btin_cd(t_ltree *pos)
+int         btin_cd(t_ltree *pos)
 {
-    int		i;
-    t_cd	*flags;
+	int     i;
+	t_cd    *flags;
 
 	flags = ft_xmalloc(sizeof(t_cd *));
 	i = ft_cd_flags(pos->ar_v, flags);
