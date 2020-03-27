@@ -471,9 +471,21 @@ int						exec_init(t_ltree *pos);
 */
 
 int						exec_core(t_ltree *pos);
+
+/*
+** File path_parse.c
+*/
+
+char					*path_init(char **exec_av);
+
+/*
+** File exec_utils.c
+*/
+
 void					free_vec(char **vec);
 char					*get_env(char *var);
-int						exec_clean(char *path, int exit_status);
-char					*path_init(char **exec_av);
+int						exec_clean(char *path, int exit_status, char *msg);
+int						ft_builtins_check(t_ltree *pos, int flag);
+int						fd_list_process(t_ltree *pos);
 
 #endif

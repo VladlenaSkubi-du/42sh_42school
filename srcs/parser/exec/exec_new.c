@@ -11,7 +11,7 @@
 int		exec_vp(process *p)
 {
 	if (!(g_path = path_init(p->argv)))
-		return (exec_clean(g_path, -1));
+		return (exec_clean(g_path, -1, 0));
 
 	if (execve(g_path, p->argv, p->envp) == -1) //TODO испрвить на все виды очисток
 		exit(-1);
@@ -63,6 +63,6 @@ void	launch_process (process *p, pid_t pgid, int stream[3], int foreground)
 	}
 	/* Exec the new process.  Make sure we exit.  */
 	exec_vp(p);
-	exec_clean(g_path, 0);
+	exec_clean(g_path, 0, 0);
 	exit(1);
 }
