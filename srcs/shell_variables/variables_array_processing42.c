@@ -62,6 +62,7 @@ int				add_new_to_exec_env(char ***array, char **add)
 			ft_realloc_array(array, g_var_size, g_var_size * 2);
 			realloc_all_gvariables_array();
 		}
+		free(find);
 		array[0][i] = *add;
 	}	
 	return (0);

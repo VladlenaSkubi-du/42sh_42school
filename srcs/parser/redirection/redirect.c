@@ -88,8 +88,8 @@ char		*ft_word_to_redir(size_t *i, t_ltree *final, int rew_ff)
 		while (*i < final->end && final->l_tline.line[*i] == SPACE)
 			(*i)++;
 		start = *i;
-		while (*i < final->end && final->l_tline.line[*i] != SPACE)
-			size++ && (*i)++;
+		while ((*i)++ < final->end && final->l_tline.line[*i] != SPACE)
+			size++;
 	}
 	else if (rew_ff == REW)
 		ft_word_to_redir_rew(i, final, &size, &start);

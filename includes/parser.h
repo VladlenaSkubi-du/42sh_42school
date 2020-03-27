@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/26 22:30:41 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/27 23:18:08 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ enum					e_way
 	FF,
 	IN_R,
 	OUT_R,
-	CLOSE,
-	MINUS,
+	CLOSE = -42,
+	MINUS = 5,
 	CONTINUE,
 	LINE,
 	ASSIGN,
