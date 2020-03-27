@@ -74,7 +74,7 @@ EXEC = 				parser/exec/exec_init.c \
 			parser/exec/bg_fg.c \
 			parser/exec/exec_new.c \
 			parser/exec/job_init.c \
-			parser/exec/jobs.c \
+			parser/exec/jobs.c
 
 QUOTING =			parser/quoting/quote_control.c \
 			parser/quoting/pre_parsing_work.c
@@ -111,10 +111,17 @@ FC =				builtin/fc/fc.c \
 			builtin/fc/fc_nums_calc.c \
 			builtin/fc/fc_modes_flags.c \
 			builtin/fc/fc_modes_no_arguments.c \
-			builtin/fc/fc_exec.c
+			builtin/fc/fc_exec.c \
+			builtin/fc/fc_exec_mode_s.c \
+			builtin/fc/fc_exec_mode_e.c \
+			builtin/fc/fc_tmpfile.c
 
 CD =        builtin/cd/cd.c \
-            builtin/cd/cd_valid.c
+            builtin/cd/cd_flags.c \
+            builtin/cd/cd_valid.c \
+            builtin/cd/cd_parser.c \
+            builtin/cd/cd_change_path.c \
+            builtin/cd/cd_new_path.c
 
 BUILTIN = 			builtin/exit.c \
 			builtin/set.c \
@@ -123,6 +130,7 @@ BUILTIN = 			builtin/exit.c \
 			builtin/init_structures.c \
 			builtin/usages.c \
             builtin/echo.c \
+            builtin/pwd.c \
 			$(FC) \
             $(CD)
 
@@ -140,7 +148,8 @@ LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_strlenchri.c \
 			libft_42/ft_find_token.c \
 			libft_42/ft_gnl.c \
-			libft_42/ft_strdiff.c \
+			libft_42/ft_putnstr_fd.c \
+			libft_42/ft_putnendl_fd.c \
 			$(STACK_STRUCTURE)
 			# libft_42/ft_lstlast.c \
 

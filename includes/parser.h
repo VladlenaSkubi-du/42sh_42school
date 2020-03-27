@@ -3,28 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/25 11:21:19 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/03/26 22:30:41 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
-
-# include <dirent.h>
-# include <sys/dir.h>
-# include <sys/stat.h>
-# include <sys/wait.h>
-# include <grp.h>
-# include <sys/xattr.h>
-# include <time.h>
-# include <pwd.h>
-# include <string.h>
-# include <fcntl.h>
-
-# include <stdio.h> //DELETE
 
 typedef struct dirent	t_dirent;
 typedef struct stat		t_stat;
@@ -86,7 +73,21 @@ typedef struct  		s_tech
    size_t				alloc_size;
 }               		t_tech;
 
+//TODO to fill
+
 /*
+** @l_cmd is
+** @l_tline is
+** @start is the index with that block in l_cmd starts
+** @end is the index with that block in l_cmd ends
+** @fd is
+** @envir is environment for the command to be executed
+** @ar_v is an agrument for the command to be executed
+** @ar_c is a number of arguments for the command to be executed
+** @flags is
+** @token is
+** @err is
+** @err_i is
 ** Struct to work with lextree fd[3] needs to know if it is redirection
 ** FLAGS:
 ** 0x01 -- PIPED_OUTPUT
@@ -99,7 +100,7 @@ typedef struct  		s_ltree
 {
 	char				*l_cmd;
 	t_tech				l_tline;
-	size_t				start; //index of start
+	size_t				start;
 	size_t				end;
 	t_list				*fd;
 	char				**envir;

@@ -6,20 +6,12 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/24 14:45:01 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/26 20:18:18 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef READLINE_H
 # define READLINE_H
-
-# include <curses.h>
-# include <term.h>
-# include <termios.h>
-# include <sys/ioctl.h>
-# include <fcntl.h>
-
-# include <stdio.h> //DELETE
 
 # include "readline_simple.h"
 
@@ -92,6 +84,8 @@ typedef struct					s_action_stack
 {
 	char						*cmd_b;
 	size_t						pos_b;
+	int							pos_x_b; //question
+	int							pos_y_b; //question
 	size_t						num_b;
 	struct s_action_stack		*next;
 	struct s_action_stack		*prev;
@@ -187,11 +181,9 @@ int								init_termcap(void);
 */
 
 int								char_add(char c, char *color);
+int								char_add_without_undo(char c, char *color);
 int								str_shift(char *str, int shift);
 int								insert_char(char c, char *color);
-int								front_insert_by_letters(char *str,
-									int *pos_x, char flag);
-int								front_write_one_char(char c, char *color);
 
 /*
 ** File escape.c - router to the functions performing actions with
@@ -228,6 +220,9 @@ int								front_set_cursor_jmp(size_t *pos, int *pos_x,
 
 int								front_move_one_char_right(int pos_x);
 int								front_move_one_char_left(int pos_x);
+int								front_insert_by_letters(char *str,
+									int *pos_x, char flag);
+int								front_write_one_char(char c, char *color);
 
 /*
 ** File front_insertions.c
@@ -249,8 +244,7 @@ int								front_insert_cmd_till_the_end(int str_num_print);
 
 int								make_ctrl_x(void);
 int								undo_wrap(void);
-int								undo_redraw(size_t pos_old);
-int								make_ctrl_y_wrap(void);
+int								make_ctrl_p_wrap(void);
 
 /*
 ** File undo.c

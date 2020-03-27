@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   arrow_keys.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/06 17:55:26 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/10 16:28:38 by sschmele         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "shell42.h"
 #include "readline.h"
 
@@ -71,7 +59,7 @@ int		key_up_proc(void)
 	if (len > 0 && g_hist.hist[g_hist.counter][len - 1] == '\n')
 		len--;
 	while (++i < len)
-		char_add(g_hist.hist[g_hist.counter][i], NULL);
+		char_add_without_undo(g_hist.hist[g_hist.counter][i], NULL);
 	return (0);
 }
 
@@ -90,7 +78,7 @@ int		save_current_grline(int flag)
 	{
 		i = -1;
 		while (++i < len)
-			char_add(current[i], NULL);
+			char_add_without_undo(current[i], NULL);
 	}
 	else if (flag == 2)
 	{
@@ -126,6 +114,6 @@ int		key_down_proc(void)
 	if (len > 0 && g_hist.hist[g_hist.counter][len - 1] == '\n')
 		len--;
 	while (++i < len)
-		char_add(g_hist.hist[g_hist.counter][i], NULL);
+		char_add_without_undo(g_hist.hist[g_hist.counter][i], NULL);
 	return (0);
 }

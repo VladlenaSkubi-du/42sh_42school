@@ -2,7 +2,7 @@
 
 bsh_name="./42sh"
 
-if [ -x ./42sh ]
+if [ -x $bsh_name ]
 then
     echo -en "\n                              \033[42;1m###START CHECKS###\033[0m\n\n"
 else

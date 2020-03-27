@@ -1,3 +1,5 @@
+
+#include "shell42.h"
 #include "jobs.h"
 
 /* Put job j in the foreground.  If cont is nonzero,

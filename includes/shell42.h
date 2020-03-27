@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/24 14:44:34 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/27 11:57:04 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,24 @@
 # include <stdlib.h>
 # include <sys/types.h>
 # include <signal.h>
+# include <curses.h>
+# include <term.h>
+# include <termios.h>
+# include <sys/ioctl.h>
+# include <fcntl.h>
+# include <dirent.h>
+# include <sys/dir.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
+# include <grp.h>
+# include <sys/xattr.h>
+# include <time.h>
+# include <pwd.h>
+# include <string.h>
+# include <fcntl.h>
+# include <stdlib.h>
 
-// # include <stdio.h> //DELETE
+# include <stdio.h> //DELETE
 
 # include "exit_status.h"
 # include "libft.h"
@@ -26,6 +42,7 @@
 # include "parser.h"
 # include "readline.h"
 # include "builtin42.h"
+# include "jobs.h"
 
 # include "ft_printf.h" //If not used, delete
 # include "get_next_line.h" //If not used, delete
@@ -195,6 +212,7 @@ void				signal_ctrl_y_parser(int sig);
 */
 
 int					error_handler(int status, char *str);
+int					error_handler_continuation(int status, char *str);
 int					variable_errors(int status, char *str);
 int					options_errors(int status, char *str);
 int					syntax_errors(int status, char *str);
