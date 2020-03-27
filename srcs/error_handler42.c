@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:22:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/26 22:31:03 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/27 11:59:14 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,23 @@ int				error_handler(int status, char *str)
 		ft_putendl_fd("can't open a temporal file", STDERR_FILENO); //TODO check
 	else if ((status & 0x1FF) == SYNTAX_ERROR)
 		syntax_errors(status, str);
-    exit_status_variable(status & 0x7F);
+	else
+		error_handler_continuation(status, str);
+	return (exit_status_variable(status & 0x7F));
+}
+
+int				error_handler_continuation(int status, char *str)
+{
+	if ((status & 0x1FF) == COMMAND_NON_EXECUTABLE)
+	{
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd("command can't be executed", STDERR_FILENO);
+	}
+	else if ((status & 0x1FF) == COMMAND_NOT_FOUND)
+	{
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd("command not found", STDERR_FILENO);
+	}
 	return (0);
 }
 
