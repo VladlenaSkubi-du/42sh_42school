@@ -266,6 +266,7 @@ int		exec_core(t_ltree *pos)
 		{
 			ft_putendl_fd("e-bash: Fork failed", STDERR_FILENO);
 			return (exec_clean(path, -1));
+		}
 		wait(&child_pid);
 	}
 	(pos->flags & PIPED_OUT) ? close(pipe_next[1]) : 0;
