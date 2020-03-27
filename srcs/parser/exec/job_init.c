@@ -30,12 +30,10 @@ int		vec_dup(char **dst, char **src)
 	while (src[i])
 		i++;
 	dst = (char **)ft_xmalloc(sizeof(char *) * (i + 1));
-	dst[i] = NULL;
-	i--;
-	while (i >= 0)
+	while (i > 0)
 	{
-		dst[i] = ft_strdup(src[i]);
 		i--;
+		dst[i] = ft_strdup(src[i]);
 	}
 	return (0);
 }
@@ -85,7 +83,6 @@ int     job_init(t_ltree *entity)
 	li = find_in_variables(g_rdovar, &sy, "42SH_NONINTERACTIVE=");
 	g_is_interactive = !(g_rdovar[li][sy] - '0');
 	g_shell_pgid = getpgid(0);
-
 	/* If first entity in pipeline or no jobs yet, form new job */
 	if (((entity->flags & PIPED_OUT) && (entity->flags & ~PIPED_IN)) || !g_first_job)
 	{

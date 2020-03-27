@@ -38,7 +38,7 @@ struct termios		g_shell_tmodes;
 char				g_is_interactive;
 pid_t				g_shell_pgid;
 char				*g_path;
-job					*g_first_job = NULL;
+job					*g_first_job;
 
 /* TODO: Redistribute functions between files according to norm */
 
