@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/26 22:14:12 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/27 11:57:04 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,7 @@ void				signal_ctrl_y_parser(int sig);
 */
 
 int					error_handler(int status, char *str);
+int					error_handler_continuation(int status, char *str);
 int					variable_errors(int status, char *str);
 int					options_errors(int status, char *str);
 int					syntax_errors(int status, char *str);
