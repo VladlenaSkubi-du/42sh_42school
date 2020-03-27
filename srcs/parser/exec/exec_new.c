@@ -7,6 +7,8 @@
 #include "builtins_list.h"
 #include "jobs.h"
 
+/* SEGFAULT HERE */
+
 int		exec_vp(process *p)
 {
 	if (!(g_path = path_init(p->argv)))
@@ -21,6 +23,7 @@ void	launch_process (process *p, pid_t pgid, int stream[3], int foreground)
 {
 	pid_t pid;
 
+
  	if (g_is_interactive)
 	{
       /* Put the process into the process group and give the process group
@@ -30,9 +33,10 @@ void	launch_process (process *p, pid_t pgid, int stream[3], int foreground)
 		 pid = getpid ();
 		 if (pgid == 0) pgid = pid;
 		 setpgid (pid, pgid);
+
+		 signal(SIGTTOU, SIG_IGN);
 		 if (foreground)
 		 	tcsetpgrp(STDIN_FILENO, pgid);
-
 		/* Set the handling for job control signals back to the default.  */
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
@@ -58,7 +62,6 @@ void	launch_process (process *p, pid_t pgid, int stream[3], int foreground)
 		dup2 (stream[2], STDERR_FILENO);
 		close (stream[2]);
 	}
-
 	/* Exec the new process.  Make sure we exit.  */
 	exec_vp(p);
 	exec_clean(g_path, 0);

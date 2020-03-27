@@ -166,7 +166,6 @@ int	 launch_job (job *j, int foreground)
 		}
 		else
 	        outfile = j->stdout;
-
 			/* Fork the child processes.  */
 		pid = fork ();
 	 	if (pid == 0)
