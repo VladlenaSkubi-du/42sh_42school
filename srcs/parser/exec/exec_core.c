@@ -246,7 +246,10 @@ int		exec_core(t_ltree *pos)
 		return (exec_clean(path, -1));
 	(pos->flags & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
 	if ((pos->flags & PIPED_OUT) && pipe(pipe_next) == -1)
-			return (exec_clean(path, -1));
+	{
+		ft_putendl_fd("e-bash: Pipe failed", STDERR_FILENO);
+		return (exec_clean(path, -1));
+	}
 	std_save(0);
 	fd_list_process(pos);
 	(pos->flags & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
@@ -260,6 +263,8 @@ int		exec_core(t_ltree *pos)
 				exit(-1);
 		}
 		else if (child_pid < 0)
+		{
+			ft_putendl_fd("e-bash: Fork failed", STDERR_FILENO);
 			return (exec_clean(path, -1));
 		wait(&child_pid);
 	}
