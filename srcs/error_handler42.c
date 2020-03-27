@@ -56,7 +56,10 @@ int				error_handler_continuation(int status, char *str)
 	else if ((status & 0x1FF) == COMMAND_NOT_FOUND)
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd("command not found", STDERR_FILENO);
+		if (status >> 9 & ERR_COMMAND)
+			ft_putendl_fd("command not found", STDERR_FILENO);
+		else if (status >> 9 & ERR_FILE_DIRECTORY)
+			ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 	}
 	return (0);
 }
