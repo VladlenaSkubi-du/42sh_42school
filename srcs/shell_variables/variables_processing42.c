@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   variables_processing42.c                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/18 13:27:42 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/03/18 14:44:26 by vladlenasku      ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "shell42.h"
 
 /*
@@ -44,14 +32,16 @@ size_t				find_in_variables(char **arr, size_t *j, char *name)
 {
 	size_t			i;
 	size_t			tmp;
+	size_t			len_name;
 
 	i = 0;
 	if (!arr)
 		return (-1);
+	len_name = ft_strlen(name);
 	while (arr[i])
 	{
 		tmp = ft_strchri(arr[i], '=');
-		if (ft_strncmp(arr[i], name, tmp) == 0)
+		if (ft_strncmp(arr[i], name, len_name) == 0)
 		{
 			*j = tmp + 1;
 			return (i);

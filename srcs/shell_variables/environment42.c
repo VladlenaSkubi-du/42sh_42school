@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   environment42.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/15 15:45:55 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/18 15:28:03 by vladlenasku      ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "shell42.h"
 
 /*
@@ -54,7 +42,7 @@ int					save_readonly_variables(void)
 	char			*tmp;
 	size_t			size_tmp;
 
-	num = 9;
+	num = 11;
 	g_rdovar = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
 	g_rdovar[0] = (char*)ft_xmalloc(sizeof(char) * MAX_EXIT_STATUS);
 	g_rdovar[0] = ft_strcpy(g_rdovar[0], "?=0");
@@ -62,18 +50,20 @@ int					save_readonly_variables(void)
 	g_rdovar[2] = ft_strdup("42SH_SUBSHELL=0");
 	g_rdovar[3] = ft_strdup("42SH_PARSER=0");
 	g_rdovar[4] = ft_strdup("42SH_NONINTERACTIVE=0");
+	g_rdovar[5] = ft_strjoin("PWD=", getcwd(NULL, MAXDIR));
+	g_rdovar[6] = ft_strjoin("OLDPWD=", getcwd(NULL, MAXDIR));
 	tmp = (char*)ft_xmalloc(50);
 	size_tmp = 50;
-	g_rdovar[5] = ft_strjoin("42SH=", getcwd(tmp, size_tmp));
+	g_rdovar[7] = ft_strjoin("42SH=", getcwd(tmp, size_tmp));
 	free(tmp);
 	tmp = ft_itoa(getuid());
-	g_rdovar[6] = ft_strjoin("UID=", tmp);
+	g_rdovar[8] = ft_strjoin("UID=", tmp);
 	free(tmp);
 	tmp = ft_itoa(geteuid());
-	g_rdovar[7] = ft_strjoin("EUID=", tmp);
+	g_rdovar[9] = ft_strjoin("EUID=", tmp);
 	free(tmp);
 	tmp = ft_itoa(getppid());
-	g_rdovar[8] = ft_strjoin("PPID=", tmp);
+	g_rdovar[10] = ft_strjoin("PPID=", tmp);
 	free(tmp);
 	return (0);
 }

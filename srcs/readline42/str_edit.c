@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   str_edit.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/13 14:16:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/23 12:59:16 by vladlenasku      ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "shell42.h"
 #include "readline.h"
 
@@ -34,6 +22,20 @@ int					char_add(char c, char *color)
 		g_rline.cmd_buff_len += CMD_SIZE;
 	}
 	undo(0);
+	g_rline.cmd_len++;
+	insert_char(c, color);
+	return (0);
+}
+
+int					char_add_without_undo(char c, char *color)
+{
+	if (g_rline.cmd_len >= g_rline.cmd_buff_len - 1)
+	{
+		g_rline.cmd = (char *)ft_realloc(g_rline.cmd, g_rline.cmd_len,
+			g_rline.cmd_buff_len,
+			g_rline.cmd_buff_len + CMD_SIZE);
+		g_rline.cmd_buff_len += CMD_SIZE;
+	}
 	g_rline.cmd_len++;
 	insert_char(c, color);
 	return (0);
@@ -64,34 +66,5 @@ int					insert_char(char c, char *color)
 		g_rline.pos++;
 		front_insert_one_char(c, g_rline.pos_y, 'm', color);
 	}
-	return (0);
-}
-
-int					front_insert_by_letters(char *str, int *pos_x, char flag)
-{
-	size_t			i;
-
-	i = 0;
-	while (str[i])
-	{
-		front_insert_one_char(str[i], *pos_x, 'c', NULL);
-		(*pos_x) = i;
-		if (*pos_x == g_screen.ws_col - 1)
-			*pos_x = 0;
-		i++;
-	}
-	return (0);
-}
-
-int					front_write_one_char(char c, char *color)
-{
-	if (color != NULL)
-	{
-		write(STDOUT_FILENO, color, ft_strlen(color));
-		write(STDOUT_FILENO, &c, 1);
-		write(STDOUT_FILENO, DEFAULT, ft_strlen(DEFAULT));
-	}
-	else
-		write(STDOUT_FILENO, &c, 1);
 	return (0);
 }

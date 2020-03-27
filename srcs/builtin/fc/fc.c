@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   fc.c                                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/15 14:10:50 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/25 02:11:07 by vladlenasku      ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "shell42.h"
 #include "builtin42.h"
 
@@ -40,11 +28,12 @@ int                 btin_fc(t_ltree *pos)
 	fc_arg = init_btin_fc();
 	flags = find_options(1, (char*[]){"elsrn"}, pos->ar_v);
 	if (flags < 0)
-		return (0);
+		return (btin_return_exit_status());
 	flags = 0;
 	if (btin_fc_find_mode(pos->ar_v, &fc_arg, &flags) == HIST_ERROR)
-		return (0);
-	btin_fc_route_execution(fc_arg, flags);
+		return (btin_return_exit_status());
+	if (btin_fc_route_execution(fc_arg, flags, pos->envir) == HIST_ERROR)
+		return (btin_return_exit_status());
 	free(fc_arg);
 	return (0);
 }

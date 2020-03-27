@@ -3,23 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   libft_42.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 20:46:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/03 14:40:35 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/03/26 22:15:18 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_42_H
 # define LIBFT_42_H
-
-# include <unistd.h>
-# include <stdlib.h>
-
-# include "exit_status.h"
-
-# include "ft_printf.h" //If not used, delete
-# include "get_next_line.h" //If not used, delete
 
 typedef struct					s_stack
 {
@@ -46,7 +38,8 @@ size_t	                        ft_count_words(char const *s, char c,
 size_t			                ft_strlenchri(const char *s, char c);
 char                            *ft_find_token_sep(char *str);
 int						        ft_gnl(const int fd, char **line);
-int								ft_strdiff(char const *s1, char const *s2);
+void							ft_putnendl_fd(char *str, int n, int fd);
+void							ft_putnstr_fd(char *str, int n, int fd);
 
 /*
 ** Folder stack_structure______________________________________________________

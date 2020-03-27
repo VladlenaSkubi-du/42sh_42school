@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   front_cursor_changes.c                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/20 16:59:26 by sschmele          #+#    #+#             */
-/*   Updated: 2020/02/24 19:35:33 by sschmele         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "shell42.h"
 #include "readline.h"
 
@@ -59,5 +47,34 @@ int					front_move_one_char_left(int pos_x)
 		g_rline.pos_x = prev_x;
 		g_rline.pos_y--;
 	}
+	return (0);
+}
+
+int					front_insert_by_letters(char *str, int *pos_x, char flag)
+{
+	size_t			i;
+
+	i = 0;
+	while (str[i])
+	{
+		front_insert_one_char(str[i], *pos_x, 'c', NULL);
+		(*pos_x) = i;
+		if (*pos_x == g_screen.ws_col - 1)
+			*pos_x = 0;
+		i++;
+	}
+	return (0);
+}
+
+int					front_write_one_char(char c, char *color)
+{
+	if (color != NULL)
+	{
+		write(STDOUT_FILENO, color, ft_strlen(color));
+		write(STDOUT_FILENO, &c, 1);
+		write(STDOUT_FILENO, DEFAULT, ft_strlen(DEFAULT));
+	}
+	else
+		write(STDOUT_FILENO, &c, 1);
 	return (0);
 }

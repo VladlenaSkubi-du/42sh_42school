@@ -1,14 +1,6 @@
 
 #ifndef JOBS_H
-#define JOBS_H
-# include <stdio.h>
-# include <sys/types.h>
-# include <termios.h>
-# include <unistd.h>
-# include <signal.h>
-# include "libft_42.h"
-# include "shell42.h"
-# include "parser.h"
+# define JOBS_H
 
 /* A process is a single process.  */
 typedef struct  process
@@ -23,7 +15,7 @@ typedef struct  process
 }   process;
 
 /* A job is a pipeline of processes.  */
-typedef struct job
+typedef struct  job
 {
     struct job *next;           /* next active job */
     char *command;              /* command line, used for messages */

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init_structures.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/05 13:38:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/09 19:03:55 by vladlenasku      ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "shell42.h"
 #include "builtin42.h"
 
@@ -25,4 +13,13 @@ t_btin_fc			*init_btin_fc(void)
 	fc->s_comp = NULL;
 	fc->s_cmd = NULL;
 	return (fc);
+}
+
+int					btin_return_exit_status(void)
+{
+	size_t			li;
+	size_t			sy;
+	
+	li = find_in_variables(g_rdovar, &sy, "?");
+	return (ft_atoi(&g_rdovar[li][sy]));
 }
