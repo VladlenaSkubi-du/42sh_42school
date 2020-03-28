@@ -98,7 +98,7 @@ int     btin_echo(t_ltree *pos)
     t_ec    *echo_flags;
     int     i;
 
-    echo_flags = ft_xmalloc(sizeof(t_ec *));
+    echo_flags = ft_xmalloc(sizeof(t_ec));
     i = parse_echo_flags(pos->ar_v, echo_flags);
     write_text(pos->ar_v, i, echo_flags);
     free(echo_flags);
