@@ -1,5 +1,6 @@
 #include "shell42.h"
 #include "parser.h"
+#include "builtin42.h"
 #include "builtins_list.h"
 
 void	free_vec(char **vec)
