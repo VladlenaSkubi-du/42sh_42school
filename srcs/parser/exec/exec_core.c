@@ -46,6 +46,7 @@ int		exec_core(t_ltree *pos)
 	static int		pipe_prev;
 	static int		pipe_next[2];
 
+	path = NULL;
 	if (ft_builtins_check(pos, 0) == -1 && !(path = path_init(pos->ar_v)))
 		return (exec_clean(path, -1, 0));
 	(pos->flags & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
@@ -58,7 +59,6 @@ int		exec_core(t_ltree *pos)
 	if (ft_builtins_check(pos, 1) == -1 &&
 		fork_and_exec(pos, path, &child_pid) == -1)
 		return (-1);
-
 	(pos->flags & PIPED_OUT) ? close(pipe_next[1]) : 0;
 	(pos->flags & PIPED_IN) ? close(pipe_prev) : 0;
 	std_save(1);
