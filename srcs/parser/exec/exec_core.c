@@ -46,6 +46,7 @@ int		exec_core(t_ltree *pos)
 	static int		pipe_next[2];
 
 	path = NULL;
+	child_pid = WIFEXITED;
 	if (ft_builtins_check(pos, 0) == -1 && !(path = path_init(pos->ar_v)))
 		return (exec_clean(path, -1, 0));
 	(pos->flags & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
