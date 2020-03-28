@@ -42,7 +42,7 @@ int		exec_vp(process *p);
 void	launch_process (process *p, pid_t pgid, int stream[3], int foreground);
 
 job		*job_new(void);
-int		vec_dup(char **dst, char **src);
+int		vec_dup(char ***dst, char **src);
 int		process_fill(process *proc, t_ltree *entity);
 int		process_new(job *jobs, t_ltree *entity);
 int     job_init(t_ltree *entity);
