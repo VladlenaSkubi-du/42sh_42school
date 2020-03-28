@@ -63,7 +63,7 @@ int		ft_check_null(t_ltree *sub, t_list **list)
 	}
 	if (i == sub->end && sub->l_tline.line[sub->end] == END_T)
 		sub->flags |= ERR_IN;
-	else if (i == sub->end)
+	else if (i == sub->end || sub->end - sub->start == 1)
 	{	
 		sub->flags |= ERR_OUT | ERR_REDIR << 16;
 		sub->err_i = i;
