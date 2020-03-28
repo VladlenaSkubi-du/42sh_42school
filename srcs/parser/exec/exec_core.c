@@ -1,6 +1,5 @@
 #include "shell42.h"
 #include "parser.h"
-#include "builtins_list.h"
 
 /*
 ** Delete pipe process and simplify, leaving only dealing with EXECPATH
