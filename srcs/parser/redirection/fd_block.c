@@ -105,6 +105,7 @@ int		ft_num_or_word_out(char **f_name, t_fd_redir *fd_open,
 			(fd_open->fd_in = fd_ret) >= 0 ?
 			add_redir_fd(final, fd_open) : 0;
 	}
+	free(*f_name);
 	return (0);
 }
 
@@ -132,5 +133,6 @@ int		ft_num_or_word_in(char **f_name, t_fd_redir *fd_open,
 			(fd_open->fd_in = fd_ret) >= 0 ?
 			add_redir_fd(final, fd_open) : 0;
 	}
+	free(*f_name);
 	return (0);
 }
