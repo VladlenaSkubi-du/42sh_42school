@@ -95,7 +95,7 @@ int     insert_str_in_loc_strs(t_ltree *sub, char **insert, size_t *i, int flag)
 	sub->l_tline.alloc_size += len_ins - 1;
 	buf = (char *)ft_xmalloc(sizeof(char) * (sub->l_tline.alloc_size));
 	ft_memcpy(buf, sub->l_tline.line, *i);
-	sub->l_tline.len += len_ins - 1;
+	(sub->l_tline.len += len_ins - 1) > 0 ? sub->end = sub->l_tline.len : 0;
 	len_ins += *i;
 	(*i)--;
 	while (++(*i) < len_ins)
@@ -104,6 +104,7 @@ int     insert_str_in_loc_strs(t_ltree *sub, char **insert, size_t *i, int flag)
 		sub->l_tline.len - *i);
 	free(sub->l_tline.line);
 	sub->l_tline.line = buf;
-	free(*insert); 
+	free(*insert);
+	(*i)--;
 	return (0);
 }
