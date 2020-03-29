@@ -97,12 +97,11 @@ int     insert_str_in_loc_strs(t_ltree *sub, char **insert, size_t *i, int flag)
 	ft_memcpy(buf, sub->l_tline.line, *i);
 	sub->l_tline.len += len_ins - 1;
 	len_ins += *i;
-	while (*i < len_ins)
-	{
+	(*i)--;
+	while (++(*i) < len_ins)
 		buf[*i] = (flag == TEXT) ? flag : get_tech_num(*insert[len_ins - *i]);
-		(*i)++;
-	}
-	ft_strcpy(buf + *i, sub->l_tline.line + *i - ft_strlen(*insert) + 1);
+	ft_memcpy(buf + *i, sub->l_tline.line + *i - ft_strlen(*insert) + 1,
+		sub->l_tline.len - *i);
 	free(sub->l_tline.line);
 	sub->l_tline.line = buf;
 	free(*insert); 

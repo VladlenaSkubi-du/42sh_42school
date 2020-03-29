@@ -56,6 +56,7 @@ int		exec_core(t_ltree *pos)
 	fd_list_process(pos);
 	(pos->flags & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
 	(pos->flags & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
+	child_pid = 0;
 	if (ft_builtins_check(pos, 1) == -1 &&
 		fork_and_exec(pos, path, &child_pid) == -1)
 		return (-1);
