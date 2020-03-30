@@ -7,6 +7,10 @@ job		*job_new(void)
 	job		*job_iter;
 
 	job_new = (job *)ft_xmalloc(sizeof(job));
+	job_new->first_process = NULL;
+	job_new->stdin = STDIN_FILENO;
+	job_new->stdout = STDOUT_FILENO;
+	job_new->stderr = STDERR_FILENO;
 	if (!g_first_job)
 		g_first_job = job_new;
 	else
@@ -19,7 +23,7 @@ job		*job_new(void)
 	return (job_new);
 }
 
-int		vec_dup(char **dst, char **src)
+int		vec_dup(char ***dst, char **src)
 {
 	size_t	i;
 
@@ -28,11 +32,11 @@ int		vec_dup(char **dst, char **src)
 		return (-1);
 	while (src[i])
 		i++;
-	dst = (char **)ft_xmalloc(sizeof(char *) * (i + 1));
+	*dst = (char **)ft_xmalloc(sizeof(char *) * (i + 1));
 	while (i > 0)
 	{
 		i--;
-		dst[i] = ft_strdup(src[i]);
+		(*dst)[i] = ft_strdup(src[i]);
 	}
 	return (0);
 }
@@ -41,8 +45,9 @@ int		vec_dup(char **dst, char **src)
 
 int		process_fill(process *proc, t_ltree *entity)
 {
-	vec_dup(proc->argv, entity->ar_v);
-	vec_dup(proc->envp, entity->envir);
+	vec_dup(&proc->argv, entity->ar_v);
+	vec_dup(&proc->envp, entity->envir);
+	proc->next = NULL;
 	return (0);
 }
 
