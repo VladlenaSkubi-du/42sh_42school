@@ -24,24 +24,3 @@ int					btin_fc_edit_no_args(t_btin_fc **fc_arg, int *flags)
 	(*fc_arg)->first_buf = g_hist.last;
 	return (btin_fc_edit_mode_flags_off(flags));
 }
-
-/*
-** Because of norm it is here
-*/
-
-int					btin_fc_exec_mode_add_comp(t_btin_fc **fc_arg, char *comp)
-{
-	static int		i;
-
-	if (comp != NULL)
-	{
-		(*fc_arg)->s_comp[i] = comp;
-		i++;
-	}
-	else
-	{
-		free((*fc_arg)->s_comp);
-		i = 0;
-	}
-	return (0);
-}

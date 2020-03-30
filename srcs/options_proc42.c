@@ -72,8 +72,6 @@ int			options_in_arg(char *arri, int num, char *flags_arr[num], int *final)
 		res = options_proc(arri[j], flags_arr[0], final);
 		if (res == ERR_OPTION)
 			return ((tmp != CONTINUE) ? ERR_OPTION : CONTINUE);
-		// else if (res == NUM_OPTION && !(tmp == -1 || tmp == NUM_OPTION))
-		// 	return (ERR_OPTION);
 		else if (res == SUBOPTION)
 		{
 			res = suboptions_proc(arri, num, flags_arr, final);

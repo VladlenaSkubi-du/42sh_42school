@@ -16,8 +16,11 @@ int					make_ctrl_r_history(void)
 	front_insert_by_letters("We search in history: ", &coincidence, 'c');
 	find = get_the_answer_hist(&len);
 	clean_output_question(0, pos_back, len, len_x);
-	if (find == NULL)
+	if (find == NULL || find[0] == '\0')
+	{
+		free(find);
 		return (OUT);
+	}
 	coincidence = find_in_history(find);
 	free(find);
 	if (coincidence < 0)
