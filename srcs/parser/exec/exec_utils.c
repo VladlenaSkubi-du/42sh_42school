@@ -65,18 +65,20 @@ int	exec_clean(char *path, int exit_status, char *err_msg)
 int		ft_builtins_check(t_ltree *pos, int flag)
 {
 	int	i;
-	int	exit;
 
-	i = 0;
+	i = 1;
+	if (pos->ar_v[0][0] == '!')
+	{
+		if (flag)
+			exit_status_variable(g_builtins_func[0](pos));
+		return (i);
+	}
 	while (g_builtins[i])
 	{
 		if (!ft_strcmp(pos->ar_v[0], g_builtins[i]))
 		{
 			if (flag)
-			{
-				exit = g_builtins_func[i](pos);
-				exit_status_variable(exit);
-			}
+				exit_status_variable(g_builtins_func[i](pos));
 			return (i);
 		}
 		i++;
