@@ -21,5 +21,5 @@ int			undo_wrap(void)
 
 int			make_ctrl_p_wrap(void)
 {
-	return (make_ctrl_y(1, NULL));
+	return (make_ctrl_p(1, NULL));
 }

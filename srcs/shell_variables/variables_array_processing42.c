@@ -67,3 +67,25 @@ int				add_new_to_exec_env(char ***array, char **add)
 	}	
 	return (0);
 }
+
+int				unset_from_array(char ***arr, int i)
+{
+	char		**tmp;
+
+	tmp = *arr;
+	if (i == 0)
+	{
+		free(tmp[i]);
+		tmp[0] = NULL;
+		return (0);
+	}
+	free(tmp[i]);
+	tmp[i] = tmp[i + 1];
+	i++;
+	while (tmp[i])
+	{
+		tmp[i] = tmp[i + 1];
+		i++;
+	}
+	return (0);
+}

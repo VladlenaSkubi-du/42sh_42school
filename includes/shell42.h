@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/27 11:57:04 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/30 02:32:07 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ int					insert_assign_to_arrays(char *find, char *insert,
 int					add_to_environment_variables(char *add);
 int					add_to_local_variables(char *add);
 int					add_new_to_exec_env(char ***array, char **add);
+int					unset_from_array(char ***arr, int i);
 
 /*
 ** Folder signals____________________________________________________________

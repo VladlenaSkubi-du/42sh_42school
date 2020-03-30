@@ -41,7 +41,7 @@ char	*readline(void)
 		putcap("cd");
 	}
 	else
-		ft_putendl_fd(0, STDIN_FILENO);
+		ft_putendl_fd(0, STDOUT_FILENO);
 	action_alloc_management(NULL, 1);
 	save_current_grline(2);
 	return (g_rline.cmd);

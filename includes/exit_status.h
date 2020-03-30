@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/27 14:36:07 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/30 03:23:55 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,14 @@
 ** Option errors are errors that exit with 2
 */
 
-# define	ERR_EBASH_C 0x1
-# define	ERR_BTIN_INVALID 0x2
-# define	ERR_BTIN_ARG 0x4
+# define	ERR_BTIN_INVALID 0x1
+# define	ERR_BTIN_ARG 0x2
 
 /*
 ** Command errors for exit with 127
 */
 
 # define	ERR_COMMAND 0x1
-# define	ERR_FILE_DIRECTORY 0x2
 
 /*
 ** Syntax errors are errors that exit with 258

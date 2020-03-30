@@ -1,26 +1,6 @@
 #include "shell42.h"
 #include "builtin42.h"
 
-int					btin_fc_exec_mode(char **argv, int j, t_btin_fc **fc_arg,
-						int *flags)
-{
-	int				i;
-
-	if (g_hist.len > 0)
-		delete_last_history_element();
-	if (g_hist.len < 1)
-	{
-		error_handler(VARIABLE_ERROR | (ERR_HISTORY_EXEC << 9), "fc");
-		return (HIST_ERROR);
-	}
-	i = btin_fc_exec_check_line_args(argv, j, fc_arg, flags);
-	if (i == HIST_ERROR)
-		return (HIST_ERROR);
-	if (argv[++i])
-		return (btin_fc_exec_check_other_args(&argv[i], fc_arg, flags));
-	return (btin_fc_exec_no_args(fc_arg, flags));
-}
-
 int					btin_fc_exec_check_line_args(char **argv, int j,
 						t_btin_fc **fc_arg, int *flags)
 {
@@ -60,8 +40,8 @@ int					btin_fc_exec_check_other_args(char **argv,
 	i = -1;
 	while (argv[++i])
 	{
-		if (ft_isdigit(argv[i][0]) || (argv[i][0] == '-' &&
-			ft_isdigit(argv[i][1])))
+		if ((ft_isdigit(argv[i][0]) || (argv[i][0] == '-' &&
+			ft_isdigit(argv[i][1]))) && ((tmp = ft_strchri(argv[i], '=')) == -1))
 		{
 			(*fc_arg)->flag |= ARG_FIRST;
 			(*fc_arg)->first = ft_atoi(argv[i]);
@@ -123,4 +103,21 @@ int					btin_fc_exec_check_invalid(char **argv,
 	if (argv[i][0] == '-' && argv[i][1] == '-' && !argv[i][2])
 		return (btin_fc_exec_mode_comp(&argv[i], fc_arg, flags));
 	return (i);
+}
+
+int				btin_fc_one_int__exec(t_btin_fc **fc_arg)
+{
+	int			temp;
+
+	temp = g_hist.last_fc - ((g_hist.last + 1 == g_hist.len) ?
+		g_hist.len - 1 : g_hist.last) + 1;
+	if ((*fc_arg)->first > 0)
+	{
+		if (((*fc_arg)->first_buf = btin_fc_positive_int__exec
+			((*fc_arg)->first, temp, g_hist.last_fc)) == HIST_ERROR)
+			return (HIST_ERROR);
+	}
+	else
+		(*fc_arg)->first_buf = btin_fc_negative_int__exec((*fc_arg)->first);
+	return (0);
 }

@@ -1,25 +1,6 @@
 #include "shell42.h"
 #include "builtin42.h"
 
-static int	unset_from_array(char **arr, t_ltree *pos, int i)
-{
-	if (i == 0)
-	{
-		free(arr[i]);
-		arr[0] = NULL;
-		return (0);
-	}
-	free(arr[i]);
-	arr[i] = arr[i + 1];
-	i++;
-	while (arr[i])
-	{
-		arr[i] = arr[i + 1];
-		i++;
-	}
-	return (0);
-}
-
 int			btin_unset(t_ltree *pos)
 {
 	size_t	unused;
@@ -30,9 +11,9 @@ int			btin_unset(t_ltree *pos)
 	while (i < pos->ar_c)
 	{
 		if ((j = find_in_variables(g_env, &unused, pos->ar_v[i])) != -1)
-			unset_from_array(g_env, pos, j);
+			unset_from_array(&g_env, j);
 		if ((j = find_in_variables(g_lovar, &unused, pos->ar_v[i])) != -1)	
-			unset_from_array(g_lovar, pos, j);
+			unset_from_array(&g_lovar, j);
 		i++;
 	}
 	return (0);	

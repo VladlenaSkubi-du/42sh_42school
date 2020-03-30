@@ -31,16 +31,8 @@ int				error_handler(int status, char *str)
 	else if ((status & 0x1FF) == TERMINAL_TO_CAN)
 		ft_putendl_fd("terminal can't be changed, reset the terminal",
 			STDERR_FILENO); //TODO check
-	else if ((status & 0x1FF) == NONINERACTIVE)
-	{
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd(": can't be launched in non-interactive mode",
-			STDERR_FILENO);
-	}
 	else if ((status & 0x1FF) == TMPFILE)
 		ft_putendl_fd("can't open a temporal file", STDERR_FILENO); //TODO check
-	else if ((status & 0x1FF) == SYNTAX_ERROR)
-		syntax_errors(status, str);
 	else
 		error_handler_continuation(status, str);
 	return (exit_status_variable(status & 0x7F));
@@ -48,19 +40,30 @@ int				error_handler(int status, char *str)
 
 int				error_handler_continuation(int status, char *str)
 {
-	if ((status & 0x1FF) == COMMAND_NON_EXECUTABLE)
+	if ((status & 0x1FF) == COMMAND_NON_EXECUTABLE || (status >> 9 & ERR_NO_ACC))
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd(": Permission denied", STDERR_FILENO);
 	}
-	else if ((status & 0x1FF) == COMMAND_NOT_FOUND)
+	else if ((status & 0x1FF) == COMMAND_NOT_FOUND && (status >> 9 & ERR_COMMAND))
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
-		if (status >> 9 & ERR_COMMAND)
-			ft_putendl_fd(": command not found", STDERR_FILENO);
-		else if (status >> 9 & ERR_FILE_DIRECTORY)
-			ft_putendl_fd(": No such file or directory", STDERR_FILENO);
+		ft_putendl_fd(": command not found", STDERR_FILENO);
 	}
+	else if (((status & 0x1FF) == COMMAND_NOT_FOUND || (status & 0x1FF) == SYNTAX_ERROR) &&
+		status >> 9 & ERR_NO_FILE)
+	{
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
+	}
+	else if ((status & 0x1FF) == NONINERACTIVE)
+	{
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd(": can't be launched in non-interactive mode",
+			STDERR_FILENO);
+	}
+	else if ((status & 0x1FF) == SYNTAX_ERROR)
+		syntax_errors(status, str);
 	return (0);
 }
 
@@ -70,32 +73,20 @@ int				error_handler_continuation(int status, char *str)
 
 int				variable_errors(int status, char *str)
 {
-	if (status >> 9 & ERR_RDONLY)
+	if ((status >> 9 & ERR_SET) || (status >> 9 & ERR_CD))
 	{
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd(": readonly variable", STDERR_FILENO);
-	}
-	else if (status >> 9 & ERR_HISTORY_NUM)
-	{
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd(": history specification out of range", STDERR_FILENO);
-	}
-	else if (status >> 9 & ERR_HISTORY_EXEC)
-	{
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd(": no command found", STDERR_FILENO);
-	}
-	else if (status >> 9 & ERR_UNSET)
-	{
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd(": parameter null or not set", STDERR_FILENO);
-	}
-	else if (status >> 9 & ERR_SET)
 		ft_putendl_fd(str, STDERR_FILENO);
-    else if (status >> 9 & ERR_CD)
-    {
-        ft_putendl_fd(str, STDERR_FILENO);
-    }
+		return (0);
+	}
+	ft_putstr_fd(str, STDERR_FILENO);
+	if (status >> 9 & ERR_RDONLY)
+		ft_putendl_fd(": readonly variable", STDERR_FILENO);
+	else if (status >> 9 & ERR_HISTORY_NUM)
+		ft_putendl_fd(": history specification out of range", STDERR_FILENO);
+	else if (status >> 9 & ERR_HISTORY_EXEC)
+		ft_putendl_fd(": no command found", STDERR_FILENO);
+	else if (status >> 9 & ERR_UNSET)
+		ft_putendl_fd(": parameter null or not set", STDERR_FILENO);
 	return (0);
 }
 
@@ -105,21 +96,11 @@ int				variable_errors(int status, char *str)
 
 int				options_errors(int status, char *str)
 {
-	if (status >> 9 & ERR_EBASH_C)
-	{
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd(": -c: option requires an argument", STDERR_FILENO);
-	}
-	else if (status >> 9 & ERR_BTIN_INVALID)
-	{
-		ft_putstr_fd(str, STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	if (status >> 9 & ERR_BTIN_INVALID)
 		ft_putendl_fd(": invalid option", STDERR_FILENO);
-	}
 	else if (status >> 9 & ERR_BTIN_ARG)
-	{
-		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd(": option requires an argument", STDERR_FILENO);
-	}
 	return (0);
 }
 
@@ -144,30 +125,10 @@ int				syntax_errors(int status, char *str)
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd("'", STDERR_FILENO);
 	}
-	syntax_errors_files(status, str);
-	return (0);
-}
-
-/*
-** Continuetion of syntax_errors
-*/
-
-int			syntax_errors_files(int status, char *str)
-{
 	if (status >> 9 & ERR_BAD_FD)
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd(": Bad file descriptor", STDERR_FILENO);
-	}
-	if (status >> 9 & ERR_NO_ACC)
-	{
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd(": Permission denied", STDERR_FILENO);
-	}
-	if (status >> 9 & ERR_NO_FILE)
-	{
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 	}
 	return (0);
 }
