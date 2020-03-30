@@ -1,24 +1,6 @@
 #include "shell42.h"
 #include "builtin42.h"
 
-int					btin_fc_list_mode(char **argv, int j, t_btin_fc **fc_arg,
-						int *flags)
-{
-	int				i;
-
-	if (g_hist.len < 1)
-	{
-		error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
-		return (HIST_ERROR);
-	}
-	i = btin_fc_list_check_line_args(argv, j, fc_arg, flags);
-	if (i == HIST_ERROR)
-		return (HIST_ERROR);
-	if (argv[++i])
-		return (btin_fc_list_check_other_args(&argv[i], fc_arg, flags));
-	return (btin_fc_list_mode_no_args(fc_arg, flags));
-}
-
 int					btin_fc_list_check_line_args(char **argv, int j,
 						t_btin_fc **fc_arg, int *flags)
 {
@@ -49,7 +31,8 @@ int					btin_fc_list_check_other_args(char **argv,
 	i = -1;
 	while (argv[++i])
 	{
-		if (argv[i][0] != '-' || (argv[i][0] == '-' && !argv[i][1]))
+		if (!(argv[i][0] == '-' || ft_isdigit(argv[i][0])
+			|| (argv[i][0] == '-' && argv[i][1])))
 		{
 			error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
 			return (HIST_ERROR);
@@ -106,4 +89,18 @@ int					btin_fc_list_mode_num_args(char **argv, int i,
 	(*fc_arg)->last = ft_atoi(argv[i]);
 	return ((btin_fc_two_ints__list(fc_arg, flags) == HIST_ERROR) ?
 		HIST_ERROR : 0);
+}
+
+int				btin_fc_calculate_nums__list(int buffer, int from)
+{
+	int			value;
+	int			tmp;
+
+	from += (from < 1) ? HISTORY_LIMIT : 0;
+	tmp = buffer + from;
+	if (tmp > HISTORY_LIMIT)
+		value = tmp - HISTORY_LIMIT;
+	else
+		value = tmp;
+	return (value);
 }

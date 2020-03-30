@@ -86,7 +86,8 @@ SUBSTITUTION = 		parser/substitution/substitution.c \
 			parser/substitution/ft_curv_var.c \
 			parser/substitution/param_help_func.c \
 			parser/substitution/ft_substring_var.c \
-			parser/substitution/tilda.c
+			parser/substitution/tilda.c \
+			parser/substitution/history_sign.c
 
 ASSIGNMENT =		parser/assignment/backend_variables.c \
 			parser/assignment/assignment.c
@@ -162,6 +163,7 @@ STACK_STRUCTURE = 	libft_42/stack_structure/ft_init_stack.c \
 			libft_42/stack_structure/ft_last_stack.c
 
 SOURCES =	main.c \
+			options_42sh_42.c \
 			options_proc42.c \
 			error_handler42.c \
 			clean_all42.c \

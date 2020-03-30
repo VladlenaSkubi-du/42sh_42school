@@ -5,7 +5,8 @@ int				btin_fc_two_ints__list(t_btin_fc **fc_arg, int *flags)
 {
 	int			temp;
 
-	temp = g_hist.last_fc - (g_hist.len - 1) + 1;
+	temp = g_hist.last_fc - ((g_hist.last + 1 == g_hist.len) ?
+		g_hist.len - 1 : g_hist.last) + 1;
 	if (((*fc_arg)->flag & ARG_SECOND) && (*fc_arg)->last > 0)
 	{
 		if (((*fc_arg)->last_buf = btin_fc_positive_int__list
@@ -13,7 +14,7 @@ int				btin_fc_two_ints__list(t_btin_fc **fc_arg, int *flags)
 			return (HIST_ERROR);
 	}
 	else if ((*fc_arg)->flag & ARG_SECOND)
-		(*fc_arg)->last_buf = btin_fc_one_int__edit((*fc_arg)->last);
+		(*fc_arg)->last_buf = btin_fc_negative_int__list((*fc_arg)->last);
 	if (((*fc_arg)->flag & ARG_FIRST) && (*fc_arg)->first > 0)
 	{
 		if (((*fc_arg)->first_buf = btin_fc_positive_int__list
@@ -21,8 +22,7 @@ int				btin_fc_two_ints__list(t_btin_fc **fc_arg, int *flags)
 			return (HIST_ERROR);
 	}
 	else if ((*fc_arg)->flag & ARG_FIRST)
-		(*fc_arg)->first_buf = btin_fc_one_int__edit((*fc_arg)->first);
-	temp += (temp < 1) ? HISTORY_LIMIT : 0;
+		(*fc_arg)->first_buf = btin_fc_negative_int__list((*fc_arg)->first);
 	(*fc_arg)->last = ((*fc_arg)->flag & ARG_SECOND) ?
 		btin_fc_calculate_nums__list((*fc_arg)->last_buf, temp) : 0;
 	(*fc_arg)->first = ((*fc_arg)->flag & ARG_FIRST) ?
@@ -54,41 +54,19 @@ int				btin_fc_positive_int__list(int value, int from,
 	return (final);
 }
 
-int				btin_fc_calculate_nums__list(int buffer, int from)
+int				btin_fc_negative_int__list(int value)
 {
-	int			value;
-	int			tmp;
+	int			final_buf;
 
-	tmp = buffer + from;
-	if (tmp > HISTORY_LIMIT)
-		value = tmp - HISTORY_LIMIT;
-	else
-		value = tmp;
-	return (value);
-}
-
-int				btin_fc_one_int__exec(t_btin_fc **fc_arg)
-{
-	int			temp;
-	int			tmp;
-
-	temp = g_hist.last_fc - (g_hist.len - 1) + 1;
-	if ((*fc_arg)->first > 0)
+	final_buf = g_hist.last;
+	if (value <= 0)
 	{
-		if (((*fc_arg)->first_buf = btin_fc_positive_int__exec
-			((*fc_arg)->first, temp, g_hist.last_fc)) == HIST_ERROR)
-			return (HIST_ERROR);
+		value = (value == 0) ? -1 : value;
+		final_buf += value;
+		if (final_buf < 0)
+			final_buf = 0;
 	}
-	else
-	{
-		(*fc_arg)->first_buf = g_hist.last;
-		tmp = (*fc_arg)->first;
-		tmp = (tmp == 0) ? -1 : tmp;
-		(*fc_arg)->first_buf += tmp + 1;
-		if ((*fc_arg)->first_buf < 0)
-			(*fc_arg)->first_buf = 0;
-	}
-	return (0);
+	return (final_buf);
 }
 
 int				btin_fc_positive_int__exec(int value, int from,
@@ -112,5 +90,17 @@ int				btin_fc_positive_int__exec(int value, int from,
 		final = value - from;
 	else if (from < to)
 		final = g_hist.last;
+	return (final);
+}
+
+int				btin_fc_negative_int__exec(int value)
+{
+	int			final;
+
+	final = g_hist.last;
+	value = (value == 0) ? -1 : value;
+	final += value + 1;
+	if (final < 0)
+		final = 0;
 	return (final);
 }

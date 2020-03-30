@@ -46,6 +46,6 @@ int		    ft_tmpfile(char *tmpl)
 		fd = open(tmp, O_RDWR | O_CREAT | O_EXCL | O_CLOEXEC, 0666);
 	}
 	unlink(tmp);
-	free(tmp);
+	free(tmp); //Question??
 	return (fd);
 }

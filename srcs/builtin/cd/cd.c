@@ -30,6 +30,7 @@ int		ft_error(char *name, int en)
     char	*tmp;
     char	*new_name;
 
+	new_name = NULL;
 	tmp = ft_strdup("cd: ");
 	if (name) 
 		tmp = ft_strrejoin(tmp, name);

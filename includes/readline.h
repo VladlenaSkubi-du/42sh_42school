@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   readline.h                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/11 15:03:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/26 20:18:18 by vladlenasku      ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef READLINE_H
 # define READLINE_H
@@ -84,8 +73,6 @@ typedef struct					s_action_stack
 {
 	char						*cmd_b;
 	size_t						pos_b;
-	int							pos_x_b; //question
-	int							pos_y_b; //question
 	size_t						num_b;
 	struct s_action_stack		*next;
 	struct s_action_stack		*prev;
@@ -330,8 +317,8 @@ int								make_ctrl_w(void);
 int								make_ctrl_t(void);
 int								make_ctrl_t_begend(size_t len);
 int								make_ctrl_l(void);
-int								make_ctrl_y(int mode, char *yank);
-int								yank_insert(char *yank_str,
+int								make_ctrl_p(int mode, char *yank);
+int								paste_insert(char *yank_str,
 									size_t len_yank);
 
 /*

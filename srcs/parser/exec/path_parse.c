@@ -99,7 +99,7 @@ char	*path_init(char **exec_av)
 		if (access(*exec_av, F_OK) == -1)
 		{
 			error_handler(COMMAND_NOT_FOUND |
-				(ERR_FILE_DIRECTORY << 9), *exec_av);
+				(ERR_NO_FILE << 9), *exec_av);
 			return (0);
 		}
 		else if (access(*exec_av, X_OK) == -1)

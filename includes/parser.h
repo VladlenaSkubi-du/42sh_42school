@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/18 15:04:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/03/27 23:18:08 by rbednar          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
@@ -396,6 +385,12 @@ int						ft_find_tilda(t_ltree *sub, int flag);
 int						ft_getdir_by_name(t_ltree *sub, size_t *i, int flag);
 int						ft_get_home(t_ltree *sub, size_t *i, int flag);
 int						ft_find_dir_info(t_ltree *sub, char *user, size_t *i);
+
+/*
+** File history_sign.c
+*/
+
+int						ft_find_history(t_ltree *sub);
 
 /*
 ** Folder quoting_____________________________________________________________
