@@ -16,7 +16,7 @@ int		assignment(t_ltree *sub)
 		if (sub->l_tline.line[eq] == EQUAL)
 		{
 			var = (eq != 0) ? eq - 1 : 0;
-			val = (eq != sub->end) ?  eq + 1 : sub->end;
+			val = (eq != sub->end) ? eq + 1 : sub->end;
 			while (sub->l_tline.line[var] != SPACE && var != 0)
 				var--;
 			(sub->l_tline.line[var] == SPACE) ? var++ : 0;
