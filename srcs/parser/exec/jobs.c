@@ -103,6 +103,7 @@ job		*find_job (pid_t pgid)
 	j = g_first_job;
 	while (j)
 	{
+		printf("PGID: %d FIND: %d\n", j->pgid, pgid);
 		if (j->pgid == pgid)
 			return (j);
 		j = j->next;
@@ -127,10 +128,14 @@ void	child_handler(int sig)
 	process	*proc;
 
 	child_pid = waitpid(0, &status, WUNTRACED);
+	/* YOU CAN'T GET PGID OF TERMINATED PROC */
 	child_pgid = getpgid(child_pid);
 	j = find_job(child_pgid);
+	printf("child_handler after find_job %s\n", j);
 	proc = find_process(j, child_pid);
+	printf("child_handler after find_process\n");
 	process_update(proc, status);
+	printf("child_handler after process_update\n");
 	if (job_is_completed(j))
 	{
 		/* Background handler? */
