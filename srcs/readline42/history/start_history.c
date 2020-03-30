@@ -10,18 +10,9 @@ int				start_history(void)
 	init_history_buffer();
 	i = find_in_variables(g_shvar, &j, "HISTFILE=");
 	fd = open(g_shvar[i] + j, O_RDONLY);
-	// printf("FD = %d - %s\n", fd, g_shvar[i]);
 	if (fd < 0)
 		return (0);
 	save_hist_buffer(fd);
-
-	// i = 0;
-	// while (g_hist.hist[i])
-	// {
-	// 	printf("%lu - %s\n", i + 1, g_hist.hist[i]);
-	// 	i++;
-	// }
-
 	close(fd);
 	return (0);
 }
@@ -37,7 +28,6 @@ void			init_history_buffer(void)
 		i++;
 	g_hist.len = ft_atoi(&g_shvar[i][tmp]) + 1;
 	g_hist.hist = (char**)ft_xmalloc(sizeof(char*) * (g_hist.len + 1));
-	g_hist.hist[g_hist.len] = 0;
 	g_hist.last = -1;
 	g_hist.start = 0;
 	g_hist.counter = 0;
@@ -75,7 +65,7 @@ char			*define_history_file(void)
 ** symbol in the line only
 */
 
-int				add_to_history(char *cmd) //Когда будет запуск, сделать перезапись истории по командам, осторожнее с fc
+int				add_to_history(char *cmd)
 {
 	int			flag;
 

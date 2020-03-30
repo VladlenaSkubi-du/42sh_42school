@@ -96,7 +96,7 @@ int					save_shell_variables(void)
 	tmp = ft_itoa(MAX_HISTFILE);
 	g_shvar[2] = ft_strjoin("HISTFILESIZE=", tmp);
 	free(tmp);
-	g_shvar[3] = ft_strdup("FCEDIT=emacs"); //TODO put vim
+	g_shvar[3] = ft_strdup("FCEDIT=vim");
 	return (0);
 }
 

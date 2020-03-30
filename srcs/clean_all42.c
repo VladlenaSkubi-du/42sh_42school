@@ -20,7 +20,7 @@ int				clean_everything(void)
 	{
 		ft_arrdel(g_hist.hist);
 		ft_arrdel(g_shvar);
-		make_ctrl_y(2, NULL);
+		make_ctrl_p(2, NULL);
 		clean_termcap();
 	}
 	ft_arrdel(g_env);

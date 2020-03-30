@@ -60,7 +60,7 @@ int			make_ctrl_t_begend(size_t len)
 	return (0);
 }
 
-int			make_ctrl_y(int mode, char *yank)
+int			make_ctrl_p(int mode, char *yank)
 {
 	static char		*yank_str;
 	static size_t	len_yank;
@@ -81,14 +81,14 @@ int			make_ctrl_y(int mode, char *yank)
 	{
 		if (yank_str == NULL)
 			return (incorrect_sequence());
-		yank_insert(yank_str, len_yank);
+		paste_insert(yank_str, len_yank);
 	}
 	else if (mode == 2)
 		(yank_str) ? free(yank_str) : 0;
 	return (0);
 }
 
-int			yank_insert(char *yank_str, size_t len_yank)
+int			paste_insert(char *yank_str, size_t len_yank)
 {
 	char			*save;
 	size_t			i;

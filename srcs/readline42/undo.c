@@ -10,8 +10,6 @@ t_action_stack	*action_new(void)
 	new->cmd_b = (char*)ft_xmalloc(g_rline.cmd_buff_len + 1);
 	ft_strcpy(new->cmd_b, g_rline.cmd);
 	new->pos_b = g_rline.pos;
-	new->pos_x_b = g_rline.pos_x;
-	new->pos_y_b = g_rline.pos_y;
 	new->num_b = g_rline.str_num;
 	new->next = 0;
 	new->prev = 0;

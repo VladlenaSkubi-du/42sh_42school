@@ -11,7 +11,7 @@ int			make_ctrl_k(void)
 	undo(0);
 	save_yank = ft_strdup(g_rline.cmd + g_rline.pos);
 	g_rline.cmd_len -= ft_strlen(g_rline.cmd + g_rline.pos);
-	make_ctrl_y(0, save_yank);
+	make_ctrl_p(0, save_yank);
 	tputs(g_cap.cd, 1, printc);
 	ft_bzero(g_rline.cmd + g_rline.pos, ft_strlen(g_rline.cmd + g_rline.pos));
 	return (0);
@@ -28,7 +28,7 @@ int			make_ctrl_u(void)
 		return (incorrect_sequence());
 	undo(0);
 	save_yank = ft_strndup(g_rline.cmd, g_rline.pos);
-	make_ctrl_y(0, save_yank);
+	make_ctrl_p(0, save_yank);
 	swap = g_rline.cmd + g_rline.pos;
 	len_swap = ft_strlen(swap);
 	ft_strcpy(g_rline.cmd, swap);
@@ -76,7 +76,7 @@ int			make_ctrl_w(void)
 	if (word_left_proc())
 		return (0);
 	save_yank = ft_strndup(g_rline.cmd + g_rline.pos, pos_old);
-	make_ctrl_y(0, save_yank);
+	make_ctrl_p(0, save_yank);
 	swap = g_rline.cmd + pos_old;
 	len_swap = ft_strlen(swap);
 	g_rline.cmd_len = g_rline.pos + len_swap;

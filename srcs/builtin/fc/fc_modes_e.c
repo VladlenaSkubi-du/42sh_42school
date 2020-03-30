@@ -2,14 +2,14 @@
 #include "builtin42.h"
 
 int					btin_fc_edit_mode(char **argv, t_btin_fc **fc_arg,
-						int *flags) //проверить на другие флаги, больше тестов
+						int *flags)
 {
 	size_t			li;
 	size_t			sy;
 
 	if (g_hist.len > 0)
 		delete_last_history_element();
-	if (g_hist.len < 1)
+	if (g_hist.len < 1 || g_hist.last < 0)
 	{
 		error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
 		return (HIST_ERROR);
@@ -53,10 +53,8 @@ int					btin_fc_edit_mode_num_args(char **argv, int i,
 	(*fc_arg)->first = ft_atoi(argv[i]);
 	i++;
 	if (!argv[i])
-	{
-		(*fc_arg)->first_buf = btin_fc_one_int__edit((*fc_arg)->first);
-		return (0);
-	}
+		return ((btin_fc_one_int__exec(fc_arg) == HIST_ERROR) ?
+			HIST_ERROR : 0);
 	else if (!(ft_isdigit(argv[i][0]) || (argv[i][0] == '-' &&
 		ft_isdigit(argv[i][1]))))
 	{
@@ -65,40 +63,54 @@ int					btin_fc_edit_mode_num_args(char **argv, int i,
 	}
 	(*fc_arg)->flag |= ARG_SECOND;
 	(*fc_arg)->last = ft_atoi(argv[i]);
-	btin_fc_two_ints__edit(fc_arg);
-	return (0);
-}
-
-int					btin_fc_one_int__edit(int value)
-{
-	int				final_buf;
-
-	final_buf = g_hist.last;
-	if (value <= 0)
-	{
-		value = (value == 0) ? -1 : value;
-		final_buf += value;
-		if (final_buf < 0)
-			final_buf = 0;
-	}
-	else if (value > 0)
-	{
-		if (value - 1 > 0 && value - 1 < g_hist.last)
-			final_buf = value - 1;
-		else
-			final_buf = (g_hist.last > 0) ? final_buf - 1 : 0;
-	}
-	return (final_buf);
+	return ((btin_fc_two_ints__edit(fc_arg) == HIST_ERROR) ?
+		HIST_ERROR : 0);
 }
 
 int					btin_fc_two_ints__edit(t_btin_fc **fc_arg)
 {
-	t_btin_fc		*tmp;
+	int				temp;
 
-	tmp = *fc_arg;
-	if (!((tmp->flag & ARG_FIRST) && (tmp->flag & ARG_SECOND)))
-		return (0);
-	tmp->last_buf = btin_fc_one_int__edit(tmp->last);
-	tmp->first_buf = btin_fc_one_int__edit(tmp->first);
+	if (!(((*fc_arg)->flag & ARG_FIRST) && ((*fc_arg)->flag & ARG_SECOND)))
+		return (HIST_ERROR);
+	temp = g_hist.last_fc - ((g_hist.last + 1 == g_hist.len) ?
+		g_hist.len - 1 : g_hist.last) + 1;
+	if ((*fc_arg)->last > 0 && ((*fc_arg)->last_buf =
+		btin_fc_positive_int__exec((*fc_arg)->last, temp,
+		g_hist.last_fc)) == HIST_ERROR)
+		return (HIST_ERROR);
+	else if ((*fc_arg)->last <= 0)
+		(*fc_arg)->last_buf = btin_fc_negative_int__list((*fc_arg)->last);
+	if ((*fc_arg)->first > 0 && ((*fc_arg)->first_buf =
+		btin_fc_positive_int__exec((*fc_arg)->first, temp,
+		g_hist.last_fc)) == HIST_ERROR)
+		return (HIST_ERROR);
+	else if ((*fc_arg)->first <= 0)
+		(*fc_arg)->first_buf = btin_fc_negative_int__list((*fc_arg)->first);
 	return (0);
+}
+
+int					btin_fc_save_editor(char **argv, int i,
+						int j, t_btin_fc **fc_arg)
+{
+	if (argv[i][j] == 'e' && !(argv[i + 1] || argv[i][j + 1]))
+	{
+		error_handler(OPTIONS_REQUIRED | (ERR_BTIN_ARG << 9), "fc: -e");
+		usage_btin("fc");
+		return (HIST_ERROR);
+	}
+	else if (argv[i][j] == 'e' && (argv[i + 1] || argv[i][j + 1]))
+	{
+		if (argv[i][j + 1])
+		{
+			(*fc_arg)->editor = &argv[i][j + 1];
+			return (HIST_EXEC);
+		}
+		else
+		{
+			i++;
+			(*fc_arg)->editor = argv[i];
+		}
+	}
+	return (i);
 }

@@ -66,7 +66,7 @@ int			esc_d(void)
 		return (0);
 	undo(0);
 	save_yank = ft_strndup(g_rline.cmd + pos_old, g_rline.pos);
-	make_ctrl_y(0, save_yank);
+	make_ctrl_p(0, save_yank);
 	swap = g_rline.cmd + g_rline.pos;
 	len_swap = ft_strlen(swap);
 	g_rline.cmd_len = pos_old + len_swap;
