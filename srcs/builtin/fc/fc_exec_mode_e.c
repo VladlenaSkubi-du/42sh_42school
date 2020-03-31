@@ -1,27 +1,47 @@
 #include "shell42.h"
 #include "builtin42.h"
 
-int					btin_fc_read_from_tmpfile(char *tmpfile)
+/*
+** For the edit mode execution, we create a tmpfile, write all the
+** commands to it, execute the editor command + the file to be
+** open and edited, than open the file and execute each command
+** from there. After we delete the file (it is created in the
+** project directory)
+*/
+
+int					btin_fc_execute_edition(t_btin_fc *fc_arg,
+						int flags, char **envir)
 {
-	char			*cmd;
+	char			*tmpfile;
 	int				fd;
-	
-	fd = open(tmpfile, O_RDONLY);
+	t_ltree			*sub;
+	int				tmp;
+
+	fd = ft_tmpfile_fc("tmp42sh_fc_XXXXXX", &tmpfile);
 	if (fd < 0)
 	{
 		error_handler(TMPFILE, NULL);
 		return (HIST_ERROR);
 	}
-	btin_fc_save_parser_globals(1);
-	while (ft_gnl(fd, &cmd))
-	{
-		ft_putendl_fd(cmd, STDOUT_FILENO);
-		parser(cmd);
-	}
-	btin_fc_save_parser_globals(0);
+	btin_fc_write_to_tmpfile(fc_arg, flags, fd);
 	close(fd);
-	return (0);
+	sub = btin_fc_before_exec(fc_arg, envir, tmpfile);
+	btin_fc_save_parser_globals(1);
+	tmp = exec_init(sub);
+	ft_arrdel(sub->ar_v);
+	free(sub);
+	btin_fc_save_parser_globals(0);
+	if (tmp == 0)
+		btin_fc_read_from_tmpfile(tmpfile);
+	unlink(tmpfile);
+	free(tmpfile);
+	return ((tmp == 0) ? 0 : HIST_ERROR);
 }
+
+/*
+** For the editor + tmpfile execution we need structure
+** to be prepared
+*/
 
 t_ltree				*btin_fc_before_exec(t_btin_fc *fc_arg,
 						char **envir, char *tmpfile)
@@ -38,35 +58,10 @@ t_ltree				*btin_fc_before_exec(t_btin_fc *fc_arg,
 	return (sub);
 }
 
-int					btin_fc_write_to_tmpfile(t_btin_fc *fc_arg,
-						int flags, int fd)
-{
-	int				tmp;
-
-	if ((fc_arg->flag & ARG_FIRST) && !(fc_arg->flag & ARG_SECOND))
-	{
-		tmp = ft_strlen(g_hist.hist[fc_arg->first_buf]);
-		if (tmp > 0 && g_hist.hist[fc_arg->first_buf][tmp - 1] == '\n')
-			tmp -= 1;
-		ft_putnendl_fd(g_hist.hist[fc_arg->first_buf], tmp, fd);
-		return (0);
-	}
-	if (flags & FLAG_R)
-	{
-		if (fc_arg->first_buf > fc_arg->last_buf)
-			btin_fc_execute_edit(fc_arg, flags, fd, 'r');
-		else
-			btin_fc_execute_edit_reverse(fc_arg, flags, fd, 'r');
-	}
-	else
-	{
-		if (fc_arg->first_buf > fc_arg->last_buf)
-			btin_fc_execute_edit_reverse(fc_arg, flags, fd, 'd');
-		else
-			btin_fc_execute_edit(fc_arg, flags, fd, 'd');
-	}
-	return (0);
-}
+/*
+** From the biggest to the least
+** @flag can be 'd' = direct order, 'r' - reverse order
+*/
 
 int					btin_fc_execute_edit_reverse(t_btin_fc *fc_arg,
 						int flags, int fd, int flag)
@@ -89,6 +84,11 @@ int					btin_fc_execute_edit_reverse(t_btin_fc *fc_arg,
 	}
 	return (0);
 }
+
+/*
+** From the least to the biggest
+** @flag can be 'd' = direct order, 'r' - reverse order
+*/
 
 int					btin_fc_execute_edit(t_btin_fc *fc_arg,
 						int flags, int fd, int flag)

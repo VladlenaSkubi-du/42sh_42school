@@ -1,6 +1,11 @@
 #include "shell42.h"
 #include "builtin42.h"
 
+/*
+** Checking arguments and options in one argument, for
+** example, "-lrn" and so on
+*/
+
 int					btin_fc_list_check_line_args(char **argv, int j,
 						t_btin_fc **fc_arg, int *flags)
 {
@@ -16,11 +21,16 @@ int					btin_fc_list_check_line_args(char **argv, int j,
 			return (i = (tmp == HIST_EXEC) ? i : tmp);
 		if (argv[i][j] == 's')
 			return (btin_fc_exec_mode(&argv[i], j, fc_arg, flags));
-		if (btin_fc_other_flags(argv[i][j], flags) == HIST_ERROR)
+		if (btin_fc_list_other_flags(argv[i][j], flags) == HIST_ERROR)
 			return (HIST_ERROR);
 	}
 	return (i);
 }
+
+/*
+** Checking arguments and options in the arguments array,
+** for example, "-l" "-rn" and so on
+*/
 
 int					btin_fc_list_check_other_args(char **argv,
 						t_btin_fc **fc_arg, int *flags)
@@ -52,6 +62,11 @@ int					btin_fc_list_check_other_args(char **argv,
 	return (btin_fc_list_mode_no_args(fc_arg, flags));
 }
 
+/*
+** List mode - numeric arguments processing (routing to functions)
+** for calculations
+*/
+
 int					btin_fc_list_nums_no_error(char **argv,
 						t_btin_fc **fc_arg, int *flags)
 {
@@ -66,9 +81,16 @@ int					btin_fc_list_nums_no_error(char **argv,
 	return (HIST_ERROR);
 }
 
+/*
+** List mode - arguments processing - calculations
+*/
+
 int					btin_fc_list_mode_num_args(char **argv, int i,
 						t_btin_fc **fc_arg, int *flags)
 {
+	int				temp;
+	
+	temp = 0;
 	(*fc_arg)->flag |= ARG_FIRST;
 	(*fc_arg)->first = ft_atoi(argv[i]);
 	i++;
@@ -76,7 +98,7 @@ int					btin_fc_list_mode_num_args(char **argv, int i,
 	{
 		(*fc_arg)->flag |= ARG_SECOND;
 		(*fc_arg)->last = -1;
-		return ((btin_fc_two_ints__list(fc_arg, flags) == HIST_ERROR) ?
+		return ((btin_fc_two_ints__list(fc_arg, flags, temp) == HIST_ERROR) ?
 			HIST_ERROR : 0);
 	}
 	else if (!(ft_isdigit(argv[i][0]) || (argv[i][0] == '-' &&
@@ -87,9 +109,13 @@ int					btin_fc_list_mode_num_args(char **argv, int i,
 	}
 	(*fc_arg)->flag |= ARG_SECOND;
 	(*fc_arg)->last = ft_atoi(argv[i]);
-	return ((btin_fc_two_ints__list(fc_arg, flags) == HIST_ERROR) ?
+	return ((btin_fc_two_ints__list(fc_arg, flags, temp) == HIST_ERROR) ?
 		HIST_ERROR : 0);
 }
+
+/*
+** List mode - calculation of fc-numeric values
+*/
 
 int				btin_fc_calculate_nums__list(int buffer, int from)
 {

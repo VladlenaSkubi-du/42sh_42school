@@ -1,6 +1,11 @@
 #include "shell42.h"
 #include "builtin42.h"
 
+/*
+** Checking arguments and options in one argument, for
+** example, "-srn" and so on
+*/
+
 int					btin_fc_exec_check_line_args(char **argv, int j,
 						t_btin_fc **fc_arg, int *flags)
 {
@@ -19,17 +24,17 @@ int					btin_fc_exec_check_line_args(char **argv, int j,
 			return (HIST_ERROR);
 		else if (tmp == HIST_EXEC || tmp != i)
 			return (i = (tmp == HIST_EXEC) ? i : tmp);
-		if (argv[i][j] == 'r' || argv[i][j] == 'n' || argv[i][j] == 'l')
-			continue;
-		else if (!(argv[i][j] == 'r' || argv[i][j] == 'n' || argv[i][j] == 'l'))
-		{
-			error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), "fc");
-			usage_btin("fc");
-			return (HIST_ERROR);
-		}
+		i = btin_fc_exec_other_flags(argv[i][j], flags);
+		if (i == HIST_ERROR)
+			return (i);
 	}
 	return (i);
 }
+
+/*
+** Checking arguments and options in the arguments array,
+** for example, "-s" "-rn" and so on
+*/
 
 int					btin_fc_exec_check_other_args(char **argv,
 						t_btin_fc **fc_arg, int *flags)
@@ -58,6 +63,18 @@ int					btin_fc_exec_check_other_args(char **argv,
 	}
 	return (btin_fc_exec_no_args(fc_arg, flags));
 }
+
+/*
+** If the argument included a sign '=' - the argument
+** is regarded as assignment and added to the
+** @fc_arg->s_comp array
+** if it is a numeric value - @fc_arg->first_buf
+** If it is a test - @fc_arg->s_cmd
+** In exec mode the are two options to get a command for
+** execution: number of the command in the history list
+** or name of the command. Assignment is launched if
+** there is what to correct in the cmd
+*/
 
 int					btin_fc_exec_mode_comp(char **argv,
 						t_btin_fc **fc_arg, int *flags)
@@ -89,6 +106,12 @@ int					btin_fc_exec_mode_comp(char **argv,
 	return (btin_fc_exec_no_args(fc_arg, flags));
 }
 
+/*
+** Options at the places of the arguments for exec mode
+** are regarded as invalid arguments
+** After exec mode is launched, options become arguments
+*/
+
 int					btin_fc_exec_check_invalid(char **argv,
 						t_btin_fc **fc_arg, int *flags)
 {
@@ -104,6 +127,26 @@ int					btin_fc_exec_check_invalid(char **argv,
 		return (btin_fc_exec_mode_comp(&argv[i], fc_arg, flags));
 	return (i);
 }
+
+/*
+** We count according to fc_number. From POSIX standard:
+** The command history list shall reference commands by number.
+** The first number in the list is selected arbitrarily.
+** The relationship of a number to its command shall not change
+** except when the user logs in and no other process is accessing
+** the list, at which time the system may reset the numbering to
+** start the oldest retained command at another number (usually 1).
+** When the number reaches an implementation-defined upper limit,
+** which shall be no smaller than the value in HISTSIZE or 32767
+** (whichever is greater), the shell may wrap the numbers,
+** starting the next command with a lower number (usually 1).
+** However, despite this optional wrapping of numbers,
+** fc shall maintain the time-ordering sequence of the commands.
+** For example, if four commands in sequence are given the numbers
+** 32766, 32767, 1 (wrapped), and 2 as they are executed,
+** command 32767 is considered the command previous to 1,
+** even though its number is higher.
+*/
 
 int				btin_fc_one_int__exec(t_btin_fc **fc_arg)
 {

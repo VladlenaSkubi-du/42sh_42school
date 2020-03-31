@@ -7,6 +7,7 @@ int				find_in_history(char *find)
 	char		*found;
 
 	i = g_hist.last;
+	found = NULL;
 	while (i >= 0)
 	{
 		found = ft_strstr(g_hist.hist[i], find);

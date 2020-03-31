@@ -2,7 +2,39 @@
 #include "builtin42.h"
 
 /*
+** Here we choose the cmd according to the number or the word
+** and change it according to the assignments if exists
+*/
+
+char				*btin_fc_execute_form_cmd(t_btin_fc *fc_arg)
+{
+	char			*cmd;
+	int				tmp;
+	
+	cmd = NULL;
+	if (fc_arg->s_cmd)
+	{
+		if ((tmp = find_in_history(fc_arg->s_cmd)) == -1)
+		{
+			error_handler(VARIABLE_ERROR | (ERR_HISTORY_EXEC << 9), fc_arg->s_cmd);
+			return ("error");
+		}
+		cmd = ft_strdup(g_hist.hist[tmp]);
+	}
+	else if (fc_arg->flag & ARG_FIRST)
+	{
+		cmd = ft_strdup((fc_arg->first_buf > g_hist.last) ?
+			g_hist.hist[g_hist.last] : g_hist.hist[fc_arg->first_buf]);
+	}
+	if (fc_arg->s_comp)
+		cmd = make_history_assignments(fc_arg, cmd);
+	return (cmd);
+}
+
+/*
 ** Because of norm it is here
+** Refers to fc_mode_s processing
+** Processing of the @fc_arg->s_comp value
 */
 
 int					btin_fc_exec_mode_add_comp(t_btin_fc **fc_arg, char *comp)
@@ -21,6 +53,25 @@ int					btin_fc_exec_mode_add_comp(t_btin_fc **fc_arg, char *comp)
 	}
 	return (0);
 }
+
+/*
+** If we have assignments, we start to change the cmd-line from
+** the first assignment to the last found:
+** For example, echo $HISTFILE aa is the command
+** The command line is: fc -s HISTFILE=HISTFILESIZE
+** HI=BB FILESIZE=FILE FILE=DD echo
+** And assignments are:
+** HISTFILE=HISTFILESIZE
+** HI=BB
+** FILESIZE=FILE
+** FILE=DD
+**
+** There will be changes: echo $HISTFILESIZE aa
+** Than: echo $BBSTFILESIZE aa
+** Than: echo $BBSTFILE aa
+** Than: echo $BBSTDD aa
+** Finally: echo $BBSTDD aa will be launched
+*/
 
 char				*make_history_assignments(t_btin_fc *fc_arg, char *cmd)
 {
@@ -51,6 +102,10 @@ char				*make_history_assignments(t_btin_fc *fc_arg, char *cmd)
 	return (cmd);
 }
 
+/*
+** Inserting assignment to the command line for the launch
+*/
+
 char				*insert_history_assignment(char *buf, int *buf_len,
 						char *change, char *what)
 {
@@ -80,6 +135,14 @@ char				*insert_history_assignment(char *buf, int *buf_len,
 	return (buf);
 }
 
+/*
+** If the assignment is "=foo", the assignment is applied to
+** each symbol of the command
+** For example: echo $BBSTDD aa is the command
+** The command line is fc -s =foo
+** The output is: foofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoo
+*/
+
 char				*insert_history_assignment_whole_line(char *buf,
 						int *buf_len, char *change, int len_change)
 {
@@ -104,28 +167,4 @@ char				*insert_history_assignment_whole_line(char *buf,
 		len_full += len_change;
 	}
 	return (buf);
-}
-
-int					btin_fc_save_parser_globals(int flag)
-{
-	static char		*save_g_cmd;
-	static char		*save_techline_cmd;
-	static t_list	*save_g_start_list;
-
-	if (flag == 1)
-	{
-		save_g_cmd = g_cmd;
-		save_techline_cmd = g_techline.line;
-		save_g_start_list = g_start_list;
-	}
-	else
-	{
-		g_cmd = save_g_cmd;
-		g_techline.line = save_techline_cmd;
-		g_start_list = save_g_start_list;
-		save_g_cmd = NULL;
-		save_techline_cmd = NULL;
-		save_g_start_list = NULL;
-	}
-	return (0);
 }
