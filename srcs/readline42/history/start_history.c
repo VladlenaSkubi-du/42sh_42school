@@ -78,7 +78,7 @@ int				add_to_history(char *cmd)
 		g_hist.last++;
 		g_hist.hist[g_hist.last] = ft_strdup(cmd);
 		g_hist.last_fc++;
-		if (g_hist.last_fc == HISTORY_LIMIT)
+		if (g_hist.last_fc > HISTORY_LIMIT)
 			g_hist.last_fc = 1;
 	}
 	else if (g_prompt.prompt_func != main_prompt &&

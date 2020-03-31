@@ -43,8 +43,11 @@ int				save_hist_buffer(int fd)
 	g_hist.counter = i;
 	g_hist.start = i;
 	g_hist.last_fc = (g_hist.last > 0) ? g_hist.last + 1 : 1;
-	if (g_hist.counter > MAX_HISTBUF)
-		g_hist.hist = make_hist_buffer_smaller(MAX_HISTBUF);
+	if (g_hist.counter > MAX_HISTBUF || g_hist.len > MAX_HISTBUF)
+		g_hist.hist = make_hist_buffer_smaller((MAX_HISTBUF > HISTORY_LIMIT) ?
+		HISTORY_LIMIT : MAX_HISTBUF);
+	if (g_hist.last_fc > HISTORY_LIMIT)
+		g_hist.last_fc = HISTORY_LIMIT;
 	return (0);
 }
 

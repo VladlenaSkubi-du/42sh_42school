@@ -6,12 +6,14 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/30 03:23:55 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/30 19:25:31 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXIT_STATUS_H
 # define EXIT_STATUS_H
+
+# define	ERR_EXSIGN 0x1
 
 /*
 ** Variable errors are errors that exit with 1

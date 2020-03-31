@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/30 02:32:07 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/03/31 15:19:47 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,14 @@
 # include "ft_printf.h" //If not used, delete
 # include "get_next_line.h" //If not used, delete
 
+/*
+** MAXDIR according to POSIX:  _POSIX_PATH_MAX
+*/
+
 # define			HISTORY_LIMIT 32767
-# define 			MAX_HISTFILE 5
-# define 			MAX_HISTBUF 5
-# define			MAXDIR 1000
+# define 			MAX_HISTFILE 500
+# define 			MAX_HISTBUF 500
+# define			MAXDIR 256
 # define			MAX_EXIT_STATUS 10
 # define 			ENV_BUFFER 100
 # define			OUT 42
@@ -117,7 +121,7 @@ enum				e_techline
 	COMENT,
 	GLUE,
 	TEXT,
-	END_T
+	END_T,
 };
 
 /*

@@ -33,6 +33,13 @@ int				error_handler(int status, char *str)
 			STDERR_FILENO); //TODO check
 	else if ((status & 0x1FF) == TMPFILE)
 		ft_putendl_fd("can't open a temporal file", STDERR_FILENO); //TODO check
+	else if ((status & 0x1FF) == NONINERACTIVE || (status & 0x1FF) == SUCCESS)
+	{
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd((((status & 0x1FF) == NONINERACTIVE) ?
+			": can't be launched in noninteractive mode" :
+			"event not found"), STDERR_FILENO);
+	}
 	else
 		error_handler_continuation(status, str);
 	return (exit_status_variable(status & 0x7F));
@@ -40,27 +47,24 @@ int				error_handler(int status, char *str)
 
 int				error_handler_continuation(int status, char *str)
 {
-	if ((status & 0x1FF) == COMMAND_NON_EXECUTABLE || (status >> 9 & ERR_NO_ACC))
+	if ((status & 0x1FF) == COMMAND_NON_EXECUTABLE ||
+		(status >> 9 & ERR_NO_ACC))
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd(": Permission denied", STDERR_FILENO);
 	}
-	else if ((status & 0x1FF) == COMMAND_NOT_FOUND && (status >> 9 & ERR_COMMAND))
+	else if ((status & 0x1FF) == COMMAND_NOT_FOUND &&
+		(status >> 9 & ERR_COMMAND))
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd(": command not found", STDERR_FILENO);
 	}
-	else if (((status & 0x1FF) == COMMAND_NOT_FOUND || (status & 0x1FF) == SYNTAX_ERROR) &&
+	else if (((status & 0x1FF) == COMMAND_NOT_FOUND ||
+		(status & 0x1FF) == SYNTAX_ERROR) &&
 		status >> 9 & ERR_NO_FILE)
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
-	}
-	else if ((status & 0x1FF) == NONINERACTIVE)
-	{
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd(": can't be launched in non-interactive mode",
-			STDERR_FILENO);
 	}
 	else if ((status & 0x1FF) == SYNTAX_ERROR)
 		syntax_errors(status, str);

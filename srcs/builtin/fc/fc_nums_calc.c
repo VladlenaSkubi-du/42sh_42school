@@ -1,12 +1,19 @@
 #include "shell42.h"
 #include "builtin42.h"
 
-int				btin_fc_two_ints__list(t_btin_fc **fc_arg, int *flags)
-{
-	int			temp;
+/*
+** Here we find the numeric positions of the commands in the
+** history list according to the agruments sent by the user:
+** we interprete "-1" or "10" arguments for the positions
+** in the buffer and also find numeric fc-values for the
+** list mode
+*/
 
+int				btin_fc_two_ints__list(t_btin_fc **fc_arg, int *flags, int temp)
+{
 	temp = g_hist.last_fc - ((g_hist.last + 1 == g_hist.len) ?
 		g_hist.len - 1 : g_hist.last) + 1;
+	temp += (temp < 1) ? HISTORY_LIMIT : 0;
 	if (((*fc_arg)->flag & ARG_SECOND) && (*fc_arg)->last > 0)
 	{
 		if (((*fc_arg)->last_buf = btin_fc_positive_int__list
@@ -29,6 +36,14 @@ int				btin_fc_two_ints__list(t_btin_fc **fc_arg, int *flags)
 		btin_fc_calculate_nums__list((*fc_arg)->first_buf, temp) : 0;
 	return (0);
 }
+
+/*
+** If positive numeric argument is lower than the first in the
+** history buffer according to the fc-number, there will be an
+** "out of range" error
+** If bigger than the last in teh history buffer - last command
+** will be taken
+*/
 
 int				btin_fc_positive_int__list(int value, int from,
 					int to)
@@ -54,6 +69,14 @@ int				btin_fc_positive_int__list(int value, int from,
 	return (final);
 }
 
+/*
+** If negative numeric argument is for the command that
+** is lower according to the number than the first in the history
+** buffer - the first will be taken
+** If "0" is given as the argument - the prevuious command (not the
+** last that in the list mode is fc "-l") is printed
+*/
+
 int				btin_fc_negative_int__list(int value)
 {
 	int			final_buf;
@@ -68,6 +91,14 @@ int				btin_fc_negative_int__list(int value)
 	}
 	return (final_buf);
 }
+
+/*
+** The difference with the list mode is only for the
+** last command: though for edit and exec mode the fc-command
+** is not saved in the history list, we take the last command
+** from the buffer. List mode fc-command is saved, so we need to take
+** the last - 1
+*/
 
 int				btin_fc_positive_int__exec(int value, int from,
 					int to)
@@ -92,6 +123,14 @@ int				btin_fc_positive_int__exec(int value, int from,
 		final = g_hist.last;
 	return (final);
 }
+
+/*
+** The difference with the list mode is only for the
+** last command: though for edit and exec mode the fc-command
+** is not saved in the history list, we take the last command
+** from the buffer. List mode fc-command is saved, so we need to take
+** the last - 1
+*/
 
 int				btin_fc_negative_int__exec(int value)
 {

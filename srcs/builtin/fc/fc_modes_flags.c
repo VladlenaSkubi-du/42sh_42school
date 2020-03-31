@@ -1,6 +1,10 @@
 #include "shell42.h"
 #include "builtin42.h"
 
+/*
+** Activation and disactivation of flags according to the mode
+*/
+
 int					btin_fc_edit_mode_flags_off(int *flags)
 {
 	if (*flags & FLAG_L)
@@ -40,9 +44,13 @@ int					btin_fc_list_mode_flags_off(int *flags)
 	return (HIST_EXEC);
 }
 
-int					btin_fc_other_flags(char argvij, int *flags)
+/*
+** Checking options in the arguments line - list mode
+*/
+
+int					btin_fc_list_other_flags(char argvij, int *flags)
 {
-	if (!(argvij == 'r' || argvij == 'n'))
+	if (!(argvij == 'r' || argvij == 'n' || argvij == 'l'))
 	{
 		error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), "fc");
 		usage_btin("fc");
@@ -52,5 +60,24 @@ int					btin_fc_other_flags(char argvij, int *flags)
 		*flags |= FLAG_R;
 	else if (argvij == 'n')
 		*flags |= FLAG_N;
+	return (0);
+}
+
+/*
+** Checking options in the arguments line - exec mode
+*/
+
+int					btin_fc_exec_other_flags(char argvij, int *flags)
+{
+	if (argvij == 'r' || argvij == 'n' ||
+		argvij == 'l' || argvij == 's')
+		return (0);
+	else if (!(argvij == 'r' || argvij == 'n' ||
+		argvij == 'l' || argvij == 's'))
+	{
+		error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), "fc");
+		usage_btin("fc");
+		return (HIST_ERROR);
+	}
 	return (0);
 }

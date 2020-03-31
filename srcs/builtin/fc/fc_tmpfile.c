@@ -52,3 +52,68 @@ int			ft_tmpfile_fc(char *tmpl, char **tmp_nameto_vim)
     *tmp_nameto_vim = tmp;
 	return (fd);
 }
+
+/*
+** For the edit mode invoking the editor: here we prepare the tmpfile
+** for the editor to open
+** FLAG_R or "-r" option changes the order of commands written
+*/
+
+int					btin_fc_write_to_tmpfile(t_btin_fc *fc_arg,
+						int flags, int fd)
+{
+	int				tmp;
+
+	if ((fc_arg->flag & ARG_FIRST) && !(fc_arg->flag & ARG_SECOND))
+	{
+		tmp = ft_strlen(g_hist.hist[fc_arg->first_buf]);
+		if (tmp > 0 && g_hist.hist[fc_arg->first_buf][tmp - 1] == '\n')
+			tmp -= 1;
+		ft_putnendl_fd(g_hist.hist[fc_arg->first_buf], tmp, fd);
+		return (0);
+	}
+	if (flags & FLAG_R)
+	{
+		if (fc_arg->first_buf > fc_arg->last_buf)
+			btin_fc_execute_edit(fc_arg, flags, fd, 'r');
+		else
+			btin_fc_execute_edit_reverse(fc_arg, flags, fd, 'r');
+	}
+	else
+	{
+		if (fc_arg->first_buf > fc_arg->last_buf)
+			btin_fc_execute_edit_reverse(fc_arg, flags, fd, 'd');
+		else
+			btin_fc_execute_edit(fc_arg, flags, fd, 'd');
+	}
+	return (0);
+}
+
+/*
+** After tmpfile is closed by the editor, we read commands and
+** start to launch them
+** Saving global values is necessary because through launching
+** without fork we change the values
+*/
+
+int					btin_fc_read_from_tmpfile(char *tmpfile)
+{
+	char			*cmd;
+	int				fd;
+	
+	fd = open(tmpfile, O_RDONLY);
+	if (fd < 0)
+	{
+		error_handler(TMPFILE, NULL);
+		return (HIST_ERROR);
+	}
+	btin_fc_save_parser_globals(1);
+	while (ft_gnl(fd, &cmd))
+	{
+		ft_putendl_fd(cmd, STDOUT_FILENO);
+		parser(cmd);
+	}
+	btin_fc_save_parser_globals(0);
+	close(fd);
+	return (0);
+}
