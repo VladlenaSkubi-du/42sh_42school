@@ -22,6 +22,7 @@ typedef struct  job
     process *first_process;     /* list of processes in this job */
     pid_t pgid;                 /* process group ID */
     char notified;              /* true if user told about stopped job */
+	char fg;
     struct termios tmodes;      /* saved terminal modes */
     int stdin, stdout, stderr;  /* standard i/o channels */
 }   job;
@@ -55,6 +56,6 @@ int		job_is_completed(job *j);
 job		*find_job (pid_t pgid);
 void	process_update(process *p, int status);
 void	child_handler(int sig);
-int 	launch_job (job *j, int foreground);
+int 	launch_job (job *j);
 
 #endif
