@@ -74,7 +74,7 @@ int		process_new(job *jobs, t_ltree *entity)
 
 int     job_init(t_ltree *entity)
 {
-	int			foreground;
+//	int			foreground;
 	int			ret;
 	size_t   	li;
 	size_t   	sy;
@@ -83,6 +83,8 @@ int     job_init(t_ltree *entity)
 	ret = 0;
 
 	signal(SIGCHLD, child_handler);
+	signal(SIGTTIN, SIG_IGN);
+	signal(SIGTTOU, SIG_IGN);
 	g_shell_tmodes = g_backup_tty;
 	li = find_in_variables(g_rdovar, &sy, "42SH_NONINTERACTIVE=");
 	g_is_interactive = !(g_rdovar[li][sy] - '0');
@@ -100,8 +102,9 @@ int     job_init(t_ltree *entity)
 	/* If we are done filling job, launch and clean */
 	if (!(entity->flags & PIPED_OUT))
 	{
-		foreground = !(entity->flags & IS_BG);
-		ret += launch_job(job, foreground);
+		job->fg = !(entity->flags & IS_BG);
+		ret += launch_job(job);
 	}
+	printf("Job done\n");
 	return (ret);
 }
