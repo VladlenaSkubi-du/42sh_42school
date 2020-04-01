@@ -73,6 +73,6 @@ int             btin_echo(t_ltree *pos);
 ** File pwd.c
 */
 
-int             btin_pwd(void);
+int             btin_pwd(t_ltree *pos);
  
 #endif
