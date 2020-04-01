@@ -18,6 +18,7 @@ void	wait_for_job (job *j)
 void	put_job_in_foreground (job *j, int cont)
 {
 	/* Put the job into the foreground.  */
+	j->fg = 1;
 	tcsetpgrp (STDIN_FILENO, j->pgid);
 	/* Send the job a continue signal, if necessary.  */
 	if (cont)
@@ -33,6 +34,8 @@ void	put_job_in_foreground (job *j, int cont)
 	/* Restore the shell’s terminal modes.  */
 	tcgetattr (STDIN_FILENO, &j->tmodes);
 	tcsetattr (STDIN_FILENO, TCSADRAIN, &g_shell_tmodes);
+	printf("FG done\n");
+	do_job_notification();
 }
 
 /* Put a job in the background.  If the cont argument is true, send
@@ -41,6 +44,7 @@ void	put_job_in_foreground (job *j, int cont)
 void	put_job_in_background (job *j, int cont)
 {
 	/* Send the job a continue signal, if necessary.  */
+	j->fg = 0;
 	if (cont)
 		if (kill (-j->pgid, SIGCONT) < 0)
 			perror ("kill (SIGCONT)");
