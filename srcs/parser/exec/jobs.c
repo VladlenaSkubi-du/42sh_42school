@@ -17,6 +17,9 @@ void	free_job(job *j)
 
 	j_last->next = j_next;
 
+	if (j == g_first_job)
+		g_first_job = NULL;
+
 	while (j->first_process)
 	{
 		temp = j->first_process;
@@ -146,35 +149,39 @@ void	process_update(process *p, int status)
 void	child_handler(int sig)
 {
 	int		child_pid;
-	int		child_pgid;
 	int		status;
 	job		*j;
 	process	*proc;
 
-	child_pid = waitpid(0, &status, WUNTRACED);
+	printf("Got SIGCHLD\n");
+	while ((child_pid = waitpid(-1, &status, WUNTRACED)) > 0)
+	{
 	/* YOU CAN'T GET PGID OF TERMINATED PROC */
 
-	j = g_first_job;
-	while (j)
-	{
-		proc = j->first_process;
-		while (proc)
+
+		j = g_first_job;
+		while (j)
 		{
-			if (proc->pid = child_pid)
+			proc = j->first_process;
+			while (proc)
 			{
-				process_update(proc, status);
-				signal(SIGCHLD, child_handler);
-				printf("Found child to terminate\n");
-				if (!j->fg)
+				printf("%d %d\n", proc->pid, child_pid);
+				if (proc->pid == child_pid)
 				{
-					/* I DO NOT LIKE IT */
-					do_job_notification();
+					process_update(proc, status);
+					signal(SIGCHLD, child_handler);
+					printf("Found child to terminate\n");
+					if (!j->fg)
+					{
+						/* I DO NOT LIKE IT */
+						free_job(j);
+					}
+					return ;
 				}
-				return ;
+				proc = proc->next;
 			}
-			proc = proc->next;
+			j = j->next;
 		}
-		j = j->next;
 	}
 
 /*
