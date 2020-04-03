@@ -29,13 +29,13 @@ void	launch_process (process *p, pid_t pgid, int stream[3], int foreground)
          the terminal, if appropriate.
          This has to be done both by the shell and in the individual
          child processes because of potential race conditions.  */
-		 pid = getpid ();
-		 if (pgid == 0) pgid = pid;
-		 setpgid (pid, pgid);
+		pid = getpid ();
+		if (pgid == 0) pgid = pid;
+		setpgid (pid, pgid);
 
-		 signal(SIGTTOU, SIG_IGN);
-		 if (foreground)
-		 	tcsetpgrp(STDIN_FILENO, pgid);
+		signal(SIGTTOU, SIG_IGN);
+		if (foreground)
+			tcsetpgrp(STDIN_FILENO, pgid);
 		/* Set the handling for job control signals back to the default.  */
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
