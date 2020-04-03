@@ -48,7 +48,7 @@ int		process_fill(process *proc, t_ltree *entity);
 int		process_new(job *jobs, t_ltree *entity);
 int     job_init(t_ltree *entity);
 
-void	free_job(job *j);
+int		free_job(job *j);
 void	do_job_notification(void);
 process *find_process(job *j, pid_t child_pid);
 int		job_is_stopped(job *j);
