@@ -19,6 +19,7 @@ int			make_ctrl_k(void)
 
 int			make_ctrl_u(void)
 {
+	size_t			pos_old;
 	char			*swap;
 	size_t			len_swap;
 	char			*save_yank;
@@ -27,17 +28,18 @@ int			make_ctrl_u(void)
 	if (g_rline.pos == 0)
 		return (incorrect_sequence());
 	undo(0);
-	save_yank = ft_strndup(g_rline.cmd, g_rline.pos);
-	make_ctrl_p(0, save_yank);
-	swap = g_rline.cmd + g_rline.pos;
-	len_swap = ft_strlen(swap);
-	ft_strcpy(g_rline.cmd, swap);
-	ft_bzero(g_rline.cmd + len_swap, g_rline.cmd_buff_len - len_swap);
-	g_rline.cmd_len = 0 + len_swap;
+	pos_old = g_rline.pos;
 	while (g_rline.pos)
 		key_left_proc();
 	front_set_cursor_jmp(&g_rline.pos,
 		&g_rline.pos_x, &g_rline.pos_y, 1);
+	save_yank = ft_strndup(g_rline.cmd, pos_old);
+	make_ctrl_p(0, save_yank);
+	swap = g_rline.cmd + pos_old;
+	len_swap = ft_strlen(swap);
+	ft_strcpy(g_rline.cmd, swap);
+	ft_bzero(g_rline.cmd + len_swap, g_rline.cmd_buff_len - len_swap);
+	g_rline.cmd_len = 0 + len_swap;
 	tputs(g_cap.cd, 1, printc);
 	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
 	return (0);
