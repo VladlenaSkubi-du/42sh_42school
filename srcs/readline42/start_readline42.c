@@ -88,10 +88,19 @@ int				start_readline42(int tmp)
 char			*finalize_cmd(char *cmd)
 {
 	char		*out;
+	char		*tmp;
 
+	tmp = ft_strtrim(cmd);
+	if (ft_strlen(tmp) == 0)
+	{
+		out = ft_xmalloc(1);
+		free(tmp);
+		return (out);
+	}
 	if (g_rline.cmd_len == 0)
 		out = ft_strdup(cmd);
 	else
 		out = ft_strjoin(cmd, "\n");
+	free(tmp);
 	return (out);
 }
