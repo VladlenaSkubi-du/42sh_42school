@@ -40,6 +40,7 @@ int			word_right_proc(void)
 	else if (g_rline.pos == g_rline.cmd_len - 1)
 	{
 		front_move_one_char_right(g_rline.pos_x);
+		g_rline.pos++;
 		return (0);
 	}
 	i = g_rline.pos + 1;
