@@ -89,3 +89,14 @@ int				unset_from_array(char ***arr, int i)
 	}
 	return (0);
 }
+
+int				clean_in_shvar_array(char ***arr, int i, int j)
+{
+	char		**tmp;
+	size_t		len;
+
+	tmp = *arr;
+	len = ft_strlen(tmp[i]);
+	ft_bzero(tmp[i] + j, len - j);
+	return (0);
+}
