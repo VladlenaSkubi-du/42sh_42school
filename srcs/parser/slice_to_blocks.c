@@ -131,7 +131,7 @@ int		ft_slice_fg(void)
 				block.end = i;
 				if (ft_block_add_to_list(&block, &g_start_list) == OUT)
 					return (OUT);
-				block.start = i + 1;
+				//block.start = i + 1;
 			}
 		}
 	}

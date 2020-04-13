@@ -114,4 +114,4 @@ int		erroring_andor_pipe(t_ltree *final, size_t *i, int tmp, size_t bl_end)
 	}
 	g_prompt.prompt_func = main_prompt;
 	return (0);
-}s
+}
