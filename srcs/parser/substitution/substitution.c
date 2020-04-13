@@ -43,7 +43,7 @@ int		before_add(t_ltree *sub, t_list **list)
 	pre_parsing_cut_glue(sub);
 	if ((err = ft_find_redirection(sub)) & ERR_OUT)
 	{
-		if ((err & 0x1FF) != TMPFILE)
+		if ((err & 0xFF) != TMPFILE)
 			ft_error_redir(sub);
 		else
 			error_handler(err, NULL);
