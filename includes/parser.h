@@ -278,7 +278,7 @@ int						ft_num_or_word_in(char **f_name, t_fd_redir *fd_open,
 int						ft_check_is_heredoc(int	ret);
 int						ft_check_heredoc_end(int ret);
 int						ft_heredoc_fill(int ret);
-int						ft_heredoc_rem(void);
+int						ft_heredoc_rem(int fd);
 int						ft_g_init_heredoc(void);
 
 /*

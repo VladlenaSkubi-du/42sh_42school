@@ -40,7 +40,6 @@ int					save_readonly_variables(void)
 {
 	size_t			num;
 	char			*tmp;
-	size_t			size_tmp;
 
 	num = 11;
 	g_rdovar = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
@@ -50,11 +49,14 @@ int					save_readonly_variables(void)
 	g_rdovar[2] = ft_strdup("42SH_SUBSHELL=0");
 	g_rdovar[3] = ft_strdup("42SH_PARSER=0");
 	g_rdovar[4] = ft_strdup("42SH_NONINTERACTIVE=0");
-	g_rdovar[5] = ft_strjoin("PWD=", getcwd(NULL, MAXDIR));
-	g_rdovar[6] = ft_strjoin("OLDPWD=", getcwd(NULL, MAXDIR));
-	tmp = (char*)ft_xmalloc(50);
-	size_tmp = 50;
-	g_rdovar[7] = ft_strjoin("42SH=", getcwd(tmp, size_tmp));
+	tmp = getcwd(NULL, MAXDIR);
+	g_rdovar[5] = ft_strjoin("PWD=", tmp);
+	free(tmp);
+	tmp = getcwd(NULL, MAXDIR);
+	g_rdovar[6] = ft_strjoin("OLDPWD=", tmp);
+	free(tmp);
+	tmp = getcwd(NULL, MAXDIR);
+	g_rdovar[7] = ft_strjoin("42SH=", tmp);
 	free(tmp);
 	tmp = ft_itoa(getuid());
 	g_rdovar[8] = ft_strjoin("UID=", tmp);

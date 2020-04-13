@@ -12,7 +12,11 @@ static int	sorting_vars(t_path **root, size_t *len)
 		insert(g_env[i], root, len);
 	i = -1;
 	while (g_shvar[++i])
-		insert(g_shvar[i], root, len);
+	{
+		sy = ft_strchri(g_shvar[i], '=');
+		if (g_shvar[i][sy + 1])
+			insert(g_shvar[i], root, len);
+	}
 	i = -1;
 	while (g_lovar[++i])
 		insert(g_lovar[i], root, len);
