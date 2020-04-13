@@ -102,7 +102,8 @@ int		nullify_promt_check(t_stack **stack)
 			g_prompt.prompt_func = cursh_prompt;
 		if ((*stack)->data == BSLASH)
 			g_prompt.prompt_func = other_prompt;
-		if ((*stack)->data == EOF && g_prompt.prompt_func != heredoc_prompt)
+		if (((*stack)->data == EOF/* || ft_if_nonintaractive() != 0*/) &&
+			g_prompt.prompt_func != heredoc_prompt)
 		{
 			g_prompt.prompt_func = main_prompt;
 			error_handler(SYNTAX_ERROR | (ERR_SQUOTE << 9),

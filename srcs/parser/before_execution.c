@@ -104,7 +104,7 @@ int		erroring_andor_pipe(t_ltree *final, size_t *i, int tmp, size_t bl_end)
 		g_techline.line[*i] == AND)
 	{
 		final->err_i = *i;
-		final->err = ft_strndup(&g_cmd[*i], 2);
+		final->err = ft_find_token_sep(&g_cmd[*i]);
 		final->flags |= ERR_OUT;
 		final->flags |= ERR_REDIR << 16;
 		if (final->err_i < g_techline.len)
@@ -114,4 +114,4 @@ int		erroring_andor_pipe(t_ltree *final, size_t *i, int tmp, size_t bl_end)
 	}
 	g_prompt.prompt_func = main_prompt;
 	return (0);
-}
+}s
