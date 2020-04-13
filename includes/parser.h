@@ -223,7 +223,7 @@ int						erroring_andor_pipe(t_ltree *final, size_t *i,
 ** File ft_tmpfile.c
 */
 
-int						ft_tmpfile(char *template);
+int						ft_tmpfile(char *template, int *fd);
 
 /*
 ** File redirect.c
