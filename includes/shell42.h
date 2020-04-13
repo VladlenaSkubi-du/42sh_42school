@@ -31,8 +31,6 @@
 # include <time.h>
 # include <pwd.h>
 # include <string.h>
-# include <fcntl.h>
-# include <stdlib.h>
 
 # include <stdio.h> //DELETE
 
