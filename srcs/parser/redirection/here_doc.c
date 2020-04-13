@@ -105,6 +105,7 @@ int		ft_heredoc_rem(int fd)
 	while(tmp)
 	{
 		find = (t_stop *)tmp->content;
+		lseek(find->fd, 0, SEEK_SET);
 		free(find->stop_w);
 		tmp = tmp->next;
 	}
@@ -115,7 +116,6 @@ int		ft_heredoc_rem(int fd)
 	if (g_heredoc.buf)
 		ft_arrdel(g_heredoc.buf);
 	ft_lstclear(&g_heredoc.list);
-	lseek(fd, 0, SEEK_SET);
 	return (0);
 }
 
