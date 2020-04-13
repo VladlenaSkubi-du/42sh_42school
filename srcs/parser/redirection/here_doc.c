@@ -87,7 +87,7 @@ int		ft_heredoc_fill(int ret)
 		tmp = tmp->next;
 	}
 	recover_g_cmd_here();
-	ft_heredoc_rem();
+	ft_heredoc_rem(find->fd);
 	g_prompt.prompt_func = main_prompt;
 	return (ret);
 }
@@ -96,7 +96,7 @@ int		ft_heredoc_fill(int ret)
 ** function frees g_heredoc content
 */
 
-int		ft_heredoc_rem(void)
+int		ft_heredoc_rem(int fd)
 {
 	t_list	*tmp;
 	t_stop	*find;
@@ -115,6 +115,7 @@ int		ft_heredoc_rem(void)
 	if (g_heredoc.buf)
 		ft_arrdel(g_heredoc.buf);
 	ft_lstclear(&g_heredoc.list);
+	lseek(fd, 0, SEEK_SET);
 	return (0);
 }
 

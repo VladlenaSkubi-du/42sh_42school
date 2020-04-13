@@ -13,6 +13,7 @@ int		ft_substitution(t_ltree *sub)
 	err = 1;
 	while (err)
 	{
+		//ft_alias_find ;
 		ft_find_tilda(sub, LINE);
 		ft_find_var(sub);
 		if ((err = ft_find_curv_var(sub)) & ERR_OUT)

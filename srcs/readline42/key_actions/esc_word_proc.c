@@ -8,9 +8,11 @@ int			word_left_proc(void)
 
 	if (g_rline.pos == 1 || g_rline.pos == 2)
 	{
-		tputs(g_cap.le, 1, printc);
-		(g_rline.pos == 2) ? tputs(g_cap.le, 1, printc) : 0;
-		g_rline.pos = 0;
+		pos_old = g_rline.pos;
+		front_move_one_char_left(g_rline.pos_x);
+		g_rline.pos--;
+		(pos_old == 2) ? front_move_one_char_left(g_rline.pos_x) : 0;
+		(pos_old == 2) ? g_rline.pos-- : 0;
 		return (0);
 	}
 	else if (g_rline.pos == 0)
@@ -37,8 +39,7 @@ int			word_right_proc(void)
 		return (incorrect_sequence());
 	else if (g_rline.pos == g_rline.cmd_len - 1)
 	{
-		tputs(g_cap.nd, 1, printc);
-		g_rline.pos = g_rline.cmd_len;
+		front_move_one_char_right(g_rline.pos_x);
 		return (0);
 	}
 	i = g_rline.pos + 1;

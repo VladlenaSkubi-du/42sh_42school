@@ -4,7 +4,7 @@
 /* Notify the user about stopped or terminated jobs.
    Delete terminated jobs from the active job list.  */
 
-void	free_job(job *j)
+int		free_job(job *j)
 {
 	job		*j_last;
 	job		*j_next;
@@ -17,6 +17,9 @@ void	free_job(job *j)
 
 	j_last->next = j_next;
 
+	if (j == g_first_job)
+		g_first_job = NULL;
+
 	while (j->first_process)
 	{
 		temp = j->first_process;
@@ -26,6 +29,7 @@ void	free_job(job *j)
 		free(temp);
 	}
 	free(j);
+	return (0);
 }
 
 void	do_job_notification (void)
@@ -130,15 +134,15 @@ job		*find_job (pid_t pgid)
 
 void	process_update(process *p, int status)
 {
-	printf("Marking %s\n", *(p->argv));
+	printf("Marking %s ", *(p->argv));
 	/*
 	(WIFEXITED(status)) && (p->completed = 1) && (printf("Marked as completed\n"));
 	(WIFSTOPPED(status)) && (p->stopped = 1) && (printf("Marked as stopped\n"));
 	*/
 	if (WIFSTOPPED(status))
-		p->stopped = 1;
+		p->stopped = 1 && (printf("as stopped\n"));
 	else
-		p->completed = 1;
+		p->completed = 1 && (printf("as completed\n"));
 	p->status = status;
 }
 
@@ -146,50 +150,33 @@ void	process_update(process *p, int status)
 void	child_handler(int sig)
 {
 	int		child_pid;
-	int		child_pgid;
 	int		status;
 	job		*j;
+	job		*temp;
 	process	*proc;
 
-	child_pid = waitpid(0, &status, WUNTRACED);
-	/* YOU CAN'T GET PGID OF TERMINATED PROC */
-
-	j = g_first_job;
-	while (j)
+	printf("Got SIGCHLD\n");
+	while ((child_pid = waitpid(-1, &status, WUNTRACED)) != -1)
 	{
-		proc = j->first_process;
-		while (proc)
+		j = g_first_job;
+		while (j)
 		{
-			if (proc->pid = child_pid)
+			temp = NULL;
+			proc = j->first_process;
+			while (proc)
 			{
-				process_update(proc, status);
-				signal(SIGCHLD, child_handler);
-				printf("Found child to terminate\n");
-				if (!j->fg)
-				{
-					/* I DO NOT LIKE IT */
-					do_job_notification();
-				}
-				return ;
+				printf("%d %d\n", proc->pid, child_pid);
+				if (proc->pid == child_pid)
+					process_update(proc, status);
+				proc = proc->next;
 			}
-			proc = proc->next;
+			if (!j->fg)
+				if (job_is_completed(j))
+						temp = j;
+			j = j->next;
+			temp && free_job(temp);
 		}
-		j = j->next;
 	}
-
-/*
-	child_pgid = getpgid(child_pid);
-	j = find_job(child_pgid);
-	printf("child_handler after find_job %s\n", j);
-	proc = find_process(j, child_pid);
-	printf("child_handler after find_process\n");
-	process_update(proc, status);
-	printf("child_handler after process_update\n");
-	if (job_is_completed(j))
-	{
-
-	}
-*/
 	signal(SIGCHLD, child_handler);
 }
 

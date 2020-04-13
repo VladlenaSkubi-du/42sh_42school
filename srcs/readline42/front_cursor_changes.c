@@ -22,6 +22,8 @@ int					front_move_one_char_right(int pos_x)
 		g_rline.pos_x = 0;
 		g_rline.pos_y++;
 	}
+	else
+		return (incorrect_sequence());
 	return (0);
 }
 
@@ -47,6 +49,8 @@ int					front_move_one_char_left(int pos_x)
 		g_rline.pos_x = prev_x;
 		g_rline.pos_y--;
 	}
+	else
+		return (incorrect_sequence());
 	return (0);
 }
 
