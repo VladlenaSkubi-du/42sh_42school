@@ -14,9 +14,8 @@ int		ft_find_var(t_ltree *sub)
 	i = -1;
 	while (++i < sub->l_tline.len)
 	{
-		if (sub->l_tline.line[i] == DOLLAR &&
-			sub->l_tline.line[i + 1] != OBRACE &&
-			sub->l_tline.line[i + 1] != OPAREN)
+		if (sub->l_tline.line[i] == DOLLAR && sub->l_tline.line[i + 1] != OBRACE
+			&& sub->l_tline.line[i + 1] != OPAREN)
 		{
 			size = 1;
 			while (i + size < sub->end && sub->l_tline.line[i + size] == WORD_P)
@@ -28,7 +27,7 @@ int		ft_find_var(t_ltree *sub)
 				insert_str_in_loc_strs(sub, &find, &i, TEXT);
 			}
 			else
-				ft_reglue(&i, size, sub);
+				ft_reglue(&i, size, sub) == 0 ? i-- : 0;
 		}
 	}
 	return (0);
