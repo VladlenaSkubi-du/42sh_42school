@@ -20,6 +20,7 @@ static int  ft_try_create_fd(char **tmp, int *fd, int len, char **xxx)
 {
 	int		buf;
 
+	buf = 0;
 	*fd = open("/dev/random", O_RDONLY);
 	while (++len < 6)
 	{

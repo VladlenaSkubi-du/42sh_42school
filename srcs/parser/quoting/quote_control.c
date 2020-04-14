@@ -109,6 +109,7 @@ int		nullify_promt_check(t_stack **stack)
 			error_handler(SYNTAX_ERROR | (ERR_SQUOTE << 9),
 				g_sign[(*stack)->next->data]);
 		}
+		ft_clear_stack(stack);
 		return (OUT);
 	}
 	else
