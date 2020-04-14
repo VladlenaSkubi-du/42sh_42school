@@ -256,7 +256,7 @@ int						ft_redir_less(t_ltree *final, size_t *i);
 int						ft_redir_dless(t_ltree *final, size_t *i);
 int						ft_redir_dless_min(t_ltree *final, size_t *i);
 int						ft_redir_lessand(t_ltree *final, size_t *i);
-int						ft_heredoc_form(t_fd_redir *fd_open, char *f_name,
+int						ft_heredoc_form(t_fd_redir *fd_open, char **f_name,
 						t_ltree *final, int flag);
 
 /*
