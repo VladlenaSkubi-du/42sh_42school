@@ -39,7 +39,6 @@ int		ft_check_heredoc_end(int ret)
 	
 	tmp = g_heredoc.list;
 	null_here_line();
-	add_to_heredoc_buf(&g_heredoc.buf, g_cmd, &g_heredoc.buf_size);
 	lines_in = g_heredoc.buf;
 	i = -1;
 	while (tmp)
@@ -47,7 +46,8 @@ int		ft_check_heredoc_end(int ret)
 		find = (t_stop *)tmp->content;
 		while (lines_in[++i])
 		{
-			if (!ft_strcmp(find->stop_w, lines_in[i]) || lines_in[i][0] == EOF)
+			if (!ft_strncmp(find->stop_w, lines_in[i],
+				ft_strlen(lines_in[i]) - 1)	|| lines_in[i][0] == EOF)
 			{
 				tmp = tmp->next;
 				break ;
@@ -80,9 +80,10 @@ int		ft_heredoc_fill(int ret)
 		{
 			if (find->flag == MINUS)
 				here_tab_remove(&(lines_in[i]));
-			if (!ft_strcmp(find->stop_w, lines_in[i]) || lines_in[i][0] == EOF)
+			if (!ft_strncmp(find->stop_w, lines_in[i],
+				ft_strlen(lines_in[i]) - 1)	|| lines_in[i][0] == EOF)
 				break ;
-			ft_putendl_fd(lines_in[i], find->fd);;			
+			ft_putstr_fd(lines_in[i], find->fd);			
 		}
 		tmp = tmp->next;
 	}
