@@ -90,7 +90,7 @@ int		nullify_dquotes(char **ptr, t_stack **stack,\
 
 int		nullify_promt_check(t_stack **stack)
 {
-	if ((*stack)->data != 0)
+	if ((*stack)->data != 0 && g_prompt.prompt_func != heredoc_prompt)
 	{
 		if ((*stack)->data == DOLLAR)
 			ft_pop_stack(stack);
@@ -112,7 +112,7 @@ int		nullify_promt_check(t_stack **stack)
 		ft_clear_stack(stack);
 		return (OUT);
 	}
-	else
+	else if (g_prompt.prompt_func != heredoc_prompt)
 		g_prompt.prompt_func = main_prompt;
 	ft_clear_stack(stack);
 	return (0);
@@ -135,7 +135,9 @@ int		nullify(char **techline, size_t cmd_size)
 	count = -1;
 	ptr = *techline;
 	stack = ft_init_stack();
-	while (++count <= cmd_size)
+	if (g_prompt.prompt_func == heredoc_prompt)
+		ft_push_stack(&stack, DQUOTE);
+	while (++count < cmd_size)
 	{
 		if (*ptr == DOLLAR && (stack->data == DQUOTE || stack->data == 0))
 			ft_push_stack(&stack, *ptr);
@@ -144,10 +146,11 @@ int		nullify(char **techline, size_t cmd_size)
 			if (*ptr == DQUOTE || *ptr == SQUOTE)
 				ft_push_stack(&stack, *ptr);
 		}
-		else
+		else if (g_prompt.prompt_func != heredoc_prompt)
 			nullify_dquotes(&ptr, &stack, &count);
 		nullify_backslash(&ptr, &stack, &count, cmd_size);
-		nullify_comment(&ptr, &stack);
+		if (g_prompt.prompt_func != heredoc_prompt)
+			nullify_comment(&ptr, &stack);
 		ptr++;
 	}
 		// printf("g_cmd nul=%s\n", g_cmd);//печать для проверки
