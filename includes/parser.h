@@ -471,7 +471,7 @@ int						exec_core(t_ltree *pos);
 ** File path_parse.c
 */
 
-char					*path_init(char **exec_av);
+char					*path_init(t_ltree *pos);
 
 /*
 ** File exec_utils.c

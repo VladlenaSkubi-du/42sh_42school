@@ -41,6 +41,8 @@ int		before_add(t_ltree *sub, t_list **list)
 	sub->token = ft_find_token_sep(&g_cmd[sub->end]);
 	ft_local_copy_lines(sub, g_cmd, g_techline.line);
 	pre_parsing_cut_glue(sub);
+	if (ft_check_null(sub, list) == OUT)
+		return (OUT);
 	if ((err = ft_find_redirection(sub)) & ERR_OUT)
 	{
 		if ((err & 0xFF) != TMPFILE)
