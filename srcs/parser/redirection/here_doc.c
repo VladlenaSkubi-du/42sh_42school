@@ -33,30 +33,30 @@ int		ft_check_is_heredoc(int ret)
 int		ft_check_heredoc_end(int ret)
 {
 	t_list	*tmp;
-	char	**lines_in;
 	int		i;
 	t_stop	*find;
 	
 	tmp = g_heredoc.list;
 	null_here_line();
-	add_to_heredoc_buf(&g_heredoc.buf, g_cmd, &g_heredoc.buf_size);
-	lines_in = g_heredoc.buf;
 	i = -1;
 	while (tmp)
 	{
 		find = (t_stop *)tmp->content;
-		while (lines_in[++i])
+		while (g_heredoc.buf[++i])
 		{
-			if (!ft_strcmp(find->stop_w, lines_in[i]) || lines_in[i][0] == EOF)
+			if (find->flag == MINUS)
+				here_tab_remove(&(g_heredoc.buf[i]));
+			if (!ft_strncmp(find->stop_w, g_heredoc.buf[i],
+				ft_strlen(g_heredoc.buf[i]) - 1) || g_heredoc.buf[i][0] == EOF)
 			{
 				tmp = tmp->next;
 				break ;
 			}
 		}
-		if (tmp != NULL && lines_in[i] == NULL)
+		if (tmp != NULL && g_heredoc.buf[i] == NULL)
 			return (OUT);
 	}
-	return(0);
+	return (0);
 }
 
 /*
@@ -78,16 +78,15 @@ int		ft_heredoc_fill(int ret)
 		find = (t_stop *)tmp->content;
 		while (lines_in[++i])
 		{
-			if (find->flag == MINUS)
-				here_tab_remove(&(lines_in[i]));
-			if (!ft_strcmp(find->stop_w, lines_in[i]) || lines_in[i][0] == EOF)
+			if (!ft_strncmp(find->stop_w, lines_in[i],
+				ft_strlen(lines_in[i]) - 1)	|| lines_in[i][0] == EOF)
 				break ;
-			ft_putendl_fd(lines_in[i], find->fd);;			
+			ft_putstr_fd(lines_in[i], find->fd);			
 		}
 		tmp = tmp->next;
 	}
 	recover_g_cmd_here();
-	ft_heredoc_rem();
+	ft_heredoc_rem(find->fd);
 	g_prompt.prompt_func = main_prompt;
 	return (ret);
 }
@@ -96,7 +95,7 @@ int		ft_heredoc_fill(int ret)
 ** function frees g_heredoc content
 */
 
-int		ft_heredoc_rem(void)
+int		ft_heredoc_rem(int fd)
 {
 	t_list	*tmp;
 	t_stop	*find;
@@ -105,6 +104,7 @@ int		ft_heredoc_rem(void)
 	while(tmp)
 	{
 		find = (t_stop *)tmp->content;
+		lseek(find->fd, 0, SEEK_SET);
 		free(find->stop_w);
 		tmp = tmp->next;
 	}

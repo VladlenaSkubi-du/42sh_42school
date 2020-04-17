@@ -21,8 +21,6 @@ int		ft_block_add_to_list(t_ltree *block, t_list **list)
 		block->flags &= ~GR_START;
 		block->start = final->end + 1;
 		if (before_add(final, list) == OUT)
-			return (OUT);
-		if (ft_check_null(final, list) == OUT)
 			return (OUT);		
 		ft_add_list_to_end(list, ft_lstnew(final, sizeof(t_ltree)));
 		if (final->flags & LOG_AND_OUT || final->flags & LOG_OR_OUT)
@@ -131,7 +129,7 @@ int		ft_slice_fg(void)
 				block.end = i;
 				if (ft_block_add_to_list(&block, &g_start_list) == OUT)
 					return (OUT);
-				block.start = i + 1;
+				//block.start = i + 1;
 			}
 		}
 	}

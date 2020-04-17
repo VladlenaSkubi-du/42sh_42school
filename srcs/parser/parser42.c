@@ -60,13 +60,13 @@ char	get_tech_num(char check)
 	char	*base;
 	int		i;
 
-	base = " \\;&\"\'()[]{}$~|><*=\n#\t";
+	base = " \\;&\"\'()[]{}$~|><*=\n#!:\t";
 	i = 0;
 	while (base[i])
 	{
 		if (base[i] == check)
 		{
-			if (i == 21)
+			if (i == 25)
 				return (2);
 			else			
 				return (i + 2);

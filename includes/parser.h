@@ -223,7 +223,7 @@ int						erroring_andor_pipe(t_ltree *final, size_t *i,
 ** File ft_tmpfile.c
 */
 
-int						ft_tmpfile(char *template);
+int						ft_tmpfile(char *template, int *fd);
 
 /*
 ** File redirect.c
@@ -256,7 +256,7 @@ int						ft_redir_less(t_ltree *final, size_t *i);
 int						ft_redir_dless(t_ltree *final, size_t *i);
 int						ft_redir_dless_min(t_ltree *final, size_t *i);
 int						ft_redir_lessand(t_ltree *final, size_t *i);
-int						ft_heredoc_form(t_fd_redir *fd_open, char *f_name,
+int						ft_heredoc_form(t_fd_redir *fd_open, char **f_name,
 						t_ltree *final, int flag);
 
 /*
@@ -278,7 +278,7 @@ int						ft_num_or_word_in(char **f_name, t_fd_redir *fd_open,
 int						ft_check_is_heredoc(int	ret);
 int						ft_check_heredoc_end(int ret);
 int						ft_heredoc_fill(int ret);
-int						ft_heredoc_rem(void);
+int						ft_heredoc_rem(int fd);
 int						ft_g_init_heredoc(void);
 
 /*
