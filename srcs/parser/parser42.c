@@ -13,7 +13,6 @@ int		parser(char *line)
 	g_cmd_size = ft_strlen(g_cmd);
 	ft_get_techline(g_cmd, &g_techline);
 	add_to_history(g_cmd);
-	g_hist.counter = g_hist.last + 1;
 	pars_lex_exec(0);
 	return (0);
 }
@@ -38,7 +37,7 @@ int		parser(char *line)
 // 	return (0);
 // }
 
-int		pars_lex_exec(int tmp)
+int		pars_lex_exec(int tmp) //перестроить логику обращения к функциям - Влада в 21
 {
 	// castrated_parser(); //TODO delete
 	if (g_prompt.prompt_func != heredoc_prompt)
