@@ -13,6 +13,7 @@ int		ft_substitution(t_ltree *sub)
 	err = 1;
 	while (err)
 	{
+		//ft_alias_find ;
 		ft_find_tilda(sub, LINE);
 		ft_find_var(sub);
 		if ((err = ft_find_curv_var(sub)) & ERR_OUT)
@@ -40,9 +41,14 @@ int		before_add(t_ltree *sub, t_list **list)
 	sub->token = ft_find_token_sep(&g_cmd[sub->end]);
 	ft_local_copy_lines(sub, g_cmd, g_techline.line);
 	pre_parsing_cut_glue(sub);
+	if (ft_check_null(sub, list) == OUT)
+		return (OUT);
 	if ((err = ft_find_redirection(sub)) & ERR_OUT)
 	{
-		ft_error_redir(sub);
+		if ((err & 0xFF) != TMPFILE)
+			ft_error_redir(sub);
+		else
+			error_handler(err, NULL);
 		ft_one_ltree_clear(sub);
 		ft_lst_ltree_clear(list);
 		return (OUT);

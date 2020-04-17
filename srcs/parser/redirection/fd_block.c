@@ -96,11 +96,11 @@ int		ft_num_or_word_out(char **f_name, t_fd_redir *fd_open,
 		else
 			add_redir_fd(final, fd_open);
 	}
-	else
+	else if ((final->err = ft_strdup(*f_name)) != NULL)
 	{
 		if (((fd_open->fd_in = fcntl(fd_ret, F_GETFL)) & O_ACCMODE)
 			!= O_WRONLY && (fd_open->fd_in & O_ACCMODE) != O_RDWR)
-			return (final->flags |= ERR_IN | ERR_BAD_FD << 16);
+			return (final->flags |= ERR_IN | ERR_R | ERR_BAD_FD << 16);
 		else
 			(fd_open->fd_in = fd_ret) >= 0 ?
 			add_redir_fd(final, fd_open) : 0;
@@ -124,11 +124,11 @@ int		ft_num_or_word_in(char **f_name, t_fd_redir *fd_open,
 		else
 			add_redir_fd(final, fd_open);
 	}
-	else
+	else if ((final->err = ft_strdup(*f_name)) != NULL)
 	{
 		if (((fd_open->fd_in = fcntl(fd_ret, F_GETFL)) & O_ACCMODE)
-			!= O_WRONLY && (fd_open->fd_in & O_ACCMODE) != O_RDWR)
-			return (final->flags |= ERR_IN | ERR_BAD_FD << 16);
+			!= O_RDONLY && (fd_open->fd_in & O_ACCMODE) != O_RDWR)
+			return (final->flags |= ERR_IN | ERR_R | ERR_BAD_FD << 16);
 		else
 			(fd_open->fd_in = fd_ret) >= 0 ?
 			add_redir_fd(final, fd_open) : 0;

@@ -6,8 +6,6 @@
 #include "builtins_list.h"
 #include "jobs.h"
 
-/* SEGFAULT HERE */
-
 int		exec_vp(process *p)
 {
 	if (!(g_path = path_init(p->argv)))

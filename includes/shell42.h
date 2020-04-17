@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell42.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/07 14:23:42 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/04/13 10:51:23 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@
 # include <time.h>
 # include <pwd.h>
 # include <string.h>
-# include <fcntl.h>
-# include <stdlib.h>
 
 # include <stdio.h> //DELETE
 
@@ -92,7 +90,9 @@ typedef struct		s_history
 ** @SQUOTE is "'", @OPAREN is "(", @CPAREN is ")", @OBRACKET is "["
 ** @CBRACKET is "]", @OBRACE is "{", CBRACE is "}", @DOLLAR is "$",
 ** @TILDA is "~", @PIPE is "|", @GTHAN is ">", @LTHAN is "<",
-** @AST is "*", @EQUAL = "=", @ENTER is "\n", @COMENT is "#"
+** @AST is "*", @EQUAL = "=", @ENTER is "\n", @COMENT is "#",
+** @BANG is "!", @COLON is ":",
+** @GLUE is " " in DQUOTS, @TEXT is quoted symbol, @END_T is end of line
 */
 
 enum				e_techline
@@ -119,6 +119,8 @@ enum				e_techline
 	EQUAL,
 	ENTER,
 	COMENT,
+	BANG,
+	COLON,
 	GLUE,
 	TEXT,
 	END_T,
