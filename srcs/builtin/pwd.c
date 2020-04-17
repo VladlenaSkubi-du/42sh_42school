@@ -38,6 +38,7 @@ int		valid(char **argv)
 			}
 		i++;
 	}
+	return (0);
 }
 
 int     btin_pwd(t_ltree *pos)

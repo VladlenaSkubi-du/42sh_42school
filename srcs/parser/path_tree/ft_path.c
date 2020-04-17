@@ -115,8 +115,8 @@ char			**ft_path_pars(char *find, char *path, size_t *total, int *max)
 	i = 0;
 	len = 0;
 	root = NULL;
-	list = ft_strsplit(path, ':');
 	ft_input_builtins(&root, &len, find);
+	list = ft_strsplit(path, ':');
 	if (list != NULL)
 		while (list[i])
 		{

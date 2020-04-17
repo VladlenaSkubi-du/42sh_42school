@@ -87,6 +87,7 @@ int				add_to_history(char *cmd)
 		flag = (cmd[0] == EOF) ? EOF : 0;
 		add_other_prompts_history(cmd, flag);
 	}
+	g_hist.counter = g_hist.last + 1;
 	return (0);
 }
 
