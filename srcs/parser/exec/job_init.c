@@ -116,6 +116,7 @@ int     job_init(t_ltree *entity)
 		job->fg = !(entity->flags & IS_BG);
 		ret += launch_job(job);
 	}
-	printf("Job done\n");
+	tcsetpgrp (STDIN_FILENO, g_shell_pgid);
+	perror("tcsetpgrp");
 	return (ret);
 }
