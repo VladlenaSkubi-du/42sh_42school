@@ -36,6 +36,8 @@ int 	ft_get_home(t_ltree *sub, size_t *i, int flag)
 
 	if ((home = get_env("HOME")) != NULL)
 		insert_str_in_loc_strs(sub, &home, i, TEXT);
+	//else
+		// добавить поиск home по UID
 	else
 		sub->l_tline.line[*i] = TEXT;
 	return (0);
