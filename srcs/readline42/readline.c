@@ -26,12 +26,12 @@ int		readline_choice(char sy)
 
 char	*readline(void)
 {
-	char			temp;
+	char			temp[10];
 
 	init_termcap();
-	while (read(1, &temp, 1) > 0 && temp != '\n')
+	while (read(STDIN_FILENO, temp, 1) > 0 && *temp != '\n')
 	{
-		if (readline_choice(temp) == OUT)
+		if (readline_choice(*temp) == OUT)
 			break ;
 	}
 	if (g_rline.cmd_len > 0)
