@@ -92,7 +92,7 @@ int     job_init(t_ltree *entity)
 	g_shell_pgid = getpgid(0);
 
 	/* If first entity in pipeline or no jobs yet, form new job */
-	if (((entity->flags & PIPED_OUT) && (!(entity->flags & PIPED_IN))) || !g_first_job)
+	if (!(entity->flags & PIPED_IN) || !g_first_job)
 	{
 		printf("New job form: %s\n", *(entity->ar_v));
 		if(!(job = job_new()))
