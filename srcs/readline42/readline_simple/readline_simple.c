@@ -39,6 +39,8 @@ int					sreadline_choice(char sy)
 		make_sctrl_k();
 	else if (sy == '\025')
 		make_sctrl_u();
+	else if (sy == '\004')
+		make_exit();
 	return (0);
 }
 
@@ -55,6 +57,18 @@ char				*readline_simple(void)
 		}
 		sreadline_choice(c);
 	}
+	ft_putendl_fd(0, STDOUT_FILENO);
 	reset_canonical_input();
 	return (g_rline.cmd);
+}
+
+int					make_exit(void)
+{
+	if (g_rline.pos == 0 && g_rline.cmd_len == 0)
+	{
+		reset_canonical_input();
+		clean_readline42();
+		btin_exit(SUCCESS);
+	}
+	return (0);
 }

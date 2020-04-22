@@ -156,7 +156,7 @@ void	child_handler(int sig)
 	process	*proc;
 
 	printf("Got SIGCHLD\n");
-	while ((child_pid = waitpid(-1, &status, WUNTRACED)) != -1)
+	while ((child_pid = waitpid(-1, &status, WUNTRACED|WNOHANG)) > 0)
 	{
 		j = g_first_job;
 		while (j)
