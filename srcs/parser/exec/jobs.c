@@ -174,7 +174,7 @@ void	child_handler(int sig)
 				if (job_is_completed(j))
 						temp = j;
 			j = j->next;
-			temp && free_job(temp);
+			temp && free_job(temp); /* CHANGE */
 		}
 	}
 	signal(SIGCHLD, child_handler);
