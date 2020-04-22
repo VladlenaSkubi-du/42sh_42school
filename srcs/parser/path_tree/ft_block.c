@@ -5,20 +5,20 @@
 ** This func needs to fill path in the struct of file
 */
 
-char			*ft_take_path(char *dir_name)
-{
-	char	*new;
+// char			*ft_take_path(char *dir_name)
+// {
+// 	char	*new;
 
-	if (dir_name[0] == '/' && dir_name[1] == '\0')
-		new = ft_strdup(dir_name);
-	else
-	{
-		new = ft_strnew(ft_strlen(dir_name) + 1);
-		new = ft_strcpy(new, dir_name);
-		new = ft_strcat(new, "/");
-	}
-	return (new);
-}
+// 	if (dir_name[0] == '/' && dir_name[1] == '\0')
+// 		new = ft_strdup(dir_name);
+// 	else
+// 	{
+// 		new = ft_strnew(ft_strlen(dir_name) + 1);
+// 		new = ft_strcpy(new, dir_name);
+// 		new = ft_strcat(new, "/");
+// 	}
+// 	return (new);
+// }
 
 /*
 ** Func fills **list by element of tree t_path
