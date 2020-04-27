@@ -79,6 +79,7 @@ EXEC = 				parser/exec/exec_init.c \
 			parser/exec/jobs.c
 
 QUOTING =			parser/quoting/quote_control.c \
+			parser/quoting/quote_control_err.c \
 			parser/quoting/pre_parsing_work.c
 
 SUBSTITUTION = 		parser/substitution/substitution.c \

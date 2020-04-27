@@ -410,6 +410,12 @@ int						nullify_comment(char **ptr, t_stack **stack);
 int						nullify_promt_check(t_stack	**stack);
 
 /*
+** File quote_control_err.c
+*/
+
+int						nullify_error(t_stack **stack);
+
+/*
 ** File pre_parsing_work.c
 */
 
