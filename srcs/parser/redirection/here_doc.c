@@ -46,8 +46,8 @@ int		ft_check_heredoc_end(int ret)
 		{
 			if (find->flag == MINUS)
 				here_tab_remove(&(g_heredoc.buf[i]));
-			if (!ft_strncmp(find->stop_w, g_heredoc.buf[i],
-				ft_strlen(g_heredoc.buf[i]) - 1) || g_heredoc.buf[i][0] == EOF)
+			if (!ft_strchrcmp(find->stop_w, g_heredoc.buf[i], '\n') ||
+				g_heredoc.buf[i][0] == EOF)
 			{
 				tmp = tmp->next;
 				break ;
@@ -78,8 +78,8 @@ int		ft_heredoc_fill(int ret)
 		find = (t_stop *)tmp->content;
 		while (lines_in[++i])
 		{
-			if (!ft_strncmp(find->stop_w, lines_in[i],
-				ft_strlen(lines_in[i]) - 1)	|| lines_in[i][0] == EOF)
+			if (!ft_strchrcmp(find->stop_w, g_heredoc.buf[i], '\n') ||
+				lines_in[i][0] == EOF)
 				break ;
 			ft_putstr_fd(lines_in[i], find->fd);			
 		}

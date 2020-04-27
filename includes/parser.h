@@ -287,6 +287,7 @@ int						ft_g_init_heredoc(void);
 
 int						add_to_heredoc_buf(char ***array, char *add,
 						int *buf_size);
+int						ft_sub_heredoc(t_ltree *sub);
 int						null_here_line(void);
 int						recover_g_cmd_here(void);
 int						here_tab_remove(char **line);

@@ -82,6 +82,6 @@ int		exec_init(t_ltree *pos)
 	// free(exec_cmd);
 	// ft_lstclear(&pos->fd); // временно для проверки!!!
 	if (pos->ar_c < 1)
-		return (NULL);
+		return (0);
 	return (exec_core(pos));
 }
