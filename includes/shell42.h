@@ -168,6 +168,7 @@ size_t				find_in_variables(char **arr, size_t *j, char *name);
 char				**init_exec_environ(void);
 int					insert_assign_to_arrays(char *find, char *insert,
 						char **array);
+int					if_noninteractive(void);
 
 /*
 ** File variables_array_processing.c
