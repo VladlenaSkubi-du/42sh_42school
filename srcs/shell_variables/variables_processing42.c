@@ -82,11 +82,22 @@ char				**init_exec_environ(void)
 ** insert_assign_to_arrays (NULL, ft_strdup("HISTSIZE=5"), &g_shvar[1]))
 */
 
-int				insert_assign_to_arrays(char *find, char *insert,
-					char **array)
+int					insert_assign_to_arrays(char *find, char *insert,
+						char **array)
 {
 	free(find);
 	free(*array);
 	*array = insert;
+	return (0);
+}
+
+int					if_noninteractive(void)
+{
+	size_t			li;
+	size_t			sy;
+
+	li = find_in_variables(g_rdovar, &sy, "42SH_NONINTERACTIVE");
+	if (g_rdovar[li][sy] == '1')
+		return (1);
 	return (0);
 }
