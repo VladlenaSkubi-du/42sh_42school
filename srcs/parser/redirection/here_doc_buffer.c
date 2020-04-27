@@ -18,6 +18,29 @@ int		add_to_heredoc_buf(char ***array, char *add, int *buf_size)
 }
 
 /*
+** It finds all typs of substitution
+** '~'(tilda), $WORD, ${parameter}, $(command) for heredoc
+*/
+
+int		ft_sub_heredoc(t_ltree *sub)
+{
+	int	err;
+	
+	err = 1;
+	while (err)
+	{
+		ft_find_tilda(sub, LINE);
+		ft_find_var(sub);
+		if ((err = ft_find_curv_var(sub)) & ERR_OUT)
+			break ;
+		// if ((err = ft_find_sub_subshell(sub)) & ERR_OUT)
+		// 	break ;
+		err = 0;
+	}
+	return (err);
+}
+
+/*
 ** Function remove "\\n" and and find substitutions
 */
 
@@ -34,7 +57,7 @@ int		null_here_line(void)
 	buf->err_i = -1;
 	while (++(buf->err_i) < buf->l_tline.len)
 		pre_parsing_back(&(buf->err_i), buf);
-	ft_substitution(buf);
+	ft_sub_heredoc(buf);
 	free(g_cmd);
 	g_cmd = buf->l_cmd;
 	g_cmd_size = buf->l_tline.len;
