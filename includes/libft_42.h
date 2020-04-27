@@ -29,6 +29,8 @@ char                            *ft_find_token_sep(char *str);
 int						        ft_gnl(const int fd, char **line);
 void							ft_putnendl_fd(char *str, int n, int fd);
 void							ft_putnstr_fd(char *str, int n, int fd);
+int								ft_strchrdiff(const char *s1, const char *s2, char sy);
+int								ft_strchrcmp(const char *s1, const char *s2, char x);
 
 /*
 ** Folder stack_structure______________________________________________________

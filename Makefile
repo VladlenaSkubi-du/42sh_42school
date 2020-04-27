@@ -153,6 +153,8 @@ LIBFT_42 =			libft_42/ft_xmalloc.c \
 			libft_42/ft_gnl.c \
 			libft_42/ft_putnstr_fd.c \
 			libft_42/ft_putnendl_fd.c \
+			libft_42/ft_strchrcmp.c \
+			libft_42/ft_strchrdiff.c \
 			$(STACK_STRUCTURE)
 			# libft_42/ft_lstlast.c \
 
