@@ -115,7 +115,7 @@ int								interactive_shell(void);
 int								check_terminal(void);
 int								start_readline42(int tmp);
 char							*finalize_cmd(char *cmd);
-int								clean_readline42(void);
+int								mf_protection(void);
 
 /*
 ** File readline.c - the beginning of the work with readline
