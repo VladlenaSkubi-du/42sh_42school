@@ -134,15 +134,7 @@ job		*find_job (pid_t pgid)
 
 void	process_update(process *p, int status)
 {
-	printf("Marking %s ", *(p->argv));
-	/*
-	(WIFEXITED(status)) && (p->completed = 1) && (printf("Marked as completed\n"));
-	(WIFSTOPPED(status)) && (p->stopped = 1) && (printf("Marked as stopped\n"));
-	*/
-	if (WIFSTOPPED(status))
-		p->stopped = 1 && (printf("as stopped\n"));
-	else
-		p->completed = 1 && (printf("as completed\n"));
+	WIFSTOPPED(status) ? (p->stopped = 1) : (p->completed = 1);
 	p->status = status;
 }
 
@@ -155,7 +147,6 @@ void	child_handler(int sig)
 	job		*temp;
 	process	*proc;
 
-	printf("Got SIGCHLD\n");
 	while ((child_pid = waitpid(-1, &status, WUNTRACED|WNOHANG)) > 0)
 	{
 		j = g_first_job;
@@ -165,14 +156,10 @@ void	child_handler(int sig)
 			proc = j->first_process;
 			while (proc)
 			{
-				printf("%d %d\n", proc->pid, child_pid);
-				if (proc->pid == child_pid)
-					process_update(proc, status);
+				proc->pid == child_pid ? process_update(proc, status) : 0;
 				proc = proc->next;
 			}
-			if (!j->fg)
-				if (job_is_completed(j))
-						temp = j;
+			!j->fg && job_is_completed(j) && (temp = j); /* ???  CHECK FOR LEAKS */
 			j = j->next;
 			temp && free_job(temp); /* CHANGE */
 		}
@@ -182,13 +169,61 @@ void	child_handler(int sig)
 
 /* REWRITE */
 
+int		parent(process	*p, job *j, pid_t pid)
+{
+	p->pid = pid;
+	if (g_is_interactive)
+	{
+		if (!j->pgid)
+			j->pgid = pid;
+		setpgid (pid, j->pgid);
+	}
+	return (0);
+}
+
+int		bg_fg_wait(job *j)
+{
+	if (!g_is_interactive)
+		wait_for_job (j);
+	else if (j->fg)
+		put_job_in_foreground (j, 0);
+	else
+		put_job_in_background (j, 0);
+	return (0);
+}
+
+int		fork_job(process *p, job *j, int *infl, int *outfl)
+{
+	pid_t	pid;
+	int 	mypipe[2];
+
+	if (p->next)
+	{
+		if (pipe (mypipe) < 0)
+			return (-1);
+		*outfl = mypipe[1];
+	}
+	else
+		*outfl = j->stdout;
+	pid = fork ();
+	if (pid == 0)
+		launch_process(p, j->pgid, (int[3]){*infl, *outfl, j->stderr}, j->fg);
+	else if (pid < 0)
+		return (-1);
+	else
+		parent(p, j, pid);
+	if (*infl != STDIN_FILENO)
+		close (*infl);
+	if (*outfl != STDOUT_FILENO)
+		close (*outfl);
+	*infl = mypipe[0];
+	return (0);
+}
 
 /* REWRITE */
 int	 launch_job (job *j)
 {
 	process	*p;
-	pid_t	pid;
-	int 	mypipe[2];
 	int		infile;
 	int		outfile;
 
@@ -196,54 +231,11 @@ int	 launch_job (job *j)
 	p = j->first_process;
 	while (p)
 	{
-		/* Set up pipes, if necessary.  */
-		if (p->next)
-		{
-			if (pipe (mypipe) < 0)
-			{
-				perror ("pipe");
-				return (-1);
-			}
-				outfile = mypipe[1];
-		}
-		else
-	        outfile = j->stdout;
-			/* Fork the child processes.  */
-		pid = fork ();
-	 	if (pid == 0)
-			/* This is the child process.  */
-			launch_process (p, j->pgid, (int[3]){infile, outfile, j->stderr}, j->fg);
-		else if (pid < 0)
-		{
-			/* The fork failed.  */
-			perror ("fork");
+		if (fork_job(p, j, &infile, &outfile) == -1)
 			return (-1);
-		}
-		else
-		{
-			/* This is the parent process.  */
-			p->pid = pid;
-			if (g_is_interactive)
-			{
-				if (!j->pgid)
-					j->pgid = pid;
-				setpgid (pid, j->pgid);
-			}
-		}
-		/* Clean up after pipes.  */
-		if (infile != STDIN_FILENO)
-			close (infile);
-		if (outfile != STDOUT_FILENO)
-			close (outfile);
-		infile = mypipe[0];
 		p = p->next;
 	}
 //	format_job_info (j, "launched");
-	if (!g_is_interactive)
-		wait_for_job (j);
-	else if (j->fg)
-		put_job_in_foreground (j, 0);
-	else
-		put_job_in_background (j, 0);
+	bg_fg_wait(j);
 	return (0);
 }

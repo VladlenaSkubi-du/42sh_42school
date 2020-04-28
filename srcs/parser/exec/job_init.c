@@ -73,15 +73,10 @@ int		process_new(job *jobs, t_ltree *entity)
 	return (0);
 }
 
-int     job_init(t_ltree *entity)
+int		set_globals_and_signals(void)
 {
-//	int			foreground;
-	int			ret;
 	size_t   	li;
 	size_t   	sy;
-	job			*job;
-
-	ret = 0;
 
 	signal(SIGCHLD, child_handler);
 	signal(SIGTTIN, SIG_IGN);
@@ -90,29 +85,27 @@ int     job_init(t_ltree *entity)
 	li = find_in_variables(g_rdovar, &sy, "42SH_NONINTERACTIVE=");
 	g_is_interactive = !(g_rdovar[li][sy] - '0');
 	g_shell_pgid = getpgid(0);
+	return (0);
+}
 
-	/* If first entity in pipeline or no jobs yet, form new job */
+int     job_init(t_ltree *entity)
+{
+	int			ret;
+	job			*job;
+
+	ret = 0;
+	set_globals_and_signals();
 	if (!(entity->flags & PIPED_IN) || !g_first_job)
-	{
-		printf("New job form: %s\n", *(entity->ar_v));
-		if(!(job = job_new()))
-			ret++;
-	}
+		!(job = job_new()) ? ret++ : 0;
 	else
 	{
-		printf("Job update: %s\n", *(entity->ar_v));
 		job = g_first_job;
 		while (job->next)
 			job = job->next;
 	}
-
-	/* Create new process in job */
 	ret += process_new(job, entity);
-
-	/* If we are done filling job, launch and clean */
 	if (!(entity->flags & PIPED_OUT))
 	{
-		printf("Job launch: %s\n", *(entity->ar_v));
 		job->fg = !(entity->flags & IS_BG);
 		ret += launch_job(job);
 	}
