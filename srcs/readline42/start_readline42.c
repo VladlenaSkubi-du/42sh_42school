@@ -73,7 +73,7 @@ int				start_readline42(int tmp)
 {
 	char		*final;
 
-	if (mf_protection)
+	if (mf_protection())
 	{
 		error_handler(TERMINAL_CHANGED, NULL);
 		reset_canonical_input();
