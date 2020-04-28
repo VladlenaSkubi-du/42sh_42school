@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/30 19:25:31 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/04/28 16:45:28 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ enum				e_status
 	TERMINAL_EXISTS = 111,
 	TERMINAL_TO_NON,
 	TERMINAL_TO_CAN,
+	TERMINAL_CHANGED,
 	HISTORY_FILE_FAIL,
 	NONINERACTIVE,
 	TMPFILE,

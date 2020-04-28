@@ -73,6 +73,12 @@ int				start_readline42(int tmp)
 {
 	char		*final;
 
+	if (mf_protection)
+	{
+		error_handler(TERMINAL_CHANGED, NULL);
+		reset_canonical_input();
+		exit(TERMINAL_CHANGED);
+	}
 	if (tmp != 1)
 		readline_simple();
 	else
@@ -84,6 +90,28 @@ int				start_readline42(int tmp)
 	signals_reroute(2);
 	parser(final);
 	return (0);
+}
+
+/*
+** Protects the 0-stream after programs that could have changed
+** it to NONBLOCK
+** For example, nvim (neovim) does that so after launching it in
+** background without mf_protections - there will be no stop on
+** read and we will come back to the same read and so on - 
+** dead loop
+** Mf = "modify fd" or motherfucking (historically)
+*/
+
+int				mf_protection(void)
+{
+	int			flags;
+	int			tmp;
+
+	flags = fcntl(STDIN_FILENO, F_GETFL, 0);
+	if (flags < 0)
+		return (-1);
+	tmp = fcntl(STDIN_FILENO, F_SETFL, flags & ~(O_NONBLOCK));
+	return ((tmp < 0) ? -1 : 0);
 }
 
 char			*finalize_cmd(char *cmd)
