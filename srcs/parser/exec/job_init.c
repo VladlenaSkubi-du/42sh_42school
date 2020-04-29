@@ -41,16 +41,6 @@ int		vec_dup(char ***dst, char **src)
 	return (0);
 }
 
-/* Do we need to copy argv and envp? */
-
-int		process_fill(process *proc, t_ltree *entity)
-{
-	vec_dup(&proc->argv, entity->ar_v);
-	vec_dup(&proc->envp, entity->envir);
-	proc->next = NULL;
-	return (0);
-}
-
 int		process_new(job *jobs, t_ltree *entity)
 {
 	process	*process_new;
@@ -59,12 +49,13 @@ int		process_new(job *jobs, t_ltree *entity)
 	if (!entity || !jobs)
 		return (-1);
 	process_new = (process *)ft_xmalloc(sizeof(process));
-	process_fill(process_new, entity);
+	vec_dup(&process_new->argv, entity->ar_v);
+	vec_dup(&process_new->envp, entity->envir);
+	process_new->next = NULL;
 	if (!jobs->first_process)
 		jobs->first_process = process_new;
 	else
 	{
-
 		process_iter = jobs->first_process;
 		while (process_iter->next)
 			process_iter = process_iter->next;

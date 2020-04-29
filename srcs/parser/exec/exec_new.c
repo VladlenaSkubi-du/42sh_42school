@@ -1,10 +1,7 @@
-/*
-** So, it will be something like execvp
-*/
-
 #include "shell42.h"
 #include "builtins_list.h"
 #include "jobs.h"
+#include "parser.h"
 
 int		exec_vp(process *p)
 {
@@ -14,16 +11,6 @@ int		exec_vp(process *p)
 	if (execve(g_path, p->argv, p->envp) == -1) //TODO испрвить на все виды очисток
 		exit(-1);
 	return (0);
-}
-
-void	set_proc_sig(void)
-{
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-	signal(SIGTSTP, SIG_DFL);
-	signal(SIGTTIN, SIG_DFL);
-	signal(SIGTTOU, SIG_DFL);
-	signal(SIGCHLD, SIG_DFL);
 }
 
 int		setstream(int src, int dest)
