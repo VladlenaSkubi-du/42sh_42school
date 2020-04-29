@@ -35,27 +35,51 @@ job					*g_first_job;
 
 /* TODO: Redistribute functions between files according to norm */
 
-void	wait_for_job (job *j);
-void	put_job_in_foreground (job *j, int cont);
-void	put_job_in_background (job *j, int cont);
+/*
+** File job_init.c
+*/
 
-int		exec_vp(process *p);
-void	launch_process (process *p, pid_t pgid, int stream[3], int foreground);
-
-job		*job_new(void);
-int		vec_dup(char ***dst, char **src);
-int		process_fill(process *proc, t_ltree *entity);
-int		process_new(job *jobs, t_ltree *entity);
 int     job_init(t_ltree *entity);
 
-int		free_job(job *j);
-void	do_job_notification(void);
+/*
+** File jobs.c
+*/
+
+int	 	launch_job (job *j);
+void	process_update(process *p, int status);
 process *find_process(job *j, pid_t child_pid);
+
+/*
+** File job_utils.c
+*/
+
 int		job_is_stopped(job *j);
 int		job_is_completed(job *j);
 job		*find_job (pid_t pgid);
-void	process_update(process *p, int status);
+int		free_job(job *j);
+void	do_job_notification (void);
+
+/*
+** File bg_fg.c
+*/
+
+void	wait_for_job (job *j);
+void	put_job_in_foreground (job *j, int cont); /* QUESTIONABLE */
+void	put_job_in_background (job *j, int cont);
+int		bg_fg_wait(job *j);
+
+/*
+** File sig.c
+*/
+
 void	child_handler(int sig);
-int 	launch_job (job *j);
+void	set_proc_sig(void);
+
+/*
+** File exec_new.c
+*/
+
+void	launch_process (process *p, pid_t pgid, int stream[3], int foreground);
+
 
 #endif

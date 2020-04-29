@@ -41,12 +41,7 @@ char	*locate_file(char *env_path, char *name, char **to_clean)
 	{
 		if (!ft_strcmp(entity->d_name, name))
 		{
-			if (!(ret = (char *)malloc(ft_strlen(env_path) + ft_strlen(name) + 2))) /* You shoud use Vlada's awesome function */
-			{
-				free_vec(to_clean);
-				closedir(path);
-				return (0);
-			}
+			ret = (char *)ft_xmalloc(ft_strlen(env_path) + ft_strlen(name) + 2);
 			ret = form_path(ret, env_path, name);
 			if (ret)
 				break;

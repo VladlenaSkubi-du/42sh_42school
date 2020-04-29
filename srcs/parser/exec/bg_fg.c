@@ -49,3 +49,14 @@ void	put_job_in_background (job *j, int cont)
 		if (kill (-j->pgid, SIGCONT) < 0)
 			perror ("kill (SIGCONT)");
 }
+
+int		bg_fg_wait(job *j)
+{
+	if (!g_is_interactive)
+		wait_for_job (j);
+	else if (j->fg)
+		put_job_in_foreground (j, 0);
+	else
+		put_job_in_background (j, 0);
+	return (0);
+}
