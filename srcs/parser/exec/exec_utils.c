@@ -80,23 +80,29 @@ int		ft_builtins_check(t_ltree *pos, int flag)
 	return (-1);
 }
 
-int		fd_list_process(t_ltree *pos)
+int		fd_list_process(t_ltree *pos, int mode)
 {
 	t_list		*fd_list;
 	t_fd_redir	*redir;
 
-	fd_list = pos->fd;
-	while (fd_list)
+	if (!mode)
 	{
-		redir = (t_fd_redir *)fd_list->content;
-		if (redir->fd_in != CLOSE)
-			dup2(redir->fd_in, redir->fd_out);
-		else
+		std_save(0);
+		fd_list = pos->fd;
+		while (fd_list)
 		{
-			dup2(redir->fd_out, redir->fd_out);
-			close (redir->fd_out);
+			redir = (t_fd_redir *)fd_list->content;
+			if (redir->fd_in != CLOSE)
+				dup2(redir->fd_in, redir->fd_out);
+			else
+			{
+				dup2(redir->fd_out, redir->fd_out);
+				close (redir->fd_out);
+			}
+			fd_list = fd_list->next;
 		}
-		fd_list = fd_list->next;
 	}
+	else
+		std_save(1);
 	return (0);
 }
