@@ -1,5 +1,6 @@
 #include "shell42.h"
 #include "jobs.h"
+#include "parser.h"
 
 job		*job_new(void)
 {
@@ -85,6 +86,8 @@ int     job_init(t_ltree *entity)
 	job			*job;
 
 	ret = 0;
+	if (!exec_builtin(entity))
+		return (ret);
 	set_globals_and_signals();
 	if (!(entity->flags & PIPED_IN) || !g_first_job)
 		!(job = job_new()) ? ret++ : 0;
@@ -101,6 +104,5 @@ int     job_init(t_ltree *entity)
 		ret += launch_job(job);
 	}
 	tcsetpgrp (STDIN_FILENO, g_shell_pgid);
-	perror("tcsetpgrp");
 	return (ret);
 }

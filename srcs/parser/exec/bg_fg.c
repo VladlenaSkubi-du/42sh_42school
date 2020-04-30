@@ -12,7 +12,6 @@
 void	wait_for_job (job *j)
 {
 	while (!job_is_stopped (j) && !job_is_completed (j));
-	printf("wait_for_job done\n");
 }
 
 void	put_job_in_foreground (job *j, int cont)
@@ -34,7 +33,6 @@ void	put_job_in_foreground (job *j, int cont)
 	/* Restore the shell’s terminal modes.  */
 	tcgetattr (STDIN_FILENO, &j->tmodes);
 	tcsetattr (STDIN_FILENO, TCSADRAIN, &g_shell_tmodes);
-	printf("FG done\n");
 	free_job(j); /* CHANGE */
 }
 

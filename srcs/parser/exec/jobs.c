@@ -38,7 +38,7 @@ int		fork_job(process *p, job *j, int *infl, int *outfl)
 
 	if (p->next)
 	{
-		if (pipe (mypipe) < 0)
+		if (pipe(mypipe) < 0)
 			return (-1);
 		*outfl = mypipe[1];
 	}

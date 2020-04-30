@@ -473,6 +473,8 @@ int						exec_init(t_ltree *pos);
 */
 
 int						exec_core(t_ltree *pos);
+int						exec_builtin(t_ltree *pos);
+int						exec_internal(t_ltree *pos);
 
 /*
 ** File path_parse.c

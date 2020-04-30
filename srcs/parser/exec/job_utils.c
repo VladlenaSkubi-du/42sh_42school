@@ -33,7 +33,6 @@ int		job_is_completed(job *j)
 		}
 		p = p->next;
 	}
-	printf("All completed\n");
 	return (1);
 }
 
@@ -44,7 +43,6 @@ job		*find_job (pid_t pgid)
 	j = g_first_job;
 	while (j)
 	{
-		printf("PGID: %d FIND: %d\n", j->pgid, pgid);
 		if (j->pgid == pgid)
 			return (j);
 		j = j->next;
