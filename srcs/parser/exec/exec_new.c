@@ -16,7 +16,7 @@ int		exec_vp(process *p)
 int		setstream(int src, int dest)
 {
 	dup2(src, dest);
-	close(dest);
+	close(src);
 	return (0);
 }
 
