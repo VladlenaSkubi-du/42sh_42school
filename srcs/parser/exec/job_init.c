@@ -86,6 +86,7 @@ int     job_init(t_ltree *entity)
 	job			*job;
 
 	ret = 0;
+	fd_list_process(entity, 0);
 	if (!exec_builtin(entity))
 		return (ret);
 	set_globals_and_signals();
@@ -103,6 +104,7 @@ int     job_init(t_ltree *entity)
 		job->fg = !(entity->flags & IS_BG);
 		ret += launch_job(job);
 	}
-	tcsetpgrp (STDIN_FILENO, g_shell_pgid);
+	tcsetpgrp(STDIN_FILENO, g_shell_pgid);
+	fd_list_process(entity, 1);
 	return (ret);
 }

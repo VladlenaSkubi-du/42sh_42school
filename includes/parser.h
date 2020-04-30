@@ -472,6 +472,7 @@ int						exec_init(t_ltree *pos);
 ** File exec_core.c
 */
 
+int						std_save(int mode);
 int						exec_core(t_ltree *pos);
 int						exec_builtin(t_ltree *pos);
 int						exec_internal(t_ltree *pos);
@@ -490,6 +491,6 @@ void					free_vec(char **vec);
 char					*get_env(char *var);
 int						exec_clean(char *path, int exit_status, char *msg);
 int						ft_builtins_check(t_ltree *pos, int flag);
-int						fd_list_process(t_ltree *pos);
+int						fd_list_process(t_ltree *pos, int mode);
 
 #endif
