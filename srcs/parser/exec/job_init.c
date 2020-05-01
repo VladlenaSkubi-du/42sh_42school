@@ -2,7 +2,7 @@
 #include "jobs.h"
 #include "parser.h"
 
-job		*job_new(void)
+job		*job_new(t_ltree *entity)
 {
 	job		*job_new;
 	job		*job_iter;
@@ -13,12 +13,16 @@ job		*job_new(void)
 	job_new->stdout = STDOUT_FILENO;
 	job_new->stderr = STDERR_FILENO;
 	if (!g_first_job)
+	{
+		job_new->jid = 1;
 		g_first_job = job_new;
+	}
 	else
 	{
 		job_iter = g_first_job;
 		while (job_iter->next)
 			job_iter = job_iter->next;
+		job_new->jid = job_iter->jid + 1;
 		job_iter->next = job_new;
 	}
 	return (job_new);
@@ -47,14 +51,17 @@ int		process_new(job *jobs, t_ltree *entity)
 	process	*process_new;
 	process	*process_iter;
 
-	if (!entity || !jobs)
+	if (!entity || !jobs || entity->ar_c < 1)
 		return (-1);
 	process_new = (process *)ft_xmalloc(sizeof(process));
 	vec_dup(&process_new->argv, entity->ar_v);
 	vec_dup(&process_new->envp, entity->envir);
 	process_new->next = NULL;
 	if (!jobs->first_process)
+	{
+		jobs->com = (process_new->argv)[0];
 		jobs->first_process = process_new;
+	}
 	else
 	{
 		process_iter = jobs->first_process;
@@ -91,7 +98,7 @@ int     job_init(t_ltree *entity)
 		return (ret);
 	set_globals_and_signals();
 	if (!(entity->flags & PIPED_IN) || !g_first_job)
-		!(job = job_new()) ? ret++ : 0;
+		!(job = job_new(entity)) ? ret++ : 0;
 	else
 	{
 		job = g_first_job;

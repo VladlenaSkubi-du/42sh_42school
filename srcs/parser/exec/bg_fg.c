@@ -11,7 +11,7 @@
 
 void	wait_for_job (job *j)
 {
-	while (!job_is_stopped (j) && !job_is_completed (j));
+	while (!job_is_stopped (j, 0) && !job_is_completed (j));
 }
 
 void	put_job_in_foreground (job *j, int cont)
