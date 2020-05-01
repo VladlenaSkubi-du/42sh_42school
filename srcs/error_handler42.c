@@ -136,6 +136,11 @@ int				syntax_errors(int status, char *str)
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd(": Bad file descriptor", STDERR_FILENO);
 	}
+	if (status >> 9 & ERR_NUMERIC)
+	{
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd(": numeric argument required", STDERR_FILENO);
+	}
 	return (0);
 }
 
