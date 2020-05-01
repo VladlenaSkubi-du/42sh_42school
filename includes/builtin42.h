@@ -14,8 +14,7 @@ typedef struct  s_ec
     int         up_e;
 }               t_ec;
 
-int				btin_exit(int status);
-
+int				btin_exit(t_ltree *pos);
 
 /*
 ** File usages.c
