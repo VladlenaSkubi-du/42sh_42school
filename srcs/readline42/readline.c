@@ -70,17 +70,23 @@ void	init_readline(void)
 
 int					route_exit(void)
 {
+	t_ltree			*pos;
+	
+	check_menu();
 	if (g_prompt.prompt_func == main_prompt)
 	{
-		check_menu();
+		pos = (t_ltree*)ft_xmalloc(sizeof(t_ltree));
+		ltree_init(pos);
+		pos->ar_v = (char**)ft_xmalloc(3 * sizeof(char*));
+		pos->ar_v[0] = ft_strdup("exit");
+		pos->ar_v[1] = ft_strdup("0");
 		action_alloc_management(NULL, 1);
 		reset_canonical_input();
 		clean_readline42();
-		btin_exit(SUCCESS);
+		btin_exit(pos);
 	}
 	if (g_prompt.prompt_func != main_prompt)
 	{
-		check_menu();
 		g_rline.cmd = ft_straddsy(g_rline.cmd, EOF);
 		return (OUT);
 	}

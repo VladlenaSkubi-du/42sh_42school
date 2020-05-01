@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/28 16:45:28 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/05/01 17:46:29 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define	ERR_BAD_FD 0x4
 # define	ERR_NO_ACC 0x8
 # define	ERR_NO_FILE 0x10
+# define	ERR_NUMERIC 0x20
 
 /*
 ** In reality bash returns code "2" for all the internal errors + adds mask for
