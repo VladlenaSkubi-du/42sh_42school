@@ -1,7 +1,7 @@
 #include "shell42.h"
 #include "jobs.h"
 
-int		job_is_stopped(job *j)
+int		job_is_stopped(job *j, char verbose)
 {
 	process		*p;
 
@@ -15,7 +15,11 @@ int		job_is_stopped(job *j)
 		}
 		p = p->next;
 	}
-	printf("All stopped\n");
+	if (verbose && !j->fg && !j->notified)
+	{
+		ft_printf("[%d] stopped: %s\n", j->jid, j->com);
+		j->notified = 1;
+	}
 	return (1);
 }
 
@@ -87,9 +91,6 @@ void	do_job_notification (void)
 {
 	job *j, *jlast, *jnext;
 
-	/* Update status information for child processes. Not needed ? */
-//	update_status ();
-
 	jlast = NULL;
 	for (j = g_first_job; j; j = jnext)
 	{
@@ -109,7 +110,7 @@ void	do_job_notification (void)
 
 		/* Notify the user about stopped jobs,
 		marking them so that we won’t do this more than once.  */
-		else if (job_is_stopped (j) && !j->notified)
+		else if (job_is_stopped (j, 0) && !j->notified)
 		{
 	//		format_job_info (j, "stopped");
 			j->notified = 1;

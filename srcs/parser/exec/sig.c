@@ -23,6 +23,7 @@ void	child_handler(int sig)
 				proc = proc->next;
 			}
 			!j->fg && job_is_completed(j) && (temp = j); /* ???  CHECK FOR LEAKS */
+			job_is_stopped(j, 1);
 			j = j->next;
 			temp && free_job(temp); /* CHANGE */
 		}

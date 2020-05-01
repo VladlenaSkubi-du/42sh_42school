@@ -18,9 +18,10 @@ typedef struct  process
 typedef struct  job
 {
     struct job *next;           /* next active job */
-    char *command;              /* command line, used for messages */
+    char *com;	                /* command line, used for messages */
     process *first_process;     /* list of processes in this job */
     pid_t pgid;                 /* process group ID */
+	int jid;					/* Job id */
     char notified;              /* true if user told about stopped job */
 	char fg;
     struct termios tmodes;      /* saved terminal modes */
@@ -53,7 +54,7 @@ process *find_process(job *j, pid_t child_pid);
 ** File job_utils.c
 */
 
-int		job_is_stopped(job *j);
+int		job_is_stopped(job *j, char verbose);
 int		job_is_completed(job *j);
 job		*find_job (pid_t pgid);
 int		free_job(job *j);
