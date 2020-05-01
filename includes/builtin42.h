@@ -74,5 +74,11 @@ int             btin_echo(t_ltree *pos);
 */
 
 int             btin_pwd(t_ltree *pos);
- 
+
+/*
+** File fg.c
+*/
+
+int				btin_fg(t_ltree *pos);
+
 #endif
