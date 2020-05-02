@@ -80,4 +80,10 @@ int             btin_pwd(t_ltree *pos);
 
 int				btin_fg(t_ltree *pos);
 
+/*
+** File jobs_btin.c
+*/
+
+int				btin_jobs(t_ltree *pos);
+
 #endif

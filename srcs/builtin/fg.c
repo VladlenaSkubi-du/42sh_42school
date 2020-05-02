@@ -31,7 +31,7 @@ int		btin_fg(t_ltree *pos)
 	}
 	else
 	{
-		id = atoi((pos->ar_v)[1]);
+		id = ft_atoi((pos->ar_v)[1]);
 		while (job_iter && job_iter->jid != id)
 			job_iter = job_iter->next;
 		if (!job_iter)

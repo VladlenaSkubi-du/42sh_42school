@@ -43,6 +43,7 @@ void	put_job_in_background (job *j, int cont)
 {
 	/* Send the job a continue signal, if necessary.  */
 	j->fg = 0;
+	ft_printf("[%d] %d\n", j->jid, j->pgid);
 	if (cont)
 		if (kill (-j->pgid, SIGCONT) < 0)
 			perror ("kill (SIGCONT)");

@@ -61,14 +61,14 @@ int		free_job(job *j)
 	process *temp;
 
 	j_last = g_first_job;
-	while (j_last->next && j_last->next != j)
+	while (j_last != j && j_last->next && j_last->next != j)
 		j_last = j_last->next;
 	j_next = j->next;
 
 	j_last->next = j_next;
 
 	if (j == g_first_job)
-		g_first_job = NULL;
+		g_first_job = j->next;
 
 	while (j->first_process)
 	{
