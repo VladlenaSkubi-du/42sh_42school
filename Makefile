@@ -138,6 +138,7 @@ BUILTIN = 			builtin/exit.c \
             builtin/echo.c \
             builtin/pwd.c \
 			builtin/fg.c \
+			builtin/jobs_btin.c \
 			$(FC) \
             $(CD)
 
