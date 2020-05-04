@@ -2,6 +2,30 @@
 #include "builtin42.h"
 #include "jobs.h"
 
+/*
+int		options_parse(t_ltree *pos)
+{
+	int		ret;
+	int		i;
+	int		j;
+
+	i = 1;
+	ret = 0;
+	while (i < pos->ar_c)
+	{
+		if (pos->ar_v[i][0] == '-')
+		{
+			j = 1;
+			if (!(ret | 0x04) && (pos->ar_v[i][j] == 'l' ||
+				pos->ar_v[i][j] == 'p' || (!pos->ar_v[i][j])))
+			{
+				pos->ar_v[i][1] ==
+			}
+		}
+		i++;
+	}
+}
+*/
 int		get_status(job	*j, char *buff)
 {
 	process		*p_iter;
@@ -48,6 +72,7 @@ int		print_job_info(job * j)
 int		btin_jobs(t_ltree *pos) /* TODO: PROCESS OPTIONS! */
 {
 	job		*job_iter;
+//	int		options;
 
 	job_iter = g_first_job;
 	if (!job_iter)
