@@ -33,7 +33,6 @@ void	put_job_in_foreground (job *j, int cont)
 	/* Restore the shell’s terminal modes.  */
 	tcgetattr (STDIN_FILENO, &j->tmodes);
 	tcsetattr (STDIN_FILENO, TCSADRAIN, &g_shell_tmodes);
-	free_job(j); /* CHANGE */
 }
 
 /* Put a job in the background.  If the cont argument is true, send
