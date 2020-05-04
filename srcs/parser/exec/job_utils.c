@@ -74,8 +74,8 @@ int		free_job(job *j)
 	{
 		temp = j->first_process;
 		j->first_process = j->first_process->next;
-		free_vec(temp->argv);
-		free_vec(temp->envp);
+		ft_arrdel(temp->argv);
+		ft_arrdel(temp->envp);
 		free(temp);
 	}
 	free(j);

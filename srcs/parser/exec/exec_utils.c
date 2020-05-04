@@ -3,19 +3,6 @@
 #include "builtin42.h"
 #include "builtins_list.h"
 
-void	free_vec(char **vec)
-{
-	size_t	i;
-
-	i = 0;
-	while (vec[i])
-	{
-		free(vec[i]);
-		i++;
-	}
-	free(vec);
-}
-
 char	*get_env(char *var)
 {
 	char	*val;
@@ -24,6 +11,7 @@ char	*get_env(char *var)
 
 	val = 0;
 	i = 0;
+	printf("Warning: get_env() is deprecated. Use ft_arrdel() instead\n");
 	if (!g_env)
 		return (NULL);
 	len = ft_strlen(var);
