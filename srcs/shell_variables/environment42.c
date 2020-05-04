@@ -51,11 +51,7 @@ int					save_readonly_variables(void)
 	g_rdovar[4] = ft_strdup("42SH_NONINTERACTIVE=0");
 	tmp = getcwd(NULL, MAXDIR);
 	g_rdovar[5] = ft_strjoin("PWD=", tmp);
-	free(tmp);
-	tmp = getcwd(NULL, MAXDIR);
 	g_rdovar[6] = ft_strjoin("OLDPWD=", tmp);
-	free(tmp);
-	tmp = getcwd(NULL, MAXDIR);
 	g_rdovar[7] = ft_strjoin("42SH=", tmp);
 	free(tmp);
 	tmp = ft_itoa(getuid());
