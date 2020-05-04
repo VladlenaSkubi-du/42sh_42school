@@ -43,11 +43,11 @@ void			init_history_buffer(void)
 
 char			*define_history_file(void)
 {
-	int			li;
-	int			sy;
+	size_t		li;
+	size_t		sy;
 
-	li = find_in_variables(g_rdovar, &sy, "21SH=");
-	return (ft_strjoin(&g_env[li][sy], "/.42sh_history"));
+	li = find_in_variables(g_rdovar, &sy, "42SH=");
+	return (ft_strjoin(&g_rdovar[li][sy], "/.42sh_history"));
 }
 
 /*
