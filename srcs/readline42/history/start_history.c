@@ -43,17 +43,11 @@ void			init_history_buffer(void)
 
 char			*define_history_file(void)
 {
-	char		*dir;
+	int			li;
+	int			sy;
 
-	dir = (char*)ft_xmalloc(MAXDIR);
-	getcwd(dir, MAXDIR);
-	if (dir[0] == 0)
-	{
-		free(dir);
-		return (NULL);
-	}
-	ft_strcat(dir, "/.42sh_history");
-	return (dir);
+	li = find_in_variables(g_rdovar, &sy, "21SH=");
+	return (ft_strjoin(&g_env[li][sy], "/.42sh_history"));
 }
 
 /*
