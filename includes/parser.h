@@ -487,7 +487,6 @@ char					*path_init(char **exec_av);
 ** File exec_utils.c
 */
 
-void					free_vec(char **vec);
 char					*get_env(char *var);
 int						exec_clean(char *path, int exit_status, char *msg);
 int						ft_builtins_check(t_ltree *pos, int flag);

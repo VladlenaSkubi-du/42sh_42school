@@ -3,19 +3,19 @@
 
 char	**path_parse(void)
 {
-	char	*path_value;
 	char	**ret;
+	int		li;
+	int		co;
 
-	if (!(path_value = get_env("PATH")))
+	li = find_in_variables(g_env, &co, "PATH");
+	if (li < 0 || ((ret = ft_strsplit(&g_env[li][co], ':')) == NULL) ||
+		ret[0] == '\0')
 		return (0);
-	ret = ft_strsplit(path_value, ':');
-	free(path_value);
 	return (ret);
 }
 
 char	*form_path(char *ret, char *env_path, char *name)
 {
-	ft_bzero(ret, ft_strlen(env_path) + ft_strlen(name) + 2);
 	ft_strcpy(ret, env_path);
 	ft_strcat(ret, "/");
 	ft_strcat(ret, name);
@@ -72,7 +72,7 @@ char	*path_search(char *name)
 			break;
 		path_array++;
 	}
-	free_vec(to_clean);
+	ft_arrdel(to_clean);
 	if (!ret)
 		error_handler(COMMAND_NOT_FOUND | (ERR_COMMAND << 9), name);
 	return (ret);  /* Returns zero if we did not find anything */
