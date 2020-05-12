@@ -16,6 +16,35 @@ int		back_to_life(job *j)
 	return (0);
 }
 
+int		btin_bg(t_ltree *pos)
+{
+	job		*job_iter;
+	int		id;
+
+	job_iter = g_first_job;
+	if (!job_iter) /* No jobs */
+		return (-1);
+	if (pos->ar_c < 2) /* Empty fg case */
+	{
+		while (job_iter->next)
+			job_iter = job_iter->next;
+	}
+	else if (pos->ar_v[1][0] == '%')
+	{
+		id = ft_atoi((pos->ar_v)[1] + 1);
+		while (job_iter && job_iter->jid != id)
+			job_iter = job_iter->next;
+		if (!job_iter)
+			return (-1); /* Couldn't find job by provided jid */
+	}
+	else
+		return (-1);
+	ft_putendl(job_iter->com);
+	back_to_life(job_iter);
+	put_job_in_background(job_iter, 1);
+	return (0);
+}
+
 int		btin_fg(t_ltree *pos)
 {
 	job		*job_iter;
@@ -29,14 +58,16 @@ int		btin_fg(t_ltree *pos)
 		while (job_iter->next)
 			job_iter = job_iter->next;
 	}
-	else
+	else if (pos->ar_v[1][0] == '%')
 	{
-		id = ft_atoi((pos->ar_v)[1]);
+		id = ft_atoi((pos->ar_v)[1] + 1);
 		while (job_iter && job_iter->jid != id)
 			job_iter = job_iter->next;
 		if (!job_iter)
 			return (-1); /* Couldn't find job by provided jid */
 	}
+	else
+		return (-1);
 	ft_putendl(job_iter->com);
 	back_to_life(job_iter);
 	put_job_in_foreground(job_iter, 1);
