@@ -12,6 +12,7 @@ job		*job_new(t_ltree *entity)
 	job_new->stdin = STDIN_FILENO;
 	job_new->stdout = STDOUT_FILENO;
 	job_new->stderr = STDERR_FILENO;
+	job_new->next = NULL;
 	tcgetattr(STDIN_FILENO, &job_new->tmodes);
 	if (!g_first_job)
 	{
