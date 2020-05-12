@@ -22,7 +22,7 @@ void	child_handler(int sig)
 				proc->pid == child_pid ? process_update(proc, status) : 0;
 				proc = proc->next;
 			}
-			job_is_completed(j) && (temp = j); /* ???  CHECK FOR LEAKS */
+			j->clean && job_is_completed(j) && (temp = j); /* ???  CHECK FOR LEAKS */
 			job_is_stopped(j, 1);
 			j = j->next;
 			temp && free_job(temp); /* CHANGE */

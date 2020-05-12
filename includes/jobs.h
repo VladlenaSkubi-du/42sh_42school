@@ -24,6 +24,7 @@ typedef struct  job
 	int jid;					/* Job id */
     char notified;              /* true if user told about stopped job */
 	char fg;
+	char clean;
     struct termios tmodes;      /* saved terminal modes */
     int stdin, stdout, stderr;  /* standard i/o channels */
 }   job;
