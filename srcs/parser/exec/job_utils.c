@@ -4,8 +4,10 @@
 int		job_is_stopped(job *j, char verbose)
 {
 	process		*p;
+	char		not_completed;
 
 	p = j->first_process;
+	not_completed = 0;
 	while (p)
 	{
 		if (!p->completed && !p->stopped)
@@ -13,9 +15,10 @@ int		job_is_stopped(job *j, char verbose)
 //			printf("%s not stopped\n", *(p->argv));
 			return (0);
 		}
+		!p->completed ? not_completed = 1 : 0;
 		p = p->next;
 	}
-	if (verbose && !j->fg && !j->notified)
+	if (verbose && !j->fg && !j->notified && not_completed)
 	{
 		ft_printf("[%d] stopped: %s\n", j->jid, j->com);
 		j->notified = 1;
