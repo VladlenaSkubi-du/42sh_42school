@@ -56,7 +56,7 @@ int			assignment_in_curv_var(t_ltree *sub, char **line,
 	if ((j = find_assignment_in_vars(*line, 0, j, ft_strlen(*line))) ==
 		(ERR_OUT))
 		sub->err = ft_strndup(*line, ft_strchri(*line, '='));
-	free (*line);
+	free(*line);
 	insert_str_in_loc_strs(sub, &buf, i, TEXT);
 	return (sub->err_i |= j);
 }

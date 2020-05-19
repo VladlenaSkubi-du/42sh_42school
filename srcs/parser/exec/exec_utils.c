@@ -11,7 +11,7 @@ char	*get_env(char *var)
 
 	val = 0;
 	i = 0;
-	printf("Warning: get_env() is deprecated. Use ft_arrdel() instead\n");
+	printf("Warning: get_env() is deprecated. Use ft_find_var() instead\n");
 	if (!g_env)
 		return (NULL);
 	len = ft_strlen(var);
@@ -42,7 +42,7 @@ int	exec_clean(char *path, int exit_status, char *err_msg)
 		exit_status_variable(exit_status);
 	free(path);
 	if (err_msg)
-		ft_putendl_fd(err_msg, STDERR_FILENO);
+		ft_putendl_fd(err_msg, STDERR_FILENO); // through error_handler
 	return (exit_status);
 }
 
@@ -84,8 +84,8 @@ int		fd_list_process(t_ltree *pos, int mode)
 				dup2(redir->fd_in, redir->fd_out);
 			else
 			{
-				dup2(redir->fd_out, redir->fd_out);
-				close (redir->fd_out);
+				dup2(redir->fd_out, redir->fd_out); //decide, what to do here
+				close(redir->fd_out);
 			}
 			fd_list = fd_list->next;
 		}

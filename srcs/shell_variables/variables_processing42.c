@@ -63,7 +63,7 @@ char				**init_exec_environ(void)
 
 	envir = (char**)ft_xmalloc(sizeof(char*) * (g_var_size + 1));
 	i = 0;
-	while(g_env[i])
+	while (g_env[i])
 	{
 		envir[i] = ft_strdup(g_env[i]);
 		i++;
