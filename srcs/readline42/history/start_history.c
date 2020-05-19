@@ -8,6 +8,9 @@ int				start_history(void)
 	size_t		i;
 
 	init_history_buffer();
+	// i = find_in_variables(g_env, &j, "HOME=");
+	// tmp = (i < 0) ? define_history_file() :
+	// 	ft_strjoin(&g_envi[i][j], "/.42sh_history");
 	i = find_in_variables(g_shvar, &j, "HISTFILE=");
 	fd = open(g_shvar[i] + j, O_RDONLY);
 	if (fd < 0)

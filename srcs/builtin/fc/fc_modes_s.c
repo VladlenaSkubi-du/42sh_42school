@@ -157,7 +157,7 @@ int				btin_fc_one_int__exec(t_btin_fc **fc_arg)
 	if ((*fc_arg)->first > 0)
 	{
 		if (((*fc_arg)->first_buf = btin_fc_positive_int__exec
-			((*fc_arg)->first, temp, g_hist.last_fc)) == HIST_ERROR)
+				((*fc_arg)->first, temp, g_hist.last_fc)) == HIST_ERROR)
 			return (HIST_ERROR);
 	}
 	else

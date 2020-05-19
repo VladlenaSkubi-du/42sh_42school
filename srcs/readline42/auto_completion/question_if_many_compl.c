@@ -20,6 +20,7 @@ int					ask_output(size_t total, int buf_lines,
 	len = 20 + 16 + 18 + total_len;
 	count_comment_len(&total_len, buf_lines);
 	len += total_len;
+	// front_insert_by_letters(find_env_value("0"), &pos_x_com, 'c');
 	front_insert_by_letters("e-bash: display all ", &pos_x_com, 'c');
 	question = ft_itoa(total);
 	front_insert_by_letters(question, &pos_x_com, 'c');
@@ -32,8 +33,7 @@ int					ask_output(size_t total, int buf_lines,
 	read(STDOUT_FILENO, &c, 1);
 	if (c == 'y' || c == 'Y')
 		return (clean_output_question(1, pos_back, len, len_x));
-	clean_output_question(0, pos_back, len, len_x);
-	return (1);
+	return (clean_output_question(0, pos_back, len, len_x));
 }
 
 /*
@@ -108,9 +108,9 @@ int					clean_output_question(int from, size_t pos_back,
 		position_cursor("ch", 0, len_x);
 		tputs(g_cap.up, 1, printc);
 		move_cursor_from_old_position(pos_back, 'l');
-		return (0);
+		return (1);
 	}
-	return (0);
+	return (1);
 }
 
 /*

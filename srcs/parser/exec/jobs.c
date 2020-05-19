@@ -44,7 +44,7 @@ int		fork_job(process *p, job *j, int *infl, int *outfl)
 	}
 	else
 		*outfl = j->stdout;
-	pid = fork ();
+	pid = fork();
 	if (pid == 0)
 		launch_process(p, j->pgid, (int[3]){*infl, *outfl, j->stderr}, j->fg);
 	else if (pid < 0)
@@ -52,9 +52,9 @@ int		fork_job(process *p, job *j, int *infl, int *outfl)
 	else
 		parent(p, j, pid);
 	if (*infl != STDIN_FILENO)
-		close (*infl);
+		close(*infl);
 	if (*outfl != STDOUT_FILENO)
-		close (*outfl);
+		close(*outfl);
 	*infl = mypipe[0];
 	return (0);
 }

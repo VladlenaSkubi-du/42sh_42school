@@ -26,9 +26,9 @@ void	launch_process (process *p, pid_t pgid, int stream[3], int foreground)
 
  	if (g_is_interactive)
 	{
-		pid = getpid ();
+		pid = getpid();
 		if (pgid == 0) pgid = pid;
-		setpgid (pid, pgid);
+		setpgid(pid, pgid);
 		signal(SIGTTOU, SIG_IGN);
 		if (foreground)
 			tcsetpgrp(STDIN_FILENO, pgid);

@@ -33,7 +33,7 @@ int		fork_and_exec(t_ltree *pos, char *path, pid_t *child_pid)
 			exit(-1);
 	}
 	else if (*child_pid < 0)
-		return (exec_clean(path, -1, "e-bash: Fork failed"));
+		return (exec_clean(path, -1, "e-bash: Fork failed")); //через error_handler
 	wait(child_pid);
 	return (0);
 }
@@ -51,7 +51,7 @@ int		exec_core(t_ltree *pos)
 		return (exec_clean(path, -1, 0));
 	(pos->flags & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
 	if ((pos->flags & PIPED_OUT) && pipe(pipe_next) == -1)
-		return (exec_clean(path, -1, "e-bash: Pipe failed"));
+		return (exec_clean(path, -1, "e-bash: Pipe failed")); //через error_handler
 	fd_list_process(pos, 0);
 	(pos->flags & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
 	(pos->flags & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
@@ -79,7 +79,7 @@ int		exec_internal(t_ltree *pos)
 		return (exec_clean(path, -1, 0));
 	(pos->flags & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
 	if ((pos->flags & PIPED_OUT) && pipe(pipe_next) == -1)
-		return (exec_clean(path, -1, "e-bash: Pipe failed"));
+		return (exec_clean(path, -1, "e-bash: Pipe failed")); //через error_handler
 	fd_list_process(pos, 0);
 	(pos->flags & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
 	(pos->flags & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
@@ -102,7 +102,7 @@ int		exec_builtin(t_ltree * pos)
 		return (-1);
 	(pos->flags & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
 	if ((pos->flags & PIPED_OUT) && pipe(pipe_next) == -1)
-		return (exec_clean(0, -1, "e-bash: Pipe failed"));
+		return (exec_clean(0, -1, "e-bash: Pipe failed")); //через error_handler
 	(pos->flags & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
 	(pos->flags & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
 	if (ft_builtins_check(pos, 1) == -1)

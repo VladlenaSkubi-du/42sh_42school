@@ -24,7 +24,7 @@ int		get_status(job	*j, char *buff, int options)
 			ft_strcpy(buff, "stopped             ");
 	}
 	else
-			ft_strcpy(buff, "runnindg            ");
+			ft_strcpy(buff, "runnindg            "); //проверить
 	return (0);
 }
 

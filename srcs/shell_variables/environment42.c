@@ -110,7 +110,6 @@ int					save_shell_variables(void)
 
 int					save_local_variables(void)
 {
-
 	g_lovar = (char**)ft_xmalloc((g_var_size + 1) * (sizeof(char*)));
 	return (0);
 }

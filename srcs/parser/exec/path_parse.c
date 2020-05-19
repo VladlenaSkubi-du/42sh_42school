@@ -7,7 +7,7 @@ char	**path_parse(void)
 	int		li;
 	int		co;
 
-	li = find_in_variables(g_env, &co, "PATH");
+	li = find_in_variables(g_env, &co, "PATH"); //DIMA: g_envi
 	if (li < 0 || ((ret = ft_strsplit(&g_env[li][co], ':')) == NULL) ||
 		ret[0] == '\0')
 		return (0);
@@ -65,11 +65,11 @@ char	*path_search(char *name)
 	if (!(path_array = path_parse()))
 		return (0);
 	to_clean = path_array;
-	while(*path_array)
+	while (*path_array)
 	{
 		ret = locate_file(*path_array, name, to_clean);
 		if (ret)
-			break;
+			break ;
 		path_array++;
 	}
 	ft_arrdel(to_clean);
