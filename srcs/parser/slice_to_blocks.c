@@ -22,7 +22,7 @@ int		ft_block_add_to_list(t_ltree *block, t_list **list)
 		block->start = final->end + 1;
 		if (before_add(final, list) == OUT)
 			return (OUT);
-		ft_add_list_to_end(list, ft_lstnew(final, sizeof(t_ltree)));
+		ft_lstadd_to_end(list, ft_lstnew(final, sizeof(t_ltree)));
 		if (final->flags & LOG_AND_OUT || final->flags & LOG_OR_OUT)
 			block->start += 1;
 		ltree_init(final);
