@@ -179,7 +179,6 @@ t_list					*g_start_list;
 int						parser(char *line);
 int						pars_lex_exec(int tmp);
 int						ft_get_techline(char *cmd, t_tech *result);
-char					get_tech_num(char check);
 int						ltree_init(t_ltree *final);
 
 /*
@@ -216,7 +215,8 @@ int						erroring_andor_pipe(t_ltree *final, size_t *i,
 						int tmp, size_t block_end);
 
 /*
-** Folder redirection_________________________________________________________
+** Folder REDIRECTION
+** ____________________________________________________________________________
 */
 
 /*
@@ -293,7 +293,8 @@ int						recover_g_cmd_here(void);
 int						here_tab_remove(char **line);
 
 /*
-** Folder assignment__________________________________________________________
+** Folder ASSIGNMENT
+** ____________________________________________________________________________
 */
 
 /*
@@ -318,7 +319,8 @@ int						it_is_command(t_ltree *sub, size_t *i, size_t *var);
 int						is_it_argv_n(t_ltree *sub, size_t var);
 
 /*
-** Folder substitution________________________________________________________
+** Folder SUBSTITUTION
+** ____________________________________________________________________________
 */
 
 /*
@@ -394,7 +396,8 @@ int						ft_find_dir_info(t_ltree *sub, char *user, size_t *i);
 int						ft_find_history(t_ltree *sub);
 
 /*
-** Folder quoting_____________________________________________________________
+** Folder QUOTING
+** ____________________________________________________________________________
 */
 
 /*
@@ -426,7 +429,8 @@ int						pre_parsing_andor_pipe(size_t *i, t_ltree *sub);
 int						ft_reglue(size_t *i, int num, t_ltree *sub);
 
 /*
-** Folder path_tree____________________________________________________________
+** Folder PATH_TREE
+** ____________________________________________________________________________
 */
 
 /*
@@ -457,39 +461,5 @@ int						ft_input_builtins(t_path **root, size_t *len, char *find);
 char					**ft_add_block(t_path **root, size_t len, int *max);
 char					*ft_take_path(char *dir_name);
 void					ft_addpath(char *name, t_path **buf);
-
-/*
-** Folder exec_________________________________________________________________
-*/
-
-/*
-** File exec_init.c
-*/
-
-int						exec_init(t_ltree *pos);
-
-/*
-** File exec_core.c
-*/
-
-int						std_save(int mode);
-int						exec_core(t_ltree *pos);
-int						exec_builtin(t_ltree *pos);
-int						exec_internal(t_ltree *pos);
-
-/*
-** File path_parse.c
-*/
-
-char					*path_init(char **exec_av);
-
-/*
-** File exec_utils.c
-*/
-
-char					*get_env(char *var);
-int						exec_clean(char *path, int exit_status, char *msg);
-int						ft_builtins_check(t_ltree *pos, int flag);
-int						fd_list_process(t_ltree *pos, int mode);
 
 #endif

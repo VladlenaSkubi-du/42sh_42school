@@ -104,7 +104,6 @@ typedef struct					s_completion
 t_rline							g_rline;
 struct winsize					g_screen;
 t_cap							g_cap;
-// struct termios					g_tty; //TODO убрать, если
 struct termios					g_backup_tty;
 
 /*
@@ -253,7 +252,8 @@ t_action_stack					*action_new(void);
 char							*colors_process(int sequence_num);
 
 /*
-** Actions in the folder key_actions___________________________________________
+** Folder KEY_ACTIONS
+** ____________________________________________________________________________
 */
 
 /*
@@ -335,7 +335,8 @@ int             				jump_up(void);
 int             				jump_down(void);
 
 /*
-** Folder auto_completion ______________________________________________________
+** Folder AUTO_COMPLETION
+** ____________________________________________________________________________
 */
 
 /*
@@ -433,7 +434,8 @@ void							buffer_col_finish(t_completion *menu_buf);
 void							buf_add(char *str, size_t size);
 
 /*
-** Folder history______________________________________________________________
+** Folder HISTORY
+** ____________________________________________________________________________
 */
 
 /*
@@ -493,7 +495,7 @@ char							*free_find_hist(char **find);
 int								delete_from_history();
 
 /*
-**_____________________________________________________________________________
+** ____________________________________________________________________________
 */
 
 /*

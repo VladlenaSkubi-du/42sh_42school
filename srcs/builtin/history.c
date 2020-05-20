@@ -40,14 +40,54 @@ int					btin_history(void)
 
 int					btin_exsign(t_ltree *pos)
 {
-	int				j;
+	int				i;
+	int				len;
+	int				num;
+	int				count;
+	int				temp;
 
-	j = 1;
 	if (g_hist.len < 1 || g_hist.last < 0)
-	{
-		error_handler(SUCCESS | (ERR_EXSIGN << 9), pos->ar_v[0]);
+		return (btin_exsign_print_message(pos->ar_v[0]));
+	if (pos->ar_v[0][0] == '!' && pos->ar_v[0][1] == '\0')
 		return (0);
+	i = 1;
+	len = ft_strlen(pos->ar_v[0]);
+	if (pos->ar_v[0][1] == '-' || ft_isdigit(pos->ar_v[0][1]))
+	{
+		(pos->ar_v[0][1] == '-') ? i++ : 0;
+		while (pos->ar_v[0][i] && ft_isdigit(pos->ar_v[0][i]))
+			i++;
+		if (i == len)
+		{
+			num = ft_atoi(pos->ar_v[0] + 1);
+			if (pos->ar_v[0][1] == '-')
+			{
+				count = btin_fc_negative_int__exec(num);
+				if (count == 0 && num != 0)
+					btin_exsign_print_message(pos->ar_v[0]);
+			}
+			else
+			{
+				temp = g_hist.last_fc - ((g_hist.last + 1 == g_hist.len) ?
+					g_hist.len - 1 : g_hist.last) + 1;
+				count = btin_fc_positive_int__exec(num, temp, g_hist.last_fc);
+			}
+		}
 	}
 
+	return (0);
+}
+
+int					btin_exsign_print_message(char *arg)
+{
+	// ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
+	ft_putstr_fd(": ", STDOUT_FILENO);
+	ft_putstr_fd(arg, STDOUT_FILENO);
+	ft_putendl_fd(": event not found", STDOUT_FILENO);
+	return (0);
+}
+
+int					btin_exsign_num_search(int num)
+{
 	return (0);
 }

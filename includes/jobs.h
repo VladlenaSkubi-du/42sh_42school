@@ -83,5 +83,38 @@ void	set_proc_sig(void);
 
 void	launch_process (process *p, pid_t pgid, int stream[3], int foreground);
 
+/*
+** ____________________________________________________________________________
+*/
+
+/*
+** File exec_init.c
+*/
+
+int		exec_init(t_ltree *pos);
+
+/*
+** File exec_core.c
+*/
+
+int		std_save(int mode);
+int		exec_core(t_ltree *pos);
+int		exec_builtin(t_ltree *pos);
+int		exec_internal(t_ltree *pos);
+
+/*
+** File path_parse.c
+*/
+
+char	*path_init(char **exec_av);
+
+/*
+** File exec_utils.c
+*/
+
+char	*get_env(char *var); //delete
+int		exec_clean(char *path, int exit_status, char *msg);
+int		ft_builtins_check(t_ltree *pos, int flag);
+int		fd_list_process(t_ltree *pos, int mode);
 
 #endif

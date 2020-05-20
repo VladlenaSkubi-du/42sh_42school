@@ -1,6 +1,6 @@
 #include "shell42.h"
 
-int				noninteractive_shell(int argc, char **argv)
+int				noninteractive_shell(char **argv)
 {
 	char		*cmd;
 	size_t		li;
@@ -18,6 +18,7 @@ int				noninteractive_shell(int argc, char **argv)
 int				main(int argc, char **argv)
 {
 	g_var_size = ENV_BUFFER;
+	//create_env();
 	save_environment_variables();
 	save_readonly_variables();
 	save_local_variables();
