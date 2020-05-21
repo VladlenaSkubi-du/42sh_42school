@@ -9,7 +9,6 @@ ft_select
 objs/
 .vscode/
 
-readline
 42sh
 *.txt
 .42sh_history

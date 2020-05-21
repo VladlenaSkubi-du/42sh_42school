@@ -238,9 +238,9 @@ int					clean_termcap(void);
 
 // OLD
 
-int					save_environment_variables(void);
 int					save_readonly_variables(void);
 int					save_shell_variables(void);
+int					save_environment_variables(void);
 int					save_local_variables(void);
 int					realloc_all_gvariables_array(void);
 size_t				find_in_variables(char **arr, size_t *j, char *name);
@@ -263,6 +263,11 @@ int					find_in_variable(int *j, char *name);
 int					form_local_envir(char ***arr, int size);
 int					add_new_env(char *name);
 int					change_env_value(char *new_val, int i);
+int					save_shell_variable(int num);
+int					save_environment_variable(int num);
+int					save_readonly_variable(void);
+int					exit_status_variables(int status);
+
 
 
 /*

@@ -1,6 +1,6 @@
 NAME = 42sh
 
-FLAGS = -Wall -Werror #-Wextra
+FLAGS = -Wall #-Werror #-Wextra
 FLAGS += -g
 
 #______________________________________________________________________________
@@ -57,7 +57,8 @@ SHELL_VARIABLES = \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/environment42.c \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/variables_processing42.c \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/variables_array_processing42.c \
-			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/add_new_value.c
+			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/add_new_value.c \
+			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/form_environment42.c
 
 UNIX_FUNCS_DIR = unix_functions
 UNIX_FUNCTIONS = \
@@ -195,7 +196,7 @@ SOURCES =	main.c \
 			$(GLOBAL) \
 			$(JOBS) \
 			$(PARSER) \
-			$(READLINE)
+			$(READLINE) \
 
 #______________________________________________________________________________
 
