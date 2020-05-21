@@ -10,7 +10,7 @@
 ** and a new line added by export-builtin (export FOO=bar)
 */
 
-int					save_environment_variables(int num)
+int					save_environment_variable(int num)
 {
 	extern char		**environ;
 	int				i;
@@ -54,7 +54,7 @@ char				*ft_add_rdovar(char *first, char *scnd, int flag)
 	return (res);
 }
 
-int					save_readonly_variables()
+int					save_readonly_variable()
 {
 	char	*tmp;
 
@@ -91,7 +91,7 @@ int					save_readonly_variables()
 ** the variable starts to be visible in @g_env (by env command)
 */
 
-int					save_shell_variables(int num)
+int					save_shell_variable(int num)
 {
 	char			*tmp;
 
@@ -122,12 +122,12 @@ int					create_env(void)
 
 	g_envi = (char **)ft_xmalloc(ENV_BUFFER * sizeof(char*));
 	num = save_readonly_variables();
-	num = save_shell_variables(num);
-	num = save_environment_variables(num);
+	num = save_shell_variable(num);
+	num = save_environment_variable(num);
 	return (0);
 }
 
-int                 exit_status_variable(int status)
+int                 exit_status_variables(int status)
 {
     char            *tmp;
 
