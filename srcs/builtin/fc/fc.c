@@ -86,10 +86,8 @@ int					btin_fc_other_args(char **argv, int i, t_btin_fc **fc_arg, int *flags)
 {
 	int				j;
 	int				tmp;
-	int				flag;
 
 	j = 0;
-	flag = 0;
 	while (argv[i][++j])
 	{
 		if ((tmp = btin_fc_save_editor(argv, i, j, fc_arg)) == HIST_ERROR)
