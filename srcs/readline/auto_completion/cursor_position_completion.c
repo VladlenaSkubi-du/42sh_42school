@@ -1,7 +1,7 @@
 #include "shell42.h"
 #include "readline.h"
 
-int					position_cursor_for_menu(size_t len)
+int					position_cursor_for_menu(int len)
 {
 	if (g_rline.pos == 0 && len == 0)
 		tputs(g_cap.sf, 1, printc);
@@ -14,7 +14,7 @@ int					position_cursor_for_menu(size_t len)
 }
 
 int					position_cursor_after_menu_back(int len_x, int len_y,
-						int buf_lines, size_t pos_back)
+						int buf_lines, int pos_back)
 {
 	int				i;
 	int				jump;

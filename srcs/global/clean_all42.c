@@ -36,7 +36,7 @@ int				clean_everything(void)
 
 int				clean_readline42(void)
 {
-	free(g_rline.cmd);
+	bzero_readline();
 	return (0);
 }
 

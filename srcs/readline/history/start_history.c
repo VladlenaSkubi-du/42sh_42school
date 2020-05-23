@@ -13,6 +13,7 @@ int				start_history(void)
 	// 	ft_strjoin(&g_envi[i][j], "/.42sh_history");
 	i = find_in_variables(g_shvar, &j, "HISTFILE=");
 	fd = open(g_shvar[i] + j, O_RDONLY);
+	// fd = open(find_env_value("HISTFILE"), O_RDONLY);
 	if (fd < 0)
 		return (0);
 	save_hist_buffer(fd);
@@ -20,16 +21,20 @@ int				start_history(void)
 	return (0);
 }
 
-void			init_history_buffer(void)
+void			init_history_buffer(void) //DIMA исправить
 {
-	size_t		i;
+	int			i;
 	int			tmp;
+	size_t		li;
+	size_t		co;
 
 	i = 0;
-	while (ft_strncmp(g_shvar[i], "HISTSIZE=",
-		(tmp = ft_strchri(g_shvar[i], '=') + 1)) != 0)
-		i++;
-	g_hist.len = ft_atoi(&g_shvar[i][tmp]) + 1;
+	// while (ft_strncmp(g_shvar[i], "HISTSIZE=",
+	// 	(tmp = ft_strchri(g_shvar[i], '=') + 1)) != 0)
+	// 	i++;
+	li = find_in_variables(g_shvar, &co, "HISTSIZE=");
+	// g_hist.len = ft_atoi(find_env_value("HISTSIZE")) + 1;
+	g_hist.len = ft_atoi(&g_shvar[li][co]) + 1;
 	g_hist.hist = (char**)ft_xmalloc(sizeof(char*) * (g_hist.len + 1));
 	g_hist.last = -1;
 	g_hist.start = 0;

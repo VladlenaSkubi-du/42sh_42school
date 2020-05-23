@@ -20,7 +20,7 @@ int				sstr_add_symbol(char add)
 	char			*swap;
 
 	swap = NULL;
-	if (g_rline.cmd_len + g_rline.prompt_len == g_screen.ws_col - 1)
+	if (g_rline.cmd_len + g_prompt.prompt_len == g_screen.ws_col - 1)
 		return (bell_sound());
 	swap = ft_strdup(g_rline.cmd + g_rline.pos);
 	g_rline.cmd[g_rline.pos] = add;

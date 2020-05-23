@@ -3,7 +3,7 @@
 
 int				sescape_check(char **seq_base)
 {
-	size_t	i;
+	int		i;
 	char	buff[16];
 	int		stage;
 
@@ -51,7 +51,7 @@ int				sesc_left(void)
 int				sesc_right(void)
 {
 	if (g_rline.pos >= g_rline.cmd_len ||
-		g_rline.pos + g_rline.prompt_len == g_screen.ws_col)
+		g_rline.pos + g_prompt.prompt_len == g_screen.ws_col)
 		return (bell_sound());
 	g_rline.pos++;
 	write(STDOUT_FILENO, "\033[C", 3);
@@ -61,7 +61,7 @@ int				sesc_right(void)
 int				sesc_r(void)
 {
 	while (g_rline.pos < g_rline.cmd_len &&
-		g_rline.pos + g_rline.prompt_len < g_screen.ws_col - 1)
+		g_rline.pos + g_prompt.prompt_len < g_screen.ws_col - 1)
 		sesc_right();
 	while (g_rline.pos)
 		sbackspace_proc();

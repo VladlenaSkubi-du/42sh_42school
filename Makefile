@@ -133,7 +133,6 @@ SUBSTITUTION = \
 READLINE_DIR = readline
 READLINE = 	$(READLINE_DIR)/colors.c \
 			$(READLINE_DIR)/ctrl_key.c \
-			$(READLINE_DIR)/cursor_position.c \
 			$(READLINE_DIR)/escape.c \
 			$(READLINE_DIR)/front_cursor_changes.c \
 			$(READLINE_DIR)/front_insertions.c \
@@ -142,7 +141,7 @@ READLINE = 	$(READLINE_DIR)/colors.c \
 			$(READLINE_DIR)/prompts_other.c \
 			$(READLINE_DIR)/readline.c \
 			$(READLINE_DIR)/start_readline42.c \
-			$(READLINE_DIR)/str_edit.c \
+			$(READLINE_DIR)/rline_cmd_processing.c \
 			$(READLINE_DIR)/termcap_usage.c \
 			$(READLINE_DIR)/terminal_input_changes.c \
 			$(READLINE_DIR)/undo_yank_call.c \
@@ -162,13 +161,13 @@ READLINE_SIMPLE = \
 KEY_ACTIONS_DIR = key_actions
 KEY_ACTIONS = \
 			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/arrow_keys.c \
-			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/ctrl_kwuae.c \
-			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/ctrl_tly.c \
+			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/ctrl_kult.c \
 			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/cut_keys.c \
+			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/cut_words_and_paste.c \
 			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/easter_egg.c \
 			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/esc_t.c \
 			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/esc_word_proc.c \
-			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/jump_keys.c
+			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/jump_around.c
 
 AUTO_COMPL_DIR = auto_completion
 AUTO_COMPLETION = \

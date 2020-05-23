@@ -1,21 +1,20 @@
 #include "shell42.h"
 #include "readline.h"
 
+/*
+** Comes to these functions after pushing esc + b
+** Jumps to the token from with the word (alpha-numeric sequence)
+** starts and then to the first char in the word
+*/
+
 int			word_left_proc(void)
 {
-	size_t			i;
-	size_t			pos_old;
+	int				i;
+	int				pos_old;
 
 	if (g_rline.pos == 1 || g_rline.pos == 2)
-	{
-		pos_old = g_rline.pos;
-		front_move_one_char_left(g_rline.pos_x);
-		g_rline.pos--;
-		(pos_old == 2) ? front_move_one_char_left(g_rline.pos_x) : 0;
-		(pos_old == 2) ? g_rline.pos-- : 0;
-		return (0);
-	}
-	else if (g_rline.pos == 0)
+		return (word_left_onetwo_chars());
+	else if (g_rline.pos <= 0)
 		return (incorrect_sequence());
 	i = g_rline.pos - 1;
 	while (i > 0 && g_rline.cmd[i - 1] && g_rline.cmd[i])
@@ -25,21 +24,47 @@ int			word_left_proc(void)
 		i--;
 	}
 	pos_old = i;
-	if (move_cursor_from_old_position(pos_old, 'l'))
-		return (-1);
+	return (move_cursor_from_old_position(pos_old, 'l'));
+}
+
+/*
+** If cursor stays on the first or the second symbol in the line
+** that is exception from the main principle used
+*/
+
+int			word_left_onetwo_chars(void)
+{
+	int				pos_old;
+	
+	pos_old = g_rline.pos;
+	if (front_move_one_char_left(g_rline.pos_x))
+		return (incorrect_sequence());
+	g_rline.pos--;
+	if (pos_old == 2)
+	{
+		if (front_move_one_char_left(g_rline.pos_x))
+			return (incorrect_sequence());
+		g_rline.pos--;
+	}
 	return (0);
 }
 
+/*
+** Comes to these functions after pushing esc + f
+** Jumps to the token after the word (alpha-numeric sequence)
+*/
+
 int			word_right_proc(void)
 {
-	size_t			i;
-	size_t			pos_old;
+	int				i;
+	int				pos_old;
 
-	if (g_rline.pos == g_rline.cmd_len)
+	if (g_rline.pos == g_rline.cmd_len || g_rline.pos < 0)
 		return (incorrect_sequence());
 	else if (g_rline.pos == g_rline.cmd_len - 1)
 	{
-		front_move_one_char_right(g_rline.pos_x);
+		if (front_move_one_char_right(g_rline.pos))
+			return (incorrect_sequence());
 		g_rline.pos++;
 		return (0);
 	}
@@ -51,39 +76,14 @@ int			word_right_proc(void)
 		i++;
 	}
 	pos_old = i;
-	if (move_cursor_from_old_position(pos_old, 'r'))
-		return (-1);
-	return (0);
+	return (move_cursor_from_old_position(pos_old, 'r'));
 }
 
-int			esc_d(void)
-{
-	size_t			pos_old;
-	char			*swap;
-	size_t			len_swap;
-	char			*save_yank;
+/*
+** Is used in other keys dealing with words
+*/
 
-	pos_old = g_rline.pos;
-	if (word_right_proc())
-		return (0);
-	undo(0);
-	save_yank = ft_strndup(g_rline.cmd + pos_old, g_rline.pos);
-	make_ctrl_p(0, save_yank);
-	swap = g_rline.cmd + g_rline.pos;
-	len_swap = ft_strlen(swap);
-	g_rline.cmd_len = pos_old + len_swap;
-	ft_strcpy(g_rline.cmd + pos_old, swap);
-	ft_bzero(g_rline.cmd + pos_old + len_swap,
-		g_rline.cmd_buff_len - g_rline.cmd_len);
-	move_cursor_from_old_position(pos_old, 'l');
-	front_set_cursor_jmp(&g_rline.pos,
-		&g_rline.pos_x, &g_rline.pos_y, 1);
-	tputs(g_cap.cd, 1, printc);
-	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
-	return (0);
-}
-
-char		*save_word(size_t *i, char *cmd, size_t pos)
+char		*save_word(int *i, char *cmd, int pos)
 {
 	char			*word;
 
@@ -95,10 +95,14 @@ char		*save_word(size_t *i, char *cmd, size_t pos)
 	return (word);
 }
 
-char		*save_end(size_t pos_back)
+/*
+** Is used in other keys dealing with words
+*/
+
+char		*save_end(int pos_back)
 {
 	char			*end;
-	size_t			pos_now;
+	int				pos_now;
 
 	end = NULL;
 	pos_now = g_rline.pos;

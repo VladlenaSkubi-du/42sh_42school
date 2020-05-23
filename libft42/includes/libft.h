@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 11:48:24 by sschmele          #+#    #+#             */
-/*   Updated: 2020/05/21 00:50:48 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/05/23 20:21:35 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ typedef struct		s_stack
 void				ft_arrdel(char **arr);
 char				**ft_realloc_array(char ***subj, int len_subj,
 						int len_needed);
-void				ft_delelem_array(char ***array, int len, int start, int num);
+void				ft_delelem_array(char ***array, int len,
+						int start, int num);
+void				ft_arrshift(char **arr, size_t size, size_t shift);
 
 /*
 ** Folder LIST_STRUCTURE
@@ -90,6 +92,7 @@ char				*ft_strtrim(char const *s);
 char				*ft_utoa_base(unsigned long nb, int base);
 char				*ft_strnew(size_t size);
 void				*ft_xmalloc(size_t size);
+void				ft_strshift(char *str, int shift);
 
 /*
 ** Folder MEMORY_FUNCTIONS
@@ -119,7 +122,7 @@ void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
-void				ft_nputstr(char const *s, int len);
+void				ft_putnstr(char const *s, int len);
 void				ft_printmap(char **map, int side);
 void				ft_putnendl_fd(char *str, int n, int fd);
 void				ft_putnstr_fd(char *str, int n, int fd);

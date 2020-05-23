@@ -4,7 +4,7 @@
 int					backspace_process(void)
 {
 	char			*swap;
-	size_t			len_swap;
+	int				len_swap;
 
 	check_menu();
 	if (g_rline.pos > 0)
@@ -29,9 +29,9 @@ int					backspace_process(void)
 	return (0);
 }
 
-int					backspace_newline(char *swap, size_t len_swap)
+int					backspace_newline(char *swap, int len_swap)
 {
-	size_t			pos_back;
+	int				pos_back;
 
 	pos_back = g_rline.pos;
 	key_left_proc();
@@ -49,7 +49,7 @@ int					backspace_newline(char *swap, size_t len_swap)
 int					delete_process(void)
 {
 	char			*swap;
-	size_t			len_swap;
+	int				len_swap;
 
 	check_menu();
 	if (g_rline.pos == 0 && g_rline.cmd_len == 0)
@@ -76,20 +76,10 @@ int					delete_process(void)
 	return (0);
 }
 
-int					esc_r(void)
-{
-	while (g_rline.pos)
-		key_left_proc();
-	tputs(g_cap.cd, 1, printc);
-	ft_bzero(g_rline.cmd, g_rline.cmd_buff_len);
-	g_rline.cmd_len = 0;
-	return (0);
-}
-
-int					delete_till_compl(size_t len_compl, size_t delete)
+int					delete_till_compl(int delete)
 {
 	char			*swap;
-	size_t			len_swap;
+	int				len_swap;
 	int				i;
 
 	if (g_rline.pos > 0)

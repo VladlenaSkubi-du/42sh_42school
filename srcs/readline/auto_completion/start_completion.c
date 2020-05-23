@@ -1,6 +1,8 @@
 #include "shell42.h"
 #include "readline.h"
 
+//ONE GLOBAL STRUCTURE
+
 /*
 ** @g_tablevel is a counter according to that we complete this or that line
 ** from the g_menu
@@ -9,12 +11,12 @@
 ** @g_menu - the full menu for completion, all the possible options
 */
 
-size_t				g_tablevel;
+int					g_tablevel;
 char				*g_complete;
-size_t				g_len_compl;
-size_t				g_delete;
+int					g_len_compl;
+int					g_delete;
 char				**g_menu;
-size_t				g_total;
+int					g_total;
 
 /*
 ** @pool = pool of variables: binary-files (1), variables (2),
@@ -33,7 +35,7 @@ size_t				g_total;
 
 int					auto_completion(void)
 {
-	size_t			pos_back;
+	int				pos_back;
 	int				max_len;
 	char			*tech_line;
 
@@ -59,19 +61,19 @@ int					auto_completion(void)
 	return (0);
 }
 
-char				**route_by_prompts(size_t *total, int *max_len)
+char				**route_by_prompts(int *total, int *max_len)
 {
 	char			**menu;
 	t_path			*root;
 
 	if (g_prompt.prompt_func == main_prompt)
-		menu = ft_path_pars("", path_parse_compl(), total, max_len);
+		menu = ft_path_pars("", path_parse_compl(), (size_t)total, max_len);
 	else
 	{
 		root = fill_tree_with_arguments("./", "", total);
 		if (root == NULL)
 			return (NULL);
-		menu = ft_add_block(&root, *total, max_len);
+		menu = ft_add_block(&root, (size_t)*total, max_len);
 		ft_path_free(&root);
 	}
 	return (menu);
@@ -87,7 +89,7 @@ char				**route_by_prompts(size_t *total, int *max_len)
 */
 
 char				**route_menu_receipt(char *tech_line,
-						size_t tech_len, size_t *total, int *max_len)
+						int tech_len, int *total, int *max_len)
 {
 	char			**menu;
 	int				pool;
@@ -107,7 +109,7 @@ char				**route_menu_receipt(char *tech_line,
 		free(g_complete);
 		g_complete = final;
 		if (pool == 1)
-			menu = ft_path_pars(g_complete, path_parse_compl(), total, max_len);
+			menu = ft_path_pars(g_complete, path_parse_compl(), (size_t*)total, max_len);
 		else if (pool == 2)
 			menu = get_variables(g_complete, total, max_len);
 		else
@@ -118,13 +120,13 @@ char				**route_menu_receipt(char *tech_line,
 
 int					insert_word_compl(void)
 {
-	size_t			len_option;
-	size_t			counter;
+	int				len_option;
+	int				counter;
 	int				flag;
 	int				i;
 
 	flag = 0;
-	(g_delete > 0) ? delete_till_compl(g_len_compl, g_delete) : 0;
+	(g_delete > 0) ? delete_till_compl(g_delete) : 0;
 	if (g_tablevel > 0 && g_total > 0)
 	{
 		if (g_rline.pos > 1 && g_rline.cmd[g_rline.pos - 1] == '{' &&

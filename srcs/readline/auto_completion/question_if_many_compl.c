@@ -6,8 +6,8 @@
 */
 
 
-int					ask_output(size_t total, int buf_lines,
-						size_t pos_back, int len_x)
+int					ask_output(int total, int buf_lines,
+						int pos_back, int len_x)
 {
 	char			c;
 	int				len;
@@ -20,16 +20,16 @@ int					ask_output(size_t total, int buf_lines,
 	len = 20 + 16 + 18 + total_len;
 	count_comment_len(&total_len, buf_lines);
 	len += total_len;
-	// front_insert_by_letters(find_env_value("0"), &pos_x_com, 'c');
-	front_insert_by_letters("e-bash: display all ", &pos_x_com, 'c');
+	// front_insert_by_letters(find_env_value("0"), &pos_x_com);
+	front_insert_by_letters("e-bash: display all ", &pos_x_com);
 	question = ft_itoa(total);
-	front_insert_by_letters(question, &pos_x_com, 'c');
+	front_insert_by_letters(question, &pos_x_com);
 	free(question);
-	front_insert_by_letters(" possibilities (", &pos_x_com, 'c');
+	front_insert_by_letters(" possibilities (", &pos_x_com);
 	question = ft_itoa(buf_lines);
-	front_insert_by_letters(question, &pos_x_com, 'c');
+	front_insert_by_letters(question, &pos_x_com);
 	free(question);
-	front_insert_by_letters(" lines)? [y or n] ", &pos_x_com, 'c');
+	front_insert_by_letters(" lines)? [y or n] ", &pos_x_com);
 	read(STDOUT_FILENO, &c, 1);
 	if (c == 'y' || c == 'Y')
 		return (clean_output_question(1, pos_back, len, len_x));
@@ -42,7 +42,7 @@ int					ask_output(size_t total, int buf_lines,
 ** printing new prompt and the line without any changes
 */
 
-int					after_big_menu(size_t pos_back, int len_x, int len_y)
+int					after_big_menu(int pos_back, int len_x, int len_y)
 {
 	tputs(g_cap.sf, 1, printc);
 	position_cursor("ch", 0, 0);
@@ -52,9 +52,9 @@ int					after_big_menu(size_t pos_back, int len_x, int len_y)
 	g_rline.pos_y = len_y;
 	front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
 	g_rline.pos = 0;
-	g_rline.pos_x = g_rline.prompt_len;
-	if (g_rline.prompt_len >= g_screen.ws_col)
-		g_rline.pos_x = g_rline.prompt_len % g_screen.ws_col;
+	g_rline.pos_x = g_prompt.prompt_len;
+	if (g_prompt.prompt_len >= g_screen.ws_col)
+		g_rline.pos_x = g_prompt.prompt_len % g_screen.ws_col;
 	g_rline.pos_y = 0;
 	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
 	g_rline.flag &= ~TAB;
@@ -91,7 +91,7 @@ int					count_comment_len(int *find, int num)
 ** pushed
 */
 
-int					clean_output_question(int from, size_t pos_back,
+int					clean_output_question(int from, int pos_back,
 						int len, int len_x)
 {
 	int				lines_nb;

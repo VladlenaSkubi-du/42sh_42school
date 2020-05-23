@@ -6,9 +6,9 @@
 ** buf should be corrected by the make_hist_buffer_smaller function
 */
 
-int					scroll_hist_buffer(size_t num)
+int					scroll_hist_buffer(int num)
 {
-	size_t			i;
+	int				i;
 
 	i = 0;
 	while (i < num)
@@ -36,7 +36,7 @@ int					scroll_hist_buffer(size_t num)
 
 int				save_hist_buffer(int fd)
 {
-	size_t		i;
+	int			i;
 
 	i = read_hist_from_file(fd);
 	g_hist.last = i - 1;
@@ -54,8 +54,8 @@ int				save_hist_buffer(int fd)
 char			**make_hist_buffer_smaller(int size)
 {
 	char		**history;
-	size_t		i;
-	size_t		j;
+	int			i;
+	int			j;
 
 	if (size > HISTORY_LIMIT)
 		size = 500;

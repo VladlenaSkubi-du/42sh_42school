@@ -14,8 +14,8 @@ t_completion		g_menu_buf;
 ** to the end of the cmd-line after the menu-printing
 */
 
-int					print_menu(size_t pos_back, char **menu,
-						size_t total, int max_len)
+int					print_menu(int pos_back, char **menu,
+						int total, int max_len)
 {
 	int				len_x;
 	int				len_y;
@@ -44,9 +44,9 @@ int					print_menu(size_t pos_back, char **menu,
 	return (0);
 }
 
-int					print_menu_buf_after_insert(size_t pos_back)
+int					print_menu_buf_after_insert(int pos_back)
 {
-	size_t			len_back;
+	int				len_back;
 	int				len_x_back;
 	int				len_y_back;
 
@@ -65,8 +65,8 @@ int					print_menu_buf_after_insert(size_t pos_back)
 
 int					clean_menu(void)
 {
-	size_t			pos_back;
-	size_t			len_back;
+	int 			pos_back;
+	int 			len_back;
 	int				len_x_back;
 	int				len_y_back;
 
@@ -85,7 +85,7 @@ int					clean_menu(void)
 
 int					clean_menu_buf(void)
 {
-	size_t			i;
+	int 			i;
 
 	i = -1;
 	while (++i < g_menu_buf.buf_lines)

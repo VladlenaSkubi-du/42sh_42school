@@ -6,7 +6,7 @@
 #    By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/04 16:34:17 by sschmele          #+#    #+#              #
-#    Updated: 2020/05/21 00:42:23 by vladlenasku      ###   ########.fr        #
+#    Updated: 2020/05/23 20:21:18 by vladlenasku      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRCS =	$(ARROW_FUNCTIONS) \
 	
 ARROW_FUNCTIONS = ./arrow_functions/ft_arrdel.c \
 	./arrow_functions/ft_realloc_array.c \
-	./arrow_functions/ft_delelem_array.c
+	./arrow_functions/ft_delelem_array.c \
+	./arrow_functions/ft_arrshift.c
 	
 LIST_STRUCTURE = ./list_structure/ft_lstadd.c \
 	./list_structure/ft_lstclear.c \
@@ -65,6 +66,7 @@ MALLOC_FUNCTIONS = ./malloc_functions/ft_itoa.c \
 	./malloc_functions/ft_strtrim.c \
 	./malloc_functions/ft_utoa_base.c \
 	./malloc_functions/ft_strnew.c \
+	./malloc_functions/ft_strshift.c \
 	./malloc_functions/ft_xmalloc.c
 
 MEMORY_FUNCTIONS = ./memory_functions/ft_bzero.c \
