@@ -1,6 +1,51 @@
 #include "shell42.h"
 #include "readline.h"
 
+/*
+** Here we check the terminal (we already know that
+** our group owns a controlling terminal) and set it
+** to the non-canonical mode
+*/
+
+int					check_terminal(void)
+{
+	if (!isatty(STDIN_FILENO) || mf_protection())
+	{
+		error_handler(TERMINAL_EXISTS, NULL);
+		exit(TERMINAL_EXISTS);
+	}
+	if (set_noncanonical_input() == -1)
+	{
+		error_handler(TERMINAL_TO_NON, NULL);
+		clean_readline42();
+		clean_everything();
+		exit(TERMINAL_TO_NON);
+	}
+	return (0);
+}
+
+/*
+** Protects the 0-stream after programs that could have changed
+** it to NONBLOCK
+** For example, nvim (neovim) does that so after launching it in
+** background without mf_protections - there will be no stop on
+** read and we will come back to the same read and so on - 
+** dead loop
+** Mf = "modify fd" or motherfucking (historically)
+*/
+
+int					mf_protection(void)
+{
+	int				flags;
+	int				tmp;
+
+	flags = fcntl(STDIN_FILENO, F_GETFL, 0);
+	if (flags < 0)
+		return (-1);
+	tmp = fcntl(STDIN_FILENO, F_SETFL, flags & ~(O_NONBLOCK));
+	return ((tmp < 0) ? -1 : 0);
+}
+
 int					set_noncanonical_input(void)
 {
 	struct termios	tty;

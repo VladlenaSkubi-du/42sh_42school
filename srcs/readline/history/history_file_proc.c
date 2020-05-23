@@ -3,7 +3,7 @@
 
 int                 read_hist_from_file(int fd)
 {
-    size_t		    i;
+    int			    i;
     char		    *tmp;
     
     i = 0;

@@ -11,32 +11,41 @@ int				main_prompt(void)
 	ft_putstr_fd(prompt, STDOUT_FILENO);
 	ft_putstr_fd("\033[0m", STDOUT_FILENO);
 	ft_putstr_fd("> ", STDOUT_FILENO);
-	g_rline.prompt_len = ft_strlen(prompt) + 2;
+	g_prompt.prompt_len = ft_strlen(prompt) + 2;
 	return (0);
 }
 
 int				dquote_prompt(void)
 {
-	ft_putstr_fd("dquote> ", STDOUT_FILENO);
-	g_rline.prompt_len = 8;
+	const char	*prompt;
+	
+	prompt = "dquote> ";
+	ft_putstr_fd(prompt, STDOUT_FILENO);
+	g_prompt.prompt_len = ft_strlen(prompt);
 	return (0);
 }
 
 int				heredoc_prompt(void)
 {
-	ft_putstr_fd("heredoc> ", STDOUT_FILENO);
-	g_rline.prompt_len = 9;
+	const char	*prompt;
+	
+	prompt = "heredoc> ";
+	ft_putstr_fd(prompt, STDOUT_FILENO);
+	g_prompt.prompt_len = ft_strlen(prompt);
 	return (0);
 }
 
 int				other_prompt(void)
 {
-	ft_putstr_fd("> ", STDOUT_FILENO);
-	g_rline.prompt_len = 2;
+	const char	*prompt;
+	
+	prompt = "> ";
+	ft_putstr_fd(prompt, STDOUT_FILENO);
+	g_prompt.prompt_len = ft_strlen(prompt);
 	return (0);
 }
 
-size_t			prompt_len(void)
+size_t			prompt_len(void) //DELETE
 {
 	size_t		len;
 	

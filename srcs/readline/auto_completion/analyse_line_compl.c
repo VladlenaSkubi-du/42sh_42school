@@ -1,10 +1,10 @@
 #include "shell42.h"
 #include "readline.h"
 
-char				*get_techline_compl(char *complete, size_t len)
+char				*get_techline_compl(char *complete, int len)
 {
 	char			*tech_line;
-	size_t			i;
+	int				i;
 
 	if (!complete || complete[0] == 0)
 		return (NULL);
@@ -19,13 +19,13 @@ char				*get_techline_compl(char *complete, size_t len)
 }
 
 int					analyse_techline_compl(char *compl, char *tech,
-						size_t len, int *pool)
+						int len, int *pool)
 {
 	int				i;
 
 	if (!(g_rline.cmd[g_rline.pos] == 0 || g_rline.cmd[g_rline.pos] == ' '))
 		return (0);
-	i = (int)len - 1;
+	i = len - 1;
 	i = pass_symbols(compl, tech, i, pool);
 	if (*pool == 1 || *pool == 3)
 		return (i);

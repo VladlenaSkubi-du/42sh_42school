@@ -2,6 +2,7 @@
 #include "readline.h"
 
 /*
+** Comes to the function after pushing esc + t
 ** @flag = 'o' means we are within the word and jump to the left
 ** will be to the beginning of the word we are on
 **       = 'n' means we are on the sign or in the beginning of
@@ -12,13 +13,13 @@
 
 int					esc_t(void)
 {
-	size_t			pos_back;
+	int				pos_back;
 	char			flag;
 	char			*end;
 	char			*word_first;
-	size_t			fi;
+	int				fi;
 
-	if (g_rline.pos == 0)
+	if (g_rline.pos < 1)
 		return (incorrect_sequence());
 	undo(0);
 	pos_back = g_rline.pos;
@@ -28,7 +29,7 @@ int					esc_t(void)
 		return (1);
 	word_first = save_word(&fi, g_rline.cmd, g_rline.pos);
 	if (pos_back == g_rline.cmd_len)
-		return (esc_t_len_pos(word_first, fi, pos_back));
+		return (esc_t_len_pos(word_first, fi));
 	end = save_end(pos_back);
 	if (flag == 'o')
 		esc_t_need_left(word_first, fi, end);
@@ -39,7 +40,7 @@ int					esc_t(void)
 	return (0);
 }
 
-int					esc_t_first_left(char flag, size_t pos_back)
+int					esc_t_first_left(char flag, int pos_back)
 {
 	if (word_left_proc())
 		return (1);
@@ -51,10 +52,10 @@ int					esc_t_first_left(char flag, size_t pos_back)
 	return (0);
 }
 
-int					esc_t_need_left(char *word_first, size_t fi, char *end)
+int					esc_t_need_left(char *word_first, int fi, char *end)
 {
 	char			*word_second;
-	size_t			se;
+	int				se;
 	char			delimiter;
 
 	delimiter = g_rline.cmd[g_rline.pos - 1];
@@ -73,11 +74,11 @@ int					esc_t_need_left(char *word_first, size_t fi, char *end)
 	return (0);
 }
 
-int					esc_t_need_right(char *word_first, size_t fi, char *end)
+int					esc_t_need_right(char *word_first, int fi, char *end)
 {
 	char			*word_second;
-	size_t			se;
-	size_t			pos_old;
+	int				se;
+	int				pos_old;
 	char			delimiter;
 
 	pos_old = g_rline.pos;
@@ -98,10 +99,10 @@ int					esc_t_need_right(char *word_first, size_t fi, char *end)
 	return (0);
 }
 
-int					esc_t_len_pos(char *word_first, size_t fi, size_t pos_back)
+int					esc_t_len_pos(char *word_first, int fi)
 {
 	char			*word_second;
-	size_t			se;
+	int				se;
 	char			delimiter;
 
 	delimiter = g_rline.cmd[g_rline.pos - 1];

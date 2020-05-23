@@ -20,7 +20,7 @@ int				find_in_history(char *find)
 
 int				print_new_cmd_from_history(int coincidence)
 {
-	size_t		i;
+	int			i;
 
 	i = 0;
 	esc_r();

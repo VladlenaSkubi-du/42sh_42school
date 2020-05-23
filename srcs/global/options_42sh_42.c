@@ -1,26 +1,27 @@
 #include "shell42.h"
 
-int				argument_needed_42sh(char *option, char *name)
+int				check_42sh_options(int argc, char **argv)
 {
-	char		*arg;
-	
-	arg = ft_strjoin(name, ": ");
-	arg = ft_strrejoin(arg, option);
-	error_handler(OPTIONS_REQUIRED | (ERR_BTIN_ARG << 9), arg);
-	free(arg);
-	exit(OPTIONS_REQUIRED);
-}
+	int			flags;
+	int			mask;
+	int			i;
 
-int				invalid_option_42sh(char *option, char *name)
-{
-	char		*arg;
-	
-	arg = ft_strjoin(name, ": ");
-	arg = ft_strrejoin(arg, option);
-	error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), arg);
-	usage_btin(name);
-	free(arg);
-	exit(OPTIONS_REQUIRED);
+	flags = find_options(OPTIONS_NUM,
+		(char*[]){"c", "--version", "--help", "--readline", "--simple"}, argv);
+	if (flags < 0)
+		exit(OPTIONS_REQUIRED);
+	mask = 1;
+	mask = mask << SUBOPTION_STARTS;
+	i = 0;
+	while (i < OPTIONS_NUM)
+	{
+		if (flags & (mask << i))
+			print_help(i + 1);
+		i++;
+	}
+	if (flags == 0 && argc > 1 && argv[1][0] == '-' && !argv[1][1])
+		return (invalid_option_42sh(argv[1], argv[0]));
+	return ((flags & 1) ? check_42sh_c_option(argc, argv) : 0);
 }
 
 int				check_42sh_c_option(int argc, char **argv)
@@ -50,26 +51,25 @@ int				check_42sh_c_option(int argc, char **argv)
 	return ((tmp > 0) ? noninteractive_shell(&argv[i]) : 0);
 }
 
-int				check_42sh_options(int argc, char **argv)
+int				argument_needed_42sh(char *option, char *name)
 {
-	int			flags;
-	int			mask;
-	int			i;
+	char		*arg;
+	
+	arg = ft_strjoin(name, ": ");
+	arg = ft_strrejoin(arg, option);
+	error_handler(OPTIONS_REQUIRED | (ERR_BTIN_ARG << 9), arg);
+	free(arg);
+	exit(OPTIONS_REQUIRED);
+}
 
-	flags = find_options(OPTIONS_NUM,
-		(char*[]){"c", "--version", "--help", "--readline", "--simple"}, argv);
-	if (flags < 0)
-		exit(OPTIONS_REQUIRED);
-	mask = 1;
-	mask = mask << SUBOPTION_STARTS;
-	i = 0;
-	while (i < OPTIONS_NUM)
-	{
-		if (flags & (mask << i))
-			print_help(i + 1);
-		i++;
-	}
-	if (flags == 0 && argc > 1 && argv[1][0] == '-' && !argv[1][1])
-		return (invalid_option_42sh(argv[1], argv[0]));
-	return ((flags & 1) ? check_42sh_c_option(argc, argv) : 0);
+int				invalid_option_42sh(char *option, char *name)
+{
+	char		*arg;
+	
+	arg = ft_strjoin(name, ": ");
+	arg = ft_strrejoin(arg, option);
+	error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), arg);
+	usage_btin(name);
+	free(arg);
+	exit(OPTIONS_REQUIRED);
 }

@@ -2,7 +2,7 @@
 #include "readline.h"
 #define OUT_BUF 10
 
-void					buf_add(char *str, size_t size)
+void					buf_add(char *str, int size)
 {
 	static char			buf[OUT_BUF];
 	static char			*ptr = buf;
@@ -12,7 +12,7 @@ void					buf_add(char *str, size_t size)
 		write(STDOUT_FILENO, buf, ptr - buf);
 		ptr = buf;
 	}
-	else if (size + (size_t)(ptr - buf) < OUT_BUF)
+	else if (size + (ptr - buf) < OUT_BUF)
 	{
 		ft_memcpy(ptr, str, size);
 		ptr += size;
@@ -27,7 +27,7 @@ void					buf_add(char *str, size_t size)
 
 int						buffer_col_print(char *add, t_completion *menu_buf)
 {
-	size_t				len;
+	int					len;
 
 	len = ft_strlen(add);
 	if (!menu_buf->buffer)
@@ -45,7 +45,7 @@ int						buffer_col_print(char *add, t_completion *menu_buf)
 
 void					buffer_col_calc(t_completion *menu_buf)
 {
-	size_t				i;
+	int					i;
 
 	menu_buf->buf_width = (g_screen.ws_col / menu_buf->word_len) *
 		menu_buf->word_len + 1;
@@ -72,7 +72,7 @@ void					buffer_col_calc(t_completion *menu_buf)
 
 void					buffer_col_finish(t_completion *menu_buf)
 {
-	size_t				i;
+	int					i;
 
 	i = 0;
 	while (i < menu_buf->buf_lines - 1)
@@ -84,7 +84,7 @@ void					buffer_col_finish(t_completion *menu_buf)
 	buf_add(menu_buf->buffer[i], menu_buf->buf_width);
 }
 
-t_completion			menu_buf_init(size_t total, int max_len)
+t_completion			menu_buf_init(int total, int max_len)
 {
 	t_completion		menu_buf;
 

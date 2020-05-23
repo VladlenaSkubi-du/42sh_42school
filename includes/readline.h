@@ -33,13 +33,12 @@
 typedef struct					s_rline
 {
 	char						*cmd;
-	size_t						cmd_len;
-	size_t						pos;
+	int							cmd_len;
+	int							pos;
 	int							pos_x;
 	int							pos_y;
-	size_t						str_num;
-	size_t						prompt_len;
-	size_t						cmd_buff_len;
+	int							str_num;
+	int							cmd_buff_len;
 	int							flag;
 }								t_rline;
 
@@ -110,47 +109,20 @@ struct termios					g_backup_tty;
 ** File start_readline42.c
 */
 
-int								interactive_shell(void);
-int								check_terminal(void);
+void							init_readline(void);
+void							bzero_readline(void);;
 int								start_readline42(int tmp);
 char							*finalize_cmd(char *cmd);
-int								mf_protection(void);
-
-/*
-** File readline.c - the beginning of the work with readline
-*/
-
-char							*readline(void);
-void							init_readline(void);
-int								readline_choice(char sy);
-int								route_exit(void);
-
-/*
-** File prompts.c
-*/
-
-int								main_prompt(void);
-int								dquote_prompt(void);
-int								heredoc_prompt(void);
-int								other_prompt(void);
-size_t							prompt_len(void);
-
-/*
-** File prompts_other.c
-*/
-
-int								pipe_prompt(void);
-int								subshell_prompt(void);
-int								cursh_prompt(void);
-int								cmdandor_prompt(void);
 
 /*
 ** File terminal_input_changes.c
 */
 
+int								check_terminal(void);
+int								mf_protection(void);
 int								set_noncanonical_input(void);
 int								reset_canonical_input(void);
-int								back_to_noncanonical_input(void);
+// int								back_to_noncanonical_input(void); //DELETE
 
 /*
 ** File termcap_usage.c - library of functions to use termcap easily
@@ -162,42 +134,41 @@ int								position_cursor(char *cap, int x, int y);
 int								init_termcap(void);
 
 /*
-** File str_edit.c - universal functions for changing the main command-string
-** and dealing with other global-parameters of the command string
+** File readline.c - the beginning of the work with readline
+*/
+
+char							*readline(void);
+int								readline_choice(char sy);
+int								route_exit(void);
+int								incorrect_sequence(void);
+
+/*
+** File prompts.c
+*/
+
+int								main_prompt(void);
+int								dquote_prompt(void);
+int								heredoc_prompt(void);
+int								other_prompt(void);
+
+/*
+** File prompts_other.c
+*/
+
+int								pipe_prompt(void);
+int								subshell_prompt(void);
+int								cursh_prompt(void);
+int								cmdandor_prompt(void);
+
+/*
+** File rline_cmd_processing.c
 */
 
 int								char_add(char c, char *color);
 int								char_add_without_undo(char c, char *color);
-int								str_shift(char *str, int shift);
 int								insert_char(char c, char *color);
-
-/*
-** File escape.c - router to the functions performing actions with
-** escape-sequences
-*/
-
-int								escape_init(void);
-int								escape_check(char **seq_base);
-int								incorrect_sequence(void);
-int								sequence_process(int sequence_num);
-
-/*
-** File ctrl_key.c
-*/
-
-int								ctrl_key(char sy);
-int								ctrl_process(char *ctrl_base, char sy);
-int								ctrl_call(size_t call_num);
-
-/*
-** File cursor_position.c - operations to get the termcap cursor postion
-** and move it after actions
-*/
-
-int								count_x_position_new_line(size_t nl_pos);
-int								move_cursor_from_old_position(size_t pos_old,
-									char direction);
-int								front_set_cursor_jmp(size_t *pos, int *pos_x,
+int								front_insert_cmd_till_the_end(int str_num_print);
+int								front_set_cursor_jmp(int *pos, int *pos_x,
 									int *pos_y, int flag);
 
 /*
@@ -206,9 +177,10 @@ int								front_set_cursor_jmp(size_t *pos, int *pos_x,
 
 int								front_move_one_char_right(int pos_x);
 int								front_move_one_char_left(int pos_x);
-int								front_insert_by_letters(char *str,
-									int *pos_x, char flag);
-int								front_write_one_char(char c, char *color);
+int								front_insert_by_letters(char *str, int *pos_x);
+int								count_x_position_new_line(int nl_pos);
+int								move_cursor_from_old_position(int pos_old,
+									char direction);
 
 /*
 ** File front_insertions.c
@@ -217,12 +189,36 @@ int								front_write_one_char(char c, char *color);
 int								front_insert_one_char(char c, int pos_x,
 									char flag, char *color);
 int								front_insert_if_newline(int *pos_x, int *pos_y,
-									size_t *str_num, int *flag);
-int								front_insert_if_terminal(int *pos_x, int *pos_y,
-									size_t *str_num, int *flag);
-int								front_insert_if_line(int *pos_x, int *pos_y,
-									size_t *str_num, int *flag);
-int								front_insert_cmd_till_the_end(int str_num_print);
+									int *str_num, int *flag);
+int								front_insert_if_terminal(int *pos_x,
+									int *pos_y, int *flag);
+int								front_insert_if_line(int *pos_x,
+									int *str_num, int *flag);
+int								front_write_one_char(char c, char *color);
+
+/*
+** File colors.c
+*/
+
+char							*colors_process(int sequence_num);
+
+/*
+** File escape.c - router to the functions performing actions with
+** escape-sequences
+*/
+
+int								escape_init(void);
+int								escape_check(char **seq_base);
+int								sequence_process(int sequence_num);
+
+/*
+** File ctrl_key.c - router to the functions performing actions with
+** ctrl-sequences
+*/
+
+int								ctrl_key(char sy);
+int								ctrl_process(char *ctrl_base, char sy);
+int								ctrl_call(size_t call_num);
 
 /*
 ** File undo_yank_call.c
@@ -238,18 +234,12 @@ int								make_ctrl_p_wrap(void);
 
 int								undo(int mode);
 void							action_pull(t_action_stack **start,
-									size_t *num);
+									int *num);
 void							action_alloc_management(t_action_stack **start,
 									int mode);
 int								action_add(t_action_stack **start,
-									t_action_stack **end, size_t *num);
+									t_action_stack **end, int *num);
 t_action_stack					*action_new(void);
-
-/*
-** File colors.c
-*/
-
-char							*colors_process(int sequence_num);
 
 /*
 ** Folder KEY_ACTIONS
@@ -261,11 +251,9 @@ char							*colors_process(int sequence_num);
 */
 
 int								backspace_process(void);
-int								backspace_newline(char *swap, size_t len_swap);
+int								backspace_newline(char *swap, int len_swap);
 int								delete_process(void);
-int								esc_r(void);
-int								delete_till_compl(size_t len_compl,
-									size_t delete);
+int								delete_till_compl(int delete);
 
 /*
 ** File arrow_keys.c
@@ -275,7 +263,27 @@ int								key_right_proc(void);
 int								key_up_proc(void);
 int								key_left_proc(void);
 int								key_down_proc(void);
-int								save_current_grline(int flag);
+
+/*
+** File ctrl_kult.c
+*/
+
+int								make_ctrl_k(void);
+int								make_ctrl_u(void);
+int								make_ctrl_l(void);
+int								make_ctrl_t(void);
+int								make_ctrl_t_begend(int len);
+
+/*
+** File cut_words_and_paste.c
+*/
+
+int								esc_d(void);
+int								make_ctrl_w(void);
+int								esc_r(void);
+int								make_ctrl_p(int mode, char *yank);
+int								paste_insert(char *yank_str);
+
 
 /*
 ** File esc_word_proc.c
@@ -283,56 +291,35 @@ int								save_current_grline(int flag);
 
 int								word_left_proc(void);
 int								word_right_proc(void);
-int								esc_d(void);
-char							*save_word(size_t *i, char *cmd, size_t pos);
-char							*save_end(size_t pos_back);
+char							*save_word(int *i, char *cmd, int pos);
+char							*save_end(int pos_back);
+
+/*
+** File jump_around.c
+*/
+
+int             				jump_up(void);
+int             				jump_down(void);
+int								make_ctrl_a(void);
+int								make_ctrl_e(void);
 
 /*
 ** File esc_t.c - continuation in esc_word_proc.c
 */
 
 int								esc_t(void);
-int								esc_t_first_left(char flag, size_t pos_back);
-int								esc_t_need_left(char *word_first, size_t fi,
+int								esc_t_first_left(char flag, int pos_back);
+int								esc_t_need_left(char *word_first, int fi,
 									char *end);
-int								esc_t_need_right(char *word_first, size_t fi,
+int								esc_t_need_right(char *word_first, int fi,
 									char *end);
-int								esc_t_len_pos(char *word_first, size_t fi,
-									size_t pos_back);
-
-/*
-** File ctrl_kwuae.c
-*/
-
-int								make_ctrl_k(void);
-int								make_ctrl_u(void);
-int								make_ctrl_a(void);
-int								make_ctrl_e(void);
-int								make_ctrl_w(void);
-
-/*
-** File ctrl_tly.c
-*/
-
-int								make_ctrl_t(void);
-int								make_ctrl_t_begend(size_t len);
-int								make_ctrl_l(void);
-int								make_ctrl_p(int mode, char *yank);
-int								paste_insert(char *yank_str,
-									size_t len_yank);
+int								esc_t_len_pos(char *word_first, int fi);
 
 /*
 ** File easter_egg.c
 */
 
 int								kirill_lgbt(char sy);
-
-/*
-** File jump_keys.c
-*/
-
-int             				jump_up(void);
-int             				jump_down(void);
 
 /*
 ** Folder AUTO_COMPLETION
@@ -374,7 +361,7 @@ int								route_to_arguments(char *compl,
 char							**get_variables(char *complete,
 									size_t *total, int *max_len);
 t_path							*fill_tree_with_variables(char *complete,
-									size_t *total, size_t len);
+									size_t *total);
 int								insert_variables_to_tree(char *array,
 									char *complete, t_path **root,
 									size_t *total);

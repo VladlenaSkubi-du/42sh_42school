@@ -3,28 +3,40 @@
 
 int				pipe_prompt(void)
 {
-	ft_putstr_fd("pipe> ", STDOUT_FILENO);
-	g_rline.prompt_len = 6;
+	const char	*prompt;
+	
+	prompt = "pipe> ";
+	ft_putstr_fd(prompt, STDOUT_FILENO);
+	g_prompt.prompt_len = ft_strlen(prompt);
 	return (0);
 }
 
 int				subshell_prompt(void)
 {
-	ft_putstr_fd("subshell> ", STDOUT_FILENO);
-	g_rline.prompt_len = 10;
+	const char	*prompt;
+	
+	prompt = "subshell> ";
+	ft_putstr_fd(prompt, STDOUT_FILENO);
+	g_prompt.prompt_len = ft_strlen(prompt);
 	return (0);
 }
 
 int				cursh_prompt(void)
 {
-	ft_putstr_fd("cursh> ", STDOUT_FILENO);
-	g_rline.prompt_len = 10;
+	const char	*prompt;
+	
+	prompt = "cursh> ";
+	ft_putstr_fd(prompt, STDOUT_FILENO);
+	g_prompt.prompt_len = ft_strlen(prompt);
 	return (0);
 }
 
 int				cmdandor_prompt(void)
 {
-	ft_putstr_fd("cmdandor> ", STDOUT_FILENO);
-	g_rline.prompt_len = 10;
+	const char	*prompt;
+	
+	prompt = "cmdandor> ";
+	ft_putstr_fd(prompt, STDOUT_FILENO);
+	g_prompt.prompt_len = ft_strlen(prompt);
 	return (0);
 }

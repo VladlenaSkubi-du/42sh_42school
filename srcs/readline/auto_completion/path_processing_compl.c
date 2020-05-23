@@ -4,8 +4,8 @@
 char				*find_path_compl(char *compl, int tmp)
 {
 	char			*path;
-	size_t			i;
-	size_t			j;
+	int				i;
+	int				j;
 
 	if (g_rline.pos == 0)
 		return (NULL);
@@ -32,7 +32,7 @@ char				*find_path_compl(char *compl, int tmp)
 
 char				*path_parse_compl(void)
 {
-	size_t			i;
+	int				i;
 
 	i = 0;
 	while (g_env[i])
