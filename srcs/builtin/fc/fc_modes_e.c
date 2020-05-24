@@ -17,8 +17,8 @@
 int					btin_fc_edit_mode(char **argv, t_btin_fc **fc_arg,
 						int *flags)
 {
-	size_t			li;
-	size_t			sy;
+	int				li;
+	int				sy;
 
 	if (g_hist.len > 0)
 		delete_last_history_element();
@@ -29,9 +29,9 @@ int					btin_fc_edit_mode(char **argv, t_btin_fc **fc_arg,
 	}
 	if ((*fc_arg)->editor == NULL)
 	{
-		li = find_in_variables(g_shvar, &sy, "FCEDIT=");
-		if (g_shvar[li][sy])
-			(*fc_arg)->editor = &g_shvar[li][sy];
+		li = find_in_variable(&sy, "FCEDIT=");
+		if (g_envi[li][sy])
+			(*fc_arg)->editor = &g_envi[li][sy];
 		else
 			(*fc_arg)->editor = "/usr/bin/vim"; //исправить после того как будет type
 	}
