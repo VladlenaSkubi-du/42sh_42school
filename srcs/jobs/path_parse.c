@@ -7,8 +7,8 @@ char	**path_parse(void)
 	int		li;
 	int		co;
 
-	li = find_in_variables(g_env, (size_t*)&co, "PATH"); //DIMA: g_envi
-	if (li < 0 || ((ret = ft_strsplit(&g_env[li][co], ':')) == NULL) ||
+	li = find_in_variable(&co, "PATH"); //DIMA: g_envi
+	if (li < 0 || ((ret = ft_strsplit(&g_envi[li][co], ':')) == NULL) ||
 		ret[0] == '\0')
 		return (0);
 	return (ret);

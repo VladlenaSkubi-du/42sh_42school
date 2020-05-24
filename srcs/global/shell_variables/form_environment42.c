@@ -18,12 +18,12 @@ int					save_environment_variable(int num)
 	i = 0;
 	while (environ[i])
 	{
-		if (num + 12 == g_var_size)
+		if (num >= g_var_size || num + 1 >= g_var_size)
 		{
 			g_envi = ft_realloc_array(&g_envi, g_var_size, g_var_size * 2);
 			g_var_size *= 2;
 		}
-		g_envi[num] = (char*)ft_xmalloc((ft_strlen(environ[i] + 2) * (sizeof(char))));
+		g_envi[num] = (char*)ft_xmalloc(((ft_strlen(environ[i]) + 2) * (sizeof(char))));
 		ft_strcpy(g_envi[num] + 1, environ[i]);
 		g_envi[num][0] |= ENV_VIS;
 		g_envi[num][0] |= SET_VIS;
@@ -54,33 +54,33 @@ char				*ft_add_rdovar(char *first, char *scnd, int flag)
 	return (res);
 }
 
-int					save_readonly_variable()
+int					save_readonly_variable(int num)
 {
 	char	*tmp;
 
-	g_envi[0] = ft_add_rdovar("?=0", NULL, 1);
-	g_envi[1] = ft_add_rdovar("0=e-bash", NULL, 1);
-	g_envi[2] = ft_add_rdovar("42SH_SUBSHELL=0", NULL, 1);
-	g_envi[3] = ft_add_rdovar("42SH_PARSER=0", NULL, 1);
-	g_envi[4] = ft_add_rdovar("42SH_NONINTERACTIVE=0", NULL, 1);
+	g_envi[num++] = ft_add_rdovar("?=0", NULL, 1);
+	g_envi[num++] = ft_add_rdovar("0=e-bash", NULL, 1);
+	g_envi[num++] = ft_add_rdovar("42SH_SUBSHELL=0", NULL, 1);
+	g_envi[num++] = ft_add_rdovar("42SH_PARSER=0", NULL, 1);
+	g_envi[num++] = ft_add_rdovar("42SH_NONINTERACTIVE=0", NULL, 1);
 	tmp = getcwd(NULL, MAXDIR);
-	g_envi[5] = ft_add_rdovar("PWD=", tmp, 0);
-	g_envi[6] = ft_add_rdovar("OLDPWD", tmp, 0);
-	g_envi[7] = ft_add_rdovar("42SH=", tmp, 0);
+	g_envi[num++] = ft_add_rdovar("PWD=", tmp, 0);
+	g_envi[num++] = ft_add_rdovar("OLDPWD", tmp, 0);
+	g_envi[num++] = ft_add_rdovar("42SH=", tmp, 0);
 	free(tmp);
 	tmp = ft_itoa(getuid());
-	g_envi[8] = ft_add_rdovar("UID=", tmp, 0);
+	g_envi[num++] = ft_add_rdovar("UID=", tmp, 0);
 	free(tmp);
 	tmp = ft_itoa(geteuid());
-	g_envi[9] = ft_add_rdovar("EUID=", tmp, 0);
+	g_envi[num++] = ft_add_rdovar("EUID=", tmp, 0);
 	free(tmp);
 	tmp = ft_itoa(getppid());
-	g_envi[10] = ft_add_rdovar("PPID=", tmp, 0);
+	g_envi[num++] = ft_add_rdovar("PPID=", tmp, 0);
 	free(tmp);
 	tmp = ft_itoa(getpid());
-    g_envi[11] = ft_add_rdovar("$=", tmp, 1);
+    g_envi[num++] = ft_add_rdovar("$=", tmp, 1);
     free(tmp);
-	return (12);
+	return (num);
 }
 
 /*
@@ -121,7 +121,7 @@ int					create_env(void)
 	int		num;
 
 	g_envi = (char **)ft_xmalloc(ENV_BUFFER * sizeof(char*));
-	num = save_readonly_variables();
+	num = save_readonly_variable(0);
 	num = save_shell_variable(num);
 	num = save_environment_variable(num);
 	return (0);
