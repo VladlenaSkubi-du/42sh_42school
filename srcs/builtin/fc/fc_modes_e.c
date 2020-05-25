@@ -29,7 +29,7 @@ int					btin_fc_edit_mode(char **argv, t_btin_fc **fc_arg,
 	}
 	if ((*fc_arg)->editor == NULL)
 	{
-		li = find_in_variable(&sy, "FCEDIT=");
+		li = find_in_variable(&sy, "FCEDIT");
 		if (g_envi[li][sy])
 			(*fc_arg)->editor = &g_envi[li][sy];
 		else
