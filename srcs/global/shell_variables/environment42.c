@@ -83,7 +83,7 @@ int					save_shell_variables(void)
 
 	num = 4;
 	g_shvar = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
-	li = find_in_variables(g_env, &co, "HOME=");
+	li = find_in_variables(g_env, &co, "HOME");
 	tmp = (li < 0) ? define_history_file() :
 		ft_strjoin(&g_env[li][co], "/.42sh_history");
 	g_shvar[0] = ft_strjoin("HISTFILE=", tmp);
