@@ -20,12 +20,12 @@ int				main(int argc, char **argv)
 
 	g_var_size = ENV_BUFFER;
 	create_env();
-	/*save_environment_variables();
+	save_environment_variables();
 	save_readonly_variables();
 	save_local_variables();
 	check_42sh_options(argc, argv);
 	save_shell_variables();
 	g_prompt.prompt_func = main_prompt;
 	interactive_shell();
-	*/return (0);
+	return (0);
 }
