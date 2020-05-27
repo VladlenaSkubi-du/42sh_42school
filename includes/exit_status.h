@@ -23,6 +23,7 @@
 # define	ERR_UNSET 0x8
 # define	ERR_SET 0x10
 # define	ERR_CD 0x20
+# define	ERR_JOB_NF 0x40
 
 /*
 ** Option errors are errors that exit with 2
