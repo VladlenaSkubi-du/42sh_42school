@@ -95,6 +95,8 @@ int				variable_errors(int status, char *str)
 		ft_putendl_fd(": no command found", STDERR_FILENO);
 	else if (status >> 9 & ERR_UNSET)
 		ft_putendl_fd(": parameter null or not set", STDERR_FILENO);
+	else if (status >> 9 & ERR_JOB_NF)
+		ft_putendl_fd(": no such job", STDERR_FILENO);
 	return (0);
 }
 
