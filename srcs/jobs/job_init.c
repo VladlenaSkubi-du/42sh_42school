@@ -76,14 +76,14 @@ int		process_new(job *jobs, t_ltree *entity)
 
 int		set_globals_and_signals(void)
 {
-	int		   	li; //DIMA: int
-	int		   	sy; //DIMA: int
+	int		   	li;
+	int		   	sy;
 
 	signal(SIGCHLD, child_handler);
 	signal(SIGTTIN, SIG_IGN);
 	signal(SIGTTOU, SIG_IGN);
 	g_shell_tmodes = g_backup_tty;
-	li = find_in_variable(&sy, "42SH_NONINTERACTIVE="); //DIMA: g_envi
+	li = find_in_variable(&sy, "42SH_NONINTERACTIVE");
 	g_is_interactive = !(g_envi[li][sy] - '0');
 	g_shell_pgid = getpgid(0);
 	return (0);
