@@ -72,7 +72,7 @@ int		find_in_variable(int *j, char *name)
 		tmp = ft_strchri(g_envi[i] + 1, '=');
 		if (ft_strncmp(g_envi[i] + 1, name, len_name) == 0 && (tmp == len_name))
 		{
-			*j = tmp + 1;
+			*j = tmp + 2;
 			return (i);
 		}
 		i++;
