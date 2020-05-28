@@ -55,7 +55,7 @@ int     btin_pwd(t_ltree *pos)
 		ft_putstr(g_rdovar[5] + 4);
 	else
 	{
-		getcwd(dir, MAXDIR);
+		getcwd(dir, MAXDIR); //исправить на NULL
 		ft_putstr(dir);
 	}
     ft_putchar('\n');

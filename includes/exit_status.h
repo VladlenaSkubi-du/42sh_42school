@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/05/28 21:10:36 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/05/28 22:51:31 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 /*
 ** Variable errors are errors that exit with 1
+** @ERR_JOB_NF is "job not found"
 */
 
 # define	ERR_HISTORY_NUM 0x1

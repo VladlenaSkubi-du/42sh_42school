@@ -35,7 +35,7 @@ int				usage_btin_other(char *str)
 	else if (ft_strcmp(str, "unset") == 0)
 		ft_putendl_fd("unset [name ...]", STDOUT_FILENO);
 	else if (ft_strcmp(str, "history") == 0)
-		ft_putendl_fd("history [-c|-w]", STDOUT_FILENO);
+		ft_putendl_fd("history [-c]", STDOUT_FILENO);
 	else if (ft_strcmp(str, "exit") == 0)
 		ft_putendl_fd("exit [numeric arg]", STDOUT_FILENO);
 	return (0);

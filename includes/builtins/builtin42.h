@@ -62,9 +62,18 @@ int				btin_unset(t_ltree *pos);
 ** File history.c
 */
 
-int				btin_history(void);
+int				btin_history(t_ltree *pos);
+int				btin_history_clear(void);
+int				btin_history_noargs(void);
+
+/*
+** File exsign_btin.c
+*/
+
 int				btin_exsign(t_ltree *pos);
+int				btin_exsign_numeric(t_ltree *pos);
 int				btin_exsign_print_message(char *arg);
+int				btin_exsign_make_substitution(t_ltree *pos, char *subst);
 
 /*
 ** File echo.c

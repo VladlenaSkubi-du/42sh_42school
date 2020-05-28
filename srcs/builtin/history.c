@@ -6,7 +6,35 @@
 ** If HISTORY_LIMIT or 32767 is reached, numeration continues with 1
 */
 
-int					btin_history(void)
+int					btin_history(t_ltree *pos)
+{
+	int				flags;
+	int				i;
+	int				j;
+	int				tmp;
+	
+	flags = find_options(2, (char*[]){"c", "--help"}, pos->ar_v);
+	if (pos->ar_c == 1 && !flags)
+		return (btin_history_noargs());
+	if (flags == 0x10000)
+		return (usage_btin("history"));
+	i = 0;
+	while (pos->ar_v[++i] && pos->ar_v[i][0] == '-')
+	{
+		j = 0;
+		if (!pos->ar_v[i][1])
+			return (invalid_option_btin(pos->ar_v[i], pos->ar_v[0]));
+		while (pos->ar_v[i][++j] == 'c' && pos->ar_v[i][j])
+			tmp = i;
+		if (pos->ar_v[i][j] == '-' && !pos->ar_v[i][j + 1])
+			break ;
+		if (j > 1 && (!(pos->ar_v[i][j] == 'c' || pos->ar_v[i][j] == '\0')))
+			return (invalid_option_btin(&pos->ar_v[i][j], pos->ar_v[0]));	
+	}
+	return ((tmp > 0) ? btin_history_clear() : btin_history_noargs());
+}
+
+int					btin_history_noargs(void)
 {
 	int				i;
 	int				num;
@@ -30,64 +58,20 @@ int					btin_history(void)
 	return (0);
 }
 
-/*
-** Builtin !: !! is the last history-cmd in the buffer
-** !word is the last history-cmd that starts with word
-** !number is the history-cmd according to the number
-** !-number is the history-cmd of the same number if count from
-** the last cmd
-*/
-
-int					btin_exsign(t_ltree *pos)
+int					btin_history_clear(void)
 {
-	int				i;
-	int				len;
-	int				num;
-	int				count;
-	int				temp;
+	int				li;
+	int				co;
+	int				size;
 
-	if (g_hist.len < 1 || g_hist.last < 0)
-		return (btin_exsign_print_message(pos->ar_v[0]));
-	if (pos->ar_v[0][0] == '!' && pos->ar_v[0][1] == '\0')
-		return (0);
-	i = 1;
-	len = ft_strlen(pos->ar_v[0]);
-	if (pos->ar_v[0][1] == '-' || ft_isdigit(pos->ar_v[0][1]))
-	{
-		(pos->ar_v[0][1] == '-') ? i++ : 0;
-		while (pos->ar_v[0][i] && ft_isdigit(pos->ar_v[0][i]))
-			i++;
-		if (i == len)
-		{
-			num = ft_atoi(pos->ar_v[0] + 1);
-			if (pos->ar_v[0][1] == '-')
-			{
-				count = btin_fc_negative_int__exec(num);
-				if (count == 0 && num != 0)
-					btin_exsign_print_message(pos->ar_v[0]);
-			}
-			else
-			{
-				temp = g_hist.last_fc - ((g_hist.last + 1 == g_hist.len) ?
-					g_hist.len - 1 : g_hist.last) + 1;
-				count = btin_fc_positive_int__exec(num, temp, g_hist.last_fc);
-			}
-		}
-	}
-
-	return (0);
-}
-
-int					btin_exsign_print_message(char *arg)
-{
-	// ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
-	ft_putstr_fd(": ", STDOUT_FILENO);
-	ft_putstr_fd(arg, STDOUT_FILENO);
-	ft_putendl_fd(": event not found", STDOUT_FILENO);
-	return (0);
-}
-
-int					btin_exsign_num_search(int num)
-{
+	ft_arrdel(g_hist.hist);
+	g_hist.hist = NULL;
+	li = find_in_variable(&co, "HISTSIZE");
+	if (!ft_isdigit(g_envi[li][co]))
+		size = MAX_HISTBUF;
+	size = ft_atoi(g_envi[li] + co);
+	if (size < 0 || size > HISTORY_LIMIT)
+		size = MAX_HISTBUF;
+	init_history_buffer(size);
 	return (0);
 }
