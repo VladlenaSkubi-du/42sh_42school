@@ -65,7 +65,7 @@ int				argument_needed_42sh(char *option, char *name)
 int				invalid_option_42sh(char *option, char *name)
 {
 	char		*arg;
-	
+
 	arg = ft_strjoin(name, ": ");
 	arg = ft_strrejoin(arg, option);
 	error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), arg);

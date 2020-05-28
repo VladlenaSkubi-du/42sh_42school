@@ -23,7 +23,9 @@ int                 btin_fc(t_ltree *pos)
 		return (NONINERACTIVE);
 	}
 	fc_arg = init_btin_fc();
-	flags = find_options(1, (char*[]){"elsrn"}, pos->ar_v);
+	flags = find_options(2, (char*[]){"elsrn", "--help"}, pos->ar_v);
+	if (flags == 0x10000)
+		return (usage_btin("fc"));
 	if (flags < 0)
 		return (btin_return_exit_status());
 	flags = 0;
@@ -51,7 +53,8 @@ int					btin_fc_find_mode(char **argv, t_btin_fc **fc_arg,
 	i = 0;
 	while (argv[++i])
 	{
-		if (!(argv[i][0] == '-') || (argv[i][0] == '-' && ft_isdigit(argv[i][1])))
+		if (!(argv[i][0] == '-') || (argv[i][0] == '-' &&
+				ft_isdigit(argv[i][1])))
 			return (btin_fc_edit_mode(&argv[i], fc_arg, flags));
 		if (argv[i][0] == '-' && !argv[i][1])
 		{
@@ -79,7 +82,8 @@ int					btin_fc_find_mode(char **argv, t_btin_fc **fc_arg,
 ** "-l" option is weaker than "-s" so check till the end of the argument needed
 */
 
-int					btin_fc_other_args(char **argv, int i, t_btin_fc **fc_arg, int *flags)
+int					btin_fc_other_args(char **argv, int i,
+						t_btin_fc **fc_arg, int *flags)
 {
 	int				j;
 	int				tmp;
@@ -111,8 +115,8 @@ int					btin_fc_other_args(char **argv, int i, t_btin_fc **fc_arg, int *flags)
 ** the no-args mode or with args
 */
 
-int					btin_fc_list_mode(char **argv, int j, t_btin_fc **fc_arg,
-						int *flags)
+int					btin_fc_list_mode(char **argv, int j,
+						t_btin_fc **fc_arg, int *flags)
 {
 	int				i;
 
@@ -138,8 +142,8 @@ int					btin_fc_list_mode(char **argv, int j, t_btin_fc **fc_arg,
 ** the no-args mode or with args
 */
 
-int					btin_fc_exec_mode(char **argv, int j, t_btin_fc **fc_arg,
-						int *flags)
+int					btin_fc_exec_mode(char **argv, int j,
+						t_btin_fc **fc_arg, int *flags)
 {
 	int				i;
 

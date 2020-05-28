@@ -201,6 +201,7 @@ int					options_in_arg(char *arri, int num,
 int					options_proc(char arrij, char *flags_arr, int *final);
 int					suboptions_proc(char *arri, int num,
 						char *flags_arr[num], int *final);
+int					invalid_option_btin(char *option, char *name);
 
 /*
 ** File options_42sh_42.c
@@ -225,11 +226,16 @@ void				signal_ctrl_c_parser(int sig);
 */
 
 int					error_handler(int status, char *str);
+int					terminal_errors(int status, char *str);
 int					error_handler_continuation(int status, char *str);
+
+/*
+** File errors_handler_suberrors.c
+*/
+
 int					variable_errors(int status, char *str);
 int					options_errors(int status, char *str);
 int					syntax_errors(int status, char *str);
-int					syntax_errors_files(int status, char *str);
 
 /*
 ** File clean_all42.c

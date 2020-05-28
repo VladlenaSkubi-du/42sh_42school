@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/05/15 20:19:01 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/05/28 21:10:36 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ enum				e_status
 	TERMINAL_TO_NON,
 	TERMINAL_TO_CAN,
 	TERMINAL_CHANGED,
-	HISTORY_FILE_FAIL,
 	NONINERACTIVE,
+	HISTORY_FILE_FAIL,
 	TMPFILE,
 	COMMAND_NON_EXECUTABLE = 126,
 	COMMAND_NOT_FOUND,

@@ -107,6 +107,14 @@ typedef struct					s_compl_output
 	size_t						i;
 }								t_compl_output;
 
+/*
+** @g_tablevel is a counter according to that we complete this or that line
+** from the g_menu
+** @g_complete - is a string, according to which we search
+** options for completion. Can be empty if TAB is pushed before any other key
+** @g_menu - the full menu for completion, all the possible options
+*/
+
 typedef struct					s_compl
 {
 	char						*to_compl;

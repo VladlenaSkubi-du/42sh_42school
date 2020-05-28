@@ -32,38 +32,20 @@ int                 read_hist_from_file(int fd)
 
 int					fill_hist_in_file(void)
 {
-	size_t			li;
-	size_t			co;
-	// char			*size;
+	// size_t			li;
+	// size_t			co;
+	char			*size;
 	int				fd;
 	char			*path;
 	int				user_len;
 
-	// path = ft_strdup(find_env_value("HISTFILE"));
-	// size = find_env_value("HISTFILESIZE");
-	// if (!ft_isdigit(size[0]))
-	// 	user_len = MAX_HISTFILE;
-	// else
-	// {
-	// 	user_len = ft_atoi(size);
-	// 	if (user_len < 0 || user_len > HISTORY_LIMIT)
-	// 		user_len = MAX_HISTFILE;
-	// }
-	// fd = open_hist_file(user_len, path);
-	// free(path);
-	// if (fd < 0)
-	// 	return (0);
-	// insert_hist_in_file(fd, user_len);
-	// close(fd);
-	
-	li = find_in_variables(g_shvar, &co, "HISTFILE=");
-	path = ft_strdup(g_shvar[li] + co);
-	li = find_in_variables(g_shvar, &co, "HISTFILESIZE=");
-	if (!ft_isdigit(g_shvar[li][co]))
+	path = ft_strdup(find_env_value("HISTFILE"));
+	size = find_env_value("HISTFILESIZE");
+	if (!ft_isdigit(size[0]))
 		user_len = MAX_HISTFILE;
 	else
 	{
-		user_len = ft_atoi(g_shvar[li] + co);
+		user_len = ft_atoi(size);
 		if (user_len < 0 || user_len > HISTORY_LIMIT)
 			user_len = MAX_HISTFILE;
 	}
@@ -73,6 +55,24 @@ int					fill_hist_in_file(void)
 		return (0);
 	insert_hist_in_file(fd, user_len);
 	close(fd);
+	
+	// li = find_in_variables(g_shvar, &co, "HISTFILE=");
+	// path = ft_strdup(g_shvar[li] + co);
+	// li = find_in_variables(g_shvar, &co, "HISTFILESIZE=");
+	// if (!ft_isdigit(g_shvar[li][co]))
+	// 	user_len = MAX_HISTFILE;
+	// else
+	// {
+	// 	user_len = ft_atoi(g_shvar[li] + co);
+	// 	if (user_len < 0 || user_len > HISTORY_LIMIT)
+	// 		user_len = MAX_HISTFILE;
+	// }
+	// fd = open_hist_file(user_len, path);
+	// free(path);
+	// if (fd < 0)
+	// 	return (0);
+	// insert_hist_in_file(fd, user_len);
+	// close(fd);
 	return (0);
 }
 

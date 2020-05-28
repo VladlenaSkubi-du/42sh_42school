@@ -27,7 +27,6 @@ void				signal_ctrl_c_readline(int sig)
 	check_after_line();
 	ft_putchar_fd('\n', STDOUT_FILENO);
 	g_prompt.prompt_func = main_prompt;
-	// g_rline.prompt_len = prompt_len();
 	g_prompt.prompt_func();
 	ft_bzero(g_rline.cmd, g_rline.cmd_buff_len);
 	g_rline.cmd_len = 0;

@@ -10,8 +10,9 @@ void		print_help(short flag)
 	undo = 10;
 	if (flag == 1)
 	{
-		// ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
-		ft_putendl_fd("e-bash, version 0.0.1", 1);
+		ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
+		// ft_putendl_fd("e-bash, version 0.0.1", 1);
+		ft_putendl_fd(", version 0.0.1", 1);
 		ebash_long_options();
 	}
 	if (flag == 2)

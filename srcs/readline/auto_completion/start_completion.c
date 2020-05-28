@@ -1,23 +1,6 @@
 #include "shell42.h"
 #include "readline.h"
 
-//ONE GLOBAL STRUCTURE
-
-/*
-** @g_tablevel is a counter according to that we complete this or that line
-** from the g_menu
-** @g_complete - is a string, according to which we search
-** options for completion. Can be empty if TAB is pushed before any other key
-** @g_menu - the full menu for completion, all the possible options
-*/
-
-// int					g_tablevel;
-// char				*g_complete;
-// int					g_len_compl;
-// int					g_delete;
-// char				**g_menu;
-// int					g_total;
-
 /*
 ** @pool = pool of variables: binary-files (1), variables (2),
 ** arguments (3), bell (nothing can be done - 0);
@@ -72,10 +55,10 @@ char				**route_by_prompts(int *total, int *max_len)
 
 	if (g_prompt.prompt_func == main_prompt)
 	{
-		// menu = ft_path_pars("", find_env_value("PATH"),
-		// 	(size_t*)total, max_len);
-		menu = ft_path_pars("", path_parse_compl(),
+		menu = ft_path_pars("", find_env_value("PATH"),
 			(size_t*)total, max_len);
+		// menu = ft_path_pars("", path_parse_compl(),
+		// 	(size_t*)total, max_len);
 	}
 	else
 	{
@@ -115,10 +98,10 @@ char				**route_menu_receipt(char *tech_line,
 	g_compl.to_compl = final;
 	if (pool == 1)
 	{
-		// menu = ft_path_pars(g_compl.to_compl, find_env_value("PATH"),
-		// 	(size_t*)g_compl.total, max_len);
-		menu = ft_path_pars(g_compl.to_compl, path_parse_compl(),
+		menu = ft_path_pars(g_compl.to_compl, find_env_value("PATH"),
 			(size_t*)&g_compl.total, max_len);
+		// menu = ft_path_pars(g_compl.to_compl, path_parse_compl(),
+		// 	(size_t*)&g_compl.total, max_len);
 	}
 	else if (pool == 2)
 		menu = get_variables(g_compl.to_compl, &g_compl.total, max_len);
@@ -167,37 +150,6 @@ int					insert_word_compl(void)
 	}
 	return (0);
 }
-
-
-
-// int					insert_word_compl(void)
-// {
-// 	int				len_option;
-// 	int				counter;
-// 	int				flag;
-// 	int				i;
-
-// 	flag = 0;
-// 	(g_delete > 0) ? delete_till_compl(g_delete) : 0;
-// 	if (g_tablevel > 0 && g_total > 0)
-// 	{
-// 		if (g_rline.pos > 1 && g_rline.cmd[g_rline.pos - 1] == '{' &&
-// 			g_rline.cmd[g_rline.pos - 2] == '$')
-// 			flag = 1;
-// 		counter = (g_tablevel - 1 < g_total) ? g_tablevel - 1 :
-// 			(g_tablevel - 1) % g_total;
-// 		len_option = ((flag == 1) ? ft_strlen(g_menu[counter]) + 1 :
-// 			ft_strlen(g_menu[counter]));
-// 		g_delete = len_option - g_len_compl;
-// 		i = -1;
-// 		while (++i < g_delete - flag)
-// 			char_add_without_undo(g_menu[counter][g_len_compl + i], NULL);
-// 		(flag > 0) ? char_add_without_undo('}', NULL) : 0;
-// 		front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
-// 		print_menu_buf_after_insert(g_rline.pos);
-// 	}
-// 	return (0);
-// }
 
 int					insert_word_by_cases_compl(int *delete, int flag,
 						char *menu_word, int compl_len)

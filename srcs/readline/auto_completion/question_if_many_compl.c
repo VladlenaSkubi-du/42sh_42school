@@ -32,8 +32,9 @@ int					print_question_compl(int *pos_x_com, int total,
 	char			*question;
 	
 	g_rline.flag |= AFTER_LINE;
-	// front_insert_by_letters(find_env_value("0"), &pos_x_com);
-	front_insert_by_letters("e-bash: display all ", pos_x_com);
+	front_insert_by_letters(find_env_value("0"), pos_x_com);
+	// front_insert_by_letters("e-bash: display all ", pos_x_com);
+	front_insert_by_letters(": display all ", pos_x_com);
 	question = ft_itoa(total);
 	front_insert_by_letters(question, pos_x_com);
 	free(question);

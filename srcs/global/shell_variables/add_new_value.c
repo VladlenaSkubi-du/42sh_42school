@@ -88,5 +88,5 @@ char	*find_env_value(char *str)
 	i = find_in_variable(&j, str);
 	if (i == -1)
 		return (NULL);
-	return (&g_envi[i][j + 1]);
+	return (&g_envi[i][j]);
 }
