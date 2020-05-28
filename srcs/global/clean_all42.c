@@ -12,11 +12,8 @@
 
 int				clean_everything(void)
 {
-	size_t		li;
-	size_t		sy;
 	
-	li = find_in_variables(g_rdovar, &sy, "42SH_NONINTERACTIVE");
-	if (g_rdovar[li][sy] == '0')
+	if (ft_atoi(find_env_value("42SH_NONINTERACTIVE")) == 1)
 	{
 		ft_arrdel(g_hist.hist);
 		ft_arrdel(g_shvar);
@@ -26,6 +23,7 @@ int				clean_everything(void)
 	ft_arrdel(g_env);
 	ft_arrdel(g_rdovar);
 	ft_arrdel(g_lovar);
+	ft_arrdel(g_envi);
 	return (0);
 }
 

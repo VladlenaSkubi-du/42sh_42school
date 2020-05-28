@@ -59,7 +59,7 @@ int		ft_find_curv_var(t_ltree *sub)
 	return (0);
 }
 
-char	*ft_find_var_value(char **find)
+char	*ft_find_var_value(char **find) //TODO PEREDELAT'
 {
 	size_t	li;
 	size_t	sj;
