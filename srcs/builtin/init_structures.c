@@ -17,9 +17,9 @@ t_btin_fc			*init_btin_fc(void)
 
 int					btin_return_exit_status(void)
 {
-	size_t			li;
-	size_t			sy;
+	int				li;
+	int				sy;
 	
-	li = find_in_variables(g_rdovar, &sy, "?");
-	return (ft_atoi(&g_rdovar[li][sy]));
+	li = find_in_variable(&sy, "?");
+	return (ft_atoi(&g_envi[li][sy]));
 }

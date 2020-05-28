@@ -16,11 +16,8 @@ int                 btin_fc(t_ltree *pos)
 {
 	int				flags;
 	t_btin_fc		*fc_arg;
-	size_t			li;
-	size_t			sy;
 
-	li = find_in_variables(g_rdovar, &sy, "42SH_NONINTERACTIVE");
-	if (g_rdovar[li][sy] == '1')
+	if (ft_atoi(find_env_value("42SH_NONINTERACTIVE")) == 1)
 	{
 		error_handler(NONINERACTIVE, pos->ar_v[0]);
 		return (NONINERACTIVE);

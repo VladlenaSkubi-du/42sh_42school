@@ -71,7 +71,8 @@ int		id_check(t_ltree *pos, char mode, int options)
 				job_iter = g_first_job;
 				while (job_iter && job_iter->jid != id)
 					job_iter = job_iter->next;
-				job_iter && print_job_info(job_iter, options);
+				job_iter ? print_job_info(job_iter, options) :
+					error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), pos->ar_v[i]);
 			}
 			i++;
 		}

@@ -77,7 +77,7 @@
 */
 
 # define			MAX_EXIT_STATUS 10
-# define 			ENV_BUFFER 100
+# define 			ENV_BUFFER 17
 
 /*
 ** Structures
@@ -274,7 +274,7 @@ int					add_new_env(char *name);
 int					change_env_value(char *new_val, int i);
 int					save_shell_variable(int num);
 int					save_environment_variable(int num);
-int					save_readonly_variable(void);
+int					save_readonly_variable(int num);
 int					exit_status_variables(int status);
 
 
