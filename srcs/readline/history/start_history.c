@@ -5,36 +5,38 @@ int				start_history(void)
 {
 	int			fd;
 	char		*file;
-	// char		*tmp;
-	size_t		co;
-	size_t		li;
+	char		*tmp;
+	// size_t		co;
+	// size_t		li;
+	int			co;
+	int			li;
 
-	// li = find_in_variable(&co, "HISTSIZE");
-	// init_history_buffer(ft_atoi(g_envi[li] + co) + 1);
-	// li = find_in_variable(&co, "HISTFILE");
-	// file = define_history_file();
-	// tmp = ft_strjoin("HISTFILE", file);
-	// change_env_value(tmp, li);
-	// free(tmp);
-	// free(file);
-	// fd = open(g_envi[li] + co, O_RDONLY);
-	// if (fd < 0)
-	// 	return (0);
-	// save_hist_buffer(fd);
-	// close(fd);
-
-	li = find_in_variables(g_shvar, &co, "HISTSIZE=");
-	init_history_buffer(ft_atoi(g_shvar[li] + co) + 1);
+	li = find_in_variable(&co, "HISTSIZE");
+	init_history_buffer(ft_atoi(g_envi[li] + co) + 1);
+	li = find_in_variable(&co, "HISTFILE");
 	file = define_history_file();
-	li = find_in_variables(g_shvar, &co, "HISTFILE=");
-	free(g_shvar[li]);
-	g_shvar[li] = ft_strjoin("HISTFILE=", file);
+	tmp = ft_strjoin("HISTFILE=", file);
+	change_env_value(tmp, li);
+	free(tmp);
 	free(file);
-	fd = open(g_shvar[li] + co, O_RDONLY);
+	fd = open(g_envi[li] + co, O_RDONLY);
 	if (fd < 0)
 		return (0);
 	save_hist_buffer(fd);
 	close(fd);
+
+	// li = find_in_variables(g_shvar, &co, "HISTSIZE=");
+	// init_history_buffer(ft_atoi(g_shvar[li] + co) + 1);
+	// file = define_history_file();
+	// li = find_in_variables(g_shvar, &co, "HISTFILE=");
+	// free(g_shvar[li]);
+	// g_shvar[li] = ft_strjoin("HISTFILE=", file);
+	// free(file);
+	// fd = open(g_shvar[li] + co, O_RDONLY);
+	// if (fd < 0)
+	// 	return (0);
+	// save_hist_buffer(fd);
+	// close(fd);
 	return (0);
 }
 
@@ -62,23 +64,25 @@ void			init_history_buffer(int size)
 
 char			*define_history_file(void)
 {
-	size_t		li;
-	size_t		co;
+	// size_t		li;
+	// size_t		co;
+	int			li;
+	int			co;
 	char		*file;
 
-	// li = find_in_variable(&co, "HOME");
-	// if (li < 0)
-	// 	li = find_in_variable(&co, "42SH");
-	// file = ft_strrejoin(g_envi[li] + co, "/.42sh_history"); //CHECK
-
-	li = find_in_variables(g_env, &co, "HOME=");
+	li = find_in_variable(&co, "HOME");
 	if (li < 0)
-	{
-		li = find_in_variables(g_rdovar, &co, "42SH=");
-		file = ft_strjoin(g_rdovar[li] + co, "/.42sh_history");
-	}
-	else
-		file = ft_strjoin(g_env[li] + co, "/.42sh_history");
+		li = find_in_variable(&co, "42SH");
+	file = ft_strjoin(g_envi[li] + co, "/.42sh_history"); //CHECK
+
+	// li = find_in_variables(g_env, &co, "HOME=");
+	// if (li < 0)
+	// {
+	// 	li = find_in_variables(g_rdovar, &co, "42SH=");
+	// 	file = ft_strjoin(g_rdovar[li] + co, "/.42sh_history");
+	// }
+	// else
+	// 	file = ft_strjoin(g_env[li] + co, "/.42sh_history");
 	return (file);
 }
 

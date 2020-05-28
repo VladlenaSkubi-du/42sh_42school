@@ -16,41 +16,41 @@ t_path				*fill_tree_with_variables(char *complete, int *total)
 {
 	int				i;
 	t_path			*root;
-	// char			*name;
-	// int 			len;
+	char			*name;
+	int 			len;
 
 	i = 0;
 	root = NULL;
-	// while (g_envi[i])
+	while (g_envi[i])
+	{
+		if (g_envi[i][0] && (g_envi[i][0] & SET_VIS))
+		{
+			len = ft_strlen(complete);
+			name = ft_strndup(g_envi[i] + 1,
+					ft_strchri(g_envi[i] + 1, '='));
+			if (ft_strnequ(name, complete, len))
+				insert(name, &root, (size_t*)total);
+			free(name);
+		}
+		i++;
+	}
+	// while (g_env[i])
 	// {
-	// 	if (g_envi[i][0] && (g_envi[i][0] & SET_VIS))
-	// 	{
-	// 		len = ft_strlen(complete);
-	// 		name = ft_strndup(g_envi[i] + 1,
-	// 				ft_strchri(g_envi[i] + 1, '='));
-	// 		if (ft_strnequ(name, complete, len))
-	// 			insert(name, root, (size_t*)total);
-	// 		free(name);
-	// 	}
+	// 	insert_variables_to_tree(g_env[i], complete, &root, total);
 	// 	i++;
 	// }
-	while (g_env[i])
-	{
-		insert_variables_to_tree(g_env[i], complete, &root, total);
-		i++;
-	}
-	i = 0;
-	while (g_shvar[i])
-	{
-		insert_variables_to_tree(g_shvar[i], complete, &root, total);
-		i++;
-	}
-	i = 0;
-	while (g_lovar[i])
-	{
-		insert_variables_to_tree(g_lovar[i], complete, &root, total);
-		i++;
-	}
+	// i = 0;
+	// while (g_shvar[i])
+	// {
+	// 	insert_variables_to_tree(g_shvar[i], complete, &root, total);
+	// 	i++;
+	// }
+	// i = 0;
+	// while (g_lovar[i])
+	// {
+	// 	insert_variables_to_tree(g_lovar[i], complete, &root, total);
+	// 	i++;
+	// }
 	return (root);
 }
 

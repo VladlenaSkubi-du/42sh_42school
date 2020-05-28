@@ -6,6 +6,7 @@ typedef struct dirent	t_dirent;
 typedef struct stat		t_stat;
 
 # define HEREDOC_BUF 200
+# define TMPFILE_TRY_SIZE 100
 
 /*
 ** Defines for FLAGS

@@ -45,11 +45,11 @@ FC = 		$(BUILTIN_DIR)/$(FC_DIR)/fc.c \
 
 GLOBAL_DIR = global
 GLOBAL = 	$(GLOBAL_DIR)/clean_all42.c \
-			$(GLOBAL_DIR)/error_handler42.c \
 			$(GLOBAL_DIR)/options_proc42.c \
 			$(GLOBAL_DIR)/options_42sh_42.c \
 			$(GLOBAL_DIR)/signals_processing42.c \
 			$(SHELL_VARIABLES) \
+			$(ERRORS_HANDLER) \
 			$(UNIX_FUNCTIONS)
 
 SHELL_VARS_DIR = shell_variables
@@ -59,6 +59,11 @@ SHELL_VARIABLES = \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/variables_array_processing42.c \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/add_new_value.c \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/form_environment42.c
+
+ERRORS_HANDLER_DIR = error_handler
+ERRORS_HANDLER = \
+			$(GLOBAL_DIR)/$(ERRORS_HANDLER_DIR)/error_handler42.c \
+			$(GLOBAL_DIR)/$(ERRORS_HANDLER_DIR)/error_handler_suberrors42.c
 
 UNIX_FUNCS_DIR = unix_functions
 UNIX_FUNCTIONS = \
@@ -233,7 +238,8 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 #_____________________________________________________
 	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)
 	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)/$(SHELL_VARS_DIR)
-	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)	
+	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)
+	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)/$(ERRORS_HANDLER_DIR)
 #_____________________________________________________	
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(PATH_TREE_DIR)

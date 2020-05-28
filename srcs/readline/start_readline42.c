@@ -49,7 +49,7 @@ int				start_readline42(int tmp)
 	signals_reroute(2);
 	final = finalize_cmd(g_rline.cmd);
 	clean_readline42();
-	// parser(final);
+	parser(final);
 	return (0);
 }
 

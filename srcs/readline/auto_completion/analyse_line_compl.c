@@ -16,7 +16,7 @@ int					analyse_techline_compl(char *compl, char *tech,
 		tech[i] == CPAREN || tech[i] == OBRACKET || tech[i] == CBRACKET ||
 		tech[i] == CBRACE || tech[i] == TILDA || tech[i] == GTHAN ||
 		tech[i] == LTHAN || tech[i] == AST || tech[i] == EQUAL ||
-		tech[i] == ENTER || tech[i] == COLON) //check ":"
+		tech[i] == ENTER || tech[i] == COLON) //TODO check ":"
 		return (-1);
 	if (compl[i] == '#' || compl[i] == '%' || compl[i] == ',' ||
 		compl[i] == '@' || compl[i] == '!' || compl[i] == '^' ||

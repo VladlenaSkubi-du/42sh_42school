@@ -15,12 +15,14 @@ typedef struct  s_ec
 }               t_ec;
 
 int				btin_exit(t_ltree *pos);
+int				btin_exit_arguments(char **ar_v);
 
 /*
 ** File usages.c
 */
 
 int				usage_btin(char *str);
+int				usage_btin_other(char *str);
 int				usage_btin_fc(void);
 int             usage_42sh(void);
 int				ebash_long_options(void);
