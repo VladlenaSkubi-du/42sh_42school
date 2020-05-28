@@ -6,7 +6,7 @@ int					backspace_process(void)
 	char			*swap;
 	int				len_swap;
 
-	check_menu();
+	check_after_line();
 	if (g_rline.pos > 0)
 	{
 		undo(0);
@@ -51,7 +51,7 @@ int					delete_process(void)
 	char			*swap;
 	int				len_swap;
 
-	check_menu();
+	check_after_line();
 	if (g_rline.pos == 0 && g_rline.cmd_len == 0)
 	{
 		if (route_exit() == OUT)

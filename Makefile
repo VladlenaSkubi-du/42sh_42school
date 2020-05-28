@@ -133,6 +133,7 @@ SUBSTITUTION = \
 READLINE_DIR = readline
 READLINE = 	$(READLINE_DIR)/colors.c \
 			$(READLINE_DIR)/ctrl_key.c \
+			$(READLINE_DIR)/cursor_positioning.c \
 			$(READLINE_DIR)/escape.c \
 			$(READLINE_DIR)/front_cursor_changes.c \
 			$(READLINE_DIR)/front_insertions.c \
@@ -174,15 +175,13 @@ AUTO_COMPLETION = \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/start_completion.c \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/front_part_compl.c \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/analyse_line_compl.c \
-			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/cursor_position_completion.c \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/menu_receipt_compl.c \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/question_if_many_compl.c \
-			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/path_processing_compl.c \
+			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/completion_processing.c \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/output_buffer_compl.c
 
 HISTORY_DIR = history
 HISTORY = 	$(READLINE_DIR)/$(HISTORY_DIR)/start_history.c \
-			$(READLINE_DIR)/$(HISTORY_DIR)/history_processing.c \
 			$(READLINE_DIR)/$(HISTORY_DIR)/history_buffer_proc.c \
 			$(READLINE_DIR)/$(HISTORY_DIR)/history_file_proc.c \
 			$(READLINE_DIR)/$(HISTORY_DIR)/front_part_hist.c \

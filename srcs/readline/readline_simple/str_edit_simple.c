@@ -11,6 +11,8 @@ int				schar_add(char c)
 		g_rline.cmd_buff_len += CMD_SIZE;
 	}
 	g_rline.cmd_len++;
+	if (g_rline.cmd_len + 1 < 0 || g_rline.cmd_buff_len + 1 < 0)
+		return (OUT);
 	sstr_add_symbol(c);
 	return (0);
 }

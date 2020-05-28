@@ -1,23 +1,6 @@
 #include "shell42.h"
 #include "readline.h"
 
-char				*get_techline_compl(char *complete, int len)
-{
-	char			*tech_line;
-	int				i;
-
-	if (!complete || complete[0] == 0)
-		return (NULL);
-	tech_line = (char*)ft_xmalloc(len);
-	i = 0;
-	while (g_rline.cmd[i] && i < len)
-	{
-		tech_line[i] = get_tech_num(g_rline.cmd[i]);
-		i++;
-	}
-	return (tech_line);
-}
-
 int					analyse_techline_compl(char *compl, char *tech,
 						int len, int *pool)
 {
@@ -33,12 +16,11 @@ int					analyse_techline_compl(char *compl, char *tech,
 		tech[i] == CPAREN || tech[i] == OBRACKET || tech[i] == CBRACKET ||
 		tech[i] == CBRACE || tech[i] == TILDA || tech[i] == GTHAN ||
 		tech[i] == LTHAN || tech[i] == AST || tech[i] == EQUAL ||
-		tech[i] == ENTER)
+		tech[i] == ENTER || tech[i] == COLON) //check ":"
 		return (-1);
-	if (compl[i] == ':' || compl[i] == '#' || compl[i] == '%' ||
+	if (compl[i] == '#' || compl[i] == '%' || compl[i] == ',' ||
 		compl[i] == '@' || compl[i] == '!' || compl[i] == '^' ||
-		compl[i] == '?' || compl[i] == '-' || compl[i] == '+' ||
-		compl[i] == ',')
+		compl[i] == '?' || compl[i] == '-' || compl[i] == '+')
 		return (-1);
 	if (compl[i] == '/' || compl[i] == '.' || compl[i] == '_')
 		return (route_to_arguments(compl, i, pool));
@@ -58,9 +40,6 @@ int					pass_symbols(char *compl, char *tech, int i, int *pool)
 	if (tech[i] == WORD_P && compl[i] == '/')
 	{
 		*pool = 3;
-		// while (i > 0 && (tech[i] == WORD_P &&
-		// 	(ft_isalnum(compl[i]) || compl[i] == '/')))
-		// 	i--;
 		return (i);
 	}
 	if (tech[i] == SPACE && i == 0)
@@ -106,7 +85,7 @@ int					route_to_arguments(char *compl, int i, int *pool)
 	while (i > 0 && (ft_isalnum(compl[i]) ||
 		compl[i] == '/' || compl[i] == '_'))
 		i--;
-	if (compl[i] == ' ')
+	if (i > 0 && compl[i] == ' ' && compl[i - 1] != '\\')
 		return (i + 1);
 	return (-1);
 }

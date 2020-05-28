@@ -60,7 +60,7 @@ int			make_ctrl_a(void)
 {
 	int				pos_old;
 
-	check_menu();
+	check_after_line();
 	pos_old = 0;
 	move_cursor_from_old_position(pos_old, 'l');
 	return (0);
@@ -70,7 +70,7 @@ int			make_ctrl_e(void)
 {
 	int				pos_old;
 
-	check_menu();
+	check_after_line();
 	pos_old = g_rline.cmd_len - 1;
 	move_cursor_from_old_position(pos_old, 'r');
 	return (0);

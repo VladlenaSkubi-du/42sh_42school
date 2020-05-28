@@ -6,7 +6,7 @@
 #    By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/04 16:34:17 by sschmele          #+#    #+#              #
-#    Updated: 2020/05/23 20:21:18 by vladlenasku      ###   ########.fr        #
+#    Updated: 2020/05/25 16:55:29 by vladlenasku      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ FLAGS += -g
 
 SRCS =	$(ARROW_FUNCTIONS) \
 	$(LIST_STRUCTURE) \
+	$(TREE_FUNCTIONS) \
 	$(MALLOC_FUNCTIONS) \
 	$(MEMORY_FUNCTIONS) \
 	$(OUTPUT_FUNCTIONS) \
@@ -45,6 +46,13 @@ LIST_STRUCTURE = ./list_structure/ft_lstadd.c \
 	./list_structure/ft_lstfree_after.c \
 	./list_structure/ft_lstfree_current.c \
 	./list_structure/ft_lstfree.c
+
+TREE_FUNCTIONS = $(AVL_TREE)
+
+AVL_TREE = ./tree_functions/avl_tree/ft_treeinit_leaf.c \
+	./tree_functions/avl_tree/ft_treeadd_leaf.c \
+	./tree_functions/avl_tree/ft_treefill_array.c \
+	./tree_functions/avl_tree/ft_treefree.c
 
 MALLOC_FUNCTIONS = ./malloc_functions/ft_itoa.c \
 	./malloc_functions/ft_ltoa_base.c \
@@ -145,6 +153,8 @@ OBJS = $(addprefix $(DIR_O)/,$(SRCS:.c=.o))
 
 INCLUDE = includes/libft.h
 
+#_____________________________________________________
+
 all:	$(NAME)
 
 $(NAME):	$(OBJS)
@@ -156,9 +166,14 @@ $(NAME):	$(OBJS)
 	@echo "\033[32;01mLibft.a is ready.\033[0m"
 
 $(OBJS):	$(DIR_O)/%.o: %.c $(INCLUDE)
+#_____________________________________________________
 	@mkdir -p $(DIR_O)
 	@mkdir -p $(DIR_O)/arrow_functions
 	@mkdir -p $(DIR_O)/list_structure
+#_____________________________________________________
+	@mkdir -p $(DIR_O)/tree_functions
+	@mkdir -p $(DIR_O)/tree_functions/avl_tree
+#_____________________________________________________
 	@mkdir -p $(DIR_O)/malloc_functions
 	@mkdir -p $(DIR_O)/memory_functions
 	@mkdir -p $(DIR_O)/other_functions
@@ -166,6 +181,7 @@ $(OBJS):	$(DIR_O)/%.o: %.c $(INCLUDE)
 	@mkdir -p $(DIR_O)/sort_functions
 	@mkdir -p $(DIR_O)/stack_structure
 	@mkdir -p $(DIR_O)/string_functions
+#_____________________________________________________
 	@gcc $(FLAGS) -c -I includes -o $@ $<
 
 clean:

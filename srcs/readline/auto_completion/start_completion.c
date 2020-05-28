@@ -11,12 +11,12 @@
 ** @g_menu - the full menu for completion, all the possible options
 */
 
-int					g_tablevel;
-char				*g_complete;
-int					g_len_compl;
-int					g_delete;
-char				**g_menu;
-int					g_total;
+// int					g_tablevel;
+// char				*g_complete;
+// int					g_len_compl;
+// int					g_delete;
+// char				**g_menu;
+// int					g_total;
 
 /*
 ** @pool = pool of variables: binary-files (1), variables (2),
@@ -35,31 +35,35 @@ int					g_total;
 
 int					auto_completion(void)
 {
-	int				pos_back;
 	int				max_len;
 	char			*tech_line;
 
-	pos_back = g_rline.pos;
 	if (g_rline.flag & TAB)
 	{
-		g_tablevel++;
+		g_compl.tablevel++;
 		return (insert_word_compl());
 	}
-	g_total = 0;
+	init_completion();
 	max_len = 0;
-	g_complete = ft_strndup(g_rline.cmd, pos_back);
-	tech_line = get_techline_compl(g_complete, g_rline.pos);
-	g_menu = route_menu_receipt(tech_line, pos_back, &g_total, &max_len);
-	if (g_menu == NULL || g_menu[0] == 0)
-		return (clean_strings_compl(g_complete, tech_line, 1));
-	if (print_menu(pos_back, g_menu, g_total, max_len))
-		return (clean_strings_compl(g_complete, tech_line, 0));
-	g_tablevel = 0;
-	g_delete = 0;
-	g_len_compl = ft_strlen(g_complete);
+	tech_line = ft_make_techline(g_compl.to_compl, g_rline.pos);
+	if (tech_line[0] == END_T)
+		g_compl.menu = route_by_prompts(&g_compl.total, &max_len);
+	else
+		g_compl.menu = route_menu_receipt(tech_line, g_rline.pos, &max_len);
 	free(tech_line);
+	if (g_compl.menu == NULL || g_compl.menu[0] == 0)
+		return (clear_completion(1));
+	if (print_menu(max_len))
+		return (clear_completion(0));
+	g_compl.len_tocompl = ft_strlen(g_compl.to_compl);
 	return (0);
 }
+
+/*
+** Not in the main prompt pushing TAB in the first-pool position
+** will auto-complete directory arguments because other prompts
+** usually mean that we already have a program in the cmd-line
+*/
 
 char				**route_by_prompts(int *total, int *max_len)
 {
@@ -67,7 +71,12 @@ char				**route_by_prompts(int *total, int *max_len)
 	t_path			*root;
 
 	if (g_prompt.prompt_func == main_prompt)
-		menu = ft_path_pars("", path_parse_compl(), (size_t)total, max_len);
+	{
+		// menu = ft_path_pars("", find_env_value("PATH"),
+		// 	(size_t*)total, max_len);
+		menu = ft_path_pars("", path_parse_compl(),
+			(size_t*)total, max_len);
+	}
 	else
 	{
 		root = fill_tree_with_arguments("./", "", total);
@@ -89,7 +98,7 @@ char				**route_by_prompts(int *total, int *max_len)
 */
 
 char				**route_menu_receipt(char *tech_line,
-						int tech_len, int *total, int *max_len)
+						int tech_len, int *max_len)
 {
 	char			**menu;
 	int				pool;
@@ -98,69 +107,116 @@ char				**route_menu_receipt(char *tech_line,
 
 	menu = NULL;
 	pool = 0;
-	if (tech_line == NULL)
-		menu = route_by_prompts(total, max_len);
-	else
-	{
-		if ((tmp = analyse_techline_compl(g_complete, tech_line,
+	if ((tmp = analyse_techline_compl(g_compl.to_compl, tech_line,
 			tech_len, &pool)) == -1)
-			return (NULL);
-		final = ft_strdup(g_complete + tmp);
-		free(g_complete);
-		g_complete = final;
-		if (pool == 1)
-			menu = ft_path_pars(g_complete, path_parse_compl(), (size_t*)total, max_len);
-		else if (pool == 2)
-			menu = get_variables(g_complete, total, max_len);
-		else
-			menu = get_arguments(&g_complete, total, max_len);
+		return (NULL);
+	final = ft_strdup(g_compl.to_compl + tmp);
+	free(g_compl.to_compl);
+	g_compl.to_compl = final;
+	if (pool == 1)
+	{
+		// menu = ft_path_pars(g_compl.to_compl, find_env_value("PATH"),
+		// 	(size_t*)g_compl.total, max_len);
+		menu = ft_path_pars(g_compl.to_compl, path_parse_compl(),
+			(size_t*)&g_compl.total, max_len);
 	}
+	else if (pool == 2)
+		menu = get_variables(g_compl.to_compl, &g_compl.total, max_len);
+	else
+		menu = get_arguments(&g_compl.to_compl, &g_compl.total, max_len);
 	return (menu);
 }
+
+/*
+** Here we insert an option to the cmd-line
+** Example: we have "ca[] abcd" where cursor stays on the []
+** And the first option to be inserted is the "caffeinate"
+** @g_complete is "ca"
+** @g_compl_len is 2
+** @len_option is 10
+** @counter is the position of the word in the menu-buffer, if
+** caffeinate is the first word in the list like:
+** "caffeinate cal calendar caller cancel cap_mkdb captoinfo case cat"
+** @counter will be 1
+** @flag is for pool 2: {$PARAMETER}
+*/
 
 int					insert_word_compl(void)
 {
 	int				len_option;
 	int				counter;
 	int				flag;
-	int				i;
 
 	flag = 0;
-	(g_delete > 0) ? delete_till_compl(g_delete) : 0;
-	if (g_tablevel > 0 && g_total > 0)
+	(g_compl.to_del > 0) ? delete_till_compl(g_compl.to_del) : 0;
+	if (g_compl.tablevel > 0 && g_compl.total > 0)
 	{
 		if (g_rline.pos > 1 && g_rline.cmd[g_rline.pos - 1] == '{' &&
 			g_rline.cmd[g_rline.pos - 2] == '$')
 			flag = 1;
-		counter = (g_tablevel - 1 < g_total) ? g_tablevel - 1 :
-			(g_tablevel - 1) % g_total;
-		len_option = ((flag == 1) ? ft_strlen(g_menu[counter]) + 1 :
-			ft_strlen(g_menu[counter]));
-		g_delete = len_option - g_len_compl;
-		i = -1;
-		while (++i < g_delete - flag)
-			char_add_without_undo(g_menu[counter][g_len_compl + i], NULL);
-		(flag > 0) ? char_add_without_undo('}', NULL) : 0;
-		front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
+		counter = (g_compl.tablevel - 1 < g_compl.total) ?
+			g_compl.tablevel - 1 : (g_compl.tablevel - 1) % g_compl.total;
+		len_option = ((flag == 1) ? ft_strlen(g_compl.menu[counter]) + 1 :
+			ft_strlen(g_compl.menu[counter]));
+		g_compl.to_del = len_option - g_compl.len_tocompl;
+		insert_word_by_cases_compl(&g_compl.to_del, flag,
+			g_compl.menu[counter], g_compl.len_tocompl);
+		front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x,
+			&g_rline.pos_y, 1);
 		print_menu_buf_after_insert(g_rline.pos);
 	}
 	return (0);
 }
 
-/*
-** After any key except of TAB is pushed, the menu under the line
-** is cleared
-*/
 
-int					check_menu(void)
+
+// int					insert_word_compl(void)
+// {
+// 	int				len_option;
+// 	int				counter;
+// 	int				flag;
+// 	int				i;
+
+// 	flag = 0;
+// 	(g_delete > 0) ? delete_till_compl(g_delete) : 0;
+// 	if (g_tablevel > 0 && g_total > 0)
+// 	{
+// 		if (g_rline.pos > 1 && g_rline.cmd[g_rline.pos - 1] == '{' &&
+// 			g_rline.cmd[g_rline.pos - 2] == '$')
+// 			flag = 1;
+// 		counter = (g_tablevel - 1 < g_total) ? g_tablevel - 1 :
+// 			(g_tablevel - 1) % g_total;
+// 		len_option = ((flag == 1) ? ft_strlen(g_menu[counter]) + 1 :
+// 			ft_strlen(g_menu[counter]));
+// 		g_delete = len_option - g_len_compl;
+// 		i = -1;
+// 		while (++i < g_delete - flag)
+// 			char_add_without_undo(g_menu[counter][g_len_compl + i], NULL);
+// 		(flag > 0) ? char_add_without_undo('}', NULL) : 0;
+// 		front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
+// 		print_menu_buf_after_insert(g_rline.pos);
+// 	}
+// 	return (0);
+// }
+
+int					insert_word_by_cases_compl(int *delete, int flag,
+						char *menu_word, int compl_len)
 {
-	if (g_rline.flag & TAB)
+	int				i;
+	int				space;
+	
+	i = -1;
+	space = 0;
+	while (++i < *delete - flag)
 	{
-		clean_menu();
-		free(g_complete);
-		ft_arrdel(g_menu);
-		g_rline.flag &= ~TAB;
-		g_tablevel = 0;
+		if (menu_word[compl_len + i] == ' ')
+		{
+			char_add_without_undo('\\', NULL);
+			space++;
+		}
+		char_add_without_undo(menu_word[compl_len + i], NULL);
 	}
+	(flag > 0) ? char_add_without_undo('}', NULL) : 0;
+	*delete += space;
 	return (0);
 }

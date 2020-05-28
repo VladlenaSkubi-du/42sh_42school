@@ -5,7 +5,7 @@ int			make_ctrl_k(void)
 {
 	char			*save_yank;
 
-	check_menu();
+	check_after_line();
 	if (g_rline.pos < 0 || g_rline.pos == g_rline.cmd_len)
 		return (incorrect_sequence());
 	undo(0);
@@ -24,7 +24,7 @@ int			make_ctrl_u(void)
 	int				len_swap;
 	char			*save_yank;
 
-	check_menu();
+	check_after_line();
 	if (g_rline.pos <= 0)
 		return (incorrect_sequence());
 	undo(0);
@@ -47,7 +47,7 @@ int			make_ctrl_u(void)
 
 int			make_ctrl_l(void)
 {
-	check_menu();
+	check_after_line();
 	front_set_cursor_jmp(&g_rline.pos,
 		&g_rline.pos_x, &g_rline.pos_y, 1);
 	putcap("cl");
@@ -63,7 +63,7 @@ int			make_ctrl_l(void)
 
 int			make_ctrl_t(void)
 {
-	check_menu();
+	check_after_line();
 	if (g_rline.cmd_len == 1 || g_rline.cmd_len < 0)
 		return (incorrect_sequence());
 	undo(0);

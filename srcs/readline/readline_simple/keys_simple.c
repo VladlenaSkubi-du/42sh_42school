@@ -25,24 +25,3 @@ int				sbackspace_proc(void)
 	sstr_del_symbol();
 	return (0);
 }
-
-int				make_sctrl_u(void)
-{
-	while (g_rline.pos)
-		sbackspace_proc();
-	return (0);
-}
-
-int				make_sctrl_k(void)
-{
-	int			pos_back;
-
-	pos_back = g_rline.pos;
-	while (g_rline.pos < g_rline.cmd_len - 1 &&
-		g_rline.pos + g_prompt.prompt_len < g_screen.ws_col - 2)
-		sesc_right();
-	while (g_rline.pos >= pos_back)
-		sbackspace_proc();
-	sesc_right();
-	return (0);
-}

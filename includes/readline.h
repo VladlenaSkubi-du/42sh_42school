@@ -6,9 +6,11 @@
 
 # define TERMCAP_SIZE 	20
 # define CMD_SIZE		100
+
 # define TAB			0x1
 # define NEW_LINE_SY	0x2
 # define NEW_LINE_TE	0x4
+# define AFTER_LINE		0x8
 
 # define RED			"\033[31m"
 # define ORANGE			"\033[38;5;208m"
@@ -17,6 +19,11 @@
 # define BLUE			"\033[36m"
 # define PURPLE			"\033[35m"
 # define DEFAULT		"\033[0m"
+
+/*
+** Structures
+** ____________________________________________________________________________
+*/
 
 /*
 ** @t_rline is for the whole readline part:
@@ -90,7 +97,7 @@ typedef struct					s_action_stack
 ** @i - counter
 */
 
-typedef struct					s_completion
+typedef struct					s_compl_output
 {
 	char						**buffer;
 	int							buf_lines;
@@ -98,12 +105,34 @@ typedef struct					s_completion
 	int							word_len;
 	int							word_nb;
 	size_t						i;
-}								t_completion;
+}								t_compl_output;
+
+typedef struct					s_compl
+{
+	char						*to_compl;
+	int							len_tocompl;
+	char						**menu;
+	int							total;
+	int							tablevel;
+	int							to_del;
+	t_compl_output				menu_buffer;
+}								t_compl;
+
+/*
+** Globals
+** ____________________________________________________________________________
+*/
 
 t_rline							g_rline;
 struct winsize					g_screen;
 t_cap							g_cap;
 struct termios					g_backup_tty;
+t_compl							g_compl;
+
+/*
+** Functions
+** ____________________________________________________________________________
+*/
 
 /*
 ** File start_readline42.c
@@ -141,6 +170,7 @@ char							*readline(void);
 int								readline_choice(char sy);
 int								route_exit(void);
 int								incorrect_sequence(void);
+int								check_after_line(void);
 
 /*
 ** File prompts.c
@@ -195,6 +225,13 @@ int								front_insert_if_terminal(int *pos_x,
 int								front_insert_if_line(int *pos_x,
 									int *str_num, int *flag);
 int								front_write_one_char(char c, char *color);
+
+/*
+** File cursor_positioning.c
+*/
+
+int								position_cursor_after_line(int len);
+int								clean_after_line(void);
 
 /*
 ** File colors.c
@@ -261,6 +298,7 @@ int								delete_till_compl(int delete);
 
 int								key_right_proc(void);
 int								key_up_proc(void);
+int								key_up_proc_processing(void);
 int								key_left_proc(void);
 int								key_down_proc(void);
 
@@ -290,6 +328,7 @@ int								paste_insert(char *yank_str);
 */
 
 int								word_left_proc(void);
+int								word_left_onetwo_chars(void);
 int								word_right_proc(void);
 char							*save_word(int *i, char *cmd, int pos);
 char							*save_end(int pos_back);
@@ -331,22 +370,26 @@ int								kirill_lgbt(char sy);
 */
 
 int								auto_completion(void);
+char							**route_by_prompts(int *total, int *max_len);
 char							**route_menu_receipt(char *tech_line,
-									size_t tech_len, size_t *total,
-									int *max_len);
-char							**route_by_prompts(size_t *total, int *max_len);
-int								check_menu(void);
+									int tech_len, int *max_len);
 int								insert_word_compl(void);
+int								insert_word_by_cases_compl(int *delete, int flag,
+									char *menu_word, int compl_len);
+
+/*
+** File completion_processing.c
+*/
+
+int								init_completion(void);
+int								clear_completion(int flag);
 
 /*
 ** File analyse_line_compl.c
 */
 
-char							*get_techline_compl(char *complete,
-									size_t len);
 int								analyse_techline_compl(char *compl,
-									char *tech_line,
-									size_t len, int *pool);
+									char *tech_line, int len, int *pool);
 int								pass_symbols(char *compl, char *tech,
 									int i, int *pool);
 int								route_to_pools(char *tech, int i,
@@ -359,66 +402,61 @@ int								route_to_arguments(char *compl,
 */
 
 char							**get_variables(char *complete,
-									size_t *total, int *max_len);
+									int *total, int *max_len);
 t_path							*fill_tree_with_variables(char *complete,
-									size_t *total);
-int								insert_variables_to_tree(char *array,
-									char *complete, t_path **root,
-									size_t *total);
+									int *total);
 char							**get_arguments(char **complete,
-									size_t *total, int *max_len);
+									int *total, int *max_len);
+char							*find_path_compl(char *compl, int tmp);
 t_path							*fill_tree_with_arguments(char *path,
-									char *complete, size_t *total);
+									char *complete, int *total);
 
 /*
 ** File front_part_compl.c
 */
 
-int								print_menu(size_t pos_back, char **menu,
-									size_t total, int max_len);
-int								print_menu_buf_after_insert(size_t pos_back);
-int								clean_menu(void);
-int								clean_menu_buf(void);
+int								print_menu(int max_len);
+int								print_menu_within_terminal(int pos_back,
+									int len_x, int len_y);
+int								print_menu_more_than_terminal(int pos_back,
+									int len_x, int len_y);
+int								print_menu_buf_after_insert(int pos_back);
+int								position_cursor_after_menu_back(int len_x, int len_y,
+									int buf_lines, int pos_back);
 
 /*
 ** File question_if_many_compl.c and also a small function (because of norm)
 */
 
-int								ask_output(size_t total, int buf_lines,
-									size_t pos_back, int len_x);
-int								after_big_menu(size_t pos_back,
+int								ask_output(int total, int buf_lines,
+									int pos_back, int len_x);
+int								print_question_compl(int *pos_x_com, int total,
+									int buf_lines);
+int								after_big_menu(int pos_back,
 									int len_x, int len_y);
 int								count_comment_len(int *find, int num);
-int								clean_output_question(int from, size_t pos_back,
+int								clean_output_question(int from, int pos_back,
 									int len, int len_x);
-int								clean_strings_compl(char *compl,
-									char *tech_line, int flag);
 
 /*
 ** File path_processing_compl.c
 */
 
-char							*find_path_compl(char *compl, int tmp);
-char							*path_parse_compl(void);
-
-/*
-** File cursor_position_completion.c
-*/
-
-int								position_cursor_for_menu(size_t len);
-int								position_cursor_after_menu_back
-									(int len_x, int len_y, int buf_lines, size_t pos_back);
+int								insert_variables_to_tree(char *array,
+									char *complete, t_path **root, int *total); //DELETE
+char							*path_parse_compl(void); //DELETE
+int								clean_menu_buf(void); //to DELETE
 
 /*
 ** File output_buffer_compl.c
 */
 
-t_completion					menu_buf_init(size_t total, int max_len);
+t_compl_output					menu_buf_init(int total, int max_len);
 int								buffer_col_print(char *add,
-									t_completion *menu_buf);
-void							buffer_col_calc(t_completion *menu_buf);
-void							buffer_col_finish(t_completion *menu_buf);
-void							buf_add(char *str, size_t size);
+									t_compl_output *menu_buf);
+void							buffer_col_calc(t_compl_output *menu_buf);
+void							buffer_col_finish(t_compl_output *menu_buf);
+void							buf_add(char *str, int size);
 
 /*
 ** Folder HISTORY
@@ -430,7 +468,7 @@ void							buf_add(char *str, size_t size);
 */
 
 int								start_history(void);
-void            				init_history_buffer(void);
+void            				init_history_buffer(int size);
 char							*define_history_file(void);
 int								add_to_history(char *cmd);
 int								add_other_prompts_history(char *cmd,
@@ -440,7 +478,7 @@ int								add_other_prompts_history(char *cmd,
 ** File history_buffer_proc.c
 */
 
-int								scroll_hist_buffer(size_t num);
+int								scroll_hist_buffer(int num);
 int								save_hist_buffer(int fd);
 int								check_if_histsize_changed(void);
 char							**make_hist_buffer_smaller(int size);
@@ -467,9 +505,8 @@ int                 			delete_last_history_element(void);
 int								make_ctrl_r_history(void);
 char							*get_the_answer_hist(int *len);
 int								insert_valid_sy_hist(char c,
-									int *len, char **find,
-									size_t *len_find);
-int								backspace_one_sy(char **find, size_t *len_find,
+									int *len, char **find, int *len_find);
+int								backspace_one_sy(char **find, int *len_find,
 									int *len);
 int								find_in_history(char *find);
 
@@ -479,7 +516,6 @@ int								find_in_history(char *find);
 
 int								print_new_cmd_from_history(int coincidence);
 char							*free_find_hist(char **find);
-int								delete_from_history();
 
 /*
 ** ____________________________________________________________________________

@@ -41,7 +41,7 @@ int			btin_set(void)
 	list = ft_add_block(&root, len, &max);
 	ft_path_free(&root);
 	max = -1;
-	while(list[++max])
+	while (list[++max])
 		ft_putendl(list[max]);
 	ft_arrdel(list);
 	return (0);	
