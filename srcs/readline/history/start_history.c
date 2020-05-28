@@ -4,16 +4,33 @@
 int				start_history(void)
 {
 	int			fd;
-	size_t		j;
-	size_t		i;
+	char		*file;
+	// char		*tmp;
+	size_t		co;
+	size_t		li;
 
-	init_history_buffer();
-	// i = find_in_variables(g_env, &j, "HOME=");
-	// tmp = (i < 0) ? define_history_file() :
-	// 	ft_strjoin(&g_envi[i][j], "/.42sh_history");
-	i = find_in_variables(g_shvar, &j, "HISTFILE=");
-	fd = open(g_shvar[i] + j, O_RDONLY);
-	// fd = open(find_env_value("HISTFILE"), O_RDONLY);
+	// li = find_in_variable(&co, "HISTSIZE");
+	// init_history_buffer(ft_atoi(g_envi[li] + co) + 1);
+	// li = find_in_variable(&co, "HISTFILE");
+	// file = define_history_file();
+	// tmp = ft_strjoin("HISTFILE", file);
+	// change_env_value(tmp, li);
+	// free(tmp);
+	// free(file);
+	// fd = open(g_envi[li] + co, O_RDONLY);
+	// if (fd < 0)
+	// 	return (0);
+	// save_hist_buffer(fd);
+	// close(fd);
+
+	li = find_in_variables(g_shvar, &co, "HISTSIZE=");
+	init_history_buffer(ft_atoi(g_shvar[li] + co) + 1);
+	file = define_history_file();
+	li = find_in_variables(g_shvar, &co, "HISTFILE=");
+	free(g_shvar[li]);
+	g_shvar[li] = ft_strjoin("HISTFILE=", file);
+	free(file);
+	fd = open(g_shvar[li] + co, O_RDONLY);
 	if (fd < 0)
 		return (0);
 	save_hist_buffer(fd);
@@ -21,20 +38,14 @@ int				start_history(void)
 	return (0);
 }
 
-void			init_history_buffer(void) //DIMA исправить
-{
-	int			i;
-	int			tmp;
-	size_t		li;
-	size_t		co;
+/*
+** The buffer size for history len is num + 1 for the current line
+** to save and + 1 for the end of the array
+*/
 
-	i = 0;
-	// while (ft_strncmp(g_shvar[i], "HISTSIZE=",
-	// 	(tmp = ft_strchri(g_shvar[i], '=') + 1)) != 0)
-	// 	i++;
-	li = find_in_variables(g_shvar, &co, "HISTSIZE=");
-	// g_hist.len = ft_atoi(find_env_value("HISTSIZE")) + 1;
-	g_hist.len = ft_atoi(&g_shvar[li][co]) + 1;
+void			init_history_buffer(int size)
+{
+	g_hist.len = size;
 	g_hist.hist = (char**)ft_xmalloc(sizeof(char*) * (g_hist.len + 1));
 	g_hist.last = -1;
 	g_hist.start = 0;
@@ -52,10 +63,23 @@ void			init_history_buffer(void) //DIMA исправить
 char			*define_history_file(void)
 {
 	size_t		li;
-	size_t		sy;
+	size_t		co;
+	char		*file;
 
-	li = find_in_variables(g_rdovar, &sy, "42SH=");
-	return (ft_strjoin(&g_rdovar[li][sy], "/.42sh_history"));
+	// li = find_in_variable(&co, "HOME");
+	// if (li < 0)
+	// 	li = find_in_variable(&co, "42SH");
+	// file = ft_strrejoin(g_envi[li] + co, "/.42sh_history"); //CHECK
+
+	li = find_in_variables(g_env, &co, "HOME=");
+	if (li < 0)
+	{
+		li = find_in_variables(g_rdovar, &co, "42SH=");
+		file = ft_strjoin(g_rdovar[li] + co, "/.42sh_history");
+	}
+	else
+		file = ft_strjoin(g_env[li] + co, "/.42sh_history");
+	return (file);
 }
 
 /*
@@ -65,6 +89,7 @@ char			*define_history_file(void)
 ** In the end of each command there is '\n' lying - if there was ctrl-d
 ** exit from readline when the prompt was not main-prompt - there is a EOF
 ** symbol in the line only
+** New line to history is added only from the main-prompt
 */
 
 int				add_to_history(char *cmd)
@@ -93,14 +118,30 @@ int				add_to_history(char *cmd)
 	return (0);
 }
 
+/*
+** Here we add the last cmd coming to parser to the history-buffer
+** because if we have prompts dquote, backslash and so on, all the
+** "cmd-parts" are saved in the history. Only heredoc "parts" are not
+** saved in the history because they are considered as a document.
+** After history buffer, we change the g_cmd and other parser globals
+** that start to include the whole command - with its beginning from
+** the history.
+*/
+
 int				add_other_prompts_history(char *cmd, int flag)
 {
 	if (g_hist.hist[g_hist.last][0] != 0 && flag == 0)
 		g_hist.hist[g_hist.last] =
 			ft_strrejoin(g_hist.hist[g_hist.last], cmd);
 	clean_parser42();
-	g_cmd = ft_strdup(g_hist.hist[g_hist.last]);
-	g_cmd = (flag == EOF) ? ft_straddsy(g_cmd, EOF) : g_cmd;
+	if (flag == EOF)
+	{
+		g_cmd = (char*)ft_xmalloc(ft_strlen(g_hist.hist[g_hist.last]) + 2);
+		ft_strcpy(g_cmd, g_hist.hist[g_hist.last]);
+		g_cmd = ft_straddsy(g_cmd, EOF);
+	}
+	else
+		g_cmd = ft_strdup(g_hist.hist[g_hist.last]);
 	g_cmd_size = ft_strlen(g_cmd);
 	ft_get_techline(g_cmd, &g_techline);
 	return (0);

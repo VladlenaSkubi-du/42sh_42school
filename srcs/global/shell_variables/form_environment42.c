@@ -18,12 +18,12 @@ int					save_environment_variable(int num)
 	i = 0;
 	while (environ[i])
 	{
-		if (num + 12 == g_var_size)
+		if (num == g_var_size)
 		{
 			g_envi = ft_realloc_array(&g_envi, g_var_size, g_var_size * 2);
 			g_var_size *= 2;
 		}
-		g_envi[num] = (char*)ft_xmalloc((ft_strlen(environ[i] + 2) * (sizeof(char))));
+		g_envi[num] = (char*)ft_xmalloc((ft_strlen(environ[i]) + 2) * sizeof(char));
 		ft_strcpy(g_envi[num] + 1, environ[i]);
 		g_envi[num][0] |= ENV_VIS;
 		g_envi[num][0] |= SET_VIS;
@@ -120,8 +120,8 @@ int					create_env(void)
 {
 	int		num;
 
-	g_envi = (char **)ft_xmalloc(ENV_BUFFER * sizeof(char*));
-	num = save_readonly_variables();
+	g_envi = (char**)ft_xmalloc(ENV_BUFFER * sizeof(char*));
+	num = save_readonly_variable();
 	num = save_shell_variable(num);
 	num = save_environment_variable(num);
 	return (0);

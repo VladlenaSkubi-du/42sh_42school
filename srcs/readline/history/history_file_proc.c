@@ -32,21 +32,38 @@ int                 read_hist_from_file(int fd)
 
 int					fill_hist_in_file(void)
 {
-	size_t			i;
-	size_t			j;
+	size_t			li;
+	size_t			co;
+	// char			*size;
 	int				fd;
 	char			*path;
 	int				user_len;
 
-	j = 0;
-	i = find_in_variables(g_shvar, &j, "HISTFILE=");
-	path = ft_strdup(g_shvar[i] + j);
-	i = find_in_variables(g_shvar, &j, "HISTFILESIZE=");
-	if (!ft_isdigit(g_shvar[i][j]))
+	// path = ft_strdup(find_env_value("HISTFILE"));
+	// size = find_env_value("HISTFILESIZE");
+	// if (!ft_isdigit(size[0]))
+	// 	user_len = MAX_HISTFILE;
+	// else
+	// {
+	// 	user_len = ft_atoi(size);
+	// 	if (user_len < 0 || user_len > HISTORY_LIMIT)
+	// 		user_len = MAX_HISTFILE;
+	// }
+	// fd = open_hist_file(user_len, path);
+	// free(path);
+	// if (fd < 0)
+	// 	return (0);
+	// insert_hist_in_file(fd, user_len);
+	// close(fd);
+	
+	li = find_in_variables(g_shvar, &co, "HISTFILE=");
+	path = ft_strdup(g_shvar[li] + co);
+	li = find_in_variables(g_shvar, &co, "HISTFILESIZE=");
+	if (!ft_isdigit(g_shvar[li][co]))
 		user_len = MAX_HISTFILE;
 	else
 	{
-		user_len = ft_atoi(g_shvar[i] + j);
+		user_len = ft_atoi(g_shvar[li] + co);
 		if (user_len < 0 || user_len > HISTORY_LIMIT)
 			user_len = MAX_HISTFILE;
 	}
@@ -85,7 +102,6 @@ int					open_hist_file(int user_len, char *path)
 	char			*default_path;
 
 	default_path = define_history_file();
-	// printf("file - %s\n", path);
 	fd = open(path, O_WRONLY | O_TRUNC | O_CREAT | O_SYNC,
 		S_IRUSR | S_IWUSR);
 	if (user_len == 0)

@@ -5,6 +5,7 @@ char	*readline(void)
 {
 	char	temp[10];
 
+	init_termcap();
 	while (read(STDIN_FILENO, temp, 1) > 0 && *temp != '\n')
 	{
 		if (readline_choice(*temp) == OUT)
@@ -12,8 +13,8 @@ char	*readline(void)
 	}
 	if (g_rline.cmd_len > 0)
 	{
-		check_menu();
-		position_cursor_for_menu(g_rline.cmd_len);
+		check_after_line();
+		position_cursor_after_line(g_rline.cmd_len);
 		putcap("cd");
 	}
 	else
@@ -33,12 +34,12 @@ int		readline_choice(char sy)
 		return (OUT);
 	if (sy == '\033')
 	{
-		check_menu();
+		check_after_line();
 		escape_init();
 	}
 	else if (ft_isprint(sy))
 	{
-		check_menu();
+		check_after_line();
 		if (char_add(sy, NULL) == OUT)
 			return (OUT);
 		kirill_lgbt(sy);
@@ -50,7 +51,7 @@ int		route_exit(void)
 {
 	t_ltree	*pos;
 	
-	check_menu();
+	check_after_line();
 	if (g_prompt.prompt_func == main_prompt)
 	{
 		pos = (t_ltree*)ft_xmalloc(sizeof(t_ltree));
@@ -63,7 +64,7 @@ int		route_exit(void)
 		clean_readline42();
 		btin_exit(pos);
 	}
-	if (g_prompt.prompt_func != main_prompt)
+	else
 	{
 		g_rline.cmd = ft_straddsy(g_rline.cmd, EOF);
 		return (OUT);
@@ -80,4 +81,25 @@ int		incorrect_sequence(void)
 {
 	putcap("bl");
 	return (1);
+}
+
+/*
+** After any key except of TAB is pushed, the menu under the line
+** is cleared
+*/
+
+int		check_after_line(void)
+{
+	if (g_rline.flag & TAB)
+	{
+		clean_after_line();
+		g_rline.flag &= ~TAB;
+		clear_completion(0);
+	}
+	else if (g_rline.flag & AFTER_LINE)
+	{
+		clean_after_line();
+		g_rline.flag &= ~AFTER_LINE;
+	}
+	return (0);
 }

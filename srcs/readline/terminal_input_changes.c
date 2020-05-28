@@ -31,7 +31,7 @@ int					check_terminal(void)
 ** background without mf_protections - there will be no stop on
 ** read and we will come back to the same read and so on - 
 ** dead loop
-** Mf = "modify fd" or motherfucking (historically)
+** Mf = "modify fd" or motherfucker (historically)
 */
 
 int					mf_protection(void)

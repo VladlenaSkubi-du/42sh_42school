@@ -24,7 +24,7 @@ int					signals_reroute(int from)
 
 void				signal_ctrl_c_readline(int sig)
 {
-	check_menu();
+	check_after_line();
 	ft_putchar_fd('\n', STDOUT_FILENO);
 	g_prompt.prompt_func = main_prompt;
 	// g_rline.prompt_len = prompt_len();
@@ -42,7 +42,7 @@ void				signal_ctrl_c_readline(int sig)
 
 void				signal_screen_readline(int sig) //REWRITE! VLADA
 {
-	check_menu();
+	check_after_line();
 	front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
 	move_cursor_from_old_position(0, 'l');
 	position_cursor("ch", 0, 0);
