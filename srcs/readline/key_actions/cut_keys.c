@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cut_keys.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmp <tmp@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/29 18:06:09 by tmp               #+#    #+#             */
+/*   Updated: 2020/05/29 18:16:11 by tmp              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "readline.h"
 
@@ -5,27 +17,26 @@ int					backspace_process(void)
 {
 	char			*swap;
 	int				len_swap;
+	char			*save_yank;
 
 	check_after_line();
-	if (g_rline.pos > 0)
-	{
-		undo(0);
-		swap = g_rline.cmd + g_rline.pos;
-		len_swap = ft_strlen(swap);
-		if (g_rline.cmd[g_rline.pos - 1] == '\n')
-			return (backspace_newline(swap, len_swap));
-		ft_strcpy(g_rline.cmd + g_rline.pos - 1, swap);
-		ft_bzero(g_rline.cmd + g_rline.pos - 1 + len_swap,
-			g_rline.cmd_buff_len - g_rline.cmd_len);
-		g_rline.cmd_len--;
-		key_left_proc();
-		front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x,
-			&g_rline.pos_y, 1);
-		tputs(g_cap.cd, 1, printc);
-		front_insert_cmd_till_the_end(g_rline.pos_y + 1);
-	}
-	else
+	if (g_rline.pos <= 0)
 		return (incorrect_sequence());
+	undo(0);
+	save_yank = ft_strndup(g_rline.cmd + g_rline.pos - 1, 1);
+	make_ctrl_p(0, save_yank);
+	swap = g_rline.cmd + g_rline.pos;
+	len_swap = ft_strlen(swap);
+	if (g_rline.cmd[g_rline.pos - 1] == '\n')
+		return (backspace_newline(swap, len_swap));
+	ft_strcpy(g_rline.cmd + g_rline.pos - 1, swap);
+	ft_bzero(g_rline.cmd + g_rline.pos - 1 + len_swap,
+		g_rline.cmd_buff_len - g_rline.cmd_len);
+	g_rline.cmd_len--;
+	key_left_proc();
+	front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
+	tputs(g_cap.cd, 1, printc);
+	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
 	return (0);
 }
 
@@ -50,6 +61,7 @@ int					delete_process(void)
 {
 	char			*swap;
 	int				len_swap;
+	char			*save_yank;
 
 	check_after_line();
 	if (g_rline.pos == 0 && g_rline.cmd_len == 0)
@@ -57,22 +69,20 @@ int					delete_process(void)
 		if (route_exit() == OUT)
 			return (OUT);
 	}
-	if (g_rline.pos < g_rline.cmd_len)
-	{
-		undo(0);
-		swap = g_rline.cmd + g_rline.pos + 1;
-		len_swap = ft_strlen(swap);
-		ft_strcpy(g_rline.cmd + g_rline.pos, swap);
-		ft_bzero(g_rline.cmd + g_rline.pos + len_swap,
-			g_rline.cmd_buff_len - g_rline.cmd_len);
-		g_rline.cmd_len--;
-		front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x,
-			&g_rline.pos_y, 1);
-		tputs(g_cap.cd, 1, printc);
-		front_insert_cmd_till_the_end(g_rline.pos_y + 1);
-	}
-	else
+	if (g_rline.pos < 0 || g_rline.pos >= g_rline.cmd_len)
 		return (incorrect_sequence());
+	undo(0);
+	save_yank = ft_strndup(g_rline.cmd + g_rline.pos, 1);
+	make_ctrl_p(0, save_yank);
+	swap = g_rline.cmd + g_rline.pos + 1;
+	len_swap = ft_strlen(swap);
+	ft_strcpy(g_rline.cmd + g_rline.pos, swap);
+	ft_bzero(g_rline.cmd + g_rline.pos + len_swap,
+		g_rline.cmd_buff_len - g_rline.cmd_len);
+	g_rline.cmd_len--;
+	front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
+	tputs(g_cap.cd, 1, printc);
+	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
 	return (0);
 }
 

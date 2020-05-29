@@ -12,27 +12,27 @@
 int					front_insert_one_char(char c, int pos_x,
 						char flag, char *color)
 {
+	front_write_one_char(c, color);
 	if (flag == 'm')
 	{
 		if (c == '\n')
 		{
-			front_write_one_char(c, color);
 			return (front_insert_if_newline(&g_rline.pos_x, &g_rline.pos_y,
 				&g_rline.str_num, &g_rline.flag));
 		}
 		if (g_rline.pos_x == g_screen.ws_col - 1)
 		{
-			front_write_one_char(c, color);
+			// front_write_one_char(c, color);
 			return (front_insert_if_terminal(&g_rline.pos_x, &g_rline.pos_y,
 				&g_rline.flag));
 		}
-		front_write_one_char(c, color);
+		// front_write_one_char(c, color);
 		return (front_insert_if_line(&g_rline.pos_x, &g_rline.str_num,
 				&g_rline.flag));
 	}
 	if (flag == 'c')
 	{
-		front_write_one_char(c, color);
+		// front_write_one_char(c, color);
 		if (pos_x == g_screen.ws_col - 1)
 			tputs(g_cap.sf, 1, printc);
 	}
