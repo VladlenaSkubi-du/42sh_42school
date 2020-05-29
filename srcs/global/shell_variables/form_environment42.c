@@ -130,12 +130,20 @@ int					create_env(void)
 int                 exit_status_variables(int status)
 {
     char            *tmp;
+	char			*final;
 
     tmp = ft_itoa(status);
 	if (ft_strlen(tmp) > MAX_EXIT_STATUS)
-		//доделать
-    ft_bzero(&g_envi[0][2], MAX_EXIT_STATUS - 2);
-   	ft_strcpy(&g_envi[0][2], tmp);
+	{
+		final = ft_strjoin("?=", tmp);
+		change_env_value(final, 0);
+		free(final);
+	}
+	else
+	{
+		ft_bzero(&g_envi[0][3], MAX_EXIT_STATUS - 2);
+   		ft_strcpy(&g_envi[0][3], tmp);
+	}
     free(tmp);
     return (0);
 }

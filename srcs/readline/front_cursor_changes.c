@@ -9,7 +9,7 @@
 
 int					front_move_one_char_right(int pos_x)
 {
-	if (pos_x > 0 && pos_x < g_screen.ws_col - 1 &&
+	if (pos_x >= 0 && pos_x < g_screen.ws_col - 1 &&
 			g_rline.cmd[g_rline.pos] != '\n')
 	{
 		tputs(g_cap.nd, 1, printc);
