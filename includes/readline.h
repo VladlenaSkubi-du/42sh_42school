@@ -536,7 +536,9 @@ char							*free_find_hist(char **find);
 void							print_help(short flag);
 void							print_readline_help(short flag,
 									short undo, char *space);
-void							printf_readline_help_ccp(short flag,
+void							print_readline_help_moving_cursor(short flag,
+									short undo, char *space);
+void							print_readline_help_ccp(short flag,
 									short undo, char *space);
 void							print_readline_help_other(short flag,
 									short undo, char *space);
