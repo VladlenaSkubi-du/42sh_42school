@@ -71,9 +71,12 @@ int				btin_history_noargs(void);
 */
 
 int				btin_exsign(t_ltree *pos);
-int				btin_exsign_numeric(t_ltree *pos);
+int				btin_exsign_route_substitution(t_ltree *pos, int i);
+int				btin_exsign_numeric(t_ltree *pos,
+					int start, char *find);
 int				btin_exsign_print_message(char *arg);
-int				btin_exsign_make_substitution(t_ltree *pos, char *subst);
+int				btin_exsign_make_substitution(t_ltree *pos,
+					int start, char *subst);
 
 /*
 ** File echo.c
