@@ -35,7 +35,8 @@ void	put_job_in_foreground (job *j, int cont)
 	tcgetattr(STDIN_FILENO, &j->tmodes);
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &g_shell_tmodes);
 	j->clean = 1;
-	job_is_completed(j) && free_job(j);
+	if (job_is_completed(j))
+		free_job(j);
 }
 
 /* Put a job in the background.  If the cont argument is true, send
