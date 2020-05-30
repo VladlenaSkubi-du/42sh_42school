@@ -69,6 +69,8 @@ int					front_insert_if_line(int *pos_x, int *str_num, int *flag)
 		(*str_num)++;
 	else if (*pos_x == 0 && (*flag & NEW_LINE_SY))
 		*flag &= ~(NEW_LINE_SY);
+	if (*flag & PROMPTLEN_ZERO)
+		*flag &= ~(PROMPTLEN_ZERO);
 	(*pos_x)++;
 	return (0);
 }

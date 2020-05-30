@@ -93,6 +93,7 @@
 typedef struct		s_prompt
 {
 	int				(*prompt_func)(void);
+	int				prompt_len_real;
 	int				prompt_len;
 }					t_prompt;
 

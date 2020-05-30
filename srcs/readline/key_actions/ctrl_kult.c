@@ -53,9 +53,7 @@ int			make_ctrl_l(void)
 	putcap("cl");
 	g_prompt.prompt_func();
 	g_rline.pos = 0;
-	g_rline.pos_x = g_prompt.prompt_len;
-	if (g_prompt.prompt_len >= g_screen.ws_col)
-		g_rline.pos_x = g_prompt.prompt_len % g_screen.ws_col;
+	g_rline.pos_x = count_prompt_len();
 	g_rline.pos_y = 0;
 	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
 	return (0);

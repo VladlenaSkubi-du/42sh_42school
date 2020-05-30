@@ -33,7 +33,7 @@ int					btin_exsign(t_ltree *pos)
 		else if (pos->l_tline.line[i] == BANG &&
 				(pos->l_tline.line[i + 1] == ENTER ||
 				pos->l_tline.line[i + 1] == END_T))
-			return (-2);
+			return (-2); //от сюда ошибку
 	}
 	return (0);
 }

@@ -7,7 +7,7 @@ int				pipe_prompt(void)
 	
 	prompt = "pipe> ";
 	ft_putstr_fd(prompt, STDOUT_FILENO);
-	g_prompt.prompt_len = ft_strlen(prompt);
+	g_prompt.prompt_len_real = ft_strlen(prompt);
 	return (0);
 }
 
@@ -17,7 +17,7 @@ int				subshell_prompt(void)
 	
 	prompt = "subshell> ";
 	ft_putstr_fd(prompt, STDOUT_FILENO);
-	g_prompt.prompt_len = ft_strlen(prompt);
+	g_prompt.prompt_len_real = ft_strlen(prompt);
 	return (0);
 }
 
@@ -27,7 +27,7 @@ int				cursh_prompt(void)
 	
 	prompt = "cursh> ";
 	ft_putstr_fd(prompt, STDOUT_FILENO);
-	g_prompt.prompt_len = ft_strlen(prompt);
+	g_prompt.prompt_len_real = ft_strlen(prompt);
 	return (0);
 }
 
@@ -37,6 +37,6 @@ int				cmdandor_prompt(void)
 	
 	prompt = "cmdandor> ";
 	ft_putstr_fd(prompt, STDOUT_FILENO);
-	g_prompt.prompt_len = ft_strlen(prompt);
+	g_prompt.prompt_len_real = ft_strlen(prompt);
 	return (0);
 }
