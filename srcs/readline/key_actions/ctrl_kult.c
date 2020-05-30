@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ctrl_kult.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmp <tmp@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/30 22:33:26 by tmp               #+#    #+#             */
+/*   Updated: 2020/05/30 22:33:48 by tmp              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "readline.h"
 
@@ -13,7 +25,8 @@ int			make_ctrl_k(void)
 	g_rline.cmd_len -= ft_strlen(g_rline.cmd + g_rline.pos);
 	make_ctrl_p(0, save_yank);
 	tputs(g_cap.cd, 1, printc);
-	ft_bzero(g_rline.cmd + g_rline.pos, ft_strlen(g_rline.cmd + g_rline.pos));
+	ft_bzero(g_rline.cmd + g_rline.pos,
+		ft_strlen(g_rline.cmd + g_rline.pos));
 	return (0);
 }
 
@@ -31,9 +44,10 @@ int			make_ctrl_u(void)
 	pos_old = g_rline.pos;
 	while (g_rline.pos)
 		key_left_proc();
-	front_set_cursor_jmp(&g_rline.pos,
-		&g_rline.pos_x, &g_rline.pos_y, 1);
-	save_yank = ft_strndup(g_rline.cmd, pos_old);
+	front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
+	save_yank = (pos_old == g_rline.cmd_len) ?
+		ft_strdup(g_rline.cmd + g_rline.pos) :
+		ft_strndup(g_rline.cmd + g_rline.pos, pos_old);
 	make_ctrl_p(0, save_yank);
 	swap = g_rline.cmd + pos_old;
 	len_swap = ft_strlen(swap);
