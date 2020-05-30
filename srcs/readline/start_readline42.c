@@ -24,12 +24,10 @@ void			bzero_readline(void)
 	ft_bzero(g_rline.cmd, g_rline.cmd_buff_len);
 	g_rline.cmd_len = 0;
 	g_rline.pos = 0;
-	g_rline.pos_x = g_prompt.prompt_len;
-	if (g_prompt.prompt_len >= g_screen.ws_col)
-		g_rline.pos_x = g_prompt.prompt_len % g_screen.ws_col;
+	g_rline.pos_x = count_prompt_len();
 	g_rline.pos_y = 0;
 	g_rline.str_num = 1;
-	g_rline.flag = 0;
+	(!(g_rline.flag & PROMPTLEN_ZERO)) ? g_rline.flag = 0 : 0;
 }
 
 /*

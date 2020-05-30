@@ -62,9 +62,7 @@ int					after_big_menu(int pos_back, int len_x, int len_y)
 	g_rline.pos_y = len_y;
 	front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
 	g_rline.pos = 0;
-	g_rline.pos_x = g_prompt.prompt_len;
-	if (g_prompt.prompt_len >= g_screen.ws_col)
-		g_rline.pos_x = g_prompt.prompt_len % g_screen.ws_col;
+	g_rline.pos_x = count_prompt_len();
 	g_rline.pos_y = 0;
 	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
 	g_rline.flag &= ~TAB;

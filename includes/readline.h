@@ -11,6 +11,7 @@
 # define NEW_LINE_SY	0x2
 # define NEW_LINE_TE	0x4
 # define AFTER_LINE		0x8
+# define PROMPTLEN_ZERO	0x10
 
 # define RED			"\033[31m"
 # define ORANGE			"\033[38;5;208m"
@@ -188,6 +189,7 @@ int								main_prompt(void);
 int								dquote_prompt(void);
 int								heredoc_prompt(void);
 int								other_prompt(void);
+int								count_prompt_len(void);
 
 /*
 ** File prompts_other.c

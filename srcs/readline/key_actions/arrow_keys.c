@@ -1,3 +1,4 @@
+
 #include "shell42.h"
 #include "readline.h"
 
@@ -96,7 +97,7 @@ int		key_down_proc(void)
 		len--;
 	while (++i < len)
 		char_add_without_undo(g_hist.hist[g_hist.counter][i], NULL);
-	if (g_hist.counter == g_hist.last + 1)
+	if (g_hist.hist[g_hist.counter] && g_hist.counter == g_hist.last + 1)
 	{
 		free(g_hist.hist[g_hist.counter]);
 		g_hist.hist[g_hist.counter] = (char*)NULL;
