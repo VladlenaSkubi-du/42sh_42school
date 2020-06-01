@@ -6,9 +6,12 @@
 
 # define TERMCAP_SIZE 	20
 # define CMD_SIZE		100
+
 # define TAB			0x1
 # define NEW_LINE_SY	0x2
 # define NEW_LINE_TE	0x4
+# define AFTER_LINE		0x8
+# define PROMPTLEN_ZERO	0x10
 
 # define RED			"\033[31m"
 # define ORANGE			"\033[38;5;208m"
@@ -17,6 +20,11 @@
 # define BLUE			"\033[36m"
 # define PURPLE			"\033[35m"
 # define DEFAULT		"\033[0m"
+
+/*
+** Structures
+** ____________________________________________________________________________
+*/
 
 /*
 ** @t_rline is for the whole readline part:
@@ -33,13 +41,12 @@
 typedef struct					s_rline
 {
 	char						*cmd;
-	size_t						cmd_len;
-	size_t						pos;
+	int							cmd_len;
+	int							pos;
 	int							pos_x;
 	int							pos_y;
-	size_t						str_num;
-	size_t						prompt_len;
-	size_t						cmd_buff_len;
+	int							str_num;
+	int							cmd_buff_len;
 	int							flag;
 }								t_rline;
 
@@ -91,7 +98,7 @@ typedef struct					s_action_stack
 ** @i - counter
 */
 
-typedef struct					s_completion
+typedef struct					s_compl_output
 {
 	char						**buffer;
 	int							buf_lines;
@@ -99,58 +106,61 @@ typedef struct					s_completion
 	int							word_len;
 	int							word_nb;
 	size_t						i;
-}								t_completion;
+}								t_compl_output;
+
+/*
+** @g_tablevel is a counter according to that we complete this or that line
+** from the g_menu
+** @g_complete - is a string, according to which we search
+** options for completion. Can be empty if TAB is pushed before any other key
+** @g_menu - the full menu for completion, all the possible options
+*/
+
+typedef struct					s_compl
+{
+	char						*to_compl;
+	int							len_tocompl;
+	char						**menu;
+	int							total;
+	int							tablevel;
+	int							to_del;
+	t_compl_output				menu_buffer;
+}								t_compl;
+
+/*
+** Globals
+** ____________________________________________________________________________
+*/
 
 t_rline							g_rline;
 struct winsize					g_screen;
 t_cap							g_cap;
 struct termios					g_backup_tty;
+t_compl							g_compl;
+
+/*
+** Functions
+** ____________________________________________________________________________
+*/
 
 /*
 ** File start_readline42.c
 */
 
-int								interactive_shell(void);
-int								check_terminal(void);
+void							init_readline(void);
+void							bzero_readline(void);;
 int								start_readline42(int tmp);
 char							*finalize_cmd(char *cmd);
-int								mf_protection(void);
-
-/*
-** File readline.c - the beginning of the work with readline
-*/
-
-char							*readline(void);
-void							init_readline(void);
-int								readline_choice(char sy);
-int								route_exit(void);
-
-/*
-** File prompts.c
-*/
-
-int								main_prompt(void);
-int								dquote_prompt(void);
-int								heredoc_prompt(void);
-int								other_prompt(void);
-size_t							prompt_len(void);
-
-/*
-** File prompts_other.c
-*/
-
-int								pipe_prompt(void);
-int								subshell_prompt(void);
-int								cursh_prompt(void);
-int								cmdandor_prompt(void);
 
 /*
 ** File terminal_input_changes.c
 */
 
+int								check_terminal(void);
+int								mf_protection(void);
 int								set_noncanonical_input(void);
 int								reset_canonical_input(void);
-int								back_to_noncanonical_input(void);
+// int								back_to_noncanonical_input(void); //DELETE
 
 /*
 ** File termcap_usage.c - library of functions to use termcap easily
@@ -162,42 +172,43 @@ int								position_cursor(char *cap, int x, int y);
 int								init_termcap(void);
 
 /*
-** File str_edit.c - universal functions for changing the main command-string
-** and dealing with other global-parameters of the command string
+** File readline.c - the beginning of the work with readline
+*/
+
+char							*readline(void);
+int								readline_choice(char sy);
+int								route_exit(void);
+int								incorrect_sequence(void);
+int								check_after_line(void);
+
+/*
+** File prompts.c
+*/
+
+int								main_prompt(void);
+int								dquote_prompt(void);
+int								heredoc_prompt(void);
+int								other_prompt(void);
+int								count_prompt_len(void);
+
+/*
+** File prompts_other.c
+*/
+
+int								pipe_prompt(void);
+int								subshell_prompt(void);
+int								cursh_prompt(void);
+int								cmdandor_prompt(void);
+
+/*
+** File rline_cmd_processing.c
 */
 
 int								char_add(char c, char *color);
 int								char_add_without_undo(char c, char *color);
-int								str_shift(char *str, int shift);
 int								insert_char(char c, char *color);
-
-/*
-** File escape.c - router to the functions performing actions with
-** escape-sequences
-*/
-
-int								escape_init(void);
-int								escape_check(char **seq_base);
-int								incorrect_sequence(void);
-int								sequence_process(int sequence_num);
-
-/*
-** File ctrl_key.c
-*/
-
-int								ctrl_key(char sy);
-int								ctrl_process(char *ctrl_base, char sy);
-int								ctrl_call(size_t call_num);
-
-/*
-** File cursor_position.c - operations to get the termcap cursor postion
-** and move it after actions
-*/
-
-int								count_x_position_new_line(size_t nl_pos);
-int								move_cursor_from_old_position(size_t pos_old,
-									char direction);
-int								front_set_cursor_jmp(size_t *pos, int *pos_x,
+int								front_insert_cmd_till_the_end(int str_num_print);
+int								front_set_cursor_jmp(int *pos, int *pos_x,
 									int *pos_y, int flag);
 
 /*
@@ -206,9 +217,10 @@ int								front_set_cursor_jmp(size_t *pos, int *pos_x,
 
 int								front_move_one_char_right(int pos_x);
 int								front_move_one_char_left(int pos_x);
-int								front_insert_by_letters(char *str,
-									int *pos_x, char flag);
-int								front_write_one_char(char c, char *color);
+int								front_insert_by_letters(char *str, int *pos_x);
+int								count_x_position_new_line(int nl_pos);
+int								move_cursor_from_old_position(int pos_old,
+									char direction);
 
 /*
 ** File front_insertions.c
@@ -217,12 +229,43 @@ int								front_write_one_char(char c, char *color);
 int								front_insert_one_char(char c, int pos_x,
 									char flag, char *color);
 int								front_insert_if_newline(int *pos_x, int *pos_y,
-									size_t *str_num, int *flag);
-int								front_insert_if_terminal(int *pos_x, int *pos_y,
-									size_t *str_num, int *flag);
-int								front_insert_if_line(int *pos_x, int *pos_y,
-									size_t *str_num, int *flag);
-int								front_insert_cmd_till_the_end(int str_num_print);
+									int *str_num, int *flag);
+int								front_insert_if_terminal(int *pos_x,
+									int *pos_y, int *flag);
+int								front_insert_if_line(int *pos_x,
+									int *str_num, int *flag);
+int								front_write_one_char(char c, char *color);
+
+/*
+** File cursor_positioning.c
+*/
+
+int								position_cursor_after_line(int len);
+int								clean_after_line(void);
+
+/*
+** File colors.c
+*/
+
+char							*colors_process(int sequence_num);
+
+/*
+** File escape.c - router to the functions performing actions with
+** escape-sequences
+*/
+
+int								escape_init(void);
+int								escape_check(char **seq_base);
+int								sequence_process(int sequence_num);
+
+/*
+** File ctrl_key.c - router to the functions performing actions with
+** ctrl-sequences
+*/
+
+int								ctrl_key(char sy);
+int								ctrl_process(char *ctrl_base, char sy);
+int								ctrl_call(size_t call_num);
 
 /*
 ** File undo_yank_call.c
@@ -238,18 +281,12 @@ int								make_ctrl_p_wrap(void);
 
 int								undo(int mode);
 void							action_pull(t_action_stack **start,
-									size_t *num);
+									int *num);
 void							action_alloc_management(t_action_stack **start,
 									int mode);
 int								action_add(t_action_stack **start,
-									t_action_stack **end, size_t *num);
+									t_action_stack **end, int *num);
 t_action_stack					*action_new(void);
-
-/*
-** File colors.c
-*/
-
-char							*colors_process(int sequence_num);
 
 /*
 ** Folder KEY_ACTIONS
@@ -261,11 +298,9 @@ char							*colors_process(int sequence_num);
 */
 
 int								backspace_process(void);
-int								backspace_newline(char *swap, size_t len_swap);
+int								backspace_newline(char *swap, int len_swap);
 int								delete_process(void);
-int								esc_r(void);
-int								delete_till_compl(size_t len_compl,
-									size_t delete);
+int								delete_till_compl(int delete);
 
 /*
 ** File arrow_keys.c
@@ -273,66 +308,67 @@ int								delete_till_compl(size_t len_compl,
 
 int								key_right_proc(void);
 int								key_up_proc(void);
+int								key_up_proc_processing(void);
 int								key_left_proc(void);
 int								key_down_proc(void);
-int								save_current_grline(int flag);
+
+/*
+** File ctrl_kult.c
+*/
+
+int								make_ctrl_k(void);
+int								make_ctrl_u(void);
+int								make_ctrl_l(void);
+int								make_ctrl_t(void);
+int								make_ctrl_t_begend(int len);
+
+/*
+** File cut_words_and_paste.c
+*/
+
+int								esc_d(void);
+int								make_ctrl_w(void);
+int								esc_r(void);
+int								make_ctrl_p(int mode, char *yank);
+int								paste_insert(char *yank_str);
+
 
 /*
 ** File esc_word_proc.c
 */
 
 int								word_left_proc(void);
+int								word_left_onetwo_chars(void);
 int								word_right_proc(void);
-int								esc_d(void);
-char							*save_word(size_t *i, char *cmd, size_t pos);
-char							*save_end(size_t pos_back);
+char							*save_word(int *i, char *cmd, int pos);
+char							*save_end(int pos_back);
+
+/*
+** File jump_around.c
+*/
+
+int             				jump_up(void);
+int             				jump_down(void);
+int								make_ctrl_a(void);
+int								make_ctrl_e(void);
 
 /*
 ** File esc_t.c - continuation in esc_word_proc.c
 */
 
 int								esc_t(void);
-int								esc_t_first_left(char flag, size_t pos_back);
-int								esc_t_need_left(char *word_first, size_t fi,
+int								esc_t_first_left(char flag, int pos_back);
+int								esc_t_need_left(char *word_first, int fi,
 									char *end);
-int								esc_t_need_right(char *word_first, size_t fi,
+int								esc_t_need_right(char *word_first, int fi,
 									char *end);
-int								esc_t_len_pos(char *word_first, size_t fi,
-									size_t pos_back);
-
-/*
-** File ctrl_kwuae.c
-*/
-
-int								make_ctrl_k(void);
-int								make_ctrl_u(void);
-int								make_ctrl_a(void);
-int								make_ctrl_e(void);
-int								make_ctrl_w(void);
-
-/*
-** File ctrl_tly.c
-*/
-
-int								make_ctrl_t(void);
-int								make_ctrl_t_begend(size_t len);
-int								make_ctrl_l(void);
-int								make_ctrl_p(int mode, char *yank);
-int								paste_insert(char *yank_str,
-									size_t len_yank);
+int								esc_t_len_pos(char *word_first, int fi);
 
 /*
 ** File easter_egg.c
 */
 
 int								kirill_lgbt(char sy);
-
-/*
-** File jump_keys.c
-*/
-
-int             				jump_up(void);
-int             				jump_down(void);
 
 /*
 ** Folder AUTO_COMPLETION
@@ -344,22 +380,26 @@ int             				jump_down(void);
 */
 
 int								auto_completion(void);
+char							**route_by_prompts(int *total, int *max_len);
 char							**route_menu_receipt(char *tech_line,
-									size_t tech_len, size_t *total,
-									int *max_len);
-char							**route_by_prompts(size_t *total, int *max_len);
-int								check_menu(void);
+									int tech_len, int *max_len);
 int								insert_word_compl(void);
+int								insert_word_by_cases_compl(int *delete, int flag,
+									char *menu_word, int compl_len);
+
+/*
+** File completion_processing.c
+*/
+
+int								init_completion(void);
+int								clear_completion(int flag);
 
 /*
 ** File analyse_line_compl.c
 */
 
-char							*get_techline_compl(char *complete,
-									size_t len);
 int								analyse_techline_compl(char *compl,
-									char *tech_line,
-									size_t len, int *pool);
+									char *tech_line, int len, int *pool);
 int								pass_symbols(char *compl, char *tech,
 									int i, int *pool);
 int								route_to_pools(char *tech, int i,
@@ -372,66 +412,61 @@ int								route_to_arguments(char *compl,
 */
 
 char							**get_variables(char *complete,
-									size_t *total, int *max_len);
+									int *total, int *max_len);
 t_path							*fill_tree_with_variables(char *complete,
-									size_t *total, size_t len);
-int								insert_variables_to_tree(char *array,
-									char *complete, t_path **root,
-									size_t *total);
+									int *total);
 char							**get_arguments(char **complete,
-									size_t *total, int *max_len);
+									int *total, int *max_len);
+char							*find_path_compl(char *compl, int tmp);
 t_path							*fill_tree_with_arguments(char *path,
-									char *complete, size_t *total);
+									char *complete, int *total);
 
 /*
 ** File front_part_compl.c
 */
 
-int								print_menu(size_t pos_back, char **menu,
-									size_t total, int max_len);
-int								print_menu_buf_after_insert(size_t pos_back);
-int								clean_menu(void);
-int								clean_menu_buf(void);
+int								print_menu(int max_len);
+int								print_menu_within_terminal(int pos_back,
+									int len_x, int len_y);
+int								print_menu_more_than_terminal(int pos_back,
+									int len_x, int len_y);
+int								print_menu_buf_after_insert(int pos_back);
+int								position_cursor_after_menu_back(int len_x, int len_y,
+									int buf_lines, int pos_back);
 
 /*
 ** File question_if_many_compl.c and also a small function (because of norm)
 */
 
-int								ask_output(size_t total, int buf_lines,
-									size_t pos_back, int len_x);
-int								after_big_menu(size_t pos_back,
+int								ask_output(int total, int buf_lines,
+									int pos_back, int len_x);
+int								print_question_compl(int *pos_x_com, int total,
+									int buf_lines);
+int								after_big_menu(int pos_back,
 									int len_x, int len_y);
 int								count_comment_len(int *find, int num);
-int								clean_output_question(int from, size_t pos_back,
+int								clean_output_question(int from, int pos_back,
 									int len, int len_x);
-int								clean_strings_compl(char *compl,
-									char *tech_line, int flag);
 
 /*
 ** File path_processing_compl.c
 */
 
-char							*find_path_compl(char *compl, int tmp);
-char							*path_parse_compl(void);
-
-/*
-** File cursor_position_completion.c
-*/
-
-int								position_cursor_for_menu(size_t len);
-int								position_cursor_after_menu_back
-									(int len_x, int len_y, int buf_lines, size_t pos_back);
+int								insert_variables_to_tree(char *array,
+									char *complete, t_path **root, int *total); //DELETE
+char							*path_parse_compl(void); //DELETE
+int								clean_menu_buf(void); //to DELETE
 
 /*
 ** File output_buffer_compl.c
 */
 
-t_completion					menu_buf_init(size_t total, int max_len);
+t_compl_output					menu_buf_init(int total, int max_len);
 int								buffer_col_print(char *add,
-									t_completion *menu_buf);
-void							buffer_col_calc(t_completion *menu_buf);
-void							buffer_col_finish(t_completion *menu_buf);
-void							buf_add(char *str, size_t size);
+									t_compl_output *menu_buf);
+void							buffer_col_calc(t_compl_output *menu_buf);
+void							buffer_col_finish(t_compl_output *menu_buf);
+void							buf_add(char *str, int size);
 
 /*
 ** Folder HISTORY
@@ -443,7 +478,7 @@ void							buf_add(char *str, size_t size);
 */
 
 int								start_history(void);
-void            				init_history_buffer(void);
+void            				init_history_buffer(int size);
 char							*define_history_file(void);
 int								add_to_history(char *cmd);
 int								add_other_prompts_history(char *cmd,
@@ -453,7 +488,7 @@ int								add_other_prompts_history(char *cmd,
 ** File history_buffer_proc.c
 */
 
-int								scroll_hist_buffer(size_t num);
+int								scroll_hist_buffer(int num);
 int								save_hist_buffer(int fd);
 int								check_if_histsize_changed(void);
 char							**make_hist_buffer_smaller(int size);
@@ -480,9 +515,8 @@ int                 			delete_last_history_element(void);
 int								make_ctrl_r_history(void);
 char							*get_the_answer_hist(int *len);
 int								insert_valid_sy_hist(char c,
-									int *len, char **find,
-									size_t *len_find);
-int								backspace_one_sy(char **find, size_t *len_find,
+									int *len, char **find, int *len_find);
+int								backspace_one_sy(char **find, int *len_find,
 									int *len);
 int								find_in_history(char *find);
 
@@ -492,7 +526,6 @@ int								find_in_history(char *find);
 
 int								print_new_cmd_from_history(int coincidence);
 char							*free_find_hist(char **find);
-int								delete_from_history();
 
 /*
 ** ____________________________________________________________________________
@@ -505,7 +538,9 @@ int								delete_from_history();
 void							print_help(short flag);
 void							print_readline_help(short flag,
 									short undo, char *space);
-void							printf_readline_help_ccp(short flag,
+void							print_readline_help_moving_cursor(short flag,
+									short undo, char *space);
+void							print_readline_help_ccp(short flag,
 									short undo, char *space);
 void							print_readline_help_other(short flag,
 									short undo, char *space);

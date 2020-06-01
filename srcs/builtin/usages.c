@@ -5,10 +5,39 @@ int				usage_btin(char *str)
 {
 	ft_putstr_fd(str, STDOUT_FILENO);
 	ft_putstr_fd(": usage: ", STDOUT_FILENO);
-	if (ft_strcmp(str, "fc") == 0)  
-		usage_btin_fc();
-	else if (ft_strcmp(str, "./42sh") == 0)
+	if (ft_strcmp(str, "./42sh") == 0)
 		usage_42sh();
+	else if (ft_strcmp(str, "fc") == 0)  
+		usage_btin_fc();
+	else if (ft_strcmp(str, "export") == 0)
+		ft_putendl_fd("export [name[=value] ...] or export -p",
+			STDOUT_FILENO);
+	else if (ft_strcmp(str, "cd") == 0)
+		ft_putendl_fd("cd [-L|-P] [dir]", STDOUT_FILENO);
+	else if (ft_strcmp(str, "echo") == 0)
+		ft_putendl_fd("echo [-neE] [arg ...]", STDOUT_FILENO);
+	else if (ft_strcmp(str, "pwd") == 0)
+		ft_putendl_fd("pwd [-LP]", STDOUT_FILENO);
+	usage_btin_other(str);
+	return (0);
+}
+
+int				usage_btin_other(char *str)
+{
+	if (ft_strcmp(str, "fg") == 0)
+		ft_putendl_fd("fg [job_spec]", STDOUT_FILENO);
+	else if (ft_strcmp(str, "bg") == 0)
+		ft_putendl_fd("bg [job_spec ...]", STDOUT_FILENO);
+	else if (ft_strcmp(str, "jobs") == 0)
+		ft_putendl_fd("jobs [-l|-p] [job_spec ...]", STDOUT_FILENO);
+	else if (ft_strcmp(str, "set") == 0)
+		ft_putendl_fd("set [name=value ...]", STDOUT_FILENO);
+	else if (ft_strcmp(str, "unset") == 0)
+		ft_putendl_fd("unset [name ...]", STDOUT_FILENO);
+	else if (ft_strcmp(str, "history") == 0)
+		ft_putendl_fd("history [-c]", STDOUT_FILENO);
+	else if (ft_strcmp(str, "exit") == 0)
+		ft_putendl_fd("exit [numeric arg]", STDOUT_FILENO);
 	return (0);
 }
 
@@ -21,11 +50,13 @@ int				usage_btin_fc(void)
 
 int				usage_42sh(void)
 {
-	// ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
-	ft_putendl_fd("e-bash [long option] [option] ...", STDOUT_FILENO);
+	ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
+	// ft_putendl_fd("e-bash [long option] [option] ...", STDOUT_FILENO);
+	ft_putendl_fd(" [long option] [option] ...", STDOUT_FILENO);
 	ebash_long_options();
-	// ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
-	ft_putstr_fd("e-bash options: ", STDOUT_FILENO);
+	ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
+	// ft_putstr_fd("e-bash options: ", STDOUT_FILENO);
+	ft_putstr_fd(" options: ", STDOUT_FILENO);
 	ft_putendl_fd("-c \"command\"", STDOUT_FILENO);
 	return (0);
 }
@@ -35,8 +66,9 @@ int				ebash_long_options(void)
 	char		*space;
 	
 	space = "     ";
-	// ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
-	ft_putendl_fd("e-bash long options:", STDOUT_FILENO);
+	ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
+	// ft_putendl_fd("e-bash long options:", STDOUT_FILENO);
+	ft_putendl_fd(" long options:", STDOUT_FILENO);
 	ft_printf("%s--help\n", space);
 	ft_printf("%s--readline\n", space);
 	ft_printf("%s--simple\n", space);

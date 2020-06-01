@@ -1,65 +1,33 @@
 #include "shell42.h"
 #include "shell42.h"
 
-/*
-** First we check if 42sh program was launched in
-** the background. We compare the process group that
-** is considered as a controlling terminal owner with
-** the pid of the group we are in. If controlling terminal
-** does not belong to our group - we stop our group with
-** SIGTTIN signal. After we get back to the foreground,
-** we continue the work as thought we were launched in the
-** foreground from the very beginning.
-*/
-
-int				interactive_shell(void)
+void			init_readline(void)
 {
-	char		*termtype;
-	char		room_termtype[100];
-	int			tmp;
-	// pid_t		group_pid;
-
-	// group_pid = getpgrp();
-	// if (tcgetpgrp(STDIN_FILENO) != group_pid) //вылетает дебаггер временно выключено
-	// 	kill(group_pid, SIGTTIN);
-	start_history();
-	tmp = 0;
-	while (1)
-	{
-		init_readline();
-		signals_reroute(1);
-		check_terminal();
-		g_prompt.prompt_func();
-		termtype = getenv("TERM");
-		termtype = (termtype == NULL) ? "xterm-256color" : termtype;
-		tmp = tgetent(room_termtype, termtype);
-		start_readline42(tmp);
-		ft_bzero(room_termtype, 100);
-	}
-	return (0);
+	g_rline.cmd = (char *)ft_xmalloc(CMD_SIZE + 1);
+	g_rline.cmd_len = 0;
+	g_rline.pos = 0;
+	g_rline.pos_x = 0;
+	g_rline.pos_y = 0;
+	g_rline.str_num = 1;
+	g_rline.cmd_buff_len = CMD_SIZE + 1;
+	g_rline.flag = 0;
 }
 
-/*
-** Here we check the terminal (we already know that
-** our group owns a controlling terminal) and set it
-** to the non-canonical mode
-*/
-
-int				check_terminal(void)
+void			bzero_readline(void)
 {
-	if (!isatty(STDIN_FILENO))
+	if (ioctl(1, TIOCGWINSZ, &g_screen))
 	{
 		error_handler(TERMINAL_EXISTS, NULL);
+		clean_everything();
 		exit(TERMINAL_EXISTS);
 	}
-	if (set_noncanonical_input() == -1)
-	{
-		error_handler(TERMINAL_TO_NON, NULL);
-		clean_readline42();
-		clean_everything();
-		exit(TERMINAL_TO_NON);
-	}
-	return (0);
+	ft_bzero(g_rline.cmd, g_rline.cmd_buff_len);
+	g_rline.cmd_len = 0;
+	g_rline.pos = 0;
+	g_rline.pos_x = count_prompt_len();
+	g_rline.pos_y = 0;
+	g_rline.str_num = 1;
+	(!(g_rline.flag & PROMPTLEN_ZERO)) ? g_rline.flag = 0 : 0;
 }
 
 /*
@@ -73,45 +41,14 @@ int				start_readline42(int tmp)
 {
 	char		*final;
 
-	if (mf_protection())
-	{
-		error_handler(TERMINAL_CHANGED, NULL);
-		reset_canonical_input();
-		exit(TERMINAL_CHANGED);
-	}
-	if (tmp != 1)
-		readline_simple();
-	else
-		readline();
+	bzero_readline();
+	(tmp != 1) ? readline_simple() : readline();
 	reset_canonical_input();
-	check_menu();
+	signals_reroute(2);
 	final = finalize_cmd(g_rline.cmd);
 	clean_readline42();
-	signals_reroute(2);
 	parser(final);
 	return (0);
-}
-
-/*
-** Protects the 0-stream after programs that could have changed
-** it to NONBLOCK
-** For example, nvim (neovim) does that so after launching it in
-** background without mf_protections - there will be no stop on
-** read and we will come back to the same read and so on - 
-** dead loop
-** Mf = "modify fd" or motherfucker (historically)
-*/
-
-int				mf_protection(void)
-{
-	int			flags;
-	int			tmp;
-
-	flags = fcntl(STDIN_FILENO, F_GETFL, 0);
-	if (flags < 0)
-		return (-1);
-	tmp = fcntl(STDIN_FILENO, F_SETFL, flags & ~(O_NONBLOCK));
-	return ((tmp < 0) ? -1 : 0);
 }
 
 char			*finalize_cmd(char *cmd)

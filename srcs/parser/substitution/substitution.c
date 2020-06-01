@@ -22,8 +22,8 @@ int		ft_substitution(t_ltree *sub)
 		// 	break ;
 		// if ((err = ft_find_globbing(sub)) & ERR_OUT)
 		// 	break ;
-		// if ((err = btin_exsign(sub)) & ERR_OUT) //Vlada's history
-		// 	break ;
+		if ((err = btin_exsign(sub)) & ERR_OUT)
+			break ;
 		err = 0;
 	}
 	if (err & ERR_OUT)

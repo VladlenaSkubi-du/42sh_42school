@@ -6,13 +6,12 @@
 */
 
 
-int					ask_output(size_t total, int buf_lines,
-						size_t pos_back, int len_x)
+int					ask_output(int total, int buf_lines,
+						int pos_back, int len_x)
 {
 	char			c;
 	int				len;
 	int				total_len;
-	char			*question;
 	int				pos_x_com;
 
 	pos_x_com = 0;
@@ -20,20 +19,31 @@ int					ask_output(size_t total, int buf_lines,
 	len = 20 + 16 + 18 + total_len;
 	count_comment_len(&total_len, buf_lines);
 	len += total_len;
-	// front_insert_by_letters(find_env_value("0"), &pos_x_com, 'c');
-	front_insert_by_letters("e-bash: display all ", &pos_x_com, 'c');
-	question = ft_itoa(total);
-	front_insert_by_letters(question, &pos_x_com, 'c');
-	free(question);
-	front_insert_by_letters(" possibilities (", &pos_x_com, 'c');
-	question = ft_itoa(buf_lines);
-	front_insert_by_letters(question, &pos_x_com, 'c');
-	free(question);
-	front_insert_by_letters(" lines)? [y or n] ", &pos_x_com, 'c');
+	print_question_compl(&pos_x_com, total, buf_lines);
 	read(STDOUT_FILENO, &c, 1);
 	if (c == 'y' || c == 'Y')
 		return (clean_output_question(1, pos_back, len, len_x));
 	return (clean_output_question(0, pos_back, len, len_x));
+}
+
+int					print_question_compl(int *pos_x_com, int total,
+						int buf_lines)
+{
+	char			*question;
+	
+	g_rline.flag |= AFTER_LINE;
+	front_insert_by_letters(find_env_value("0"), pos_x_com);
+	// front_insert_by_letters("e-bash: display all ", pos_x_com);
+	front_insert_by_letters(": display all ", pos_x_com);
+	question = ft_itoa(total);
+	front_insert_by_letters(question, pos_x_com);
+	free(question);
+	front_insert_by_letters(" possibilities (", pos_x_com);
+	question = ft_itoa(buf_lines);
+	front_insert_by_letters(question, pos_x_com);
+	free(question);
+	front_insert_by_letters(" lines)? [y or n] ", pos_x_com);
+	return (0);
 }
 
 /*
@@ -42,7 +52,7 @@ int					ask_output(size_t total, int buf_lines,
 ** printing new prompt and the line without any changes
 */
 
-int					after_big_menu(size_t pos_back, int len_x, int len_y)
+int					after_big_menu(int pos_back, int len_x, int len_y)
 {
 	tputs(g_cap.sf, 1, printc);
 	position_cursor("ch", 0, 0);
@@ -52,9 +62,7 @@ int					after_big_menu(size_t pos_back, int len_x, int len_y)
 	g_rline.pos_y = len_y;
 	front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
 	g_rline.pos = 0;
-	g_rline.pos_x = g_rline.prompt_len;
-	if (g_rline.prompt_len >= g_screen.ws_col)
-		g_rline.pos_x = g_rline.prompt_len % g_screen.ws_col;
+	g_rline.pos_x = count_prompt_len();
 	g_rline.pos_y = 0;
 	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
 	g_rline.flag &= ~TAB;
@@ -91,7 +99,7 @@ int					count_comment_len(int *find, int num)
 ** pushed
 */
 
-int					clean_output_question(int from, size_t pos_back,
+int					clean_output_question(int from, int pos_back,
 						int len, int len_x)
 {
 	int				lines_nb;
@@ -103,6 +111,7 @@ int					clean_output_question(int from, size_t pos_back,
 		position_cursor("UP", 0, lines_nb - 1);
 	position_cursor("ch", 0, 0);
 	tputs(g_cap.cd, 1, printc);
+	g_rline.flag &= ~AFTER_LINE;
 	if (from == 0)
 	{
 		position_cursor("ch", 0, len_x);
@@ -111,20 +120,4 @@ int					clean_output_question(int from, size_t pos_back,
 		return (1);
 	}
 	return (1);
-}
-
-/*
-** If there are no options for completion, we clear the 
-** allocated @g_complete and @g_techline strings and ring
-** the bell
-*/
-
-int					clean_strings_compl(char *compl,
-						char *tech_line, int flag)
-{
-	free(compl);
-	free(tech_line);
-	if (flag == 1)
-		return (incorrect_sequence());
-	return (0);
 }

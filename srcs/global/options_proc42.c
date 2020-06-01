@@ -138,3 +138,15 @@ int			suboptions_proc(char *arri, int num, char *flags_arr[num], int *final)
 	}
 	return (ERR_OPTION);
 }
+
+int				invalid_option_btin(char *option, char *name)
+{
+	char		*arg;
+
+	arg = ft_strjoin(name, ": ");
+	arg = ft_strrejoin(arg, option);
+	error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), arg);
+	usage_btin(name);
+	free(arg);
+	return (0);
+}

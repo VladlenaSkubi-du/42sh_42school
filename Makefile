@@ -17,6 +17,7 @@ BUILTIN = \
 			$(BUILTIN_DIR)/set.c \
 			$(BUILTIN_DIR)/unset.c \
 			$(BUILTIN_DIR)/usages.c \
+			$(BUILTIN_DIR)/exsign_btin.c \
             $(CD) \
 			$(FC) \
 			$(EXPORT)
@@ -50,11 +51,11 @@ FC = 		$(BUILTIN_DIR)/$(FC_DIR)/fc.c \
 
 GLOBAL_DIR = global
 GLOBAL = 	$(GLOBAL_DIR)/clean_all42.c \
-			$(GLOBAL_DIR)/error_handler42.c \
 			$(GLOBAL_DIR)/options_proc42.c \
 			$(GLOBAL_DIR)/options_42sh_42.c \
 			$(GLOBAL_DIR)/signals_processing42.c \
 			$(SHELL_VARIABLES) \
+			$(ERRORS_HANDLER) \
 			$(UNIX_FUNCTIONS)
 
 SHELL_VARS_DIR = shell_variables
@@ -64,6 +65,11 @@ SHELL_VARIABLES = \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/variables_array_processing42.c \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/add_new_value.c \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/form_environment42.c
+
+ERRORS_HANDLER_DIR = error_handler
+ERRORS_HANDLER = \
+			$(GLOBAL_DIR)/$(ERRORS_HANDLER_DIR)/error_handler42.c \
+			$(GLOBAL_DIR)/$(ERRORS_HANDLER_DIR)/error_handler_suberrors42.c
 
 UNIX_FUNCS_DIR = unix_functions
 UNIX_FUNCTIONS = \
@@ -138,7 +144,7 @@ SUBSTITUTION = \
 READLINE_DIR = readline
 READLINE = 	$(READLINE_DIR)/colors.c \
 			$(READLINE_DIR)/ctrl_key.c \
-			$(READLINE_DIR)/cursor_position.c \
+			$(READLINE_DIR)/cursor_positioning.c \
 			$(READLINE_DIR)/escape.c \
 			$(READLINE_DIR)/front_cursor_changes.c \
 			$(READLINE_DIR)/front_insertions.c \
@@ -147,7 +153,7 @@ READLINE = 	$(READLINE_DIR)/colors.c \
 			$(READLINE_DIR)/prompts_other.c \
 			$(READLINE_DIR)/readline.c \
 			$(READLINE_DIR)/start_readline42.c \
-			$(READLINE_DIR)/str_edit.c \
+			$(READLINE_DIR)/rline_cmd_processing.c \
 			$(READLINE_DIR)/termcap_usage.c \
 			$(READLINE_DIR)/terminal_input_changes.c \
 			$(READLINE_DIR)/undo_yank_call.c \
@@ -167,28 +173,26 @@ READLINE_SIMPLE = \
 KEY_ACTIONS_DIR = key_actions
 KEY_ACTIONS = \
 			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/arrow_keys.c \
-			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/ctrl_kwuae.c \
-			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/ctrl_tly.c \
+			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/ctrl_kult.c \
 			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/cut_keys.c \
+			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/cut_words_and_paste.c \
 			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/easter_egg.c \
 			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/esc_t.c \
 			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/esc_word_proc.c \
-			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/jump_keys.c
+			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/jump_around.c
 
 AUTO_COMPL_DIR = auto_completion
 AUTO_COMPLETION = \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/start_completion.c \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/front_part_compl.c \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/analyse_line_compl.c \
-			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/cursor_position_completion.c \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/menu_receipt_compl.c \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/question_if_many_compl.c \
-			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/path_processing_compl.c \
+			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/completion_processing.c \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/output_buffer_compl.c
 
 HISTORY_DIR = history
 HISTORY = 	$(READLINE_DIR)/$(HISTORY_DIR)/start_history.c \
-			$(READLINE_DIR)/$(HISTORY_DIR)/history_processing.c \
 			$(READLINE_DIR)/$(HISTORY_DIR)/history_buffer_proc.c \
 			$(READLINE_DIR)/$(HISTORY_DIR)/history_file_proc.c \
 			$(READLINE_DIR)/$(HISTORY_DIR)/front_part_hist.c \
@@ -241,7 +245,8 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 #_____________________________________________________
 	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)
 	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)/$(SHELL_VARS_DIR)
-	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)	
+	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)
+	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)/$(ERRORS_HANDLER_DIR)
 #_____________________________________________________	
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(PATH_TREE_DIR)

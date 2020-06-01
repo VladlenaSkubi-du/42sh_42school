@@ -16,8 +16,8 @@ t_action_stack	*action_new(void)
 	return (new);
 }
 
-int				action_add(t_action_stack **start, t_action_stack **end,
-					size_t *num)
+int				action_add(t_action_stack **start,
+					t_action_stack **end, int *num)
 {
 	t_action_stack			*new;
 
@@ -55,7 +55,7 @@ void			action_alloc_management(t_action_stack **start, int mode)
 	}
 }
 
-void			action_pull(t_action_stack **start, size_t *num)
+void			action_pull(t_action_stack **start, int *num)
 {
 	t_action_stack			*temp;
 	int						i;
@@ -70,7 +70,7 @@ void			action_pull(t_action_stack **start, size_t *num)
 		while (g_rline.pos != (*start)->pos_b)
 			key_left_proc();
 		*start = (*start)->next;
-		*start && ((*start)->prev = 0);
+		*start && ((*start)->prev = 0); //change
 		free(temp->cmd_b);
 		free(temp);
 		(*num)--;
@@ -81,7 +81,7 @@ int				undo(int mode)
 {
 	static t_action_stack	*actions = 0;
 	static t_action_stack	*end = 0;
-	static size_t			actions_num = 0;
+	static int				actions_num = 0;
 
 	if (!mode)
 		action_add(&actions, &end, &actions_num);

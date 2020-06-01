@@ -20,7 +20,7 @@ int				find_in_history(char *find)
 
 int				print_new_cmd_from_history(int coincidence)
 {
-	size_t		i;
+	int			i;
 
 	i = 0;
 	esc_r();
@@ -29,13 +29,5 @@ int				print_new_cmd_from_history(int coincidence)
 		char_add_without_undo(g_hist.hist[coincidence][i], NULL);
 		i++;
 	}
-	return (0);
-}
-
-int				delete_from_history()
-{
-	free(g_hist.hist[g_hist.last]);
-	g_hist.hist[g_hist.last] = NULL;
-	g_hist.last--;
 	return (0);
 }
