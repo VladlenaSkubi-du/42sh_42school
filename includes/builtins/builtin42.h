@@ -77,6 +77,12 @@ int             btin_echo(t_ltree *pos);
 int             btin_pwd(t_ltree *pos);
 
 /*
+** File export.c
+*/
+
+int				btin_export(t_ltree *pos);
+
+/*
 ** File bg_fg_btin.c
 */
 

@@ -18,7 +18,8 @@ BUILTIN = \
 			$(BUILTIN_DIR)/unset.c \
 			$(BUILTIN_DIR)/usages.c \
             $(CD) \
-			$(FC)
+			$(FC) \
+			$(EXPORT)
 
 CD_DIR = cd
 CD =		$(BUILTIN_DIR)/$(CD_DIR)/cd.c \
@@ -27,6 +28,10 @@ CD =		$(BUILTIN_DIR)/$(CD_DIR)/cd.c \
 			$(BUILTIN_DIR)/$(CD_DIR)/cd_parser.c \
 			$(BUILTIN_DIR)/$(CD_DIR)/cd_change_path.c \
 			$(BUILTIN_DIR)/$(CD_DIR)/cd_new_path.c
+
+EXPORT_DIR = export
+EXPORT =	$(BUILTIN_DIR)/$(EXPORT_DIR)/export.c
+
 
 FC_DIR = fc
 FC = 		$(BUILTIN_DIR)/$(FC_DIR)/fc.c \
@@ -230,8 +235,9 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)
 #_____________________________________________________
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)
-	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(CD_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(FC_DIR)
+	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(CD_DIR)
+	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(EXPORT_DIR)
 #_____________________________________________________
 	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)
 	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)/$(SHELL_VARS_DIR)
