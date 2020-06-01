@@ -11,6 +11,8 @@ int				schar_add(char c)
 		g_rline.cmd_buff_len += CMD_SIZE;
 	}
 	g_rline.cmd_len++;
+	if (g_rline.cmd_len + 1 < 0 || g_rline.cmd_buff_len + 1 < 0)
+		return (OUT);
 	sstr_add_symbol(c);
 	return (0);
 }
@@ -20,7 +22,7 @@ int				sstr_add_symbol(char add)
 	char			*swap;
 
 	swap = NULL;
-	if (g_rline.cmd_len + g_rline.prompt_len == g_screen.ws_col - 1)
+	if (g_rline.cmd_len + g_prompt.prompt_len == g_screen.ws_col - 1)
 		return (bell_sound());
 	swap = ft_strdup(g_rline.cmd + g_rline.pos);
 	g_rline.cmd[g_rline.pos] = add;

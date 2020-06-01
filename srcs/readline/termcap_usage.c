@@ -46,7 +46,7 @@ int				putcap(char *cap)
 	ptr = buff;
 	tputs(tgetstr(cap, &ptr), 1, printc);
 	ptr = buff;
-	ft_bzero(ptr, 20);
+	ft_bzero(ptr, TERMCAP_SIZE);
 	return (0);
 }
 
@@ -58,6 +58,6 @@ int				position_cursor(char *cap, int x, int y)
 	ptr = buff;
 	tputs(tgoto(tgetstr(cap, &ptr), x, y), 1, printc);
 	ptr = buff;
-	ft_bzero(ptr, 20);
+	ft_bzero(ptr, TERMCAP_SIZE);
 	return (0);
 }

@@ -6,14 +6,15 @@ int					make_ctrl_r_history(void)
 	int				len;
 	int				len_x;
 	char			*find;
-	size_t			pos_back;
+	int				pos_back;
 	int				coincidence;
 
 	pos_back = g_rline.pos;
 	len_x = g_rline.pos_x;
-	position_cursor_for_menu(g_rline.cmd_len);
+	position_cursor_after_line(g_rline.cmd_len);
 	len = 22;
-	front_insert_by_letters("We search in history: ", &coincidence, 'c');
+	g_rline.flag |= AFTER_LINE;
+	front_insert_by_letters("We search in history: ", &coincidence);
 	find = get_the_answer_hist(&len);
 	clean_output_question(0, pos_back, len, len_x);
 	if (find == NULL || find[0] == '\0')
@@ -32,7 +33,7 @@ int					make_ctrl_r_history(void)
 char				*get_the_answer_hist(int *len)
 {
 	char			*find;
-	size_t			len_find;
+	int				len_find;
 	char			c;
 
 	find = (char*)ft_xmalloc(CMD_SIZE + 1);
@@ -45,7 +46,7 @@ char				*get_the_answer_hist(int *len)
 			continue;
 		else if (c == '\003')
 		{
-			signal_ctrl_c_readline(0); //TODO check
+			signal_ctrl_c_readline(0); //TODO check - there is a problem if ctrl-C and after command print and enter
 			return (free_find_hist(&find));
 		}
 		else if (insert_valid_sy_hist(c,
@@ -64,8 +65,7 @@ char				*free_find_hist(char **find)
 }
 
 int					insert_valid_sy_hist(char c,
-						int *len, char **find,
-						size_t *len_find)
+						int *len, char **find, int *len_find)
 {
 	if (ft_isprint(c) == 1)
 	{
@@ -83,7 +83,7 @@ int					insert_valid_sy_hist(char c,
 	return (0);
 }
 
-int					backspace_one_sy(char **find, size_t *len_find,
+int					backspace_one_sy(char **find, int *len_find,
 						int *len)
 {
 	char			*tmp;

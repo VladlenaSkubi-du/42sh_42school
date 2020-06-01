@@ -7,24 +7,15 @@ int					bell_sound(void)
 	return (1);
 }
 
-int					sescape_init(void)
-{
-	char			*seq_base[SESC_NUM];
-
-	seq_base[0] = "[C";
-	seq_base[1] = "[A";
-	seq_base[2] = "[D";
-	seq_base[3] = "[B";
-	seq_base[4] = "r";
-	return (sescape_check(seq_base));
-}
-
 int					sreadline_choice(char sy)
 {
 	if (sy == '\033')
 		sescape_init();
 	else if (ft_isprint(sy))
-		schar_add(sy);
+	{
+		if (schar_add(sy) == OUT)
+			return (OUT);
+	}
 	else if (sy == 127 || sy == '\010')
 		sbackspace_proc();
 	else if (sy == '\002')
@@ -35,10 +26,6 @@ int					sreadline_choice(char sy)
 		make_sctrl_a();
 	else if (sy == '\005')
 		make_sctrl_e();
-	else if (sy == '\013')
-		make_sctrl_k();
-	else if (sy == '\025')
-		make_sctrl_u();
 	else if (sy == '\004')
 		make_exit();
 	return (0);
@@ -50,15 +37,10 @@ char				*readline_simple(void)
 
 	while (read(STDIN_FILENO, &c, 1) && c != '\n')
 	{
-		if (ioctl(1, TIOCGWINSZ, &g_screen))
-		{
-			ft_putendl_fd("Can't get terminal dimensions", 2);
-			return (NULL);
-		}
-		sreadline_choice(c);
+		if (sreadline_choice(c) == OUT)
+			break ;
 	}
 	ft_putendl_fd(0, STDOUT_FILENO);
-	reset_canonical_input();
 	return (g_rline.cmd);
 }
 
@@ -66,7 +48,8 @@ int					make_exit(void)
 {
 	t_ltree			*pos;
 	
-	if (g_rline.pos == 0 && g_rline.cmd_len == 0)
+	if (g_rline.pos == 0 && g_rline.cmd_len == 0 &&
+		g_prompt.prompt_func == main_prompt)
 	{
 		pos = (t_ltree*)ft_xmalloc(sizeof(t_ltree));
 		ltree_init(pos);
@@ -76,6 +59,12 @@ int					make_exit(void)
 		reset_canonical_input();
 		clean_readline42();
 		btin_exit(pos);
+	}
+	else if (g_rline.pos == 0 && g_rline.cmd_len == 0 &&
+		g_prompt.prompt_func != main_prompt)
+	{
+		g_rline.cmd = ft_straddsy(g_rline.cmd, EOF);
+		return (OUT);
 	}
 	return (0);
 }

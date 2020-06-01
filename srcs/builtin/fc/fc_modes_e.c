@@ -33,7 +33,7 @@ int					btin_fc_edit_mode(char **argv, t_btin_fc **fc_arg,
 		if (g_envi[li][sy])
 			(*fc_arg)->editor = &g_envi[li][sy];
 		else
-			(*fc_arg)->editor = "/usr/bin/vim"; //исправить после того как будет type
+			(*fc_arg)->editor = "/usr/bin/vim"; // TODO исправить после того как будет type
 	}
 	return (btin_fc_edit_other_args(argv, fc_arg, flags));
 }

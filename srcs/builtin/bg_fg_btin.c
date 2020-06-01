@@ -23,7 +23,7 @@ int		btin_bg(t_ltree *pos)
 
 	job_iter = g_first_job;
 	if (!job_iter) /* No jobs */
-		error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), "current");
+		return (error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), "current"));
 	if (pos->ar_c < 2) /* Empty fg case */
 	{
 		while (job_iter->next)
@@ -35,10 +35,10 @@ int		btin_bg(t_ltree *pos)
 		while (job_iter && job_iter->jid != id)
 			job_iter = job_iter->next;
 		if (!job_iter)
-			error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), pos->ar_v[1]);
+			return (error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), pos->ar_v[1]));
 	}
 	else
-		return (-1);
+		return (-1); /* Invalid argument */
 	ft_putendl(job_iter->com);
 	back_to_life(job_iter);
 	put_job_in_background(job_iter, 1);
@@ -52,7 +52,7 @@ int		btin_fg(t_ltree *pos)
 
 	job_iter = g_first_job;
 	if (!job_iter) /* No jobs */
-		error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), "current");
+		return (error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), "current"));
 	if (pos->ar_c < 2) /* Empty fg case */
 	{
 		while (job_iter->next)
@@ -64,10 +64,10 @@ int		btin_fg(t_ltree *pos)
 		while (job_iter && job_iter->jid != id)
 			job_iter = job_iter->next;
 		if (!job_iter)
-			error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), pos->ar_v[1]);
+			return (error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), pos->ar_v[1]));
 	}
 	else
-		return (-1);
+		return (-1); /* Invalid argument */
 	ft_putendl(job_iter->com);
 	back_to_life(job_iter);
 	put_job_in_foreground(job_iter, 1);

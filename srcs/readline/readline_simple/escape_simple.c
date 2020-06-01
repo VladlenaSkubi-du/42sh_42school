@@ -1,9 +1,27 @@
 #include "shell42.h"
 #include "readline.h"
 
+int				sescape_init(void)
+{
+	char		*seq_base[SESC_NUM];
+
+	seq_base[0] = "[C";
+	seq_base[1] = "[D";
+	return (sescape_check(seq_base));
+}
+
+int				ssequence_process(int sequence_num)
+{
+	int				(*seq_action[SESC_NUM])(void);
+
+	seq_action[0] = sesc_right;
+	seq_action[1] = sesc_left;
+	return ((*seq_action[sequence_num])());
+}
+
 int				sescape_check(char **seq_base)
 {
-	size_t	i;
+	int		i;
 	char	buff[16];
 	int		stage;
 
@@ -27,18 +45,6 @@ int				sescape_check(char **seq_base)
 	return (0);
 }
 
-int				ssequence_process(int sequence_num)
-{
-	int				(*seq_action[SESC_NUM])(void);
-
-	seq_action[0] = sesc_right;
-	seq_action[1] = key_up_proc;
-	seq_action[2] = sesc_left;
-	seq_action[3] = key_down_proc;
-	seq_action[4] = sesc_r;
-	return ((*seq_action[sequence_num])());
-}
-
 int				sesc_left(void)
 {
 	if (g_rline.pos == 0)
@@ -51,19 +57,9 @@ int				sesc_left(void)
 int				sesc_right(void)
 {
 	if (g_rline.pos >= g_rline.cmd_len ||
-		g_rline.pos + g_rline.prompt_len == g_screen.ws_col)
+		g_rline.pos + g_prompt.prompt_len == g_screen.ws_col)
 		return (bell_sound());
 	g_rline.pos++;
 	write(STDOUT_FILENO, "\033[C", 3);
-	return (0);
-}
-
-int				sesc_r(void)
-{
-	while (g_rline.pos < g_rline.cmd_len &&
-		g_rline.pos + g_rline.prompt_len < g_screen.ws_col - 1)
-		sesc_right();
-	while (g_rline.pos)
-		sbackspace_proc();
 	return (0);
 }

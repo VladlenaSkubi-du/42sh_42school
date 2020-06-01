@@ -3,79 +3,33 @@
 #define ESC_NUM 12
 
 /*
-** Function pointer array, should return function call
+** @seq_base is an array of chars
+** @seq_action is an array of functions
+** Both arrays are of the same size @ESC_NUM
+** @escape_check is a function that helps to
+** match the arrays
 */
 
-int				sequence_process(int sequence_num)
+int		sequence_process(int sequence_num)
 {
 	int		(*seq_action[ESC_NUM])(void);
 
-	seq_action[0] = key_right_proc;
-	seq_action[1] = key_up_proc;
-	seq_action[2] = key_left_proc;
-	seq_action[3] = key_down_proc;
-	seq_action[4] = esc_r;
-	seq_action[5] = delete_process;
-	seq_action[6] = word_left_proc;
-	seq_action[7] = word_right_proc;
-	seq_action[8] = esc_d;
-	seq_action[9] = esc_t;
-	seq_action[10] = jump_up;
-	seq_action[11] = jump_down;
+	seq_action[0] = key_right_proc; //rename: arrow_right_jumpcharright
+	seq_action[1] = key_up_proc; //rename: arrow_up_history
+	seq_action[2] = key_left_proc; //rename: arrow_left_jumpcharleft
+	seq_action[3] = key_down_proc; //rename: arrow_down_history
+	seq_action[4] = esc_r; //rename: esc_r_clearline
+	seq_action[5] = delete_process; //rename: delete_cutcharunder
+	seq_action[6] = word_left_proc; //rename: esc_b_jumpwordleft
+	seq_action[7] = word_right_proc; //rename: esc_f_jumpwordright
+	seq_action[8] = esc_d; //rename: esc_d_cuttillwordend
+	seq_action[9] = esc_t; //rename: esc_d_swapwords
+	seq_action[10] = jump_up; //rename: ctrl_up_jumplineup
+	seq_action[11] = jump_down; //rename: ctrl_down_jumplinedown
 	return ((*seq_action[sequence_num])());
 }
 
-/*
-** Should beep and do nothing - bell
-*/
-
-int				incorrect_sequence(void)
-{
-	putcap("bl");
-	return (1);
-}
-
-int				escape_check(char **seq_base)
-{
-	size_t	i;
-	char	buff[16];
-	int		stage;
-
-	i = 0;
-	ft_bzero(buff, 16);
-	while (read(1, buff + i, 1))
-	{
-		stage = 0;
-		while (stage < ESC_NUM)
-		{
-			if (!ft_strncmp(buff, seq_base[stage], i + 1))
-				break ;
-			stage++;
-		}
-		if (stage == ESC_NUM)
-			return (incorrect_sequence());
-		if (!ft_strncmp(buff, seq_base[stage], ft_strlen(seq_base[stage]) + 1))
-			return (sequence_process(stage));
-		i++;
-	}
-	return (0);
-}
-
-/*
-** We have already read \033, so seq_base is formed without it
-** [C -- KEY_RIGHT
-** [A -- KEY_UP
-** [D -- KEY_LEFT
-** [B -- KEY_DOWN
-** r -- CLEAR LINE
-** [3~ -- DELETE CHAR
-** b -- BACK ONE WORD
-** f -- FORWARD ONE WORD
-** d -- DELETE UNTILL THE NEXT WORD
-** t -- SWAP WORDS
-*/
-
-int				escape_init(void)
+int		escape_init(void)
 {
 	char	*seq_base[ESC_NUM];
 
@@ -92,4 +46,31 @@ int				escape_init(void)
 	seq_base[10] = "[1;5A";
 	seq_base[11] = "[1;5B";
 	return (escape_check(seq_base));
+}
+
+int		escape_check(char **seq_base)
+{
+	int		i;
+	char	buff[16];
+	int		stage;
+
+	i = 0;
+	ft_bzero(buff, 16);
+	while (read(1, buff + i, 1))
+	{
+		stage = 0;
+		while (stage < ESC_NUM)
+		{
+			if (!ft_strncmp(buff, seq_base[stage], i + 1))
+				break ;
+			stage++;
+		}
+		if (stage == ESC_NUM)
+			return (incorrect_sequence());
+		if (!ft_strncmp(buff, seq_base[stage],
+				ft_strlen(seq_base[stage]) + 1))
+			return (sequence_process(stage));
+		i++;
+	}
+	return (0);
 }

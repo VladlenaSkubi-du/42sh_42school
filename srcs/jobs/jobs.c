@@ -13,7 +13,8 @@ process *find_process(job *j, pid_t child_pid)
 
 void	process_update(process *p, int status)
 {
-	WIFSTOPPED(status) ? (p->stopped = 1) : (p->completed = 1);
+	WIFSTOPPED(status) && (p->stopped = 1);
+	WIFEXITED(status) && (p->completed = 1);
 	p->status = status;
 }
 
@@ -68,6 +69,7 @@ int	 launch_job (job *j)
 
 	infile = STDIN_FILENO;
 	p = j->first_process;
+	j->clean = j->fg ? 0 : 1;
 	while (p)
 	{
 		if (fork_job(p, j, &infile, &outfile) == -1)

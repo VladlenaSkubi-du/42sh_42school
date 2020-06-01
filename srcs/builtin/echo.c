@@ -76,7 +76,6 @@ void     write_e_echo(char **argv, int i)
 
 void     write_text(char **argv, int i, t_ec *echo_flags)
 {
-    //printf("input str = %s\n", argv[i]);
     if (echo_flags->e && !echo_flags->up_e)
         write_e_echo(argv, i);
     else

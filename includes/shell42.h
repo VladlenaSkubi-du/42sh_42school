@@ -93,6 +93,8 @@
 typedef struct		s_prompt
 {
 	int				(*prompt_func)(void);
+	int				prompt_len_real;
+	int				prompt_len;
 }					t_prompt;
 
 /*
@@ -187,9 +189,8 @@ t_history			g_hist;
 ** File main.c
 */
 
-int					check_42sh_options(int argc, char **argv);
-int					check_42sh_c_option(int argc, char **argv);
 int					noninteractive_shell(char **argv);
+int					interactive_shell(void);
 
 /*
 ** File options_proc42.c
@@ -201,6 +202,16 @@ int					options_in_arg(char *arri, int num,
 int					options_proc(char arrij, char *flags_arr, int *final);
 int					suboptions_proc(char *arri, int num,
 						char *flags_arr[num], int *final);
+int					invalid_option_btin(char *option, char *name);
+
+/*
+** File options_42sh_42.c
+*/
+
+int					check_42sh_options(int argc, char **argv);
+int					check_42sh_c_option(int argc, char **argv);
+int					invalid_option_42sh(char *option, char *name);
+int					argument_needed_42sh(char *option, char *name);
 
 /*
 ** File signals_processing42.c
@@ -216,11 +227,16 @@ void				signal_ctrl_c_parser(int sig);
 */
 
 int					error_handler(int status, char *str);
+int					terminal_errors(int status, char *str);
 int					error_handler_continuation(int status, char *str);
+
+/*
+** File errors_handler_suberrors.c
+*/
+
 int					variable_errors(int status, char *str);
 int					options_errors(int status, char *str);
 int					syntax_errors(int status, char *str);
-int					syntax_errors_files(int status, char *str);
 
 /*
 ** File clean_all42.c

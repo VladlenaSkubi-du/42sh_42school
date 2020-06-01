@@ -12,27 +12,27 @@
 int					front_insert_one_char(char c, int pos_x,
 						char flag, char *color)
 {
+	front_write_one_char(c, color);
 	if (flag == 'm')
 	{
 		if (c == '\n')
 		{
-			front_write_one_char(c, color);
 			return (front_insert_if_newline(&g_rline.pos_x, &g_rline.pos_y,
 				&g_rline.str_num, &g_rline.flag));
 		}
 		if (g_rline.pos_x == g_screen.ws_col - 1)
 		{
-			front_write_one_char(c, color);
+			// front_write_one_char(c, color);
 			return (front_insert_if_terminal(&g_rline.pos_x, &g_rline.pos_y,
-				&g_rline.str_num, &g_rline.flag));
+				&g_rline.flag));
 		}
-		front_write_one_char(c, color);
-		return (front_insert_if_line(&g_rline.pos_x, &g_rline.pos_y,
-				&g_rline.str_num, &g_rline.flag));
+		// front_write_one_char(c, color);
+		return (front_insert_if_line(&g_rline.pos_x, &g_rline.str_num,
+				&g_rline.flag));
 	}
 	if (flag == 'c')
 	{
-		front_write_one_char(c, color);
+		// front_write_one_char(c, color);
 		if (pos_x == g_screen.ws_col - 1)
 			tputs(g_cap.sf, 1, printc);
 	}
@@ -40,7 +40,7 @@ int					front_insert_one_char(char c, int pos_x,
 }
 
 int					front_insert_if_newline(int *pos_x, int *pos_y,
-						size_t *str_num, int *flag)
+						int *str_num, int *flag)
 {
 	*pos_x = 0;
 	(*pos_y)++;
@@ -54,8 +54,7 @@ int					front_insert_if_newline(int *pos_x, int *pos_y,
 	return (0);
 }
 
-int					front_insert_if_terminal(int *pos_x, int *pos_y,
-						size_t *str_num, int *flag)
+int					front_insert_if_terminal(int *pos_x, int *pos_y, int *flag)
 {
 	tputs(g_cap.sf, 1, printc);
 	*pos_x = 0;
@@ -64,33 +63,27 @@ int					front_insert_if_terminal(int *pos_x, int *pos_y,
 	return (0);
 }
 
-int					front_insert_if_line(int *pos_x, int *pos_y,
-						size_t *str_num, int *flag)
+int					front_insert_if_line(int *pos_x, int *str_num, int *flag)
 {
 	if (*pos_x == 0 && !(*flag & NEW_LINE_SY))
 		(*str_num)++;
 	else if (*pos_x == 0 && (*flag & NEW_LINE_SY))
 		*flag &= ~(NEW_LINE_SY);
+	if (*flag & PROMPTLEN_ZERO)
+		*flag &= ~(PROMPTLEN_ZERO);
 	(*pos_x)++;
 	return (0);
 }
 
-int					front_insert_cmd_till_the_end(int str_num_print)
+int					front_write_one_char(char c, char *color)
 {
-	size_t			pos_back;
-	int				pos_x_back;
-	int				pos_y_back;
-
-	if (g_rline.pos_x == 0 && g_rline.cmd[g_rline.pos != '\n'])
-		g_rline.str_num = str_num_print - 1;
-	else
-		g_rline.str_num = str_num_print;
-	while (g_rline.pos < g_rline.cmd_len)
+	if (color != NULL)
 	{
-		front_insert_one_char(g_rline.cmd[g_rline.pos], g_rline.pos_x, 'm', NULL);
-		g_rline.pos++;
+		write(STDOUT_FILENO, color, ft_strlen(color));
+		write(STDOUT_FILENO, &c, 1);
+		write(STDOUT_FILENO, DEFAULT, ft_strlen(DEFAULT));
 	}
-	front_set_cursor_jmp(&pos_back, &pos_x_back, &pos_y_back, 0);
-	move_cursor_from_old_position(pos_back, 'l');
+	else
+		write(STDOUT_FILENO, &c, 1);
 	return (0);
 }

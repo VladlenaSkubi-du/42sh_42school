@@ -15,12 +15,14 @@ typedef struct  s_ec
 }               t_ec;
 
 int				btin_exit(t_ltree *pos);
+int				btin_exit_arguments(char **ar_v);
 
 /*
 ** File usages.c
 */
 
 int				usage_btin(char *str);
+int				usage_btin_other(char *str);
 int				usage_btin_fc(void);
 int             usage_42sh(void);
 int				ebash_long_options(void);
@@ -60,9 +62,21 @@ int				btin_unset(t_ltree *pos);
 ** File history.c
 */
 
-int				btin_history(void);
+int				btin_history(t_ltree *pos);
+int				btin_history_clear(void);
+int				btin_history_noargs(void);
+
+/*
+** File exsign_btin.c
+*/
+
 int				btin_exsign(t_ltree *pos);
+int				btin_exsign_route_substitution(t_ltree *pos, int i);
+int				btin_exsign_numeric(t_ltree *pos,
+					int start, char *find);
 int				btin_exsign_print_message(char *arg);
+int				btin_exsign_make_substitution(t_ltree *pos,
+					int start, char *subst);
 
 /*
 ** File echo.c

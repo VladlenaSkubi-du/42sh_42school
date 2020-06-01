@@ -1,8 +1,6 @@
 #include "shell42.h"
 #include "parser.h"
 
-#define TRY_SIZE 100
-
 static const char	g_letters[] =
 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
@@ -56,7 +54,7 @@ int		    ft_tmpfile(char *tmpl, int *fd)
 	{
 		len = -1;
 		ft_try_create_fd(&tmp, fd, len, &xxx);
-		if (++try > TRY_SIZE)
+		if (++try > TMPFILE_TRY_SIZE)
 			break ;
 	}
 	unlink(tmp);

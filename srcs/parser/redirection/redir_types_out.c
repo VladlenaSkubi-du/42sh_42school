@@ -99,8 +99,9 @@ int		ft_access_check(char **f_name, t_ltree *final, size_t *i, int type)
 	char	*path;
 	int		st;
 
-	path = (char*)ft_xmalloc(MAXDIR);
-	getcwd(path, MAXDIR);
+	// path = (char*)ft_xmalloc(MAXDIR);
+	// getcwd(path, MAXDIR);
+	path = getcwd(NULL, MAXDIR);
 	if (path[0] == 0)
 		free(path);
 	ft_strcat(path, "/");
