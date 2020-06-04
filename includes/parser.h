@@ -183,6 +183,16 @@ int						ft_get_techline(char *cmd, t_tech *result);
 int						ltree_init(t_ltree *final);
 
 /*
+** File parser_processing.c
+*/
+
+int			shift_cmd_substitution(char **lcmd, int start,
+				int end, int len_subst);
+int			shift_techline_substitution(t_tech *tline, int start,
+				int end, int len_subst);
+void		clear_techline(t_tech *techline);
+
+/*
 ** File slice_to_blocks.c
 */
 

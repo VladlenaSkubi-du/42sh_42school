@@ -248,6 +248,13 @@ int					clean_parser42(void);
 int					clean_termcap(void);
 
 /*
+** File print_parser_processing.c
+*/
+
+void				print_techline(char *cmd,
+						char *techline, int len_tech);
+
+/*
 ** Folder SHELL_VARIABLES
 ** ____________________________________________________________________________
 */

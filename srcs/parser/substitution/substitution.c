@@ -13,6 +13,8 @@ int		ft_substitution(t_ltree *sub)
 	err = 1;
 	while (err)
 	{
+		if ((err = btin_exsign(sub)) & ERR_OUT)
+			break ;
 		//ft_alias_find ;
 		ft_find_tilda(sub, LINE);
 		ft_find_var(sub);
@@ -22,8 +24,6 @@ int		ft_substitution(t_ltree *sub)
 		// 	break ;
 		// if ((err = ft_find_globbing(sub)) & ERR_OUT)
 		// 	break ;
-		if ((err = btin_exsign(sub)) & ERR_OUT)
-			break ;
 		err = 0;
 	}
 	if (err & ERR_OUT)

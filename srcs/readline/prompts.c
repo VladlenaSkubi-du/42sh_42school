@@ -47,6 +47,17 @@ int				other_prompt(void)
 
 int				count_prompt_len(void)
 {
+	if (g_screen.ws_col == 0)
+	{
+		if (ioctl(1, TIOCGWINSZ, &g_screen))
+		{
+			error_handler(TERMINAL_EXISTS, NULL);
+			clean_everything();
+			exit(TERMINAL_EXISTS);
+		}
+		if (g_screen.ws_col == 0)
+			g_screen.ws_col = 80;
+	}
 	if (g_prompt.prompt_len_real >= g_screen.ws_col)
 		g_prompt.prompt_len = g_prompt.prompt_len_real %
 			g_screen.ws_col;

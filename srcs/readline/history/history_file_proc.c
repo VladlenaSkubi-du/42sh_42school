@@ -16,8 +16,7 @@ int                 read_hist_from_file(int fd)
 				g_hist.len, g_hist.len + MAX_HISTBUF);
 			g_hist.len += MAX_HISTBUF;
 		}
-		g_hist.hist[i] = ft_strdup(tmp);
-		free(tmp);
+		g_hist.hist[i] = tmp;
 		i++;
 	}
 	free(tmp);
