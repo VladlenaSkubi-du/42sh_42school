@@ -4,18 +4,18 @@
 ** Function to check if find char is in use or just text
 */
 
-char		get_tech_num(char check)
+char		get_tech_num(char check) //check
 {
 	char	*base;
 	int		i;
 
-	base = " \\;&\"\'()[]{}$~|><*=\n#!:\t";
+	base = " \\;&\"\'()[]{}$~|><*=\n#!:\t"; //24
 	i = 0;
 	while (base[i])
 	{
 		if (base[i] == check)
 		{
-			if (i == 25)
+			if (i == 24)
 				return (2);
 			else			
 				return (i + 2);

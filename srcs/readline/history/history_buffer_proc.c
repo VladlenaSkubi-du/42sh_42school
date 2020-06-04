@@ -68,6 +68,7 @@ char			**make_hist_buffer_smaller(int size)
 		i++;
 		j++;
 	}
+	free(g_hist.hist[g_hist.len]);
 	g_hist.len = size + 1;
 	g_hist.start = 0;
 	g_hist.last = (i > g_hist.len) ? g_hist.len - 1 : i - 1;

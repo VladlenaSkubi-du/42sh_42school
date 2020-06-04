@@ -49,6 +49,7 @@ GLOBAL = 	$(GLOBAL_DIR)/clean_all42.c \
 			$(GLOBAL_DIR)/options_proc42.c \
 			$(GLOBAL_DIR)/options_42sh_42.c \
 			$(GLOBAL_DIR)/signals_processing42.c \
+			$(GLOBAL_DIR)/print_parser_processing.c \
 			$(SHELL_VARIABLES) \
 			$(ERRORS_HANDLER) \
 			$(UNIX_FUNCTIONS)
@@ -93,6 +94,7 @@ PARSER = 	$(PARSER_DIR)/before_execution.c \
 			$(PARSER_DIR)/find_spec.c \
 			$(PARSER_DIR)/parser42.c \
 			$(PARSER_DIR)/slice_to_blocks.c \
+			$(PARSER_DIR)/parser_processing.c \
 			$(ASSIGNMENT) \
 			$(PATH_TREE) \
 			$(QUOTING) \

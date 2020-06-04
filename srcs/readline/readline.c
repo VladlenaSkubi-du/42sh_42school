@@ -62,6 +62,7 @@ int		route_exit(void)
 		action_alloc_management(NULL, 1);
 		reset_canonical_input();
 		clean_readline42();
+		free(g_rline.cmd);
 		btin_exit(pos);
 	}
 	else

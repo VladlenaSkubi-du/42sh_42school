@@ -122,6 +122,8 @@ int		nullify(char **techline, size_t cmd_size)
 			nullify_comment(&ptr, &stack);
 		ptr++;
 	}
+		// print_techline(g_cmd, g_techline.line, g_techline.len);
+		
 		// printf("g_cmd nul=%s\n", g_cmd);//печать для проверки
 		// printf("techline cur:");
 		// count = -1;
@@ -130,4 +132,3 @@ int		nullify(char **techline, size_t cmd_size)
 		// printf("\n");
 	return (nullify_promt_check(&stack));
 }
-	
