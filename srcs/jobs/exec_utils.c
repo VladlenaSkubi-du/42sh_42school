@@ -50,17 +50,26 @@ int	exec_clean(char *path, int exit_status, char *err_msg)
 ** Check if programm to start is buildin and if it is - start builtin
 */
 
-int		ft_builtins_check(t_ltree *pos, int flag)
+int		ft_builtins_check(process *p, int flag)
 {
 	int	i;
+	t_ltree	xXx_PLACEHOLDER_xXx;
 
-	i = 1;
+	i = 1;	
 	while (g_builtins[i])
 	{
-		if (!ft_strcmp(pos->ar_v[0], g_builtins[i]))
+		if (!ft_strcmp(p->argv[0], g_builtins[i]))
 		{
 			if (flag)
-				exit_status_variable(g_builtins_func[i](pos));
+			{
+				xXx_PLACEHOLDER_xXx.ar_c = p->argc;
+				vec_dup(&xXx_PLACEHOLDER_xXx.ar_v, p->argv);
+				vec_dup(&xXx_PLACEHOLDER_xXx.envir, p->envp);
+				exit_status_variable(g_builtins_func[i](&xXx_PLACEHOLDER_xXx));
+				ft_arrdel(xXx_PLACEHOLDER_xXx.ar_v);
+				ft_arrdel(xXx_PLACEHOLDER_xXx.envir);
+				p->completed = 1;
+			}
 			return (i);
 		}
 		i++;

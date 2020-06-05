@@ -3,6 +3,10 @@
 #include "jobs.h"
 #include "parser.h"
 
+/*
+** execvp implementation based on $PATH parsing and execve syscall
+*/
+
 int		exec_vp(process *p)
 {
 	if (!(g_path = path_init(p->argv)))
@@ -20,11 +24,17 @@ int		setstream(int src, int dest)
 	return (0);
 }
 
-void	launch_process (process *p, pid_t pgid, int stream[3], int foreground)
-{
-	pid_t pid;
+/*
+** Executes command using information in the process structure
+*/
 
- 	if (g_is_interactive)
+void	launch_process(process *p, pid_t pgid, int stream[3], int foreground)
+{
+	pid_t	pid;
+	int		chk;
+
+	chk = ft_builtins_check(p, 0);
+ 	if (chk == -1 && g_is_interactive)
 	{
 		pid = getpid();
 		if (pgid == 0) pgid = pid;
@@ -37,7 +47,8 @@ void	launch_process (process *p, pid_t pgid, int stream[3], int foreground)
 	(stream[0] != STDIN_FILENO) && setstream(stream[0], STDIN_FILENO);
 	(stream[1] != STDOUT_FILENO) && setstream(stream[1], STDOUT_FILENO);
 	(stream[2] != STDERR_FILENO) && setstream(stream[2], STDERR_FILENO);
-	exec_vp(p);
+	chk != -1 ? ft_builtins_check(p, 1) : exec_vp(p);
 	exec_clean(g_path, 0, 0);
-	exit(1);
+	chk == -1 ? exit(1) : 0;
+	std_save(1);
 }

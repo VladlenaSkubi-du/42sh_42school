@@ -13,8 +13,7 @@ process *find_process(job *j, pid_t child_pid)
 
 void	process_update(process *p, int status)
 {
-	WIFSTOPPED(status) && (p->stopped = 1);
-	WIFEXITED(status) && (p->completed = 1);
+	WIFSTOPPED(status) ? (p->stopped = 1) : (p->completed = 1);
 	p->status = status;
 }
 
@@ -27,10 +26,14 @@ int		parent(process	*p, job *j, pid_t pid)
 	{
 		if (!j->pgid)
 			j->pgid = pid;
-		setpgid (pid, j->pgid);
+		setpgid(pid, j->pgid);
 	}
 	return (0);
 }
+
+/*
+** Forks given process in given job and provides pipe functionality
+*/
 
 int		fork_job(process *p, job *j, int *infl, int *outfl)
 {
@@ -45,13 +48,15 @@ int		fork_job(process *p, job *j, int *infl, int *outfl)
 	}
 	else
 		*outfl = j->stdout;
-	pid = fork();
+	pid = ft_builtins_check(p, 0) == -1 ? fork() : 0;
+
 	if (pid == 0)
 		launch_process(p, j->pgid, (int[3]){*infl, *outfl, j->stderr}, j->fg);
 	else if (pid < 0)
 		return (-1);
 	else
 		parent(p, j, pid);
+	ft_builtins_check(p, 0) != -1 ? parent(p, j, getpid()): 0;
 	if (*infl != STDIN_FILENO)
 		close(*infl);
 	if (*outfl != STDOUT_FILENO)
@@ -60,7 +65,11 @@ int		fork_job(process *p, job *j, int *infl, int *outfl)
 	return (0);
 }
 
-/* REWRITE */
+/*
+** Iterates through process list in given job, gives all necessary information
+** to fork function and calls background/foreground processing function
+*/
+
 int	 launch_job (job *j)
 {
 	process	*p;

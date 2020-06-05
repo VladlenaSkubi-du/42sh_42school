@@ -93,6 +93,11 @@ int		exec_internal(t_ltree *pos)
 	WEXITSTATUS(child_pid) : (-1), 0));
 }
 
+/*
+** Checks given command, comparing it to the array of implemented builtins. in
+** case of a match calls builtin function and returns. Also manages pipes
+*/
+
 int		exec_builtin(t_ltree * pos)
 {
 	static int		pipe_prev;
@@ -100,6 +105,7 @@ int		exec_builtin(t_ltree * pos)
 
 	if (ft_builtins_check(pos, 0) == -1)
 		return (-1);
+	/* TODO: FIX PIPES! */
 	(pos->flags & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
 	if ((pos->flags & PIPED_OUT) && pipe(pipe_next) == -1)
 		return (exec_clean(0, -1, "e-bash: Pipe failed")); //через error_handler
