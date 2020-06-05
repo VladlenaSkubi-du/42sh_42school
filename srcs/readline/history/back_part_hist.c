@@ -23,7 +23,7 @@ int				print_new_cmd_from_history(int coincidence)
 	int			i;
 
 	i = 0;
-	esc_r();
+	clear_whole_line();
 	while (g_hist.hist[coincidence][i])
 	{
 		char_add_without_undo(g_hist.hist[coincidence][i], NULL);

@@ -153,7 +153,6 @@ READLINE = 	$(READLINE_DIR)/colors.c \
 			$(READLINE_DIR)/rline_cmd_processing.c \
 			$(READLINE_DIR)/termcap_usage.c \
 			$(READLINE_DIR)/terminal_input_changes.c \
-			$(READLINE_DIR)/undo_yank_call.c \
 			$(READLINE_DIR)/undo.c \
 			$(READLINE_SIMPLE) \
 			$(KEY_ACTIONS) \

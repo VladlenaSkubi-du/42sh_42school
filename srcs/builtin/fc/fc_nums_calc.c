@@ -101,7 +101,7 @@ int				btin_fc_negative_int__list(int value)
 */
 
 int				btin_fc_positive_int__exec(int value, int from,
-					int to)
+					int to, int flag)
 {
 	int			final;
 
@@ -111,7 +111,8 @@ int				btin_fc_positive_int__exec(int value, int from,
 		(value >= from && value <= HISTORY_LIMIT))) ||
 		(from < to && !(value >= from)) || (from == to))
 	{
-		error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
+		if (flag == 'f')
+			error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
 		return (HIST_ERROR);
 	}
 	final = value;

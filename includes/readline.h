@@ -242,6 +242,7 @@ int								front_write_one_char(char c, char *color);
 
 int								position_cursor_after_line(int len);
 int								clean_after_line(void);
+int								clear_whole_line(void);
 
 /*
 ** File colors.c
@@ -265,15 +266,9 @@ int								sequence_process(int sequence_num);
 
 int								ctrl_key(char sy);
 int								ctrl_process(char *ctrl_base, char sy);
-int								ctrl_call(size_t call_num);
-
-/*
-** File undo_yank_call.c
-*/
-
-int								make_ctrl_x(void);
+int								ctrl_call(int call_num);
 int								undo_wrap(void);
-int								make_ctrl_p_wrap(void);
+int								make_ctrl_x(void);
 
 /*
 ** File undo.c
@@ -301,6 +296,7 @@ int								backspace_process(void);
 int								backspace_newline(char *swap, int len_swap);
 int								delete_process(void);
 int								delete_till_compl(int delete);
+int								esc_r(void);
 
 /*
 ** File arrow_keys.c
@@ -328,7 +324,7 @@ int								make_ctrl_t_begend(int len);
 
 int								esc_d(void);
 int								make_ctrl_w(void);
-int								esc_r(void);
+int								make_ctrl_p_wrap(void);
 int								make_ctrl_p(int mode, char *yank);
 int								paste_insert(char *yank_str);
 
@@ -447,15 +443,6 @@ int								after_big_menu(int pos_back,
 int								count_comment_len(int *find, int num);
 int								clean_output_question(int from, int pos_back,
 									int len, int len_x);
-
-/*
-** File path_processing_compl.c
-*/
-
-int								insert_variables_to_tree(char *array,
-									char *complete, t_path **root, int *total); //DELETE
-char							*path_parse_compl(void); //DELETE
-int								clean_menu_buf(void); //to DELETE
 
 /*
 ** File output_buffer_compl.c
