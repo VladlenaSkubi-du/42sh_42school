@@ -31,3 +31,13 @@ int					clean_after_line(void)
 	move_cursor_from_old_position(pos_back, 'l');
 	return (0);
 }
+
+int								clear_whole_line(void)
+{
+	while (g_rline.pos)
+		key_left_proc();
+	tputs(g_cap.cd, 1, printc);
+	ft_bzero(g_rline.cmd, g_rline.cmd_buff_len);
+	g_rline.cmd_len = 0;
+	return (0);
+}

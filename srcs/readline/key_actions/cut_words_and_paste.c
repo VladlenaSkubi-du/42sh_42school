@@ -14,7 +14,7 @@ int			esc_d(void)
 	undo(0);
 	save_yank = (g_rline.pos == g_rline.cmd_len) ?
 		ft_strdup(g_rline.cmd + pos_old) :
-		ft_strndup(g_rline.cmd + pos_old, g_rline.pos);
+		ft_strndup(g_rline.cmd + pos_old, g_rline.pos - pos_old);
 	make_ctrl_p(0, save_yank);
 	swap = g_rline.cmd + g_rline.pos;
 	len_swap = ft_strlen(swap);
@@ -42,9 +42,9 @@ int			make_ctrl_w(void)
 	pos_old = g_rline.pos;
 	if (word_left_proc())
 		return (0);
-	save_yank = (pos_old == g_rline.cmd_len) ?
+	save_yank = (pos_old >= g_rline.cmd_len) ?
 		ft_strdup(g_rline.cmd + g_rline.pos) :
-		ft_strndup(g_rline.cmd + g_rline.pos, pos_old);
+		ft_strndup(g_rline.cmd + g_rline.pos, pos_old - g_rline.pos);
 	make_ctrl_p(0, save_yank);
 	swap = g_rline.cmd + pos_old;
 	len_swap = ft_strlen(swap);
@@ -59,19 +59,9 @@ int			make_ctrl_w(void)
 	return (0);
 }
 
-int			esc_r(void)
+int			make_ctrl_p_wrap(void)
 {
-	char			*save_yank;
-
-	check_after_line();
-	save_yank = ft_strdup(g_rline.cmd);
-	make_ctrl_p(0, save_yank);
-	while (g_rline.pos)
-		key_left_proc();
-	tputs(g_cap.cd, 1, printc);
-	ft_bzero(g_rline.cmd, g_rline.cmd_buff_len);
-	g_rline.cmd_len = 0;
-	return (0);
+	return (make_ctrl_p(1, NULL));
 }
 
 int			make_ctrl_p(int mode, char *yank)

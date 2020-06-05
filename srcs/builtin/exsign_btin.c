@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 15:12:33 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/06/05 02:18:09 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/06/05 14:41:57 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@
 //Добавить error:
 // bash-3.2$ !
 // bash: syntax error near unexpected token `newline'
-// bash-3.2$ !-1 Makefile
-// echo 4 Makefile
-// 4 Makefile
 
 int					btin_exsign(t_ltree *pos)
 {
@@ -80,12 +77,13 @@ int					btin_exsign_route_substitution(t_ltree *pos,
 	if (start + len_num == i)
 		return (btin_exsign_numeric(pos, start, i));
 	find = ft_strndup(pos->l_cmd + start, i - start);
-	((count = find_in_history(find)) == -1) ?
-		btin_exsign_print_message(pos->l_cmd + start - 1, i - start) :
+	if ((count = find_in_history(find)) == -1)
+		btin_exsign_print_message(pos->l_cmd + start - 1, i - start);
+	else
 		btin_exsign_make_substitution(pos, start - 1,
 			i, g_hist.hist[count]);
 	free(find);
-	return (0);
+	return ((count == -1) ? ERR_OUT : 0);
 }
 
 int					btin_exsign_numeric(t_ltree *pos,
@@ -107,7 +105,7 @@ int					btin_exsign_numeric(t_ltree *pos,
 		temp = g_hist.last_fc - ((g_hist.last + 1 == g_hist.len) ?
 			g_hist.len - 1 : g_hist.last) + 1;
 		temp += (temp < 1) ? HISTORY_LIMIT : 0;
-		count = btin_fc_positive_int__exec(num, temp, g_hist.last_fc);
+		count = btin_fc_positive_int__exec(num, temp, g_hist.last_fc, 0);
 		if (count == -2 || (count == g_hist.last && num - 1 != g_hist.last))
 			return (btin_exsign_print_message(pos->l_cmd + start - 1, end));
 	}
@@ -121,7 +119,7 @@ int					btin_exsign_print_message(char *arg, int end)
 	ft_putstr_fd(": ", STDOUT_FILENO);
 	ft_putnstr_fd(arg, end, STDOUT_FILENO);
 	ft_putendl_fd(": event not found", STDOUT_FILENO);
-	return (0);
+	return (ERR_OUT);
 }
 
 int					btin_exsign_stop_signs(char tech)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cut_keys.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmp <tmp@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 18:06:09 by tmp               #+#    #+#             */
-/*   Updated: 2020/05/29 18:16:11 by tmp              ###   ########.fr       */
+/*   Updated: 2020/06/05 18:00:37 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,20 @@ int					delete_till_compl(int delete)
 	}
 	else
 		return (incorrect_sequence());
+	return (0);
+}
+
+int					esc_r(void)
+{
+	char			*save_yank;
+
+	check_after_line();
+	save_yank = ft_strdup(g_rline.cmd);
+	make_ctrl_p(0, save_yank);
+	while (g_rline.pos)
+		key_left_proc();
+	tputs(g_cap.cd, 1, printc);
+	ft_bzero(g_rline.cmd, g_rline.cmd_buff_len);
+	g_rline.cmd_len = 0;
 	return (0);
 }

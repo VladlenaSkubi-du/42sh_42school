@@ -57,8 +57,6 @@ char				**route_by_prompts(int *total, int *max_len)
 	{
 		menu = ft_path_pars("", find_env_value("PATH"),
 			(size_t*)total, max_len);
-		// menu = ft_path_pars("", path_parse_compl(),
-		// 	(size_t*)total, max_len);
 	}
 	else
 	{
@@ -100,8 +98,6 @@ char				**route_menu_receipt(char *tech_line,
 	{
 		menu = ft_path_pars(g_compl.to_compl, find_env_value("PATH"),
 			(size_t*)&g_compl.total, max_len);
-		// menu = ft_path_pars(g_compl.to_compl, path_parse_compl(),
-		// 	(size_t*)&g_compl.total, max_len);
 	}
 	else if (pool == 2)
 		menu = get_variables(g_compl.to_compl, &g_compl.total, max_len);

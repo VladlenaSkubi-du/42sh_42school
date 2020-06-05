@@ -49,7 +49,7 @@ int		key_up_proc(void)
 		return (0);
 	}
 	key_up_proc_processing();
-	(g_rline.cmd[0]) ? esc_r() : 0;
+	(g_rline.cmd[0]) ? clear_whole_line() : 0;
 	g_hist.counter--;
 	i = -1;
 	len = ft_strlen(g_hist.hist[g_hist.counter]);
@@ -87,7 +87,7 @@ int		key_down_proc(void)
 		free(g_hist.hist[g_hist.counter]);
 		g_hist.hist[g_hist.counter] = ft_strdup(g_rline.cmd);
 	}
-	(g_rline.cmd[0]) ? esc_r() : 0;
+	(g_rline.cmd[0]) ? clear_whole_line() : 0;
 	if (g_hist.counter >= g_hist.last)
 		g_hist.counter = g_hist.last;
 	g_hist.counter++;

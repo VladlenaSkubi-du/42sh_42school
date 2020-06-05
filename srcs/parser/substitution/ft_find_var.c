@@ -96,7 +96,7 @@ int		ft_param_empty(t_ltree *sub, char **find, size_t *i)
 	return (0);
 }
 
-int		ft_error_vars(t_ltree *sub, int err, char *msg)
+int		ft_error_vars(t_ltree *sub, int err, char *msg) //убрать распечатку error_handler для !, который выходит по error_out
 {
 	sub->flags |= ERR_OUT;
 	sub->err_i |= err;

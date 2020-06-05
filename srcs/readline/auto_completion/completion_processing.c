@@ -3,7 +3,9 @@
 
 int					init_completion(void)
 {
-	g_compl.to_compl = ft_strndup(g_rline.cmd, g_rline.pos);
+	g_compl.to_compl = (g_rline.pos >= g_rline.cmd_len) ?
+		ft_strdup(g_rline.cmd) :
+		ft_strndup(g_rline.cmd, g_rline.pos);
 	g_compl.len_tocompl = ft_strlen(g_compl.to_compl);
 	g_compl.menu = NULL;
 	g_compl.total = 0;
@@ -38,18 +40,4 @@ int					clear_completion(int flag)
 		g_compl.menu_buffer.buffer = NULL;
 	}
 	return ((flag == 1) ? incorrect_sequence() : 0);
-}
-
-char				*path_parse_compl(void) //to DELETE
-{
-	int				i;
-
-	i = 0;
-	while (g_env[i])
-	{
-		if (ft_strncmp(g_env[i], "PATH=", 5) == 0)
-			return (g_env[i] + 5);
-		i++;
-	}
-	return (NULL);
 }

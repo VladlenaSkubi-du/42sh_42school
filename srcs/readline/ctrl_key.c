@@ -17,7 +17,7 @@
 ** ctrl_action[13] is for ctrl-shift-"-" or ctrl-_
 */
 
-int			ctrl_call(size_t call_num)
+int			ctrl_call(int call_num)
 {
 	int		(*ctrl_action[CTRL_NUM])(void);
 
@@ -67,7 +67,7 @@ int			ctrl_key(char sy)
 
 int			ctrl_process(char *ctrl_base, char sy)
 {
-	size_t	i;
+	int		i;
 
 	i = 0;
 	while (i < CTRL_NUM)
@@ -77,4 +77,22 @@ int			ctrl_process(char *ctrl_base, char sy)
 		i++;
 	}
 	return (0);
+}
+
+int			make_ctrl_x(void)
+{
+	char			next;
+
+	check_after_line();
+	read(1, &next, 1);
+	if (next == '\025')
+		undo(1);
+	else
+		incorrect_sequence();
+	return (0);
+}
+
+int			undo_wrap(void)
+{
+	return (undo(1));
 }

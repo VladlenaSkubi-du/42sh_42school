@@ -107,13 +107,13 @@ int					btin_fc_two_ints__edit(t_btin_fc **fc_arg)
 	temp += (temp < 1) ? HISTORY_LIMIT : 0;
 	if ((*fc_arg)->last > 0 && ((*fc_arg)->last_buf =
 		btin_fc_positive_int__exec((*fc_arg)->last, temp,
-		g_hist.last_fc)) == HIST_ERROR)
+		g_hist.last_fc, 'f')) == HIST_ERROR)
 		return (HIST_ERROR);
 	else if ((*fc_arg)->last <= 0)
 		(*fc_arg)->last_buf = btin_fc_negative_int__list((*fc_arg)->last);
 	if ((*fc_arg)->first > 0 && ((*fc_arg)->first_buf =
 		btin_fc_positive_int__exec((*fc_arg)->first, temp,
-		g_hist.last_fc)) == HIST_ERROR)
+		g_hist.last_fc, 'f')) == HIST_ERROR)
 		return (HIST_ERROR);
 	else if ((*fc_arg)->first <= 0)
 		(*fc_arg)->first_buf = btin_fc_negative_int__list((*fc_arg)->first);

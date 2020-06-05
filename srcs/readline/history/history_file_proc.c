@@ -1,13 +1,13 @@
 #include "shell42.h"
 #include "readline.h"
 
-int                 read_hist_from_file(int fd)
+int					read_hist_from_file(int fd)
 {
-    int			    i;
-    char		    *tmp;
-    
-    i = 0;
-    tmp = NULL;
+	int				i;
+	char			*tmp;
+
+	i = 0;
+	tmp = NULL;
 	while (ft_gnl(fd, &tmp) > 0)
 	{
 		if (i >= g_hist.len)
@@ -19,8 +19,9 @@ int                 read_hist_from_file(int fd)
 		g_hist.hist[i] = tmp;
 		i++;
 	}
+	ft_gnl(-42, &tmp);
 	free(tmp);
-    return (i);
+	return (i);
 }
 
 /*

@@ -47,7 +47,7 @@ static t_fd_list	*ft_fd_check(int fd, t_fd_list **p)
 			return (new);
 		new = new->next;
 	}
-	if (!(new = (t_fd_list *)ft_memalloc(sizeof(t_fd_list))))
+	if (!(new = (t_fd_list*)ft_memalloc(sizeof(t_fd_list))))
 		return (NULL);
 	new->fd = fd;
 	new->next = *p;
