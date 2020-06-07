@@ -48,6 +48,7 @@ int				start_readline42(int tmp)
 	final = finalize_cmd(g_rline.cmd);
 	clean_readline42();
 	// free (final); //для тестов readline
+	free(g_hist.hist[g_hist.last + 1]);
 	parser(final);
 	return (0);
 }
