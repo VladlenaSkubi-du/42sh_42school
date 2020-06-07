@@ -1,6 +1,11 @@
 #include "shell42.h"
 #include "readline.h"
 
+/*
+** Controls the length of the backend buffer and "stoppings"
+** not to have errors, is used for user input
+*/
+
 int					char_add(char c, char *color)
 {
 	if (g_rline.cmd_len >= g_rline.cmd_buff_len - 1)
@@ -17,6 +22,14 @@ int					char_add(char c, char *color)
 	insert_char(c, color);
 	return (0);
 }
+
+/*
+** Controls the length of the backend buffer and "stoppings"
+** not to have errors, is used for program input after some
+** actions for the frontend and backend insert, for instance:
+** to insert line from history, auto-completion word or the line
+** saved in paste-buffer or undo-buffer
+*/
 
 int					char_add_without_undo(char c, char *color)
 {
@@ -35,9 +48,13 @@ int					char_add_without_undo(char c, char *color)
 }
 
 /*
+** We can insert to the end of the cmd-line and in the middl of it
 ** putcap("cd") - clearing till the end of the screen
-** putcap("sf") - if cmd-line finishes of the most right position in terminal,
+** putcap("sf") - if cmd-line finishes on the most right position in terminal,
 ** the cursor should jump to the next line
+** By insertion g_rline structure remembers real pos_x and pos_y positions,
+** for example, after "sf" or "\n" insertion pos_x and pos_y will change
+** (pos will not change because there were no user movements of the cursor)
 */
 
 int					insert_char(char c, char *color)
@@ -62,13 +79,21 @@ int					insert_char(char c, char *color)
 	return (0);
 }
 
+/*
+** Is used to insert the part of line after cursor after actions done,
+** for example: paste, cut of a word or a char and so on
+** Inserts starting from cursor and moves cursor to the position
+** needed after the action
+*/
+
 int					front_insert_cmd_till_the_end(int str_num_print)
 {
 	int				pos_back;
 	int				pos_x_back;
 	int				pos_y_back;
 
-	if (g_rline.pos_x == 0 && g_rline.cmd[g_rline.pos != '\n'])
+	if (g_rline.pos > 0 && g_rline.pos_x == 0 &&
+			g_rline.cmd[g_rline.pos - 1] != '\n')
 		g_rline.str_num = str_num_print - 1;
 	else
 		g_rline.str_num = str_num_print;

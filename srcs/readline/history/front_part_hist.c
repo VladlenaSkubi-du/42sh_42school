@@ -11,17 +11,16 @@ int					make_ctrl_r_history(void)
 
 	pos_back = g_rline.pos;
 	len_x = g_rline.pos_x;
+	coincidence = 0;
 	position_cursor_after_line(g_rline.cmd_len);
 	len = 22;
 	g_rline.flag |= AFTER_LINE;
 	front_insert_by_letters("We search in history: ", &coincidence);
 	find = get_the_answer_hist(&len);
 	clean_output_question(0, pos_back, len, len_x);
+	(find[0] == '\0') ? free(find) : 0;
 	if (find == NULL || find[0] == '\0')
-	{
-		free(find);
 		return (OUT);
-	}
 	coincidence = find_in_history(find);
 	free(find);
 	if (coincidence < 0)
