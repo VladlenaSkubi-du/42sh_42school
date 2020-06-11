@@ -6,7 +6,6 @@ typedef struct dirent	t_dirent;
 typedef struct stat		t_stat;
 
 # define HEREDOC_BUF 200
-# define TMPFILE_TRY_SIZE 100
 
 /*
 ** Defines for FLAGS
@@ -29,7 +28,26 @@ typedef struct stat		t_stat;
 ** Is used in before_execution.c
 */
 
-# define TMPL "/tmp/tmp42sh_XXXXXX"
+/*
+** This defines needs for usage ft_tmpfile
+*/
+
+# define TMPL "tmp42sh_424242XXXXXX"
+
+# ifndef P_tmpdir
+# define P_tmpdir "/tmp"
+#endif
+
+# ifndef L_tmpnam
+# define L_tmpdir 20
+#endif
+
+# ifndef TMP_MAX
+# define TMP_MAX 2000
+#endif
+
+# define TMPFILE_TRY_SIZE TMP_MAX
+
 
 enum					e_way
 {
@@ -108,8 +126,8 @@ typedef struct  		s_ltree
 
 typedef struct  		s_fd
 {
-	int					fd_out;
-	int					fd_in;
+	int					fd_new;
+	int					fd_old;
 	int					type;
 }              			t_fd_redir;
 

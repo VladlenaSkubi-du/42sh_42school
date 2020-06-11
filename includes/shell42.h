@@ -2,6 +2,8 @@
 #ifndef SHELL42_H
 # define SHELL42_H
 
+# define _DEFAULT_SOURCE 1
+
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/types.h>
