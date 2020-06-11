@@ -59,23 +59,11 @@ int		ft_find_curv_var(t_ltree *sub)
 	return (0);
 }
 
-char	*ft_find_var_value(char **find) //TODO PEREDELAT'
+char	*ft_find_var_value(char **find)
 {
-	size_t	li;
-	size_t	sj;
 	char	*res;
 
-	li = -1;
-	sj = -1;
-	res = NULL;
-	if ((li = find_in_variables(g_rdovar, &sj, *find)) != -1)
-		res = ft_strdup(&g_rdovar[li][sj]);
-	else if ((li = find_in_variables(g_env, &sj, *find)) != -1)
-		res = ft_strdup(&g_env[li][sj]);
-	else if ((li = find_in_variables(g_shvar, &sj, *find)) != -1)
-		res = ft_strdup(&g_shvar[li][sj]);
-	else if ((li = find_in_variables(g_lovar, &sj, *find)) != -1)
-		res = ft_strdup(&g_lovar[li][sj]);
+	res = ft_strdup(find_env_value(*find));
 	free(*find);
 	return (res);
 }

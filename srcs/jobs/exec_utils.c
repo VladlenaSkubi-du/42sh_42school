@@ -3,29 +3,6 @@
 #include "builtin42.h"
 #include "builtins_list.h"
 
-char	*get_env(char *var)
-{
-	char	*val;
-	size_t	i;
-	size_t	len;
-
-	val = 0;
-	i = 0;
-	printf("Warning: get_env() is deprecated. Use ft_find_var() instead\n");
-	if (!g_env)
-		return (NULL);
-	len = ft_strlen(var);
-	while (g_env[i])
-	{
-		if (!ft_strncmp(g_env[i], var, len))
-			break;
-		i++;
-	}
-	if (g_env[i])
-		val = ft_strdup(g_env[i] + len + 1);
-	return (val);
-}
-
 /*
 ** So, let's talk about pipes:
 ** 1) If only PIPED_OUT -- create pipe
