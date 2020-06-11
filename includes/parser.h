@@ -39,7 +39,7 @@ typedef struct stat		t_stat;
 #endif
 
 # ifndef L_tmpnam
-# define L_tmpdir 20
+# define L_tmpnam 20
 #endif
 
 # ifndef TMP_MAX
