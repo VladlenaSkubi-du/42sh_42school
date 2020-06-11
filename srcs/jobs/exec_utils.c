@@ -66,12 +66,12 @@ int		fd_list_process(t_ltree *pos, int mode)
 		while (fd_list)
 		{
 			redir = (t_fd_redir *)fd_list->content;
-			if (redir->fd_in != CLOSE)
-				dup2(redir->fd_in, redir->fd_out);
+			if (redir->fd_old != CLOSE)
+				dup2(redir->fd_old, redir->fd_new);
 			else
 			{
-				dup2(redir->fd_out, redir->fd_out); //decide, what to do here
-				close(redir->fd_out);
+				dup2(redir->fd_new, redir->fd_new); //decide, what to do here
+				close(redir->fd_new);
 			}
 			fd_list = fd_list->next;
 		}
