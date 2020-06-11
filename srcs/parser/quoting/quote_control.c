@@ -124,6 +124,6 @@ int		nullify(char **techline, size_t cmd_size)
 			nullify_comment(&ptr, &stack);
 		ptr++;
 	}
-		print_techline(g_cmd, g_techline.line, g_techline.len);
+		// print_techline(g_cmd, g_techline.line, g_techline.len);
 	return (nullify_promt_check(&stack));
 }
