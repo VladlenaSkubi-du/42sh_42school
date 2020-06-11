@@ -116,6 +116,6 @@ int		pre_parsing_cut_glue(t_ltree *sub)
 			ft_reglue(&i, 1, sub);
 		i++;
 	}
-		print_techline(sub->l_cmd, sub->l_tline.line, sub->l_tline.len);
+		// print_techline(sub->l_cmd, sub->l_tline.line, sub->l_tline.len);
 	return (0);
 }
