@@ -116,11 +116,6 @@ int		pre_parsing_cut_glue(t_ltree *sub)
 			ft_reglue(&i, 1, sub);
 		i++;
 	}
-		// printf("techline pre:");//печать для проверки
-		// i = -1;
-		// while (++i < sub->l_tline.len + 1)
-		// 	printf("%3d", sub->l_tline.line[i]);
-		// printf("\n");
-		// printf("l_cmd pre=%s<end\n", sub->l_cmd);
+		print_techline(sub->l_cmd, sub->l_tline.line, sub->l_tline.len);
 	return (0);
 }

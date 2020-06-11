@@ -40,6 +40,8 @@ int		nullify_backslash(char **ptr, t_stack **stack,\
 		&& **ptr == BSLASH && ptr[0][1] == ENTER &&\
 		(size - *count) == 2)
 		ft_push_stack(stack, BSLASH);
+	if (**ptr == DOLLAR && ptr[0][1] == DOLLAR)
+		ptr[0][1] = WORD_P;
 	return (0);
 }
 
@@ -122,13 +124,6 @@ int		nullify(char **techline, size_t cmd_size)
 			nullify_comment(&ptr, &stack);
 		ptr++;
 	}
-		// print_techline(g_cmd, g_techline.line, g_techline.len);
-		
-		// printf("g_cmd nul=%s\n", g_cmd);//печать для проверки
-		// printf("techline cur:");
-		// count = -1;
-		// while (++count <= g_techline.len)
-		// 	printf("%3d", g_techline.line[count]);
-		// printf("\n");
+		print_techline(g_cmd, g_techline.line, g_techline.len);
 	return (nullify_promt_check(&stack));
 }
