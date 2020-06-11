@@ -109,7 +109,7 @@ int		nullify(char **techline, size_t cmd_size)
 	stack = ft_init_stack();
 	if (g_prompt.prompt_func == heredoc_prompt)
 		ft_push_stack(&stack, DQUOTE);
-	while (++count < cmd_size)
+	while (++count < cmd_size && *ptr)
 	{
 		if (*ptr == DOLLAR && (stack->data == DQUOTE || stack->data == 0))
 			ft_push_stack(&stack, *ptr);

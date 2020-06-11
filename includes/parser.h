@@ -186,11 +186,11 @@ int						ltree_init(t_ltree *final);
 ** File parser_processing.c
 */
 
-int			shift_cmd_substitution(char **lcmd, int start,
-				int end, int len_subst);
-int			shift_techline_substitution(t_tech *tline, int start,
-				int end, int len_subst);
-void		clear_techline(t_tech *techline);
+int						shift_cmd_substitution(char **lcmd, int start,
+							int end, int len_subst);
+int						shift_techline_substitution(t_tech *tline, int start,
+							int end, int len_subst);
+void					clear_techline(t_tech *techline);
 
 /*
 ** File slice_to_blocks.c
@@ -399,6 +399,7 @@ int						ft_find_tilda(t_ltree *sub, int flag);
 int						ft_getdir_by_name(t_ltree *sub, size_t *i, int flag);
 int						ft_get_home(t_ltree *sub, size_t *i, int flag);
 int						ft_find_dir_info(t_ltree *sub, char *user, size_t *i);
+int						ft_find_dir_by_uid(t_ltree *sub, char *uid, size_t *i);
 
 /*
 ** File history_sign.c

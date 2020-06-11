@@ -4,7 +4,6 @@
 #define GET ft_get_buf_line
 #define C_SIZE content_size
 #define G_SIZE 4096
-#define G_CLEAN -42
 
 typedef struct			s_list_fd
 {
@@ -36,7 +35,7 @@ static t_fd_list	*ft_fd_check(int fd, t_fd_list **p)
 
 	if (fd < 0)
 	{
-		if (fd == G_CLEAN)
+		if (fd == GNL_CLEAN)
 			ft_gnl_clean(p);
 		return (NULL);
 	}

@@ -105,7 +105,8 @@ char		*ft_word_to_redir(size_t *i, t_ltree *final, int rew_ff)
 int			ft_word_to_redir_rew(size_t *i, t_ltree *final,
 			long long *size, size_t *start)
 {
-	*i -= 1;
+	if (*i > 0)
+		*i -= 1;
 	while (*i >= final->start && final->l_tline.line[*i] == WORD_P)
 	{
 		if (!(ft_isdigit(final->l_cmd[*i])))
