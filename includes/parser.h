@@ -6,7 +6,6 @@ typedef struct dirent	t_dirent;
 typedef struct stat		t_stat;
 
 # define HEREDOC_BUF 200
-# define TMPFILE_TRY_SIZE 100
 
 /*
 ** Defines for FLAGS
@@ -29,7 +28,26 @@ typedef struct stat		t_stat;
 ** Is used in before_execution.c
 */
 
-# define TMPL "/tmp/tmp42sh_XXXXXX"
+/*
+** This defines needs for usage ft_tmpfile
+*/
+
+# define TMPL "tmp42sh_424242XXXXXX"
+
+# ifndef P_tmpdir
+# define P_tmpdir "/tmp"
+#endif
+
+# ifndef L_tmpnam
+# define L_tmpnam 20
+#endif
+
+# ifndef TMP_MAX
+# define TMP_MAX 2000
+#endif
+
+# define TMPFILE_TRY_SIZE TMP_MAX
+
 
 enum					e_way
 {
@@ -108,8 +126,8 @@ typedef struct  		s_ltree
 
 typedef struct  		s_fd
 {
-	int					fd_out;
-	int					fd_in;
+	int					fd_new;
+	int					fd_old;
 	int					type;
 }              			t_fd_redir;
 
@@ -186,11 +204,11 @@ int						ltree_init(t_ltree *final);
 ** File parser_processing.c
 */
 
-int			shift_cmd_substitution(char **lcmd, int start,
-				int end, int len_subst);
-int			shift_techline_substitution(t_tech *tline, int start,
-				int end, int len_subst);
-void		clear_techline(t_tech *techline);
+int						shift_cmd_substitution(char **lcmd, int start,
+							int end, int len_subst);
+int						shift_techline_substitution(t_tech *tline, int start,
+							int end, int len_subst);
+void					clear_techline(t_tech *techline);
 
 /*
 ** File slice_to_blocks.c
@@ -399,6 +417,7 @@ int						ft_find_tilda(t_ltree *sub, int flag);
 int						ft_getdir_by_name(t_ltree *sub, size_t *i, int flag);
 int						ft_get_home(t_ltree *sub, size_t *i, int flag);
 int						ft_find_dir_info(t_ltree *sub, char *user, size_t *i);
+int						ft_find_dir_by_uid(t_ltree *sub, char *uid, size_t *i);
 
 /*
 ** File history_sign.c
@@ -438,6 +457,16 @@ int						pre_parsing_squote(size_t *i, t_ltree *sub);
 int						pre_parsing_back(size_t *i, t_ltree *sub);
 int						pre_parsing_andor_pipe(size_t *i, t_ltree *sub);
 int						ft_reglue(size_t *i, int num, t_ltree *sub);
+
+/*
+** File pre_parsing_ansi.c
+*/
+
+int						pre_parsing_ansi(size_t *i, t_ltree *sub);
+int						ansi_table_check(char *symbol, size_t *i, t_ltree *sub);
+int						ansi_esc_symbols(char *symbol, size_t *i, t_ltree *sub);
+int						ansi_esc_hex_symbols(char *symbol, size_t *i,
+							t_ltree *sub);
 
 /*
 ** Folder PATH_TREE

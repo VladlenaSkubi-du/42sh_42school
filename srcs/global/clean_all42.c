@@ -23,6 +23,7 @@ int				clean_everything(void)
 	ft_arrdel(g_rdovar);
 	ft_arrdel(g_lovar);
 	ft_arrdel(g_envi);
+	ft_gnl(GNL_CLEAN, NULL);
 	return (0);
 }
 

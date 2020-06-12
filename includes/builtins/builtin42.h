@@ -105,4 +105,10 @@ int				btin_fg(t_ltree *pos);
 
 int				btin_jobs(t_ltree *pos);
 
+/*
+** File bumblebee.c
+*/
+
+int		btin_bumblebee(void);
+
 #endif

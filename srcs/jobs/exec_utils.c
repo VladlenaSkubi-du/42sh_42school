@@ -3,29 +3,6 @@
 #include "builtin42.h"
 #include "builtins_list.h"
 
-char	*get_env(char *var)
-{
-	char	*val;
-	size_t	i;
-	size_t	len;
-
-	val = 0;
-	i = 0;
-	printf("Warning: get_env() is deprecated. Use ft_find_var() instead\n");
-	if (!g_env)
-		return (NULL);
-	len = ft_strlen(var);
-	while (g_env[i])
-	{
-		if (!ft_strncmp(g_env[i], var, len))
-			break;
-		i++;
-	}
-	if (g_env[i])
-		val = ft_strdup(g_env[i] + len + 1);
-	return (val);
-}
-
 /*
 ** So, let's talk about pipes:
 ** 1) If only PIPED_OUT -- create pipe
@@ -89,12 +66,12 @@ int		fd_list_process(t_ltree *pos, int mode)
 		while (fd_list)
 		{
 			redir = (t_fd_redir *)fd_list->content;
-			if (redir->fd_in != CLOSE)
-				dup2(redir->fd_in, redir->fd_out);
+			if (redir->fd_old != CLOSE)
+				dup2(redir->fd_old, redir->fd_new);
 			else
 			{
-				dup2(redir->fd_out, redir->fd_out); //decide, what to do here
-				close(redir->fd_out);
+				dup2(redir->fd_new, redir->fd_new); //decide, what to do here
+				close(redir->fd_new);
 			}
 			fd_list = fd_list->next;
 		}
