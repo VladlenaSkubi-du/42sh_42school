@@ -18,6 +18,7 @@ BUILTIN = \
 			$(BUILTIN_DIR)/unset.c \
 			$(BUILTIN_DIR)/usages.c \
 			$(BUILTIN_DIR)/exsign_btin.c \
+			$(BUILTIN_DIR)/bumblebee.c \
             $(CD) \
 			$(FC)
 
