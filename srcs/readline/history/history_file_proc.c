@@ -19,7 +19,6 @@ int					read_hist_from_file(int fd)
 		g_hist.hist[i] = tmp;
 		i++;
 	}
-	ft_gnl(-42, &tmp);
 	free(tmp);
 	return (i);
 }
