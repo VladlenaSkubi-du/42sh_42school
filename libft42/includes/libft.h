@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 11:48:24 by sschmele          #+#    #+#             */
-/*   Updated: 2020/06/11 17:53:52 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/06/12 15:17:59 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdlib.h>
 
 # include "ft_printf.h"
-
 # define GNL_CLEAN -42
 
 typedef struct			s_list
@@ -212,7 +211,10 @@ int						ft_strchrcmp(const char *s1, const char *s2, char x);
 */
 
 int						ft_atoi(const char *str);
+int						ft_atoi_base(char *str, int str_base);
 int						ft_isdigit(int c);
+int						ft_ishexdigit(char c);
+int						ft_isoctdigit(char c);
 int						ft_isalpha(int c);
 int						ft_isalnum(int c);
 int						ft_isascii(int c);

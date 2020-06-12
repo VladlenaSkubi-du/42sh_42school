@@ -115,6 +115,7 @@ PATH_TREE = \
 QUOTING_DIR = quoting
 QUOTING =	$(PARSER_DIR)/$(QUOTING_DIR)/quote_control.c \
 			$(PARSER_DIR)/$(QUOTING_DIR)/pre_parsing_work.c \
+			$(PARSER_DIR)/$(QUOTING_DIR)/pre_parsing_ansi.c \
 			$(PARSER_DIR)/$(QUOTING_DIR)/quote_control_err.c
 
 REDIRECTION_DIR = redirection

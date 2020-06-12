@@ -158,6 +158,7 @@ enum				e_techline
 	GLUE,
 	TEXT,
 	END_T,
+	SQUOTE_ANSI,
 };
 
 /*
