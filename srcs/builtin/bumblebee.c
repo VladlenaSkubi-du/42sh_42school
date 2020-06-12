@@ -8,7 +8,7 @@ int		btin_bumblebee(void)
 	char	**info;
 	
 	line = NULL;
-	if ((fd = open("srcs/builtin/ft_bumblebee.txt", O_RDONLY)) != -1)
+	if ((fd = open("srcs/builtin/ft_bumblebee", O_RDONLY)) != -1)
 	{
 		while (ft_gnl(fd, &line) > 0)
 		{
