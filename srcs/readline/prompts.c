@@ -6,7 +6,6 @@ int				main_prompt(void)
 	char		*prompt;
 
 	prompt = find_env_value("0");
-	// prompt = "e-bash";
 	ft_putstr_fd("\033[1;31m", STDOUT_FILENO);
 	ft_putstr_fd(prompt, STDOUT_FILENO);
 	ft_putstr_fd("\033[0m", STDOUT_FILENO);
@@ -44,6 +43,13 @@ int				other_prompt(void)
 	g_prompt.prompt_len_real = ft_strlen(prompt);
 	return (0);
 }
+
+/*
+** Here we count pos_x position for the first char in
+** the line. It is done according to the prompt len and
+** the width of the terminal: prompt len can be the same as
+** the terminal width, longer and shorter
+*/
 
 int				count_prompt_len(void)
 {

@@ -31,7 +31,7 @@ int					sreadline_choice(char sy)
 	return (0);
 }
 
-char				*readline_simple(void)
+int 				readline_simple(void)
 {
 	char			c;
 
@@ -41,7 +41,7 @@ char				*readline_simple(void)
 			break ;
 	}
 	ft_putendl_fd(0, STDOUT_FILENO);
-	return (g_rline.cmd);
+	return (0);
 }
 
 int					make_exit(void)
@@ -58,6 +58,7 @@ int					make_exit(void)
 		pos->ar_v[1] = ft_strdup("0");
 		reset_canonical_input();
 		clean_readline42();
+		free(g_rline.cmd);
 		btin_exit(pos);
 	}
 	else if (g_rline.pos == 0 && g_rline.cmd_len == 0 &&

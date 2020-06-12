@@ -76,8 +76,8 @@ int					front_insert_by_letters(char *str, int *pos_x)
 	while (str[i])
 	{
 		front_insert_one_char(str[i], *pos_x, 'c', ORANGE);
-		(*pos_x) = i;
-		if (*pos_x == g_screen.ws_col - 1)
+		(*pos_x)++;
+		if (*pos_x == g_screen.ws_col)
 			*pos_x = 0;
 		i++;
 	}

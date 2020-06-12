@@ -23,5 +23,6 @@ int				sbackspace_proc(void)
 	g_rline.pos--;
 	write(STDOUT_FILENO, "\033[D \033[D", 7);
 	sstr_del_symbol();
+	g_rline.cmd_len--;
 	return (0);
 }

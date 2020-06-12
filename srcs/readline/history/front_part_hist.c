@@ -14,11 +14,11 @@ int					make_ctrl_r_history(void)
 	coincidence = 0;
 	position_cursor_after_line(g_rline.cmd_len);
 	len = 22;
-	g_rline.flag |= AFTER_LINE;
+	g_rline.flag |= AFTER_LINE_HIST;
 	front_insert_by_letters("We search in history: ", &coincidence);
 	find = get_the_answer_hist(&len);
 	clean_output_question(0, pos_back, len, len_x);
-	(find[0] == '\0') ? free(find) : 0;
+	(find && find[0] == '\0') ? free(find) : 0;
 	if (find == NULL || find[0] == '\0')
 		return (OUT);
 	coincidence = find_in_history(find);
@@ -43,11 +43,6 @@ char				*get_the_answer_hist(int *len)
 			return (free_find_hist(&find));
 		if ((c >= 0 && c < 2) || (c >= 4 && c < 32))
 			continue;
-		else if (c == '\003')
-		{
-			signal_ctrl_c_readline(0); //TODO check - there is a problem if ctrl-C and after command print and enter
-			return (free_find_hist(&find));
-		}
 		else if (insert_valid_sy_hist(c,
 			len, &find, &len_find) == 1)
 			return (find);
@@ -60,6 +55,7 @@ char				*get_the_answer_hist(int *len)
 char				*free_find_hist(char **find)
 {
 	free(*find);
+	*find = NULL;
 	return (NULL);
 }
 

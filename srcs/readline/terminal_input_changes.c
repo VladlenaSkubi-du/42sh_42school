@@ -46,6 +46,14 @@ int					mf_protection(void)
 	return ((tmp < 0) ? -1 : 0);
 }
 
+/*
+** Here we change canonical mode to the non-canonical one
+** where we are able to control the input, by turning off the
+** ECHO flag, we start to control the console frontend as well
+** ISIG flag should not be turned off to continue to catch
+** signals (otherwise SIGWINCH) will also be inavailable
+*/
+
 int					set_noncanonical_input(void)
 {
 	struct termios	tty;
