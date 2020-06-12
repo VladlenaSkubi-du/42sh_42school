@@ -114,7 +114,6 @@ char	*path_init(char **exec_av);
 ** File exec_utils.c
 */
 
-char	*get_env(char *var); //delete
 int		exec_clean(char *path, int exit_status, char *msg);
 int		ft_builtins_check(process *p, int flag);
 int		fd_list_process(t_ltree *pos, int mode);

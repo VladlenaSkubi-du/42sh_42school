@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+         #
+#    By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/04 16:34:17 by sschmele          #+#    #+#              #
-#    Updated: 2020/05/25 16:55:29 by vladlenasku      ###   ########.fr        #
+#    Updated: 2020/06/12 15:32:26 by rbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,11 +87,14 @@ MEMORY_FUNCTIONS = ./memory_functions/ft_bzero.c \
 	./memory_functions/ft_memset.c
 
 OTHER_FUNCTIONS = ./other_functions/ft_atoi.c \
+	./other_functions/ft_atoi_base.c \
 	./other_functions/ft_gnl.c \
 	./other_functions/ft_isalnum.c \
 	./other_functions/ft_isalpha.c \
 	./other_functions/ft_isascii.c \
 	./other_functions/ft_isdigit.c \
+	./other_functions/ft_ishexdigit.c \
+	./other_functions/ft_isoctdigit.c \
 	./other_functions/ft_isprint.c \
 	./other_functions/ft_issign.c \
 	./other_functions/ft_nb_root.c \

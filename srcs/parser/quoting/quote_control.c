@@ -20,6 +20,14 @@ int		nullify_comment(char **ptr, t_stack **stack)
 		ft_pop_stack(stack);
 	if (**ptr == EOF)
 		ft_push_stack(stack, EOF);
+	if ((*stack)->data == SQUOTE_ANSI && **ptr != BSLASH && ptr[0][1] == SQUOTE)
+	{
+		ft_pop_stack(stack);
+		**ptr = TEXT;
+		(*ptr)++;
+	}
+	if ((*stack)->data == SQUOTE_ANSI)
+		**ptr = TEXT;
 	return (0);
 }
 
@@ -40,6 +48,13 @@ int		nullify_backslash(char **ptr, t_stack **stack,\
 		&& **ptr == BSLASH && ptr[0][1] == ENTER &&\
 		(size - *count) == 2)
 		ft_push_stack(stack, BSLASH);
+	if (**ptr == DOLLAR && ptr[0][1] == DOLLAR)
+		ptr[0][1] = WORD_P;
+	if (**ptr == DOLLAR && ptr[0][1] == SQUOTE)
+	{
+		ft_push_stack(stack, SQUOTE_ANSI);
+		(*ptr) += 2;
+	}
 	return (0);
 }
 
@@ -109,7 +124,7 @@ int		nullify(char **techline, size_t cmd_size)
 	stack = ft_init_stack();
 	if (g_prompt.prompt_func == heredoc_prompt)
 		ft_push_stack(&stack, DQUOTE);
-	while (++count < cmd_size)
+	while (++count < cmd_size && *ptr)
 	{
 		if (*ptr == DOLLAR && (stack->data == DQUOTE || stack->data == 0))
 			ft_push_stack(&stack, *ptr);
@@ -123,12 +138,5 @@ int		nullify(char **techline, size_t cmd_size)
 		ptr++;
 	}
 		// print_techline(g_cmd, g_techline.line, g_techline.len);
-		
-		// printf("g_cmd nul=%s\n", g_cmd);//печать для проверки
-		// printf("techline cur:");
-		// count = -1;
-		// while (++count <= g_techline.len)
-		// 	printf("%3d", g_techline.line[count]);
-		// printf("\n");
 	return (nullify_promt_check(&stack));
 }
