@@ -52,7 +52,7 @@ static int		ft_insert_in(t_path **root, \
 ** Func insert t_path element by *root element in all conditions
 */
 
-void			insert(char *dp_name, t_path **root, size_t *len)
+void			insert_in_bintree(char *dp_name, t_path **root, size_t *len)
 {
 	t_path	*temp;
 
@@ -93,7 +93,7 @@ void			ft_get_path(char *name_d, t_path **root, size_t *len, \
 		{
 			if (ft_strnequ(dp->d_name, find, str_len) && \
 				ft_strcmp(dp->d_name, ".") && ft_strcmp(dp->d_name, ".."))
-				insert(dp->d_name, root, len);
+				insert_in_bintree(dp->d_name, root, len);
 		}
 		else
 			closedir(dir) == 0 ? dir = NULL : 0;

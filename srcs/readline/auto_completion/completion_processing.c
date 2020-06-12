@@ -41,3 +41,26 @@ int					clear_completion(int flag)
 	}
 	return ((flag == 1) ? incorrect_sequence() : 0);
 }
+
+int					make_one_slash(char **final, int last_slash, char *compl)
+{
+	int				check;
+	int				i;
+	
+	check = last_slash;
+	i = check;
+	while (i >= 0)
+	{
+		if (compl[i] == '/')
+		{
+			i = check;
+			while (i >= 0 && compl[i] == '/')
+				i--;
+			if (i < check)
+				ft_strshift((*final) + check, i - check + 1);
+		}
+		i--;
+		check = i;
+	}
+	return (0);
+}

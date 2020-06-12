@@ -15,8 +15,12 @@ int					ask_output(int total, int buf_lines,
 	int				pos_x_com;
 
 	pos_x_com = 0;
+	len = ft_strlen(find_env_value("0")) +
+		ft_strlen(": display all ") +
+		ft_strlen(" possibilities (") + 
+		ft_strlen(" lines)? [y or n] ");
 	count_comment_len(&total_len, total);
-	len = 20 + 16 + 18 + total_len;
+	len += total_len;
 	count_comment_len(&total_len, buf_lines);
 	len += total_len;
 	print_question_compl(&pos_x_com, total, buf_lines);
@@ -33,7 +37,6 @@ int					print_question_compl(int *pos_x_com, int total,
 	
 	g_rline.flag |= AFTER_LINE;
 	front_insert_by_letters(find_env_value("0"), pos_x_com);
-	// front_insert_by_letters("e-bash: display all ", pos_x_com);
 	front_insert_by_letters(": display all ", pos_x_com);
 	question = ft_itoa(total);
 	front_insert_by_letters(question, pos_x_com);
@@ -104,9 +107,7 @@ int					clean_output_question(int from, int pos_back,
 {
 	int				lines_nb;
 
-	lines_nb = len / g_screen.ws_col + ((from == 0) ? 1 : 0);
-	if ((len + 1) % g_screen.ws_col == 0)
-		lines_nb += 1;
+	lines_nb = len / g_screen.ws_col + 1; //+ ((from == 0) ? 1 : 0);
 	if (lines_nb > 1)
 		position_cursor("UP", 0, lines_nb - 1);
 	position_cursor("ch", 0, 0);
@@ -119,5 +120,5 @@ int					clean_output_question(int from, int pos_back,
 		move_cursor_from_old_position(pos_back, 'l');
 		return (1);
 	}
-	return (1);
+	return (0);
 }

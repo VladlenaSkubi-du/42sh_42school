@@ -1,6 +1,12 @@
 #include "shell42.h"
 #include "shell42.h"
 
+/*
+** Buffer for the inserted cmd-line is of CMD_SIZE in the
+** beginning and grows by the usage of shell - it is freed
+** only after the session is over
+*/
+
 void			init_readline(void)
 {
 	g_rline.cmd = (char *)ft_xmalloc(CMD_SIZE + 1);
@@ -49,9 +55,16 @@ int				start_readline42(int tmp)
 	clean_readline42();
 	// free (final); //для тестов readline
 	free(g_hist.hist[g_hist.last + 1]);
+	clean_termcap();
 	parser(final);
 	return (0);
 }
+
+/*
+** By going to parser, we cut the line: all the spaces
+** and "\n" and "\t" and the buffer that was used in
+** the g_rline structure - to have only the cmd_line
+*/
 
 char			*finalize_cmd(char *cmd)
 {
@@ -65,10 +78,10 @@ char			*finalize_cmd(char *cmd)
 		free(tmp);
 		return (out);
 	}
-	if (g_rline.cmd_len == 0)
-		out = ft_strdup(cmd);
 	else
 		out = ft_strjoin(cmd, "\n");
+	// if (g_rline.cmd_len == 0)
+	// 	out = ft_strdup(cmd);
 	free(tmp);
 	return (out);
 }
