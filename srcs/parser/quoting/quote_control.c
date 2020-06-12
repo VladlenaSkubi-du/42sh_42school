@@ -20,6 +20,14 @@ int		nullify_comment(char **ptr, t_stack **stack)
 		ft_pop_stack(stack);
 	if (**ptr == EOF)
 		ft_push_stack(stack, EOF);
+	if ((*stack)->data == SQUOTE_ANSI && **ptr != BSLASH && ptr[0][1] == SQUOTE)
+	{
+		ft_pop_stack(stack);
+		**ptr = TEXT;
+		(*ptr)++;
+	}
+	if ((*stack)->data == SQUOTE_ANSI)
+		**ptr = TEXT;
 	return (0);
 }
 
@@ -42,6 +50,11 @@ int		nullify_backslash(char **ptr, t_stack **stack,\
 		ft_push_stack(stack, BSLASH);
 	if (**ptr == DOLLAR && ptr[0][1] == DOLLAR)
 		ptr[0][1] = WORD_P;
+	if (**ptr == DOLLAR && ptr[0][1] == SQUOTE)
+	{
+		ft_push_stack(stack, SQUOTE_ANSI);
+		(*ptr) += 2;
+	}
 	return (0);
 }
 

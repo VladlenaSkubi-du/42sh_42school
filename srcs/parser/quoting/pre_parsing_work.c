@@ -73,7 +73,13 @@ int		pre_parsing_squote(size_t *i, t_ltree *sub)
 	char	*end;
 
 	end = sub->l_tline.line;
-	if (end[*i] == SQUOTE)
+	if (end[*i] == DOLLAR && end[*i + 1] == SQUOTE)
+	{
+		ft_reglue(i, 2, sub);
+		pre_parsing_ansi(i, sub);
+		ft_reglue(i, 1, sub);
+	}
+	else if (end[*i] == SQUOTE)
 	{
 		ft_reglue(i, 1, sub);
 		while (end[*i] != SQUOTE)

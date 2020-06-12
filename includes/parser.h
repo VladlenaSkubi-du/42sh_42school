@@ -459,6 +459,16 @@ int						pre_parsing_andor_pipe(size_t *i, t_ltree *sub);
 int						ft_reglue(size_t *i, int num, t_ltree *sub);
 
 /*
+** File pre_parsing_ansi.c
+*/
+
+int						pre_parsing_ansi(size_t *i, t_ltree *sub);
+int						ansi_table_check(char *symbol, size_t *i, t_ltree *sub);
+int						ansi_esc_symbols(char *symbol, size_t *i, t_ltree *sub);
+int						ansi_esc_hex_symbols(char *symbol, size_t *i,
+							t_ltree *sub);
+
+/*
 ** Folder PATH_TREE
 ** ____________________________________________________________________________
 */
