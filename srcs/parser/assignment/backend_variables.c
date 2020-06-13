@@ -18,22 +18,23 @@ int			find_assignment_in_vars(char *sub, size_t var,
 	char	*find;
 	char	*new_var;
 
-	li = -1;
-	sy = -1;
 	find = ft_strndup(sub + var, eq - var);
 	new_var = ft_strndup(sub + var, val - var + 1);
 	if ((li = find_in_variable(&sy, find)) != -1)
 	{
 		if (g_envi[li][0] & READONLY)
 		{
+			free(find);
+			free(new_var);
 			g_envi[li][0] |= ENV_VIS;
 			return (ERR_OUT);
 		}
 		else
-			change_env_value(new_var, li);		
+			if (!change_env_value(new_var, li))
+				free(new_var);		
 	}
-	else
-		add_new_env(new_var);
+	else if (!add_new_env(new_var))
+		free(new_var);
 	free(find);
 	return (0);
 }
