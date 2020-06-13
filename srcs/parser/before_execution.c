@@ -23,12 +23,13 @@ int		before_exec(t_ltree *sub, t_list **list)
 		ft_lst_ltree_clear(&g_start_list);
 		return (OUT);
 	}
-	argv_forming(sub);
 	if (sub->flags & ERR_R)
 		ft_error_redir(sub);
 	if (!sub->envir)
+	{
 		sub->envir = ft_xmalloc(sizeof(char*));
-	form_local_envir(&(sub->envir), 0);
+		form_local_envir(&(sub->envir), 0);
+	}
 	return (0);
 }
 

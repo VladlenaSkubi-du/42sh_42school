@@ -338,14 +338,41 @@ int						ft_colon_check(int *len, char **line,
 							char **oper, size_t *j);
 
 /*
+** File assignment_old.c
+*/
+
+// int						assignment(t_ltree *sub);
+// int						get_assign_and_add(t_ltree *sub, size_t *var,
+// 							size_t *eq, size_t *val);
+// int						it_is_command(t_ltree *sub, size_t *i, size_t *var);
+// int						is_it_argv_n(t_ltree *sub, size_t var);
+
+/*
 ** File assignment.c
 */
 
 int						assignment(t_ltree *sub);
-int						get_assign_and_add(t_ltree *sub, size_t *var,
-							size_t *eq, size_t *val);
-int						it_is_command(t_ltree *sub, size_t *i, size_t *var);
-int						is_it_argv_n(t_ltree *sub, size_t var);
+int						check_kind_assign(t_ltree *sub, int i, int len_arg,
+							char **arg_tline);
+int						is_it_command(t_ltree *sub, int i,
+							char **arg_tline, int eq);
+int						add_new_local_env(t_ltree *sub, int i,
+							char **arg_tline);
+int						assign_local_or_err(t_ltree *sub, char *find,
+							int start);
+
+/*
+** File assignment_local.c
+*/
+
+int						change_var_in_local(t_ltree *sub, char *find,
+							int start);
+int						new_var_in_local(t_ltree *sub, int start);
+int						form_local_str_from_arrays(t_ltree *sub, int i,
+							char **arg_tline);
+int						unset_from_array(char ***arr, int i);
+int						add_vars_to_genvi(t_ltree *sub, char **arg_tline);
+
 
 /*
 ** Folder SUBSTITUTION

@@ -274,11 +274,11 @@ char				**init_exec_environ(void);
 int					insert_assign_to_arrays(char *find, char *insert,
 						char **array);
 int					if_noninteractive(void);
-int					add_to_environment_variables(char *add);
-int					add_to_local_variables(char *add);
-int					add_new_to_exec_env(char ***array, char **add);
-int					unset_from_array(char ***arr, int i);
-int					clean_in_shvar_array(char ***arr, int i, int j);
+// int					add_to_environment_variables(char *add);
+// int					add_to_local_variables(char *add);
+// int					add_new_to_exec_env(char ***array, char **add);
+// int					unset_from_array(char ***arr, int i);
+// int					clean_in_shvar_array(char ***arr, int i, int j);
 int					exit_status_variable(int status);
 
 // NEW

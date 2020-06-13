@@ -5,7 +5,6 @@ int		btin_bumblebee(void)
 {
 	int		fd;
 	char	*line;
-	char	**info;
 	
 	line = NULL;
 	if ((fd = open("srcs/builtin/ft_bumblebee", O_RDONLY)) != -1)

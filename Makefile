@@ -59,7 +59,6 @@ SHELL_VARS_DIR = shell_variables
 SHELL_VARIABLES = \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/environment42.c \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/variables_processing42.c \
-			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/variables_array_processing42.c \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/add_new_value.c \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/form_environment42.c
 
@@ -105,7 +104,8 @@ PARSER = 	$(PARSER_DIR)/before_execution.c \
 ASSIGNMENT_DIR = assignment
 ASSIGNMENT = \
 			$(PARSER_DIR)/$(ASSIGNMENT_DIR)/backend_variables.c \
-			$(PARSER_DIR)/$(ASSIGNMENT_DIR)/assignment.c
+			$(PARSER_DIR)/$(ASSIGNMENT_DIR)/assignment.c \
+			$(PARSER_DIR)/$(ASSIGNMENT_DIR)/assignment_local.c
 
 PATH_TREE_DIR = path_tree
 PATH_TREE = \
