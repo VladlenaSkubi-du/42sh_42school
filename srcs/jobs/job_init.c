@@ -60,6 +60,7 @@ int		process_new(job *jobs, t_ltree *entity)
 	vec_dup(&process_new->argv, entity->ar_v);
 	vec_dup(&process_new->envp, entity->envir);
 	process_new->next = NULL;
+	process_new->btin = ft_builtins_check(process_new, 0) == -1 ? 0 : 1;
 	if (!jobs->first_process)
 	{
 		jobs->com = (process_new->argv)[0];
