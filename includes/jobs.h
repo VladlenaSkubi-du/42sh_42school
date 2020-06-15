@@ -12,6 +12,7 @@ typedef struct  process
     pid_t pid;                  /* process ID */
     char completed;             /* true if process has completed */
     char stopped;               /* true if process has stopped */
+	char btin;
     int status;                 /* reported status value */
 }   process;
 
