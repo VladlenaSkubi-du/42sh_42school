@@ -20,14 +20,14 @@ int		ft_find_var(t_ltree *sub)
 			size = 1;
 			while (i + size < sub->end && sub->l_tline.line[i + size] == WORD_P)
 				size++;
-			find = ft_strndup(&sub->l_cmd[i + 1], size - 1);
+			find = size > 1 ? ft_strndup(&sub->l_cmd[i + 1], size - 1) : NULL;
 			if ((find = ft_find_var_value(&find)) != NULL)
 			{
 				ft_reglue(&i, size - 1, sub);
 				insert_str_in_loc_strs(sub, &find, &i, TEXT);
 			}
-			else
-				ft_reglue(&i, size, sub) == 0 ? i-- : 0;
+			else if (size > 1)
+				ft_reglue(&i, size, sub);
 		}
 	}
 	return (0);
