@@ -48,20 +48,15 @@ typedef struct stat		t_stat;
 
 # define TMPFILE_TRY_SIZE TMP_MAX
 
-
 enum					e_way
 {
 	REW,
 	FF,
-	IN_R,
-	OUT_R,
 	CLOSE = -42,
 	MINUS = 5,
 	CONTINUE,
 	LINE,
 	ASSIGN,
-	LARGE,
-	SMALL
 };
 
 typedef	struct			s_word
@@ -128,7 +123,6 @@ typedef struct  		s_fd
 {
 	int					fd_new;
 	int					fd_old;
-	int					type;
 }              			t_fd_redir;
 
 /*
