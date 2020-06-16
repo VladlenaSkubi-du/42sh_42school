@@ -11,7 +11,6 @@ int		ft_redir_great(t_ltree *final, size_t *i)
 	char		*f_name;
 
 	f_name = NULL;
-	fd_open.type = OUT_R;
 	if (final->l_tline.line[*i] == GTHAN && (final->l_tline.line[*i + 1] != GTHAN &&
 		(final->l_tline.line[*i + 1] != AND || final->l_tline.line[*i + 1] == PIPE)))
 	{
@@ -43,7 +42,6 @@ int		ft_redir_dgreat(t_ltree *final, size_t *i)
 	char		*f_name;
 
 	f_name = NULL;
-	fd_open.type = OUT_R;
 	if (final->l_tline.line[*i] == GTHAN && final->l_tline.line[*i + 1] == GTHAN)
 	{
 		fd_open.fd_new = ft_check_n_redir_op(*i, final, STDOUT_FILENO);
@@ -75,7 +73,6 @@ int		ft_redir_greatand(t_ltree *final, size_t *i)
 	char		*f_name;
 
 	f_name = NULL;
-	fd_open.type = OUT_R;
 	if (final->l_tline.line[*i] == GTHAN && (final->l_tline.line[*i + 1] == AND))
 	{
 		fd_open.fd_new = ft_check_n_redir_op(*i, final, STDOUT_FILENO);
