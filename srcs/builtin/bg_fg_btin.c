@@ -22,7 +22,7 @@ int		back_to_life(job *j)
 {
 	process *p_iter;
 
-	ft_putendl(job_iter->com);
+	ft_putendl(j->com);
 	p_iter = j->first_process;
 	while (p_iter)
 	{
