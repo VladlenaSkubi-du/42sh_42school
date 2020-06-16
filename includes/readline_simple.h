@@ -8,7 +8,7 @@
 ** File readline_simple.c
 */
 
-char				*readline_simple(void);
+int					readline_simple(void);
 int					sreadline_choice(char sy);
 int					bell_sound(void);
 int					make_exit(void);
@@ -21,6 +21,7 @@ int					schar_add(char c);
 int					sstr_add_symbol(char add);
 int					sstr_del_symbol(void);
 int					sstr_edit(char *swap, char add);
+int					sstr_insert(char *swap, int len, int add);
 
 /*
 ** File escape_simple.c

@@ -1,6 +1,12 @@
 #include "shell42.h"
 #include "readline.h"
 
+/*
+** In order to insert something after the cmd-line,
+** history or auto-completion, we need to jump to the end
+** of the cmd-line and to the next line
+*/
+
 int					position_cursor_after_line(int len)
 {
 	if (g_rline.pos == 0 && len == 0)
@@ -12,6 +18,14 @@ int					position_cursor_after_line(int len)
 	}
 	return (0);
 }
+
+/*
+** In order to clean something after the cmd-line,
+** history or auto-completion, we need to jump to the end
+** of the cmd-line and to the next line, clear everything
+** by the temcap code and move cursor to the position
+** it had before clearing
+*/
 
 int					clean_after_line(void)
 {
@@ -32,7 +46,13 @@ int					clean_after_line(void)
 	return (0);
 }
 
-int								clear_whole_line(void)
+/*
+** Does the same as esc-r key sequence but only
+** clears in the back and front
+** Is used internally, for user there is esc-r
+*/
+
+int					clear_whole_line(void)
 {
 	while (g_rline.pos)
 		key_left_proc();

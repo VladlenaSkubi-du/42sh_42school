@@ -29,7 +29,7 @@ t_path				*fill_tree_with_variables(char *complete, int *total)
 			name = ft_strndup(g_envi[i] + 1,
 					ft_strchri(g_envi[i] + 1, '='));
 			if (ft_strnequ(name, complete, len))
-				insert(name, &root, (size_t*)total);
+				insert_in_bintree(name, &root, (size_t*)total);
 			free(name);
 		}
 		i++;
@@ -46,10 +46,10 @@ char				**get_arguments(char **complete,
 	int				tmp;
 	t_path			*root;
 
-	tmp = ft_strchri(*complete, '/');
+	tmp = ft_strrchri(*complete, '/');
 	path = find_path_compl(*complete, tmp);
 	compl = (tmp >= 0 && tmp < ft_strlen(*complete))
-			? ft_strdup(*complete + tmp + 1) : NULL;
+			? ft_strdup(*complete + tmp + 1) : ft_strdup(*complete);
 	if (compl != NULL)
 	{
 		free(*complete);
@@ -70,26 +70,23 @@ char				**get_arguments(char **complete,
 char				*find_path_compl(char *compl, int tmp)
 {
 	char			*path;
-	int				i;
-	int				j;
+	char			*temp;
 
 	if (g_rline.pos == 0)
 		return (NULL);
-	if (compl && compl[0] && tmp != -1)
+	if (compl && compl[0] && tmp >= 0)
 	{
-		i = g_rline.pos - 1;
-		while (i > 0 && (ft_isalnum(g_rline.cmd[i]) || g_rline.cmd[i] == '.' ||
-			g_rline.cmd[i] == '/' || g_rline.cmd[i] == '_'))
-			i--;
-		j = g_rline.pos - 1;
-		while (j > 0 && (ft_isalnum(g_rline.cmd[j])
-			|| g_rline.cmd[j] == '.'))
+		temp = (tmp == 0) ? ft_strdup("/") : ft_strndup(compl, tmp + 1);
+		if (ft_isalnum(compl[0]))
 		{
-			if (g_rline.cmd[j] == '/')
-				break ;
-			j--;
+			path = ft_strjoin("./", temp);
+			free(temp);
 		}
-		path = ft_strndup(g_rline.cmd + i + 1, j - i);
+		else
+		{
+			make_one_slash(&temp, tmp, compl);
+			path = temp;
+		}
 	}
 	else
 		path = ft_strdup("./");
@@ -118,7 +115,7 @@ t_path				*fill_tree_with_arguments(char *path,
 			ft_isprint(entry->d_name[0]) == 0)
 			continue ;
 		if (ft_strnequ(entry->d_name, complete, len))
-			insert(entry->d_name, &root, (size_t*)total);
+			insert_in_bintree(entry->d_name, &root, (size_t*)total);
 	}
 	closedir(dir_name);
 	return (root);

@@ -1,11 +1,10 @@
 #include "shell42.h"
 #include "readline.h"
 
-char	*readline(void)
+int		readline(void)
 {
 	char	temp[10];
 
-	init_termcap();
 	while (read(STDIN_FILENO, temp, 1) > 0 && *temp != '\n')
 	{
 		if (readline_choice(*temp) == OUT)
@@ -20,7 +19,7 @@ char	*readline(void)
 	else
 		ft_putendl_fd(0, STDOUT_FILENO);
 	action_alloc_management(NULL, 1);
-	return (g_rline.cmd);
+	return (0);
 }
 
 /*
@@ -47,9 +46,15 @@ int		readline_choice(char sy)
 	return (0);
 }
 
+/*
+** You can come to route_exit when you push ctrl-D
+** Depending on the prompt you are in (main, dquote and so on),
+** you will exit the program or get a syntax error
+*/
+
 int		route_exit(void)
 {
-	t_ltree	*pos;
+	t_ltree		*pos;
 	
 	check_after_line();
 	if (g_prompt.prompt_func == main_prompt)
@@ -85,8 +90,9 @@ int		incorrect_sequence(void)
 }
 
 /*
-** After any key except of TAB is pushed, the menu under the line
-** is cleared
+** After any key except of TAB is pushed, the menu under
+** the line is cleared
+** The same happends with the comments under the line
 */
 
 int		check_after_line(void)
@@ -97,10 +103,12 @@ int		check_after_line(void)
 		g_rline.flag &= ~TAB;
 		clear_completion(0);
 	}
-	else if (g_rline.flag & AFTER_LINE)
+	else if ((g_rline.flag & AFTER_LINE) ||
+			(g_rline.flag & AFTER_LINE_HIST))
 	{
 		clean_after_line();
 		g_rline.flag &= ~AFTER_LINE;
+		g_rline.flag &= ~AFTER_LINE_HIST;
 	}
 	return (0);
 }
