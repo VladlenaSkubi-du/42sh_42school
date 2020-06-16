@@ -48,6 +48,15 @@ typedef struct stat		t_stat;
 
 # define TMPFILE_TRY_SIZE TMP_MAX
 
+/*
+** @REW, @FF - flags used in rediretion to switch direction of find WORD
+** @CLOSE - flag used in redirection to set fd like closed
+** @MINUS - flag used in here-document to set "-" to delete tabs
+** @CONTINUE - flag in t_ltree->flags to set block compile
+** @LINE, @ASSIGN - used to choose mode of tilda expantion - like in line or in
+** asssignment like "PATH=$PATH:~/dir"
+*/
+
 enum					e_way
 {
 	REW,
@@ -124,22 +133,6 @@ typedef struct  		s_fd
 	int					fd_new;
 	int					fd_old;
 }              			t_fd_redir;
-
-/*
-** Struct to save and work with env
-** flag needs to know main list
-*/
-
-typedef struct  		s_block
-{
-	char				*name;
-	char				*path;
-	struct s_block		*next;
-	struct s_block		*prev;
-	struct s_block		*down;
-	struct s_block		*up;
-	char				flag;
-}               		t_block;
 
 /*
 ** Struct to save and work with PATH
