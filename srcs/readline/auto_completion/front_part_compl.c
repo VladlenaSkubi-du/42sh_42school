@@ -56,7 +56,7 @@ int					print_menu_more_than_terminal(int pos_back,
 		if (g_compl.menu[i] && g_compl.menu[i][0])
 			buffer_col_print(g_compl.menu[i], &g_compl.menu_buffer);
 	after_big_menu(pos_back, len_x, len_y);
-	return (0);
+	return (1);
 }
 
 int					print_menu_buf_after_insert(int pos_back)

@@ -495,7 +495,7 @@ char					**ft_path_pars(char *find, char *path,
 							size_t *total, int *size_max);
 void					ft_get_path(char *name, t_path **root,
 							size_t *len, char *find);
-void					insert(char *dp_name, t_path **root, size_t *len);
+void					insert_in_bintree(char *dp_name, t_path **root, size_t *len);
 
 /*
 ** File ft_path_help.c

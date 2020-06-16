@@ -47,7 +47,7 @@ int				sescape_check(char **seq_base)
 
 int				sesc_left(void)
 {
-	if (g_rline.pos == 0)
+	if (g_rline.pos < 1)
 		return (bell_sound());
 	g_rline.pos--;
 	write(STDOUT_FILENO, "\033[D", 3);
@@ -57,7 +57,7 @@ int				sesc_left(void)
 int				sesc_right(void)
 {
 	if (g_rline.pos >= g_rline.cmd_len ||
-		g_rline.pos + g_prompt.prompt_len == g_screen.ws_col)
+		g_rline.pos + g_prompt.prompt_len >= g_screen.ws_col)
 		return (bell_sound());
 	g_rline.pos++;
 	write(STDOUT_FILENO, "\033[C", 3);

@@ -31,10 +31,8 @@ int		setstream(int src, int dest)
 void	launch_process(process *p, pid_t pgid, int stream[3], int foreground)
 {
 	pid_t	pid;
-	int		chk;
 
-	chk = ft_builtins_check(p, 0);
- 	if (chk == -1 && g_is_interactive)
+ 	if (!p->btin && g_is_interactive)
 	{
 		pid = getpid();
 		if (pgid == 0) pgid = pid;
@@ -47,8 +45,8 @@ void	launch_process(process *p, pid_t pgid, int stream[3], int foreground)
 	(stream[0] != STDIN_FILENO) && setstream(stream[0], STDIN_FILENO);
 	(stream[1] != STDOUT_FILENO) && setstream(stream[1], STDOUT_FILENO);
 	(stream[2] != STDERR_FILENO) && setstream(stream[2], STDERR_FILENO);
-	chk != -1 ? ft_builtins_check(p, 1) : exec_vp(p);
+	p->btin ? ft_builtins_check(p, 1) : exec_vp(p);
 	exec_clean(g_path, 0, 0);
-	chk == -1 ? exit(1) : 0;
+	!p->btin ? exit(1) : 0;
 	std_save(1);
 }

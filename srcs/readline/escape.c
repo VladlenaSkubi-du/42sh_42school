@@ -48,6 +48,15 @@ int		escape_init(void)
 	return (escape_check(seq_base));
 }
 
+/*
+** When we push a button that has a more than a 1-char-sequence
+** under it, the first read in the readline-function catches
+** only the first char from the sequence. All the other are saved
+** in a buffer and can be read after here. If the sequence
+** is the same as saved in the array @seq_base - it will be
+** directed to the right function ot perform the action
+*/
+
 int		escape_check(char **seq_base)
 {
 	int		i;
