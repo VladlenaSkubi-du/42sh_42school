@@ -20,6 +20,7 @@ typedef struct stat		t_stat;
 # define LOG_OR_IN		0x00000040U
 # define LOG_OR_OUT		0x00000080U
 # define GR_START		0x00000100U
+# define ERR_EXSIGN		0x00000800U
 # define ERR_IN			0x40000000U
 # define ERR_R			0x20000000U
 # define ERR_CONT		0x08000000U
