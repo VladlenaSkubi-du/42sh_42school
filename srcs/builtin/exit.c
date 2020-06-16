@@ -10,7 +10,6 @@ int				btin_exit(t_ltree *pos)
 		status = btin_exit_arguments(pos->ar_v);
 	else
 		status = 0;
-	ft_one_ltree_clear(pos);
 	fill_hist_in_file();
 	clean_everything();
 	exit(status);
