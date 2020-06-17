@@ -6,7 +6,6 @@ typedef struct dirent	t_dirent;
 typedef struct stat		t_stat;
 
 # define HEREDOC_BUF 200
-# define TMPFILE_TRY_SIZE 100
 
 /*
 ** Defines for FLAGS
@@ -21,6 +20,7 @@ typedef struct stat		t_stat;
 # define LOG_OR_IN		0x00000040U
 # define LOG_OR_OUT		0x00000080U
 # define GR_START		0x00000100U
+# define ERR_EXSIGN		0x00000800U
 # define ERR_IN			0x40000000U
 # define ERR_R			0x20000000U
 # define ERR_CONT		0x08000000U
@@ -29,21 +29,44 @@ typedef struct stat		t_stat;
 ** Is used in before_execution.c
 */
 
-# define TMPL "/tmp/tmp42sh_XXXXXX"
+/*
+** This defines needs for usage ft_tmpfile
+*/
+
+# define TMPL "tmp42sh_424242XXXXXX"
+
+# ifndef P_tmpdir
+# define P_tmpdir "/tmp"
+#endif
+
+# ifndef L_tmpnam
+# define L_tmpnam 20
+#endif
+
+# ifndef TMP_MAX
+# define TMP_MAX 2000
+#endif
+
+# define TMPFILE_TRY_SIZE TMP_MAX
+
+/*
+** @REW, @FF - flags used in rediretion to switch direction of find WORD
+** @CLOSE - flag used in redirection to set fd like closed
+** @MINUS - flag used in here-document to set "-" to delete tabs
+** @CONTINUE - flag in t_ltree->flags to set block compile
+** @LINE, @ASSIGN - used to choose mode of tilda expantion - like in line or in
+** asssignment like "PATH=$PATH:~/dir"
+*/
 
 enum					e_way
 {
 	REW,
 	FF,
-	IN_R,
-	OUT_R,
 	CLOSE = -42,
 	MINUS = 5,
 	CONTINUE,
 	LINE,
 	ASSIGN,
-	LARGE,
-	SMALL
 };
 
 typedef	struct			s_word
@@ -108,26 +131,9 @@ typedef struct  		s_ltree
 
 typedef struct  		s_fd
 {
-	int					fd_out;
-	int					fd_in;
-	int					type;
+	int					fd_new;
+	int					fd_old;
 }              			t_fd_redir;
-
-/*
-** Struct to save and work with env
-** flag needs to know main list
-*/
-
-typedef struct  		s_block
-{
-	char				*name;
-	char				*path;
-	struct s_block		*next;
-	struct s_block		*prev;
-	struct s_block		*down;
-	struct s_block		*up;
-	char				flag;
-}               		t_block;
 
 /*
 ** Struct to save and work with PATH
@@ -181,6 +187,16 @@ int						parser(char *line);
 int						pars_lex_exec(int tmp);
 int						ft_get_techline(char *cmd, t_tech *result);
 int						ltree_init(t_ltree *final);
+
+/*
+** File parser_processing.c
+*/
+
+int						shift_cmd_substitution(char **lcmd, int start,
+							int end, int len_subst);
+int						shift_techline_substitution(t_tech *tline, int start,
+							int end, int len_subst);
+void					clear_techline(t_tech *techline);
 
 /*
 ** File slice_to_blocks.c
@@ -310,14 +326,41 @@ int						ft_colon_check(int *len, char **line,
 							char **oper, size_t *j);
 
 /*
+** File assignment_old.c
+*/
+
+// int						assignment(t_ltree *sub);
+// int						get_assign_and_add(t_ltree *sub, size_t *var,
+// 							size_t *eq, size_t *val);
+// int						it_is_command(t_ltree *sub, size_t *i, size_t *var);
+// int						is_it_argv_n(t_ltree *sub, size_t var);
+
+/*
 ** File assignment.c
 */
 
 int						assignment(t_ltree *sub);
-int						get_assign_and_add(t_ltree *sub, size_t *var,
-							size_t *eq, size_t *val);
-int						it_is_command(t_ltree *sub, size_t *i, size_t *var);
-int						is_it_argv_n(t_ltree *sub, size_t var);
+int						check_kind_assign(t_ltree *sub, int i, int len_arg,
+							char **arg_tline);
+int						is_it_command(t_ltree *sub, int i,
+							char **arg_tline, int eq);
+int						add_new_local_env(t_ltree *sub, int i,
+							char **arg_tline);
+int						assign_local_or_err(t_ltree *sub, char *find,
+							int start);
+
+/*
+** File assignment_local.c
+*/
+
+int						change_var_in_local(t_ltree *sub, char *find,
+							int start);
+int						new_var_in_local(t_ltree *sub, int start);
+int						form_local_str_from_arrays(t_ltree *sub, int i,
+							char **arg_tline);
+int						unset_from_array(char ***arr, int i);
+int						add_vars_to_genvi(t_ltree *sub, char **arg_tline);
+
 
 /*
 ** Folder SUBSTITUTION
@@ -389,6 +432,7 @@ int						ft_find_tilda(t_ltree *sub, int flag);
 int						ft_getdir_by_name(t_ltree *sub, size_t *i, int flag);
 int						ft_get_home(t_ltree *sub, size_t *i, int flag);
 int						ft_find_dir_info(t_ltree *sub, char *user, size_t *i);
+int						ft_find_dir_by_uid(t_ltree *sub, char *uid, size_t *i);
 
 /*
 ** File history_sign.c
@@ -430,6 +474,16 @@ int						pre_parsing_andor_pipe(size_t *i, t_ltree *sub);
 int						ft_reglue(size_t *i, int num, t_ltree *sub);
 
 /*
+** File pre_parsing_ansi.c
+*/
+
+int						pre_parsing_ansi(size_t *i, t_ltree *sub);
+int						ansi_table_check(char *symbol, size_t *i, t_ltree *sub);
+int						ansi_esc_symbols(char *symbol, size_t *i, t_ltree *sub);
+int						ansi_esc_hex_symbols(char *symbol, size_t *i,
+							t_ltree *sub);
+
+/*
 ** Folder PATH_TREE
 ** ____________________________________________________________________________
 */
@@ -442,7 +496,7 @@ char					**ft_path_pars(char *find, char *path,
 							size_t *total, int *size_max);
 void					ft_get_path(char *name, t_path **root,
 							size_t *len, char *find);
-void					insert(char *dp_name, t_path **root, size_t *len);
+void					insert_in_bintree(char *dp_name, t_path **root, size_t *len);
 
 /*
 ** File ft_path_help.c

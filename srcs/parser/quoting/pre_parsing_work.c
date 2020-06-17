@@ -73,7 +73,13 @@ int		pre_parsing_squote(size_t *i, t_ltree *sub)
 	char	*end;
 
 	end = sub->l_tline.line;
-	if (end[*i] == SQUOTE)
+	if (end[*i] == DOLLAR && end[*i + 1] == SQUOTE)
+	{
+		ft_reglue(i, 2, sub);
+		pre_parsing_ansi(i, sub);
+		ft_reglue(i, 1, sub);
+	}
+	else if (end[*i] == SQUOTE)
 	{
 		ft_reglue(i, 1, sub);
 		while (end[*i] != SQUOTE)
@@ -116,11 +122,6 @@ int		pre_parsing_cut_glue(t_ltree *sub)
 			ft_reglue(&i, 1, sub);
 		i++;
 	}
-		// printf("techline pre:");//печать для проверки
-		// i = -1;
-		// while (++i < sub->l_tline.len + 1)
-		// 	printf("%3d", sub->l_tline.line[i]);
-		// printf("\n");
-		// printf("l_cmd pre=%s<end\n", sub->l_cmd);
+		// print_techline(sub->l_cmd, sub->l_tline.line, sub->l_tline.len);
 	return (0);
 }

@@ -14,7 +14,7 @@ int			btin_set(void)
 	i = -1;
 	while (g_envi[++i])
 		if (g_envi[i][0] && (g_envi[i][0] & SET_VIS))
-			insert(g_envi[i] + 1, &root, &len);
+			insert_in_bintree(g_envi[i] + 1, &root, &len);
 	list = ft_add_block(&root, len, &i);
 	ft_path_free(&root);
 	i = -1;

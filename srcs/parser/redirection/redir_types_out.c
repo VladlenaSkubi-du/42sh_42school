@@ -11,16 +11,15 @@ int		ft_redir_great(t_ltree *final, size_t *i)
 	char		*f_name;
 
 	f_name = NULL;
-	fd_open.type = OUT_R;
 	if (final->l_tline.line[*i] == GTHAN && (final->l_tline.line[*i + 1] != GTHAN &&
 		(final->l_tline.line[*i + 1] != AND || final->l_tline.line[*i + 1] == PIPE)))
 	{
-		fd_open.fd_out = ft_check_n_redir_op(*i, final, STDOUT_FILENO);
+		fd_open.fd_new = ft_check_n_redir_op(*i, final, STDOUT_FILENO);
 		ft_null_redir(final, *i, 1);
 		(*i)++;
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 		{
-			if ((fd_open.fd_in = open(f_name, O_CREAT | O_WRONLY | O_TRUNC |
+			if ((fd_open.fd_old = open(f_name, O_CREAT | O_WRONLY | O_TRUNC |
 			O_CLOEXEC | O_SYNC | O_NOCTTY, S_IRUSR | S_IWUSR)) == -1)
 				return (ft_access_check(&f_name, final, i, W_OK));
 			else
@@ -43,15 +42,14 @@ int		ft_redir_dgreat(t_ltree *final, size_t *i)
 	char		*f_name;
 
 	f_name = NULL;
-	fd_open.type = OUT_R;
 	if (final->l_tline.line[*i] == GTHAN && final->l_tline.line[*i + 1] == GTHAN)
 	{
-		fd_open.fd_out = ft_check_n_redir_op(*i, final, STDOUT_FILENO);
+		fd_open.fd_new = ft_check_n_redir_op(*i, final, STDOUT_FILENO);
 		ft_null_redir(final, *i, 2);
 		(*i) += 2;
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 		{
-			if ((fd_open.fd_in = open(f_name, O_CREAT | O_WRONLY | O_APPEND |
+			if ((fd_open.fd_old = open(f_name, O_CREAT | O_WRONLY | O_APPEND |
 				O_CLOEXEC | O_SYNC | O_NOCTTY, S_IRUSR | S_IWUSR)) == -1)
 				return (ft_access_check(&f_name, final, i, W_OK));
 			else
@@ -75,10 +73,9 @@ int		ft_redir_greatand(t_ltree *final, size_t *i)
 	char		*f_name;
 
 	f_name = NULL;
-	fd_open.type = OUT_R;
 	if (final->l_tline.line[*i] == GTHAN && (final->l_tline.line[*i + 1] == AND))
 	{
-		fd_open.fd_out = ft_check_n_redir_op(*i, final, STDOUT_FILENO);
+		fd_open.fd_new = ft_check_n_redir_op(*i, final, STDOUT_FILENO);
 		ft_null_redir(final, *i, 2);
 		(*i) += 2;
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)

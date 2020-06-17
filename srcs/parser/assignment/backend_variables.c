@@ -13,30 +13,29 @@
 int			find_assignment_in_vars(char *sub, size_t var,
 				size_t eq, size_t val)
 {
-	size_t		li;
-	size_t		sy;
-	char		*find;
+	int		li;
+	int		sy;
+	char	*find;
+	char	*new_var;
 
-	li = -1;
-	sy = -1;
 	find = ft_strndup(sub + var, eq - var);
-	if ((li = find_in_variables(g_rdovar, &sy, find)) != -1)
-		return (ERR_OUT);
-	if ((li = find_in_variables(g_env, &sy, find)) != -1)
-		return (insert_assign_to_arrays(find, ft_strndup(sub + var,
-			val - var + 1),	&g_env[li]));
-	else if ((li = find_in_variables(g_shvar, &sy, find)) != -1)
+	new_var = ft_strndup(sub + var, val - var + 1);
+	if ((li = find_in_variable(&sy, find)) != -1)
 	{
-		insert_assign_to_arrays(find, ft_strndup(sub + var, val - var + 1),
-			&g_shvar[li]);
-		return (check_if_histsize_changed());
+		if (g_envi[li][0] & READONLY)
+		{
+			free(find);
+			free(new_var);
+			g_envi[li][0] |= ENV_VIS;
+			return (ERR_OUT);
+		}
+		else
+			if (!change_env_value(new_var, li))
+				free(new_var);		
 	}
-	else if ((li = find_in_variables(g_lovar, &sy, find)) != -1)
-		return (insert_assign_to_arrays(find, ft_strndup(sub + var,
-			val - var + 1), &g_lovar[li]));
+	else if (!add_new_env(new_var))
+		free(new_var);
 	free(find);
-	find = ft_strndup(sub + var, val - var + 1);
-	add_to_local_variables(find); //TODO доделать
 	return (0);
 }
 

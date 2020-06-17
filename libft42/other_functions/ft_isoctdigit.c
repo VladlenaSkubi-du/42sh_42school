@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_arrdel.c                                        :+:      :+:    :+:   */
+/*   ft_isoctdigit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/01 20:18:33 by sschmele          #+#    #+#             */
-/*   Updated: 2020/06/13 21:32:53 by rbednar          ###   ########.fr       */
+/*   Created: 2020/06/12 15:17:28 by rbednar           #+#    #+#             */
+/*   Updated: 2020/06/12 15:17:43 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void			ft_arrdel(char **arr)
+int		ft_isoctdigit(char c)
 {
-	int			i;
-
-	if (arr == NULL)
-		return ;
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-	arr = NULL;
+	if (c >= '0' && c <= '7')
+		return (1);
+	return (0);
 }

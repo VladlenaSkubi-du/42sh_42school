@@ -34,8 +34,8 @@ int				main(int argc, char **argv)
 
 int				interactive_shell(void)
 {
-	char		*termtype;
-	char		room_termtype[100];
+	char		*termtype; 
+	char		room_termtype[10];
 	int			tmp;
 	// pid_t		group_pid;
 
@@ -51,8 +51,9 @@ int				interactive_shell(void)
 		termtype = getenv("TERM");
 		termtype = (termtype == NULL) ? "xterm-256color" : termtype;
 		tmp = tgetent(room_termtype, termtype);
+		init_termcap();
 		start_readline42(tmp);
-		ft_bzero(room_termtype, 100);
+		ft_bzero(room_termtype, 10);
 	}
 	return (0);
 }

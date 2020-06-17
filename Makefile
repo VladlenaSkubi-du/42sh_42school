@@ -18,6 +18,7 @@ BUILTIN = \
 			$(BUILTIN_DIR)/unset.c \
 			$(BUILTIN_DIR)/usages.c \
 			$(BUILTIN_DIR)/exsign_btin.c \
+			$(BUILTIN_DIR)/bumblebee.c \
             $(CD) \
 			$(FC) \
 			$(EXPORT)
@@ -54,6 +55,7 @@ GLOBAL = 	$(GLOBAL_DIR)/clean_all42.c \
 			$(GLOBAL_DIR)/options_proc42.c \
 			$(GLOBAL_DIR)/options_42sh_42.c \
 			$(GLOBAL_DIR)/signals_processing42.c \
+			$(GLOBAL_DIR)/print_parser_processing.c \
 			$(SHELL_VARIABLES) \
 			$(ERRORS_HANDLER) \
 			$(UNIX_FUNCTIONS)
@@ -62,7 +64,6 @@ SHELL_VARS_DIR = shell_variables
 SHELL_VARIABLES = \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/environment42.c \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/variables_processing42.c \
-			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/variables_array_processing42.c \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/add_new_value.c \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/form_environment42.c
 
@@ -98,6 +99,7 @@ PARSER = 	$(PARSER_DIR)/before_execution.c \
 			$(PARSER_DIR)/find_spec.c \
 			$(PARSER_DIR)/parser42.c \
 			$(PARSER_DIR)/slice_to_blocks.c \
+			$(PARSER_DIR)/parser_processing.c \
 			$(ASSIGNMENT) \
 			$(PATH_TREE) \
 			$(QUOTING) \
@@ -107,7 +109,8 @@ PARSER = 	$(PARSER_DIR)/before_execution.c \
 ASSIGNMENT_DIR = assignment
 ASSIGNMENT = \
 			$(PARSER_DIR)/$(ASSIGNMENT_DIR)/backend_variables.c \
-			$(PARSER_DIR)/$(ASSIGNMENT_DIR)/assignment.c
+			$(PARSER_DIR)/$(ASSIGNMENT_DIR)/assignment.c \
+			$(PARSER_DIR)/$(ASSIGNMENT_DIR)/assignment_local.c
 
 PATH_TREE_DIR = path_tree
 PATH_TREE = \
@@ -118,6 +121,7 @@ PATH_TREE = \
 QUOTING_DIR = quoting
 QUOTING =	$(PARSER_DIR)/$(QUOTING_DIR)/quote_control.c \
 			$(PARSER_DIR)/$(QUOTING_DIR)/pre_parsing_work.c \
+			$(PARSER_DIR)/$(QUOTING_DIR)/pre_parsing_ansi.c \
 			$(PARSER_DIR)/$(QUOTING_DIR)/quote_control_err.c
 
 REDIRECTION_DIR = redirection
@@ -156,7 +160,6 @@ READLINE = 	$(READLINE_DIR)/colors.c \
 			$(READLINE_DIR)/rline_cmd_processing.c \
 			$(READLINE_DIR)/termcap_usage.c \
 			$(READLINE_DIR)/terminal_input_changes.c \
-			$(READLINE_DIR)/undo_yank_call.c \
 			$(READLINE_DIR)/undo.c \
 			$(READLINE_SIMPLE) \
 			$(KEY_ACTIONS) \

@@ -63,7 +63,7 @@ void			action_pull(t_action_stack **start, int *num)
 	if (start && *start)
 	{
 		temp = *start;
-		esc_r();
+		clear_whole_line();
 		i = -1;
 		while ((*start)->cmd_b[++i])
 			char_add_without_undo((*start)->cmd_b[i], NULL);

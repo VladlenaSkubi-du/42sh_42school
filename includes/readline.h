@@ -4,22 +4,23 @@
 
 # include "readline_simple.h"
 
-# define TERMCAP_SIZE 	20
-# define CMD_SIZE		100
+# define TERMCAP_SIZE 		20
+# define CMD_SIZE			100
 
-# define TAB			0x1
-# define NEW_LINE_SY	0x2
-# define NEW_LINE_TE	0x4
-# define AFTER_LINE		0x8
-# define PROMPTLEN_ZERO	0x10
+# define TAB				0x1
+# define NEW_LINE_SY		0x2
+# define NEW_LINE_TE		0x4
+# define AFTER_LINE			0x8
+# define AFTER_LINE_HIST	0x10
+# define PROMPTLEN_ZERO		0x20
 
-# define RED			"\033[31m"
-# define ORANGE			"\033[38;5;208m"
-# define YELLOW			"\033[33m"
-# define GREEN			"\033[32m"
-# define BLUE			"\033[36m"
-# define PURPLE			"\033[35m"
-# define DEFAULT		"\033[0m"
+# define RED				"\033[31m"
+# define ORANGE				"\033[38;5;208m"
+# define YELLOW				"\033[33m"
+# define GREEN				"\033[32m"
+# define BLUE				"\033[36m"
+# define PURPLE				"\033[35m"
+# define DEFAULT			"\033[0m"
 
 /*
 ** Structures
@@ -175,7 +176,7 @@ int								init_termcap(void);
 ** File readline.c - the beginning of the work with readline
 */
 
-char							*readline(void);
+int								readline(void);
 int								readline_choice(char sy);
 int								route_exit(void);
 int								incorrect_sequence(void);
@@ -242,6 +243,7 @@ int								front_write_one_char(char c, char *color);
 
 int								position_cursor_after_line(int len);
 int								clean_after_line(void);
+int								clear_whole_line(void);
 
 /*
 ** File colors.c
@@ -265,15 +267,9 @@ int								sequence_process(int sequence_num);
 
 int								ctrl_key(char sy);
 int								ctrl_process(char *ctrl_base, char sy);
-int								ctrl_call(size_t call_num);
-
-/*
-** File undo_yank_call.c
-*/
-
-int								make_ctrl_x(void);
+int								ctrl_call(int call_num);
 int								undo_wrap(void);
-int								make_ctrl_p_wrap(void);
+int								make_ctrl_x(void);
 
 /*
 ** File undo.c
@@ -301,6 +297,7 @@ int								backspace_process(void);
 int								backspace_newline(char *swap, int len_swap);
 int								delete_process(void);
 int								delete_till_compl(int delete);
+int								esc_r(void);
 
 /*
 ** File arrow_keys.c
@@ -328,7 +325,7 @@ int								make_ctrl_t_begend(int len);
 
 int								esc_d(void);
 int								make_ctrl_w(void);
-int								esc_r(void);
+int								make_ctrl_p_wrap(void);
 int								make_ctrl_p(int mode, char *yank);
 int								paste_insert(char *yank_str);
 
@@ -393,6 +390,7 @@ int								insert_word_by_cases_compl(int *delete, int flag,
 
 int								init_completion(void);
 int								clear_completion(int flag);
+int								make_one_slash(char **final, int last_slash, char *compl);
 
 /*
 ** File analyse_line_compl.c
@@ -400,12 +398,12 @@ int								clear_completion(int flag);
 
 int								analyse_techline_compl(char *compl,
 									char *tech_line, int len, int *pool);
-int								pass_symbols(char *compl, char *tech,
+int								pass_symbols_compl(char *compl, char *tech,
 									int i, int *pool);
+int								check_path_pool_three_compl(char *compl, char *tech,
+									int *pool, int i);
 int								route_to_pools(char *tech, int i,
 									int *pool);
-int								route_to_arguments(char *compl,
-									int i, int *pool);
 
 /*
 ** File menu_receipt_compl.c
@@ -447,15 +445,6 @@ int								after_big_menu(int pos_back,
 int								count_comment_len(int *find, int num);
 int								clean_output_question(int from, int pos_back,
 									int len, int len_x);
-
-/*
-** File path_processing_compl.c
-*/
-
-int								insert_variables_to_tree(char *array,
-									char *complete, t_path **root, int *total); //DELETE
-char							*path_parse_compl(void); //DELETE
-int								clean_menu_buf(void); //to DELETE
 
 /*
 ** File output_buffer_compl.c

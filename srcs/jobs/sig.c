@@ -1,7 +1,11 @@
 #include "shell42.h"
 #include "jobs.h"
 
-/* Call this handler in case SIGCHLD is raised */
+/*
+** Async job control. Updates information according to returned status and per-
+** forms cleanup if it is allowed
+*/
+
 void	child_handler(int sig)
 {
 	int		child_pid;

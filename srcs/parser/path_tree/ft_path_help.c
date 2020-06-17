@@ -47,7 +47,7 @@ int			ft_input_builtins(t_path **root, size_t *len, char *find)
 	while (g_builtins[i])
 	{
 		if (ft_strnequ(g_builtins[i], find, str_len))
-			insert(g_builtins[i], root, len);
+			insert_in_bintree(g_builtins[i], root, len);
 		i++;
 	}
 	return (0);
