@@ -2,6 +2,8 @@
 #ifndef SHELL42_H
 # define SHELL42_H
 
+# define _DEFAULT_SOURCE 1
+
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/types.h>
@@ -156,6 +158,7 @@ enum				e_techline
 	GLUE,
 	TEXT,
 	END_T,
+	SQUOTE_ANSI,
 };
 
 /*
@@ -248,6 +251,13 @@ int					clean_parser42(void);
 int					clean_termcap(void);
 
 /*
+** File print_parser_processing.c
+*/
+
+void				print_techline(char *cmd,
+						char *techline, int len_tech);
+
+/*
 ** Folder SHELL_VARIABLES
 ** ____________________________________________________________________________
 */
@@ -264,11 +274,11 @@ char				**init_exec_environ(void);
 int					insert_assign_to_arrays(char *find, char *insert,
 						char **array);
 int					if_noninteractive(void);
-int					add_to_environment_variables(char *add);
-int					add_to_local_variables(char *add);
-int					add_new_to_exec_env(char ***array, char **add);
-int					unset_from_array(char ***arr, int i);
-int					clean_in_shvar_array(char ***arr, int i, int j);
+// int					add_to_environment_variables(char *add);
+// int					add_to_local_variables(char *add);
+// int					add_new_to_exec_env(char ***array, char **add);
+// int					unset_from_array(char ***arr, int i);
+// int					clean_in_shvar_array(char ***arr, int i, int j);
 int					exit_status_variable(int status);
 
 // NEW

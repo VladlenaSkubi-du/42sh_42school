@@ -1,6 +1,11 @@
 #include "shell42.h"
 #include "jobs.h"
 
+/*
+** Checks if all processes in a given job have either "completed" or "stopped"
+** state. Performs user notification about stopped jobs
+*/
+
 int		job_is_stopped(job *j, char verbose)
 {
 	process		*p;
@@ -26,6 +31,10 @@ int		job_is_stopped(job *j, char verbose)
 	return (1);
 }
 
+/*
+** Checks if all processes in a given job have "completed" state
+*/
+
 int		job_is_completed(job *j)
 {
 	process		*p;
@@ -42,6 +51,10 @@ int		job_is_completed(job *j)
 	return (1);
 }
 
+/*
+** Searches and returns particular job node from global job list by pgid
+*/
+
 job		*find_job (pid_t pgid)
 {
  	job *j;
@@ -55,6 +68,10 @@ job		*find_job (pid_t pgid)
 	}
 	return (NULL);
 }
+
+/*
+** Removes particular job node from the list and deallocates memory used by it
+*/
 
 int		free_job(job *j)
 {

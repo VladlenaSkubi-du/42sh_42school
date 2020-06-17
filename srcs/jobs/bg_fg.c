@@ -2,36 +2,32 @@
 #include "shell42.h"
 #include "jobs.h"
 
-/* Put job j in the foreground.  If cont is nonzero,
-   restore the saved terminal modes and send the process group a
-   SIGCONT signal to wake it up before we block.  */
-
-
-/* STOP! We are doing this through signals! */
-
 void	wait_for_job (job *j)
 {
 	while (!job_is_stopped (j, 0) && !job_is_completed (j));
 }
 
+/*
+** Moves job to foreground: gives controlling terminal, sends continue signal if
+** it is needed, blocks further work until it reports and performs cleanup in
+** case job is completed (we aren't able to do this in SIGCHLD handler, as it
+** will result in race condition and possible segfaults)
+*/
+
 void	put_job_in_foreground (job *j, int cont)
 {
-	/* Put the job into the foreground.  */
 	j->fg = 1;
 	j->clean = 0;
 	tcsetpgrp(STDIN_FILENO, j->pgid);
-	/* Send the job a continue signal, if necessary.  */
 	if (cont)
 	{
 		tcsetattr(STDIN_FILENO, TCSADRAIN, &j->tmodes);
 		if (kill(- j->pgid, SIGCONT) < 0)
-			perror ("kill (SIGCONT)"); //correct
+			perror ("kill (SIGCONT)"); /* TODO: change */
     }
-	/* Wait for it to report.  */
+
 	wait_for_job(j);
-	/* Put the shell back in the foreground.  */
 	tcsetpgrp(STDIN_FILENO, g_shell_pgid);
-	/* Restore the shell’s terminal modes.  */
 	tcgetattr(STDIN_FILENO, &j->tmodes);
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &g_shell_tmodes);
 	j->clean = 1;
@@ -39,12 +35,13 @@ void	put_job_in_foreground (job *j, int cont)
 		free_job(j);
 }
 
-/* Put a job in the background.  If the cont argument is true, send
-   the process group a SIGCONT signal to wake it up.  */
+/*
+** Puts job in the background and informs user about this action. If the cont
+** argument is true, sends process group a SIGCONT signal to wake it up.
+*/
 
 void	put_job_in_background (job *j, int cont)
 {
-	/* Send the job a continue signal, if necessary.  */
 	j->fg = 0;
 	j->clean = 1;
 	ft_printf("[%d] %d\n", j->jid, j->pgid);
@@ -52,6 +49,11 @@ void	put_job_in_background (job *j, int cont)
 		if (kill (-j->pgid, SIGCONT) < 0)
 			perror ("kill (SIGCONT)"); //correct
 }
+
+/*
+** Determines further shell actions based on shell mode (interactive or not) and
+** job FG mode (j->fg == 1 -- foreground, j->fg == 0 -- background)
+*/
 
 int		bg_fg_wait(job *j)
 {

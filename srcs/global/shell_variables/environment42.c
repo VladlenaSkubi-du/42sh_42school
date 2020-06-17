@@ -78,14 +78,15 @@ int					save_shell_variables(void)
 {
 	size_t			num;
 	char			*tmp;
-	size_t			li;
-	size_t			co;
+	// size_t			li;
+	// size_t			co;
 
 	num = 4;
 	g_shvar = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
-	li = find_in_variables(g_env, &co, "HOME");
-	tmp = (li < 0) ? define_history_file() :
-		ft_strjoin(&g_env[li][co], "/.42sh_history");
+	tmp = ft_strdup("histfile");
+	// li = find_in_variables(g_env, &co, "HOME");
+	// tmp = (li < 0) ? define_history_file() :
+	// 	ft_strjoin(&g_env[li][co], "/.42sh_history");
 	g_shvar[0] = ft_strjoin("HISTFILE=", tmp);
 	free(tmp);
 	tmp = ft_itoa(MAX_HISTBUF);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ctrl_kult.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmp <tmp@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/30 22:33:26 by tmp               #+#    #+#             */
-/*   Updated: 2020/05/30 22:33:48 by tmp              ###   ########.fr       */
+/*   Updated: 2020/06/05 20:42:24 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int			make_ctrl_u(void)
 	front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
 	save_yank = (pos_old == g_rline.cmd_len) ?
 		ft_strdup(g_rline.cmd + g_rline.pos) :
-		ft_strndup(g_rline.cmd + g_rline.pos, pos_old);
+		ft_strndup(g_rline.cmd + g_rline.pos, pos_old - g_rline.pos);
 	make_ctrl_p(0, save_yank);
 	swap = g_rline.cmd + pos_old;
 	len_swap = ft_strlen(swap);

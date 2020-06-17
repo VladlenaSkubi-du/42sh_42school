@@ -20,14 +20,14 @@ int		ft_find_var(t_ltree *sub)
 			size = 1;
 			while (i + size < sub->end && sub->l_tline.line[i + size] == WORD_P)
 				size++;
-			find = ft_strndup(&sub->l_cmd[i + 1], size - 1);
+			find = size > 1 ? ft_strndup(&sub->l_cmd[i + 1], size - 1) : NULL;
 			if ((find = ft_find_var_value(&find)) != NULL)
 			{
 				ft_reglue(&i, size - 1, sub);
 				insert_str_in_loc_strs(sub, &find, &i, TEXT);
 			}
-			else
-				ft_reglue(&i, size, sub) == 0 ? i-- : 0;
+			else if (size > 1)
+				ft_reglue(&i, size, sub);
 		}
 	}
 	return (0);
@@ -59,23 +59,11 @@ int		ft_find_curv_var(t_ltree *sub)
 	return (0);
 }
 
-char	*ft_find_var_value(char **find) //TODO PEREDELAT'
+char	*ft_find_var_value(char **find)
 {
-	size_t	li;
-	size_t	sj;
 	char	*res;
 
-	li = -1;
-	sj = -1;
-	res = NULL;
-	if ((li = find_in_variables(g_rdovar, &sj, *find)) != -1)
-		res = ft_strdup(&g_rdovar[li][sj]);
-	else if ((li = find_in_variables(g_env, &sj, *find)) != -1)
-		res = ft_strdup(&g_env[li][sj]);
-	else if ((li = find_in_variables(g_shvar, &sj, *find)) != -1)
-		res = ft_strdup(&g_shvar[li][sj]);
-	else if ((li = find_in_variables(g_lovar, &sj, *find)) != -1)
-		res = ft_strdup(&g_lovar[li][sj]);
+	res = ft_strdup(find_env_value(*find));
 	free(*find);
 	return (res);
 }
@@ -96,7 +84,7 @@ int		ft_param_empty(t_ltree *sub, char **find, size_t *i)
 	return (0);
 }
 
-int		ft_error_vars(t_ltree *sub, int err, char *msg)
+int		ft_error_vars(t_ltree *sub, int err, char *msg) //убрать распечатку error_handler для !, который выходит по error_out
 {
 	sub->flags |= ERR_OUT;
 	sub->err_i |= err;

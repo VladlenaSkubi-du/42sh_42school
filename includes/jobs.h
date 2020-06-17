@@ -6,11 +6,13 @@
 typedef struct  process
 {
     struct process *next;       /* next process in pipeline */
+	int	argc;
     char **argv;                /* for exec */
 	char **envp;				/* ADDED BY ME */
     pid_t pid;                  /* process ID */
     char completed;             /* true if process has completed */
     char stopped;               /* true if process has stopped */
+	char btin;
     int status;                 /* reported status value */
 }   process;
 
@@ -41,6 +43,7 @@ job					*g_first_job;
 ** File job_init.c
 */
 
+int		vec_dup(char ***dst, char **src);
 int     job_init(t_ltree *entity);
 
 /*
@@ -112,9 +115,8 @@ char	*path_init(char **exec_av);
 ** File exec_utils.c
 */
 
-char	*get_env(char *var); //delete
 int		exec_clean(char *path, int exit_status, char *msg);
-int		ft_builtins_check(t_ltree *pos, int flag);
+int		ft_builtins_check(process *p, int flag);
 int		fd_list_process(t_ltree *pos, int mode);
 
 #endif

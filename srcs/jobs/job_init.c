@@ -56,9 +56,11 @@ int		process_new(job *jobs, t_ltree *entity)
 	if (!entity || !jobs || entity->ar_c < 1)
 		return (-1);
 	process_new = (process *)ft_xmalloc(sizeof(process));
+	process_new->argc = entity->ar_c;
 	vec_dup(&process_new->argv, entity->ar_v);
 	vec_dup(&process_new->envp, entity->envir);
 	process_new->next = NULL;
+	process_new->btin = ft_builtins_check(process_new, 0) == -1 ? 0 : 1;
 	if (!jobs->first_process)
 	{
 		jobs->com = (process_new->argv)[0];
@@ -89,6 +91,12 @@ int		set_globals_and_signals(void)
 	return (0);
 }
 
+/*
+** Job/exec block entry point. Allocates memory for new jobs/processes and fills
+** them with initial information. Manages redirection and pipes. Checks for
+** buiktins and launches them. Launches already filled jobs.
+*/
+
 int     job_init(t_ltree *entity)
 {
 	int			ret;
@@ -96,8 +104,8 @@ int     job_init(t_ltree *entity)
 
 	ret = 0;
 	fd_list_process(entity, 0);
-	if (!exec_builtin(entity))
-		return (ret);
+//	if (!exec_builtin(entity))
+//		return (ret);
 	set_globals_and_signals();
 	if (!(entity->flags & PIPED_IN) || !g_first_job)
 		!(job = job_new(entity)) ? ret++ : 0;

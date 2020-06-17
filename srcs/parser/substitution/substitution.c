@@ -13,6 +13,8 @@ int		ft_substitution(t_ltree *sub)
 	err = 1;
 	while (err)
 	{
+		if ((err = btin_exsign(sub)) & ERR_OUT)
+			break ;
 		//ft_alias_find ;
 		ft_find_tilda(sub, LINE);
 		ft_find_var(sub);
@@ -22,13 +24,12 @@ int		ft_substitution(t_ltree *sub)
 		// 	break ;
 		// if ((err = ft_find_globbing(sub)) & ERR_OUT)
 		// 	break ;
-		if ((err = btin_exsign(sub)) & ERR_OUT)
-			break ;
 		err = 0;
 	}
 	if (err & ERR_OUT)
 	{
-		err & ERR_R ? ft_error_redir(sub) : ft_error_vars(sub, 0, NULL);
+		if (err & ERR_EXSIGN)
+			err & ERR_R ? ft_error_redir(sub) : ft_error_vars(sub, 0, NULL);
 		ft_lst_ltree_clear(&g_start_list);
 	}
 	return (err);
@@ -53,7 +54,6 @@ int		before_add(t_ltree *sub, t_list **list)
 		ft_lst_ltree_clear(list);
 		return (OUT);
 	}
-	sub->envir = init_exec_environ();
 	return (0);
 }
 
@@ -70,7 +70,7 @@ int		ft_check_null(t_ltree *sub, t_list **list)
 	}
 	if (i == sub->end && sub->l_tline.line[sub->end] == END_T)
 		sub->flags |= ERR_IN;
-	else if (i == sub->end || sub->end - sub->start == 1)
+	else if (i == sub->end)
 	{	
 		sub->flags |= ERR_OUT | ERR_REDIR << 16;
 		sub->err_i = i;

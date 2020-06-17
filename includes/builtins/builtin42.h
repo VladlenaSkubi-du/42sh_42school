@@ -71,12 +71,14 @@ int				btin_history_noargs(void);
 */
 
 int				btin_exsign(t_ltree *pos);
-int				btin_exsign_route_substitution(t_ltree *pos, int i);
+int				btin_exsign_route_substitution(t_ltree *pos,
+                    int start, int i);
+int				btin_exsign_stop_signs(char tech);
 int				btin_exsign_numeric(t_ltree *pos,
-					int start, char *find);
-int				btin_exsign_print_message(char *arg);
+					int start, int end);
+int				btin_exsign_print_message(char *arg, int end);
 int				btin_exsign_make_substitution(t_ltree *pos,
-					int start, char *subst);
+					int start, int end, char *subst);
 
 /*
 ** File echo.c
@@ -108,5 +110,11 @@ int				btin_fg(t_ltree *pos);
 */
 
 int				btin_jobs(t_ltree *pos);
+
+/*
+** File bumblebee.c
+*/
+
+int		btin_bumblebee(void);
 
 #endif

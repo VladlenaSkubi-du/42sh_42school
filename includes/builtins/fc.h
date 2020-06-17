@@ -139,7 +139,7 @@ int				btin_fc_positive_int__list(int value,
 					int from, int to);
 int				btin_fc_negative_int__list(int value);
 int				btin_fc_positive_int__exec(int value, int from,
-					int to);
+					int to, int flag);
 int				btin_fc_negative_int__exec(int value);
 
 /*

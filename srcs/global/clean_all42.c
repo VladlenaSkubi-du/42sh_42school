@@ -12,18 +12,18 @@
 
 int				clean_everything(void)
 {
-	
-	if (ft_atoi(find_env_value("42SH_NONINTERACTIVE")) == 1)
+	if (ft_atoi(find_env_value("42SH_NONINTERACTIVE")) == 0)
 	{
+		free(g_hist.hist[g_hist.len]);
 		ft_arrdel(g_hist.hist);
 		ft_arrdel(g_shvar);
 		make_ctrl_p(2, NULL);
-		clean_termcap();
 	}
 	ft_arrdel(g_env);
 	ft_arrdel(g_rdovar);
 	ft_arrdel(g_lovar);
 	ft_arrdel(g_envi);
+	ft_gnl(GNL_CLEAN, NULL);
 	return (0);
 }
 
@@ -34,7 +34,13 @@ int				clean_everything(void)
 
 int				clean_readline42(void)
 {
-	bzero_readline();
+	ft_bzero(g_rline.cmd, g_rline.cmd_buff_len);
+	g_rline.cmd_len = 0;
+	g_rline.pos = 0;
+	g_rline.pos_x = 0;
+	g_rline.pos_y = 0;
+	g_rline.str_num = 1;
+	g_rline.flag = 0;
 	return (0);
 }
 
