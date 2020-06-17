@@ -19,7 +19,7 @@ int			btin_unset(t_ltree *pos)
 		j = find_in_variable(&tmp, find);
 		if (g_envi[j][0] && (g_envi[j][0] & READONLY))
 		{
-			g_envi[j][0] &= ~ENV_VIS;
+			//g_envi[j][0] &= ~ENV_VIS;
 			error = ft_strjoin("unset: ", find);
 			error_handler(VARIABLE_ERROR | (ERR_RDONLY << 9), error);
 			free (error);
