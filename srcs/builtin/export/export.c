@@ -8,7 +8,6 @@ int			ft_add_el(char *arg)
 	i = 0;
 	while (g_envi[i])
 		i++;
-	//printf("%s\n", g_envi[i - 1]);
 	if (i == g_var_size || i + 1 == g_var_size)
 	{
 		g_envi = ft_realloc_array(&g_envi, g_var_size, g_var_size * 2);
@@ -17,7 +16,6 @@ int			ft_add_el(char *arg)
 	g_envi[i] = (char *)ft_xmalloc(ft_strlen(arg) + 2);
 	ft_strcpy(g_envi[i] + 1, arg);
 	g_envi[i][0] |= ENV_VIS;
-	//printf("%s\n", g_envi[i] + 1);
 	return (0);
 }
 
@@ -32,7 +30,6 @@ int			change_or_add(char *arg)
 	while (arg[i] != '=')
 		i++;
 	tmp = ft_strndup(arg, i);
-	//printf("%s\n", tmp);
 	if ((i = find_in_variable(&j, tmp)) >= 0) //add readonly
 	{
 		if (g_envi[i][0] && (g_envi[i][0] & READONLY))
@@ -68,30 +65,16 @@ int			do_vis(char *arg)
 int			export_add_vis(t_ltree *pos)
 {
 	int		i;
-	//int		num;
-	//int		j;
-	//int		n;
 
 	i = 0;
 	while (pos->ar_v[++i])
 	{
 		if (pos->ar_v[i][0] == '-')
 			continue ;
-		//j = 0;
 		if (ft_strrchr(pos->ar_v[i], '='))
 			change_or_add(pos->ar_v[i]);
 		else
 			do_vis(pos->ar_v[i]);
-		//while (pos->ar_v[i][j] && pos->ar_v[i][j + 1] != '=') // !!!!! +1
-		//	j++;
-		//if (num = find_in_variable(&n, 
-	}
-	i = 0;
-	while(g_envi[i])
-	{
-		if (g_envi[i][0] && (g_envi[i][0] & ENV_VIS))
-			printf("%s\n", g_envi[i] + 1);
-		i++;
 	}
 	return (0);
 }
