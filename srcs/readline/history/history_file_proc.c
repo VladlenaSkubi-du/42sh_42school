@@ -39,6 +39,8 @@ int					fill_hist_in_file(void)
 	int				user_len;
 
 	path = ft_strdup(find_env_value("HISTFILE"));
+	if (path == NULL || path[0] == '\0')
+		path = define_history_file();
 	size = find_env_value("HISTFILESIZE");
 	if (!ft_isdigit(size[0]))
 		user_len = MAX_HISTFILE;

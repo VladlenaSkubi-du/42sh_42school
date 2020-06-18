@@ -17,8 +17,9 @@ int		nullify_error(t_stack **stack)
 			g_prompt.prompt_func = cursh_prompt;
 		if ((*stack)->data == BSLASH)
 			g_prompt.prompt_func = other_prompt;
-		if (((*stack)->data == EOF || if_noninteractive()) &&
-			g_prompt.prompt_func != heredoc_prompt)
+		if (((*stack)->data == EOF ||
+				ft_atoi(find_env_value_rdonly("42SH_NONINTERACTIVE"))) &&
+				g_prompt.prompt_func != heredoc_prompt) //Sergey, check, please, after changes
 		{
 			g_prompt.prompt_func = main_prompt;
 			error_handler(SYNTAX_ERROR | (ERR_SQUOTE << 9),

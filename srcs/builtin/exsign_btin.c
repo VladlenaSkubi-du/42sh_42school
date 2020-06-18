@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 15:12:33 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/06/05 14:41:57 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/06/18 20:27:10 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int					btin_exsign_numeric(t_ltree *pos,
 
 int					btin_exsign_print_message(char *arg, int end)
 {
-	ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
+	ft_putstr_fd(find_env_value_rdonly("0"), STDOUT_FILENO);
 	ft_putstr_fd(": ", STDOUT_FILENO);
 	ft_putnstr_fd(arg, end, STDOUT_FILENO);
 	ft_putendl_fd(": event not found", STDOUT_FILENO);
@@ -181,6 +181,5 @@ int					btin_exsign_make_substitution(t_ltree *pos,
 	ft_get_techline(pos->l_cmd, &pos->l_tline);
 	add_to_history(pos->l_cmd);
 	ft_putendl_fd(pos->l_cmd, STDOUT_FILENO);
-		print_techline(pos->l_cmd, pos->l_tline.line, pos->l_tline.len);
 	return (0);
 }

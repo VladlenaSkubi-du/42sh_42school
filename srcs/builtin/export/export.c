@@ -16,6 +16,7 @@ int			ft_add_el(char *arg)
 	g_envi[i] = (char *)ft_xmalloc(ft_strlen(arg) + 2);
 	ft_strcpy(g_envi[i] + 1, arg);
 	g_envi[i][0] |= ENV_VIS;
+	g_envi[i][0] |= SET_VIS;
 	return (0);
 }
 
@@ -44,6 +45,7 @@ int			change_or_add(char *arg)
 		g_envi[i] = (char *)ft_xmalloc(ft_strlen(arg) + 2);
 		ft_strcpy(g_envi[i] + 1, arg);
 		g_envi[i][0] |= ENV_VIS;
+		g_envi[i][0] |= SET_VIS;
 	}
 	else
 		ft_add_el(arg);
@@ -59,6 +61,7 @@ int			do_vis(char *arg)
 	if ((i = find_in_variable(&j, arg)) < 0)
 		return (1);
 	g_envi[i][0] |= ENV_VIS;
+	g_envi[i][0] |= SET_VIS;
 	return (0);
 }
 

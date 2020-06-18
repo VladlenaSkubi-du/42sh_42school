@@ -16,7 +16,7 @@
 int	exec_clean(char *path, int exit_status, char *err_msg)
 {
 	if (path)
-		exit_status_variable(exit_status);
+		exit_status_variables(exit_status);
 	free(path);
 	if (err_msg)
 		ft_putendl_fd(err_msg, STDERR_FILENO); // through error_handler
@@ -42,7 +42,7 @@ int		ft_builtins_check(process *p, int flag)
 				xXx_PLACEHOLDER_xXx.ar_c = p->argc;
 				vec_dup(&xXx_PLACEHOLDER_xXx.ar_v, p->argv);
 				vec_dup(&xXx_PLACEHOLDER_xXx.envir, p->envp);
-				exit_status_variable(g_builtins_func[i](&xXx_PLACEHOLDER_xXx));
+				exit_status_variables(g_builtins_func[i](&xXx_PLACEHOLDER_xXx));
 				ft_arrdel(xXx_PLACEHOLDER_xXx.ar_v);
 				ft_arrdel(xXx_PLACEHOLDER_xXx.envir);
 				p->completed = 1;

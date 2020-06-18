@@ -128,6 +128,21 @@ char	*find_env_value(char *str)
 	int		i;
 	int		j;
 
+	j = 0;
+	i = -1;
+	i = find_in_variable(&j, str);
+	if (i == -1 || !(g_envi[i][0] && (g_envi[i][0] & SET_VIS)))
+		return (NULL);
+	return (&g_envi[i][j]);
+}
+
+char	*find_env_value_rdonly(char *str)
+{
+	int		i;
+	int		j;
+
+	j = 0;
+	i = -1;
 	i = find_in_variable(&j, str);
 	if (i == -1)
 		return (NULL);

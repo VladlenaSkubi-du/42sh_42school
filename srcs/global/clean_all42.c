@@ -12,7 +12,7 @@
 
 int				clean_everything(void)
 {
-	if (ft_atoi(find_env_value("42SH_NONINTERACTIVE")) == 0)
+	if (ft_atoi(find_env_value_rdonly("42SH_NONINTERACTIVE")) == 0)
 	{
 		free(g_hist.hist[g_hist.len]);
 		ft_arrdel(g_hist.hist);

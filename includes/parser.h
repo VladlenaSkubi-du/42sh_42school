@@ -25,6 +25,7 @@ typedef struct stat		t_stat;
 # define ERR_R			0x20000000U
 # define ERR_CONT		0x08000000U
 # define ERR_OUT		0x10000000U
+
 /*
 ** Is used in before_execution.c
 */

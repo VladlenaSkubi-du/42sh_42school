@@ -64,8 +64,6 @@ void			init_history_buffer(int size)
 
 char			*define_history_file(void)
 {
-	// size_t		li;
-	// size_t		co;
 	int			li;
 	int			co;
 	char		*file;
