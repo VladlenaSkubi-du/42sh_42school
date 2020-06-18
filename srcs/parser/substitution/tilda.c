@@ -39,7 +39,7 @@ int 	ft_get_home(t_ltree *sub, size_t *i, int flag)
 		insert_str_in_loc_strs(sub, &tmp, i, TEXT);
 		return (0);
 	}
-	else if ((tmp = ft_strdup(find_env_value("UID"))) != NULL)
+	else if ((tmp = ft_strdup(find_env_value_rdonly("UID"))) != NULL)
 	{
 		ft_find_dir_by_uid(sub, tmp, i);
 		free(tmp);

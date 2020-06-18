@@ -65,7 +65,7 @@ int					save_readonly_variable(int num)
 	g_envi[num++] = ft_add_rdovar("42SH_NONINTERACTIVE=0", NULL, 1);
 	tmp = getcwd(NULL, MAXDIR);
 	g_envi[num++] = ft_add_rdovar("PWD=", tmp, 0);
-	g_envi[num++] = ft_add_rdovar("OLDPWD", tmp, 0);
+	g_envi[num++] = ft_add_rdovar("OLDPWD=", tmp, 0);
 	g_envi[num++] = ft_add_rdovar("42SH=", tmp, 0);
 	free(tmp);
 	tmp = ft_itoa(getuid());
@@ -124,6 +124,10 @@ int					create_env(void)
 	num = save_readonly_variable(0);
 	num = save_shell_variable(num);
 	num = save_environment_variable(num);
+
+	// int i = -1;
+	// while (g_envi[++i])
+	// 	printf("%s\n", g_envi[i] + 1);
 	return (0);
 }
 
@@ -131,19 +135,14 @@ int                 exit_status_variables(int status)
 {
     char            *tmp;
 	char			*final;
+	int				i;
+	int				j;
 
     tmp = ft_itoa(status);
-	if (ft_strlen(tmp) > MAX_EXIT_STATUS)
-	{
-		final = ft_strjoin("?=", tmp);
-		change_env_value(final, 0);
-		free(final);
-	}
-	else
-	{
-		ft_bzero(&g_envi[0][3], MAX_EXIT_STATUS - 2);
-   		ft_strcpy(&g_envi[0][3], tmp);
-	}
+	i = find_in_variable(&j, "?");
+	final = ft_strjoin("?=", tmp);
+	change_env_value(final, i);
+	free(final);
     free(tmp);
     return (0);
 }

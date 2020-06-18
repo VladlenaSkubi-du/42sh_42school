@@ -203,12 +203,16 @@ HISTORY = 	$(READLINE_DIR)/$(HISTORY_DIR)/start_history.c \
 
 #______________________________________________________________________________
 
+EXEC_DELETE_DIR = exec_old
+EXEC_DELETE = $(EXEC_DELETE_DIR)/exec_init_old.c
+
 SOURCES =	main.c \
 			$(BUILTIN) \
 			$(GLOBAL) \
 			$(JOBS) \
 			$(PARSER) \
 			$(READLINE) \
+			$(EXEC_DELETE) \
 
 #______________________________________________________________________________
 
@@ -266,6 +270,8 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)/$(READLINE_DIR)/$(AUTO_COMPL_DIR)
 	@mkdir -p $(DIR_O)/$(READLINE_DIR)/$(HISTORY_DIR)
 #_____________________________________________________	
+	@mkdir -p $(DIR_O)/$(EXEC_DELETE_DIR)
+	
 	gcc $(FLAGS) -c -I$(LIB_INCLUDE) -I$(BUILTIN_INCLUDE_DIR) -I$(SHARED_INCLUDE_DIR) -o $@ $<
 
 clean:

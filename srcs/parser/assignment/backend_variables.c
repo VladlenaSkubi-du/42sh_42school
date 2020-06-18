@@ -22,7 +22,7 @@ int			find_assignment_in_vars(char *sub, size_t var,
 	new_var = ft_strndup(sub + var, val - var + 1);
 	if ((li = find_in_variable(&sy, find)) != -1)
 	{
-		if (g_envi[li][0] & READONLY)
+		if (g_envi[li][0] & READONLY) //посмотреть с Сережей тест: unset HOME ; HOME=/ ; echo $HOME
 		{
 			free(find);
 			free(new_var);

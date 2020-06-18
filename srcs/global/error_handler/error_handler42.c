@@ -19,7 +19,7 @@
 
 int				error_handler(int status, char *str)
 {
-	ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
+	ft_putstr_fd(find_env_value_rdonly("0"), STDOUT_FILENO);
 	ft_putstr_fd(": ", STDOUT_FILENO);
 	// ft_putstr_fd("e-bash: ", STDERR_FILENO);
 	if ((status & 0x1FF) == VARIABLE_ERROR)
@@ -33,7 +33,7 @@ int				error_handler(int status, char *str)
 		terminal_errors(status, str);
 	else
 		error_handler_continuation(status, str);
-	return (exit_status_variable(status & 0x7F));
+	return (exit_status_variables(status & 0x7F));
 }
 
 int				terminal_errors(int status, char *str)

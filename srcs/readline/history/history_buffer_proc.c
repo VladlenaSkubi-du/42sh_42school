@@ -79,14 +79,13 @@ char			**make_hist_buffer_smaller(int size)
 
 int				check_if_histsize_changed(void)
 {
-	// size_t		li;
-	// size_t		co;
 	int			li;
 	int			co;
 	int			user_len;
 
 	li = find_in_variable(&co, "HISTSIZE");
-	if (!ft_isdigit(g_envi[li][co]))
+	if (!((g_envi[li][0] && (g_envi[li][0] & SET_VIS)) ||
+			ft_isdigit(g_envi[li][co])))
 		return (0);
 	user_len = ft_atoi(g_envi[li] + co);
 
