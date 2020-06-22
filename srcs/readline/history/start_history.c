@@ -6,8 +6,6 @@ int				start_history(void)
 	int			fd;
 	char		*file;
 	char		*tmp;
-	// size_t		co;
-	// size_t		li;
 	int			co;
 	int			li;
 
@@ -71,7 +69,7 @@ char			*define_history_file(void)
 	li = find_in_variable(&co, "HOME");
 	if (li < 0)
 		li = find_in_variable(&co, "42SH");
-	file = ft_strjoin(g_envi[li] + co, "/.42sh_history"); //CHECK
+	file = ft_strjoin(g_envi[li] + co, "/.42sh_history");
 
 	// li = find_in_variables(g_env, &co, "HOME=");
 	// if (li < 0)

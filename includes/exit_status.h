@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/05/28 22:51:31 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/06/22 17:41:34 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ enum				e_status
 	NONINERACTIVE,
 	HISTORY_FILE_FAIL,
 	TMPFILE,
+	PIPE_FAILED,
+	FORK_FAILED,
+	SIGNAL_ERROR,
 	COMMAND_NON_EXECUTABLE = 126,
 	COMMAND_NOT_FOUND,
 	SYNTAX_ERROR = 258

@@ -14,7 +14,8 @@ int				clean_everything(void)
 {
 	if (ft_atoi(find_env_value_rdonly("42SH_NONINTERACTIVE")) == 0)
 	{
-		free(g_hist.hist[g_hist.len]);
+		if (g_hist.len >= 0)
+			free(g_hist.hist[g_hist.len]);
 		ft_arrdel(g_hist.hist);
 		ft_arrdel(g_shvar);
 		make_ctrl_p(2, NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_list.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 19:07:24 by rbednar           #+#    #+#             */
-/*   Updated: 2020/06/12 16:30:21 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/06/22 16:11:54 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static char		*g_builtins[] = {"alias_fff", "unalias_fff", \
 
 static int 		(*g_builtins_func[BUILTINS_NUM])() = {NULL,\
 	NULL, NULL, btin_set, btin_unset, btin_export, btin_cd, btin_exit, \
-	btin_echo, NULL, btin_fg, btin_bg, btin_jobs, btin_fc, btin_history, btin_pwd, NULL};
+	btin_echo, NULL, btin_fg, btin_bg, btin_jobs, btin_fc, btin_history, \
+	btin_pwd, btin_bumblebee, NULL};
 
 #endif
