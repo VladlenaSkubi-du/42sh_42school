@@ -102,14 +102,23 @@ int				btin_export(t_ltree *pos);
 ** File bg_fg_btin.c
 */
 
+int				is_btin_only(job *j);
 int				btin_bg(t_ltree *pos);
 int				btin_fg(t_ltree *pos);
 
 /*
-** File jobs_btin.c
+** File jobs_main_btin.c
 */
 
 int				btin_jobs(t_ltree *pos);
+int				print_job_info(job * j, int options);
+
+/*
+** File jobs_id_btin.c
+*/
+
+int				print_by_id(t_ltree *pos, int options);
+int				id_check(t_ltree *pos);
 
 /*
 ** File bumblebee.c

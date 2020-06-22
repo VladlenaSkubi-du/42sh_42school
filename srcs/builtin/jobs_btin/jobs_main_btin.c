@@ -48,37 +48,6 @@ int		print_job_info(job * j, int options)
 	return (0);
 }
 
-int		id_check(t_ltree *pos, char mode, int options)
-{
-	int		i;
-	job		*job_iter;
-	int		id;
-
-	i = 1;
-	if (!mode)
-		while (i < pos->ar_c)
-		{
-			if (pos->ar_v[i][0] == '%')
-				return (1);
-			i++;
-		}
-	else
-		while (i < pos->ar_c)
-		{
-			if (pos->ar_v[i][0] == '%')
-			{
-				id = ft_atoi((pos->ar_v)[i] + 1);
-				job_iter = g_first_job;
-				while (job_iter && job_iter->jid != id)
-					job_iter = job_iter->next;
-				job_iter ? print_job_info(job_iter, options) :
-					error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), pos->ar_v[i]);
-			}
-			i++;
-		}
-	return (0);
-}
-
 int		options_parse(t_ltree *pos)
 {
 	int		ret;
@@ -89,7 +58,6 @@ int		options_parse(t_ltree *pos)
 	ret = 0;
 	while (i < pos->ar_c && pos->ar_v[i][0] == '-')
 	{
-
 		j = 1;
 		while (pos->ar_v[i][j])
 		{
@@ -106,24 +74,28 @@ int		options_parse(t_ltree *pos)
 	return (ret);
 }
 
-int		btin_jobs(t_ltree *pos) /* TODO: PROCESS OPTIONS! */
+int		btin_jobs(t_ltree *pos)
 {
 	job		*job_iter;
 	int		options;
 	int		id_chk;
+	int		error;
 
 	job_iter = g_first_job;
-	if (!job_iter)
+	if (!job_iter || is_btin_only(job_iter)) /* Take from bg_fg_btin.c */
 		return (0);
 	options = options_parse(pos);
 	if (options == -1)
-		return (-1);
-	id_chk = id_check(pos, 0, 0);
+	{
+		error = OPTIONS_REQUIRED | ERR_BTIN_INVALID << 9;
+		return (options_errors(error, "jobs")); /* Invalid option case */
+	}
+	id_chk = id_check(pos);
 	while (!id_chk && job_iter)
 	{
-		print_job_info(job_iter, options);
+		!is_btin_only(job_iter) ? print_job_info(job_iter, options) : 0; /* Take from bg_fg_btin.c */
 		job_iter = job_iter->next;
 	}
-	id_chk && id_check(pos, 1, options);
+	id_chk && print_by_id(pos, options);
 	return (0);
 }

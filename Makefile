@@ -12,7 +12,6 @@ BUILTIN = \
 			$(BUILTIN_DIR)/exit.c \
 			$(BUILTIN_DIR)/history.c \
 			$(BUILTIN_DIR)/init_structures.c \
-			$(BUILTIN_DIR)/jobs_btin.c \
 			$(BUILTIN_DIR)/pwd.c \
 			$(BUILTIN_DIR)/set.c \
 			$(BUILTIN_DIR)/unset.c \
@@ -21,6 +20,7 @@ BUILTIN = \
 			$(BUILTIN_DIR)/bumblebee.c \
             $(CD) \
 			$(FC) \
+			$(JOBS_BTIN) \
 			$(EXPORT)
 
 CD_DIR = cd
@@ -47,6 +47,10 @@ FC = 		$(BUILTIN_DIR)/$(FC_DIR)/fc.c \
 			$(BUILTIN_DIR)/$(FC_DIR)/fc_modes_s.c \
 			$(BUILTIN_DIR)/$(FC_DIR)/fc_nums_calc.c \
 			$(BUILTIN_DIR)/$(FC_DIR)/fc_tmpfile.c
+
+JOBS_BTIN_DIR = jobs_btin
+JOBS_BTIN =	$(BUILTIN_DIR)/$(JOBS_BTIN_DIR)/jobs_id_btin.c \
+			$(BUILTIN_DIR)/$(JOBS_BTIN_DIR)/jobs_main_btin.c
 
 #______________________________________________________________________________
 
@@ -77,7 +81,7 @@ UNIX_FUNCTIONS = \
 			$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)/ft_count_words.c \
 			$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)/ft_find_token.c \
 			$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)/ft_make_techline.c
-			
+
 #______________________________________________________________________________
 
 JOBS_DIR = jobs
@@ -249,12 +253,13 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(FC_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(CD_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(EXPORT_DIR)
+	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(JOBS_BTIN_DIR)
 #_____________________________________________________
 	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)
 	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)/$(SHELL_VARS_DIR)
 	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)
 	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)/$(ERRORS_HANDLER_DIR)
-#_____________________________________________________	
+#_____________________________________________________
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(PATH_TREE_DIR)
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(QUOTING_DIR)
@@ -263,15 +268,15 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(REDIRECTION_DIR)
 #_____________________________________________________
 	@mkdir -p $(DIR_O)/$(JOBS_DIR)
-#_____________________________________________________	
+#_____________________________________________________
 	@mkdir -p $(DIR_O)/$(READLINE_DIR)
 	@mkdir -p $(DIR_O)/$(READLINE_DIR)/$(READLINE_SIMPLE_DIR)
 	@mkdir -p $(DIR_O)/$(READLINE_DIR)/$(KEY_ACTIONS_DIR)
 	@mkdir -p $(DIR_O)/$(READLINE_DIR)/$(AUTO_COMPL_DIR)
 	@mkdir -p $(DIR_O)/$(READLINE_DIR)/$(HISTORY_DIR)
-#_____________________________________________________	
+#_____________________________________________________
 	@mkdir -p $(DIR_O)/$(EXEC_DELETE_DIR)
-	
+
 	gcc $(FLAGS) -c -I$(LIB_INCLUDE) -I$(BUILTIN_INCLUDE_DIR) -I$(SHARED_INCLUDE_DIR) -o $@ $<
 
 clean:

@@ -53,7 +53,7 @@ int		btin_bg(t_ltree *pos)
 			return (error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), pos->ar_v[1]));
 	}
 	else
-		return (-1); /* Invalid argument */
+		return (error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), pos->ar_v[1]));
 	if (is_btin_only(job_iter))
 		return (error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), "current"));
 	back_to_life(job_iter);
@@ -81,7 +81,7 @@ int		btin_fg(t_ltree *pos)
 			return (error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), pos->ar_v[1]));
 	}
 	else
-		return (-1); /* Invalid argument */
+		return (error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), pos->ar_v[1]));
 	if (is_btin_only(job_iter))
 		return (error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), "current"));
 	back_to_life(job_iter);
