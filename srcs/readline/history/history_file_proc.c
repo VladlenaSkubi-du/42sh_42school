@@ -25,14 +25,12 @@ int					read_hist_from_file(int fd)
 
 /*
 ** We chechk one more time the HISTORY path - if user wants to change
-** the default path for the file and the HISTORYSIZE variable
+** the default path for the file and the HISTFILESIZE variable
 ** If it is invalid, the default configurations won't change.
 */
 
 int					fill_hist_in_file(void)
 {
-	// size_t			li;
-	// size_t			co;
 	char			*size;
 	int				fd;
 	char			*path;
@@ -54,7 +52,7 @@ int					fill_hist_in_file(void)
 	free(path);
 	if (fd < 0)
 		return (0);
-	insert_hist_in_file(fd, user_len);
+	(user_len > 0) ? insert_hist_in_file(fd, user_len) : 0;
 	close(fd);
 	
 	// li = find_in_variables(g_shvar, &co, "HISTFILE=");
@@ -105,8 +103,6 @@ int					open_hist_file(int user_len, char *path)
 	default_path = define_history_file();
 	fd = open(path, O_WRONLY | O_TRUNC | O_CREAT | O_SYNC,
 		S_IRUSR | S_IWUSR);
-	if (user_len == 0)
-		g_hist.len = 0;
 	if (ft_strcmp(path, default_path) != 0 && fd < 0)
 		open_hist_file(user_len, default_path);
 	free(default_path);
