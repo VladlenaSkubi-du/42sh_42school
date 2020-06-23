@@ -23,7 +23,7 @@ void	put_job_in_foreground (job *j, int cont)
 	{
 		tcsetattr(STDIN_FILENO, TCSADRAIN, &j->tmodes);
 		if (kill(- j->pgid, SIGCONT) < 0)
-			perror ("kill (SIGCONT)"); /* TODO: change */
+			error_handler(SIGNAL_ERROR, "failed to send SIGCONT to job");
     }
 
 	wait_for_job(j);
@@ -47,7 +47,7 @@ void	put_job_in_background (job *j, int cont)
 	ft_printf("[%d] %d\n", j->jid, j->pgid);
 	if (cont)
 		if (kill (-j->pgid, SIGCONT) < 0)
-			perror ("kill (SIGCONT)"); //correct
+			error_handler(SIGNAL_ERROR, "failed to send SIGCONT to job");
 }
 
 /*
