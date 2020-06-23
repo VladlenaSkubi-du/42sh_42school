@@ -42,7 +42,7 @@ int		btin_bg(t_ltree *pos)
 	if (!job_iter) /* No jobs */
 		return (error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), "current"));
 	if (pos->ar_c < 2) /* Empty fg case */
-		while (job_iter->next)
+		while (job_iter->next && !is_btin_only(job_iter->next))
 			job_iter = job_iter->next;
 	else if (pos->ar_v[1][0] == '%')
 	{
@@ -70,7 +70,7 @@ int		btin_fg(t_ltree *pos)
 	if (!job_iter) /* No jobs */
 		return (error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), "current"));
 	if (pos->ar_c < 2) /* Empty fg case */
-		while (job_iter->next)
+		while (job_iter->next && !is_btin_only(job_iter->next))
 			job_iter = job_iter->next;
 	else if (pos->ar_v[1][0] == '%')
 	{

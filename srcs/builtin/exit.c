@@ -1,10 +1,22 @@
 #include "shell42.h"
 #include "builtin42.h"
+#include "jobs.h"
 
 int				btin_exit(t_ltree *pos)
 {
 	int			status;
+	job			*job_iter;
 
+	job_iter = g_first_job;
+	while (job_iter)
+	{
+		if (!job_is_completed(job_iter) && !is_btin_only(job_iter))
+		{
+			ft_putendl_fd("There are still alive jobs", STDOUT_FILENO);
+			return (-1);
+		}
+		job_iter = job_iter->next;
+	}
 	ft_putendl_fd("exit", STDOUT_FILENO);
 	if (pos->ar_c > 1)
 		status = btin_exit_arguments(pos->ar_v);
