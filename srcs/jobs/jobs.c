@@ -43,7 +43,7 @@ int		fork_job(process *p, job *j, int *infl, int *outfl)
 	if (p->next)
 	{
 		if (pipe(mypipe) < 0)
-			return (-1);
+			return (error_handler(PIPE_FAILED, "pipe creation failed"));
 		*outfl = mypipe[1];
 	}
 	else
@@ -53,7 +53,7 @@ int		fork_job(process *p, job *j, int *infl, int *outfl)
 	if (pid == 0)
 		launch_process(p, j->pgid, (int[3]){*infl, *outfl, j->stderr}, j->fg);
 	else if (pid < 0)
-		return (-1);
+		return (error_handler(FORK_FAILED, "fork creation failed"));
 	else
 		parent(p, j, pid);
 	p->btin ? parent(p, j, getpid()): 0;

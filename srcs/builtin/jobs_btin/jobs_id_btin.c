@@ -5,8 +5,6 @@
 int		id_check(t_ltree *pos)
 {
 	int		i;
-	job		*job_iter;
-	int		id;
 
 	i = 1;
 	while (i < pos->ar_c)
