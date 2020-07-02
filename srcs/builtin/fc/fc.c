@@ -12,7 +12,7 @@
 ** that influence differently depending on the place
 */
 
-int                 btin_fc(t_ltree *pos)
+int					btin_fc(t_ltree *pos)
 {
 	int				flags;
 	t_btin_fc		*fc_arg;

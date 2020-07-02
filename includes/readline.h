@@ -4,23 +4,24 @@
 
 # include "readline_simple.h"
 
-# define TERMCAP_SIZE 		20
-# define CMD_SIZE			100
+# define TERMCAP_SIZE 			20
+# define CMD_SIZE				100
+# define DEFAULT_SCREEN_SIZE	80
 
-# define TAB				0x1
-# define NEW_LINE_SY		0x2
-# define NEW_LINE_TE		0x4
-# define AFTER_LINE			0x8
-# define AFTER_LINE_HIST	0x10
-# define PROMPTLEN_ZERO		0x20
+# define TAB					0x1
+# define NEW_LINE_SY			0x2
+# define NEW_LINE_TE			0x4
+# define AFTER_LINE				0x8
+# define AFTER_LINE_HIST		0x10
+# define PROMPTLEN_ZERO			0x20
 
-# define RED				"\033[31m"
-# define ORANGE				"\033[38;5;208m"
-# define YELLOW				"\033[33m"
-# define GREEN				"\033[32m"
-# define BLUE				"\033[36m"
-# define PURPLE				"\033[35m"
-# define DEFAULT			"\033[0m"
+# define RED					"\033[31m"
+# define ORANGE					"\033[38;5;208m"
+# define YELLOW					"\033[33m"
+# define GREEN					"\033[32m"
+# define BLUE					"\033[36m"
+# define PURPLE					"\033[35m"
+# define DEFAULT				"\033[0m"
 
 /*
 ** Structures
@@ -149,7 +150,8 @@ t_compl							g_compl;
 */
 
 void							init_readline(void);
-void							bzero_readline(void);;
+void							bzero_readline(void);
+void							realloc_readline_cmd(void);
 int								start_readline42(int tmp);
 char							*finalize_cmd(char *cmd);
 
@@ -161,6 +163,7 @@ int								check_terminal(void);
 int								mf_protection(void);
 int								set_noncanonical_input(void);
 int								reset_canonical_input(void);
+int								init_terminal_screen(void);
 // int								back_to_noncanonical_input(void); //DELETE
 
 /*
@@ -481,7 +484,7 @@ int								add_other_prompts_history(char *cmd,
 
 int								scroll_hist_buffer(int num);
 int								save_hist_buffer(int fd);
-int								check_if_histsize_changed(void);
+int								check_if_histsize_changed(char *new_value);
 char							**make_hist_buffer_smaller(int size);
 
 /*

@@ -43,7 +43,7 @@ int				save_hist_buffer(int fd)
 	g_hist.counter = i;
 	g_hist.start = i;
 	g_hist.last_fc = (g_hist.last > 0) ? g_hist.last + 1 : 1;
-	if (g_hist.len > MAX_HISTBUF)
+	if (g_hist.len > MAX_HISTBUF + 1)
 		g_hist.hist = make_hist_buffer_smaller((MAX_HISTBUF > HISTORY_LIMIT) ?
 		HISTORY_LIMIT : MAX_HISTBUF);
 	if (g_hist.last_fc > HISTORY_LIMIT)
@@ -77,35 +77,28 @@ char			**make_hist_buffer_smaller(int size)
 	return (history);
 }
 
-int				check_if_histsize_changed(void)
+int				check_if_histsize_changed(char *new_value)
 {
-	int			li;
 	int			co;
 	int			user_len;
 
-	li = find_in_variable(&co, "HISTSIZE");
-	if (!((g_envi[li][0] && (g_envi[li][0] & SET_VIS)) ||
-			ft_isdigit(g_envi[li][co])))
+	co = ft_strchri(new_value, '=');
+	if (!ft_isdigit(new_value[co + 1]))
 		return (0);
-	user_len = ft_atoi(g_envi[li] + co);
-
-	// li = find_in_variables(g_shvar, &co, "HISTSIZE=");
-	// if (!ft_isdigit(g_shvar[li][co]))
-	// 	return (0);
-	// user_len = ft_atoi(g_shvar[li] + co);
+	user_len = ft_atoi(new_value + co + 1);
 	if (user_len < 0 || user_len > HISTORY_LIMIT)
 		return (0);
-	else if (user_len > 0 && user_len > g_hist.len)
+	else if (user_len > 0 && user_len + 1 > g_hist.len)
 	{
 		g_hist.hist = ft_realloc_array(&g_hist.hist,
 			g_hist.len, user_len + 2);
 		g_hist.len = user_len + 1;
 	}
-	else if (user_len > 0 && user_len < g_hist.len)
-		g_hist.hist = make_hist_buffer_smaller(user_len); //TODO проверить
+	else if (user_len > 0 && user_len + 1 < g_hist.len)
+		g_hist.hist = make_hist_buffer_smaller(user_len);
 	else if (user_len == 0)
 	{
-		free(g_hist.hist[g_hist.len + 1]);
+		free(g_hist.hist[g_hist.len]);
 		ft_arrdel(g_hist.hist);
 		init_history_buffer(0 + 1);
 	}

@@ -21,19 +21,24 @@ void			init_readline(void)
 
 void			bzero_readline(void)
 {
-	if (ioctl(1, TIOCGWINSZ, &g_screen))
-	{
-		error_handler(TERMINAL_EXISTS, NULL);
-		clean_everything();
-		exit(TERMINAL_EXISTS);
-	}
-	ft_bzero(g_rline.cmd, g_rline.cmd_buff_len);
+	init_terminal_screen();
+	if (g_rline.cmd[0])
+		ft_bzero(g_rline.cmd, g_rline.cmd_buff_len);
 	g_rline.cmd_len = 0;
 	g_rline.pos = 0;
 	g_rline.pos_x = count_prompt_len();
 	g_rline.pos_y = 0;
 	g_rline.str_num = 1;
-	(!(g_rline.flag & PROMPTLEN_ZERO)) ? g_rline.flag = 0 : 0;
+	if (!(g_rline.flag & PROMPTLEN_ZERO))
+		g_rline.flag = 0;
+}
+
+void			realloc_readline_cmd(void)
+{
+	g_rline.cmd = (char *)ft_realloc(g_rline.cmd,
+		g_rline.cmd_len, g_rline.cmd_buff_len,
+		g_rline.cmd_buff_len + CMD_SIZE);
+	g_rline.cmd_buff_len += CMD_SIZE;
 }
 
 /*
@@ -52,10 +57,7 @@ int				start_readline42(int tmp)
 	reset_canonical_input();
 	signals_reroute(2);
 	final = finalize_cmd(g_rline.cmd);
-	clean_readline42();
-	// free (final); //для тестов readline
 	free(g_hist.hist[g_hist.last + 1]);
-	clean_termcap();
 	parser(final);
 	return (0);
 }
@@ -80,8 +82,6 @@ char			*finalize_cmd(char *cmd)
 	}
 	else
 		out = ft_strjoin(cmd, "\n");
-	// if (g_rline.cmd_len == 0)
-	// 	out = ft_strdup(cmd);
 	free(tmp);
 	return (out);
 }
