@@ -45,6 +45,7 @@ int     btin_pwd(t_ltree *pos)
 {
 	t_cd	*flags;
 	int		i;
+	int		j;
 	char	dir[MAXDIR];
 
 	if (valid(pos->ar_v))
@@ -52,7 +53,10 @@ int     btin_pwd(t_ltree *pos)
 	flags = ft_xmalloc(sizeof(t_cd *));
 	i = ft_cd_flags(pos->ar_v, flags);
 	if (flags->l)
-		ft_putstr(g_rdovar[5] + 4);
+	{
+		i = find_in_variable(&j, "PWD");
+		ft_putstr(g_envi[i] + j);
+	}
 	else
 	{
 		getcwd(dir, MAXDIR); //исправить на NULL

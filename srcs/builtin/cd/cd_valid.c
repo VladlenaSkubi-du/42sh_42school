@@ -3,12 +3,12 @@
 
 int		ft_check_cdpath(char *path, char **env)  ///ПЕРЕПИСАТЬ
 {
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 	char	**cdpath;
 	char	*tmp;
 
-	if ((i = find_in_variables(env, &j, "CDPATH")) == -1)
+	if ((i = find_in_variable(&j, "CDPATH")) == -1)
 		return (1);
 	cdpath = ft_strsplit(env[i] + j, ';');
 	i = 0;
