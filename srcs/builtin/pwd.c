@@ -20,7 +20,7 @@ int		pwd_error(char c, int en)
 	return (1);
 }
 
-int		valid(char **argv)
+int		btin_pwd_valid(char **argv)
 {
 	int	i;
 	int	j;
@@ -47,7 +47,7 @@ int     btin_pwd(t_ltree *pos)
 	int		i;
 	char	dir[MAXDIR];
 
-	if (valid(pos->ar_v))
+	if (btin_pwd_valid(pos->ar_v))
 		return (1);
 	flags = ft_xmalloc(sizeof(t_cd *));
 	i = ft_cd_flags(pos->ar_v, flags);

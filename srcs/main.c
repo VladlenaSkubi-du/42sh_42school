@@ -51,7 +51,6 @@ int				interactive_shell(void)
 		termtype = getenv("TERM");
 		termtype = (termtype == NULL) ? "xterm-256color" : termtype;
 		tmp = tgetent(room_termtype, termtype);
-		init_termcap();
 		start_readline42(tmp);
 		ft_bzero(room_termtype, 10);
 	}

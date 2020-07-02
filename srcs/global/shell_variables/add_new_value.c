@@ -19,6 +19,10 @@ int		change_env_value(char *new_val, int i)
 	g_envi[i] = (char *)ft_xmalloc(ft_strlen(new_val) + 2);
 	g_envi[i][0] = bit;
 	ft_strcpy(g_envi[i] + 1, new_val);
+	if (ft_strncmp(new_val, "HISTSIZE=", 9) == 0)
+		check_if_histsize_changed(g_envi[i] + 1);
+	else if (ft_strncmp(new_val, "PATH=", 5) == 0)
+		hashtable_clean();
 	return (0);
 }
 
@@ -47,6 +51,10 @@ int		add_new_env(char *name)
 	g_envi[i] = (char *)ft_xmalloc(ft_strlen(name) + 2);
 	ft_strcpy(g_envi[i] + 1, name);
 	g_envi[i][0] |= SET_VIS;
+	if (ft_strncmp(name, "HISTSIZE=", 9) == 0)
+		check_if_histsize_changed(g_envi[i] + 1);
+	else if (ft_strncmp(name, "PATH=", 5) == 0)
+		hashtable_clean();
 	return (i);
 }
 
@@ -135,7 +143,7 @@ char	*find_env_value(char *str)
 	return (&g_envi[i][j]);
 }
 
-char	*find_env_value_rdonly(char *str)
+char	*find_env_value_rdonly(char *str) //to delete after we insert mechanism of unset (deletion)
 {
 	int		i;
 	int		j;

@@ -12,7 +12,9 @@ int		parser(char *line)
 	g_cmd = line;
 	g_cmd_size = ft_strlen(g_cmd);
 	ft_get_techline(g_cmd, &g_techline);
-	add_to_history(g_cmd);
+	if (ft_atoi(find_env_value_rdonly("42SH_NONINTERACTIVE")) == 1 &&
+			g_hist.len > 1)
+		add_to_history(g_cmd);
 	pars_lex_exec(0);
 	return (0);
 }

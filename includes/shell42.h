@@ -246,7 +246,6 @@ int					syntax_errors(int status, char *str);
 */
 
 int					clean_everything(void);
-int					clean_readline42(void);
 int					clean_parser42(void);
 int					clean_termcap(void);
 

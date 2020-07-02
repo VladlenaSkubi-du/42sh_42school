@@ -21,7 +21,8 @@ BUILTIN = \
             $(CD) \
 			$(FC) \
 			$(JOBS_BTIN) \
-			$(EXPORT)
+			$(EXPORT) \
+			$(HASH)
 
 CD_DIR = cd
 CD =		$(BUILTIN_DIR)/$(CD_DIR)/cd.c \
@@ -34,6 +35,11 @@ CD =		$(BUILTIN_DIR)/$(CD_DIR)/cd.c \
 EXPORT_DIR = export
 EXPORT =	$(BUILTIN_DIR)/$(EXPORT_DIR)/export.c
 
+HASH_DIR = hash
+HASH = 		$(BUILTIN_DIR)/$(HASH_DIR)/hash.c \
+			$(BUILTIN_DIR)/$(HASH_DIR)/hash_table_backend.c \
+			$(BUILTIN_DIR)/$(HASH_DIR)/hash_mechanism.c \
+			$(BUILTIN_DIR)/$(HASH_DIR)/hash_function.c
 
 FC_DIR = fc
 FC = 		$(BUILTIN_DIR)/$(FC_DIR)/fc.c \
@@ -253,6 +259,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(FC_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(CD_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(EXPORT_DIR)
+	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(HASH_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(JOBS_BTIN_DIR)
 #_____________________________________________________
 	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)

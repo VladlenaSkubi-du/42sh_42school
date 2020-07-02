@@ -18,21 +18,21 @@
 ** arr = "abcdef0000" - is the buffer (len 10) with some content
 **        abcdef
 ** where each str goes down
-** ft_arrshift(arr + 2, 3)
+** ft_arrshift(arr + 2, 10, 3)
 ** Result: arr = "ab000cdef0"
 **                ab   cdef
 **
 ** If you neew to delete 3 str before d-str:
 ** arr = "abcdef0000" - is the buffer (len 10) with some content
 **        abcdef
-** ft_arrshift(arr + 3, -3)
+** ft_arrshift(arr + 3, 10, -3)
 ** Result: arr = "def0000000"
 **                def
 **
 ** If you neew to delete d-str:
 ** arr = "abcdef0000" - is the buffer (len 10) with some content
 **        abcdef
-** ft_arrshift(arr + 3, -3)
+** ft_arrshift(arr + 3, 10, -3)
 ** Result: arr = "abcef00000"
 **                abcef
 **

@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/06/22 17:41:34 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/06/25 20:33:35 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define	ERR_SET 0x10
 # define	ERR_CD 0x20
 # define	ERR_JOB_NF 0x40
+# define	ERR_HASH_NF 0x80
 
 /*
 ** Option errors are errors that exit with 2

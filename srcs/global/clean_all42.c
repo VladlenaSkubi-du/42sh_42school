@@ -29,23 +29,6 @@ int				clean_everything(void)
 }
 
 /*
-** Cleans the only structure that contains everything
-** All the other cleanings are done within readline function
-*/
-
-int				clean_readline42(void)
-{
-	ft_bzero(g_rline.cmd, g_rline.cmd_buff_len);
-	g_rline.cmd_len = 0;
-	g_rline.pos = 0;
-	g_rline.pos_x = 0;
-	g_rline.pos_y = 0;
-	g_rline.str_num = 1;
-	g_rline.flag = 0;
-	return (0);
-}
-
-/*
 ** The main globals in parser
 ** @g_start_list is a list that comes to execution of commands
 */
