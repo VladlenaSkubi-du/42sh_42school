@@ -13,26 +13,33 @@ int		ft_to_dir(char *path)
 
 void		ft_change_pwd(char *path, char **env)
 {
-    size_t	i;
-    size_t	j;
-    size_t	k;
+    int		i;
+    int		j;
+    int		k;
+	char	c;
     
-	i = find_in_variables(env, &j, "OLDPWD");
-	free(g_rdovar[5]);
-	free(g_rdovar[6]);
-	k = find_in_variables(env, &j, "PWD");
+	i = find_in_variable(&j, "OLDPWD");
+	k = find_in_variable(&j, "PWD");
+	c = env[i][0];
 	free(env[i]);
-	env[i] = ft_strjoin("OLDPWD=", env[k] + j);
+	env[i] = ft_xmalloc(sizeof(char) * 9);
+	env[i][0] = c;
+	ft_strcpy(env[i] + 1, "OLDPWD=");
+	env[i] = ft_strrejoin(env[i], env[k] + j);
+	c = env[k][0];
 	free(env[k]);
-	env[k] = ft_strjoin("PWD=", path);
-	g_rdovar[5] = ft_strdup(env[k]);
-	g_rdovar[6] = ft_strdup(env[i]);
+	env[k] = ft_xmalloc(sizeof(char) * 6);
+	env[k][0] = c;
+	ft_strcpy(env[k] + 1, "PWD=");
+	env[k] = ft_strrejoin(env[k], path);
+	//printf("%s, %s\n", env[i] + 1, env[k] + 1);
 }
 
 int		ft_change_path(char *path, char **env, t_cd *flags)
 {
     char	*name;
 
+	//printf("%s\n", path);
 	if (ft_to_dir(path))
 	{
 		free(path);

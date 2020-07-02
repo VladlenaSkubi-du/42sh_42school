@@ -12,7 +12,7 @@ void    ft_values(t_cd *flags)
     size_t      i;
     size_t      j;
 
-    i = find_in_variables(g_env, &j, "PWD");
+    i = find_in_variables(g_envi, &j, "PWD");
     flags->l = 1;
     flags->p = 0;
     if (i == -1)
