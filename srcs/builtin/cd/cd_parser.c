@@ -4,11 +4,11 @@
 int		ft_cd_env(char *path, char **env, t_cd *flags)
 {
 	char	*name;
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 
 	name = path ? ft_strdup("OLDPWD") : ft_strdup("HOME");
-	i = find_in_variables(env, &j, name);
+	i = find_in_variable(&j, name);
 	if (path && i < 0)
 	{
 		free(name);
