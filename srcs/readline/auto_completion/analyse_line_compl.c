@@ -72,7 +72,7 @@ int					check_path_pool_three_compl(char *compl, char *tech,
 	start = i + 1;
 	while (i >= 0 && (tech[i] == SPACE || tech[i] == ENTER))
 		i--;
-	if (i == -1 && (compl[start] == '_' ||
+	if (i < 0 && start >= 0 && (compl[start] == '_' ||
 			(compl[start] == '.' && ft_isalnum(compl[start + 1]))))
 	{
 		*pool = 1;

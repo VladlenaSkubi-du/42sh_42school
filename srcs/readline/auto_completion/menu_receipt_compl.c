@@ -102,7 +102,7 @@ t_path				*fill_tree_with_arguments(char *path,
 	struct dirent	*entry;
 
 	root = NULL;
-	if (path == NULL)
+	if (path == NULL || path[0] == '\0')
 		return (NULL);
 	len = ft_strlen(complete);
 	if (!(dir_name = opendir(path)))
@@ -110,9 +110,9 @@ t_path				*fill_tree_with_arguments(char *path,
 	while ((entry = readdir(dir_name)))
 	{
 		if ((entry->d_name[0] == '.' && entry->d_name[1] == '\0') ||
-			(entry->d_name[0] == '.' && entry->d_name[1] &&
-			entry->d_name[1] == '.' && entry->d_name[2] == '\0') ||
-			ft_isprint(entry->d_name[0]) == 0)
+				(entry->d_name[0] == '.' && entry->d_name[1] &&
+				entry->d_name[1] == '.' && entry->d_name[2] == '\0') ||
+				ft_isprint(entry->d_name[0]) == 0)
 			continue ;
 		if (ft_strnequ(entry->d_name, complete, len))
 			insert_in_bintree(entry->d_name, &root, (size_t*)total);
