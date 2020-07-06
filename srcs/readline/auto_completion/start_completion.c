@@ -92,7 +92,7 @@ char				**route_menu_receipt(char *tech_line,
 	if (g_rline.cmd[g_rline.pos] == 0 || g_rline.cmd[g_rline.pos] == ' ')
 		tmp = analyse_techline_compl(g_compl.to_compl,
 			tech_line, tech_len, &pool);
-	if (tmp == -1)
+	if (tmp < 0)
 		return (NULL);
 	final = ft_strdup(g_compl.to_compl + tmp);
 	free(g_compl.to_compl);
@@ -102,7 +102,7 @@ char				**route_menu_receipt(char *tech_line,
 			(size_t*)&g_compl.total, max_len);
 	else if (pool == 2)
 		menu = get_variables(g_compl.to_compl, &g_compl.total, max_len);
-	else
+	else if (pool == 3)
 		menu = get_arguments(&g_compl.to_compl, &g_compl.total, max_len);
 	return (menu);
 }
