@@ -32,13 +32,12 @@ void		ft_change_pwd(char *path, char **env)
 	env[k][0] = c;
 	ft_strcpy(env[k] + 1, "PWD=");
 	env[k] = ft_strrejoin(env[k], path);
+	//free(path);
 	//printf("%s, %s\n", env[i] + 1, env[k] + 1);
 }
 
 int		ft_change_path(char *path, char **env, t_cd *flags)
 {
-    char	*name;
-
 	//printf("%s\n", path);
 	if (ft_to_dir(path))
 	{
@@ -46,10 +45,15 @@ int		ft_change_path(char *path, char **env, t_cd *flags)
 		return (1);
 	}
 	if (flags->p)
+	{
+		free(path);
+		path = getcwd(NULL, 999);
+	}
+	/*if (flags->p)
 		name = getcwd(NULL, 999);
 	else
 		name = path;
-	ft_change_pwd(name, env);
+	*/ft_change_pwd(path, env);
 	free(path);
 	return (0);
 }
