@@ -3,9 +3,8 @@
 
 typedef struct		s_cd
 {
-	size_t			p;
-	size_t			l;
-    char            *curpath;
+	int				p;
+	int				l;
 }					t_cd;
 
 /*

@@ -1,16 +1,7 @@
 #include "shell42.h"
 #include "builtin42.h"
 
-void	ft_change_curpath(char *path, t_cd *flags)
-{
-	free(flags->curpath);
-	if (!path)
-		flags->curpath = NULL;
-	else
-		flags->curpath = ft_strdup(path);
-}
-
-char	*ft_cut_name(char *name)
+/*char	*ft_cut_name(char *name)
 {
 	char    *tmp;
 	int		i;
@@ -24,7 +15,7 @@ char	*ft_cut_name(char *name)
 	//printf("tmp = %s\n", tmp);
 	return (tmp);
 }
-
+*/
 int		ft_error(char *name, int en)
 {
     char	*tmp;
@@ -62,17 +53,14 @@ int         btin_cd(t_ltree *pos) //может быть абсолютный п�
 	i = ft_cd_flags(pos->ar_v, flags);
 	if (ft_valid_cd(pos->ar_v, i))
 	{
-		free(flags->curpath);
 		free(flags);
 		return (1);
 	}
 	if (ft_cd_pars(pos->ar_v[i], g_envi, flags))
 	{
-		free(flags->curpath);
 		free(flags);
 		return (1);
 	}
-	free(flags->curpath);
 	free(flags);
 	return (0);
 }

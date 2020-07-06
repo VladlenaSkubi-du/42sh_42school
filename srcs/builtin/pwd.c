@@ -63,7 +63,6 @@ int     btin_pwd(t_ltree *pos)
 		ft_putstr(dir);
 	}
     ft_putchar('\n');
-	free(flags->curpath);
 	free(flags);
     return (0);
 }
