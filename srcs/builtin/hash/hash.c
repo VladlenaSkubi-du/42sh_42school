@@ -1,6 +1,21 @@
 #include "shell42.h"
 #include "builtin42.h"
 
+//при удалении ячейки чистится память в пути и номер становится дефолтным
+//флаг меняется на удален
+//при добавлении строки с флагом удален мы чистим ячейку полностью и маллочим заново
+//новыми значениями, если ячейка пустая, то маллочим сразу
+//при полной очистке хеш-таблицы мы удаляем все ячейки (там, где флаг полон - полностью
+//там, где удален - только ключ)
+//если permisson denied, то первое обращение итерируется до 1, а последующие нет, ошибка при вызове
+//если нет в хеше, но заносят prmission denied  в хеш, пишется, что не найдено. если уже есть в хеше,
+//но снова пытаются внести permission denied, пишет ошибку - плохо
+
+//type: если есть в хе-таблице, возвращаю, что в хеш-таблице существует и путь
+//нет  в хеш таблице - полный поиск пути
+//нет в хеш-таблице и нет прав - type: ls: not found
+//есть в хеш-таблице, но нет доступа - сущ-ет в хеше и путь
+
 int					btin_hash(t_ltree *pos)
 {
 	int				flags;
@@ -10,7 +25,7 @@ int					btin_hash(t_ltree *pos)
 		error_handler(NONINERACTIVE, pos->ar_v[0]);
 		return (NONINERACTIVE);
 	}
-	flags = find_options(2, (char*[]){"rl", "--help"}, pos->ar_v);
+	flags = find_options(2, (char*[]){"rld", "--help"}, pos->ar_v);
 	if (flags == 0x10000)
 		return (usage_btin("hash"));
 	if (pos->ar_c == 1)
@@ -30,9 +45,11 @@ int					btin_hash_check_flags(char **argv)
 			if (!argv[i][1])
 				return (btin_hash_error_message(argv[i], OPTIONS_REQUIRED));
 			else if (argv[i][1] == 'r')
-				return (hashtable_clean());
+				return (btin_hash_clean_table());
 			else if (argv[i][1] == 'l')
 				return (btin_hash_list_hashtable());
+			else if (argv[i][1] == 'd')
+				return (btin_hash_delete_elements(&argv[++i]));
 			else if (argv[i][1] == '-' && !argv[i][2])
 				return (btin_hash_add_to_hashtable(&argv[++i]));
 		}
@@ -42,31 +59,6 @@ int					btin_hash_check_flags(char **argv)
 			return (btin_hash_add_to_hashtable(&argv[i]));
 	}
 	printf("nothing is changed in the hashtable\n");
-	return (0);
-}
-
-int					btin_hash_list_hashtable(void)
-{
-	printf("list commands from btin\n");
-	return (0);
-}
-
-int					btin_hash_add_to_hashtable(char **argv)
-{
-	int				i;
-
-	i = -1;
-	while (argv[++i])
-	{
-		printf("arg is: %s\n", argv[i]);
-		if (btin_hash_check_argument(argv[i]) == HASH_INVALID)
-		{
-			printf("arg is invalid\n");
-			continue;
-		}
-		if (hashtable_add(argv[i]) == NULL)
-			btin_hash_error_message(argv[i], VARIABLE_ERROR);
-	}
 	return (0);
 }
 
@@ -95,4 +87,20 @@ int					btin_hash_error_message(char *option, int error)
 		error_handler(VARIABLE_ERROR | (ERR_HASH_NF << 9), error_message);
 	free(error_message);
 	return (error);
+}
+
+int					btin_hash_clean_table()
+{
+	void			**hashtable;
+	int				hashtable_size;
+
+	hashtable_size = -1;
+	hashtable = get_hashtable_value(&hashtable_size);
+	if (hashtable_size < 0)
+	{
+		printf("can's get hashtable value\n");
+		return (0);
+	}
+	hashtable_clean(hashtable, hashtable_size);
+	return (0);
 }

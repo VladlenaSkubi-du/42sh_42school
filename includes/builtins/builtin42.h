@@ -184,9 +184,14 @@ int				id_check(t_ltree *pos);
 
 int             btin_hash(t_ltree *pos);
 int				btin_hash_check_flags(char **argv);
-int				btin_hash_list_hashtable(void);
-int				btin_hash_add_to_hashtable(char **argv);
-int				btin_hash_error_message(char *option, int error);
 int				btin_hash_check_argument(char *arg);
+int				btin_hash_error_message(char *option, int error);
+int				btin_hash_clean_table();
+
+int				btin_hash_list_hashtable(void);
+int				btin_hash_delete_elements(char **argv);
+int				btin_hash_add_to_hashtable(char **argv);
+int				btin_hash_valid_argument_add(char *key);
+int				btin_hash_valid_argument_delete(char *key);
 
 #endif
