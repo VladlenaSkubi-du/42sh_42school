@@ -19,8 +19,8 @@ int		ft_redir_great(t_ltree *final, size_t *i)
 		(*i)++;
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 		{
-			if ((fd_open.fd_old = open(f_name, O_CREAT | O_WRONLY | O_TRUNC |
-			O_CLOEXEC | O_SYNC | O_NOCTTY, S_IRUSR | S_IWUSR)) == -1)
+			if ((fd_open.fd_old = open(f_name, O_CREAT | O_RDWR | O_TRUNC |
+			O_CLOEXEC | O_NDELAY | O_NOCTTY, S_IWUSR)) == -1)
 				return (ft_access_check(&f_name, final, i, W_OK));
 			else
 				add_redir_fd(final, &fd_open);
@@ -49,8 +49,8 @@ int		ft_redir_dgreat(t_ltree *final, size_t *i)
 		(*i) += 2;
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 		{
-			if ((fd_open.fd_old = open(f_name, O_CREAT | O_WRONLY | O_APPEND |
-				O_CLOEXEC | O_SYNC | O_NOCTTY, S_IRUSR | S_IWUSR)) == -1)
+			if ((fd_open.fd_old = open(f_name, O_CREAT | O_RDWR | O_APPEND |
+				O_CLOEXEC | O_NDELAY | O_NOCTTY, S_IWUSR)) == -1)
 				return (ft_access_check(&f_name, final, i, W_OK));
 			else
 				add_redir_fd(final, &fd_open);

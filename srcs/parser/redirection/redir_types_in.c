@@ -21,8 +21,8 @@ int		ft_redir_less(t_ltree *final, size_t *i)
 		(*i)++;
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
 		{
-			if ((fd_open.fd_old = open(f_name, O_RDONLY |
-			O_CLOEXEC | O_SYNC | O_NOCTTY)) == -1)
+			if ((fd_open.fd_old = open(f_name, O_RDONLY | O_CLOEXEC |
+			O_NDELAY | O_NOCTTY, S_IRUSR)) == -1)
 				return (ft_access_check(&f_name, final, i, R_OK));
 			else
 				add_redir_fd(final, &fd_open);
