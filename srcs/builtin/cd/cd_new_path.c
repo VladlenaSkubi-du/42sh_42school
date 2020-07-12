@@ -57,10 +57,10 @@ char	*ft_join(char *path, char **env)
 	int		j;
 	char	*tmp;
 
-	i = find_in_variable(&j, "PWD"); //Если его нет?
+	//i = find_in_variable(&j, "PWD"); //Если его нет?
 	//printf("%s\n", g_envi[22]);
 	tmp = ft_strdup("1");
-	tmp = ft_strrejoin(tmp, env[i] + j);
+	tmp = ft_strrejoin(tmp, get_pwd_value());//env[i] + j);
 	tmp = ft_strrejoin(tmp, "/");
 //	tmp = ft_strjoin(env[i] + j, "/");
 	tmp = ft_strrejoin(tmp, path);

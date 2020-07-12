@@ -30,7 +30,8 @@ CD =		$(BUILTIN_DIR)/$(CD_DIR)/cd.c \
 			$(BUILTIN_DIR)/$(CD_DIR)/cd_valid.c \
 			$(BUILTIN_DIR)/$(CD_DIR)/cd_parser.c \
 			$(BUILTIN_DIR)/$(CD_DIR)/cd_change_path.c \
-			$(BUILTIN_DIR)/$(CD_DIR)/cd_new_path.c
+			$(BUILTIN_DIR)/$(CD_DIR)/cd_new_path.c \
+			$(BUILTIN_DIR)/$(CD_DIR)/cd_static.c
 
 EXPORT_DIR = export
 EXPORT =	$(BUILTIN_DIR)/$(EXPORT_DIR)/export.c
@@ -76,8 +77,6 @@ GLOBAL = 	$(GLOBAL_DIR)/clean_all42.c \
 
 SHELL_VARS_DIR = shell_variables
 SHELL_VARIABLES = \
-			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/environment42.c \
-			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/variables_processing42.c \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/add_new_value.c \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/form_environment42.c
 

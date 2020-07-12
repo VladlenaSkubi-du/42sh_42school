@@ -43,4 +43,15 @@ int         ft_change_path(char *path, char **env, t_cd *flags);
 */
 
 char        *ft_new_path(char *path, char **env);
+
+/*
+**	File cd_static.c
+*/
+
+char		*get_oldpwd_value(void);
+char		*get_pwd_value(void);
+int			change_oldpwd_value(char *str);
+int			change_pwd_value(char *str);
+int			cd_free_static(void);
+
 #endif
