@@ -40,7 +40,7 @@
 ** from the function that calls
 */
 
-void			ft_arrshift(char **arr, size_t size, size_t shift)
+void			ft_arrshift(char **arr, int size, int shift)
 {
 	char		**buff;
 	int			i;
@@ -49,9 +49,15 @@ void			ft_arrshift(char **arr, size_t size, size_t shift)
 		return ;
 	buff = (char**)ft_xmalloc(sizeof(char*) * (size + 1));
 	ft_memcpy(buff, arr, sizeof(char*) * size);
+	if (shift < 0)
+	{
+		i = shift - 1;
+		while (++i)
+			free(arr[i]);
+	}
 	ft_memcpy(arr + shift, buff, sizeof(char*) * (size - shift));
 	i = 0;
-	while (i < (int)shift)
+	while (i < shift)
 	{
 		arr[i] = (char*)NULL;
 		i++;

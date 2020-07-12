@@ -50,7 +50,7 @@ char					**ft_realloc_array(char ***subj, int len_subj,
 							int len_needed);
 void					ft_delelem_array(char ***array, int len,
 							int start, int num);
-void					ft_arrshift(char **arr, size_t size, size_t shift);
+void					ft_arrshift(char **arr, int size, int shift);
 
 /*
 ** Folder LIST_STRUCTURE
