@@ -64,8 +64,8 @@ int					save_readonly_variable(int num)
 	g_envi[num++] = ft_add_rdovar("42SH_PARSER=0", NULL, 1);
 	g_envi[num++] = ft_add_rdovar("42SH_NONINTERACTIVE=0", NULL, 1);
 	tmp = getcwd(NULL, MAXDIR);
-	g_envi[num++] = ft_add_rdovar("PWD=", tmp, 0);
-	g_envi[num++] = ft_add_rdovar("OLDPWD=", tmp, 0);
+//	g_envi[num++] = ft_add_rdovar("PWD=", tmp, 0);
+//	g_envi[num++] = ft_add_rdovar("OLDPWD=", tmp, 0);
 	g_envi[num++] = ft_add_rdovar("42SH=", tmp, 0);
 	free(tmp);
 	tmp = ft_itoa(getuid());
@@ -119,12 +119,15 @@ int					save_shell_variable(int num)
 int					create_env(void)
 {
 	int		num;
+	char	*tmp;
 
 	g_envi = (char **)ft_xmalloc(ENV_BUFFER * sizeof(char*));
 	num = save_readonly_variable(0);
 	num = save_shell_variable(num);
 	num = save_environment_variable(num);
-
+	change_pwd_value((tmp = getcwd(NULL, MAXDIR)));
+	change_oldpwd_value(tmp);
+	free(tmp);
 	// int i = -1;
 	// while (g_envi[++i])
 	// 	printf("%s\n", g_envi[i] + 1);

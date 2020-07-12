@@ -20,10 +20,11 @@ int				clean_everything(void)
 		ft_arrdel(g_shvar);
 		make_ctrl_p(2, NULL);
 	}
-	ft_arrdel(g_env);
-	ft_arrdel(g_rdovar);
-	ft_arrdel(g_lovar);
+	//ft_arrdel(g_env);
+	//ft_arrdel(g_rdovar);
+	//ft_arrdel(g_lovar);
 	ft_arrdel(g_envi);
+	cd_free_static();
 	btin_hash_clean_table();
 	ft_gnl(GNL_CLEAN, NULL);
 	return (0);
