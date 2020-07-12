@@ -45,7 +45,7 @@ void			ft_arrshift(char **arr, int size, int shift)
 	char		**buff;
 	int			i;
 
-	if (arr == (char**)NULL || arr[0] == (char*)NULL)
+	if (arr == (char**)NULL)
 		return ;
 	buff = (char**)ft_xmalloc(sizeof(char*) * (size + 1));
 	ft_memcpy(buff, arr, sizeof(char*) * size);
