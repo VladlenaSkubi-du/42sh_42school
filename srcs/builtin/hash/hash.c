@@ -20,7 +20,7 @@ int					btin_hash(t_ltree *pos)
 {
 	int				flags;
 	
-	if (ft_atoi(find_env_value_rdonly("42SH_NONINTERACTIVE")) == 1)
+	if (ft_atoi(find_env_value("42SH_NONINTERACTIVE")) == 1)
 	{
 		error_handler(NONINERACTIVE, pos->ar_v[0]);
 		return (NONINERACTIVE);

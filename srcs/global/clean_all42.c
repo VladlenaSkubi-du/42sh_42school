@@ -12,17 +12,13 @@
 
 int				clean_everything(void)
 {
-	if (ft_atoi(find_env_value_rdonly("42SH_NONINTERACTIVE")) == 0)
+	if (ft_atoi(find_env_value("42SH_NONINTERACTIVE")) == 0)
 	{
 		if (g_hist.len >= 0)
 			free(g_hist.hist[g_hist.len]);
 		ft_arrdel(g_hist.hist);
-		ft_arrdel(g_shvar);
 		make_ctrl_p(2, NULL);
 	}
-	//ft_arrdel(g_env);
-	//ft_arrdel(g_rdovar);
-	//ft_arrdel(g_lovar);
 	ft_arrdel(g_envi);
 	cd_free_static();
 	btin_hash_clean_table();
