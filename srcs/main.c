@@ -11,6 +11,7 @@ int				main(int argc, char **argv)
 	save_shell_variables();
 	g_prompt.prompt_func = main_prompt;
 	start_history();
+	hashtable_init();
 	init_readline();
 	interactive_shell();
 	return (0);
