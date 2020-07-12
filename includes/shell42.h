@@ -174,10 +174,6 @@ enum				e_techline
 ** the shell session
 */
 
-char				**g_env; //DIMA delete
-char				**g_rdovar; //DIMA delete
-char				**g_shvar; //DIMA delete
-char				**g_lovar; //DIMA delete
 char				**g_envi;
 int					g_var_size;
 t_prompt			g_prompt;
@@ -246,7 +242,6 @@ int					syntax_errors(int status, char *str);
 */
 
 int					clean_everything(void);
-int					clean_readline42(void);
 int					clean_parser42(void);
 int					clean_termcap(void);
 
@@ -262,46 +257,31 @@ void				print_techline(char *cmd,
 ** ____________________________________________________________________________
 */
 
-// OLD
-
-int					save_readonly_variables(void);
-int					save_shell_variables(void);
-int					save_environment_variables(void);
-int					save_local_variables(void);
-int					realloc_all_gvariables_array(void);
-size_t				find_in_variables(char **arr, size_t *j, char *name);
-// char				**init_exec_environ(void);
-// int					insert_assign_to_arrays(char *find, char *insert,
-// 						char **array);
-// int					if_noninteractive(void);
-// int					add_to_environment_variables(char *add);
-// int					add_to_local_variables(char *add);
-// int					add_new_to_exec_env(char ***array, char **add);
-// int					unset_from_array(char ***arr, int i);
-// int					clean_in_shvar_array(char ***arr, int i, int j);
-// int					exit_status_variable(int status);
-
 //OLD_EXEC
 
 int		exec_old_init(t_ltree *pos);
 int		exec_core_old(t_ltree *pos);
 int		ft_builtins_check_old(t_ltree *pos, int flag);
 
-// NEW
+/*
+** File form_environment42.c
+*/
 
 int					create_env(void);
+int					save_environment_variable(int num);
+int					save_shell_variable(int num);
+int					exit_status_variables(int status);
+int					save_readonly_variable(int num);
+
+/*
+** File add_new_value.c
+*/
+
 char				*find_env_value(char *str);
-char				*find_env_value_rdonly(char *str);
 int					find_in_variable(int *j, char *name);
 int					form_local_envir(char ***arr, int size);
 int					add_new_env(char *name);
 int					change_env_value(char *new_val, int i);
-int					save_shell_variable(int num);
-int					save_environment_variable(int num);
-int					save_readonly_variable(int num);
-int					exit_status_variables(int status);
-
-
 
 /*
 ** Folder UNIX_FUNCTIONS

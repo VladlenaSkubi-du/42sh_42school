@@ -37,41 +37,22 @@ int					fill_hist_in_file(void)
 	int				user_len;
 
 	path = ft_strdup(find_env_value("HISTFILE"));
-	if (path == NULL || path[0] == '\0')
-		path = define_history_file();
-	size = find_env_value("HISTFILESIZE");
-	if (!ft_isdigit(size[0]))
-		user_len = MAX_HISTFILE;
-	else
+	if (path[0] == '\0')
 	{
-		user_len = ft_atoi(size);
-		if (user_len < 0 || user_len > HISTORY_LIMIT)
-			user_len = MAX_HISTFILE;
+		free(path);
+		path = define_history_file();
 	}
+	size = find_env_value("HISTFILESIZE");
+	user_len = (!ft_isdigit(size[0])) ? MAX_HISTFILE :
+		ft_atoi(size);
+	if (user_len < 0 || user_len > HISTORY_LIMIT)
+		user_len = MAX_HISTFILE;
 	fd = open_hist_file(user_len, path);
 	free(path);
 	if (fd < 0)
 		return (0);
 	(user_len > 0) ? insert_hist_in_file(fd, user_len) : 0;
 	close(fd);
-	
-	// li = find_in_variables(g_shvar, &co, "HISTFILE=");
-	// path = ft_strdup(g_shvar[li] + co);
-	// li = find_in_variables(g_shvar, &co, "HISTFILESIZE=");
-	// if (!ft_isdigit(g_shvar[li][co]))
-	// 	user_len = MAX_HISTFILE;
-	// else
-	// {
-	// 	user_len = ft_atoi(g_shvar[li] + co);
-	// 	if (user_len < 0 || user_len > HISTORY_LIMIT)
-	// 		user_len = MAX_HISTFILE;
-	// }
-	// fd = open_hist_file(user_len, path);
-	// free(path);
-	// if (fd < 0)
-	// 	return (0);
-	// insert_hist_in_file(fd, user_len);
-	// close(fd);
 	return (0);
 }
 
@@ -104,7 +85,7 @@ int					open_hist_file(int user_len, char *path)
 	fd = open(path, O_WRONLY | O_TRUNC | O_CREAT | O_SYNC,
 		S_IRUSR | S_IWUSR);
 	if (ft_strcmp(path, default_path) != 0 && fd < 0)
-		open_hist_file(user_len, default_path);
+		fd = open_hist_file(user_len, default_path);
 	free(default_path);
 	return (fd);
 }

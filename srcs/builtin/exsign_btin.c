@@ -1,16 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exsign_btin.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/04 15:12:33 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/06/18 20:27:10 by vladlenasku      ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-
 
 #include "shell42.h"
 #include "builtin42.h"
@@ -30,26 +17,16 @@
 int					btin_exsign(t_ltree *pos)
 {
 	int				i;
-	int				start;
 
 	i = -1;
-	while (++i < pos->l_tline.len)
+	while (++i < pos->l_tline.len &&
+			!btin_exsign_stop_signs(pos->l_tline.line[i]))
 	{
 		if (pos->l_tline.line[i] == BANG &&
 				(pos->l_tline.line[i + 1] == BANG ||
 				pos->l_tline.line[i + 1] == WORD_P ||
 				pos->l_tline.line[i + 1] == TEXT))
-		{
-			if (g_hist.len > 0)
-				delete_last_history_element();
-			start = i + 1;
-			while (pos->l_tline.line[++i] &&
-					!btin_exsign_stop_signs(pos->l_tline.line[i]))
-				;
-			return ((g_hist.last < 0) ?
-				btin_exsign_print_message(pos->l_cmd + start - 1, i - start) :
-				btin_exsign_route_substitution(pos, start, i));
-		}
+			return (btin_exsign_start_substitution(pos, i));
 		else if (pos->l_tline.line[i] == BANG)
 		{
 			pos->err_i = i + 1;
@@ -58,6 +35,21 @@ int					btin_exsign(t_ltree *pos)
 		}
 	}
 	return (0);
+}
+
+int					btin_exsign_start_substitution(t_ltree *pos, int i)
+{
+	int				start;
+
+	if (g_hist.len > 0)
+		delete_last_history_element();
+	start = i + 1;
+	while (pos->l_tline.line[++i] &&
+			!btin_exsign_stop_signs(pos->l_tline.line[i]))
+		;
+	return ((g_hist.last < 0) ?
+		btin_exsign_print_message(pos->l_cmd + start - 1, i - start) :
+		btin_exsign_route_substitution(pos, start, i));
 }
 
 int					btin_exsign_route_substitution(t_ltree *pos,
@@ -115,7 +107,7 @@ int					btin_exsign_numeric(t_ltree *pos,
 
 int					btin_exsign_print_message(char *arg, int end)
 {
-	ft_putstr_fd(find_env_value_rdonly("0"), STDOUT_FILENO);
+	ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
 	ft_putstr_fd(": ", STDOUT_FILENO);
 	ft_putnstr_fd(arg, end, STDOUT_FILENO);
 	ft_putendl_fd(": event not found", STDOUT_FILENO);

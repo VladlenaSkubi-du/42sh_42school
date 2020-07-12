@@ -37,14 +37,7 @@ void				signal_ctrl_c_readline(int sig)
 	}
 	g_prompt.prompt_func = main_prompt;
 	g_prompt.prompt_func();
-	if (g_rline.cmd[0])
-		ft_bzero(g_rline.cmd, g_rline.cmd_buff_len);
-	g_rline.cmd_len = 0;
-	g_rline.pos = 0;
-	g_rline.pos_x = count_prompt_len();
-	g_rline.pos_y = 0;
-	g_rline.str_num = 1;
-	g_rline.flag = 0;
+	bzero_readline();
 }
 
 void				signal_screen_readline(int sig)
@@ -54,12 +47,7 @@ void				signal_screen_readline(int sig)
 	check_after_line();
 	position_cursor("ch", 0, 0);
 	tputs(g_cap.cd, 1, printc);
-	if (ioctl(1, TIOCGWINSZ, &g_screen))
-	{
-		error_handler(TERMINAL_EXISTS, NULL);
-		clean_everything();
-		exit(TERMINAL_EXISTS);
-	}
+	init_terminal_screen();
 	g_rline.pos = 0;
 	g_rline.pos_x = count_prompt_len();
 	g_rline.pos_y = 0;
@@ -70,7 +58,7 @@ void				signal_screen_readline(int sig)
 	{
 		g_rline.pos++;
 		front_insert_one_char(g_rline.cmd[i],
-			g_rline.pos_y, 'm', NULL);
+			g_rline.pos_x, 'm', NULL);
 	}
 		
 }

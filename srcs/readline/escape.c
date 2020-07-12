@@ -65,7 +65,7 @@ int		escape_check(char **seq_base)
 
 	i = 0;
 	ft_bzero(buff, 16);
-	while (read(1, buff + i, 1))
+	while (read(STDIN_FILENO, buff + i, 1))
 	{
 		stage = 0;
 		while (stage < ESC_NUM)

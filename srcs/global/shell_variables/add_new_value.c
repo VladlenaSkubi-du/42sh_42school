@@ -19,6 +19,10 @@ int		change_env_value(char *new_val, int i)
 	g_envi[i] = (char *)ft_xmalloc(ft_strlen(new_val) + 2);
 	g_envi[i][0] = bit;
 	ft_strcpy(g_envi[i] + 1, new_val);
+	if (ft_strncmp(new_val, "HISTSIZE=", 9) == 0)
+		check_if_histsize_changed(g_envi[i] + 1);
+	else if (ft_strncmp(new_val, "PATH=", 5) == 0)
+		btin_hash_clean_table();
 	return (0);
 }
 
@@ -47,6 +51,10 @@ int		add_new_env(char *name)
 	g_envi[i] = (char *)ft_xmalloc(ft_strlen(name) + 2);
 	ft_strcpy(g_envi[i] + 1, name);
 	g_envi[i][0] |= SET_VIS;
+	if (ft_strncmp(name, "HISTSIZE=", 9) == 0)
+		check_if_histsize_changed(g_envi[i] + 1);
+	else if (ft_strncmp(name, "PATH=", 5) == 0)
+		btin_hash_clean_table();
 	return (i);
 }
 
@@ -124,18 +132,6 @@ int		find_in_variable(int *j, char *name)
 */
 
 char	*find_env_value(char *str)
-{
-	int		i;
-	int		j;
-
-	j = 0;
-	i = find_in_variable(&j, str);
-	if (i == -1 || !(g_envi[i][0] && (g_envi[i][0] & SET_VIS)))
-		return (NULL);
-	return (&g_envi[i][j]);
-}
-
-char	*find_env_value_rdonly(char *str)
 {
 	int		i;
 	int		j;

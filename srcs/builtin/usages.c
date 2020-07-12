@@ -38,6 +38,8 @@ int				usage_btin_other(char *str)
 		ft_putendl_fd("history [-c]", STDOUT_FILENO);
 	else if (ft_strcmp(str, "exit") == 0)
 		ft_putendl_fd("exit [numeric arg]", STDOUT_FILENO);
+	else if (ft_strcmp(str, "hash") == 0)
+		ft_putendl_fd("hash [-l|-r] [name ...]", STDOUT_FILENO);
 	return (0);
 }
 
@@ -50,11 +52,11 @@ int				usage_btin_fc(void)
 
 int				usage_42sh(void)
 {
-	ft_putstr_fd(find_env_value_rdonly("0"), STDOUT_FILENO);
+	ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
 	// ft_putendl_fd("e-bash [long option] [option] ...", STDOUT_FILENO);
 	ft_putendl_fd(" [long option] [option] ...", STDOUT_FILENO);
 	ebash_long_options();
-	ft_putstr_fd(find_env_value_rdonly("0"), STDOUT_FILENO);
+	ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
 	// ft_putstr_fd("e-bash options: ", STDOUT_FILENO);
 	ft_putstr_fd(" options: ", STDOUT_FILENO);
 	ft_putendl_fd("-c \"command\"", STDOUT_FILENO);
@@ -66,7 +68,7 @@ int				ebash_long_options(void)
 	char		*space;
 	
 	space = "     ";
-	ft_putstr_fd(find_env_value_rdonly("0"), STDOUT_FILENO);
+	ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
 	// ft_putendl_fd("e-bash long options:", STDOUT_FILENO);
 	ft_putendl_fd(" long options:", STDOUT_FILENO);
 	ft_printf("%s--help\n", space);

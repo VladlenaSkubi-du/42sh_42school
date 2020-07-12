@@ -19,7 +19,7 @@
 
 int				error_handler(int status, char *str)
 {
-	ft_putstr_fd(find_env_value_rdonly("0"), STDOUT_FILENO);
+	ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
 	ft_putstr_fd(": ", STDOUT_FILENO);
 	if ((status & 0x1FF) & VARIABLE_ERROR)
 		variable_errors(status, str);
