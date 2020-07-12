@@ -64,6 +64,15 @@ int		is_it_command(t_ltree *sub, int i, char **arg_tline, int eq)
 {
 	if (eq == 0)
 		return (1);
+	else if (eq-- > 0)
+		while (eq > 0)
+		{
+			if (arg_tline[i][eq] != WORD_P)
+				break ;
+			eq--;
+		}
+	if (eq != 0)
+		return (1);
 	return (0);
 }
 
@@ -87,8 +96,8 @@ int		add_new_local_env(t_ltree *sub, int i, char **arg_tline)
 	while (++start < i)
 	{
 		eq = ft_strchri(arg_tline[start], EQUAL);
-		find = ft_strndup(sub->ar_v[0], eq);
-		assign_local_or_err(sub, find, 0);
+		find = ft_strndup(sub->ar_v[start], eq);
+		assign_local_or_err(sub, &find, 0);
 		free(find);
 		unset_from_array(&sub->ar_v, 0);
 		sub->ar_c--;
@@ -96,19 +105,19 @@ int		add_new_local_env(t_ltree *sub, int i, char **arg_tline)
 	return (0);
 }
 
-int		assign_local_or_err(t_ltree *sub, char *find, int start)
+int		assign_local_or_err(t_ltree *sub, char **find, int start)
 {
 	int		i;
 	int		j;
 
-	if ((i = find_in_variable(&j, find)) != -1)
+	if ((i = find_in_variable(&j, *find)) != -1)
 	{
 		if (g_envi[i][0] & READONLY)
-			error_handler(ERR_RDONLY << 9 | VARIABLE_ERROR, find);
+			error_handler(ERR_RDONLY << 9 | VARIABLE_ERROR, *find);
 		else
 			change_var_in_local(sub, find, start);
 	}
 	else
-		new_var_in_local(sub, start);
+		new_var_in_local(sub, find, start);
 	return (0);
 }

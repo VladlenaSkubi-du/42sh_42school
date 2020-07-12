@@ -70,6 +70,7 @@ char	*ft_parsing_str(char *str)
 		buf->end = buf->l_tline.len;
 		nullify(&buf->l_tline.line, buf->l_tline.len);
 		pre_parsing_cut_glue(buf);
+		ft_find_tilda(buf, ASSIGN);
 		ft_substitution(buf);
 		ret = buf->l_cmd;
 		buf->l_cmd = NULL;

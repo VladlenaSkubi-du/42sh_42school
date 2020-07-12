@@ -347,16 +347,16 @@ int						is_it_command(t_ltree *sub, int i,
 							char **arg_tline, int eq);
 int						add_new_local_env(t_ltree *sub, int i,
 							char **arg_tline);
-int						assign_local_or_err(t_ltree *sub, char *find,
+int						assign_local_or_err(t_ltree *sub, char **find,
 							int start);
 
 /*
 ** File assignment_local.c
 */
 
-int						change_var_in_local(t_ltree *sub, char *find,
+int						change_var_in_local(t_ltree *sub, char **find,
 							int start);
-int						new_var_in_local(t_ltree *sub, int start);
+int						new_var_in_local(t_ltree *sub, char **find, int start);
 int						form_local_str_from_arrays(t_ltree *sub, int i,
 							char **arg_tline);
 int						unset_from_array(char ***arr, int i);

@@ -3,7 +3,7 @@
 
 /*
 ** It finds all typs of substitution
-** '~'(tilda), $WORD, ${parameter}, $(command), [glo]bb*ing
+** '~'(tilda), $WORD, ${parameter}
 */
 
 int		ft_substitution(t_ltree *sub)
@@ -20,10 +20,6 @@ int		ft_substitution(t_ltree *sub)
 		ft_find_var(sub);
 		if ((err = ft_find_curv_var(sub)) & ERR_OUT)
 			break ;
-		// if ((err = ft_find_sub_subshell(sub)) & ERR_OUT)
-		// 	break ;
-		// if ((err = ft_find_globbing(sub)) & ERR_OUT)
-		// 	break ;
 		err = 0;
 	}
 	if (err & ERR_OUT)

@@ -8,11 +8,10 @@ int		ft_find_tilda(t_ltree *sub, int flag)
 	i = -1;
 	while (++i < sub->l_tline.len)
 	{
-		if ((i == 0 && sub->l_tline.line[i] == TILDA) ||
-			(i > 0 && sub->l_tline.line[i - 1] == SPACE &&
-			sub->l_tline.line[i] == TILDA) ||
-			(i > 0 && flag == ASSIGN && sub->l_cmd[i - 1] == ':' &&
-			sub->l_tline.line[i] == TILDA))
+		if ((i == 0 || (i > 0 && (sub->l_tline.line[i - 1] == SPACE ||
+			(flag == ASSIGN && (sub->l_cmd[i - 1] == ':' ||
+			sub->l_tline.line[i - 1] == EQUAL))))) &&
+			sub->l_tline.line[i] == TILDA)
 		{
 			if (i + 1 == sub->l_tline.len || sub->l_tline.line[i + 1] == ENTER ||
 				sub->l_tline.line[i + 1] == SPACE ||
