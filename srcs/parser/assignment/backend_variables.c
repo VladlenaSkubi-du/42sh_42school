@@ -3,10 +3,9 @@
 
 /*
 ** Is used in parser to execute the assignment command "VARIABLE=VALUE"
-** Checks all the arrays if such variable exists and if not found - 
-** adds the variable to @g_lovar (local shell variables that exist only
-** within the session)
-** @g_rdovar can not be changed by the user, therefore if the variable
+** Checks the array if such variable exists and if not found - 
+** adds the variable to @g_envi
+** READONLY can not be changed by the user, therefore if the variable
 ** is one of the rdonly shell variables - there is an error
 */
 
@@ -19,7 +18,7 @@ int			find_assignment_in_vars(char *sub, size_t var,
 	char	*new_var;
 
 	find = ft_strndup(sub + var, eq - var);
-	new_var = ft_strndup(sub + var, val - var + 1);
+	new_var = ft_parsing_str(sub);
 	if ((li = find_in_variable(&sy, find)) != -1)
 	{
 		if (g_envi[li][0] & READONLY) //посмотреть с Сережей тест: unset HOME ; HOME=/ ; echo $HOME

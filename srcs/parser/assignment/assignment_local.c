@@ -5,21 +5,25 @@
 ** This function change var value in sub->envir array
 */
 
-int		change_var_in_local(t_ltree *sub, char *name, int start)
+int		change_var_in_local(t_ltree *sub, char **name, int start)
 {
 	int			i;
 	int			tmp;
-	int			len_name; 
+	int			len_name;
+	char 		*pars;
 
 	i = 0;
-	len_name = ft_strlen(name);
+	len_name = ft_strlen(*name);
 	while (sub->envir[i])
 	{
 		tmp = ft_strchri(sub->envir[i], '=');
-		if (ft_strncmp(sub->envir[i], name, len_name) == 0 && (tmp == len_name))
+		if (ft_strncmp(sub->envir[i], *name, len_name) == 0 && (tmp == len_name))
 		{
 			free(sub->envir[i]);
-			sub->envir[i] = ft_strdup(sub->ar_v[start]);
+			pars = ft_parsing_str(&(sub->ar_v[start][len_name]));
+			*name = ft_strrejoin(*name, pars);
+			free(pars);
+			sub->envir[i] = ft_strdup(*name);
 			return (0);
 		}
 		i++;
@@ -31,14 +35,20 @@ int		change_var_in_local(t_ltree *sub, char *name, int start)
 ** This function adds new var value in sub->envir array
 */
 
-int		new_var_in_local(t_ltree *sub, int start)
+int		new_var_in_local(t_ltree *sub, char **name, int start)
 {
 	int		i;
+	int		len_name;
+	char 	*pars;
 
 	i = 0;
+	len_name = ft_strlen(*name);
 	while (sub->envir[i])
 		i++;
-	sub->envir[i] = ft_strdup(sub->ar_v[start]);
+	pars = ft_parsing_str(&(sub->ar_v[start][len_name]));
+	*name = ft_strrejoin(*name, pars);
+	free(pars);
+	sub->envir[i] = ft_strdup(*name);
 	return (i);
 }
 
