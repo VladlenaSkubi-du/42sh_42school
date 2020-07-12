@@ -3,6 +3,7 @@
 
 /*
 ** Function finds and substitudes classic vars of type "${#parameter}"
+** which returns len of parameter value
 */
 
 int		ft_substring_len(t_ltree *sub, char **line, char *oper, size_t *i)
@@ -16,14 +17,12 @@ int		ft_substring_len(t_ltree *sub, char **line, char *oper, size_t *i)
 	tmp = ft_strdup(oper + 1);
 	free(*line);
 	if ((tmp = ft_find_var_value(&tmp)) != NULL)
-	{
 		ret = ft_strlen(tmp);
-		free(tmp);
-		tmp = ft_itoa(ret);
-		insert_str_in_loc_strs(sub, &tmp, i, TEXT);
-	}
 	else
-		ft_reglue(i, 1, sub);
+		ret = 0;
+	free(tmp);
+	tmp = ft_itoa(ret);
+	insert_str_in_loc_strs(sub, &tmp, i, TEXT);
 	return (0);
 }
 
