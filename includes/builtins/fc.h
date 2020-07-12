@@ -17,16 +17,6 @@
 # define		HIST_EXEC -1
 
 /*
-** Flags masks used in @flags
-*/
-
-# define		FLAG_N 0x1
-# define		FLAG_R 0x2
-# define		FLAG_S 0x4
-# define		FLAG_L 0x8
-# define		FLAG_E 0x10
-
-/*
 ** Masks used in @fc_arg->flag
 */
 

@@ -5,6 +5,7 @@ int		readline(void)
 {
 	char	temp[10];
 
+	init_termcap();
 	while (read(STDIN_FILENO, temp, 1) > 0 && *temp != '\n')
 	{
 		if (readline_choice(*temp) == OUT)
@@ -19,6 +20,7 @@ int		readline(void)
 	else
 		ft_putendl_fd(0, STDOUT_FILENO);
 	action_alloc_management(NULL, 1);
+	clean_termcap();
 	return (0);
 }
 
@@ -66,12 +68,13 @@ int		route_exit(void)
 		pos->ar_v[1] = ft_strdup("0");
 		action_alloc_management(NULL, 1);
 		reset_canonical_input();
-		clean_readline42();
 		free(g_rline.cmd);
 		btin_exit(pos);
 	}
 	else
 	{
+		if (g_rline.cmd_len >= g_rline.cmd_buff_len - 1)
+			realloc_readline_cmd();
 		g_rline.cmd = ft_straddsy(g_rline.cmd, EOF);
 		return (OUT);
 	}

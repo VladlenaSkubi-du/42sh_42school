@@ -21,7 +21,8 @@ BUILTIN = \
             $(CD) \
 			$(FC) \
 			$(JOBS_BTIN) \
-			$(EXPORT)
+			$(EXPORT) \
+			$(HASH)
 
 CD_DIR = cd
 CD =		$(BUILTIN_DIR)/$(CD_DIR)/cd.c \
@@ -29,11 +30,21 @@ CD =		$(BUILTIN_DIR)/$(CD_DIR)/cd.c \
 			$(BUILTIN_DIR)/$(CD_DIR)/cd_valid.c \
 			$(BUILTIN_DIR)/$(CD_DIR)/cd_parser.c \
 			$(BUILTIN_DIR)/$(CD_DIR)/cd_change_path.c \
-			$(BUILTIN_DIR)/$(CD_DIR)/cd_new_path.c
+			$(BUILTIN_DIR)/$(CD_DIR)/cd_new_path.c \
+			$(BUILTIN_DIR)/$(CD_DIR)/cd_static.c
 
 EXPORT_DIR = export
 EXPORT =	$(BUILTIN_DIR)/$(EXPORT_DIR)/export.c
 
+HASH_DIR = hash
+HASH = 		$(BUILTIN_DIR)/$(HASH_DIR)/hash.c \
+			$(BUILTIN_DIR)/$(HASH_DIR)/hash_btin_processing.c \
+			$(BUILTIN_DIR)/$(HASH_DIR)/hash_function.c \
+			$(BUILTIN_DIR)/$(HASH_DIR)/hashtable_backend.c \
+			$(BUILTIN_DIR)/$(HASH_DIR)/hashtable_from_exec.c \
+			$(BUILTIN_DIR)/$(HASH_DIR)/hashtable_from_type.c \
+			$(BUILTIN_DIR)/$(HASH_DIR)/hashtable_slots.c \
+			$(BUILTIN_DIR)/$(HASH_DIR)/hashtable_values.c
 
 FC_DIR = fc
 FC = 		$(BUILTIN_DIR)/$(FC_DIR)/fc.c \
@@ -66,8 +77,6 @@ GLOBAL = 	$(GLOBAL_DIR)/clean_all42.c \
 
 SHELL_VARS_DIR = shell_variables
 SHELL_VARIABLES = \
-			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/environment42.c \
-			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/variables_processing42.c \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/add_new_value.c \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/form_environment42.c
 
@@ -253,6 +262,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(FC_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(CD_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(EXPORT_DIR)
+	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(HASH_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(JOBS_BTIN_DIR)
 #_____________________________________________________
 	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)

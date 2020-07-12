@@ -57,13 +57,14 @@ int					make_exit(void)
 		pos->ar_v[0] = ft_strdup("exit");
 		pos->ar_v[1] = ft_strdup("0");
 		reset_canonical_input();
-		clean_readline42();
 		free(g_rline.cmd);
 		btin_exit(pos);
 	}
 	else if (g_rline.pos == 0 && g_rline.cmd_len == 0 &&
 		g_prompt.prompt_func != main_prompt)
 	{
+		if (g_rline.cmd_len >= g_rline.cmd_buff_len - 1)
+			realloc_readline_cmd();
 		g_rline.cmd = ft_straddsy(g_rline.cmd, EOF);
 		return (OUT);
 	}

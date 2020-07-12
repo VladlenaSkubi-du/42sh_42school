@@ -17,7 +17,7 @@ int					check_terminal(void)
 	if (set_noncanonical_input() == -1)
 	{
 		error_handler(TERMINAL_TO_NON, NULL);
-		clean_readline42();
+		free(g_rline.cmd);
 		clean_everything();
 		exit(TERMINAL_TO_NON);
 	}
@@ -82,6 +82,21 @@ int					reset_canonical_input(void)
 	}
 	return (0);
 }
+
+int					init_terminal_screen(void)
+{
+	if (ioctl(1, TIOCGWINSZ, &g_screen))
+	{
+		error_handler(TERMINAL_EXISTS, NULL);
+		free(g_rline.cmd);
+		clean_everything();
+		exit(TERMINAL_EXISTS);
+	}
+	if (g_screen.ws_col == 0)
+		g_screen.ws_col = DEFAULT_SCREEN_SIZE;
+	return (0);
+}
+
 
 // int						back_to_noncanonical_input(void) //TODO убрать?
 // {

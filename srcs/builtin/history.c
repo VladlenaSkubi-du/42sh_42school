@@ -67,8 +67,7 @@ int					btin_history_clear(void)
 	ft_arrdel(g_hist.hist);
 	g_hist.hist = NULL;
 	li = find_in_variable(&co, "HISTSIZE");
-	if (!((g_envi[li][0] && (g_envi[li][0] & SET_VIS)) ||
-			ft_isdigit(g_envi[li][co])))
+	if (!ft_isdigit(g_envi[li][co]))
 		size = MAX_HISTBUF;
 	size = ft_atoi(g_envi[li] + co);
 	if (size < 0 || size > HISTORY_LIMIT)

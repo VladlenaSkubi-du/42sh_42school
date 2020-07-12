@@ -30,7 +30,7 @@ int					btin_fc_edit_mode(char **argv, t_btin_fc **fc_arg,
 	if ((*fc_arg)->editor == NULL)
 	{
 		li = find_in_variable(&sy, "FCEDIT");
-		if (g_envi[li][sy] && g_envi[li][0] && (g_envi[li][0] & SET_VIS))
+		if (g_envi[li][sy])
 			(*fc_arg)->editor = &g_envi[li][sy];
 		else
 			(*fc_arg)->editor = "/usr/bin/vim"; // TODO исправить после того как будет type

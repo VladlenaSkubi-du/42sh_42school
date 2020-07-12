@@ -1,5 +1,6 @@
 #include "shell42.h"
 #include "builtin42.h"
+#include "builtins_list.h"
 
 t_btin_fc			*init_btin_fc(void)
 {
@@ -22,4 +23,18 @@ int					btin_return_exit_status(void)
 	
 	li = find_in_variable(&sy, "?");
 	return (ft_atoi(&g_envi[li][sy]));
+}
+
+int					check_if_builtin(char *cmd_name)
+{
+	int				i;
+
+	i = 1;	
+	while (g_builtins[i])
+	{
+		if (!ft_strcmp(cmd_name, g_builtins[i]))
+			return (i);
+		i++;
+	}
+	return (-1);
 }
