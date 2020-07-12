@@ -37,9 +37,13 @@ EXPORT =	$(BUILTIN_DIR)/$(EXPORT_DIR)/export.c
 
 HASH_DIR = hash
 HASH = 		$(BUILTIN_DIR)/$(HASH_DIR)/hash.c \
-			$(BUILTIN_DIR)/$(HASH_DIR)/hash_table_backend.c \
-			$(BUILTIN_DIR)/$(HASH_DIR)/hash_mechanism.c \
-			$(BUILTIN_DIR)/$(HASH_DIR)/hash_function.c
+			$(BUILTIN_DIR)/$(HASH_DIR)/hash_btin_processing.c \
+			$(BUILTIN_DIR)/$(HASH_DIR)/hash_function.c \
+			$(BUILTIN_DIR)/$(HASH_DIR)/hashtable_backend.c \
+			$(BUILTIN_DIR)/$(HASH_DIR)/hashtable_from_exec.c \
+			$(BUILTIN_DIR)/$(HASH_DIR)/hashtable_from_type.c \
+			$(BUILTIN_DIR)/$(HASH_DIR)/hashtable_slots.c \
+			$(BUILTIN_DIR)/$(HASH_DIR)/hashtable_values.c
 
 FC_DIR = fc
 FC = 		$(BUILTIN_DIR)/$(FC_DIR)/fc.c \

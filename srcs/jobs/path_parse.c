@@ -74,8 +74,8 @@ char	*path_search(char *name)
 		path_array++;
 	}
 	ft_arrdel(to_clean);
-	if (!ret)
-		error_handler(COMMAND_NOT_FOUND | (ERR_COMMAND << 9), name);
+	// if (!ret)
+	// 	error_handler(COMMAND_NOT_FOUND | (ERR_COMMAND << 9), name);
 	return (ret);  /* Returns zero if we did not find anything */
 }
 
@@ -88,10 +88,13 @@ char	*path_init(char **exec_av)
 	char *ret;
 
 	if (!ft_strchr(*exec_av, '/')) /* Builtin or $PATH case */
+	{
 		ret = path_search(*exec_av);
+		// ret = hashtable_cmd_init(*exec_av);
+	}
 	else /* Execution path case */
 	{
-		if (access(*exec_av, F_OK) == -1)
+		if (access(*exec_av, F_OK) == -1) //спросить у Лехи
 		{
 			error_handler(COMMAND_NOT_FOUND |
 				(ERR_NO_FILE << 9), *exec_av);
