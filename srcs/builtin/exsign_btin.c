@@ -107,7 +107,7 @@ int					btin_exsign_numeric(t_ltree *pos,
 
 int					btin_exsign_print_message(char *arg, int end)
 {
-	ft_putstr_fd(find_env_value_rdonly("0"), STDOUT_FILENO);
+	ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
 	ft_putstr_fd(": ", STDOUT_FILENO);
 	ft_putnstr_fd(arg, end, STDOUT_FILENO);
 	ft_putendl_fd(": event not found", STDOUT_FILENO);

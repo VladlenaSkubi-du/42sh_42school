@@ -138,18 +138,6 @@ char	*find_env_value(char *str)
 
 	j = 0;
 	i = find_in_variable(&j, str);
-	if (i == -1 || !(g_envi[i][0] && (g_envi[i][0] & SET_VIS)))
-		return (NULL);
-	return (&g_envi[i][j]);
-}
-
-char	*find_env_value_rdonly(char *str) //to delete after we insert mechanism of unset (deletion)
-{
-	int		i;
-	int		j;
-
-	j = 0;
-	i = find_in_variable(&j, str);
 	if (i == -1)
 		return (NULL);
 	return (&g_envi[i][j]);
