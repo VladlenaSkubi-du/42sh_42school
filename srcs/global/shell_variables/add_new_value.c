@@ -22,7 +22,7 @@ int		change_env_value(char *new_val, int i)
 	if (ft_strncmp(new_val, "HISTSIZE=", 9) == 0)
 		check_if_histsize_changed(g_envi[i] + 1);
 	else if (ft_strncmp(new_val, "PATH=", 5) == 0)
-		hashtable_clean();
+		btin_hash_clean_table();
 	return (0);
 }
 
@@ -54,7 +54,7 @@ int		add_new_env(char *name)
 	if (ft_strncmp(name, "HISTSIZE=", 9) == 0)
 		check_if_histsize_changed(g_envi[i] + 1);
 	else if (ft_strncmp(name, "PATH=", 5) == 0)
-		hashtable_clean();
+		btin_hash_clean_table();
 	return (i);
 }
 
