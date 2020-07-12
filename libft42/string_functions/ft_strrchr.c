@@ -30,7 +30,7 @@ char		*ft_strrchr(const char *s, int c)
 		}
 		i--;
 	}
-	if (i <= 0 && p <= 0)
+	if (i <= 0 && p == 0)
 		return ((char*)NULL);
 	else
 		return (p);

@@ -1,13 +1,22 @@
 #include "shell42.h"
 #include "builtin42.h"
 
+void			error_unset(char *find)
+{
+	char *error;
+
+	//g_envi[j][0] &= ~ENV_VIS;
+	error = ft_strjoin("unset: ", find);
+	error_handler(VARIABLE_ERROR | (ERR_RDONLY << 9), error);
+	free (error);
+}
+
 int			btin_unset(t_ltree *pos)
 {
 	int		i;
 	int		tmp;
 	int		j;
 	char	*find;
-	char	*error;
 
 	i = 0;
 	while (++i < pos->ar_c)
@@ -18,14 +27,9 @@ int			btin_unset(t_ltree *pos)
 			find = ft_strdup(pos->ar_v[i]);
 		j = find_in_variable(&tmp, find);
 		if (g_envi[j][0] && (g_envi[j][0] & READONLY))
-		{
-			//g_envi[j][0] &= ~ENV_VIS;
-			error = ft_strjoin("unset: ", find);
-			error_handler(VARIABLE_ERROR | (ERR_RDONLY << 9), error);
-			free (error);
-		}
+			error_unset(find);
 		else
-			g_envi[j][0] = 0;
+			ft_arrshift(g_envi + j + 1, g_var_size - j, -1);
 		free(find);
 	}
 	return (0);	
