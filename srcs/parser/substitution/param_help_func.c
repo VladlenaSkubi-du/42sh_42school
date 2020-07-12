@@ -40,9 +40,8 @@ int		ft_param_error_msg(t_ltree *sub, char **find, char *oper, size_t *i)
 	ft_colon_check(&len, find, &oper, &j);
 	*oper = '\0';
 	sub->err = ft_strdup(*find);
-	free (*find);
 	if (oper[1] == '\0')
-		sub->err_i = ERR_OUT | VARIABLE_ERROR | ERR_UNSET << 9;
+		sub->err_i |= ERR_OUT | VARIABLE_ERROR | ERR_UNSET << 9;
 	else
 	{
 		sub->err_i |= ERR_OUT | VARIABLE_ERROR | ERR_SET << 9;
@@ -52,6 +51,7 @@ int		ft_param_error_msg(t_ltree *sub, char **find, char *oper, size_t *i)
 		sub->err = ft_strrejoin(sub->err, buf);
 		free(buf);
 	}
+	free (*find);
 	return (sub->err_i);
 }
 
