@@ -42,7 +42,7 @@ int         ft_change_path(char *path, char **env, t_cd *flags);
 ** File cd_new_path.c
 */
 
-char        *ft_new_path(char *path, char **env);
+char        *ft_new_path(char *path, char *src_path);
 
 /*
 **	File cd_static.c

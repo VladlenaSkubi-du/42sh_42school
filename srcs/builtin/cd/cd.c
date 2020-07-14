@@ -44,7 +44,7 @@ int		ft_error(char *name, int en)
     return (1);
 }
 
-int         btin_cd(t_ltree *pos) //может быть абсолютный путь
+int         btin_cd(t_ltree *pos)
 {
 	int     i;
 	t_cd    *flags;

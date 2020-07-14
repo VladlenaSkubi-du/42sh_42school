@@ -38,7 +38,7 @@ char	*ft_new_from_arr(char **arr)
 	ft_del_dots(arr);
 	while (arr[i])
 	{
-	//	printf("%s\n", arr[i]);
+//		printf("%s\n", arr[i]);
 		if (ft_strcmp(arr[i], ".") && ft_strcmp(arr[i], ".."))
 		{
 			if (i > 1)
@@ -51,32 +51,57 @@ char	*ft_new_from_arr(char **arr)
 	return (tmp);
 }
 
-char	*ft_join(char *path, char **env)
+char	*ft_join(char *path, char *src_path)
 {
-	int		i;
-	int		j;
 	char	*tmp;
 
 	//i = find_in_variable(&j, "PWD"); //Если его нет?
 	//printf("%s\n", g_envi[22]);
 	tmp = ft_strdup("1");
-	tmp = ft_strrejoin(tmp, get_pwd_value());//env[i] + j);
+	if (src_path == NULL)
+		tmp = ft_strrejoin(tmp, get_pwd_value());//env[i] + j);
+	else
+		tmp = ft_strrejoin(tmp, src_path);
 	tmp = ft_strrejoin(tmp, "/");
 //	tmp = ft_strjoin(env[i] + j, "/");
 	tmp = ft_strrejoin(tmp, path);
 	return (tmp);
 }
 
-char	*ft_new_path(char *path, char **env)
+char	*ft_del_slesh(char *path)
+{
+	int		i;
+	int		j;
+	char	*res;
+	char	tmp[MAXDIR];
+	int		count;
+
+	i = -1;
+	count = 0;
+	j = 0;
+	while (path[++i])
+	{
+		if (path[i] == '/' && count > 0)
+			continue ;
+		else if (path[i] == '/')
+			count++;
+		else
+			count = 0;
+		tmp[j++] = path[i];
+	}
+	tmp[j] = '\0';
+	return ((res = ft_strdup(tmp)));
+}
+
+char	*ft_new_path(char *path, char *src_path)
 {
 	char	*new_path;
 	char	*tmp;
 	char	**arr;
 
-	//добавить проверку на абсолютный путь
 	if (path[0] == '/')
-		return (tmp = ft_strdup(path));
-	tmp = ft_join(path, env);
+		return (tmp = ft_del_slesh(path));
+	tmp = ft_join(path, src_path);
 	arr = ft_strsplit(tmp, '/');
 	free(arr[0]);
 	arr[0] = ft_strdup("/");
