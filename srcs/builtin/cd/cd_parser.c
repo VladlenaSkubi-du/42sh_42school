@@ -18,7 +18,7 @@ char	*ft_cdpath(char *path)
 	int		i;
 	int		j;
 
-	if ((i = find_in_variable(&j, "CDPATH")) < 0)
+	if ((i = find_in_variable(&j, "CDPATH")) < 0 || !path)
 		return (NULL);
 	res = NULL;
 	arr = ft_strsplit(g_envi[i] + j, ':');
