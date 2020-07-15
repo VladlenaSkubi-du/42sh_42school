@@ -19,11 +19,15 @@ char	*form_path(char *ret, char *env_path, char *name)
 	ft_strcpy(ret, env_path);
 	ft_strcat(ret, "/");
 	ft_strcat(ret, name);
-	// if (access(ret, X_OK) == -1)
-	// {
-	// 	free(ret);
-	// 	ret = 0;
-	// }
+
+
+	if (access(ret, X_OK) == -1) //DELETE
+	{
+		free(ret);
+		ret = 0;
+	}
+
+
 	return (ret);
 }
 
@@ -74,8 +78,12 @@ char	*path_search(char *name)
 		path_array++;
 	}
 	ft_arrdel(to_clean);
-	// if (!ret)
-	// 	error_handler(COMMAND_NOT_FOUND | (ERR_COMMAND << 9), name);
+
+
+	if (!ret) //DELETE
+		error_handler(COMMAND_NOT_FOUND | (ERR_COMMAND << 9), name);
+
+	
 	return (ret);  /* Returns zero if we did not find anything */
 }
 
