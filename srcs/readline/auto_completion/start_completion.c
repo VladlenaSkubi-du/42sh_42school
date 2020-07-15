@@ -132,8 +132,9 @@ int					insert_word_compl(void)
 	(g_compl.to_del > 0) ? delete_till_compl(g_compl.to_del) : 0;
 	if (g_compl.tablevel > 0 && g_compl.total > 0)
 	{
-		if (g_rline.pos > 1 && g_rline.cmd[g_rline.pos - g_compl.len_tocompl - 1] == '{' &&
-			g_rline.cmd[g_rline.pos - g_compl.len_tocompl - 2] == '$')
+		if (g_rline.pos > 1 && g_rline.pos - g_compl.len_tocompl - 2 >= 0 &&
+				g_rline.cmd[g_rline.pos - g_compl.len_tocompl - 1] == '{' &&
+				g_rline.cmd[g_rline.pos - g_compl.len_tocompl - 2] == '$')
 			flag = 1;
 		counter = (g_compl.tablevel - 1 < g_compl.total) ?
 			g_compl.tablevel - 1 : (g_compl.tablevel - 1) % g_compl.total;

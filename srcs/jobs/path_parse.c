@@ -19,11 +19,11 @@ char	*form_path(char *ret, char *env_path, char *name)
 	ft_strcpy(ret, env_path);
 	ft_strcat(ret, "/");
 	ft_strcat(ret, name);
-	if (access(ret, X_OK) == -1)
-	{
-		free(ret);
-		ret = 0;
-	}
+	// if (access(ret, X_OK) == -1)
+	// {
+	// 	free(ret);
+	// 	ret = 0;
+	// }
 	return (ret);
 }
 
@@ -41,7 +41,8 @@ char	*locate_file(char *env_path, char *name, char **to_clean)
 	{
 		if (!ft_strcmp(entity->d_name, name))
 		{
-			ret = (char *)ft_xmalloc(ft_strlen(env_path) + ft_strlen(name) + 2);
+			printf("file found\n");
+			ret = (char*)ft_xmalloc(ft_strlen(env_path) + ft_strlen(name) + 2);
 			ret = form_path(ret, env_path, name);
 			if (ret)
 				break;

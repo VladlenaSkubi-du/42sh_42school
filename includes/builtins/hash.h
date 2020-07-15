@@ -46,6 +46,7 @@ int				change_hashtable_filled_value(int times);
 t_hashcmd		*init_hash_cell(char *key, char *path);
 void			clear_hash_cell(int index,
 					void **hashtable, int delete_key);
+int				print_hash_cell(int index, void **hashtable);
 
 /*
 ** File hashtable_backend.c
@@ -59,6 +60,7 @@ int				hashtable_delete(char *key, void **hashtable,
 					int hashtable_size, int hashtable_filled);
 int				hashtable_delete_invalid(int *index, char *key,
 					void **hashtable);
+int				update_hashtable_slot_filled(t_hashcmd **slot_ptr);
 
 char			*hashtable_cmd_init(char *key);
 char			*hash_key_not_found(char *key, void **hashtable,

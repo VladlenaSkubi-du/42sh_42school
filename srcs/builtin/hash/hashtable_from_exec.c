@@ -3,6 +3,7 @@
 
 /*
 ** Is called form the path_init_function - needs path to be returned
+** path can be NULL or a malloced char*
 */
 
 char			*hashtable_cmd_init(char *key)
@@ -25,28 +26,37 @@ char			*hashtable_cmd_init(char *key)
 	return (hashtable_check_valid(index, key, hashtable, hashtable_size));
 }
 
+/*
+** Here we search a command according to the PATH value
+** @path can be NULL or a malloced char*
+** If @path has a path-value and in hashtable_add a new slot was added,
+** slot is updated and thee number of address to the command grows
+** If command is non-executable, it is noted in the table and
+** an error is returned
+*/
+
 char			*hash_key_not_found(char *key, void **hashtable,
 					int hashtable_size, int index)
 {
 	char		*path;
 	t_hashcmd	*slot_ptr;
 
-	path = NULL;
 	path = hashtable_add(key, hashtable, hashtable_size, &index);
 	if (!path)
 	{
 		error_handler(COMMAND_NOT_FOUND | (ERR_COMMAND << 9), key);
-		return (0);
+		return (NULL);
 	}
 	slot_ptr = (t_hashcmd*)hashtable[index];
-	slot_ptr->slot_state = SLOT_FILLED_HASH;
+	update_hashtable_slot_filled(&slot_ptr);
 	slot_ptr->number++;
-	if (access(slot_ptr->cmd_path, X_OK) == -1)
+	if (slot_ptr->cmd_state == CDM_NON_EXEC)
 	{
+		free(path);
 		error_handler(COMMAND_NON_EXECUTABLE, slot_ptr->cmd_path);
-		return (0);
+		return (NULL);
 	}
-	//check the cmd-state
+	slot_ptr->cmd_state = 0;
 	return (path);
 }
 
@@ -90,6 +100,13 @@ int				hashtable_find(char *key, void **hashtable,
 	return (HASHTABLE_NF);
 }
 
+/*
+** If we do not find a cmd by the path saved in the table or
+** the cmd is non-executable - we try to find an executable one
+** If we find the path and it is valid, we increase the number
+** of address to the cmd and return the path-value
+*/
+
 char			*hashtable_check_valid(int index, char *key,
 					void **hashtable, int hashtable_size)
 {
@@ -97,8 +114,10 @@ char			*hashtable_check_valid(int index, char *key,
 	
 	printf("checking validity of the path found in the hashtable\n");
 	slot_ptr = (t_hashcmd*)hashtable[index];
-	if (access(slot_ptr->cmd_path, F_OK) == -1)
+	if (access(slot_ptr->cmd_path, F_OK) == -1 ||
+			access(slot_ptr->cmd_path, X_OK) == -1)
 	{
+		printf("command saved in hashtable is invalid\n");
 		clear_hash_cell(index, hashtable, 0);
 		return (hash_key_not_found(key, hashtable, hashtable_size, index));
 	}

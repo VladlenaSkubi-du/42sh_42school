@@ -33,12 +33,14 @@ void			clear_hash_cell(int index,
 	hash_cell = (t_hashcmd*)hashtable[index];
 	if (delete_key == SLOT_DELETED_HASH)
 	{
+		printf("clear slot till the end\n");
 		free(hash_cell->cmd_name);
 		free(hashtable[index]);
 		hashtable[index] = NULL;
 	}
 	else if (delete_key == SLOT_FILLED_HASH)
 	{
+		printf("clear slot to note deleted\n");
 		free(hash_cell->cmd_path);
 		hash_cell->number = 0;
 		hash_cell->cmd_state = 0;
@@ -46,6 +48,7 @@ void			clear_hash_cell(int index,
 	}
 	else
 	{
+		printf("clear full slot\n");
 		free(hash_cell->cmd_name);
 		free(hash_cell->cmd_path);
 		hash_cell->number = 0;
@@ -53,4 +56,19 @@ void			clear_hash_cell(int index,
 		free(hashtable[index]);
 		hashtable[index] = NULL;
 	}
+}
+
+int				print_hash_cell(int index, void **hashtable)
+{
+	t_hashcmd	*slot_ptr;
+	
+	slot_ptr = (t_hashcmd*)hashtable[index];
+	if (slot_ptr->slot_state != SLOT_FILLED_HASH)
+		return (0);
+	ft_printf("%6d%s%s", slot_ptr->number, "    ", slot_ptr->cmd_path);
+	if (slot_ptr->cmd_state == CDM_NON_EXEC)
+		ft_putendl_fd("    command is non-executable", STDOUT_FILENO);
+	else
+		ft_putchar_fd('\n', STDOUT_FILENO);
+	return (0);
 }

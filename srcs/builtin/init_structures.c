@@ -25,6 +25,26 @@ int					btin_return_exit_status(void)
 	return (ft_atoi(&g_envi[li][sy]));
 }
 
+int					btin_check_arg_if_cmd_name(char *arg)
+{
+	int				i;
+	int				answer;
+
+	i = 0;
+	if (ft_isalnum(arg[i]) || arg[i] == '_' ||
+		(arg[i] == '.' && ft_isalnum(arg[i])))
+	{
+		// answer = check_if_alias(arg);
+		// if (answer >= 0)
+		// 	return (ARG_ALIAS);
+		answer = check_if_builtin(arg);
+		if (answer >= 0)
+			return (ARG_BUILTIN);
+		return (0);
+	}
+	return (ARG_INVALID);
+}
+
 int					check_if_builtin(char *cmd_name)
 {
 	int				i;

@@ -39,7 +39,7 @@ int				usage_btin_other(char *str)
 	else if (ft_strcmp(str, "exit") == 0)
 		ft_putendl_fd("exit [numeric arg]", STDOUT_FILENO);
 	else if (ft_strcmp(str, "hash") == 0)
-		ft_putendl_fd("hash [-l|-r] [name ...]", STDOUT_FILENO);
+		ft_putendl_fd("hash [-l|-r] [-d name ...] [name ...]", STDOUT_FILENO);
 	return (0);
 }
 
