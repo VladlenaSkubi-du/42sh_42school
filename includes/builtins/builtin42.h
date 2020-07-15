@@ -18,6 +18,10 @@
 # define		FLAG_L 0x8
 # define		FLAG_E 0x10
 
+# define        ARG_ALIAS		-1
+# define        ARG_BUILTIN		-2
+# define		ARG_INVALID		-3
+
 /*
 ** Structures
 ** ____________________________________________________________________________
@@ -29,9 +33,9 @@
 
 typedef struct  s_ec
 {
-    int         e;
-    int         n;
-    int         up_e;
+	int         e;
+	int         n;
+	int         up_e;
 }               t_ec;
 
 /*
@@ -54,6 +58,7 @@ int				ebash_long_options(void);
 */
 
 t_btin_fc		*init_btin_fc(void);
+int				btin_check_arg_if_cmd_name(char *arg);
 int				check_if_builtin(char *cmd_name);
 int				btin_return_exit_status(void);
 
@@ -96,7 +101,7 @@ int				btin_history_noargs(void);
 int				btin_exsign(t_ltree *pos);
 int				btin_exsign_start_substitution(t_ltree *pos, int i);
 int				btin_exsign_route_substitution(t_ltree *pos,
-                    int start, int i);
+					int start, int i);
 int				btin_exsign_stop_signs(char tech);
 int				btin_exsign_numeric(t_ltree *pos,
 					int start, int end);
@@ -184,7 +189,6 @@ int				id_check(t_ltree *pos);
 
 int             btin_hash(t_ltree *pos);
 int				btin_hash_check_flags(char **argv);
-int				btin_hash_check_argument(char *arg);
 int				btin_hash_error_message(char *option, int error);
 int				btin_hash_clean_table();
 

@@ -62,20 +62,6 @@ int					btin_hash_check_flags(char **argv)
 	return (0);
 }
 
-int					btin_hash_check_argument(char *arg)
-{
-	int				i;
-
-	i = -1;
-	while (arg[++i])
-	{
-		if (ft_isalnum(arg[i]) || arg[i] == '_' ||
-				(arg[i] == '.' && ft_isalnum(arg[i])))
-			return ((check_if_builtin(arg) >= 0) ? HASH_INVALID : 0);
-	}
-	return (HASH_INVALID);
-}
-
 int					btin_hash_error_message(char *option, int error)
 {
 	char			*error_message;
