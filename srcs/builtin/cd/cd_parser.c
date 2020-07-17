@@ -49,14 +49,22 @@ int		ft_cd_env(char *path, char **env, t_cd *flags)
 	int		i;
 	int		j;
 
+	name = NULL;
 	name = path ? ft_strdup("OLDPWD") : ft_strdup("HOME");
 	i = find_in_variable(&j, name);
-	if (path && i < 0)
+	free(name);
+	if (i < 0)
+		return (ft_error(NULL, (path) ? 6 : 7));
+	/*if (path && i < 0)
 	{
 		free(name);
 		return ((ft_error(NULL, 6)));
 	}
-	free(name);
+	else if (!path && i < 0)
+	{
+		free(name);
+		return ((ft_error(NULL, 7)));
+	}*/
 	if (path)
 		ft_putendl(env[i] + j);
 	name = ft_strdup(env[i] + j);

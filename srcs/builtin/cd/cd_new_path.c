@@ -99,7 +99,7 @@ char	*ft_new_path(char *path, char *src_path)
 	char	*tmp;
 	char	**arr;
 
-	if (path[0] == '/')
+	if (path[0] == '/' && path[1])
 		return (tmp = ft_del_slesh(path));
 	tmp = ft_join(path, src_path);
 	arr = ft_strsplit(tmp, '/');
@@ -110,6 +110,7 @@ char	*ft_new_path(char *path, char *src_path)
 	new_path = ft_new_from_arr(arr);
 	//printf("RES = %s\n", new_path);
 	ft_arrdel(arr);
+	//ft_putstr();
 	return (new_path);
 }
 
