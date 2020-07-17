@@ -1,7 +1,7 @@
 #ifndef HASH_H
 # define HASH_H
 
-# define			HASHTABLE_LENGTH 4
+# define			HASHTABLE_LENGTH	20
 
 /*
 ** For going out from functions, for convenience

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 11:48:24 by sschmele          #+#    #+#             */
-/*   Updated: 2020/06/12 15:17:59 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/07/15 16:01:52 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ char					**ft_realloc_array(char ***subj, int len_subj,
 void					ft_delelem_array(char ***array, int len,
 							int start, int num);
 void					ft_arrshift(char **arr, int size, int shift);
+void					**ft_memrealloc_array(void ***subj, int len_subj,
+							int len_needed);
 
 /*
 ** Folder LIST_STRUCTURE

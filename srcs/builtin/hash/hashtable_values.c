@@ -4,6 +4,7 @@
 static void		**hashtable_array;
 static int		hashtable_array_size;
 static int		hashtable_array_filled;
+static int		hashtable_array_limit;
 
 int				hashtable_init(void)
 {
@@ -12,6 +13,8 @@ int				hashtable_init(void)
 	hashtable_array = (void**)ft_xmalloc(sizeof(void*) *
 		(hashtable_array_size + 1));
 	hashtable_array_filled = 0;
+	hashtable_array_limit = hashtable_array_size / 2 +
+		(hashtable_array_size / 2 / 2);
 	return (0);
 }
 
@@ -27,22 +30,37 @@ int				get_hashtable_filled(void)
 }
 
 int				change_hastable_value(void **hastable_array_new,
-					int hashtable_array_size_new)
+					int hashtable_array_size_new) //maybe DELETE
 {
 	hashtable_array = hastable_array_new;
 	hashtable_array_size = hashtable_array_size_new;
+	hashtable_array_limit = hashtable_array_size / 2 +
+		(hashtable_array_size / 2 / 2);
 	return (0);
 }
 
 int				change_hashtable_filled_value(int times)
 {
-	if (times == 0)
+	hashtable_array_filled += times;
+	if (times == 0 || hashtable_array_filled < 0)
 	{
 		hashtable_array_filled = 0;
 		return (0);
 	}
-	hashtable_array_filled += times;
-	if (hashtable_array_filled < 0)
-		hashtable_array_filled = 0;
+	if (times > 0)
+	{
+		printf("comp: %d\n", hashtable_array_limit);
+		if (hashtable_array_filled / hashtable_array_size < 1 &&
+				hashtable_array_filled >= hashtable_array_limit)
+		{
+			printf("    realloc of the hashtable\n");
+			hashtable_array = ft_memrealloc_array(&hashtable_array,
+				hashtable_array_size + 1,
+				hashtable_array_size * 2 + 1);
+			hashtable_array_size = hashtable_array_size * 2 + 1;
+			hashtable_array_limit = hashtable_array_size / 2 +
+				(hashtable_array_size / 2 / 2);
+		}
+	}
 	return (0);
 }

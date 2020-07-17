@@ -7,9 +7,12 @@
 ** because they use g_rline.pos - after that we print the menu-buffer
 ** and put the cursor back to the end of the cmd-line
 ** and back to the old position
+** we also route here if all the lines can
+** be printed within the terminal
 **
-** @menu_lines_num we need to understand how high we need to jump
-** to the end of the cmd-line after the menu-printing
+** @g_compl.menu_buffer.buf_lines we need to understand
+** how high we need to jump to the end of the cmd-line
+** after the menu-printing
 */
 
 int					print_menu(int max_len)
@@ -84,7 +87,7 @@ int					position_cursor_after_menu_back(int len_x, int len_y,
 	while (++i < buf_lines)
 		putcap("sr");
 	if (g_rline.pos_x == 0 && g_rline.pos_y == g_rline.str_num &&
-		pos_back != g_rline.cmd_len)
+			pos_back != g_rline.cmd_len)
 		tputs(g_cap.up, 1, printc);
 	if (g_rline.str_num > 1)
 	{

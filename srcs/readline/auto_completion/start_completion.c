@@ -2,18 +2,18 @@
 #include "readline.h"
 
 /*
+** We analyse the line coming to be auto-completed - everything
+** before the cursor, then cut the part that should be
+** auto-completed by syntax, analyse it and define the @pool.
+** After we look for options according to the pool and if they
+** exist - print them. If no options found - there is a bell.
+**
 ** @pool = pool of variables: binary-files (1), variables (2),
 ** arguments (3), bell (nothing can be done - 0);
-** @total = total number of options
 ** @max_len = maximal length of the option-string within the whole
 ** menu array - is needed for the buffer output part
 ** @tech_line = is needed for analysis of the g_complete string -
 ** parsing of the g_complete string
-** @delete = by each TAB a word-option is added to the
-** g_complete part. If this option does not taken by the user and
-** the user pushes TAB to change the option - the old option should
-** be deleted - as many symbols as in @delete variable
-** If there are no options to be auto-completed, there is a bell.
 */
 
 int					auto_completion(void)
@@ -70,10 +70,10 @@ char				**route_by_prompts(int *total, int *max_len)
 }
 
 /*
-** If the @g_complete line is empty and @pool is 1, menu consists of all
+** If the @g_compl.to_compl line is empty and @pool is 1, menu consists of all
 ** the binary-options found in the environmental variable PATH and
 ** in the internal list of builtin programs.
-** If @g_complete is not empty and @pool is 1 - the function
+** If @g_compl.to_compl is not empty and @pool is 1 - the function
 ** ft_path_pars returns only those options that match.
 ** The same principle for other pools.
 */
@@ -108,11 +108,17 @@ char				**route_menu_receipt(char *tech_line,
 }
 
 /*
+** @g_compl.to_del = by each TAB a word-option is added to the
+** g_complete part. If this option does not taken by the user and
+** the user pushes TAB to change the option - the old option should
+** be deleted - as many symbols as in @g_compl.to_del variable
+** If there are no options to be auto-completed, there is a bell.
+**
 ** Here we insert an option to the cmd-line
 ** Example: we have "ca[] abcd" where cursor stays on the []
 ** And the first option to be inserted is the "caffeinate"
-** @g_complete is "ca"
-** @g_compl_len is 2
+** @g_compl.to_compl is "ca"
+** @g_compl.len_tocompl is 2
 ** @len_option is 10
 ** @counter is the position of the word in the menu-buffer, if
 ** caffeinate is the first word in the list like:
@@ -149,6 +155,10 @@ int					insert_word_compl(void)
 	}
 	return (0);
 }
+
+/*
+** 
+*/
 
 int					insert_word_by_cases_compl(int *delete, int flag,
 						char *menu_word, int compl_len)

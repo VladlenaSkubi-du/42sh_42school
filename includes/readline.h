@@ -401,8 +401,7 @@ int								make_one_slash(char **final, int last_slash, char *compl);
 
 int								analyse_techline_compl(char *compl,
 									char *tech_line, int len, int *pool);
-int								check_quoting_of_syntax(char *compl,
-									char *tech, int now);
+int								check_quoting_of_syntax(char *tech, int now);
 int								pass_symbols_compl(char *compl, char *tech,
 									int i, int *pool);
 int								check_path_pool_three_compl(char *compl, char *tech,
