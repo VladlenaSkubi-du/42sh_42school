@@ -48,7 +48,7 @@ char				**get_arguments(char **complete,
 
 	tmp = ft_strrchri(*complete, '/');
 	path = find_path_compl(*complete, tmp);
-	compl = (tmp >= 0 && tmp < ft_strlen(*complete))
+	compl = (tmp >= 0 && tmp < (int)ft_strlen(*complete))
 			? ft_strdup(*complete + tmp + 1) : ft_strdup(*complete);
 	if (compl != NULL)
 	{
@@ -72,7 +72,7 @@ char				*find_path_compl(char *compl, int tmp)
 	char			*path;
 	char			*temp;
 
-	if (g_rline.pos == 0)
+	if (g_rline.pos <= 0)
 		return (NULL);
 	if (compl && compl[0] && tmp >= 0)
 	{

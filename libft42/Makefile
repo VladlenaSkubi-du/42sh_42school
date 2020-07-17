@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+         #
+#    By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/04 16:34:17 by sschmele          #+#    #+#              #
-#    Updated: 2020/06/12 15:32:26 by rbednar          ###   ########.fr        #
+#    Updated: 2020/07/15 16:00:48 by vladlenasku      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRCS =	$(ARROW_FUNCTIONS) \
 ARROW_FUNCTIONS = ./arrow_functions/ft_arrdel.c \
 	./arrow_functions/ft_realloc_array.c \
 	./arrow_functions/ft_delelem_array.c \
-	./arrow_functions/ft_arrshift.c
+	./arrow_functions/ft_arrshift.c \
+	./arrow_functions/ft_memrealloc_array.c
 	
 LIST_STRUCTURE = ./list_structure/ft_lstadd.c \
 	./list_structure/ft_lstclear.c \

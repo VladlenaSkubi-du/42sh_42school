@@ -5,7 +5,6 @@
 ** @pos_x_com is pos_x for comment
 */
 
-
 int					ask_output(int total, int buf_lines,
 						int pos_back, int len_x)
 {

@@ -16,13 +16,6 @@ char			*hashtable_add(char *key, void **hashtable,
 		return (path);
 	}
 	hashtable_filled = get_hashtable_filled();
-	if (hashtable_filled / (hashtable_size - 1) == 1) //change
-	{
-		// hashtable = ft_realloc_array(&hashtable, hashtable_size, //функция для реаллока void**
-		// 	(hashtable_size - 1) * 2 + 1);
-		// hashtable_size = (hashtable_size - 1) * 2 + 1;
-		change_hastable_value(hashtable, hashtable_size);
-	}
 	i = 0;
 	while (i < hashtable_size)
 	{

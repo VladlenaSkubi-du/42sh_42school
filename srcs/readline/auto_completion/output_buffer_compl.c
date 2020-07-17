@@ -41,7 +41,7 @@ void					buffer_col_calc(t_compl_output *menu_buf)
 	i = 0;
 	while (i < menu_buf->buf_lines)
 	{
-		menu_buf->buffer[i] = (char*)ft_xmalloc(menu_buf->buf_width + 1);
+		menu_buf->buffer[i] = (char*)ft_xmalloc(menu_buf->buf_width + 2);
 		i++;
 	}
 }

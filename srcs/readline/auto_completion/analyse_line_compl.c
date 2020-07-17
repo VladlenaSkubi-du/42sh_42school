@@ -7,7 +7,7 @@ int					analyse_techline_compl(char *compl, char *tech,
 	int				i;
 
 	i = len - 1;
-	if (check_quoting_of_syntax(compl, tech, i))
+	if (check_quoting_of_syntax(tech, i))
 		return (-1);
 	i = pass_symbols_compl(compl, tech, i, pool);
 	if (*pool == 1 || *pool == 3)
@@ -29,7 +29,7 @@ int					analyse_techline_compl(char *compl, char *tech,
 	return (i);
 }
 
-int					check_quoting_of_syntax(char *compl, char *tech, int now)
+int					check_quoting_of_syntax(char *tech, int now)
 {
 	int				j;
 	
