@@ -27,7 +27,7 @@ int			shift_techline_substitution(t_tech *tline, int start,
 	
 	shift = len_subst - (end - start);
 	if (end - start < len_subst &&
-			tline->alloc_size - tline->len - 1 < len_subst)
+			tline->alloc_size - tline->len - 1 < (size_t)len_subst)
 	{
 		tline->line = ft_realloc(tline->line, tline->len,
 			tline->alloc_size, tline->alloc_size + len_subst);

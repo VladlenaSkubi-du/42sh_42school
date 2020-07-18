@@ -185,7 +185,7 @@ t_list					*g_start_list;
 */
 
 int						parser(char *line);
-int						pars_lex_exec(int tmp);
+int						pars_lex_exec(void);
 int						ft_get_techline(char *cmd, t_tech *result);
 int						ltree_init(t_ltree *final);
 
@@ -263,7 +263,7 @@ int						ft_redir_great(t_ltree *final, size_t *i);
 int						ft_redir_dgreat(t_ltree *final, size_t *i);
 int						ft_redir_greatand(t_ltree *final, size_t *i);
 int						ft_access_check(char **f_name, t_ltree *final,
-						size_t *i, int type);
+							int type);
 
 
 /*
@@ -296,7 +296,7 @@ int						ft_num_or_word_in(char **f_name, t_fd_redir *fd_open,
 int						ft_check_is_heredoc(int	ret);
 int						ft_check_heredoc_end(int ret);
 int						ft_heredoc_fill(int ret);
-int						ft_heredoc_rem(int fd);
+int						ft_heredoc_rem(void);
 int						ft_g_init_heredoc(void);
 
 /*
@@ -343,8 +343,7 @@ int						ft_colon_check(int *len, char **line,
 int						assignment(t_ltree *sub);
 int						check_kind_assign(t_ltree *sub, int i, int len_arg,
 							char **arg_tline);
-int						is_it_command(t_ltree *sub, int i,
-							char **arg_tline, int eq);
+int						is_it_command(int i, char **arg_tline, int eq);
 int						add_new_local_env(t_ltree *sub, int i,
 							char **arg_tline);
 int						assign_local_or_err(t_ltree *sub, char **find,
@@ -422,7 +421,7 @@ int						ft_param_word_sub(t_ltree *sub,
 							char **line, char *oper, size_t *i);
 void					ft_one_ltree_clear(t_ltree *buf);
 int     				ft_param_error_msg(t_ltree *sub, char **find,
-							char *oper, size_t *i);
+							char *oper);
 char					*ft_parsing_str(char *str);
 
 /*
@@ -431,7 +430,7 @@ char					*ft_parsing_str(char *str);
 
 int						ft_find_tilda(t_ltree *sub, int flag);
 int						ft_getdir_by_name(t_ltree *sub, size_t *i, int flag);
-int						ft_get_home(t_ltree *sub, size_t *i, int flag);
+int						ft_get_home(t_ltree *sub, size_t *i);
 int						ft_find_dir_info(t_ltree *sub, char *user, size_t *i);
 int						ft_find_dir_by_uid(t_ltree *sub, char *uid, size_t *i);
 
@@ -451,8 +450,7 @@ int						ft_find_history(t_ltree *sub);
 */
 
 int						nullify(char **techline, size_t size);
-int						nullify_dquotes(char **ptr, t_stack **stack,\
-						size_t *count);
+int						nullify_dquotes(char **ptr, t_stack **stack);
 int						nullify_backslash(char **ptr, t_stack **stack,\
 						size_t *count, size_t size);
 int						nullify_comment(char **ptr, t_stack **stack);
