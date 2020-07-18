@@ -18,7 +18,8 @@ int		ft_find_var(t_ltree *sub)
 			&& sub->l_tline.line[i + 1] != OPAREN)
 		{
 			size = 1;
-			while (i + size < sub->end && sub->l_tline.line[i + size] == WORD_P)
+			while (i + size < sub->end && sub->l_tline.line[i + size] == WORD_P &&
+				sub->l_cmd[i + size] != '/')
 				size++;
 			find = size > 1 ? ft_strndup(&sub->l_cmd[i + 1], size - 1) : NULL;
 			if ((find = ft_find_var_value(&find)) != NULL)
