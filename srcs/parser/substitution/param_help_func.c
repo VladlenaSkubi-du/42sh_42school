@@ -31,7 +31,7 @@ void	ft_one_ltree_clear(t_ltree *buf)
 	}
 }
 
-int		ft_param_error_msg(t_ltree *sub, char **find, char *oper, size_t *i)
+int		ft_param_error_msg(t_ltree *sub, char **find, char *oper)
 {
 	int		len;
 	char	*buf;

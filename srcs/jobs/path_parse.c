@@ -67,8 +67,9 @@ char	*path_search(char *name)
 	char			**to_clean;
 	char			*ret;
 
+	ret = NULL;
 	if (!(path_array = path_parse()))
-		return (0);
+		return (NULL);
 	to_clean = path_array;
 	while (*path_array)
 	{

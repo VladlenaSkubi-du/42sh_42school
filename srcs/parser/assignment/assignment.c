@@ -38,7 +38,7 @@ int		assignment(t_ltree *sub)
 
 int		check_kind_assign(t_ltree *sub, int i, int len_arg, char **arg_tline)
 {
-	size_t 	eq;
+	int	eq;
 
 	eq = 0;
 	while (eq < len_arg)
@@ -49,7 +49,7 @@ int		check_kind_assign(t_ltree *sub, int i, int len_arg, char **arg_tline)
 	}
 	if (eq < len_arg)
 	{
-		if (is_it_command(sub, i, arg_tline, eq))
+		if (is_it_command(i, arg_tline, eq))
 			return(1);
 		return (0);
 	}
@@ -60,7 +60,7 @@ int		check_kind_assign(t_ltree *sub, int i, int len_arg, char **arg_tline)
 ** If in the start of arg is "=", this means that arg is command
 */
 
-int		is_it_command(t_ltree *sub, int i, char **arg_tline, int eq)
+int		is_it_command(int i, char **arg_tline, int eq)
 {
 	if (eq == 0)
 		return (1);

@@ -135,9 +135,9 @@ int		ft_param_colon_qmark(t_ltree *sub, char **find, char *oper, size_t *i)
 			return (ft_reglue(i, size + 3, sub));
 		}
 		else
-			return (ft_param_error_msg(sub, find, oper, i));
+			return (ft_param_error_msg(sub, find, oper));
 	}
-	return (ft_param_error_msg(sub, find, oper, i));
+	return (ft_param_error_msg(sub, find, oper));
 }
 
 /*

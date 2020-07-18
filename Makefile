@@ -1,6 +1,6 @@
 NAME = 42sh
 
-FLAGS = -Wall #-Werror #-Wextra
+FLAGS = -Wall -Wextra #-Werror
 FLAGS += -g
 
 #______________________________________________________________________________
@@ -249,7 +249,7 @@ SHARED_INCLUDE_DIR = $(INCLUDE_DIR)
 
 all:	$(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(LIB_INCLUDE)
 	@make -C ./libft42
 	@echo "\033[32;01mCompiling 42sh...\033[0m"
 	@gcc $(FLAGS) $(OBJS) -o $(NAME) $(LIBFT_PATH) -ltermcap

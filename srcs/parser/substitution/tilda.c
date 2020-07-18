@@ -17,7 +17,7 @@ int		ft_find_tilda(t_ltree *sub, int flag)
 				sub->l_tline.line[i + 1] == SPACE ||
 				sub->l_cmd[i + 1] == '/' ||
 				(flag == ASSIGN && sub->l_cmd[i + 1] == ':'))
-				ft_get_home(sub, &i, flag);
+				ft_get_home(sub, &i);
 			else
 				ft_getdir_by_name(sub, &i, flag);
 		}
@@ -29,7 +29,7 @@ int		ft_find_tilda(t_ltree *sub, int flag)
 ** It works when no symbol after '~' or it's '/'
 */
 
-int 	ft_get_home(t_ltree *sub, size_t *i, int flag)
+int 	ft_get_home(t_ltree *sub, size_t *i)
 {
 	char    *tmp;
 
