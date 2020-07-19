@@ -63,8 +63,7 @@ int		nullify_backslash(char **ptr, t_stack **stack,\
 ** also it send line to check brackets ( ) or { }
 */
 
-int		nullify_dquotes(char **ptr, t_stack **stack,\
-		size_t *count)
+int		nullify_dquotes(char **ptr, t_stack **stack)
 {
 	if ((*stack)->data == DOLLAR && **ptr != WORD_P && **ptr != DOLLAR)
 		ft_pop_stack(stack);
@@ -131,7 +130,7 @@ int		nullify(char **techline, size_t cmd_size)
 		if (!(stack->data) && (*ptr == DQUOTE || *ptr == SQUOTE))
 			ft_push_stack(&stack, *ptr);
 		else if (g_prompt.prompt_func != heredoc_prompt)
-			nullify_dquotes(&ptr, &stack, &count);
+			nullify_dquotes(&ptr, &stack);
 		nullify_backslash(&ptr, &stack, &count, cmd_size);
 		if (g_prompt.prompt_func != heredoc_prompt)
 			nullify_comment(&ptr, &stack);

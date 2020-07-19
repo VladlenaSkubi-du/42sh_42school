@@ -17,24 +17,23 @@ int			find_assignment_in_vars(char *sub, size_t var,
 	char	*find;
 	char	*new_var;
 
+	find = ft_strndup(sub + var, val - var + 1);
+	new_var = ft_parsing_str(find);
+	free(find);
 	find = ft_strndup(sub + var, eq - var);
-	new_var = ft_parsing_str(sub);
 	if ((li = find_in_variable(&sy, find)) != -1)
 	{
 		if (g_envi[li][0] & READONLY) //посмотреть с Сережей тест: unset HOME ; HOME=/ ; echo $HOME
-		{
-			free(find);
-			free(new_var);
 			g_envi[li][0] |= ENV_VIS;
-			return (ERR_OUT);
-		}
 		else
-			if (!change_env_value(new_var, li))
-				free(new_var);		
+			change_env_value(new_var, li);	
 	}
-	else if (!add_new_env(new_var))
-		free(new_var);
+	else
+		add_new_env(new_var);
+	free(new_var);
 	free(find);
+	if (li != -1 && g_envi[li][0] & READONLY)
+		return (ERR_OUT);
 	return (0);
 }
 
@@ -62,7 +61,7 @@ int			assignment_in_curv_var(t_ltree *sub, char **line,
 int			ft_colon_check(int *len, char **line, char **oper, size_t *j)
 {
 	*len = ft_strlen(*line);
-	if ((*j = ft_strchri(*line, ':')) != -1)
+	if ((*j = ft_strchri(*line, ':')) != (size_t)-1)
 	{
 		ft_memmove(&(line[0][*j]), &(line[0][*j + 1]), *len - *j);
 		line[0][--(*len)] = '\0';

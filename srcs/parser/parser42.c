@@ -15,11 +15,11 @@ int		parser(char *line)
 	if (ft_atoi(find_env_value("42SH_NONINTERACTIVE")) == 0 &&
 			g_hist.len > 1)
 		add_to_history(g_cmd);
-	pars_lex_exec(0);
+	pars_lex_exec();
 	return (0);
 }
 
-int		pars_lex_exec(int tmp) //перестроить логику обращения к функциям - Влада в 21
+int		pars_lex_exec(void) //перестроить логику обращения к функциям - Влада в 21
 {
 	if (g_prompt.prompt_func != heredoc_prompt)
 		if (nullify(&g_techline.line, g_cmd_size) == OUT)

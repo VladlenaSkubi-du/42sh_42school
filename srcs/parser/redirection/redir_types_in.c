@@ -23,7 +23,7 @@ int		ft_redir_less(t_ltree *final, size_t *i)
 		{
 			if ((fd_open.fd_old = open(f_name, O_RDONLY | O_CLOEXEC |
 			O_NDELAY | O_NOCTTY, S_IRUSR)) == -1)
-				return (ft_access_check(&f_name, final, i, R_OK));
+				return (ft_access_check(&f_name, final, R_OK));
 			else
 				add_redir_fd(final, &fd_open);
 		}

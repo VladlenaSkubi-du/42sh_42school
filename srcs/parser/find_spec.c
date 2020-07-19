@@ -7,7 +7,7 @@
 
 t_ltree		*ft_find_logic(t_ltree *block, t_ltree *final)
 {
-	int		i;
+	size_t		i;
 
 	i = block->start;
 	final->flags = block->flags;
@@ -43,7 +43,7 @@ t_ltree		*ft_find_pipe(t_ltree *block, t_ltree *final, int *i)
 		block->flags |= PIPED_OUT;
 		return (final);
 	}
-	if (*i == block->end || final->flags & LOG_AND_OUT ||
+	if ((size_t)*i == block->end || final->flags & LOG_AND_OUT ||
 		final->flags & LOG_OR_OUT)
 	{
 		final->start = block->start;
