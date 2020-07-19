@@ -33,14 +33,14 @@ void			clear_hash_cell(int index,
 	hash_cell = (t_hashcmd*)hashtable[index];
 	if (delete_key == SLOT_DELETED_HASH)
 	{
-		printf("clear slot till the end\n");
+		// printf("    clear hash slot till the end\n");
 		free(hash_cell->cmd_name);
 		free(hashtable[index]);
 		hashtable[index] = NULL;
 	}
 	else if (delete_key == SLOT_FILLED_HASH)
 	{
-		printf("clear slot to note deleted\n");
+		// printf("    clear hash slot to note deleted\n");
 		free(hash_cell->cmd_path);
 		hash_cell->number = 0;
 		hash_cell->cmd_state = 0;
@@ -48,7 +48,7 @@ void			clear_hash_cell(int index,
 	}
 	else
 	{
-		printf("clear full slot\n");
+		// printf("    clear full hash slot\n");
 		free(hash_cell->cmd_name);
 		free(hash_cell->cmd_path);
 		hash_cell->number = 0;

@@ -18,7 +18,7 @@ int					btin_hash_list_hashtable(void)
 	hashtable_filled = get_hashtable_filled();
 	if (hashtable_size == 0 || hashtable_filled == 0)
 		return (0);
-	printf("list commands from btin\n"); //DELETE
+	// printf("list commands from btin\n"); //DELETE
 	ft_printf("%6s%s%s\n", "hits", "    ", "command");
 	i = -1;
 	while (++i < hashtable_size)
@@ -38,7 +38,7 @@ int					btin_hash_delete_elements(char **argv)
 	i = -1;
 	while (argv[++i])
 	{
-		printf("    arg is: %s\n", argv[i]);
+		// printf("    arg is: %s\n", argv[i]);
 		answer = btin_check_arg_if_cmd_name(argv[i]);
 		if (answer == ARG_INVALID || answer == ARG_ALIAS ||
 				answer == ARG_BUILTIN)
@@ -82,7 +82,7 @@ int					btin_hash_add_to_hashtable(char **argv)
 	i = -1;
 	while (argv[++i])
 	{
-		printf("    arg is: %s\n", argv[i]);
+		// printf("    arg is: %s\n", argv[i]);
 		answer = btin_check_arg_if_cmd_name(argv[i]);
 		if (answer == ARG_INVALID || answer == ARG_ALIAS ||
 				answer == ARG_BUILTIN)

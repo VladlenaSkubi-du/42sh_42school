@@ -8,7 +8,7 @@ static int		hashtable_array_limit;
 
 int				hashtable_init(void)
 {
-	printf("initialisation of the hashtable\n");
+	// printf("initialisation of the hashtable\n");
 	hashtable_array_size = HASHTABLE_LENGTH;
 	hashtable_array = (void**)ft_xmalloc(sizeof(void*) *
 		(hashtable_array_size + 1));
@@ -49,7 +49,7 @@ int				change_hashtable_filled_value(int times)
 	}
 	if (times > 0)
 	{
-		printf("comp: %d\n", hashtable_array_limit);
+		// printf("comp: %d\n", hashtable_array_limit);
 		if (hashtable_array_filled / hashtable_array_size < 1 &&
 				hashtable_array_filled >= hashtable_array_limit)
 		{

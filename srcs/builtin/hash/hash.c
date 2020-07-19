@@ -26,8 +26,10 @@ int					btin_hash(t_ltree *pos)
 		return (NONINERACTIVE);
 	}
 	flags = find_options(2, (char*[]){"rld", "--help"}, pos->ar_v);
-	if (flags == 0x10000)
+	if (flags == 0x10000) //change (shit from ass)
 		return (usage_btin("hash"));
+	if (flags < 0)
+		return (btin_return_exit_status());
 	if (pos->ar_c == 1)
 		return (btin_hash_list_hashtable());
 	return (btin_hash_check_flags(pos->ar_v));
@@ -48,7 +50,7 @@ int					btin_hash_check_flags(char **argv)
 				return (btin_hash_clean_table());
 			else if (argv[i][1] == 'l')
 				return (btin_hash_list_hashtable());
-			else if (argv[i][1] == 'd')
+			else if (argv[i][1] == 'd') //проверка аргументов
 				return (btin_hash_delete_elements(&argv[++i]));
 			else if (argv[i][1] == '-' && !argv[i][2])
 				return (btin_hash_add_to_hashtable(&argv[++i]));

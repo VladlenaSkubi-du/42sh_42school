@@ -8,11 +8,11 @@ char			*hashtable_add(char *key, void **hashtable,
 	int			i;
 	int			hashtable_filled;
 
-	printf("path_search\n");
+	// printf("path_search\n");
 	path = path_search(key);
 	if (!path)
 	{
-		printf("    no path from path_search\n");
+		// printf("    no path from path_search\n");
 		return (path);
 	}
 	hashtable_filled = get_hashtable_filled();
@@ -94,12 +94,12 @@ int				hashtable_clean(void **hashtable,
 	hashtable_filled = get_hashtable_filled();
 	if (hashtable_filled < 0)
 	{
-		printf("mistake in hashtable_filled value\n");
+		printf("    mistake in hashtable_filled value\n");
 		return (0);
 	}
 	if (hashtable_filled == 0)
 		return (0);
-	printf("cleaning the table\n");	
+	printf("    cleaning the hashtable\n");	
 	while (i < hashtable_size)
 	{
 		if (hashtable[i] != NULL)
