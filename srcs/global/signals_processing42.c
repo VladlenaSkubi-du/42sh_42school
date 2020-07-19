@@ -24,6 +24,8 @@ int					signals_reroute(int from)
 
 void				signal_ctrl_c_readline(int sig)
 {
+	if (sig != SIGINT)
+		return ;
 	if (g_rline.flag & AFTER_LINE_HIST)
 	{
 		position_cursor("ch", 0, 0);
@@ -44,6 +46,8 @@ void				signal_screen_readline(int sig)
 {
 	int				i;
 
+	if (sig != SIGWINCH)
+		return ;
 	check_after_line();
 	position_cursor("ch", 0, 0);
 	tputs(g_cap.cd, 1, printc);
@@ -60,10 +64,11 @@ void				signal_screen_readline(int sig)
 		front_insert_one_char(g_rline.cmd[i],
 			g_rline.pos_x, 'm', NULL);
 	}
-		
 }
 
 void				signal_ctrl_c_parser(int sig)
 {
+	if (sig != SIGINT)
+		return ;
 	ft_putendl_fd("\nstopped by signal SIGINT", STDOUT_FILENO);
 }
