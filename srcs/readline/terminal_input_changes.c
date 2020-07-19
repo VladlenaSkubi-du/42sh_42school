@@ -12,6 +12,8 @@ int					check_terminal(void)
 	if (!isatty(STDIN_FILENO) || mf_protection())
 	{
 		error_handler(TERMINAL_EXISTS, NULL);
+		free(g_rline.cmd);
+		clean_everything();
 		exit(TERMINAL_EXISTS);
 	}
 	if (set_noncanonical_input() == -1)
@@ -67,8 +69,8 @@ int					set_noncanonical_input(void)
 	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &tty) < 0)
 		return (-1);
 	if (tcgetattr(STDIN_FILENO, &tty) < 0 ||
-		((tty.c_lflag & (ICANON | ECHO) ||
-		tty.c_cc[VMIN] != 1 || tty.c_cc[VTIME] != 1)))
+			((tty.c_lflag & (ICANON | ECHO) ||
+			tty.c_cc[VMIN] != 1 || tty.c_cc[VTIME] != 1)))
 		reset_canonical_input();
 	return (0);
 }

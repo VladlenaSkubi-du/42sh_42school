@@ -5,10 +5,10 @@ int				main(int argc, char **argv)
 	g_var_size = ENV_BUFFER;
 	create_env();
 	check_42sh_options(argc, argv);
-	g_prompt.prompt_func = main_prompt;
 	start_history();
 	hashtable_init();
 	init_readline();
+	g_prompt.prompt_func = main_prompt;
 	interactive_shell();
 	return (0);
 }
