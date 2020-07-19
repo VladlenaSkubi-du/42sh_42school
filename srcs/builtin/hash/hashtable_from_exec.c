@@ -71,7 +71,7 @@ int				hashtable_find(char *key, void **hashtable,
 	t_hashcmd	*slot_ptr;
 	// int			comparison;
 	
-	printf("searching a command in hashtable by key\n");
+	// printf("searching a command in hashtable by key\n");
 	index = 0;
 	while (index < hashtable_size)
 	{
@@ -112,12 +112,12 @@ char			*hashtable_check_valid(int index, char *key,
 {
 	t_hashcmd	*slot_ptr;
 	
-	printf("checking validity of the path found in the hashtable\n");
+	// printf("checking validity of the path found in the hashtable\n");
 	slot_ptr = (t_hashcmd*)hashtable[index];
 	if (access(slot_ptr->cmd_path, F_OK) == -1 ||
 			access(slot_ptr->cmd_path, X_OK) == -1)
 	{
-		printf("command saved in hashtable is invalid\n");
+		printf("    command saved in hashtable is invalid\n");
 		clear_hash_cell(index, hashtable, 0);
 		return (hash_key_not_found(key, hashtable, hashtable_size, index));
 	}

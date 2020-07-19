@@ -7,10 +7,14 @@ char	**path_parse(void)
 	int		li;
 	int		co;
 
+	ret = NULL;
 	li = find_in_variable(&co, "PATH");
 	if (li < 0 || ((ret = ft_strsplit(&g_envi[li][co], ':')) == NULL) ||
-			ret[0] == '\0')
-		return (0);
+			ret[0] == NULL || ret[0][0] == '\0')
+	{
+		ft_arrdel(ret);
+		return (NULL);
+	}
 	return (ret);
 }
 
@@ -21,11 +25,11 @@ char	*form_path(char *ret, char *env_path, char *name)
 	ft_strcat(ret, name);
 
 
-	if (access(ret, X_OK) == -1) //DELETE
-	{
-		free(ret);
-		ret = 0;
-	}
+	// if (access(ret, X_OK) == -1) //DELETE
+	// {
+	// 	free(ret);
+	// 	ret = 0;
+	// }
 
 
 	return (ret);
@@ -37,7 +41,7 @@ char	*locate_file(char *env_path, char *name, char **to_clean)
 	char			*ret;
 	DIR				*path;
 
-	ret = 0;
+	ret = NULL;
 	path = opendir(env_path);
 	if (path == NULL)
 		return (NULL);
@@ -45,7 +49,7 @@ char	*locate_file(char *env_path, char *name, char **to_clean)
 	{
 		if (!ft_strcmp(entity->d_name, name))
 		{
-			printf("file found\n");
+			// printf("file found\n");
 			ret = (char*)ft_xmalloc(ft_strlen(env_path) + ft_strlen(name) + 2);
 			ret = form_path(ret, env_path, name);
 			if (ret)
@@ -68,7 +72,7 @@ char	*path_search(char *name)
 	char			*ret;
 
 	if (!(path_array = path_parse()))
-		return (0);
+		return (NULL);
 	to_clean = path_array;
 	while (*path_array)
 	{
@@ -80,8 +84,8 @@ char	*path_search(char *name)
 	ft_arrdel(to_clean);
 
 
-	if (!ret) //DELETE
-		error_handler(COMMAND_NOT_FOUND | (ERR_COMMAND << 9), name);
+	// if (!ret) //DELETE
+	// 	error_handler(COMMAND_NOT_FOUND | (ERR_COMMAND << 9), name);
 
 	
 	return (ret);  /* Returns zero if we did not find anything */
@@ -97,21 +101,21 @@ char	*path_init(char **exec_av)
 
 	if (!ft_strchr(*exec_av, '/')) /* Builtin or $PATH case */
 	{
-		ret = path_search(*exec_av);
-		// ret = hashtable_cmd_init(*exec_av);
+		// ret = path_search(*exec_av);
+		ret = hashtable_cmd_init(*exec_av);
 	}
 	else /* Execution path case */
 	{
-		if (access(*exec_av, F_OK) == -1) //спросить у Лехи
+		if (access(*exec_av, F_OK) == -1)
 		{
 			error_handler(COMMAND_NOT_FOUND |
 				(ERR_NO_FILE << 9), *exec_av);
-			return (0);
+			return (NULL);
 		}
 		else if (access(*exec_av, X_OK) == -1)
 		{
 			error_handler(COMMAND_NON_EXECUTABLE, *exec_av);
-			return (0);
+			return (NULL);
 		}
 		ret = ft_strdup(exec_av[0]);
 	}
