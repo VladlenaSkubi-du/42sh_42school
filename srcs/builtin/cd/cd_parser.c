@@ -1,10 +1,12 @@
 #include <shell42.h>
 #include <builtin42.h>
 
-int		ft_o_dir(char *str)
+int		ft_o_dir(char *str, char *path)
 {
 	DIR		*dir;
 
+	if (!ft_strcmp(str, path))
+		return (-1);
 	if (!(dir = opendir(str)))
 		return (-1);
 	closedir(dir);
@@ -18,7 +20,7 @@ char	*ft_cdpath(char *path)
 	int		i;
 	int		j;
 
-	if ((i = find_in_variable(&j, "CDPATH")) < 0 || !path)
+	if ((i = find_in_variable(&j, "CDPATH")) < 0 || !path || path[0] == '/')
 		return (NULL);
 	res = NULL;
 	arr = ft_strsplit(g_envi[i] + j, ':');
@@ -30,7 +32,7 @@ char	*ft_cdpath(char *path)
 		//res = ft_strjoin(arr[i], "/");
 		//res = ft_strrejoin(res, path);
 		res = ft_new_path(path, arr[i]);
-		if ((ft_o_dir(res)) == 0)
+		if ((ft_o_dir(res, path)) == 0)
 			break ;
 		ft_strdel(&res);
 	}
