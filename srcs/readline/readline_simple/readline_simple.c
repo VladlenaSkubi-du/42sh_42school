@@ -27,7 +27,7 @@ int					sreadline_choice(char sy)
 	else if (sy == '\005')
 		make_sctrl_e();
 	else if (sy == '\004')
-		make_exit();
+		make_sexit();
 	return (0);
 }
 
@@ -44,12 +44,12 @@ int 				readline_simple(void)
 	return (0);
 }
 
-int					make_exit(void)
+int					make_sexit(void)
 {
 	t_ltree			*pos;
-	
+
 	if (g_rline.pos == 0 && g_rline.cmd_len == 0 &&
-		g_prompt.prompt_func == main_prompt)
+			g_prompt.prompt_func == main_prompt)
 	{
 		pos = (t_ltree*)ft_xmalloc(sizeof(t_ltree));
 		ltree_init(pos);
@@ -61,7 +61,7 @@ int					make_exit(void)
 		btin_exit(pos);
 	}
 	else if (g_rline.pos == 0 && g_rline.cmd_len == 0 &&
-		g_prompt.prompt_func != main_prompt)
+			g_prompt.prompt_func != main_prompt)
 	{
 		if (g_rline.cmd_len >= g_rline.cmd_buff_len - 1)
 			realloc_readline_cmd();

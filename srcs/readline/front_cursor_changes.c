@@ -47,7 +47,7 @@ int					front_move_one_char_left(int pos_x)
 	else if (pos_x == 0)
 	{
 		if (g_rline.pos > 0 &&
-			g_rline.cmd[g_rline.pos - 1] == '\n')
+				g_rline.cmd[g_rline.pos - 1] == '\n')
 			prev_x = count_x_position_new_line(g_rline.pos - 2);
 		else
 			prev_x = g_screen.ws_col - 1;

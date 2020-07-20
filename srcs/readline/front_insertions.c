@@ -61,7 +61,8 @@ int					front_insert_if_newline(int *pos_x, int *pos_y,
 ** the position and the number of lines is not changing
 */
 
-int					front_insert_if_terminal(int *pos_x, int *pos_y, int *flag)
+int					front_insert_if_terminal(int *pos_x,
+						int *pos_y, int *flag)
 {
 	tputs(g_cap.sf, 1, printc);
 	*pos_x = 0;

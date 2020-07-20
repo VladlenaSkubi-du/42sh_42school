@@ -4,7 +4,7 @@
 int				make_sctrl_e(void)
 {
 	while (g_rline.pos < g_rline.cmd_len - 1 &&
-		g_rline.pos + g_prompt.prompt_len < g_screen.ws_col - 2)
+			g_rline.pos + g_prompt.prompt_len < g_screen.ws_col - 2)
 		sesc_right();
 	return (0);
 }
