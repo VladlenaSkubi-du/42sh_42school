@@ -6,12 +6,7 @@ int				schar_add(char c)
 	if (g_rline.cmd_len + g_prompt.prompt_len >= g_screen.ws_col - 1)
 		return (bell_sound());
 	if (g_rline.cmd_len >= g_rline.cmd_buff_len - 1)
-	{
-		g_rline.cmd = (char *)ft_realloc(g_rline.cmd, g_rline.cmd_len,
-			g_rline.cmd_buff_len,
-			g_rline.cmd_buff_len + CMD_SIZE);
-		g_rline.cmd_buff_len += CMD_SIZE;
-	}
+		realloc_readline_cmd();
 	g_rline.cmd_len++;
 	if (g_rline.cmd_len + 1 < 0 || g_rline.cmd_buff_len + 1 < 0)
 		return (OUT);

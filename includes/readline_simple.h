@@ -11,7 +11,7 @@
 int					readline_simple(void);
 int					sreadline_choice(char sy);
 int					bell_sound(void);
-int					make_exit(void);
+int					make_sexit(void);
 
 /*
 ** File str_edit_simple.c
