@@ -18,6 +18,7 @@ BUILTIN = \
 			$(BUILTIN_DIR)/usages.c \
 			$(BUILTIN_DIR)/exsign_btin.c \
 			$(BUILTIN_DIR)/bumblebee.c \
+			$(BUILTIN_DIR)/export.c \
             $(CD) \
 			$(FC) \
 			$(JOBS_BTIN) \
@@ -33,8 +34,6 @@ CD =		$(BUILTIN_DIR)/$(CD_DIR)/cd.c \
 			$(BUILTIN_DIR)/$(CD_DIR)/cd_new_path.c \
 			$(BUILTIN_DIR)/$(CD_DIR)/cd_static.c
 
-EXPORT_DIR = export
-EXPORT =	$(BUILTIN_DIR)/$(EXPORT_DIR)/export.c
 
 HASH_DIR = hash
 HASH = 		$(BUILTIN_DIR)/$(HASH_DIR)/hash.c \
@@ -261,7 +260,6 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(FC_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(CD_DIR)
-	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(EXPORT_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(HASH_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(JOBS_BTIN_DIR)
 #_____________________________________________________
