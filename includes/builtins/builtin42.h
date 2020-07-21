@@ -128,15 +128,14 @@ int             btin_pwd_valid(char **argv);
 int		        pwd_error(char c, int en);
 
 /*
-** File export.c //6 функций!
+** File export.c
 */
 
 int				btin_export(t_ltree *pos);
-int			    export_p(t_ltree *pos);
+int			    export_p(void);
 int			    export_add_vis(t_ltree *pos);
 int			    do_vis(char *arg);
 int			    change_or_add(char *arg);
-int			    ft_add_el(char *arg);
 
 /*
 ** File bg_fg_btin.c

@@ -15,7 +15,9 @@ int			parse_echo_flags(char **argv, t_ec *echo_flags)
 		j = 1;
 		while (argv[i][j])
 		{
-			if (argv[i][j] == 'e')
+			if (argv[i][j] == '-')
+				return (i + 1);
+			else if (argv[i][j] == 'e')
 				echo_flags->e = 1;
 			else if (argv[i][j] == 'n')
 				echo_flags->n = 1;
@@ -96,7 +98,13 @@ int			btin_echo(t_ltree *pos)
 {
 	t_ec	*echo_flags;
 	int		i;
+	int     flags_check;
 
+    flags_check = find_options(3, (char*[]){"enE", "--help"}, pos->ar_v);
+    if (flags_check == 0x10000)
+        return (usage_btin("echo"));
+	else if (flags_check < 0)
+        return (btin_return_exit_status());
 	echo_flags = ft_xmalloc(sizeof(t_ec));
 	i = parse_echo_flags(pos->ar_v, echo_flags);
 	write_text(pos->ar_v, i, echo_flags);

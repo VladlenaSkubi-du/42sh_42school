@@ -101,6 +101,8 @@ char	*ft_new_path(char *path, char *src_path)
 
 	if (path[0] == '/' && path[1])
 		return (tmp = ft_del_slesh(path));
+	else if (path[0] == '/')
+		return (ft_strdup("/"));  //somneniya
 	tmp = ft_join(path, src_path);
 	arr = ft_strsplit(tmp, '/');
 	free(arr[0]);
