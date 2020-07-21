@@ -43,7 +43,7 @@ int         btin_cd(t_ltree *pos)
 		return (btin_return_exit_status());
 	flags = ft_xmalloc(sizeof(t_cd *));
 	i = ft_cd_flags(pos->ar_v, flags);
-	if (pos->ar_v[i] && pos->ar_v[i][0] == '-' &&
+	if (pos->ar_v[i] && pos->ar_v[i][0] == '-' && pos->ar_v[i][1] &&
 			i > 0 && ft_strcmp(pos->ar_v[i - 1], "--"))
     {   
         error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), "cd");
@@ -57,4 +57,5 @@ int         btin_cd(t_ltree *pos)
 		return (1);
 	}
 	free(flags);
+	return (0);
 }

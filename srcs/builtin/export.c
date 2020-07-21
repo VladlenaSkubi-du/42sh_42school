@@ -1,25 +1,6 @@
 #include <shell42.h>
 #include <builtin42.h>
 
-/*int			ft_add_el(char *arg)
-{
-	int		i;
-
-	i = 0;
-	while (g_envi[i])
-		i++;
-	if (i == g_var_size || i + 1 == g_var_size)
-	{
-		g_envi = ft_realloc_array(&g_envi, g_var_size, g_var_size * 2);
-		g_var_size = g_var_size * 2;
-	}
-	g_envi[i] = (char *)ft_xmalloc(ft_strlen(arg) + 2);
-	ft_strcpy(g_envi[i] + 1, arg);
-	g_envi[i][0] |= ENV_VIS;
-	g_envi[i][0] |= SET_VIS;
-	return (0);
-}*/
-
 int			change_or_add(char *arg)
 {
 	int		i;
@@ -50,7 +31,7 @@ int			change_or_add(char *arg)
 	}
 	else
 	{
-		add_new_env(arg);
+		i = add_new_env(arg);
 		g_envi[i][0] |= ENV_VIS;
 		//ft_add_el(arg);
 	}
