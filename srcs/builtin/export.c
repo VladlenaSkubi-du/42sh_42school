@@ -18,6 +18,7 @@ int			change_or_add(char *arg)
 		{
 			error = ft_strjoin("export: ", tmp);
 			error_handler(VARIABLE_ERROR | (ERR_RDONLY << 9), error);
+			free(error);
 			g_envi[i][0] |= ENV_VIS;
 			free(tmp);
 			return (0);
@@ -99,7 +100,7 @@ int			btin_export(t_ltree *pos)
 {
 	int		flags;
 
-	flags = find_options(1, (char*[]){"p", "--help"}, pos->ar_v);
+	flags = find_options(2, (char*[]){"p", "--help"}, pos->ar_v);
 	if (flags == 0x10000)
 		return (usage_btin("export"));
 	else if (flags < 0)

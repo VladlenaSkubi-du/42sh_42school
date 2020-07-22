@@ -31,7 +31,7 @@ echo -e "---test permission---"
 mkdir test1
 chmod 000 test1
 err=$($bsh_name -c "cd test1" 2>&1)
-suc="e-bash: cd: test1: permission denied"
+suc="$bsh_name: cd: test1: permission denied"
 if [ "$err" = "$suc" ]
 then
     echo -en "\033[32;1m SUCCESS \033[0m"
