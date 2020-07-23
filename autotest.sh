@@ -199,7 +199,7 @@ suc="e-bash: export: -d: invalid option export: usage: export [name[=value] ...]
 my_echo "$err" "$suc"
 }
 
-arr=("check_parser" "check_cd" "check_echo" "check_unset" "check_export")
+arr=("check_parser" "check_cd" "check_echo" "check_unset" "check_export" "--full")
 usage="\nusage ./test.sh [options]:\n    --full             - full check\n    check_[block_name] - check needed block only
    
     usable blocks:
