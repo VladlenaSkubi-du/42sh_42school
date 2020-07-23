@@ -19,7 +19,7 @@ int					btin_exsign(t_ltree *pos)
 	int				i;
 
 	i = -1;
-	while (++i < pos->l_tline.len &&
+	while (++i < (size_t)pos->l_tline.len &&
 			!btin_exsign_stop_signs(pos->l_tline.line[i]))
 	{
 		if (pos->l_tline.line[i] == BANG &&

@@ -51,7 +51,7 @@ int					btin_fc_list_check_other_args(char **argv,
 			return (btin_fc_list_nums_no_error(&argv[i + 1], fc_arg, flags));
 		if (ft_isdigit(argv[i][0]) || (argv[i][0] == '-' && ft_isdigit(argv[i][1])))
 		{
-			return (btin_fc_list_mode_num_args(argv, i, fc_arg, flags) == HIST_ERROR ?
+			return (btin_fc_list_mode_num_args(argv, i, fc_arg) == HIST_ERROR ?
 				HIST_ERROR : btin_fc_list_mode_flags_off(flags));
 		}
 		tmp = btin_fc_list_check_line_args(&argv[i], 0, fc_arg, flags);
@@ -74,7 +74,7 @@ int					btin_fc_list_nums_no_error(char **argv,
 		return (btin_fc_list_mode_no_args(fc_arg, flags));
 	if (ft_isdigit(argv[0][0]) || (argv[0][0] == '-' && ft_isdigit(argv[0][1])))
 	{
-		return (btin_fc_list_mode_num_args(argv, 0, fc_arg, flags) == HIST_ERROR ?
+		return (btin_fc_list_mode_num_args(argv, 0, fc_arg) == HIST_ERROR ?
 			HIST_ERROR : btin_fc_list_mode_flags_off(flags));
 	}
 	error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
@@ -86,7 +86,7 @@ int					btin_fc_list_nums_no_error(char **argv,
 */
 
 int					btin_fc_list_mode_num_args(char **argv, int i,
-						t_btin_fc **fc_arg, int *flags)
+						t_btin_fc **fc_arg)
 {
 	int				temp;
 	
@@ -98,7 +98,7 @@ int					btin_fc_list_mode_num_args(char **argv, int i,
 	{
 		(*fc_arg)->flag |= ARG_SECOND;
 		(*fc_arg)->last = -1;
-		return ((btin_fc_two_ints__list(fc_arg, flags, temp) == HIST_ERROR) ?
+		return ((btin_fc_two_ints__list(fc_arg, temp) == HIST_ERROR) ?
 			HIST_ERROR : 0);
 	}
 	else if (!(ft_isdigit(argv[i][0]) || (argv[i][0] == '-' &&
@@ -109,7 +109,7 @@ int					btin_fc_list_mode_num_args(char **argv, int i,
 	}
 	(*fc_arg)->flag |= ARG_SECOND;
 	(*fc_arg)->last = ft_atoi(argv[i]);
-	return ((btin_fc_two_ints__list(fc_arg, flags, temp) == HIST_ERROR) ?
+	return ((btin_fc_two_ints__list(fc_arg, temp) == HIST_ERROR) ?
 		HIST_ERROR : 0);
 }
 

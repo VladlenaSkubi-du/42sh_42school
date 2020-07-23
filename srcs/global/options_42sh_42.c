@@ -21,10 +21,10 @@ int				check_42sh_options(int argc, char **argv)
 	}
 	if (flags == 0 && argc > 1 && argv[1][0] == '-' && !argv[1][1])
 		return (invalid_option_42sh(argv[1], argv[0]));
-	return ((flags & 1) ? check_42sh_c_option(argc, argv) : 0);
+	return ((flags & 1) ? check_42sh_c_option(argv) : 0);
 }
 
-int				check_42sh_c_option(int argc, char **argv)
+int				check_42sh_c_option(char **argv)
 {
 	int			i;
 	int			j;

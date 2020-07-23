@@ -67,7 +67,7 @@ int					btin_fc_list_other_flags(char argvij, int *flags)
 ** Checking options in the arguments line - exec mode
 */
 
-int					btin_fc_exec_other_flags(char argvij, int *flags)
+int					btin_fc_exec_other_flags(char argvij)
 {
 	if (argvij == 'r' || argvij == 'n' ||
 		argvij == 'l' || argvij == 's')

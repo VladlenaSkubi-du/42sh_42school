@@ -38,7 +38,7 @@ int					btin_fc_route_execution(t_btin_fc *fc_arg, int flags,
 				btin_fc_execute_list(fc_arg, flags, 'd');	
 	}
 	else if (flags & FLAG_S)
-		return (btin_fc_execute_execution(fc_arg, flags));
+		return (btin_fc_execute_execution(fc_arg));
 	return (0);
 }
 
@@ -47,7 +47,7 @@ int					btin_fc_route_execution(t_btin_fc *fc_arg, int flags,
 ** launch it through parser, saving all the globals
 */
 
-int					btin_fc_execute_execution(t_btin_fc *fc_arg, int flags)
+int					btin_fc_execute_execution(t_btin_fc *fc_arg)
 {
 	char			*cmd;
 	int				tmp;

@@ -24,7 +24,7 @@ int					btin_fc_exec_check_line_args(char **argv, int j,
 			return (HIST_ERROR);
 		else if (tmp == HIST_EXEC || tmp != i)
 			return (i = (tmp == HIST_EXEC) ? i : tmp);
-		i = btin_fc_exec_other_flags(argv[i][j], flags);
+		i = btin_fc_exec_other_flags(argv[i][j]);
 		if (i == HIST_ERROR)
 			return (i);
 	}

@@ -64,7 +64,7 @@ t_ltree				*btin_fc_before_exec(t_btin_fc *fc_arg,
 */
 
 int					btin_fc_execute_edit_reverse(t_btin_fc *fc_arg,
-						int flags, int fd, int flag)
+						int fd, int flag)
 {
 	int				i;
 	int				tmp;
@@ -91,7 +91,7 @@ int					btin_fc_execute_edit_reverse(t_btin_fc *fc_arg,
 */
 
 int					btin_fc_execute_edit(t_btin_fc *fc_arg,
-						int flags, int fd, int flag)
+						int fd, int flag)
 {
 	int				i;
 	int				tmp;

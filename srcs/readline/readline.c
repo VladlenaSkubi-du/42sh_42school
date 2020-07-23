@@ -43,7 +43,7 @@ int		readline_choice(char sy)
 		check_after_line();
 		if (char_add(sy, NULL) == OUT)
 			return (OUT);
-		kirill_lgbt(sy);
+		kirill_lgbt();
 	}
 	return (0);
 }
