@@ -13,24 +13,22 @@ int		ft_o_dir(char *str, char *path)
 	return (0);
 }
 
-char	*ft_cdpath(char *path)
+char	*ft_cdpath(char *path, char **env)
 {
 	char	**arr;
 	char	*res;
 	int		i;
 	int		j;
 
-	if ((i = find_in_variable(&j, "CDPATH")) < 0 || !path || path[0] == '/')
+	if ((i = find_in_any_variable(env, &j, "CDPATH")) < 0 || !path || path[0] == '/')
 		return (NULL);
 	res = NULL;
-	arr = ft_strsplit(g_envi[i] + j, ':');
+	arr = ft_strsplit(env[i] + j, ':');
 	i = -1;
 	while (arr[++i])
 	{
 		if (path[0] == '.' && path[1] == '.')
 			continue ;
-		//res = ft_strjoin(arr[i], "/");
-		//res = ft_strrejoin(res, path);
 		res = ft_new_path(path, arr[i]);
 		if ((ft_o_dir(res, path)) == 0)
 			break ;
@@ -53,20 +51,10 @@ int		ft_cd_env(char *path, char **env, t_cd *flags)
 
 	name = NULL;
 	name = path ? ft_strdup("OLDPWD") : ft_strdup("HOME");
-	i = find_in_variable(&j, name);
+	i = find_in_any_variable(env, &j, name);
 	free(name);
 	if (i < 0)
 		return (ft_error(NULL, (path) ? 6 : 7));
-	/*if (path && i < 0)
-	{
-		free(name);
-		return ((ft_error(NULL, 6)));
-	}
-	else if (!path && i < 0)
-	{
-		free(name);
-		return ((ft_error(NULL, 7)));
-	}*/
 	if (path)
 		ft_putendl(env[i] + j);
 	name = ft_strdup(env[i] + j);
@@ -78,15 +66,10 @@ int		ft_cd_pars(char *path, char **env, t_cd *flags)
 	struct stat buff;
 	char		*tmp;
 
-	if ((tmp = ft_cdpath(path)) != NULL)
+	if ((tmp = ft_cdpath(path, env)) != NULL)
 		return (ft_change_path(tmp, env, flags));
 	if (ft_strcmp(path, "-") == 0 || !path)
 		return ((ft_cd_env(path, env, flags)));
-	//if (stat(path, &buff) < 0)
-	//{
-	//    if (ft_check_cdpath(ft_strjoin("/", path), env))
-	//        return (ft_error(path, 4));
-	//}
 	if (stat(path, &buff) < 0)
 		return (ft_error(path, 2));
 	else if (!S_ISDIR(buff.st_mode))
