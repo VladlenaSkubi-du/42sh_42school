@@ -51,7 +51,7 @@ int         btin_cd(t_ltree *pos)
 		free(flags);
         return (1);
     }
-	if (ft_valid_cd(pos->ar_v, i) || ft_cd_pars(pos->ar_v[i], g_envi, flags))
+	if (ft_valid_cd(pos->ar_v, i) || ft_cd_pars(pos->ar_v[i], pos->envir, flags))
 	{
 		free(flags);
 		return (1);

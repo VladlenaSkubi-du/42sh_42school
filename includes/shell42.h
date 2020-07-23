@@ -284,6 +284,12 @@ int					add_new_env(char *name);
 int					change_env_value(char *new_val, int i);
 
 /*
+** File envir_variables.c
+*/
+
+int					find_in_any_variable(char **env, int *j, char *name);
+
+/*
 ** Folder UNIX_FUNCTIONS
 **_____________________________________________________________________________
 */

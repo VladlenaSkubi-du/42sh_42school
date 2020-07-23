@@ -43,8 +43,8 @@ void		ft_change_pwd(char *path, char **env)
 	//printf("%s, %s\n", env[i] + 1, env[k] + 1);
 	*/
 	tmp = ft_strjoin("OLDPWD=", get_oldpwd_value());
-	if ((i = find_in_variable(&j, "OLDPWD")) >= 0)
-		change_env_value(tmp, i);
+	if ((i = find_in_any_variable(env, &j, "OLDPWD")) >= 0)
+		change_env_value(tmp, (i = find_in_variable(&j, "OLDPWD")));
 	else
 	{
 		c = add_new_env(tmp);
@@ -52,8 +52,8 @@ void		ft_change_pwd(char *path, char **env)
 	}
 	free(tmp);
 	tmp = ft_strjoin("PWD=", get_pwd_value());
-	if ((i = find_in_variable(&j, "PWD")) >= 0)
-		change_env_value(tmp, i);
+	if ((i = find_in_any_variable(env, &j, "PWD")) >= 0)
+		change_env_value(tmp, (i = find_in_variable(&j, "PWD")));
 	else
 	{
 		c = add_new_env(tmp);
@@ -74,7 +74,7 @@ int		ft_change_path(char *path, char **env, t_cd *flags)
 	if (flags->p)
 	{
 		free(path);
-		path = getcwd(NULL, 999);
+		path = getcwd(NULL, MAXDIR);
 	}
 	change_pwd_value(path);
 	/*if (flags->p)
