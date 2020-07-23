@@ -77,7 +77,8 @@ GLOBAL = 	$(GLOBAL_DIR)/clean_all42.c \
 SHELL_VARS_DIR = shell_variables
 SHELL_VARIABLES = \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/add_new_value.c \
-			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/form_environment42.c
+			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/form_environment42.c \
+			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/envir_variables.c
 
 ERRORS_HANDLER_DIR = error_handler
 ERRORS_HANDLER = \
