@@ -208,7 +208,7 @@ int					invalid_option_btin(char *option, char *name);
 */
 
 int					check_42sh_options(int argc, char **argv);
-int					check_42sh_c_option(int argc, char **argv);
+int					check_42sh_c_option(char **argv);
 int					invalid_option_42sh(char *option, char *name);
 int					argument_needed_42sh(char *option, char *name);
 

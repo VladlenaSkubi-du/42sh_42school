@@ -81,8 +81,8 @@ typedef struct					s_cap
 typedef struct					s_action_stack
 {
 	char						*cmd_b;
-	size_t						pos_b;
-	size_t						num_b;
+	int							pos_b;
+	int							num_b;
 	struct s_action_stack		*next;
 	struct s_action_stack		*prev;
 }								t_action_stack;
@@ -107,7 +107,7 @@ typedef struct					s_compl_output
 	int							buf_width;
 	int							word_len;
 	int							word_nb;
-	size_t						i;
+	int							i;
 }								t_compl_output;
 
 /*
@@ -368,7 +368,7 @@ int								esc_t_len_pos(char *word_first, int fi);
 ** File easter_egg.c
 */
 
-int								kirill_lgbt(char sy);
+int								kirill_lgbt(void);
 
 /*
 ** Folder AUTO_COMPLETION
@@ -532,9 +532,9 @@ void							print_help(short flag);
 void							print_readline_help(short flag,
 									short undo, char *space);
 void							print_readline_help_moving_cursor(short flag,
-									short undo, char *space);
+									char *space);
 void							print_readline_help_ccp(short flag,
-									short undo, char *space);
+									char *space);
 void							print_readline_help_other(short flag,
 									short undo, char *space);
 

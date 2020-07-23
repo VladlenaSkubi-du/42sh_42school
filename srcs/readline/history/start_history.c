@@ -76,7 +76,7 @@ int				add_to_history(char *cmd)
 
 	flag = 0;
 	if (g_hist.last + 1 >= g_hist.len - 1 &&
-		g_prompt.prompt_func == main_prompt && g_hist.len > 1)
+			g_prompt.prompt_func == main_prompt && g_hist.len > 1)
 		scroll_hist_buffer(1);
 	if (g_prompt.prompt_func == main_prompt && g_hist.len > 0)
 	{

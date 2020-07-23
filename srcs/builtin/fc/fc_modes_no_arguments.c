@@ -16,7 +16,7 @@ int					btin_fc_list_mode_no_args(t_btin_fc **fc_arg, int *flags)
 	(*fc_arg)->flag |= ARG_SECOND;
 	(*fc_arg)->last = -1;
 	(*fc_arg)->first = -17;
-	return (btin_fc_two_ints__list(fc_arg, flags, temp) == HIST_ERROR ? 
+	return (btin_fc_two_ints__list(fc_arg, temp) == HIST_ERROR ? 
 		HIST_ERROR : btin_fc_list_mode_flags_off(flags));
 }
 

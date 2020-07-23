@@ -86,7 +86,7 @@ int				btin_fc_list_check_line_args(char **argv, int j,
 int				btin_fc_list_check_other_args(char **argv,
 					t_btin_fc **fc_arg, int *flags);
 int				btin_fc_list_mode_num_args(char **argv, int i,
-                    t_btin_fc **fc_arg, int *flags);
+                    t_btin_fc **fc_arg);
 int				btin_fc_list_nums_no_error(char **argv,
 					t_btin_fc **fc_arg, int *flags);
 int				btin_fc_calculate_nums__list(int buffer, int from);
@@ -115,7 +115,7 @@ int				btin_fc_edit_mode(char **argv, t_btin_fc **fc_arg,
 int				btin_fc_edit_other_args(char **argv,
 					t_btin_fc **fc_arg, int *flags);
 int				btin_fc_edit_mode_num_args(char **argv, int i,
-					t_btin_fc **fc_arg, int *flags);
+					t_btin_fc **fc_arg);
 int				btin_fc_two_ints__edit(t_btin_fc **fc_arg);
 int				btin_fc_save_editor(char **argv, int i,
 					int j, t_btin_fc **fc_arg);
@@ -124,7 +124,7 @@ int				btin_fc_save_editor(char **argv, int i,
 ** File fc_num_calc.c
 */
 
-int				btin_fc_two_ints__list(t_btin_fc **fc_arg, int *flags, int temp);
+int				btin_fc_two_ints__list(t_btin_fc **fc_arg, int temp);
 int				btin_fc_positive_int__list(int value,
 					int from, int to);
 int				btin_fc_negative_int__list(int value);
@@ -140,7 +140,7 @@ int				btin_fc_edit_mode_flags_off(int *flags);
 int				btin_fc_exec_mode_flags_off(int *flags);
 int				btin_fc_list_mode_flags_off(int *flags);
 int				btin_fc_list_other_flags(char argvij, int *flags);
-int				btin_fc_exec_other_flags(char argvij, int *flags);
+int				btin_fc_exec_other_flags(char argvij);
 
 /*
 ** File fc_modes_no_arguments.c
@@ -158,7 +158,7 @@ int				btin_fc_route_execution(t_btin_fc *fc_arg, int flags,
 					char **envir);
 int				btin_fc_execute_list(t_btin_fc *fc_arg, int flags, int flag);
 int				btin_fc_execute_list_reverse(t_btin_fc *fc_arg, int flags, int flag);
-int				btin_fc_execute_execution(t_btin_fc *fc_arg, int flags);
+int				btin_fc_execute_execution(t_btin_fc *fc_arg);
 int				btin_fc_save_parser_globals(int flag);
 
 /*
@@ -182,9 +182,9 @@ int				btin_fc_execute_edition(t_btin_fc *fc_arg, int flags,
 t_ltree			*btin_fc_before_exec(t_btin_fc *fc_arg,
 					char **envir, char *tmpfile);
 int				btin_fc_execute_edit_reverse(t_btin_fc *fc_arg,
-					int flags, int fd, int flag);
+					int fd, int flag);
 int				btin_fc_execute_edit(t_btin_fc *fc_arg,
-					int flags, int fd, int flag);
+					int fd, int flag);
 
 /*
 ** File fc_tmpfile.c

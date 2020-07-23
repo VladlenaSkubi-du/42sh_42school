@@ -1,7 +1,7 @@
 #include "shell42.h"
 #include "readline.h"
 
-int				kirill_lgbt(char sy)
+int				kirill_lgbt(void)
 {
 	int			i;
 	char		*color;

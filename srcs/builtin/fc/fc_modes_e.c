@@ -53,7 +53,7 @@ int					btin_fc_edit_other_args(char **argv,
 		return (btin_fc_edit_no_args(fc_arg, flags));
 	if (ft_isdigit(argv[i][0]) || (argv[i][0] == '-' && ft_isdigit(argv[i][1])))
 	{
-		return ((btin_fc_edit_mode_num_args(argv, i, fc_arg, flags) == HIST_ERROR) ?
+		return ((btin_fc_edit_mode_num_args(argv, i, fc_arg) == HIST_ERROR) ?
 			HIST_ERROR : btin_fc_edit_mode_flags_off(flags));
 	}
 	else
@@ -69,7 +69,7 @@ int					btin_fc_edit_other_args(char **argv,
 */
 
 int					btin_fc_edit_mode_num_args(char **argv, int i,
-						t_btin_fc **fc_arg, int *flags)
+						t_btin_fc **fc_arg)
 {
 	(*fc_arg)->flag |= ARG_FIRST;
 	(*fc_arg)->first = ft_atoi(argv[i]);

@@ -27,16 +27,16 @@ void		print_readline_help(short flag, short undo, char *space)
 	ft_putendl_fd(((flag == 3) ? "Keyboard Shortcuts for readline:" :
 		"Keyboard Shortcuts for simple readline:"), 1);
 	ft_printf("%sMoving the cursor:\n", space);
-	print_readline_help_moving_cursor(flag, undo, space);
+	print_readline_help_moving_cursor(flag, space);
 	ft_putchar('\n');
 	ft_printf("%sCut, copy and paste:\n", space);
-	print_readline_help_ccp(flag, undo, space);
+	print_readline_help_ccp(flag, space);
 	ft_putchar('\n');
 	print_readline_help_other(flag, undo, space);
 }
 
 void		print_readline_help_moving_cursor(short flag,
-				short undo, char *space)
+				char *space)
 {
 	ft_printf("%s'Ctrl + a' - Go to the beginning of the line\n", space);
 	ft_printf("%s'Ctrl + e' - Go to the end of the line\n", space);
@@ -56,7 +56,7 @@ void		print_readline_help_moving_cursor(short flag,
 }
 
 void		print_readline_help_ccp(short flag,
-				short undo, char *space)
+				char *space)
 {
 	ft_printf("%s'Backspace' or Ctrl + H - Delete one character ", space);
 	ft_printf("to the left of the cursor\n");

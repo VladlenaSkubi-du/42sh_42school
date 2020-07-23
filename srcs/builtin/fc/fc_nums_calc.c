@@ -9,7 +9,7 @@
 ** list mode
 */
 
-int				btin_fc_two_ints__list(t_btin_fc **fc_arg, int *flags, int temp)
+int				btin_fc_two_ints__list(t_btin_fc **fc_arg, int temp)
 {
 	temp = g_hist.last_fc - ((g_hist.last + 1 == g_hist.len) ?
 		g_hist.len - 1 : g_hist.last) + 1;

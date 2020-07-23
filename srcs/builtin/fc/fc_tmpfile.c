@@ -88,16 +88,16 @@ int					btin_fc_write_to_tmpfile(t_btin_fc *fc_arg,
 	if (flags & FLAG_R)
 	{
 		if (fc_arg->first_buf > fc_arg->last_buf)
-			btin_fc_execute_edit(fc_arg, flags, fd, 'r');
+			btin_fc_execute_edit(fc_arg, fd, 'r');
 		else
-			btin_fc_execute_edit_reverse(fc_arg, flags, fd, 'r');
+			btin_fc_execute_edit_reverse(fc_arg, fd, 'r');
 	}
 	else
 	{
 		if (fc_arg->first_buf > fc_arg->last_buf)
-			btin_fc_execute_edit_reverse(fc_arg, flags, fd, 'd');
+			btin_fc_execute_edit_reverse(fc_arg, fd, 'd');
 		else
-			btin_fc_execute_edit(fc_arg, flags, fd, 'd');
+			btin_fc_execute_edit(fc_arg, fd, 'd');
 	}
 	return (0);
 }
