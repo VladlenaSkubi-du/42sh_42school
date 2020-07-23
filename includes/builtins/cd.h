@@ -12,7 +12,7 @@ typedef struct		s_cd
 */
 
 int         ft_error(char *name, int en);
-void        ft_change_curpath(char *path, t_cd *flags);
+//void        ft_change_curpath(char *path, t_cd *flags);
 
 /*
 ** File cd_flags.c
