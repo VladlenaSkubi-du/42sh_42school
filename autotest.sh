@@ -206,20 +206,20 @@ then
 	for cmd in $@
 	do
 		i=0
-		for ex in $arr
+		for ex in ${arr[@]}
 		do
 			if [ "$cmd" = "$ex" ]
 			then
 				i=1
 				break
 			fi
+		done
 		if [ $i -eq 0 ]
 		then
 			echo invalid option "$cmd"
 			echo -e "\nusage ./test.sh [options]:\n    --full             - full check\n    check_[block_name] - check needed block only"
 			exit
 		fi
-		done
 	done
 fi
 
