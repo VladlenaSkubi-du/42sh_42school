@@ -70,9 +70,14 @@ int				hashtable_find(char *key, void **hashtable,
 char			*hashtable_check_valid(int index, char *key,
 					void **hashtable, int hashtable_size);
 
-
 int				hashfunction(char *cmd);
 int				collision_hashtable_find(int index, char *key);
 int				collision_hashtable_add(char *key);
+
+char			*hashtable_type_init(int *where, char *key);
+char			*hashtable_key_nf_type(char *key, void **hashtable,
+					int hashtable_size);
+int				hashtable_check_valid_type(int index, char *key, void **hashtable,
+					int hashtable_size);
 
 #endif
