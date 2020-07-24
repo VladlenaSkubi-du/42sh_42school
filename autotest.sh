@@ -199,7 +199,14 @@ suc="e-bash: export: -d: invalid option export: usage: export [name[=value] ...]
 my_echo "$err" "$suc"
 }
 
-arr=("check_parser" "check_cd" "check_echo" "check_unset" "check_export")
+arr=("check_parser" "check_cd" "check_echo" "check_unset" "check_export" "--full")
+usage="\nusage ./test.sh [options]:\n    --full             - full check\n    check_[block_name] - check needed block only
+   
+    usable blocks:
+    parser, cd, echo, unset, export
+
+\033[31;1mALERT!!!!
+IF YOU USING MACOS, USE \"BASH AUTOTEST.SH\"\033[0m"
 
 if [ $# -gt 0 ]
 then
@@ -217,7 +224,7 @@ then
 		if [ $i -eq 0 ]
 		then
 			echo invalid option "$cmd"
-			echo -e "\nusage ./test.sh [options]:\n    --full             - full check\n    check_[block_name] - check needed block only"
+			echo -e "$usage"
 			exit
 		fi
 	done
@@ -240,7 +247,7 @@ then
 	done
 
 else
-	echo -e "\nusage ./test.sh [options]:\n    --full             - full check\n    check_[block_name] - check needed block only"
+	echo -e "$usage"
 fi
 
 echo -e "\033[34;2mCreated by kfalia-f\033[m"
