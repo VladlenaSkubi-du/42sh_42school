@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   completion_processing.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 17:05:22 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 17:07:38 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "readline.h"
 
@@ -16,7 +28,7 @@ int					init_completion(void)
 }
 
 /*
-** If there are no options for completion, we clear the 
+** If there are no options for completion, we clear the
 ** allocated @g_complete and @g_techline strings and ring
 ** the bell
 */
@@ -46,7 +58,7 @@ int					make_one_slash(char **final, int last_slash, char *compl)
 {
 	int				check;
 	int				i;
-	
+
 	check = last_slash;
 	i = check;
 	while (i >= 0)

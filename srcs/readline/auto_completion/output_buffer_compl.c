@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   output_buffer_compl.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 17:08:43 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 17:09:29 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "readline.h"
 #define OUT_BUF 10
@@ -64,7 +76,6 @@ int						buffer_col_print(char *add,
 		buffer_col_finish(menu_buf);
 	return (0);
 }
-
 
 void					buffer_col_finish(t_compl_output *menu_buf)
 {

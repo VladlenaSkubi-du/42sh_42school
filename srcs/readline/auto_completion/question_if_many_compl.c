@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   question_if_many_compl.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 17:09:50 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 17:10:22 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "readline.h"
 
@@ -16,7 +28,7 @@ int					ask_output(int total, int buf_lines,
 	pos_x_com = 0;
 	len = ft_strlen(find_env_value("0")) +
 		ft_strlen(": display all ") +
-		ft_strlen(" possibilities (") + 
+		ft_strlen(" possibilities (") +
 		ft_strlen(" lines)? [y or n] ");
 	count_comment_len(&total_len, total);
 	len += total_len;
@@ -33,7 +45,7 @@ int					print_question_compl(int *pos_x_com, int total,
 						int buf_lines)
 {
 	char			*question;
-	
+
 	g_rline.flag |= AFTER_LINE;
 	front_insert_by_letters(find_env_value("0"), pos_x_com);
 	front_insert_by_letters(": display all ", pos_x_com);
@@ -106,7 +118,7 @@ int					clean_output_question(int from, int pos_back,
 {
 	int				lines_nb;
 
-	lines_nb = len / g_screen.ws_col + 1; //+ ((from == 0) ? 1 : 0);
+	lines_nb = len / g_screen.ws_col + 1;
 	if (lines_nb > 1)
 		position_cursor("UP", 0, lines_nb - 1);
 	position_cursor("ch", 0, 0);

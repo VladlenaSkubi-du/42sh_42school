@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   menu_receipt_compl.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 17:08:13 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 17:08:35 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "readline.h"
 
@@ -17,7 +29,7 @@ t_path				*fill_tree_with_variables(char *complete, int *total)
 	int				i;
 	t_path			*root;
 	char			*name;
-	int 			len;
+	int				len;
 
 	i = 0;
 	root = NULL;
