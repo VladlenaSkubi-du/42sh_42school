@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   analyse_line_compl.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 17:06:49 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 17:07:20 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "readline.h"
 
@@ -32,7 +44,7 @@ int					analyse_techline_compl(char *compl, char *tech,
 int					check_quoting_of_syntax(char *tech, int now)
 {
 	int				j;
-	
+
 	j = now;
 	while (j > 0 && (tech[j] == SPACE || tech[j] == ENTER))
 		j--;
@@ -41,7 +53,8 @@ int					check_quoting_of_syntax(char *tech, int now)
 	return (0);
 }
 
-int					pass_symbols_compl(char *compl, char *tech, int i, int *pool)
+int					pass_symbols_compl(char *compl,
+						char *tech, int i, int *pool)
 {
 	while (i > 0 && (tech[i] == WORD_P && ft_isalnum(compl[i])))
 		i--;
@@ -65,7 +78,7 @@ int					check_path_pool_three_compl(char *compl, char *tech,
 						int *pool, int i)
 {
 	int				start;
-	
+
 	while (i >= 0 && tech[i] == WORD_P && (ft_isalnum(compl[i]) ||
 			compl[i] == '/' || compl[i] == '_' || compl[i] == '.'))
 		i--;

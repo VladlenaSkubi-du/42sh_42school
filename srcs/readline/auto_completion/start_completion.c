@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   start_completion.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 17:10:47 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 17:11:52 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "readline.h"
 
@@ -157,7 +169,8 @@ int					insert_word_compl(void)
 }
 
 /*
-** 
+** When we complete variables afre ${  - "}" after the word should
+** be also completed
 */
 
 int					insert_word_by_cases_compl(int *delete, int flag,
@@ -165,7 +178,7 @@ int					insert_word_by_cases_compl(int *delete, int flag,
 {
 	int				i;
 	int				space;
-	
+
 	i = -1;
 	space = 0;
 	while (++i < *delete - flag)
