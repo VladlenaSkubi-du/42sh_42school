@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd_parser.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 17:00:43 by kfalia-f          #+#    #+#             */
+/*   Updated: 2020/07/25 17:05:46 by kfalia-f         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <shell42.h>
 #include <builtin42.h>
 
@@ -13,18 +25,16 @@ int		ft_o_dir(char *str, char *path)
 	return (0);
 }
 
-char	*ft_cdpath(char *path, char **env)
+char	*ft_cdpath(char *path, char **env, char *res, int i)
 {
 	char	**arr;
-	char	*res;
-	int		i;
 	int		j;
 
-	if ((i = find_in_any_variable(env, &j, "CDPATH")) < 0 || !path || path[0] == '/')
+	if ((i = find_in_any_variable(env, &j, "CDPATH")) < 0 ||
+			!path || path[0] == '/')
 		return (NULL);
 	res = NULL;
 	arr = ft_strsplit(env[i] + j, ':');
-	i = -1;
 	while (arr[++i])
 	{
 		if (path[0] == '.' && path[1] == '.')
@@ -66,7 +76,7 @@ int		ft_cd_pars(char *path, char **env, t_cd *flags)
 	struct stat buff;
 	char		*tmp;
 
-	if ((tmp = ft_cdpath(path, env)) != NULL)
+	if ((tmp = ft_cdpath(path, env, NULL, -1)) != NULL)
 		return (ft_change_path(tmp, env, flags));
 	if (ft_strcmp(path, "-") == 0 || !path)
 		return ((ft_cd_env(path, env, flags)));

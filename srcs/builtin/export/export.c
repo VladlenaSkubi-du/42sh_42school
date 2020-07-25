@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 17:41:48 by kfalia-f          #+#    #+#             */
+/*   Updated: 2020/07/25 18:05:51 by kfalia-f         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <shell42.h>
 #include <builtin42.h>
 
@@ -15,26 +27,14 @@ int			change_or_add(char *arg)
 	if ((i = find_in_variable(&j, tmp)) >= 0)
 	{
 		if (g_envi[i][0] && (g_envi[i][0] & READONLY))
-		{
-			error = ft_strjoin("export: ", tmp);
-			error_handler(VARIABLE_ERROR | (ERR_RDONLY << 9), error);
-			free(error);
-			g_envi[i][0] |= ENV_VIS;
-			free(tmp);
-			return (0);
-		}
-		//free(g_envi[i]);
+			return (export_error(&tmp, i));
 		change_env_value(arg, i);
-		//g_envi[i] = (char *)ft_xmalloc(ft_strlen(arg) + 2);
-		//ft_strcpy(g_envi[i] + 1, arg);
 		g_envi[i][0] |= ENV_VIS;
-		//g_envi[i][0] |= SET_VIS;
 	}
 	else
 	{
 		i = add_new_env(arg);
 		g_envi[i][0] |= ENV_VIS;
-		//ft_add_el(arg);
 	}
 	free(tmp);
 	return (0);
