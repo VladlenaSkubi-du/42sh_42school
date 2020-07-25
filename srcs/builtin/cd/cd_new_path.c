@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd_new_path.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 16:08:55 by kfalia-f          #+#    #+#             */
+/*   Updated: 2020/07/25 16:13:41 by kfalia-f         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <shell42.h>
 #include <builtin42.h>
 
-void	ft_del_prev(char **arr, int i)
+void		ft_del_prev(char **arr, int i)
 {
 	while (i > 0)
 	{
@@ -15,9 +27,9 @@ void	ft_del_prev(char **arr, int i)
 	}
 }
 
-void	ft_del_dots(char **arr)
+void		ft_del_dots(char **arr)
 {
-    int		i;
+	int		i;
 
 	i = 0;
 	while (arr[i])
@@ -28,17 +40,16 @@ void	ft_del_dots(char **arr)
 	}
 }
 
-char	*ft_new_from_arr(char **arr)
+char		*ft_new_from_arr(char **arr)
 {
-    int		i;
-    char	*tmp;
+	int		i;
+	char	*tmp;
 
 	i = 0;
 	tmp = ft_memalloc(1);
 	ft_del_dots(arr);
 	while (arr[i])
 	{
-//		printf("%s\n", arr[i]);
 		if (ft_strcmp(arr[i], ".") && ft_strcmp(arr[i], ".."))
 		{
 			if (i > 1)
@@ -47,28 +58,10 @@ char	*ft_new_from_arr(char **arr)
 		}
 		i++;
 	}
-	//printf("%d\n", i);
 	return (tmp);
 }
 
-char	*ft_join(char *path, char *src_path)
-{
-	char	*tmp;
-
-	//i = find_in_variable(&j, "PWD"); //Если его нет?
-	//printf("%s\n", g_envi[22]);
-	tmp = ft_strdup("1");
-	if (src_path == NULL)
-		tmp = ft_strrejoin(tmp, get_pwd_value());//env[i] + j);
-	else
-		tmp = ft_strrejoin(tmp, src_path);
-	tmp = ft_strrejoin(tmp, "/");
-//	tmp = ft_strjoin(env[i] + j, "/");
-	tmp = ft_strrejoin(tmp, path);
-	return (tmp);
-}
-
-char	*ft_del_slesh(char *path)
+char		*ft_del_slesh(char *path)
 {
 	int		i;
 	int		j;
@@ -93,7 +86,7 @@ char	*ft_del_slesh(char *path)
 	return ((res = ft_strdup(tmp)));
 }
 
-char	*ft_new_path(char *path, char *src_path)
+char		*ft_new_path(char *path, char *src_path)
 {
 	char	*new_path;
 	char	*tmp;
@@ -102,17 +95,13 @@ char	*ft_new_path(char *path, char *src_path)
 	if (path[0] == '/' && path[1])
 		return (tmp = ft_del_slesh(path));
 	else if (path[0] == '/')
-		return (ft_strdup("/"));  //somneniya
+		return (ft_strdup("/"));
 	tmp = ft_join(path, src_path);
 	arr = ft_strsplit(tmp, '/');
 	free(arr[0]);
 	arr[0] = ft_strdup("/");
-		//printf("%s\n", arr[0]);
 	free(tmp);
 	new_path = ft_new_from_arr(arr);
-	//printf("RES = %s\n", new_path);
 	ft_arrdel(arr);
-	//ft_putstr();
 	return (new_path);
 }
-

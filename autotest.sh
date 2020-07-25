@@ -206,7 +206,7 @@ usage="\nusage ./test.sh [options]:\n    --full             - full check\n    ch
     parser, cd, echo, unset, export
 
 \033[31;1mALERT!!!!
-IF YOU USING MACOS, USE \"BASH AUTOTEST.SH\"\033[0m"
+IF YOU ARE USING MACOS, USE \"BASH AUTOTEST.SH\"\033[0m"
 
 if [ $# -gt 0 ]
 then

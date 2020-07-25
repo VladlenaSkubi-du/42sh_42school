@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 18:16:37 by kfalia-f          #+#    #+#             */
+/*   Updated: 2020/07/25 18:17:07 by kfalia-f         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "builtin42.h"
 
@@ -7,7 +19,7 @@ void	error_unset(char *find)
 
 	error = ft_strjoin("unset: ", find);
 	error_handler(VARIABLE_ERROR | (ERR_RDONLY << 9), error);
-	free (error);
+	free(error);
 }
 
 int		btin_unset(t_ltree *pos)
@@ -35,5 +47,5 @@ int		btin_unset(t_ltree *pos)
 			ft_arrshift(g_envi + j + 1, g_var_size - j, -1);
 		free(find);
 	}
-	return (0);	
+	return (0);
 }

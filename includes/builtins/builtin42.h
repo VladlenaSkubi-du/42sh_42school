@@ -117,7 +117,7 @@ int             btin_echo(t_ltree *pos);
 void		    write_text(char **argv, int i, t_ec *echo_flags);
 void		    write_e_echo(char **argv, int i);
 void		    write_back_sl(char c);
-int			    parse_echo_flags(char **argv, t_ec *echo_flags);
+int			    parse_echo_flags(char **argv, t_ec *echo_flags, int i);
 
 /*
 ** File pwd.c
@@ -131,6 +131,7 @@ int		        pwd_error(char c, int en);
 ** File export.c
 */
 
+int				export_error(char **tmp, int i);
 int				btin_export(t_ltree *pos);
 int			    export_p(void);
 int			    export_add_vis(t_ltree *pos);

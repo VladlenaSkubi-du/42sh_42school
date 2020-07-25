@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pwd.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 18:14:07 by kfalia-f          #+#    #+#             */
+/*   Updated: 2020/07/25 18:16:24 by kfalia-f         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <shell42.h>
 #include <builtin42.h>
@@ -41,7 +52,7 @@ int		btin_pwd_valid(char **argv)
 	return (0);
 }
 
-int     btin_pwd(t_ltree *pos)
+int		btin_pwd(t_ltree *pos)
 {
 	t_cd	*flags;
 	int		i;
@@ -59,10 +70,10 @@ int     btin_pwd(t_ltree *pos)
 	}
 	else
 	{
-		getcwd(dir, MAXDIR); //исправить на NULL
+		getcwd(dir, MAXDIR);
 		ft_putstr(dir);
 	}
-    ft_putchar('\n');
+	ft_putchar('\n');
 	free(flags);
-    return (0);
+	return (0);
 }

@@ -1,14 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 15:57:32 by kfalia-f          #+#    #+#             */
+/*   Updated: 2020/07/25 16:16:30 by kfalia-f         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "builtin42.h"
 
-int		ft_error(char *name, int en)
+char		*ft_join(char *path, char *src_path)
 {
-    char	*tmp;
-    char	*new_name;
+	char	*tmp;
+
+	tmp = ft_strdup("1");
+	if (src_path == NULL)
+		tmp = ft_strrejoin(tmp, get_pwd_value());
+	else
+		tmp = ft_strrejoin(tmp, src_path);
+	tmp = ft_strrejoin(tmp, "/");
+	tmp = ft_strrejoin(tmp, path);
+	return (tmp);
+}
+
+int			ft_error(char *name, int en)
+{
+	char	*tmp;
+	char	*new_name;
 
 	new_name = NULL;
 	tmp = ft_strdup("cd: ");
-	if (name) 
+	if (name)
 		tmp = ft_strrejoin(tmp, name);
 	if (en == 1)
 		tmp = ft_strrejoin(tmp, ": string not in pwd");
@@ -27,13 +53,19 @@ int		ft_error(char *name, int en)
 	error_handler(VARIABLE_ERROR | (ERR_CD << 9), tmp);
 	free(tmp);
 	free(new_name);
-    return (1);
+	return (1);
 }
 
-int         btin_cd(t_ltree *pos)
+int			ft_cd_helper(void)
 {
-	int     i;
-	t_cd    *flags;
+	error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), "cd");
+	usage_btin("cd");
+}
+
+int			btin_cd(t_ltree *pos)
+{
+	int		i;
+	t_cd	*flags;
 	int		flags_check;
 
 	flags_check = find_options(2, (char*[]){"LP", "--help"}, pos->ar_v);
@@ -45,13 +77,12 @@ int         btin_cd(t_ltree *pos)
 	i = ft_cd_flags(pos->ar_v, flags);
 	if (pos->ar_v[i] && pos->ar_v[i][0] == '-' && pos->ar_v[i][1] &&
 			i > 0 && ft_strcmp(pos->ar_v[i - 1], "--"))
-    {   
-        error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), "cd");
-        usage_btin("cd");
+	{
 		free(flags);
-        return (1);
-    }
-	if (ft_valid_cd(pos->ar_v, i) || ft_cd_pars(pos->ar_v[i], pos->envir, flags))
+		return (ft_cd_helper());
+	}
+	if (ft_valid_cd(pos->ar_v, i) ||
+			ft_cd_pars(pos->ar_v[i], pos->envir, flags))
 	{
 		free(flags);
 		return (1);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 18:17:21 by kfalia-f          #+#    #+#             */
+/*   Updated: 2020/07/25 18:17:50 by kfalia-f         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "builtin42.h"
 
@@ -18,8 +30,8 @@ int			btin_set(void)
 	list = ft_add_block(&root, len, &i);
 	ft_path_free(&root);
 	i = -1;
-	while(list[++i])
+	while (list[++i])
 		ft_putendl_fd(list[i], STDOUT_FILENO);
 	ft_arrdel(list);
-	return (0);	
+	return (0);
 }
