@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   job_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 15:50:07 by hshawand          #+#    #+#             */
+/*   Updated: 2020/07/25 15:52:55 by hshawand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "jobs.h"
 
@@ -16,10 +28,7 @@ int		job_is_stopped(job *j, char verbose)
 	while (p)
 	{
 		if (!p->completed && !p->stopped)
-		{
-//			printf("%s not stopped\n", *(p->argv));
 			return (0);
-		}
 		!p->completed ? not_completed = 1 : 0;
 		p = p->next;
 	}
@@ -55,9 +64,9 @@ int		job_is_completed(job *j)
 ** Searches and returns particular job node from global job list by pgid
 */
 
-job		*find_job (pid_t pgid)
+job		*find_job(pid_t pgid)
 {
- 	job *j;
+	job *j;
 
 	j = g_first_job;
 	while (j)
@@ -83,12 +92,9 @@ int		free_job(job *j)
 	while (j_last != j && j_last->next && j_last->next != j)
 		j_last = j_last->next;
 	j_next = j->next;
-
 	j_last->next = j_next;
-
 	if (j == g_first_job)
 		g_first_job = j->next;
-
 	while (j->first_process)
 	{
 		temp = j->first_process;

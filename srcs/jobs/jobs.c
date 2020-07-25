@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   jobs.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 15:53:30 by hshawand          #+#    #+#             */
+/*   Updated: 2020/07/25 15:59:33 by hshawand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "jobs.h"
 
-process *find_process(job *j, pid_t child_pid)
+process		*find_process(job *j, pid_t child_pid)
 {
 	process *proc;
 
@@ -11,15 +23,14 @@ process *find_process(job *j, pid_t child_pid)
 	return (proc);
 }
 
-void	process_update(process *p, int status)
+void		process_update(process *p, int status)
 {
-	WIFSTOPPED(status) ? (p->stopped = 1) : (p->completed = 1);
+	WIFSTOPPED(status) ? (p->stopped = 1) :
+		(p->completed = 1);
 	p->status = status;
 }
 
-/* REWRITE */
-
-int		parent(process	*p, job *j, pid_t pid)
+int			parent(process *p, job *j, pid_t pid)
 {
 	p->pid = pid;
 	if (g_is_interactive)
@@ -35,10 +46,10 @@ int		parent(process	*p, job *j, pid_t pid)
 ** Forks given process in given job and provides pipe functionality
 */
 
-int		fork_job(process *p, job *j, int *infl, int *outfl)
+int			fork_job(process *p, job *j, int *infl, int *outfl)
 {
 	pid_t	pid;
-	int 	mypipe[2];
+	int		mypipe[2];
 
 	if (p->next)
 	{
@@ -49,14 +60,13 @@ int		fork_job(process *p, job *j, int *infl, int *outfl)
 	else
 		*outfl = j->stdout;
 	pid = !p->btin ? fork() : 0;
-
 	if (pid == 0)
 		launch_process(p, j->pgid, (int[3]){*infl, *outfl, j->stderr}, j->fg);
 	else if (pid < 0)
 		return (error_handler(FORK_FAILED, "fork creation failed"));
 	else
 		parent(p, j, pid);
-	p->btin ? parent(p, j, getpid()): 0;
+	p->btin ? parent(p, j, getpid()) : 0;
 	if (*infl != STDIN_FILENO)
 		close(*infl);
 	if (*outfl != STDOUT_FILENO)
@@ -70,7 +80,7 @@ int		fork_job(process *p, job *j, int *infl, int *outfl)
 ** to fork function and calls background/foreground processing function
 */
 
-int	 launch_job (job *j)
+int			launch_job(job *j)
 {
 	process	*p;
 	int		infile;
@@ -85,7 +95,6 @@ int	 launch_job (job *j)
 			return (-1);
 		p = p->next;
 	}
-//	format_job_info (j, "launched");
 	bg_fg_wait(j);
 	return (0);
 }

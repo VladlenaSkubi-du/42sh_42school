@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sig.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 16:03:04 by hshawand          #+#    #+#             */
+/*   Updated: 2020/07/25 16:03:19 by hshawand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "jobs.h"
 
@@ -14,7 +26,7 @@ void	child_handler(int sig)
 	job		*temp;
 	process	*proc;
 
-	while ((child_pid = waitpid(-1, &status, WUNTRACED|WNOHANG)) > 0)
+	while ((child_pid = waitpid(-1, &status, WUNTRACED | WNOHANG)) > 0)
 	{
 		j = g_first_job;
 		while (j)
