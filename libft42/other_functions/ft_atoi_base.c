@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 14:18:08 by rbednar           #+#    #+#             */
-/*   Updated: 2020/06/12 14:34:50 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/07/25 15:47:08 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	ft_isspace(char c)
 	return (0);
 }
 
-static int	_isdigit(char c)
+static int	ft_isdigit(char c)
 {
 	if ((c >= '0' && c <= '9') ||
 			(c >= 'A' && c <= 'F'))
@@ -28,7 +28,7 @@ static int	_isdigit(char c)
 	return (0);
 }
 
-static char	_toupper(char c)
+static char	ft_toupper(char c)
 {
 	if (c >= 'a' && c <= 'f')
 		return (c - 32);
