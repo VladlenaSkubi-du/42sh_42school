@@ -80,7 +80,7 @@ int		form_local_envir(char ***arr, int size)
 	while (g_envi[++i])
 		if (g_envi[i][0] & ENV_VIS)
 			j++;
-	tmp = ft_realloc_array(arr, size, size + j + 1);	
+	tmp = ft_realloc_array(arr, size, size + j + 1);
 	i = 0;
 	while (g_envi[i])
 	{
@@ -106,7 +106,7 @@ int		find_in_variable(int *j, char *name)
 {
 	int			i;
 	int			tmp;
-	int			len_name; 
+	int			len_name;
 
 	i = 0;
 	len_name = ft_strlen(name);
