@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   jump_around.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 18:48:41 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 18:49:10 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "readline.h"
 
 int			jump_up(void)
 {
 	int			pos_x_goal;
-	
+
 	if (g_rline.str_num < 2 || g_rline.pos_y == 0)
 		return (incorrect_sequence());
 	pos_x_goal = g_rline.pos_x;
