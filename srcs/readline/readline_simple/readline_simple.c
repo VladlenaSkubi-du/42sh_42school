@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   readline_simple.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 18:50:33 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 18:51:24 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "readline.h"
 
@@ -31,7 +43,7 @@ int					sreadline_choice(char sy)
 	return (0);
 }
 
-int 				readline_simple(void)
+int					readline_simple(void)
 {
 	char			c;
 

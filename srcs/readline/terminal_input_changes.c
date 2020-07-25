@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   terminal_input_changes.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 19:01:43 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 19:02:22 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "readline.h"
 
@@ -31,7 +43,7 @@ int					check_terminal(void)
 ** it to NONBLOCK
 ** For example, nvim (neovim) does that so after launching it in
 ** background without mf_protections - there will be no stop on
-** read and we will come back to the same read and so on - 
+** read and we will come back to the same read and so on -
 ** dead loop
 ** Mf = "modify fd" or motherfucker (historically)
 */
@@ -99,14 +111,13 @@ int					init_terminal_screen(void)
 	return (0);
 }
 
-
-// int						back_to_noncanonical_input(void) //TODO убрать?
-// {
-// 	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &g_tty) < 0)
-// 		return (-1);
-// 	if (tcgetattr(STDIN_FILENO, &g_tty) < 0 ||
-// 		((g_tty.c_lflag & (ICANON | ECHO) ||
-// 		g_tty.c_cc[VMIN] != 1 || g_tty.c_cc[VTIME] != 1)))
-// 		reset_canonical_input();
-// 	return (0);
-// }
+/*int						back_to_noncanonical_input(void) //TODO убрать?
+{
+	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &g_tty) < 0)
+		return (-1);
+	if (tcgetattr(STDIN_FILENO, &g_tty) < 0 ||
+		((g_tty.c_lflag & (ICANON | ECHO) ||
+		g_tty.c_cc[VMIN] != 1 || g_tty.c_cc[VTIME] != 1)))
+		reset_canonical_input();
+	return (0);
+}*/
