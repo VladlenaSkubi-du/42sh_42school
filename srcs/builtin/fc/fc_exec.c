@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fc_exec.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 17:37:27 by kfalia-f          #+#    #+#             */
+/*   Updated: 2020/07/25 17:40:12 by kfalia-f         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "builtin42.h"
 
@@ -16,10 +28,9 @@
 ** output
 */
 
-int					btin_fc_route_execution(t_btin_fc *fc_arg, int flags,
+int		btin_fc_route_execution(t_btin_fc *fc_arg, int flags,
 						char **envir)
 {
-
 	if (flags & FLAG_E)
 		return (btin_fc_execute_edition(fc_arg, flags, envir));
 	else if (flags & FLAG_L)
@@ -31,11 +42,10 @@ int					btin_fc_route_execution(t_btin_fc *fc_arg, int flags,
 			else
 				btin_fc_execute_list_reverse(fc_arg, flags, 'r');
 		}
+		else if (fc_arg->first_buf > fc_arg->last_buf)
+			btin_fc_execute_list_reverse(fc_arg, flags, 'd');
 		else
-			if (fc_arg->first_buf > fc_arg->last_buf)
-				btin_fc_execute_list_reverse(fc_arg, flags, 'd');
-			else
-				btin_fc_execute_list(fc_arg, flags, 'd');	
+			btin_fc_execute_list(fc_arg, flags, 'd');
 	}
 	else if (flags & FLAG_S)
 		return (btin_fc_execute_execution(fc_arg));
@@ -47,7 +57,7 @@ int					btin_fc_route_execution(t_btin_fc *fc_arg, int flags,
 ** launch it through parser, saving all the globals
 */
 
-int					btin_fc_execute_execution(t_btin_fc *fc_arg)
+int		btin_fc_execute_execution(t_btin_fc *fc_arg)
 {
 	char			*cmd;
 	int				tmp;
@@ -78,14 +88,14 @@ int					btin_fc_execute_execution(t_btin_fc *fc_arg)
 ** "\t%s\n", <command>
 */
 
-int					btin_fc_execute_list_reverse(t_btin_fc *fc_arg, int flags, int flag)
+int		btin_fc_execute_list_reverse(t_btin_fc *fc_arg, int flags, int flag)
 {
 	int				i;
 	int				tmp;
 	int				value;
 	int				to;
 	int				num;
-	
+
 	i = 0;
 	value = (flag == 'd') ? fc_arg->first_buf : fc_arg->last_buf;
 	to = (flag == 'd') ? fc_arg->last_buf : fc_arg->first_buf;
@@ -117,7 +127,7 @@ int					btin_fc_execute_list_reverse(t_btin_fc *fc_arg, int flags, int flag)
 ** "\t%s\n", <command>
 */
 
-int					btin_fc_execute_list(t_btin_fc *fc_arg, int flags, int flag)
+int		btin_fc_execute_list(t_btin_fc *fc_arg, int flags, int flag)
 {
 	int				i;
 	int				tmp;
@@ -151,7 +161,7 @@ int					btin_fc_execute_list(t_btin_fc *fc_arg, int flags, int flag)
 ** without fork we change the values
 */
 
-int					btin_fc_save_parser_globals(int flag)
+int		btin_fc_save_parser_globals(int flag)
 {
 	static char		*save_g_cmd;
 	static char		*save_techline_cmd;

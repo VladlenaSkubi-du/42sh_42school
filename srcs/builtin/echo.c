@@ -1,19 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 18:07:42 by kfalia-f          #+#    #+#             */
+/*   Updated: 2020/07/25 18:11:08 by kfalia-f         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "builtin42.h"
 
-int			parse_echo_flags(char **argv, t_ec *echo_flags)
+int			parse_echo_flags(char **argv, t_ec *echo_flags, int i)
 {
-	int		i;
 	int		j;
 
-	i = 1;
 	echo_flags->n = 0;
 	echo_flags->e = 0;
 	echo_flags->up_e = 0;
 	while (argv[i] && argv[i][0] == '-')
 	{
-		j = 1;
-		while (argv[i][j])
+		j = 0;
+		while (argv[i][++j])
 		{
 			if (argv[i][j] == '-')
 				return (i + 1);
@@ -25,7 +35,6 @@ int			parse_echo_flags(char **argv, t_ec *echo_flags)
 				echo_flags->up_e = 1;
 			else
 				return (i);
-			j++;
 		}
 		i++;
 	}
@@ -98,15 +107,15 @@ int			btin_echo(t_ltree *pos)
 {
 	t_ec	*echo_flags;
 	int		i;
-	int     flags_check;
+	int		flags_check;
 
-    flags_check = find_options(3, (char*[]){"enE", "--help"}, pos->ar_v);
-    if (flags_check == 0x10000)
-        return (usage_btin("echo"));
+	flags_check = find_options(3, (char*[]){"enE", "--help"}, pos->ar_v);
+	if (flags_check == 0x10000)
+		return (usage_btin("echo"));
 	else if (flags_check < 0)
-        return (btin_return_exit_status());
+		return (btin_return_exit_status());
 	echo_flags = ft_xmalloc(sizeof(t_ec));
-	i = parse_echo_flags(pos->ar_v, echo_flags);
+	i = parse_echo_flags(pos->ar_v, echo_flags, 1);
 	write_text(pos->ar_v, i, echo_flags);
 	free(echo_flags);
 	return (0);
