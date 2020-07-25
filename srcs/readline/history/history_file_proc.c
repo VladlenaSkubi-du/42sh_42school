@@ -24,7 +24,7 @@ int					read_hist_from_file(int fd)
 }
 
 /*
-** We chechk one more time the HISTORY path - if user wants to change
+** We check one more time the HISTORY path - if user wants to change
 ** the default path for the file and the HISTFILESIZE variable
 ** If it is invalid, the default configurations won't change.
 */
