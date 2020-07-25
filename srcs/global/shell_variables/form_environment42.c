@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   form_environment42.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 18:09:02 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 18:14:55 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 
 /*
@@ -23,7 +35,8 @@ int					save_environment_variable(int num)
 			g_envi = ft_realloc_array(&g_envi, g_var_size, g_var_size * 2);
 			g_var_size *= 2;
 		}
-		g_envi[num] = (char*)ft_xmalloc(((ft_strlen(environ[i]) + 2) * (sizeof(char))));
+		g_envi[num] = (char*)ft_xmalloc(((ft_strlen(environ[i]) + 2) *
+			(sizeof(char))));
 		ft_strcpy(g_envi[num] + 1, environ[i]);
 		g_envi[num][0] |= ENV_VIS;
 		g_envi[num][0] |= SET_VIS;
@@ -41,9 +54,10 @@ int					save_environment_variable(int num)
 
 char				*ft_add_rdovar(char *first, char *scnd, int flag)
 {
-	char	*res;
+	char			*res;
 
-	res = (char*)ft_xmalloc((ft_strlen(first) + ft_strlen(scnd) + 2) * (sizeof(char)));
+	res = (char*)ft_xmalloc((ft_strlen(first) + ft_strlen(scnd) + 2) *
+		(sizeof(char)));
 	ft_strcpy(res + 1, first);
 	if (scnd)
 		ft_strcpy(res + ft_strlen(first) + 1, scnd);
@@ -56,7 +70,7 @@ char				*ft_add_rdovar(char *first, char *scnd, int flag)
 
 int					save_readonly_variable(int num)
 {
-	char	*tmp;
+	char			*tmp;
 
 	g_envi[num++] = ft_add_rdovar("?=0", NULL, 1);
 	g_envi[num++] = ft_add_rdovar("0=e-bash", NULL, 1);
@@ -64,8 +78,6 @@ int					save_readonly_variable(int num)
 	g_envi[num++] = ft_add_rdovar("42SH_PARSER=0", NULL, 1);
 	g_envi[num++] = ft_add_rdovar("42SH_NONINTERACTIVE=0", NULL, 1);
 	tmp = getcwd(NULL, MAXDIR);
-//	g_envi[num++] = ft_add_rdovar("PWD=", tmp, 0);
-//	g_envi[num++] = ft_add_rdovar("OLDPWD=", tmp, 0);
 	g_envi[num++] = ft_add_rdovar("42SH=", tmp, 0);
 	free(tmp);
 	tmp = ft_itoa(getuid());
@@ -78,8 +90,9 @@ int					save_readonly_variable(int num)
 	g_envi[num++] = ft_add_rdovar("PPID=", tmp, 0);
 	free(tmp);
 	tmp = ft_itoa(getpid());
-    g_envi[num++] = ft_add_rdovar("$=", tmp, 1);
-    free(tmp);
+	g_envi[num++] = ft_add_rdovar("$=", tmp, 1);
+	tmp = NULL;
+	free(tmp);
 	return (num);
 }
 
@@ -109,7 +122,7 @@ int					save_shell_variable(int num)
 /*
 ** Shell local variables - dinamic, exist within the session
 ** @g_lovar in e-bash
-** 
+**
 ** Can be added and changed by assignment (fuu=bar)
 ** And if already exists in @g_lovar and
 ** is used in export (export fuu=bbb),
@@ -118,34 +131,17 @@ int					save_shell_variable(int num)
 
 int					create_env(void)
 {
-	int		num;
-	char	*tmp;
+	int				num;
+	char			*tmp;
 
-	g_envi = (char **)ft_xmalloc(ENV_BUFFER * sizeof(char*));
+	g_var_size = ENV_BUFFER;
+	g_envi = (char**)ft_xmalloc(g_var_size * sizeof(char*));
 	num = save_readonly_variable(0);
 	num = save_shell_variable(num);
 	num = save_environment_variable(num);
-	change_pwd_value((tmp = getcwd(NULL, MAXDIR)));
+	tmp = getcwd(NULL, MAXDIR);
+	change_pwd_value(tmp);
 	change_oldpwd_value(tmp);
 	free(tmp);
-	// int i = -1;
-	// while (g_envi[++i])
-	// 	printf("%s\n", g_envi[i] + 1);
 	return (0);
-}
-
-int                 exit_status_variables(int status)
-{
-    char            *tmp;
-	char			*final;
-	int				i;
-	int				j;
-
-    tmp = ft_itoa(status);
-	i = find_in_variable(&j, "?");
-	final = ft_strjoin("?=", tmp);
-	change_env_value(final, i);
-	free(final);
-    free(tmp);
-    return (0);
 }

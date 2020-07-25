@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   history_buffer_proc.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 17:18:06 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 17:35:07 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "readline.h"
 
@@ -6,9 +18,9 @@
 ** buf should be corrected by the make_hist_buffer_smaller function
 */
 
-int					scroll_hist_buffer(int num)
+int				scroll_hist_buffer(int num)
 {
-	int				i;
+	int			i;
 
 	i = 0;
 	while (i < num)
@@ -105,13 +117,13 @@ int				check_if_histsize_changed(char *new_value)
 	return (0);
 }
 
-int		delete_last_history_element(void)
+int				delete_last_history_element(void)
 {
 	free(g_hist.hist[g_hist.last]);
 	g_hist.hist[g_hist.last] = NULL;
 	g_hist.counter--;
 	g_hist.last--;
 	if (g_hist.last_fc < 1)
-	   g_hist.last_fc =  g_hist.len - 1;
+		g_hist.last_fc = g_hist.len - 1;
 	return (0);
 }

@@ -2,7 +2,7 @@
 
 int				main(int argc, char **argv)
 {
-	g_var_size = ENV_BUFFER;
+	// g_var_size = ENV_BUFFER;
 	create_env();
 	check_42sh_options(argc, argv);
 	start_history();
@@ -31,7 +31,7 @@ int				main(int argc, char **argv)
 
 int				interactive_shell(void)
 {
-	char		*termtype; 
+	char		*termtype;
 	char		room_termtype[10];
 	int			tmp;
 	// pid_t		group_pid;
