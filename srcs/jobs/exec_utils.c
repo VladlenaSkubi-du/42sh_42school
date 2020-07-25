@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 15:13:51 by hshawand          #+#    #+#             */
+/*   Updated: 2020/07/25 15:28:12 by hshawand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "parser.h"
 #include "builtin42.h"
@@ -9,17 +21,13 @@
 ** 2) If only PIPED_IN -- delete pipe
 */
 
-/*
-** consider changing architecture to... well, something else
-*/
-
 int	exec_clean(char *path, int exit_status, char *err_msg)
 {
 	if (path)
 		exit_status_variables(exit_status);
 	free(path);
 	if (err_msg)
-		ft_putendl_fd(err_msg, STDERR_FILENO); // through error_handler
+		ft_putendl_fd(err_msg, STDERR_FILENO);
 	return (exit_status);
 }
 
@@ -29,10 +37,10 @@ int	exec_clean(char *path, int exit_status, char *err_msg)
 
 int		ft_builtins_check(process *p, int flag)
 {
-	int	i;
-	t_ltree	xXx_PLACEHOLDER_xXx;
+	int		i;
+	t_ltree	xXx_PLACEHOLDER_xXx; // Hi, have you decided to fix norme error? Well, screw you! First of all, fix builtins and this function!
 
-	i = 1;	
+	i = 1;
 	while (g_builtins[i])
 	{
 		if (!ft_strcmp(p->argv[0], g_builtins[i]))
@@ -70,7 +78,7 @@ int		fd_list_process(t_ltree *pos, int mode)
 				dup2(redir->fd_old, redir->fd_new);
 			else
 			{
-				dup2(redir->fd_new, redir->fd_new); //decide, what to do here
+				dup2(redir->fd_new, redir->fd_new);
 				close(redir->fd_new);
 			}
 			fd_list = fd_list->next;

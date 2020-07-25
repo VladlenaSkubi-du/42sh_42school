@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_new.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 15:11:39 by hshawand          #+#    #+#             */
+/*   Updated: 2020/07/25 15:13:21 by hshawand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "builtins_list.h"
 #include "jobs.h"
@@ -11,8 +23,7 @@ int		exec_vp(process *p)
 {
 	if (!(g_path = path_init(p->argv)))
 		return (exec_clean(g_path, -1, 0));
-
-	if (execve(g_path, p->argv, p->envp) == -1) //TODO испрвить на все виды очисток
+	if (execve(g_path, p->argv, p->envp) == -1)
 		exit(-1);
 	return (0);
 }
@@ -32,10 +43,11 @@ void	launch_process(process *p, pid_t pgid, int stream[3], int foreground)
 {
 	pid_t	pid;
 
- 	if (!p->btin && g_is_interactive)
+	if (!p->btin && g_is_interactive)
 	{
 		pid = getpid();
-		if (pgid == 0) pgid = pid;
+		if (pgid == 0)
+			pgid = pid;
 		setpgid(pid, pgid);
 		signal(SIGTTOU, SIG_IGN);
 		if (foreground)

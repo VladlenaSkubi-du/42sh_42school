@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   job_init.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 15:25:17 by hshawand          #+#    #+#             */
+/*   Updated: 2020/07/25 18:29:04 by hshawand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "jobs.h"
 #include "parser.h"
 
-job		*job_new(t_ltree *entity)
+job		*job_new(void)
 {
 	job		*job_new;
 	job		*job_iter;
@@ -91,11 +103,13 @@ int		set_globals_and_signals(void)
 	return (0);
 }
 
+
 /*
 ** Job/exec block entry point. Allocates memory for new jobs/processes and fills
 ** them with initial information. Manages redirection and pipes. Checks for
 ** buiktins and launches them. Launches already filled jobs.
 */
+
 
 int     job_init(t_ltree *entity)
 {
@@ -104,11 +118,9 @@ int     job_init(t_ltree *entity)
 
 	ret = 0;
 	fd_list_process(entity, 0);
-//	if (!exec_builtin(entity))
-//		return (ret);
 	set_globals_and_signals();
 	if (!(entity->flags & PIPED_IN) || !g_first_job)
-		!(job = job_new(entity)) ? ret++ : 0;
+		!(job = job_new()) ? ret++ : 0;
 	else
 	{
 		job = g_first_job;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   path_parse.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 16:00:12 by hshawand          #+#    #+#             */
+/*   Updated: 2020/07/25 16:02:38 by hshawand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "parser.h"
 
@@ -23,15 +35,6 @@ char	*form_path(char *ret, char *env_path, char *name)
 	ft_strcpy(ret, env_path);
 	ft_strcat(ret, "/");
 	ft_strcat(ret, name);
-
-
-	// if (access(ret, X_OK) == -1) //DELETE
-	// {
-	// 	free(ret);
-	// 	ret = 0;
-	// }
-
-
 	return (ret);
 }
 
@@ -49,11 +52,10 @@ char	*locate_file(char *env_path, char *name, char **to_clean)
 	{
 		if (!ft_strcmp(entity->d_name, name))
 		{
-			// printf("file found\n");
 			ret = (char*)ft_xmalloc(ft_strlen(env_path) + ft_strlen(name) + 2);
 			ret = form_path(ret, env_path, name);
 			if (ret)
-				break;
+				break ;
 		}
 	}
 	closedir(path);
@@ -61,7 +63,8 @@ char	*locate_file(char *env_path, char *name, char **to_clean)
 }
 
 /*
-** This is "just executable name case". We should check all directories in $PATH, find first match
+** This is "just executable name case". We should
+** check all directories in $PATH, find first match
 ** and check its accessibility
 */
 
@@ -83,13 +86,7 @@ char	*path_search(char *name)
 		path_array++;
 	}
 	ft_arrdel(to_clean);
-
-
-	// if (!ret) //DELETE
-	// 	error_handler(COMMAND_NOT_FOUND | (ERR_COMMAND << 9), name);
-
-	
-	return (ret);  /* Returns zero if we did not find anything */
+	return (ret);
 }
 
 /*
@@ -100,12 +97,9 @@ char	*path_init(char **exec_av)
 {
 	char *ret;
 
-	if (!ft_strchr(*exec_av, '/')) /* Builtin or $PATH case */
-	{
-		// ret = path_search(*exec_av);
+	if (!ft_strchr(*exec_av, '/'))
 		ret = hashtable_cmd_init(*exec_av);
-	}
-	else /* Execution path case */
+	else
 	{
 		if (access(*exec_av, F_OK) == -1)
 		{
@@ -120,5 +114,5 @@ char	*path_init(char **exec_av)
 		}
 		ret = ft_strdup(exec_av[0]);
 	}
-	return (ret); /* ret could be NULL */
+	return (ret);
 }

@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bg_fg.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 15:07:28 by hshawand          #+#    #+#             */
+/*   Updated: 2020/07/25 15:11:20 by hshawand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "shell42.h"
 #include "jobs.h"
 
-void	wait_for_job (job *j)
+void	wait_for_job(job *j)
 {
-	while (!job_is_stopped (j, 0) && !job_is_completed (j));
+	while (!job_is_stopped(j, 0) && !job_is_completed(j))
+		;
 }
 
 /*
@@ -14,7 +26,7 @@ void	wait_for_job (job *j)
 ** will result in race condition and possible segfaults)
 */
 
-void	put_job_in_foreground (job *j, int cont)
+void	put_job_in_foreground(job *j, int cont)
 {
 	j->fg = 1;
 	j->clean = 0;
@@ -22,10 +34,9 @@ void	put_job_in_foreground (job *j, int cont)
 	if (cont)
 	{
 		tcsetattr(STDIN_FILENO, TCSADRAIN, &j->tmodes);
-		if (kill(- j->pgid, SIGCONT) < 0)
+		if (kill(-j->pgid, SIGCONT) < 0)
 			error_handler(SIGNAL_ERROR, "failed to send SIGCONT to job");
-    }
-
+	}
 	wait_for_job(j);
 	tcsetpgrp(STDIN_FILENO, g_shell_pgid);
 	tcgetattr(STDIN_FILENO, &j->tmodes);
@@ -40,13 +51,13 @@ void	put_job_in_foreground (job *j, int cont)
 ** argument is true, sends process group a SIGCONT signal to wake it up.
 */
 
-void	put_job_in_background (job *j, int cont)
+void	put_job_in_background(job *j, int cont)
 {
 	j->fg = 0;
 	j->clean = 1;
 	ft_printf("[%d] %d\n", j->jid, j->pgid);
 	if (cont)
-		if (kill (-j->pgid, SIGCONT) < 0)
+		if (kill(-j->pgid, SIGCONT) < 0)
 			error_handler(SIGNAL_ERROR, "failed to send SIGCONT to job");
 }
 
