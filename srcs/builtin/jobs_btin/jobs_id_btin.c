@@ -19,7 +19,7 @@ int		id_check(t_ltree *pos)
 int		print_by_id(t_ltree *pos, int options)
 {
 	int		i;
-	job		*job_iter;
+	t_job	*job_iter;
 	int		id;
 
 	i = 1;

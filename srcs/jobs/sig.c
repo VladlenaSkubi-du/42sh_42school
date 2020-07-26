@@ -6,7 +6,7 @@
 /*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:03:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/07/25 16:03:19 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/07/26 17:26:01 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 
 void	child_handler(int sig)
 {
-	int		child_pid;
-	int		status;
-	job		*j;
-	job		*temp;
-	process	*proc;
+	int			child_pid;
+	int			status;
+	t_job		*j;
+	t_job		*temp;
+	t_process	*proc;
 
 	while ((child_pid = waitpid(-1, &status, WUNTRACED | WNOHANG)) > 0)
 	{
@@ -41,10 +41,10 @@ void	child_handler(int sig)
 			j->clean && job_is_completed(j) && (temp = j);
 			job_is_stopped(j, 1);
 			j = j->next;
-			temp && free_job(temp);
+			temp ? free_job(temp) : 0;
 		}
 	}
-	signal(SIGCHLD, child_handler);
+	signal(sig, child_handler);
 }
 
 void	set_proc_sig(void)

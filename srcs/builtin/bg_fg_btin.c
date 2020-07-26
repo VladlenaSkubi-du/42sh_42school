@@ -2,9 +2,9 @@
 #include "builtin42.h"
 #include "jobs.h"
 
-int		is_btin_only(job *j)
+int		is_btin_only(t_job *j)
 {
-	process *p_iter;
+	t_process *p_iter;
 
 	p_iter = j->first_process;
 	if (!p_iter)
@@ -18,9 +18,9 @@ int		is_btin_only(job *j)
 	return (1);
 }
 
-int		back_to_life(job *j)
+int		back_to_life(t_job *j)
 {
-	process *p_iter;
+	t_process *p_iter;
 
 	ft_putendl(j->com);
 	p_iter = j->first_process;
@@ -35,8 +35,8 @@ int		back_to_life(job *j)
 
 int		btin_bg(t_ltree *pos)
 {
-	job		*job_iter;
-	int		id;
+	t_job		*job_iter;
+	int			id;
 
 	job_iter = g_first_job;
 	if (!job_iter) /* No jobs */
@@ -63,8 +63,8 @@ int		btin_bg(t_ltree *pos)
 
 int		btin_fg(t_ltree *pos)
 {
-	job		*job_iter;
-	int		id;
+	t_job		*job_iter;
+	int			id;
 
 	job_iter = g_first_job;
 	if (!job_iter) /* No jobs */

@@ -6,7 +6,7 @@
 /*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:13:51 by hshawand          #+#    #+#             */
-/*   Updated: 2020/07/25 15:28:12 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/07/26 16:37:05 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	exec_clean(char *path, int exit_status, char *err_msg)
 ** Check if programm to start is buildin and if it is - start builtin
 */
 
-int		ft_builtins_check(process *p, int flag)
+int		ft_builtins_check(t_process *p, int flag)
 {
 	int		i;
 	t_ltree	xXx_PLACEHOLDER_xXx; // Hi, have you decided to fix norme error? Well, screw you! First of all, fix builtins and this function!

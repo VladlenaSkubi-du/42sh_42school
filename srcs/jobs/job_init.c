@@ -6,7 +6,7 @@
 /*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:25:17 by hshawand          #+#    #+#             */
-/*   Updated: 2020/07/25 18:29:04 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/07/26 16:46:18 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #include "jobs.h"
 #include "parser.h"
 
-job		*job_new(void)
+t_job		*job_new(void)
 {
-	job		*job_new;
-	job		*job_iter;
+	t_job		*job_new;
+	t_job		*job_iter;
 
-	job_new = (job *)ft_xmalloc(sizeof(job));
+	job_new = (t_job *)ft_xmalloc(sizeof(t_job));
 	job_new->first_process = NULL;
 	job_new->stdin = STDIN_FILENO;
 	job_new->stdout = STDOUT_FILENO;
@@ -42,7 +42,7 @@ job		*job_new(void)
 	return (job_new);
 }
 
-int		vec_dup(char ***dst, char **src)
+int			vec_dup(char ***dst, char **src)
 {
 	size_t	i;
 
@@ -60,14 +60,14 @@ int		vec_dup(char ***dst, char **src)
 	return (0);
 }
 
-int		process_new(job *jobs, t_ltree *entity)
+int			process_new(t_job *jobs, t_ltree *entity)
 {
-	process	*process_new;
-	process	*process_iter;
+	t_process	*process_new;
+	t_process	*process_iter;
 
 	if (!entity || !jobs || entity->ar_c < 1)
 		return (-1);
-	process_new = (process *)ft_xmalloc(sizeof(process));
+	process_new = (t_process *)ft_xmalloc(sizeof(t_process));
 	process_new->argc = entity->ar_c;
 	vec_dup(&process_new->argv, entity->ar_v);
 	vec_dup(&process_new->envp, entity->envir);
@@ -88,10 +88,10 @@ int		process_new(job *jobs, t_ltree *entity)
 	return (0);
 }
 
-int		set_globals_and_signals(void)
+int			set_globals_and_signals(void)
 {
-	int		   	li;
-	int		   	sy;
+	int		li;
+	int		sy;
 
 	signal(SIGCHLD, child_handler);
 	signal(SIGTTIN, SIG_IGN);
@@ -103,23 +103,21 @@ int		set_globals_and_signals(void)
 	return (0);
 }
 
-
 /*
 ** Job/exec block entry point. Allocates memory for new jobs/processes and fills
 ** them with initial information. Manages redirection and pipes. Checks for
 ** buiktins and launches them. Launches already filled jobs.
 */
 
-
-int     job_init(t_ltree *entity)
+int			job_init(t_ltree *entity)
 {
 	int			ret;
-	job			*job;
+	t_job		*job;
 
 	ret = 0;
 	fd_list_process(entity, 0);
 	set_globals_and_signals();
-	if (!(entity->flags & PIPED_IN) || !g_first_job)
+	if (!(entity->flags & (int)PIPED_IN) || !g_first_job)
 		!(job = job_new()) ? ret++ : 0;
 	else
 	{
@@ -128,12 +126,12 @@ int     job_init(t_ltree *entity)
 			job = job->next;
 	}
 	ret += process_new(job, entity);
-	if (!(entity->flags & PIPED_OUT))
+	if (!(entity->flags & (int)PIPED_OUT))
 	{
-		job->fg = !(entity->flags & IS_BG);
+		job->fg = !(entity->flags & (int)IS_BG);
 		ret += launch_job(job);
 	}
-	tcsetpgrp(STDIN_FILENO, g_shell_pgid);
+	tcsetpgrp((int)STDIN_FILENO, g_shell_pgid);
 	fd_list_process(entity, 1);
 	return (ret);
 }
