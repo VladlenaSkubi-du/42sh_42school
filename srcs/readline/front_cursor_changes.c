@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   front_cursor_changes.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 18:55:59 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 18:56:56 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "readline.h"
 
@@ -146,7 +158,7 @@ int					front_insert_by_letters(char *str, int *pos_x)
 int					count_x_position_new_line(int nl_pos)
 {
 	int				len;
-	
+
 	len = 0;
 	if (nl_pos < 0)
 		return (g_prompt.prompt_len);

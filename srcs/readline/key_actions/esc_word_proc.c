@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   esc_word_proc.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 18:48:16 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 18:48:26 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "readline.h"
 
@@ -35,7 +47,7 @@ int			word_left_proc(void)
 int			word_left_onetwo_chars(void)
 {
 	int				pos_old;
-	
+
 	pos_old = g_rline.pos;
 	if (front_move_one_char_left(g_rline.pos_x))
 		return (incorrect_sequence());

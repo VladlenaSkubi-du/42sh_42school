@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:57:32 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/25 16:16:30 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/07/25 18:25:44 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int			ft_cd_helper(void)
 {
 	error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), "cd");
 	usage_btin("cd");
+	return (0);
 }
 
 int			btin_cd(t_ltree *pos)

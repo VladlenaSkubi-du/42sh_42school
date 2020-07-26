@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   prompts.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 18:59:15 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 18:59:24 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "readline.h"
 
@@ -17,7 +29,7 @@ int				main_prompt(void)
 int				dquote_prompt(void)
 {
 	const char	*prompt;
-	
+
 	prompt = "dquote> ";
 	ft_putstr_fd(prompt, STDOUT_FILENO);
 	g_prompt.prompt_len_real = ft_strlen(prompt);
@@ -27,7 +39,7 @@ int				dquote_prompt(void)
 int				heredoc_prompt(void)
 {
 	const char	*prompt;
-	
+
 	prompt = "heredoc> ";
 	ft_putstr_fd(prompt, STDOUT_FILENO);
 	g_prompt.prompt_len_real = ft_strlen(prompt);
@@ -37,7 +49,7 @@ int				heredoc_prompt(void)
 int				other_prompt(void)
 {
 	const char	*prompt;
-	
+
 	prompt = "> ";
 	ft_putstr_fd(prompt, STDOUT_FILENO);
 	g_prompt.prompt_len_real = ft_strlen(prompt);

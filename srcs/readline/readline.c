@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   readline.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 19:00:03 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 19:00:17 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "readline.h"
 
@@ -57,7 +69,7 @@ int		readline_choice(char sy)
 int		route_exit(void)
 {
 	t_ltree		*pos;
-	
+
 	check_after_line();
 	if (g_prompt.prompt_func == main_prompt)
 	{

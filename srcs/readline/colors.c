@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   colors.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 18:52:56 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 18:53:47 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "readline.h"
 
-#define COLOR_NUM 6
+#define COLOR_NUM	6
 
-char			*colors_process(int sequence_num)
+char				*colors_process(int sequence_num)
 {
-	char	    *seq_action[COLOR_NUM];
+	char			*seq_action[COLOR_NUM];
 
 	seq_action[0] = RED;
 	seq_action[1] = ORANGE;
