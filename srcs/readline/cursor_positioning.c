@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cursor_positioning.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 18:54:23 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 18:55:03 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "readline.h"
 
@@ -29,8 +41,8 @@ int					position_cursor_after_line(int len)
 
 int					clean_after_line(void)
 {
-	int 			pos_back;
-	int 			len_back;
+	int				pos_back;
+	int				len_back;
 	int				len_x_back;
 	int				len_y_back;
 

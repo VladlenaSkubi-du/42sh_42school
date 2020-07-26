@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   front_insertions.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 18:57:31 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 18:58:21 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "readline.h"
 
 /*
-** @flag = 'm' means main (main g_rline), @flag = 'c' means comment 
+** @flag = 'm' means main (main g_rline), @flag = 'c' means comment
 ** When chars are inserted in the front part, position is changed
 ** by the terminal automatically - so I increase counters x and y
 ** after the changes are already done. @g_rline.pos is changed before
@@ -16,11 +28,15 @@ int					front_insert_one_char(char c, int pos_x,
 	if (flag == 'm')
 	{
 		if (c == '\n')
+		{
 			return (front_insert_if_newline(&g_rline.pos_x, &g_rline.pos_y,
 				&g_rline.str_num, &g_rline.flag));
+		}
 		if (g_rline.pos_x == g_screen.ws_col - 1)
+		{
 			return (front_insert_if_terminal(&g_rline.pos_x, &g_rline.pos_y,
 				&g_rline.flag));
+		}
 		return (front_insert_if_line(&g_rline.pos_x, &g_rline.str_num,
 				&g_rline.flag));
 	}
