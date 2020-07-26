@@ -6,7 +6,7 @@
 /*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:40:37 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/25 17:40:57 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/07/26 17:41:58 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int					btin_fc_execute_edition(t_btin_fc *fc_arg,
 	close(fd);
 	sub = btin_fc_before_exec(fc_arg, envir, tmpfile);
 	btin_fc_save_parser_globals(1);
-	tmp = exec_init(sub);
+	tmp = job_init(sub);
 	ft_arrdel(sub->ar_v);
 	free(sub);
 	btin_fc_save_parser_globals(0);
