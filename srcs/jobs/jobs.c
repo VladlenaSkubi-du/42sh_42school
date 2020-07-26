@@ -6,16 +6,16 @@
 /*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:53:30 by hshawand          #+#    #+#             */
-/*   Updated: 2020/07/25 15:59:33 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/07/26 17:00:23 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "jobs.h"
 
-process		*find_process(job *j, pid_t child_pid)
+t_process		*find_process(t_job *j, pid_t child_pid)
 {
-	process *proc;
+	t_process *proc;
 
 	proc = j->first_process;
 	while (proc && proc->pid != child_pid)
@@ -23,14 +23,14 @@ process		*find_process(job *j, pid_t child_pid)
 	return (proc);
 }
 
-void		process_update(process *p, int status)
+void			process_update(t_process *p, int status)
 {
 	WIFSTOPPED(status) ? (p->stopped = 1) :
 		(p->completed = 1);
 	p->status = status;
 }
 
-int			parent(process *p, job *j, pid_t pid)
+int				parent(t_process *p, t_job *j, pid_t pid)
 {
 	p->pid = pid;
 	if (g_is_interactive)
@@ -46,7 +46,7 @@ int			parent(process *p, job *j, pid_t pid)
 ** Forks given process in given job and provides pipe functionality
 */
 
-int			fork_job(process *p, job *j, int *infl, int *outfl)
+int				fork_job(t_process *p, t_job *j, int *infl, int *outfl)
 {
 	pid_t	pid;
 	int		mypipe[2];
@@ -80,11 +80,11 @@ int			fork_job(process *p, job *j, int *infl, int *outfl)
 ** to fork function and calls background/foreground processing function
 */
 
-int			launch_job(job *j)
+int				launch_job(t_job *j)
 {
-	process	*p;
-	int		infile;
-	int		outfile;
+	t_process	*p;
+	int			infile;
+	int			outfile;
 
 	infile = STDIN_FILENO;
 	p = j->first_process;

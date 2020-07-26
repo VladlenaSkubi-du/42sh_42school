@@ -3,9 +3,9 @@
 # define JOBS_H
 
 /* A process is a single process.  */
-typedef struct  process
+typedef struct  s_process
 {
-    struct process *next;       /* next process in pipeline */
+    struct s_process *next;       /* next process in pipeline */
 	int	argc;
     char **argv;                /* for exec */
 	char **envp;				/* ADDED BY ME */
@@ -14,14 +14,14 @@ typedef struct  process
     char stopped;               /* true if process has stopped */
 	char btin;
     int status;                 /* reported status value */
-}   process;
+}   t_process;
 
 /* A job is a pipeline of processes.  */
-typedef struct  job
+typedef struct  s_job
 {
-    struct job *next;           /* next active job */
+    struct s_job *next;           /* next active job */
     char *com;	                /* command line, used for messages */
-    process *first_process;     /* list of processes in this job */
+    t_process *first_process;     /* list of processes in this job */
     pid_t pgid;                 /* process group ID */
 	int jid;					/* Job id */
     char notified;              /* true if user told about stopped job */
@@ -29,13 +29,13 @@ typedef struct  job
 	char clean;
     struct termios tmodes;      /* saved terminal modes */
     int stdin, stdout, stderr;  /* standard i/o channels */
-}   job;
+}   t_job;
 
 struct termios		g_shell_tmodes;
 char				g_is_interactive;
 pid_t				g_shell_pgid;
 char				*g_path;
-job					*g_first_job;
+t_job					*g_first_job;
 
 /* TODO: Redistribute functions between files according to norm */
 
@@ -50,28 +50,28 @@ int     job_init(t_ltree *entity);
 ** File jobs.c
 */
 
-int	 	launch_job (job *j);
-void	process_update(process *p, int status);
-process *find_process(job *j, pid_t child_pid);
+int	 	launch_job (t_job *j);
+void	process_update(t_process *p, int status);
+t_process *find_process(t_job *j, pid_t child_pid);
 
 /*
 ** File job_utils.c
 */
 
-int		job_is_stopped(job *j, char verbose);
-int		job_is_completed(job *j);
-job		*find_job (pid_t pgid);
-int		free_job(job *j);
+int		job_is_stopped(t_job *j, char verbose);
+int		job_is_completed(t_job *j);
+t_job		*find_job (pid_t pgid);
+int		free_job(t_job *j);
 void	do_job_notification (void);
 
 /*
 ** File bg_fg.c
 */
 
-void	wait_for_job (job *j);
-void	put_job_in_foreground (job *j, int cont); /* QUESTIONABLE */
-void	put_job_in_background (job *j, int cont);
-int		bg_fg_wait(job *j);
+void	wait_for_job (t_job *j);
+void	put_job_in_foreground (t_job *j, int cont); /* QUESTIONABLE */
+void	put_job_in_background (t_job *j, int cont);
+int		bg_fg_wait(t_job *j);
 
 /*
 ** File sig.c
@@ -84,7 +84,7 @@ void	set_proc_sig(void);
 ** File exec_new.c
 */
 
-void	launch_process (process *p, pid_t pgid, int stream[3], int foreground);
+void	launch_process (t_process *p, pid_t pgid, int stream[3], int foreground);
 
 /*
 ** ____________________________________________________________________________
@@ -121,7 +121,7 @@ char	**path_parse(void);
 */
 
 int		exec_clean(char *path, int exit_status, char *msg);
-int		ft_builtins_check(process *p, int flag);
+int		ft_builtins_check(t_process *p, int flag);
 int		fd_list_process(t_ltree *pos, int mode);
 
 #endif

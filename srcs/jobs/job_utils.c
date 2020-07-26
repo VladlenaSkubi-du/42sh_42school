@@ -6,7 +6,7 @@
 /*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:50:07 by hshawand          #+#    #+#             */
-/*   Updated: 2020/07/25 15:52:55 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/07/26 16:48:52 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 ** state. Performs user notification about stopped jobs
 */
 
-int		job_is_stopped(job *j, char verbose)
+int		job_is_stopped(t_job *j, char verbose)
 {
-	process		*p;
+	t_process	*p;
 	char		not_completed;
 
 	p = j->first_process;
@@ -44,9 +44,9 @@ int		job_is_stopped(job *j, char verbose)
 ** Checks if all processes in a given job have "completed" state
 */
 
-int		job_is_completed(job *j)
+int		job_is_completed(t_job *j)
 {
-	process		*p;
+	t_process		*p;
 
 	p = j->first_process;
 	while (p)
@@ -64,9 +64,9 @@ int		job_is_completed(job *j)
 ** Searches and returns particular job node from global job list by pgid
 */
 
-job		*find_job(pid_t pgid)
+t_job	*find_job(pid_t pgid)
 {
-	job *j;
+	t_job *j;
 
 	j = g_first_job;
 	while (j)
@@ -82,11 +82,11 @@ job		*find_job(pid_t pgid)
 ** Removes particular job node from the list and deallocates memory used by it
 */
 
-int		free_job(job *j)
+int		free_job(t_job *j)
 {
-	job		*j_last;
-	job		*j_next;
-	process *temp;
+	t_job		*j_last;
+	t_job		*j_next;
+	t_process	*temp;
 
 	j_last = g_first_job;
 	while (j_last != j && j_last->next && j_last->next != j)

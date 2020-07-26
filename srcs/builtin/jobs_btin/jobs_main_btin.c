@@ -2,9 +2,9 @@
 #include "builtin42.h"
 #include "jobs.h"
 
-int		get_status(job	*j, char *buff, int options)
+int		get_status(t_job	*j, char *buff, int options)
 {
-	process		*p_iter;
+	t_process		*p_iter;
 	int			signum;
 
 	ft_bzero(buff, 100);
@@ -28,7 +28,7 @@ int		get_status(job	*j, char *buff, int options)
 	return (0);
 }
 
-int		print_job_info(job * j, int options)
+int		print_job_info(t_job * j, int options)
 {
 	char	def;
 	char	status[100];
@@ -76,7 +76,7 @@ int		options_parse(t_ltree *pos)
 
 int		btin_jobs(t_ltree *pos)
 {
-	job		*job_iter;
+	t_job	*job_iter;
 	int		options;
 	int		id_chk;
 	int		error;

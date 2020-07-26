@@ -142,7 +142,7 @@ int			    change_or_add(char *arg);
 ** File bg_fg_btin.c
 */
 
-int				is_btin_only(job *j);
+int				is_btin_only(t_job *j);
 int				btin_bg(t_ltree *pos);
 int				btin_fg(t_ltree *pos);
 
@@ -174,7 +174,7 @@ int				btin_cd(t_ltree *pos);
 */
 
 int				btin_jobs(t_ltree *pos);
-int				print_job_info(job * j, int options);
+int				print_job_info(t_job * j, int options);
 
 /*
 ** Folder jobs_btin, file jobs_id_btin.c

@@ -6,14 +6,14 @@
 /*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:07:28 by hshawand          #+#    #+#             */
-/*   Updated: 2020/07/25 15:11:20 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/07/26 16:35:01 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "jobs.h"
 
-void	wait_for_job(job *j)
+void	wait_for_job(t_job *j)
 {
 	while (!job_is_stopped(j, 0) && !job_is_completed(j))
 		;
@@ -26,7 +26,7 @@ void	wait_for_job(job *j)
 ** will result in race condition and possible segfaults)
 */
 
-void	put_job_in_foreground(job *j, int cont)
+void	put_job_in_foreground(t_job *j, int cont)
 {
 	j->fg = 1;
 	j->clean = 0;
@@ -51,7 +51,7 @@ void	put_job_in_foreground(job *j, int cont)
 ** argument is true, sends process group a SIGCONT signal to wake it up.
 */
 
-void	put_job_in_background(job *j, int cont)
+void	put_job_in_background(t_job *j, int cont)
 {
 	j->fg = 0;
 	j->clean = 1;
@@ -66,7 +66,7 @@ void	put_job_in_background(job *j, int cont)
 ** job FG mode (j->fg == 1 -- foreground, j->fg == 0 -- background)
 */
 
-int		bg_fg_wait(job *j)
+int		bg_fg_wait(t_job *j)
 {
 	if (!g_is_interactive)
 		wait_for_job(j);

@@ -6,7 +6,7 @@
 /*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:11:39 by hshawand          #+#    #+#             */
-/*   Updated: 2020/07/25 15:13:21 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/07/26 16:35:32 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** execvp implementation based on $PATH parsing and execve syscall
 */
 
-int		exec_vp(process *p)
+int		exec_vp(t_process *p)
 {
 	if (!(g_path = path_init(p->argv)))
 		return (exec_clean(g_path, -1, 0));
@@ -39,7 +39,7 @@ int		setstream(int src, int dest)
 ** Executes command using information in the process structure
 */
 
-void	launch_process(process *p, pid_t pgid, int stream[3], int foreground)
+void	launch_process(t_process *p, pid_t pgid, int stream[3], int foreground)
 {
 	pid_t	pid;
 
