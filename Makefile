@@ -98,7 +98,6 @@ UNIX_FUNCTIONS = \
 JOBS_DIR = jobs
 JOBS =		$(JOBS_DIR)/bg_fg.c \
 			$(JOBS_DIR)/exec_core.c \
-			$(JOBS_DIR)/exec_init.c \
 			$(JOBS_DIR)/exec_new.c \
 			$(JOBS_DIR)/exec_utils.c \
 			$(JOBS_DIR)/job_init.c \
