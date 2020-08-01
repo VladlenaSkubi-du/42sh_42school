@@ -142,8 +142,10 @@ REDIRECTION_DIR = redirection
 REDIRECTION = \
 			$(PARSER_DIR)/$(REDIRECTION_DIR)/redirect.c \
 			$(PARSER_DIR)/$(REDIRECTION_DIR)/ft_tmpfile.c \
-			$(PARSER_DIR)/$(REDIRECTION_DIR)/redir_types_out.c \
-			$(PARSER_DIR)/$(REDIRECTION_DIR)/redir_types_in.c \
+			$(PARSER_DIR)/$(REDIRECTION_DIR)/redir_types_out_check.c \
+			$(PARSER_DIR)/$(REDIRECTION_DIR)/redir_types_out_do.c \
+			$(PARSER_DIR)/$(REDIRECTION_DIR)/redir_types_in_check.c \
+			$(PARSER_DIR)/$(REDIRECTION_DIR)/redir_types_in_do.c \
 			$(PARSER_DIR)/$(REDIRECTION_DIR)/fd_block.c \
 			$(PARSER_DIR)/$(REDIRECTION_DIR)/here_doc.c \
 			$(PARSER_DIR)/$(REDIRECTION_DIR)/here_doc_buffer.c

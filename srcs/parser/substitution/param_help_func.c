@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   param_help_func.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 16:02:12 by rbednar           #+#    #+#             */
+/*   Updated: 2020/08/01 16:07:34 by rbednar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "parser.h"
 
-int		ft_param_word_sub(t_ltree *sub, char **line, char *oper, size_t *i)
+int		ft_param_word_sub(t_ltree *sub, char **line, char *oper, int *i)
 {
 	char *buf;
 
@@ -18,12 +30,20 @@ int		ft_param_word_sub(t_ltree *sub, char **line, char *oper, size_t *i)
 
 void	ft_one_ltree_clear(t_ltree *buf)
 {
+	t_list		*tmp;
+
 	if (buf)
 	{
 		free(buf->l_cmd);
 		free(buf->l_tline.line);
 		ft_arrdel(buf->envir);
 		ft_arrdel(buf->ar_v);
+		if ((tmp = buf->fd))
+			while (tmp)
+			{
+				free(((t_fd_redir *)(tmp->content))->name);
+				tmp = tmp->next;
+			}
 		ft_lstclear(&buf->fd);
 		free(buf->err);
 		free(buf->token);
@@ -36,7 +56,7 @@ int		ft_param_error_msg(t_ltree *sub, char **find, char *oper)
 	int		len;
 	char	*buf;
 	size_t	j;
-	
+
 	ft_colon_check(&len, find, &oper, &j);
 	*oper = '\0';
 	sub->err = ft_strdup(*find);
@@ -51,7 +71,7 @@ int		ft_param_error_msg(t_ltree *sub, char **find, char *oper)
 		sub->err = ft_strrejoin(sub->err, buf);
 		free(buf);
 	}
-	free (*find);
+	free(*find);
 	return (sub->err_i);
 }
 

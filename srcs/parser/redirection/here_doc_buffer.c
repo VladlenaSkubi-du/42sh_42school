@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   here_doc_buffer.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 15:55:16 by rbednar           #+#    #+#             */
+/*   Updated: 2020/08/01 16:12:17 by rbednar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "parser.h"
 
@@ -25,7 +37,7 @@ int		add_to_heredoc_buf(char ***array, char *add, int *buf_size)
 int		ft_sub_heredoc(t_ltree *sub)
 {
 	int	err;
-	
+
 	err = 1;
 	while (err)
 	{
@@ -33,8 +45,6 @@ int		ft_sub_heredoc(t_ltree *sub)
 		ft_find_var(sub);
 		if ((err = ft_find_curv_var(sub)) & ERR_OUT)
 			break ;
-		// if ((err = ft_find_sub_subshell(sub)) & ERR_OUT)
-		// 	break ;
 		err = 0;
 	}
 	return (err);
@@ -56,7 +66,7 @@ int		null_here_line(void)
 	nullify(&buf->l_tline.line, buf->l_tline.len);
 	buf->err_i = -1;
 	while (++(buf->err_i) < buf->l_tline.len)
-		pre_parsing_back(&(buf->err_i), buf);
+		pre_parsing_back((int*)&(buf->err_i), buf);
 	ft_sub_heredoc(buf);
 	free(g_cmd);
 	g_cmd = buf->l_cmd;
@@ -68,7 +78,7 @@ int		null_here_line(void)
 	return (0);
 }
 
-int		recover_g_cmd_here(void) //удалить при сборке 42
+int		recover_g_cmd_here(void)
 {
 	clean_parser42();
 	g_cmd = ft_strdup(g_heredoc.g_cmd_copy);

@@ -1,20 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_tmpfile.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 15:51:25 by rbednar           #+#    #+#             */
+/*   Updated: 2020/08/01 15:23:10 by rbednar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "parser.h"
 
 static const char	g_letters[] =
 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-static int  ft_init_tmp(int *len, int *fd, int *try, char *tmpl)
+static int	ft_init_tmp(int *len, int *fd, int *try, char *tmpl)
 {
 	*len = ft_strlen(tmpl);
 	*fd = -1;
 	*try = -1;
-	if (*len < L_tmpnam || ft_strcmp(&tmpl[*len - 6], "XXXXXX"))
+	if (*len < L_TMPNAM || ft_strcmp(&tmpl[*len - 6], "XXXXXX"))
 		return (-1);
-    return (0);
+	return (0);
 }
 
-static int  ft_try_create_fd(char **tmp, int *fd, int len, char **xxx)
+static int	ft_try_create_fd(char **tmp, int *fd, int len, char **xxx)
 {
 	int		buf;
 
@@ -30,6 +42,13 @@ static int  ft_try_create_fd(char **tmp, int *fd, int len, char **xxx)
 	return (*fd);
 }
 
+static char	*add_slash(char **tmp, char *input, char *tmpl)
+{
+	*tmp = ft_strjoin(input, "/");
+	*tmp = ft_strrejoin(*tmp, tmpl);
+	return (*tmp);
+}
+
 /*
 ** Generate a temporary file name based on TMPL.  TMPL must match the
 ** rules for mk[s]temp (i.e. end in "XXXXXX").  The name constructed
@@ -40,7 +59,7 @@ static int  ft_try_create_fd(char **tmp, int *fd, int len, char **xxx)
 ** if this does not work, returns -1
 */
 
-int		    ft_tmpfile(char *tmpl, int *fd)
+int			ft_tmpfile(char *tmpl, int *fd)
 {
 	int		len;
 	char	*tmp;
@@ -48,11 +67,11 @@ int		    ft_tmpfile(char *tmpl, int *fd)
 	char	*xxx;
 
 	if (ft_init_tmp(&len, fd, &try, tmpl) == -1)
-        return (-1);
+		return (-1);
 	if ((tmp = find_env_value("TMPDIR")) != NULL)
-		tmp = ft_strjoin(tmp, tmpl);
-	else if (P_tmpdir)
-		tmp = ft_strjoin(P_tmpdir, tmpl);
+		tmp = add_slash(&tmp, tmp, tmpl);
+	else if (P_TMPDIR)
+		tmp = add_slash(&tmp, P_TMPDIR, tmpl);
 	xxx = (tmp != NULL) ? &tmp[len - 6] : NULL;
 	while (*fd < 0)
 	{

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   find_spec.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 16:09:33 by rbednar           #+#    #+#             */
+/*   Updated: 2020/08/01 15:23:10 by rbednar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "parser.h"
 
@@ -7,7 +19,7 @@
 
 t_ltree		*ft_find_logic(t_ltree *block, t_ltree *final)
 {
-	size_t		i;
+	int		i;
 
 	i = block->start;
 	final->flags = block->flags;
@@ -43,7 +55,7 @@ t_ltree		*ft_find_pipe(t_ltree *block, t_ltree *final, int *i)
 		block->flags |= PIPED_OUT;
 		return (final);
 	}
-	if ((size_t)*i == block->end || final->flags & LOG_AND_OUT ||
+	if (*i == block->end || final->flags & LOG_AND_OUT ||
 		final->flags & LOG_OR_OUT)
 	{
 		final->start = block->start;
@@ -63,7 +75,7 @@ t_ltree		*ft_find_pipe(t_ltree *block, t_ltree *final, int *i)
 t_ltree		*ft_check_andor_pipes(t_ltree *block, t_ltree *final, t_list **list)
 {
 	int		tmp;
-	size_t	i;
+	int		i;
 
 	if (*list)
 		tmp = ((t_ltree *)(ft_lstlast(list)->content))->flags;
@@ -71,7 +83,7 @@ t_ltree		*ft_check_andor_pipes(t_ltree *block, t_ltree *final, t_list **list)
 		tmp = 0;
 	if (!ft_find_logic(block, final))
 		return (NULL);
-	if (tmp & LOG_AND_OUT || tmp & LOG_OR_OUT || 
+	if (tmp & LOG_AND_OUT || tmp & LOG_OR_OUT ||
 		final->flags & PIPED_IN)
 	{
 		final->flags |= (tmp & LOG_OR_OUT) ? LOG_OR_IN : 0;
@@ -82,16 +94,16 @@ t_ltree		*ft_check_andor_pipes(t_ltree *block, t_ltree *final, t_list **list)
 				break ;
 		erroring_andor_pipe(final, &i, tmp, block->end);
 	}
-	return (final);			
+	return (final);
 }
 
 /*
 ** Function clear list of t_ltree type. It uses ft_one_ltree_clear
 */
 
-void	ft_lst_ltree_clear(t_list **begin_list)
+void		ft_lst_ltree_clear(t_list **begin_list)
 {
-	t_list 	*tmp;
+	t_list	*tmp;
 	t_ltree	*buf;
 
 	if (!(begin_list) || !(*begin_list))
@@ -110,7 +122,7 @@ void	ft_lst_ltree_clear(t_list **begin_list)
 	*begin_list = NULL;
 }
 
-int		ft_correct_after_andor_pipe(size_t *i)
+int			ft_correct_after_andor_pipe(int *i)
 {
 	if (g_techline.line[*i] == WORD_P ||
 		g_techline.line[*i] == PIPE ||

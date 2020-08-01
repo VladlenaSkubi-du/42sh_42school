@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 15:55:19 by rbednar           #+#    #+#             */
+/*   Updated: 2020/08/01 15:45:35 by rbednar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "parser.h"
 
@@ -14,7 +26,7 @@ int		ft_check_is_heredoc(int ret)
 	}
 	else if (g_heredoc.list != NULL)
 	{
-		if (ft_check_heredoc_end(ret) == OUT)
+		if (ft_check_heredoc_end() == OUT)
 			return (0);
 		ft_heredoc_fill(ret);
 	}
@@ -30,12 +42,12 @@ int		ft_check_is_heredoc(int ret)
 ** It needs to check here-docs correctly ends
 */
 
-int		ft_check_heredoc_end(int ret)
+int		ft_check_heredoc_end(void)
 {
 	t_list	*tmp;
-	int		i;
 	t_stop	*find;
-	
+	int		i;
+
 	tmp = g_heredoc.list;
 	null_here_line();
 	i = -1;
@@ -69,7 +81,7 @@ int		ft_heredoc_fill(int ret)
 	char	**lines_in;
 	int		i;
 	t_stop	*find;
-	
+
 	tmp = g_heredoc.list;
 	lines_in = g_heredoc.buf;
 	i = -1;
@@ -81,7 +93,7 @@ int		ft_heredoc_fill(int ret)
 			if (!ft_strchrcmp(find->stop_w, g_heredoc.buf[i], '\n') ||
 				lines_in[i][0] == EOF)
 				break ;
-			ft_putstr_fd(lines_in[i], find->fd);			
+			ft_putstr_fd(lines_in[i], find->fd);
 		}
 		tmp = tmp->next;
 	}
@@ -101,7 +113,7 @@ int		ft_heredoc_rem(void)
 	t_stop	*find;
 
 	tmp = g_heredoc.list;
-	while(tmp)
+	while (tmp)
 	{
 		find = (t_stop *)tmp->content;
 		lseek(find->fd, 0, SEEK_SET);
@@ -118,7 +130,7 @@ int		ft_heredoc_rem(void)
 	return (0);
 }
 
-int		ft_g_init_heredoc()
+int		ft_g_init_heredoc(void)
 {
 	g_heredoc.buf = (char **)ft_xmalloc(sizeof(char*) * (HEREDOC_BUF));
 	g_heredoc.buf_size = HEREDOC_BUF;

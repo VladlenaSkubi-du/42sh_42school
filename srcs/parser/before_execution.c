@@ -1,18 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   before_execution.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 16:09:37 by rbednar           #+#    #+#             */
+/*   Updated: 2020/08/01 15:40:29 by rbednar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "parser.h"
 
 /*
-** Here we come with the counters of the beginning and the end of the 
+** Here we come with the counters of the beginning and the end of the
 ** final processes and all the fds defined after redirection block
 ** Flags are defined also before in the parser block. Here we finish the
-** preparation by forming the environ array for execution, forming 
+** preparation by forming the environ array for execution, forming
 ** argc and argv variables
 */
 
-int		before_exec(t_ltree *sub, t_list **list)
+int			before_exec(t_ltree *sub)
 {
 	int	err;
-	
+
 	if ((err = ft_substitution(sub)) & (ERR_OUT | ERR_IN))
 		return (OUT);
 	assignment(sub);
@@ -23,6 +35,7 @@ int		before_exec(t_ltree *sub, t_list **list)
 		ft_lst_ltree_clear(&g_start_list);
 		return (OUT);
 	}
+	ft_find_redirection_do(sub);
 	if (sub->flags & ERR_R)
 		ft_error_redir(sub);
 	if (!sub->envir)
@@ -33,7 +46,7 @@ int		before_exec(t_ltree *sub, t_list **list)
 	return (0);
 }
 
-int		argv_forming(t_ltree *sub)
+int			argv_forming(t_ltree *sub)
 {
 	t_word	word;
 	int		i;
@@ -61,7 +74,7 @@ int		argv_forming(t_ltree *sub)
 	return (0);
 }
 
-t_word	ft_give_me_word(char const *s, char c, size_t len)
+t_word		ft_give_me_word(char const *s, char c, size_t len)
 {
 	t_word	k;
 	size_t	i;
@@ -81,7 +94,7 @@ t_word	ft_give_me_word(char const *s, char c, size_t len)
 	return (k);
 }
 
-int		ft_local_copy_lines(t_ltree *sub, char *cmd, char *tline)
+int			ft_local_copy_lines(t_ltree *sub, char *cmd, char *tline)
 {
 	sub->l_cmd = ft_strndup(&cmd[sub->start], sub->end - sub->start);
 	sub->l_tline.line = ft_strndup(&tline[sub->start],
@@ -93,9 +106,9 @@ int		ft_local_copy_lines(t_ltree *sub, char *cmd, char *tline)
 	return (0);
 }
 
-int		erroring_andor_pipe(t_ltree *final, size_t *i, int tmp, size_t bl_end)
+int			erroring_andor_pipe(t_ltree *final, int *i, int tmp, size_t bl_end)
 {
-	if (*i == g_techline.len || g_techline.line[*i] == COMENT)
+	if ((size_t)(*i) == g_techline.len || g_techline.line[*i] == COMENT)
 	{
 		final->flags |= ERR_OUT;
 		if ((tmp & LOG_AND_OUT) || (tmp & LOG_OR_OUT))
@@ -104,7 +117,7 @@ int		erroring_andor_pipe(t_ltree *final, size_t *i, int tmp, size_t bl_end)
 			g_prompt.prompt_func = pipe_prompt;
 		return (OUT);
 	}
-	else if (*i == bl_end || g_techline.line[*i] == PIPE ||
+	else if ((size_t)(*i) == bl_end || g_techline.line[*i] == PIPE ||
 		g_techline.line[*i] == AND)
 	{
 		final->err_i = *i;

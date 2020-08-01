@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   slice_to_blocks.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 16:09:27 by rbednar           #+#    #+#             */
+/*   Updated: 2020/08/01 16:16:34 by rbednar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "parser.h"
 
@@ -64,7 +76,7 @@ int		ft_block_start(t_list **list)
 	while (start)
 	{
 		sub = (t_ltree *)(start->content);
-		if (before_exec(sub, list) == OUT)
+		if (before_exec(sub) == OUT)
 			break ;
 		if (!(sub->flags & ERR_IN))
 		{
@@ -129,7 +141,6 @@ int		ft_slice_fg(void)
 				block.end = i;
 				if (ft_block_add_to_list(&block, &g_start_list) == OUT)
 					return (OUT);
-				//block.start = i + 1;
 			}
 		}
 	}

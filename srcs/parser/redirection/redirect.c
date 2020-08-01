@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirect.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 15:55:32 by rbednar           #+#    #+#             */
+/*   Updated: 2020/08/01 15:42:54 by rbednar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "parser.h"
 
@@ -29,8 +41,8 @@ int			ft_error_redir(t_ltree *final)
 	{
 		final->err = ft_find_token_sep(&final->l_cmd[final->err_i]);
 		final->err == NULL ? final->err = ft_strdup(final->token) : 0;
-		if (final->err_i < final->end ||
-			(final->err_i == final->end &&
+		if (final->err_i < (size_t)final->end ||
+			(final->err_i == (size_t)final->end &&
 			final->l_tline.line[final->end] != END_T))
 			error_handler((SYNTAX_ERROR | (ERR_REDIR << 9)), final->err);
 		else if (final->l_tline.line[final->end] == END_T)
@@ -43,26 +55,28 @@ int			ft_error_redir(t_ltree *final)
 ** Function to find redirections with grammer rules
 */
 
-int			ft_find_redirection(t_ltree *final)
+int			ft_find_redirection_check(t_ltree *final)
 {
-	size_t	i;
+	int		i;
 	int		ret;
 
 	i = final->start;
 	ret = 0;
 	while (i <= final->end)
 	{
-		if ((ret = ft_redir_great(final, &i)) != 0)
+		if ((ret = ft_redir_great_check(final, &i)) != 0)
 			break ;
-		if ((ret = ft_redir_dgreat(final, &i)) != 0)
+		if ((ret = ft_redir_dgreat_check(final, &i)) != 0)
 			break ;
-		if ((ret = ft_redir_greatand(final, &i)) != 0)
+		if ((ret = ft_redir_greatand_check(final, &i)) != 0)
 			break ;
-		if ((ret = ft_redir_less(final, &i)) != 0)
+		if ((ret = ft_redir_less_check(final, &i)) != 0)
 			break ;
 		if ((ret = ft_redir_dless(final, &i)) != 0)
 			break ;
-		if ((ret = ft_redir_lessand(final, &i)) != 0)
+		if ((ret = ft_redir_dless_min(final, &i)) != 0)
+			break ;
+		if ((ret = ft_redir_lessand_check(final, &i)) != 0)
 			break ;
 		i++;
 	}
@@ -74,7 +88,7 @@ int			ft_find_redirection(t_ltree *final)
 ** Function to detect WORD of filename where/to need to redirect
 */
 
-char		*ft_word_to_redir(size_t *i, t_ltree *final, int rew_ff)
+char		*ft_word_to_redir(int *i, t_ltree *final, int rew_ff)
 {
 	char		*file;
 	char		*buf;
@@ -83,7 +97,7 @@ char		*ft_word_to_redir(size_t *i, t_ltree *final, int rew_ff)
 
 	size = 0;
 	start = 0;
-	if (rew_ff == FF)
+	if (rew_ff == FF || rew_ff == HERE)
 	{
 		while (*i < final->end && final->l_tline.line[*i] == SPACE)
 			(*i)++;
@@ -102,7 +116,7 @@ char		*ft_word_to_redir(size_t *i, t_ltree *final, int rew_ff)
 	return (file);
 }
 
-int			ft_word_to_redir_rew(size_t *i, t_ltree *final,
+int			ft_word_to_redir_rew(int *i, t_ltree *final,
 			long long *size, size_t *start)
 {
 	if (*i > 0)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_curv_var.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 16:02:03 by rbednar           #+#    #+#             */
+/*   Updated: 2020/08/01 15:23:10 by rbednar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "parser.h"
 
@@ -13,7 +25,7 @@
 ** ${parameter#[word]} and ${parameter##[word]}
 */
 
-int		ft_type_param_check(t_ltree *sub, char **find, size_t *i)
+int		ft_type_param_check(t_ltree *sub, char **find, int *i)
 {
 	char	*oper;
 
@@ -43,7 +55,7 @@ int		ft_type_param_check(t_ltree *sub, char **find, size_t *i)
 ** ${parameter:-[word]} and ${parameter-[word]}
 */
 
-int		ft_param_colon_dash(t_ltree *sub, char **find, char *oper, size_t *i)
+int		ft_param_colon_dash(t_ltree *sub, char **find, char *oper, int *i)
 {
 	int		colon;
 	char	*tmp;
@@ -77,7 +89,7 @@ int		ft_param_colon_dash(t_ltree *sub, char **find, char *oper, size_t *i)
 ** ${parameter:=[word]} and ${parameter=[word]}
 */
 
-int		ft_param_colon_equal(t_ltree *sub, char **find, char *oper, size_t *i)
+int		ft_param_colon_equal(t_ltree *sub, char **find, char *oper, int *i)
 {
 	int		colon;
 	char	*tmp;
@@ -111,7 +123,7 @@ int		ft_param_colon_equal(t_ltree *sub, char **find, char *oper, size_t *i)
 ** ${parameter:?[word]} and ${parameter?[word]}
 */
 
-int		ft_param_colon_qmark(t_ltree *sub, char **find, char *oper, size_t *i)
+int		ft_param_colon_qmark(t_ltree *sub, char **find, char *oper, int *i)
 {
 	int		colon;
 	char	*tmp;
@@ -145,7 +157,7 @@ int		ft_param_colon_qmark(t_ltree *sub, char **find, char *oper, size_t *i)
 ** ${parameter:?[word]} and ${parameter?[word]}
 */
 
-int		ft_param_colon_plus(t_ltree *sub, char **find, char *oper, size_t *i)
+int		ft_param_colon_plus(t_ltree *sub, char **find, char *oper, int *i)
 {
 	int		colon;
 	char	*tmp;
