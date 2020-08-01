@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   substitution.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 16:02:15 by rbednar           #+#    #+#             */
+/*   Updated: 2020/08/01 16:15:04 by rbednar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "parser.h"
 
@@ -9,7 +21,7 @@
 int		ft_substitution(t_ltree *sub)
 {
 	int	err;
-	
+
 	err = 1;
 	while (err)
 	{
@@ -34,13 +46,13 @@ int		ft_substitution(t_ltree *sub)
 int		before_add(t_ltree *sub, t_list **list)
 {
 	int	err;
-	
+
 	sub->token = ft_find_token_sep(&g_cmd[sub->end]);
 	ft_local_copy_lines(sub, g_cmd, g_techline.line);
 	pre_parsing_cut_glue(sub);
 	if (ft_check_null(sub, list) == OUT)
 		return (OUT);
-	if ((err = ft_find_redirection(sub)) & ERR_OUT)
+	if ((err = ft_find_redirection_check(sub)) & ERR_OUT)
 	{
 		if ((err & 0xFF) != TMPFILE)
 			ft_error_redir(sub);
@@ -55,10 +67,10 @@ int		before_add(t_ltree *sub, t_list **list)
 
 int		ft_check_null(t_ltree *sub, t_list **list)
 {
-	size_t i;
+	int i;
 
 	i = sub->start;
-	while (i <= sub->l_tline.len)
+	while ((size_t)i <= sub->l_tline.len)
 	{
 		if (sub->l_tline.line[i] != SPACE)
 			break ;
@@ -67,7 +79,7 @@ int		ft_check_null(t_ltree *sub, t_list **list)
 	if (i == sub->end && sub->l_tline.line[sub->end] == END_T)
 		sub->flags |= ERR_IN;
 	else if (i == sub->end)
-	{	
+	{
 		sub->flags |= ERR_OUT | ERR_REDIR << 16;
 		sub->err_i = i;
 		ft_error_redir(sub);
@@ -75,7 +87,7 @@ int		ft_check_null(t_ltree *sub, t_list **list)
 		ft_lst_ltree_clear(list);
 		return (OUT);
 	}
-	return (0);	
+	return (0);
 }
 
 /*
@@ -83,11 +95,11 @@ int		ft_check_null(t_ltree *sub, t_list **list)
 ** has two types of work - added real techline insert or just TEXT (quoted)
 */
 
-int     insert_str_in_loc_strs(t_ltree *sub, char **insert, size_t *i, int flag)
+int		insert_str_in_loc_strs(t_ltree *sub, char **insert, int *i, int flag)
 {
 	char	*buf;
-	size_t	len_ins;
-	
+	int		len_ins;
+
 	len_ins = ft_strlen(*insert);
 	buf = (char *)ft_xmalloc(sizeof(char) * (sub->l_tline.len + len_ins));
 	ft_memcpy(buf, sub->l_cmd, *i);

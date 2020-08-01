@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   assignment_local.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 15:36:23 by rbednar           #+#    #+#             */
+/*   Updated: 2020/08/01 15:23:10 by rbednar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "parser.h"
 
@@ -9,18 +21,18 @@ int		change_var_in_local(t_ltree *sub, char **name, int start)
 {
 	int			i;
 	int			tmp;
-	int			len_name;
-	char 		*pars;
+	int			len_n;
+	char		*pars;
 
 	i = 0;
-	len_name = ft_strlen(*name);
+	len_n = ft_strlen(*name);
 	while (sub->envir[i])
 	{
 		tmp = ft_strchri(sub->envir[i], '=');
-		if (ft_strncmp(sub->envir[i], *name, len_name) == 0 && (tmp == len_name))
+		if (ft_strncmp(sub->envir[i], *name, len_n) == 0 && (tmp == len_n))
 		{
 			free(sub->envir[i]);
-			pars = ft_parsing_str(&(sub->ar_v[start][len_name]));
+			pars = ft_parsing_str(&(sub->ar_v[start][len_n]));
 			*name = ft_strrejoin(*name, pars);
 			free(pars);
 			sub->envir[i] = ft_strdup(*name);
@@ -38,14 +50,14 @@ int		change_var_in_local(t_ltree *sub, char **name, int start)
 int		new_var_in_local(t_ltree *sub, char **name, int start)
 {
 	int		i;
-	int		len_name;
-	char 	*pars;
+	int		len_n;
+	char	*pars;
 
 	i = 0;
-	len_name = ft_strlen(*name);
+	len_n = ft_strlen(*name);
 	while (sub->envir[i])
 		i++;
-	pars = ft_parsing_str(&(sub->ar_v[start][len_name]));
+	pars = ft_parsing_str(&(sub->ar_v[start][len_n]));
 	*name = ft_strrejoin(*name, pars);
 	free(pars);
 	sub->envir[i] = ft_strdup(*name);
@@ -109,18 +121,18 @@ int		add_vars_to_genvi(t_ltree *sub, char **arg_tline)
 {
 	int		i;
 	int		ret;
-    int     eq;
+	int		eq;
 
 	i = 0;
 	ft_arrdel(arg_tline);
-	while(i < sub->ar_c)
+	while (i < sub->ar_c)
 	{
 		eq = ft_strchri(sub->ar_v[i], '=');
-        if ((ret = find_assignment_in_vars(sub->ar_v[i], 0,
+		if ((ret = find_assignment_in_vars(sub->ar_v[i], 0,
 		eq, ft_strlen(sub->ar_v[i]))) == ERR_OUT)
 		{
 			sub->flags |= ERR_IN | ERR_OUT;
-            sub->err = ft_strndup(sub->ar_v[i], eq);
+			sub->err = ft_strndup(sub->ar_v[i], eq);
 			return (ERR_OUT);
 		}
 		i++;

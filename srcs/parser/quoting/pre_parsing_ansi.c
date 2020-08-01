@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pre_parsing_ansi.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 15:45:38 by rbednar           #+#    #+#             */
+/*   Updated: 2020/08/01 15:23:10 by rbednar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "parser.h"
 
-int		pre_parsing_ansi(size_t *i, t_ltree *sub)
+int		pre_parsing_ansi(int *i, t_ltree *sub)
 {
 	char	*end;
 	char	*cmd;
@@ -17,36 +29,36 @@ int		pre_parsing_ansi(size_t *i, t_ltree *sub)
 	return (0);
 }
 
-int		ansi_table_check(char *symbol, size_t *i, t_ltree *sub)
+int		ansi_table_check(char *symbol, int *i, t_ltree *sub)
 {
 	if (symbol[1] == 'a')
-		symbol[1]='\a';
+		symbol[1] = '\a';
 	else if (symbol[1] == 'b')
-		symbol[1]='\b';
+		symbol[1] = '\b';
 	else if (symbol[1] == 'e' || symbol[1] == 'E')
-		symbol[1]='\e';
+		symbol[1] = '\e';
 	else if (symbol[1] == 'f')
-		symbol[1]='\f';
+		symbol[1] = '\f';
 	else if (symbol[1] == 'n')
-		symbol[1]='\n';
+		symbol[1] = '\n';
 	else if (symbol[1] == 'r')
-		symbol[1]='\r';
+		symbol[1] = '\r';
 	else if (symbol[1] == 't')
-		symbol[1]='\t';
+		symbol[1] = '\t';
 	else if (symbol[1] == 'v')
-		symbol[1]='\v';
+		symbol[1] = '\v';
 	else if (symbol[1] == '\'')
-		symbol[1]='\'';
+		symbol[1] = '\'';
 	else if (symbol[1] == '\"')
-		symbol[1]='\"';
+		symbol[1] = '\"';
 	else if (symbol[1] == '?')
-		symbol[1]='\?';
+		symbol[1] = '\?';
 	else
 		return (ansi_esc_symbols(symbol, i, sub));
 	return (ft_reglue(i, 1, sub));
 }
 
-int		ansi_esc_symbols(char *symbol, size_t *i, t_ltree *sub)
+int		ansi_esc_symbols(char *symbol, int *i, t_ltree *sub)
 {
 	char	*nnn;
 	int		nums;
@@ -69,7 +81,7 @@ int		ansi_esc_symbols(char *symbol, size_t *i, t_ltree *sub)
 		return (ansi_esc_hex_symbols(symbol, i, sub));
 }
 
-int		ansi_esc_hex_symbols(char *symbol, size_t *i, t_ltree *sub)
+int		ansi_esc_hex_symbols(char *symbol, int *i, t_ltree *sub)
 {
 	char	*nnn;
 	int		nums;

@@ -36,17 +36,19 @@ typedef struct stat		t_stat;
 
 # define TMPL "tmp42sh_424242XXXXXX"
 
+# define P_TMPDIR P_tmpdir
 # ifndef P_tmpdir
-# define P_tmpdir "/tmp"
-#endif
+#  define P_TMPDIR "/tmp"
+# endif
 
+# define L_TMPNAM L_tmpnam
 # ifndef L_tmpnam
-# define L_tmpnam 20
-#endif
+#  define L_TMPNAM 20
+# endif
 
 # ifndef TMP_MAX
-# define TMP_MAX 2000
-#endif
+#  define TMP_MAX 2000
+# endif
 
 # define TMPFILE_TRY_SIZE TMP_MAX
 
@@ -63,7 +65,9 @@ enum					e_way
 {
 	REW,
 	FF,
+	HERE,
 	CLOSE = -42,
+	SAVE,
 	MINUS = 5,
 	CONTINUE,
 	LINE,
@@ -110,12 +114,12 @@ typedef struct  		s_tech
 ** 0x08 -- IS_BG
 */
 
-typedef struct  		s_ltree
+typedef struct			s_ltree
 {
 	char				*l_cmd;
 	t_tech				l_tline;
-	size_t				start;
-	size_t				end;
+	int					start;
+	int					end;
 	t_list				*fd;
 	char				**envir;
 	char				**ar_v;
@@ -124,17 +128,30 @@ typedef struct  		s_ltree
 	char				*token;
 	char				*err;
 	size_t				err_i;
-}              			t_ltree;
+}						t_ltree;
 
 /*
 ** Struct needs for list of redirections before exec
 */
 
-typedef struct  		s_fd
+typedef struct			s_fd
 {
 	int					fd_new;
 	int					fd_old;
-}              			t_fd_redir;
+	int					type;
+	char				*name;
+}						t_fd_redir;
+
+enum					e_redir
+{
+	GREAT,
+	DGREAT,
+	GREATAND,
+	LESS,
+	DLESS,
+	DLESS_MIN,
+	LESSAND,
+};
 
 /*
 ** Struct to save and work with PATH
@@ -187,6 +204,7 @@ t_list					*g_start_list;
 int						parser(char *line);
 int						pars_lex_exec(void);
 int						ft_get_techline(char *cmd, t_tech *result);
+char					get_tech_num(char check);
 int						ltree_init(t_ltree *final);
 
 /*
@@ -218,18 +236,18 @@ t_ltree					*ft_find_logic(t_ltree *block, t_ltree *final);
 t_ltree					*ft_check_andor_pipes(t_ltree *block, t_ltree *final,\
 						t_list **list);
 void					ft_lst_ltree_clear(t_list **begin_list);
-int						ft_correct_after_andor_pipe(size_t *i);
+int						ft_correct_after_andor_pipe(int *i);
 
 /*
 ** File before_execution.c
 */
 
-int						before_exec(t_ltree *sub, t_list **lst);
+int						before_exec(t_ltree *sub);
 int						argv_forming(t_ltree *sub);
 t_word					ft_give_me_word(char const *s, char c, size_t len);
 int						ft_local_copy_lines(t_ltree *sub, char *cmd,
 							char *tline);
-int						erroring_andor_pipe(t_ltree *final, size_t *i,
+int						erroring_andor_pipe(t_ltree *final, int *i,
 						int tmp, size_t block_end);
 
 /*
@@ -247,54 +265,69 @@ int						ft_tmpfile(char *template, int *fd);
 ** File redirect.c
 */
 
-int						ft_find_redirection(t_ltree *final);
-char					*ft_word_to_redir(size_t *i, t_ltree *final,
+int						ft_find_redirection_check(t_ltree *final);
+char					*ft_word_to_redir(int *i, t_ltree *final,
 							int rew_ff);
-int						ft_word_to_redir_rew(size_t *i, t_ltree *final,
+int						ft_word_to_redir_rew(int *i, t_ltree *final,
 						long long *size, size_t *start);
 int						ft_null_redir(t_ltree *pos, size_t i, long long num);
 int						ft_error_redir(t_ltree *final);
 
 /*
-** File redir_types_out.c
+** File redir_types_out_check.c
 */
 
-int						ft_redir_great(t_ltree *final, size_t *i);
-int						ft_redir_dgreat(t_ltree *final, size_t *i);
-int						ft_redir_greatand(t_ltree *final, size_t *i);
+int						ft_redir_great_check(t_ltree *final, int *i);
+int						ft_redir_dgreat_check(t_ltree *final, int *i);
+int						ft_redir_greatand_check(t_ltree *final, int *i);
 int						ft_access_check(char **f_name, t_ltree *final,
 							int type);
 
-
 /*
-** File redir_types_in.c
+** File redir_types_out_do.c
 */
 
-int						ft_redir_less(t_ltree *final, size_t *i);
-int						ft_redir_dless(t_ltree *final, size_t *i);
-int						ft_redir_dless_min(t_ltree *final, size_t *i);
-int						ft_redir_lessand(t_ltree *final, size_t *i);
+void					ft_find_redirection_do(t_ltree *final);
+int						ft_redir_great_do(t_ltree *final, t_fd_redir *fd);
+int						ft_redir_dgreat_do(t_ltree *final, t_fd_redir *fd);
+int						ft_redir_greatand_do(t_ltree *final, t_fd_redir *fd);
+
+/*
+** File redir_types_in_check.c
+*/
+
+int						ft_redir_less_check(t_ltree *final, int *i);
+int						ft_redir_dless(t_ltree *final, int *i);
+int						ft_redir_dless_min(t_ltree *final, int *i);
+int						ft_redir_lessand_check(t_ltree *final, int *i);
 int						ft_heredoc_form(t_fd_redir *fd_open, char **f_name,
 						t_ltree *final, int flag);
+
+/*
+** File redir_types_in_do.c
+*/
+
+int						ft_redir_less_do(t_ltree *final, t_fd_redir *fd);
+int						ft_redir_lessand_do(t_ltree *final, t_fd_redir *fd);
 
 /*
 ** File fd_block.c
 */
 
 int						add_redir_fd(t_ltree *final, t_fd_redir *redir);
-int						ft_check_n_redir_op(size_t i, t_ltree *final, int std);
+int						ft_check_n_redir_op(int i, t_ltree *final, int std);
 int						ft_check_redir_op_n(char *find, int std);
 int						ft_num_or_word_out(char **f_name, t_fd_redir *fd_open,
-						size_t *i, t_ltree *final);
+							t_ltree *final);
 int						ft_num_or_word_in(char **f_name, t_fd_redir *fd_open,
-						size_t *i, t_ltree *final);
+							t_ltree *final);
 
 /*
 ** File here_doc.c
 */
 
 int						ft_check_is_heredoc(int	ret);
-int						ft_check_heredoc_end(int ret);
+int						ft_check_heredoc_end(void);
 int						ft_heredoc_fill(int ret);
 int						ft_heredoc_rem(void);
 int						ft_g_init_heredoc(void);
@@ -322,26 +355,16 @@ int						here_tab_remove(char **line);
 int             		find_assignment_in_vars(char *sub, size_t var,
 							size_t eq, size_t val);
 int						assignment_in_curv_var(t_ltree *sub,
-							char **line, char *oper, size_t *i);
+							char **line, char *oper, int *i);
 int						ft_colon_check(int *len, char **line,
 							char **oper, size_t *j);
-
-/*
-** File assignment_old.c
-*/
-
-// int						assignment(t_ltree *sub);
-// int						get_assign_and_add(t_ltree *sub, size_t *var,
-// 							size_t *eq, size_t *val);
-// int						it_is_command(t_ltree *sub, size_t *i, size_t *var);
-// int						is_it_argv_n(t_ltree *sub, size_t var);
 
 /*
 ** File assignment.c
 */
 
 int						assignment(t_ltree *sub);
-int						check_kind_assign(t_ltree *sub, int i, int len_arg,
+int						check_kind_assign(int i, int len_arg,
 							char **arg_tline);
 int						is_it_command(int i, char **arg_tline, int eq);
 int						add_new_local_env(t_ltree *sub, int i,
@@ -375,7 +398,7 @@ int						ft_substitution(t_ltree *sub);
 int						before_add(t_ltree *sub, t_list **lst);
 int						ft_check_null(t_ltree *final, t_list **list);
 int						insert_str_in_loc_strs(t_ltree *sub,
-							char **insert, size_t *i, int flag);
+							char **insert, int *i, int flag);
 
 /*
 ** File ft_find_var.c
@@ -384,7 +407,7 @@ int						insert_str_in_loc_strs(t_ltree *sub,
 int	   					ft_find_var(t_ltree *sub);
 int						ft_find_curv_var(t_ltree *sub);
 char					*ft_find_var_value(char **find);
-int						ft_param_empty(t_ltree *sub, char **find, size_t *i);
+int						ft_param_empty(t_ltree *sub, char **find, int *i);
 int						ft_error_vars(t_ltree *sub, int err, char *msg);
 
 /*
@@ -392,33 +415,33 @@ int						ft_error_vars(t_ltree *sub, int err, char *msg);
 */
 
 int						ft_type_param_check(t_ltree *sub, char **find,
-							size_t *i);
+							int *i);
 int						ft_param_colon_dash(t_ltree *sub,
-							char **line, char *oper, size_t *i);
+							char **line, char *oper, int *i);
 int						ft_param_colon_equal(t_ltree *sub,
-							char **line, char *oper, size_t *i);
+							char **line, char *oper, int *i);
 int						ft_param_colon_qmark(t_ltree *sub,
-							char **line, char *oper, size_t *i);
+							char **line, char *oper, int *i);
 int						ft_param_colon_plus(t_ltree *sub,
-							char **line, char *oper, size_t *i);
+							char **line, char *oper, int *i);
 
 /*
 ** File ft_substring_var.c
 */
 
 int						ft_substring_len(t_ltree *sub, char **line,
-							char *oper, size_t *i);
+							char *oper, int *i);
 int						ft_substring_s_l_prefix(t_ltree *sub,
-							char **line, char *oper, size_t *i);
+							char **line, char *oper, int *i);
 int						ft_substring_s_l_suffix(t_ltree *sub,
-								char **line, char *oper, size_t *i);
+								char **line, char *oper, int *i);
 
 /*
 ** File param_help_func.c
 */
 
 int						ft_param_word_sub(t_ltree *sub,
-							char **line, char *oper, size_t *i);
+							char **line, char *oper, int *i);
 void					ft_one_ltree_clear(t_ltree *buf);
 int     				ft_param_error_msg(t_ltree *sub, char **find,
 							char *oper);
@@ -429,10 +452,10 @@ char					*ft_parsing_str(char *str);
 */
 
 int						ft_find_tilda(t_ltree *sub, int flag);
-int						ft_getdir_by_name(t_ltree *sub, size_t *i, int flag);
-int						ft_get_home(t_ltree *sub, size_t *i);
-int						ft_find_dir_info(t_ltree *sub, char *user, size_t *i);
-int						ft_find_dir_by_uid(t_ltree *sub, char *uid, size_t *i);
+int						ft_getdir_by_name(t_ltree *sub, int *i, int flag);
+int						ft_get_home(t_ltree *sub, int *i);
+int						ft_find_dir_info(t_ltree *sub, char *user, int *i);
+int						ft_find_dir_by_uid(t_ltree *sub, char *uid, int *i);
 
 /*
 ** File history_sign.c
@@ -467,19 +490,19 @@ int						nullify_error(t_stack **stack);
 */
 
 int						pre_parsing_cut_glue(t_ltree *sub);
-int						pre_parsing_squote(size_t *i, t_ltree *sub);
-int						pre_parsing_back(size_t *i, t_ltree *sub);
-int						pre_parsing_andor_pipe(size_t *i, t_ltree *sub);
-int						ft_reglue(size_t *i, int num, t_ltree *sub);
+int						pre_parsing_squote(int *i, t_ltree *sub);
+int						pre_parsing_back(int *i, t_ltree *sub);
+int						pre_parsing_andor_pipe(int *i, t_ltree *sub);
+int						ft_reglue(int *i, int num, t_ltree *sub);
 
 /*
 ** File pre_parsing_ansi.c
 */
 
-int						pre_parsing_ansi(size_t *i, t_ltree *sub);
-int						ansi_table_check(char *symbol, size_t *i, t_ltree *sub);
-int						ansi_esc_symbols(char *symbol, size_t *i, t_ltree *sub);
-int						ansi_esc_hex_symbols(char *symbol, size_t *i,
+int						pre_parsing_ansi(int *i, t_ltree *sub);
+int						ansi_table_check(char *symbol, int *i, t_ltree *sub);
+int						ansi_esc_symbols(char *symbol, int *i, t_ltree *sub);
+int						ansi_esc_hex_symbols(char *symbol, int *i,
 							t_ltree *sub);
 
 /*

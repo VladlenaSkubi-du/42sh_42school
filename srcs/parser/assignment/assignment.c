@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   assignment.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 15:36:26 by rbednar           #+#    #+#             */
+/*   Updated: 2020/08/01 16:00:09 by rbednar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "parser.h"
 
@@ -13,7 +25,7 @@ int		assignment(t_ltree *sub)
 	while (i < sub->ar_c)
 	{
 		len_arg = ft_strlen(sub->ar_v[i]);
-		if (check_kind_assign(sub, i, len_arg, arg_tline))
+		if (check_kind_assign(i, len_arg, arg_tline))
 			break ;
 		i++;
 	}
@@ -21,7 +33,7 @@ int		assignment(t_ltree *sub)
 	{
 		ft_arrdel(arg_tline);
 		return (0);
-	}	
+	}
 	if (i < sub->ar_c)
 	{
 		add_new_local_env(sub, i, arg_tline);
@@ -36,7 +48,7 @@ int		assignment(t_ltree *sub)
 ** only assignments, or have no one assignment
 */
 
-int		check_kind_assign(t_ltree *sub, int i, int len_arg, char **arg_tline)
+int		check_kind_assign(int i, int len_arg, char **arg_tline)
 {
 	int	eq;
 
@@ -50,7 +62,7 @@ int		check_kind_assign(t_ltree *sub, int i, int len_arg, char **arg_tline)
 	if (eq < len_arg)
 	{
 		if (is_it_command(i, arg_tline, eq))
-			return(1);
+			return (1);
 		return (0);
 	}
 	return (1);

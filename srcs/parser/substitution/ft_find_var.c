@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_find_var.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 16:02:06 by rbednar           #+#    #+#             */
+/*   Updated: 2020/08/01 16:07:13 by rbednar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "parser.h"
 
@@ -7,19 +19,19 @@
 
 int		ft_find_var(t_ltree *sub)
 {
-	size_t	i;
-	size_t	size;
+	int		i;
+	int		size;
 	char	*find;
 
 	i = -1;
-	while (++i < sub->l_tline.len)
+	while ((size_t)++i < sub->l_tline.len)
 	{
 		if (sub->l_tline.line[i] == DOLLAR && sub->l_tline.line[i + 1] != OBRACE
 			&& sub->l_tline.line[i + 1] != OPAREN)
 		{
 			size = 1;
-			while (i + size < sub->end && sub->l_tline.line[i + size] == WORD_P &&
-				sub->l_cmd[i + size] != '/')
+			while (i + size < sub->end && sub->l_cmd[i + size] != '/'
+				&& sub->l_tline.line[i + size] == WORD_P)
 				size++;
 			find = size > 1 ? ft_strndup(&sub->l_cmd[i + 1], size - 1) : NULL;
 			if ((find = ft_find_var_value(&find)) != NULL)
@@ -40,12 +52,12 @@ int		ft_find_var(t_ltree *sub)
 
 int		ft_find_curv_var(t_ltree *sub)
 {
-	size_t	i;
-	size_t	size;
+	int		i;
+	int		size;
 	char	*find;
 
 	i = -1;
-	while (++i < sub->l_tline.len)
+	while ((size_t)++i < sub->l_tline.len)
 	{
 		if (sub->l_tline.line[i] == DOLLAR &&
 			sub->l_tline.line[i + 1] == OBRACE)
@@ -69,7 +81,7 @@ char	*ft_find_var_value(char **find)
 	return (res);
 }
 
-int		ft_param_empty(t_ltree *sub, char **find, size_t *i)
+int		ft_param_empty(t_ltree *sub, char **find, int *i)
 {
 	char	*tmp;
 	size_t	size;
@@ -85,7 +97,7 @@ int		ft_param_empty(t_ltree *sub, char **find, size_t *i)
 	return (0);
 }
 
-int		ft_error_vars(t_ltree *sub, int err, char *msg) //убрать распечатку error_handler для !, который выходит по error_out
+int		ft_error_vars(t_ltree *sub, int err, char *msg)
 {
 	sub->flags |= ERR_OUT;
 	sub->err_i |= err;

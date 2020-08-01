@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_substring_var.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 16:02:09 by rbednar           #+#    #+#             */
+/*   Updated: 2020/08/01 15:23:10 by rbednar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "parser.h"
 
@@ -6,7 +18,7 @@
 ** which returns len of parameter value
 */
 
-int		ft_substring_len(t_ltree *sub, char **line, char *oper, size_t *i)
+int		ft_substring_len(t_ltree *sub, char **line, char *oper, int *i)
 {
 	size_t	size;
 	char	*tmp;
@@ -32,7 +44,7 @@ int		ft_substring_len(t_ltree *sub, char **line, char *oper, size_t *i)
 */
 
 int		ft_substring_s_l_prefix(t_ltree *sub, char **line,
-			char *oper, size_t *i)
+			char *oper, int *i)
 {
 	size_t	len;
 	char	*tmp;
@@ -67,7 +79,7 @@ int		ft_substring_s_l_prefix(t_ltree *sub, char **line,
 */
 
 int		ft_substring_s_l_suffix(t_ltree *sub, char **line,
-			char *oper, size_t *i)
+			char *oper, int *i)
 {
 	size_t	len;
 	size_t	len_tmp;
