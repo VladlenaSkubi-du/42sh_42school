@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:02:15 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/01 16:15:04 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/01 18:54:34 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		before_add(t_ltree *sub, t_list **list)
 		return (OUT);
 	if ((err = ft_find_redirection_check(sub)) & ERR_OUT)
 	{
-		if ((err & 0xFF) != TMPFILE)
+		if ((err >> 16 & 0xFF) != TMPFILE)
 			ft_error_redir(sub);
 		else
 			error_handler(err, NULL);
