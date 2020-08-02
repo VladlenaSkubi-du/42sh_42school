@@ -79,6 +79,7 @@ int		bg_fg_wait(t_job *j);
 
 void	child_handler(int sig);
 void	set_proc_sig(void);
+void	order_sixty_six(t_job *j);
 
 /*
 ** File exec_new.c

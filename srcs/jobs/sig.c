@@ -56,3 +56,13 @@ void	set_proc_sig(void)
 	signal(SIGTTOU, SIG_DFL);
 	signal(SIGCHLD, SIG_DFL);
 }
+
+/*
+** Star Wars reference. Terminates every active process in job. Called from
+** free_job. Have to be silent in case of kill(2) failure
+*/
+
+void	order_sixty_six(t_job *j)
+{
+	kill(-j->pgid, SIGKILL);
+}
