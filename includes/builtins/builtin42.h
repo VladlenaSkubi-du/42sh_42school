@@ -141,14 +141,6 @@ int			    do_vis(char *arg);
 int			    change_or_add(char *arg);
 
 /*
-** File bg_fg_btin.c
-*/
-
-int				is_btin_only(t_job *j);
-int				btin_bg(t_ltree *pos);
-int				btin_fg(t_ltree *pos);
-
-/*
 ** File bumblebee.c
 */
 
@@ -159,7 +151,7 @@ int		        btin_bumblebee(void);
 */
 
 int				btin_alias(t_ltree *pos);
-int				btin_alias_check_flags(char **argv);
+int				btin_alias_check_options(char **argv);
 int				btin_alias_error_message(char *option, int error);
 int				btin_alias_init(char **argv);
 int				btin_alias_list_commands(void);
@@ -170,7 +162,7 @@ int				check_if_aliased(char *name);
 */
 
 int				btin_unalias(t_ltree *pos);
-int				btin_unalias_check_flags(char **argv);
+int				btin_unalias_check_options(char **argv);
 int				btin_unalias_error_message(char *option, int error);
 int				btin_unalias_init(char **argv);
 int				btin_unalias_clean_commands(void);
@@ -205,6 +197,30 @@ int				print_job_info(t_job * j, int options);
 
 int				print_by_id(t_ltree *pos, int options);
 int				id_check(t_ltree *pos);
+
+/*
+** Folder bg_fg_btins, file bg.c
+*/
+
+int				btin_bg(t_ltree *pos);
+int				btin_bg_check_options(int argc, char **argv);
+
+/*
+** Folder bg_fg_btins, file fg.c
+*/
+
+int				btin_fg(t_ltree *pos);
+int				btin_fg_check_options(int argc, char **argv);
+
+/*
+** Folder bg_fg_btins, file bg_fg_processing.c
+*/
+
+int				is_btin_only(t_job *j);
+int				back_to_life(t_job *j);
+int				btin_bg_init(int argc, char **argv);
+int				btin_fg_init(int argc, char **argv);
+int				btin_bg_fg_error_message(int where, char *option, int error);
 
 /*
 ** Folder hash, file hash.c

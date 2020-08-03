@@ -1,20 +1,29 @@
 #include "shell42.h"
 #include "builtin42.h"
 
+/*
+** No arguments as well as 'unalias --' is no-options error command
+*/
+
 int					btin_unalias(t_ltree *pos)
 {
 	int				flags;
 	
 	flags = find_options(2, (char*[]){"-a", "--help"}, pos->ar_v);
-	if (flags == HELP_FLAG || pos->ar_c < 2)
+	if (flags == HELP_FLAG)
 		return (usage_btin("unalias"));
 	if (flags < 0)
 		return (btin_return_exit_status()); //если возвращается отрицательные flags, значит,
 		//ошибка уже была выведена и нужно просто выйти из функции, ошибка OPTIONS_REQUIRED
-	return (btin_unalias_check_flags(pos->ar_v));
+	if (pos->ar_c < 2)
+	{
+		usage_btin("unalias");
+		return (OPTIONS_REQUIRED);
+	}
+	return (btin_unalias_check_options(pos->ar_v));
 }
 
-int					btin_unalias_check_flags(char **argv)
+int					btin_unalias_check_options(char **argv)
 {
 	int				i;
 
@@ -26,18 +35,20 @@ int					btin_unalias_check_flags(char **argv)
 			if (!argv[i][1])
 				return (btin_unalias_error_message(argv[i], VARIABLE_ERROR));
 			else if (argv[i][1] == 'a')
-			{
-				if (check_posix_option(argv[i], 'a', btin_unalias_error_message) != 0)
-					return (OPTIONS_REQUIRED);
-				return (btin_unalias_clean_commands());
-			}
+				return ((check_posix_option(argv[i], 'a', btin_unalias_error_message) != 0) ?
+					OPTIONS_REQUIRED : btin_unalias_clean_commands());
 			else if (argv[i][1] == '-' && !argv[i][2])
-				return (btin_unalias_init(&argv[++i]));
+			{
+				if (argv[i + 1])
+					return (btin_unalias_init(&argv[++i]));
+				usage_btin("unalias");
+				return (OPTIONS_REQUIRED);
+			}
 		}
 		else
 			return (btin_unalias_init(&argv[i]));
 	}
-	printf("nothing is changed in alias table\n");
+	printf("WARNING nothing is changed in alias table\n");
 	return (0);
 }
 

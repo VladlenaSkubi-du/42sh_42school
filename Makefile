@@ -7,7 +7,6 @@ FLAGS += -g
 
 BUILTIN_DIR = builtin
 BUILTIN = \
-			$(BUILTIN_DIR)/bg_fg_btin.c \
 			$(BUILTIN_DIR)/echo.c \
 			$(BUILTIN_DIR)/exit.c \
 			$(BUILTIN_DIR)/history.c \
@@ -24,7 +23,8 @@ BUILTIN = \
 			$(FC) \
 			$(JOBS_BTIN) \
 			$(EXPORT) \
-			$(HASH)
+			$(HASH) \
+			$(BG_FG)
 
 CD_DIR = cd
 CD =		$(BUILTIN_DIR)/$(CD_DIR)/cd.c \
@@ -61,6 +61,11 @@ FC = 		$(BUILTIN_DIR)/$(FC_DIR)/fc.c \
 			$(BUILTIN_DIR)/$(FC_DIR)/fc_modes_s.c \
 			$(BUILTIN_DIR)/$(FC_DIR)/fc_nums_calc.c \
 			$(BUILTIN_DIR)/$(FC_DIR)/fc_tmpfile.c
+
+BG_FG_DIR = bg_fg_btins
+BG_FG = 	$(BUILTIN_DIR)/$(BG_FG_DIR)/bg.c \
+			$(BUILTIN_DIR)/$(BG_FG_DIR)/fg.c \
+			$(BUILTIN_DIR)/$(BG_FG_DIR)/bg_fg_processing.c
 
 JOBS_BTIN_DIR = jobs_btin
 JOBS_BTIN =	$(BUILTIN_DIR)/$(JOBS_BTIN_DIR)/jobs_id_btin.c \
@@ -264,6 +269,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 	@mkdir -p $(DIR_O)
 #_____________________________________________________
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)
+	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(BG_FG_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(FC_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(CD_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(EXPORT_DIR)
