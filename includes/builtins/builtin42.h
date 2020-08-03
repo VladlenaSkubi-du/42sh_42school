@@ -61,6 +61,8 @@ t_btin_fc		*init_btin_fc(void);
 int				btin_check_arg_if_cmd_name(char *arg);
 int				check_if_builtin(char *cmd_name);
 int				btin_return_exit_status(void);
+int				check_posix_option(char *arg, char option,
+					int (f)(char *arg, int error));
 
 /*
 ** Sigle-file builtins
@@ -151,6 +153,27 @@ int				btin_fg(t_ltree *pos);
 */
 
 int		        btin_bumblebee(void);
+
+/*
+** File alias.c
+*/
+
+int				btin_alias(t_ltree *pos);
+int				btin_alias_check_flags(char **argv);
+int				btin_alias_error_message(char *option, int error);
+int				btin_alias_init(char **argv);
+int				btin_alias_list_commands(void);
+int				check_if_aliased(char *name);
+
+/*
+** File unalias.c
+*/
+
+int				btin_unalias(t_ltree *pos);
+int				btin_unalias_check_flags(char **argv);
+int				btin_unalias_error_message(char *option, int error);
+int				btin_unalias_init(char **argv);
+int				btin_unalias_clean_commands(void);
 
 /*
 ** Several-files builtins

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:07:42 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/25 18:11:08 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/08/03 10:39:07 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int			btin_echo(t_ltree *pos)
 	int		flags_check;
 
 	flags_check = find_options(3, (char*[]){"enE", "--help"}, pos->ar_v);
-	if (flags_check == 0x10000)
+	if (flags_check == HELP_FLAG)
 		return (usage_btin("echo"));
 	else if (flags_check < 0)
 		return (btin_return_exit_status());
