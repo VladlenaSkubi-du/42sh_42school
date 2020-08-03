@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_change_path.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:08:29 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/25 16:08:31 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/08/03 11:13:19 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			ft_to_dir(char *path)
 	return (0);
 }
 
-void		ft_change_pwd(char *path, char **env)
+void		ft_change_pwd(char **env)
 {
 	int		i;
 	int		j;
@@ -64,7 +64,7 @@ int			ft_change_path(char *path, char **env, t_cd *flags)
 		path = getcwd(NULL, MAXDIR);
 	}
 	change_pwd_value(path);
-	ft_change_pwd(path, env);
+	ft_change_pwd(env);
 	free(path);
 	return (0);
 }

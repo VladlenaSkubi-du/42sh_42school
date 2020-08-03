@@ -26,7 +26,7 @@ int					btin_hash(t_ltree *pos)
 		return (NONINERACTIVE);
 	}
 	flags = find_options(2, (char*[]){"rld", "--help"}, pos->ar_v);
-	if (flags == 0x10000) //change (shit from ass)
+	if (flags == HELP_FLAG) //change (shit from ass)
 		return (usage_btin("hash"));
 	if (flags < 0)
 		return (btin_return_exit_status());

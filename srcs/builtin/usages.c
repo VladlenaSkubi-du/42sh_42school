@@ -18,6 +18,10 @@ int				usage_btin(char *str)
 		ft_putendl_fd("echo [-neE] [arg ...]", STDOUT_FILENO);
 	else if (ft_strcmp(str, "pwd") == 0)
 		ft_putendl_fd("pwd [-LP]", STDOUT_FILENO);
+	else if (ft_strcmp(str, "alias") == 0)
+		ft_putendl_fd("alias [alias-name[=string]...]", STDOUT_FILENO);
+	else if (ft_strcmp(str, "unalias") == 0)
+		ft_putendl_fd("unalias [-a|alias-name ...]", STDOUT_FILENO);
 	usage_btin_other(str);
 	return (0);
 }

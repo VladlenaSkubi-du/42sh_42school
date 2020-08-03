@@ -18,6 +18,8 @@ BUILTIN = \
 			$(BUILTIN_DIR)/usages.c \
 			$(BUILTIN_DIR)/exsign_btin.c \
 			$(BUILTIN_DIR)/bumblebee.c \
+			$(BUILTIN_DIR)/alias.c \
+			$(BUILTIN_DIR)/unalias.c \
             $(CD) \
 			$(FC) \
 			$(JOBS_BTIN) \

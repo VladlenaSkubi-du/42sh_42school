@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fc.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:36:44 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/25 17:37:06 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/08/03 10:39:07 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int					btin_fc(t_ltree *pos)
 	}
 	fc_arg = init_btin_fc();
 	flags = find_options(2, (char*[]){"elsrn", "--help"}, pos->ar_v);
-	if (flags == 0x10000)
+	if (flags == HELP_FLAG)
 		return (usage_btin("fc"));
 	if (flags < 0)
 		return (btin_return_exit_status());

@@ -16,7 +16,7 @@ int					btin_history(t_ltree *pos)
 	flags = find_options(2, (char*[]){"c", "--help"}, pos->ar_v);
 	if (pos->ar_c == 1 && !flags)
 		return (btin_history_noargs());
-	if (flags == 0x10000)
+	if (flags == HELP_FLAG)
 		return (usage_btin("history"));
 	i = 0;
 	while (pos->ar_v[++i] && pos->ar_v[i][0] == '-')

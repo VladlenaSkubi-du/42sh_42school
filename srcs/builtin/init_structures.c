@@ -49,7 +49,7 @@ int					check_if_builtin(char *cmd_name)
 {
 	int				i;
 
-	i = 1;	
+	i = 1;
 	while (g_builtins[i])
 	{
 		if (!ft_strcmp(cmd_name, g_builtins[i]))
@@ -57,4 +57,18 @@ int					check_if_builtin(char *cmd_name)
 		i++;
 	}
 	return (-1);
+}
+
+int					check_posix_option(char *arg, char option,
+						int (f)(char *arg, int error))
+{
+	int				j;
+
+	j = 0;
+	while (arg[++j])
+	{
+		if (arg[j] != option)
+			return (f(arg, OPTIONS_REQUIRED));
+	}
+	return (0);
 }

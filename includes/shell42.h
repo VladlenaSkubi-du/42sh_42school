@@ -71,6 +71,8 @@
 # define			SET_VIS		0x2
 # define			READONLY 	0x4
 
+# define			HELP_FLAG	0x10000
+
 /*
 ** Values for shell_variables:
 ** MAX_EXIT_STATUS is length of exit_status number

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_list.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 19:07:24 by rbednar           #+#    #+#             */
-/*   Updated: 2020/06/25 18:24:44 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/08/03 11:19:13 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 # define BUILTINS_NUM 19
 
-static char		*g_builtins[] = {"alias_fff", "unalias_fff", \
-	"hash_fff", "set", "unset", "export", \
+static char		*g_builtins[] = {"alias", "unalias", \
+	"hash", "set", "unset", "export", \
 	"cd", "exit", "echo", "type_fff", "fg", "bg", "jobs", "fc", \
-	"history", "pwd", "bumblebee", "hash", NULL};
+	"history", "pwd", "bumblebee", NULL};
 
-static int 		(*g_builtins_func[BUILTINS_NUM])() = {NULL,\
-	NULL, NULL, btin_set, btin_unset, btin_export, btin_cd, btin_exit, \
+static int 		(*g_builtins_func[BUILTINS_NUM])() = {btin_alias,\
+	btin_unalias, btin_hash, btin_set, btin_unset, btin_export, btin_cd, btin_exit, \
 	btin_echo, NULL, btin_fg, btin_bg, btin_jobs, btin_fc, btin_history, \
-	btin_pwd, btin_bumblebee, btin_hash, NULL};
+	btin_pwd, btin_bumblebee, NULL};
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:57:32 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/25 18:25:44 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/03 10:39:07 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int			btin_cd(t_ltree *pos)
 	int		flags_check;
 
 	flags_check = find_options(2, (char*[]){"LP", "--help"}, pos->ar_v);
-	if (flags_check == 0x10000)
+	if (flags_check == HELP_FLAG)
 		return (usage_btin("cd"));
 	if (flags_check < 0)
 		return (btin_return_exit_status());

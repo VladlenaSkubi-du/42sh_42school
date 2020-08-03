@@ -5,7 +5,7 @@
 int				btin_exit(t_ltree *pos)
 {
 	int			status;
-	t_job			*job_iter;
+	t_job		*job_iter;
 
 	job_iter = g_first_job;
 	while (job_iter)

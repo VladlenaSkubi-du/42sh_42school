@@ -42,7 +42,7 @@ int		ft_builtins_check_old(t_ltree *pos, int flag)
 {
 	int	i;
 
-	i = 1;	
+	i = 0;	
 	while (g_builtins[i])
 	{
 		if (!ft_strcmp(pos->ar_v[0], g_builtins[i]))

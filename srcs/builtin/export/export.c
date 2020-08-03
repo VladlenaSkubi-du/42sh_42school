@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:41:48 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/25 18:05:51 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/08/03 11:14:15 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int			change_or_add(char *arg)
 	int		i;
 	int		j;
 	char	*tmp;
-	char	*error;
 
 	i = 0;
 	while (arg[i] != '=')
@@ -101,7 +100,7 @@ int			btin_export(t_ltree *pos)
 	int		flags;
 
 	flags = find_options(2, (char*[]){"p", "--help"}, pos->ar_v);
-	if (flags == 0x10000)
+	if (flags == HELP_FLAG)
 		return (usage_btin("export"));
 	else if (flags < 0)
 		return (btin_return_exit_status());
