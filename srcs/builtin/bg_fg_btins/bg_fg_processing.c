@@ -33,58 +33,72 @@ int		back_to_life(t_job *j)
 	return (0);
 }
 
-int		btin_bg(t_ltree *pos)
+int		btin_bg_init(int argc, char **argv)
 {
 	t_job		*job_iter;
 	int			id;
+	int			i;
 
 	job_iter = g_first_job;
+	i = 1;
 	if (!job_iter) /* No jobs */
-		return (error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), "current"));
-	if (pos->ar_c < 2) /* Empty fg case */
+		return (btin_bg_fg_error_message(2, "current", VARIABLE_ERROR));
+	if (argc < 2) /* Empty fg case */
 		while (job_iter->next && !is_btin_only(job_iter->next))
 			job_iter = job_iter->next;
-	else if (pos->ar_v[1][0] == '%')
+	else if (argv[i][0] == '%')
 	{
-		id = ft_atoi((pos->ar_v)[1] + 1);
+		id = ft_atoi(argv[i] + 1);
 		while (job_iter && job_iter->jid != id)
 			job_iter = job_iter->next;
 		if (!job_iter)
-			return (error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), pos->ar_v[1]));
+			return (btin_bg_fg_error_message(2, argv[i], VARIABLE_ERROR));
 	}
-	else
-		return (error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), pos->ar_v[1]));
 	if (is_btin_only(job_iter))
-		return (error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), "current"));
+		return (btin_bg_fg_error_message(2, "current", VARIABLE_ERROR));
 	back_to_life(job_iter);
 	put_job_in_background(job_iter, 1);
 	return (0);
 }
 
-int		btin_fg(t_ltree *pos)
+int		btin_fg_init(int argc, char **argv)
 {
 	t_job		*job_iter;
 	int			id;
+	int			i;
 
 	job_iter = g_first_job;
+	i = 1;
 	if (!job_iter) /* No jobs */
-		return (error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), "current"));
-	if (pos->ar_c < 2) /* Empty fg case */
+		return (btin_bg_fg_error_message(1, "current", VARIABLE_ERROR));
+	if (argc < 2) /* Empty fg case */
 		while (job_iter->next && !is_btin_only(job_iter->next))
 			job_iter = job_iter->next;
-	else if (pos->ar_v[1][0] == '%')
+	else if (argv[i][0] == '%')
 	{
-		id = ft_atoi((pos->ar_v)[1] + 1);
+		id = ft_atoi(argv[i] + 1);
 		while (job_iter && job_iter->jid != id)
 			job_iter = job_iter->next;
 		if (!job_iter)
-			return (error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), pos->ar_v[1]));
+			return (btin_bg_fg_error_message(1, argv[i], VARIABLE_ERROR));
 	}
-	else
-		return (error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), pos->ar_v[1]));
 	if (is_btin_only(job_iter))
-		return (error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), "current"));
+		return (btin_bg_fg_error_message(1, "current", VARIABLE_ERROR));
 	back_to_life(job_iter);
 	put_job_in_foreground(job_iter, 1);
 	return (0);
+}
+
+/*
+** @where is 1 for fg and 2 for bg
+*/
+
+int		btin_bg_fg_error_message(int where, char *option, int error)
+{
+	char			*error_message;
+
+	error_message = ft_strjoin(((where == 1) ? "fg: " : "bg: "), option);
+	error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), error_message);
+	free(error_message);
+	return (error);
 }
