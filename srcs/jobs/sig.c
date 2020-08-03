@@ -64,5 +64,13 @@ void	set_proc_sig(void)
 
 void	order_sixty_six(t_job *j)
 {
-	kill(-j->pgid, SIGKILL);
+	t_process	*p_iter;
+
+	p_iter = j->first_process;
+	while (p_iter)
+	{
+		if (!p_iter->completed && !p_iter->btin)
+			kill(p_iter->pid, SIGKILL);
+		p_iter = p_iter->next;
+	}
 }
