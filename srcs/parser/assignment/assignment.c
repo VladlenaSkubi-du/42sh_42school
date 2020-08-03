@@ -77,7 +77,7 @@ int		is_it_command(int i, char **arg_tline, int eq)
 	if (eq == 0)
 		return (1);
 	else if (eq-- > 0)
-		while (eq > 0)
+		while (eq >  0)
 		{
 			if (arg_tline[i][eq] != WORD_P)
 				break ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:13:51 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/03 11:50:06 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:42:40 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int		fd_list_process(t_ltree *pos, int mode)
 
 	if (!mode)
 	{
-		std_save(0);
 		fd_list = pos->fd;
 		while (fd_list)
 		{
@@ -77,10 +76,7 @@ int		fd_list_process(t_ltree *pos, int mode)
 			if (redir->fd_old != CLOSE)
 				dup2(redir->fd_old, redir->fd_new);
 			else
-			{
-				dup2(redir->fd_new, redir->fd_new);
 				close(redir->fd_new);
-			}
 			fd_list = fd_list->next;
 		}
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   job_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:25:17 by hshawand          #+#    #+#             */
-/*   Updated: 2020/07/26 16:46:18 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:45:08 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int			job_init(t_ltree *entity)
 	t_job		*job;
 
 	ret = 0;
-	fd_list_process(entity, 0);
+	std_save(0);
 	set_globals_and_signals();
 	if (!(entity->flags & (int)PIPED_IN) || !g_first_job)
 		!(job = job_new()) ? ret++ : 0;
@@ -125,6 +125,7 @@ int			job_init(t_ltree *entity)
 		while (job->next)
 			job = job->next;
 	}
+	fd_list_process(entity, 0);
 	ret += process_new(job, entity);
 	if (!(entity->flags & (int)PIPED_OUT))
 	{
