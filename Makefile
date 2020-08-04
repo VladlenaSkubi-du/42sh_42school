@@ -69,7 +69,8 @@ BG_FG = 	$(BUILTIN_DIR)/$(BG_FG_DIR)/bg.c \
 
 JOBS_BTIN_DIR = jobs_btin
 JOBS_BTIN =	$(BUILTIN_DIR)/$(JOBS_BTIN_DIR)/jobs_id_btin.c \
-			$(BUILTIN_DIR)/$(JOBS_BTIN_DIR)/jobs_main_btin.c
+			$(BUILTIN_DIR)/$(JOBS_BTIN_DIR)/jobs_main_btin.c \
+			$(BUILTIN_DIR)/$(JOBS_BTIN_DIR)/jobs_btin_processing.c
 
 #______________________________________________________________________________
 

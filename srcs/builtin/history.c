@@ -9,29 +9,48 @@
 int					btin_history(t_ltree *pos)
 {
 	int				flags;
-	int				i;
-	int				j;
-	int				tmp;
 	
 	flags = find_options(2, (char*[]){"c", "--help"}, pos->ar_v);
-	if (pos->ar_c == 1 && !flags)
-		return (btin_history_noargs());
 	if (flags == HELP_FLAG)
 		return (usage_btin("history"));
+	if (flags < 0)
+		return (btin_return_exit_status());
+	if (pos->ar_c == 1 && !flags)
+		return (btin_history_noargs());
+	return (btin_history_check_options(pos->ar_v));
+}
+
+int					btin_history_error_message(char *option, int error)
+{
+	char			*error_message;
+
+	error_message = ft_strjoin("history: ", option);
+	error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), error_message);
+	free(error_message);
+	return (error);
+}
+
+int					btin_history_check_options(char **argv)
+{
+	int				i;
+
 	i = 0;
-	while (pos->ar_v[++i] && pos->ar_v[i][0] == '-')
+	while (argv[++i])
 	{
-		j = 0;
-		if (!pos->ar_v[i][1])
-			return (invalid_option_btin(pos->ar_v[i], pos->ar_v[0]));
-		while (pos->ar_v[i][++j] == 'c' && pos->ar_v[i][j])
-			tmp = i;
-		if (pos->ar_v[i][j] == '-' && !pos->ar_v[i][j + 1])
-			break ;
-		if (j > 1 && (!(pos->ar_v[i][j] == 'c' || pos->ar_v[i][j] == '\0')))
-			return (invalid_option_btin(&pos->ar_v[i][j], pos->ar_v[0]));	
+		if (argv[i][0] == '-')
+		{
+			if (!argv[i][1])
+				return (btin_history_error_message(argv[i], OPTIONS_REQUIRED));
+			else if (argv[i][1] == 'c')
+				return ((check_posix_option(argv[i], "c", btin_history_error_message) != 0) ?
+					OPTIONS_REQUIRED : btin_history_clear());
+			else if (argv[i][1] == '-' && !argv[i][2])
+				return (btin_history_noargs());
+		}
+		else
+			return (btin_history_noargs());
 	}
-	return ((tmp > 0) ? btin_history_clear() : btin_history_noargs());
+	return (0);
 }
 
 int					btin_history_noargs(void)

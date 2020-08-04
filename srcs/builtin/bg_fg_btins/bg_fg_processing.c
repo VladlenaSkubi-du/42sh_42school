@@ -90,7 +90,7 @@ int		btin_fg_init(int argc, char **argv)
 }
 
 /*
-** @where is 1 for fg and 2 for bg
+** @where is 1 for fg and 2 for
 */
 
 int		btin_bg_fg_error_message(int where, char *option, int error)

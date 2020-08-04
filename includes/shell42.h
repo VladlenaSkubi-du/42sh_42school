@@ -203,7 +203,6 @@ int					options_in_arg(char *arri, int num,
 int					options_proc(char arrij, char *flags_arr, int *final);
 int					suboptions_proc(char *arri, int num,
 						char *flags_arr[num], int *final);
-int					invalid_option_btin(char *option, char *name);
 
 /*
 ** File options_42sh_42.c

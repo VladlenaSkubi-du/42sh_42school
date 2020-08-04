@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:36:44 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/03 10:39:07 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/04 00:54:21 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ int					btin_fc(t_ltree *pos)
 		error_handler(NONINERACTIVE, pos->ar_v[0]);
 		return (NONINERACTIVE);
 	}
-	fc_arg = init_btin_fc();
 	flags = find_options(2, (char*[]){"elsrn", "--help"}, pos->ar_v);
 	if (flags == HELP_FLAG)
 		return (usage_btin("fc"));
 	if (flags < 0)
 		return (btin_return_exit_status());
+	fc_arg = init_btin_fc();
 	flags = 0;
 	if (btin_fc_find_mode(pos->ar_v, &fc_arg, &flags) == HIST_ERROR)
 	{
