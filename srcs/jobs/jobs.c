@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jobs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:53:30 by hshawand          #+#    #+#             */
-/*   Updated: 2020/07/26 17:00:23 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/03 14:57:55 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int				fork_job(t_process *p, t_job *j, int *infl, int *outfl)
 	}
 	else
 		*outfl = j->stdout;
+	
 	pid = !p->btin ? fork() : 0;
 	if (pid == 0)
 		launch_process(p, j->pgid, (int[3]){*infl, *outfl, j->stderr}, j->fg);
