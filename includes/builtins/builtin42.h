@@ -85,6 +85,16 @@ int				btin_set(t_ltree *pos);
 int				btin_set_init(void);
 
 /*
+** File type.c
+*/
+
+int				btin_type(t_ltree *pos);
+int				btin_type_check_options(char **argv);
+int				btin_type_error_message(char *option, int error);
+int				btin_type_init(char **argv);
+int				btin_type_turn_to_hash(char *arg);
+
+/*
 ** File unset.c
 */
 
