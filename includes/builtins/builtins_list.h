@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 19:07:24 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/03 11:19:13 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/04 13:43:54 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 
 static char		*g_builtins[] = {"alias", "unalias", \
 	"hash", "set", "unset", "export", \
-	"cd", "exit", "echo", "type_fff", "fg", "bg", "jobs", "fc", \
+	"cd", "exit", "echo", "type", "fg", "bg", "jobs", "fc", \
 	"history", "pwd", "bumblebee", NULL};
 
 static int 		(*g_builtins_func[BUILTINS_NUM])() = {btin_alias,\
 	btin_unalias, btin_hash, btin_set, btin_unset, btin_export, btin_cd, btin_exit, \
-	btin_echo, NULL, btin_fg, btin_bg, btin_jobs, btin_fc, btin_history, \
+	btin_echo, btin_type, btin_fg, btin_bg, btin_jobs, btin_fc, btin_history, \
 	btin_pwd, btin_bumblebee, NULL};
 
 #endif

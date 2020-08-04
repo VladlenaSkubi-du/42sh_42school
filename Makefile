@@ -19,6 +19,7 @@ BUILTIN = \
 			$(BUILTIN_DIR)/bumblebee.c \
 			$(BUILTIN_DIR)/alias.c \
 			$(BUILTIN_DIR)/unalias.c \
+			$(BUILTIN_DIR)/type.c \
             $(CD) \
 			$(FC) \
 			$(JOBS_BTIN) \

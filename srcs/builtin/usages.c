@@ -44,6 +44,8 @@ int				usage_btin_other(char *str)
 		ft_putendl_fd("exit [numeric arg]", STDOUT_FILENO);
 	else if (ft_strcmp(str, "hash") == 0)
 		ft_putendl_fd("hash [-l|-r] [-d name ...] [name ...]", STDOUT_FILENO);
+	else if (ft_strcmp(str, "type") == 0)
+		ft_putendl_fd("type [name...]", STDOUT_FILENO);
 	return (0);
 }
 
