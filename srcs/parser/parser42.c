@@ -10,7 +10,7 @@ int		parser(char *line)
 		return (0);
 	}
 	g_cmd = line;
-	g_cmd_size = ft_strlen(g_cmd);
+	// g_cmd_size = ft_strlen(g_cmd);
 	ft_get_techline(g_cmd, &g_techline);
 	if (ft_atoi(find_env_value("42SH_NONINTERACTIVE")) == 0 &&
 			g_hist.len > 1)
@@ -22,7 +22,7 @@ int		parser(char *line)
 int		pars_lex_exec(void) //перестроить логику обращения к функциям - Влада в 21
 {
 	if (g_prompt.prompt_func != heredoc_prompt)
-		if (nullify(&g_techline.line, g_cmd_size) == OUT)
+		if (nullify(&g_techline.line, ft_strlen(g_cmd)) == OUT)
 		{
 			clean_parser42();
 			return (0);
