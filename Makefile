@@ -17,15 +17,19 @@ BUILTIN = \
 			$(BUILTIN_DIR)/usages.c \
 			$(BUILTIN_DIR)/exsign_btin.c \
 			$(BUILTIN_DIR)/bumblebee.c \
-			$(BUILTIN_DIR)/alias.c \
 			$(BUILTIN_DIR)/unalias.c \
 			$(BUILTIN_DIR)/type.c \
+			$(ALIAS) \
             $(CD) \
 			$(FC) \
 			$(JOBS_BTIN) \
 			$(EXPORT) \
 			$(HASH) \
 			$(BG_FG)
+
+ALIAS_DIR = alias
+ALIAS =		$(BUILTIN_DIR)/$(ALIAS_DIR)/alias.c \
+			$(BUILTIN_DIR)/$(ALIAS_DIR)/alias_parse.c
 
 CD_DIR = cd
 CD =		$(BUILTIN_DIR)/$(CD_DIR)/cd.c \
@@ -256,8 +260,8 @@ BUILTIN_INCLUDE_DIR = $(INCLUDE_DIR)/builtins
 
 SHARED_INCLUDE_DIR = $(INCLUDE_DIR)
 
-INCLUDES = -I$(BUILTIN_INCLUDE_DIR) -I$(SHARED_INCLUDE_DIR) \
-			-I$(LIB_INCLUDE_DIR) -I$(LIB_PRINTF_INCLUDE_DIR)
+INCLUDES = -I $(BUILTIN_INCLUDE_DIR) -I $(SHARED_INCLUDE_DIR) \
+			-I $(LIB_INCLUDE_DIR) -I $(LIB_PRINTF_INCLUDE_DIR)
 
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
@@ -272,9 +276,9 @@ LIBS_INCLUDED = -Llibft42 -lft42 -ltermcap
 
 #______________________________________________________________________________
 
-all:	$(NAME)
+all: $(LIBFT) $(NAME)
 
-$(NAME): $(OBJS) $(LIB_INCLUDE)
+$(NAME): $(OBJS)
 	@make -C ./libft42
 	@echo "\033[32;01mCompiling 42sh...\033[0m"
 	@gcc $(FLAGS) $(OBJS) -o $(NAME) $(LIBS_INCLUDED)
@@ -285,6 +289,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c $(wildcard $(BUILTIN_INCLUDE_DIR)/*.h) \
 	@mkdir -p $(DIR_O)
 #_____________________________________________________
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)
+	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(ALIAS_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(BG_FG_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(FC_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(CD_DIR)
