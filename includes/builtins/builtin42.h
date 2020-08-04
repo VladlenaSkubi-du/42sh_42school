@@ -164,17 +164,6 @@ int			    change_or_add(char *arg);
 int		        btin_bumblebee(void);
 
 /*
-** File alias.c
-*/
-
-int				btin_alias(t_ltree *pos);
-int				btin_alias_check_options(char **argv);
-int				btin_alias_error_message(char *option, int error);
-int				btin_alias_init(char **argv);
-int				btin_alias_list_commands(void);
-int				check_if_aliased(char *name);
-
-/*
 ** File unalias.c
 */
 
@@ -188,6 +177,26 @@ int				btin_unalias_clean_commands(void);
 ** Several-files builtins
 ** ____________________________________________________________________________
 */
+
+/*
+** Folder alias, file alias.c
+*/
+
+int				btin_alias(t_ltree *pos);
+int				btin_alias_check_options(char **argv);
+int				btin_alias_error_message(char *option, int error);
+int				btin_alias_init(char **argv, char *ans, int flag);
+int				btin_alias_list_commands(void);
+int				check_if_aliased(char *name);
+
+/*
+** Folder alias, file alias_parse.c
+*/
+
+int				find_in_alias(char **arr, int *j, char *name);
+int				btin_alias_save(char **alias, char *arg);
+int				btin_alias_print_one(char *arg);
+int				btin_alias_merge_buf(char **arr, char **buf);
 
 /*
 ** Folder fc, file fc.c

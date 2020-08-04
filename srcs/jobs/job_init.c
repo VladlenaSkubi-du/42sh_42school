@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:25:17 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/03 14:45:08 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/03 15:14:12 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ int			job_init(t_ltree *entity)
 		while (job->next)
 			job = job->next;
 	}
-	fd_list_process(entity, 0);
 	ret += process_new(job, entity);
 	if (!(entity->flags & (int)PIPED_OUT))
 	{
