@@ -245,17 +245,30 @@ DIR_O = objs
 
 DIR_S = srcs
 
+LIB_INCLUDE_DIR = libft42/includes
+LIB_PRINTF_INCLUDE_DIR = libft42/ft_printf/includes
+LIB_HEADERS = \
+			$(wildcard $(LIB_INCLUDE_DIR)/*.h) \
+			$(wildcard $(LIB_PRINTF_INCLUDE_DIR)/*.h)
+
+INCLUDE_DIR = includes
+BUILTIN_INCLUDE_DIR = $(INCLUDE_DIR)/builtins
+
+SHARED_INCLUDE_DIR = $(INCLUDE_DIR)
+
+INCLUDES = -I$(BUILTIN_INCLUDE_DIR) -I$(SHARED_INCLUDE_DIR) \
+			-I$(LIB_INCLUDE_DIR) -I$(LIB_PRINTF_INCLUDE_DIR)
+
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 
-LIBFT = libft42
-LIB_INCLUDE = $(LIBFT)/includes
-LIBFT_PATH = $(LIBFT)/libft42.a
+LIBFT = $(addsuffix .libft42 , libft42/)
 
-INCLUDE_DIR = includes
-BUILTIN_INCLUDE_DIR = $(INCLUDE_DIR)/builtins
-SHARED_INCLUDE_DIR = $(INCLUDE_DIR)
+%.libft42:  $(LIB_HEADERS)
+	@make -C $*
+
+LIBS_INCLUDED = -Llibft42 -lft42 -ltermcap
 
 #______________________________________________________________________________
 
@@ -264,10 +277,11 @@ all:	$(NAME)
 $(NAME): $(OBJS) $(LIB_INCLUDE)
 	@make -C ./libft42
 	@echo "\033[32;01mCompiling 42sh...\033[0m"
-	@gcc $(FLAGS) $(OBJS) -o $(NAME) $(LIBFT_PATH) -ltermcap
+	@gcc $(FLAGS) $(OBJS) -o $(NAME) $(LIBS_INCLUDED)
 	@echo "\033[32;01m42sh is ready\033[0m"
 
-$(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
+$(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c $(wildcard $(BUILTIN_INCLUDE_DIR)/*.h) \
+									$(wildcard $(SHARED_INCLUDE_DIR)/*.h)
 	@mkdir -p $(DIR_O)
 #_____________________________________________________
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)
@@ -300,7 +314,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell42.h
 #_____________________________________________________
 	@mkdir -p $(DIR_O)/$(EXEC_DELETE_DIR)
 
-	gcc $(FLAGS) -c -I$(LIB_INCLUDE) -I$(BUILTIN_INCLUDE_DIR) -I$(SHARED_INCLUDE_DIR) -o $@ $<
+	gcc $(FLAGS) -c $(INCLUDES) -o $@ $<
 
 clean:
 	@echo "\033[34mDeleting 42sh o-files\033[0m"

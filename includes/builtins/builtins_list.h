@@ -6,14 +6,14 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 19:07:24 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/04 13:43:54 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/04 16:25:58 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_LIST_H
 # define BUILTINS_LIST_H
 
-# define BUILTINS_NUM 19
+# define BUILTINS_NUM 18
 
 static char		*g_builtins[] = {"alias", "unalias", \
 	"hash", "set", "unset", "export", \
