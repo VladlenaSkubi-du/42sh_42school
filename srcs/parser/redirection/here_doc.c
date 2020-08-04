@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:55:19 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/01 15:45:35 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/04 17:15:27 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ int		ft_g_init_heredoc(void)
 	g_heredoc.buf_size = HEREDOC_BUF;
 	g_heredoc.g_cmd_copy = ft_strdup(g_cmd);
 	g_heredoc.g_techline_copy = ft_strdup(g_techline.line);
-	g_heredoc.g_len_copy = g_cmd_size;
+	// g_heredoc.g_len_copy = g_cmd_size;
+	g_heredoc.g_len_copy = ft_strlen(g_cmd);
 	return (0);
 }
