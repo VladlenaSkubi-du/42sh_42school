@@ -12,11 +12,12 @@
 ** Flags masks used in @flags in btin_fc and btin_hash
 */
 
-# define		FLAG_N 0x1
-# define		FLAG_R 0x2
-# define		FLAG_S 0x4
-# define		FLAG_L 0x8
-# define		FLAG_E 0x10
+# define		FLAG_N 0x10
+# define		FLAG_R 0x20
+# define		FLAG_S 0x40
+# define		FLAG_L 0x80
+# define		FLAG_E 0x100
+# define		FLAG_P 0x200
 
 # define        ARG_ALIAS		-1
 # define        ARG_BUILTIN		-2
@@ -61,7 +62,7 @@ t_btin_fc		*init_btin_fc(void);
 int				btin_check_arg_if_cmd_name(char *arg);
 int				check_if_builtin(char *cmd_name);
 int				btin_return_exit_status(void);
-int				check_posix_option(char *arg, char option,
+int				check_posix_option(char *arg, char *options,
 					int (f)(char *arg, int error));
 
 /*
@@ -80,19 +81,24 @@ int				btin_exit_arguments(char **ar_v);
 ** File set.c
 */
 
-int				btin_set(void);
+int				btin_set(t_ltree *pos);
+int				btin_set_init(void);
 
 /*
 ** File unset.c
 */
 
 int				btin_unset(t_ltree *pos);
+int				btin_unset_init(int argc, char **argv);
+void			btin_unset_error_message(char *find);
 
 /*
 ** File history.c
 */
 
 int				btin_history(t_ltree *pos);
+int				btin_history_check_options(char **argv);
+int				btin_history_error_message(char *option, int error);
 int				btin_history_clear(void);
 int				btin_history_noargs(void);
 
@@ -126,8 +132,9 @@ int			    parse_echo_flags(char **argv, t_ec *echo_flags, int i);
 */
 
 int             btin_pwd(t_ltree *pos);
+int				btin_pwd_init(char **argv);
 int             btin_pwd_valid(char **argv);
-int		        pwd_error(char c, int en);
+int				btin_pwd_error_message(char *option, int error);
 
 /*
 ** File export.c
@@ -189,14 +196,23 @@ int				btin_cd(t_ltree *pos);
 */
 
 int				btin_jobs(t_ltree *pos);
+int				btin_jobs_init(int argc, char **argv);
 int				print_job_info(t_job * j, int options);
+int				get_status(t_job	*j, char *buff, int options);
 
 /*
 ** Folder jobs_btin, file jobs_id_btin.c
 */
 
-int				print_by_id(t_ltree *pos, int options);
-int				id_check(t_ltree *pos);
+int				print_by_id(int argc, char **argv, int options);
+int				id_check(int argc, char **argv);
+
+/*
+** Folder jobs_btin, file jobs_btin_processing.c
+*/
+
+int				btin_jobs_check_options(char **argv, int *iter);
+int				btin_jobs_error_message(char *option, int error);
 
 /*
 ** Folder bg_fg_btins, file bg.c
@@ -227,7 +243,8 @@ int				btin_bg_fg_error_message(int where, char *option, int error);
 */
 
 int             btin_hash(t_ltree *pos);
-int				btin_hash_check_flags(char **argv);
+int				btin_hash_check_options(char **argv);
+int				btin_hash_check_flags(char *arg);
 int				btin_hash_error_message(char *option, int error);
 int				btin_hash_clean_table();
 

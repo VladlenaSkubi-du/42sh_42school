@@ -59,15 +59,28 @@ int					check_if_builtin(char *cmd_name)
 	return (-1);
 }
 
-int					check_posix_option(char *arg, char option,
+int					check_posix_option(char *arg, char *options,
 						int (f)(char *arg, int error))
 {
 	int				j;
+	int				k;
+	int				check;
 
 	j = 0;
+	check = 0;
 	while (arg[++j])
 	{
-		if (arg[j] != option)
+		k = -1;
+		check = 0;
+		while (options[++k])
+		{
+			if (arg[j] == options[k])
+			{
+				check = 1;
+				break ;
+			}
+		}
+		if (check == 0)
 			return (f(arg, OPTIONS_REQUIRED));
 	}
 	return (0);

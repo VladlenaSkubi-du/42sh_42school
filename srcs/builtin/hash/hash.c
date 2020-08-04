@@ -32,10 +32,10 @@ int					btin_hash(t_ltree *pos)
 		return (btin_return_exit_status());
 	if (pos->ar_c == 1)
 		return (btin_hash_list_hashtable());
-	return (btin_hash_check_flags(pos->ar_v));
+	return (btin_hash_check_options(pos->ar_v));
 }
 
-int					btin_hash_check_flags(char **argv)
+int					btin_hash_check_options(char **argv)
 {
 	int				i;
 
@@ -46,22 +46,31 @@ int					btin_hash_check_flags(char **argv)
 		{
 			if (!argv[i][1])
 				return (btin_hash_error_message(argv[i], OPTIONS_REQUIRED));
-			else if (argv[i][1] == 'r')
-				return (btin_hash_clean_table());
-			else if (argv[i][1] == 'l')
-				return (btin_hash_list_hashtable());
-			else if (argv[i][1] == 'd') //проверка аргументов
-				return (btin_hash_delete_elements(&argv[++i]));
+			else if (argv[i][1] == 'r' || argv[i][1] == 'l')
+				btin_hash_check_flags(argv[i]);
+			else if (argv[i][1] == 'd')
+				return ((check_posix_option(argv[i], "rld", btin_hash_error_message) != 0) ?
+					OPTIONS_REQUIRED : btin_hash_delete_elements(&argv[++i]));
 			else if (argv[i][1] == '-' && !argv[i][2])
-				return (btin_hash_add_to_hashtable(&argv[++i]));
+				return ((argv[i + 1]) ? btin_hash_add_to_hashtable(&argv[++i]) :
+					btin_hash_list_hashtable());
 		}
 		else if (argv[i][0] == '/')
 			continue;
 		else
 			return (btin_hash_add_to_hashtable(&argv[i]));
 	}
-	printf("nothing is changed in the hashtable\n");
+	printf("WARNING nothing is changed in the hashtable\n");
 	return (0);
+}
+
+int					btin_hash_check_flags(char *arg)
+{
+	if (arg[1] == 'r')
+		return ((check_posix_option(arg, "rld", btin_hash_error_message) != 0) ?
+			OPTIONS_REQUIRED : btin_hash_clean_table());
+	return ((check_posix_option(arg, "rld", btin_hash_error_message) != 0) ?
+		OPTIONS_REQUIRED : btin_hash_list_hashtable());
 }
 
 int					btin_hash_error_message(char *option, int error)

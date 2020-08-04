@@ -35,7 +35,7 @@ int					btin_unalias_check_options(char **argv)
 			if (!argv[i][1])
 				return (btin_unalias_error_message(argv[i], VARIABLE_ERROR));
 			else if (argv[i][1] == 'a')
-				return ((check_posix_option(argv[i], 'a', btin_unalias_error_message) != 0) ?
+				return ((check_posix_option(argv[i], "a", btin_unalias_error_message) != 0) ?
 					OPTIONS_REQUIRED : btin_unalias_clean_commands());
 			else if (argv[i][1] == '-' && !argv[i][2])
 			{
