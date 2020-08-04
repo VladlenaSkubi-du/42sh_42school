@@ -40,6 +40,7 @@ int				interactive_shell(void)
 	// if (tcgetpgrp(STDIN_FILENO) != group_pid) //вылетает дебаггер временно выключено
 	// 	kill(group_pid, SIGTTIN);
 	tmp = 0;
+	btin_alias_init(NULL, NULL, SAVE);
 	while (1)
 	{
 		signals_reroute(1);
