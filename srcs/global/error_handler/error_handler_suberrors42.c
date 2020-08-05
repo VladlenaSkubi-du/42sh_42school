@@ -52,7 +52,7 @@ int				syntax_errors(int status, char *str)
 		ft_putstr_fd("unexpected EOF while looking for matching `", STDERR_FILENO);
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd("'", STDERR_FILENO);
-		ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
+		ft_putstr_fd(find_env_value("0"), STDERR_FILENO);
 		ft_putstr_fd(": syntax error: ", STDERR_FILENO);
 		ft_putendl_fd("unexpected end of file", STDERR_FILENO);
 		return (0);
