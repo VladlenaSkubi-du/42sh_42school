@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 15:08:22 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/05 16:36:37 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/05 17:47:33 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		btin_alias_save(t_list **buf, char *arg, int eq)
 	{
 		tmp = ft_strdup("`");
 		tmp = ft_strrejoin(tmp, name);
-		tmp = ft_strrejoin(tmp, "': invalid alias name");
+		tmp = ft_strrejoin(tmp, "': invalid alias name\n");
 		btin_alias_error_message(tmp, 1);
 	}
 	free(tmp);
@@ -81,7 +81,7 @@ int		btin_alias_print_one(char *arg)
 	else
 	{
 		tmp = strdup(arg);
-		tmp = ft_strrejoin(tmp, ": not found");
+		tmp = ft_strrejoin(tmp, ": not found\n");
 		btin_alias_error_message(tmp, 1);
 	}
 	free(tmp);

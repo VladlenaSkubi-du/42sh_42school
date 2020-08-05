@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:25:17 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/03 15:14:12 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/05 17:42:13 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int			process_new(t_job *jobs, t_ltree *entity)
 	process_new->argc = entity->ar_c;
 	vec_dup(&process_new->argv, entity->ar_v);
 	vec_dup(&process_new->envp, entity->envir);
+	process_new->fd = entity->fd;
 	process_new->next = NULL;
 	process_new->btin = ft_builtins_check(process_new, 0) == -1 ? 0 : 1;
 	if (!jobs->first_process)

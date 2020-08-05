@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:13:51 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/03 14:42:40 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/05 18:01:29 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		ft_builtins_check(t_process *p, int flag)
 	return (-1);
 }
 
-int		fd_list_process(t_ltree *pos, int mode)
+int		fd_list_process(t_process *pos, int mode)
 {
 	t_list		*fd_list;
 	t_fd_redir	*redir;
