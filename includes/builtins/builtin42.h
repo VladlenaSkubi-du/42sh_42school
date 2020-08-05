@@ -185,18 +185,24 @@ int				btin_unalias_clean_commands(void);
 int				btin_alias(t_ltree *pos);
 int				btin_alias_check_options(char **argv);
 int				btin_alias_error_message(char *option, int error);
-int				btin_alias_init(char **argv, char *ans, int flag);
+int				btin_alias_init(char **argv, char **ans, int flag);
 int				check_if_aliased(char *name);
 
 /*
 ** Folder alias, file alias_parse.c
 */
 
-int				find_in_alias(char **arr, int *j, char *name);
-int				btin_alias_save(char **alias, char *arg);
+char			*find_in_alias(t_list **arr, char *name);
+int				btin_alias_save(t_list **alias, char *arg, int eq);
 int				btin_alias_print_one(char *arg);
-int				btin_alias_merge_buf(char **arr, char **buf);
+int				btin_alias_merge_buf(t_list **arr, t_list **buf);
 int				btin_alias_list_commands(void);
+
+/*
+** Folder alias, file alias_help.c
+*/
+
+int				btin_alias_valid_name(char *name);
 
 /*
 ** Folder fc, file fc.c

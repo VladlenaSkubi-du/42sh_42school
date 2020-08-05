@@ -29,7 +29,8 @@ BUILTIN = \
 
 ALIAS_DIR = alias
 ALIAS =		$(BUILTIN_DIR)/$(ALIAS_DIR)/alias.c \
-			$(BUILTIN_DIR)/$(ALIAS_DIR)/alias_parse.c
+			$(BUILTIN_DIR)/$(ALIAS_DIR)/alias_parse.c \
+			$(BUILTIN_DIR)/$(ALIAS_DIR)/alias_help.c
 
 CD_DIR = cd
 CD =		$(BUILTIN_DIR)/$(CD_DIR)/cd.c \

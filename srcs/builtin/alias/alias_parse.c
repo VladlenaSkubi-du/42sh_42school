@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 15:08:22 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/05 13:34:11 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/05 16:36:37 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,40 +19,76 @@
 ** following characters: '!', '%', ',', '@'.
 */
 
-int		find_in_alias(char **arr, int *j, char *name)
+char	*find_in_alias(t_list **arr, char *name)
 {
-	size_t	i;
 	size_t	tmp;
 	size_t	len_name;
+	t_list	*start;
 
-	i = 0;
-	if (!arr)
-		return (-1);
 	len_name = ft_strlen(name);
-	while (arr[i])
+	if (!arr || !len_name)
+		return (NULL);
+	start = *arr;
+	while (arr)
 	{
-		tmp = ft_strchri(arr[i], '=');
-		if (ft_strncmp(arr[i], name, len_name) == 0 && tmp == len_name)
-		{
-			*j = tmp + 1;
-			return (i);
-		}
-		i++;
+		tmp = ft_strchri((char *)(start->content), '=');
+		if (ft_strncmp((char *)(start->content), name, len_name) == 0 &&
+			tmp == len_name)
+			return ((char *)(start->content));
+		start = start->next;
 	}
-	return (-1);
+	return (NULL);
 }
 
-int		btin_alias_save(char **alias, char *arg)
+int		btin_alias_save(t_list **buf, char *arg, int eq)
 {
+	char	*name;
+	char	*tmp;
+
+	tmp = NULL;
+	name = ft_strndup(arg, eq);
+	if (btin_alias_valid_name(name))
+		ft_lstadd(buf, ft_lstnew(ft_strdup(arg), ft_strlen(arg) + 1));
+	else
+	{
+		tmp = ft_strdup("`");
+		tmp = ft_strrejoin(tmp, name);
+		tmp = ft_strrejoin(tmp, "': invalid alias name");
+		btin_alias_error_message(tmp, 1);
+	}
+	free(tmp);
+	free(name);
 	return (0);
 }
 
 int		btin_alias_print_one(char *arg)
 {
+	char	*ans;
+	char	*tmp;
+
+	tmp = NULL;
+	btin_alias_init(&arg, &ans, ASSIGN);
+	if (ans)
+	{
+		tmp = ft_xmalloc(sizeof(char) * (ft_strlen(ans) + 3));
+		ft_strcat(tmp, arg);
+		ft_strcat(tmp, "'");
+		ft_strcat(tmp, &ans[ft_strlen(tmp)]);
+		ft_strcat(tmp, "'");
+		ft_putendl_fd(tmp, STDOUT_FILENO);
+		free(ans);		
+	}
+	else
+	{
+		tmp = strdup(arg);
+		tmp = ft_strrejoin(tmp, ": not found");
+		btin_alias_error_message(tmp, 1);
+	}
+	free(tmp);
 	return (0);
 }
 
-int		btin_alias_merge_buf(char **arr, char **buf)
+int		btin_alias_merge_buf(t_list **arr, t_list **buf)
 {
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   form_environment42.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:09:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 18:14:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/05 17:17:05 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ int					save_readonly_variable(int num)
 	free(tmp);
 	tmp = ft_itoa(getpid());
 	g_envi[num++] = ft_add_rdovar("$=", tmp, 1);
-	tmp = NULL;
 	free(tmp);
+	tmp = NULL;
 	return (num);
 }
 
@@ -135,7 +135,7 @@ int					create_env(void)
 	char			*tmp;
 
 	g_var_size = ENV_BUFFER;
-	g_envi = (char**)ft_xmalloc(g_var_size * sizeof(char*));
+	g_envi = ft_xmalloc(g_var_size * sizeof(char*));
 	num = save_readonly_variable(0);
 	num = save_shell_variable(num);
 	num = save_environment_variable(num);
