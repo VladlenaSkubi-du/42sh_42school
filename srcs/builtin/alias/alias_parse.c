@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 15:08:22 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/04 17:47:52 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/05 13:34:11 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,11 @@ int		btin_alias_print_one(char *arg)
 
 int		btin_alias_merge_buf(char **arr, char **buf)
 {
+	return (0);
+}
+
+int		btin_alias_list_commands(void)
+{
+	printf("alias listing commands\n");
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tmpfile.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:51:25 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/01 15:23:10 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/05 13:41:31 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ static int	ft_try_create_fd(char **tmp, int *fd, int len, char **xxx)
 
 static char	*add_slash(char **tmp, char *input, char *tmpl)
 {
-	*tmp = ft_strjoin(input, "/");
+	if (input[ft_strlen(input) - 1] != '/')
+		*tmp = ft_strjoin(input, "/");
+	else
+		*tmp = ft_strdup(input);
 	*tmp = ft_strrejoin(*tmp, tmpl);
 	return (*tmp);
 }
@@ -68,9 +71,7 @@ int			ft_tmpfile(char *tmpl, int *fd)
 
 	if (ft_init_tmp(&len, fd, &try, tmpl) == -1)
 		return (-1);
-	if ((tmp = find_env_value("TMPDIR")) != NULL)
-		tmp = add_slash(&tmp, tmp, tmpl);
-	else if (P_TMPDIR)
+	if (P_TMPDIR)
 		tmp = add_slash(&tmp, P_TMPDIR, tmpl);
 	xxx = (tmp != NULL) ? &tmp[len - 6] : NULL;
 	while (*fd < 0)

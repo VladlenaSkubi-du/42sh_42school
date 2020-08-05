@@ -192,7 +192,7 @@ typedef struct			s_here
 */
 
 char					*g_cmd;
-size_t					g_cmd_size;
+// size_t					g_cmd_size;
 t_tech					g_techline;
 t_here					g_heredoc;
 t_list					*g_start_list;
