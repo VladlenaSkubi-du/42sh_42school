@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 16:59:53 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/04 17:55:44 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/05 13:45:04 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ int		btin_alias_error_message(char *option, int error)
 
 int		btin_alias_init(char **argv, char *ans, int flag)
 {
-	static char	*alias[100];
-	static char	*buf[30];
+	static char	*alias;
+	static char	*buf;
 	int			i;
 	int			eq;
 
-	(flag == SAVE) ? alias[0] = NULL : 0;
-	(flag == SAVE) ? buf[0] = NULL : 0;
+	(flag == SAVE) ? alias = NULL : 0;
+	(flag == SAVE) ? buf = NULL : 0;
 	i = 0;
 	if (flag == LINE)
 		while(argv[++i])
@@ -78,18 +78,12 @@ int		btin_alias_init(char **argv, char *ans, int flag)
 		}
 	else if (flag == ASSIGN)
 	{
-		if ((eq = find_in_alias(&alias[0], &i, argv[0])) != -1)
-			return ((ans = ft_strdup(&alias[eq][i])) ? 0 : OUT);
+		if ((eq = find_in_alias(&alias, &i, argv[0])) != -1)
+			return ((ans = ft_strdup(&alias)) ? 0 : OUT);
 		return(OUT);
 	}
 	else if (flag == CONTINUE)
 		btin_alias_merge_buf(alias, buf);
-	return (0);
-}
-
-int		btin_alias_list_commands(void)
-{
-	printf("alias listing commands\n");
 	return (0);
 }
 
