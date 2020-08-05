@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 15:08:22 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/05 17:47:33 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/05 20:25:04 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ char	*find_in_alias(t_list **arr, char *name)
 	t_list	*start;
 
 	len_name = ft_strlen(name);
-	if (!arr || !len_name)
+	if (!*arr || !*name)
 		return (NULL);
 	start = *arr;
-	while (arr)
+	while (start)
 	{
 		tmp = ft_strchri((char *)(start->content), '=');
 		if (ft_strncmp((char *)(start->content), name, len_name) == 0 &&
@@ -67,14 +67,10 @@ int		btin_alias_print_one(char *arg)
 	char	*tmp;
 
 	tmp = NULL;
-	btin_alias_init(&arg, &ans, ASSIGN);
-	if (ans)
+	ans = NULL;
+	if (btin_alias_init(&arg, &ans, ASSIGN) != OUT)
 	{
-		tmp = ft_xmalloc(sizeof(char) * (ft_strlen(ans) + 3));
-		ft_strcat(tmp, arg);
-		ft_strcat(tmp, "'");
-		ft_strcat(tmp, &ans[ft_strlen(tmp)]);
-		ft_strcat(tmp, "'");
+		tmp = btin_alias_line_form(ans);
 		ft_putendl_fd(tmp, STDOUT_FILENO);
 		free(ans);		
 	}
@@ -90,11 +86,29 @@ int		btin_alias_print_one(char *arg)
 
 int		btin_alias_merge_buf(t_list **arr, t_list **buf)
 {
-	return (0);
-}
+	t_list	*dest;
+	t_list	*tmp;
 
-int		btin_alias_list_commands(void)
-{
-	printf("alias listing commands\n");
+	tmp = *buf;
+	while (tmp)
+	{
+		dest = *arr;
+		while (dest)
+		{
+			if (btin_alias_check_name(dest, tmp))
+			{
+				free(dest->content);
+				dest->content = tmp->content;
+				dest->content_size = tmp->content_size;
+				ft_lstfree_current(&tmp);
+			}
+			dest = dest->next;
+		}
+		tmp = tmp->next;
+	}
+	if (*buf)
+		ft_lstlast(buf)->next = *arr;
+	*arr = *buf ? *buf : *arr;
+	*buf = NULL;
 	return (0);
 }

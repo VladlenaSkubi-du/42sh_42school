@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 16:59:53 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/05 16:50:45 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/05 19:50:08 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		btin_alias(t_ltree *pos)
 	if (flags < 0)
 		return (btin_return_exit_status());
 	if (pos->ar_c < 2)
-		return (btin_alias_list_commands());
+		return (btin_alias_init(NULL, NULL, PRINT));
 	return (btin_alias_check_options(pos->ar_v));
 }
 
@@ -63,35 +63,47 @@ int		btin_alias_init(char **argv, char **ans, int flag)
 	static t_list	*alias;
 	static t_list	*buf;
 	int				i;
-	char			*eq;
 
 	(flag == SAVE) ? alias = NULL : 0;
 	(flag == SAVE) ? buf = NULL : 0;
 	i = -1;
 	if (flag == LINE)
-		while(argv[++i])
+		while (argv[++i])
 		{
 			if ((flag = ft_strchri(argv[i], '=')) > 0)
 				btin_alias_save(&buf, argv[i], flag);
 			else
 				btin_alias_print_one(argv[i]);
 		}
-	else if (flag == ASSIGN)
-	{
-		if ((eq = find_in_alias(&alias, argv[0])))
-			return ((*ans = ft_strdup(eq)) ? 0 : OUT);
-		return(OUT);
-	}
 	else if (flag == CONTINUE)
 		btin_alias_merge_buf(&alias, &buf);
+	else
+		return (btin_alias_print(&alias, argv, ans, flag));	
 	return (0);
 }
 
-int		check_if_aliased(char *name)
+int		btin_alias_print(t_list **alias, char **argv, char **ans, int flag)
 {
-	if (name == NULL || name[0] == '\0')
-		return (0);
-	// if (ft_strcmp(name, ...) == 0)
-	// 	return (ARG_ALIAS);
+	char	*eq;
+	t_list	*start;
+	char	*tmp;
+
+	if (flag == ASSIGN)
+	{
+		if ((eq = find_in_alias(alias, argv[0])))
+			return ((*ans = ft_strdup(eq)) ? 0 : OUT);
+		return(OUT);
+	}
+	else if (flag == PRINT)
+	{
+		start = *alias;
+		while (start)
+		{
+			tmp = btin_alias_line_form((char *)start->content);
+			ft_putendl_fd(tmp, STDOUT_FILENO);
+			free(tmp);
+			start = start->next;
+		}
+	}
 	return (0);
 }
