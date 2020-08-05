@@ -194,19 +194,20 @@ int				btin_alias_print(t_list **alias, char **argv,
 */
 
 char			*find_in_alias(t_list **arr, char *name);
-int				btin_alias_save(t_list **alias, char *arg, int eq);
+int				btin_alias_save(t_list **buf, char *arg, int eq);
 int				btin_alias_print_one(char *arg);
 int				btin_alias_merge_buf(t_list **arr, t_list **buf);
-
+int				check_if_aliased(char *name);
 
 /*
 ** Folder alias, file alias_help.c
 */
 
 int				btin_alias_valid_name(char *name);
-int				check_if_aliased(char *name);
 char			*btin_alias_line_form(char *arg);
 int				btin_alias_check_name(t_list *arr, t_list *buf);
+int				btin_alias_delete(t_list **alias, char *arg);
+int				btin_alias_delete_all(t_list **alias);
 
 /*
 ** Folder fc, file fc.c

@@ -60,7 +60,7 @@ int					btin_unalias_error_message(char *option, int error)
 	if (error == OPTIONS_REQUIRED)
 		error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), error_message);
 	else
-		error_handler(VARIABLE_ERROR | (ERR_HASH_NF << 9), error_message);
+		error_handler(VARIABLE_ERROR, error_message);
 	free(error_message);
 	return (error);
 }
@@ -68,14 +68,19 @@ int					btin_unalias_error_message(char *option, int error)
 
 int					btin_unalias_init(char **argv)
 {
-	//чтобы не было варнингов
-	argv = NULL;
-	printf("unalias init\n");
+	int	i;
+
+	i = 0;
+	while (argv[i])
+	{
+		btin_alias_init(argv, argv[i], MINUS);
+		i++;
+	}
 	return (0);
 }
 
 int					btin_unalias_clean_commands(void)
 {
-	printf("cleaning the aliased commands\n");
+	btin_alias_init(NULL, NULL, DEL_ALL);
 	return (0);
 }

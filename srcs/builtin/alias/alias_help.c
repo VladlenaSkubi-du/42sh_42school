@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 14:41:31 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/05 20:17:02 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/06 00:43:05 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,6 @@ int		btin_alias_valid_name(char *name)
 	}
 	if (++i == 0 && name)
 		return (1);
-	return (0);
-}
-
-int		check_if_aliased(char *name)
-{
-	if (name == NULL || name[0] == '\0')
-		return (0);
-	// if (ft_strcmp(name, ...) == 0)
-	// 	return (ARG_ALIAS);
 	return (0);
 }
 
@@ -64,4 +55,37 @@ int		btin_alias_check_name(t_list *arr, t_list *buf)
 	free(als);
 	free(tmp);
 	return ( ret == 0 ? 1 : 0);	
+}
+
+int		btin_alias_delete(t_list **alias, char *arg)
+{
+	t_list	*dest;
+	t_list	tmp;
+	t_list	*del;
+
+	dest = *alias;
+	del = dest;
+	tmp.content = ft_strjoin(arg, "=");
+	while (dest)
+	{
+		if (btin_alias_check_name(dest, &tmp))
+		{
+			del->next = dest->next;
+			free(dest->content);
+			*alias = del == dest ? del->next : *alias;
+			free(dest);
+			dest = del;
+			break ;
+		}
+		del = dest;
+		dest = del->next;
+	}
+	free(tmp.content);
+	return (0);
+}
+
+int		btin_alias_delete_all(t_list **alias)
+{
+	ft_lstclear(alias);
+	return (0);
 }

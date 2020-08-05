@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:55:19 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/05 13:56:43 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/05 23:31:26 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int		ft_check_is_heredoc(int ret)
 	if (g_prompt.prompt_func == main_prompt)
 	{
 		ft_block_start(&g_start_list);
+		btin_alias_init(NULL, NULL, CONTINUE);
 		return (0);
 	}
 	return (ret);
