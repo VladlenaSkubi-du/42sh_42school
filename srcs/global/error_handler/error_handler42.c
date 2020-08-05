@@ -19,8 +19,8 @@
 
 int				error_handler(int status, char *str)
 {
-	ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
-	ft_putstr_fd(": ", STDOUT_FILENO);
+	ft_putstr_fd(find_env_value("0"), STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
 	if ((status & 0x1FF) == VARIABLE_ERROR)
 		variable_errors(status, str);
 	else if ((status & 0x1FF) == OPTIONS_REQUIRED)
@@ -29,7 +29,7 @@ int				error_handler(int status, char *str)
 		ft_putendl_fd("can't open a temporal file", STDERR_FILENO); //TODO check
 	else if ((status & 0xFF) >= PIPE_FAILED &&
 			(status & 0xFF) <= SIGNAL_ERROR)
-		ft_putendl_fd(str, STDOUT_FILENO);
+		ft_putendl_fd(str, STDERR_FILENO);
 	else if ((status & 0xFF) >= TERMINAL_EXISTS &&
 			(status & 0xFF) <= NONINERACTIVE)
 		terminal_errors(status, str);
