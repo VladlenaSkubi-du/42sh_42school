@@ -60,14 +60,17 @@ int				fork_job(t_process *p, t_job *j, int *infl, int *outfl)
 	else
 		*outfl = j->stdout;
 	
-	pid = !p->btin ? fork() : 0;
+	pid = (!p->btin || *infl != STDIN_FILENO || *outfl != STDOUT_FILENO) ? fork() : 0;
 	if (pid == 0)
+	{
+		*outfl == STDOUT_FILENO ? close(mypipe[1]) : 0;
+		p->next ? close(mypipe[0]) : 0;
 		launch_process(p, j->pgid, (int[3]){*infl, *outfl, j->stderr}, j->fg);
+	}
 	else if (pid < 0)
 		return (error_handler(FORK_FAILED, "fork creation failed"));
 	else
-		parent(p, j, pid);
-	p->btin ? parent(p, j, getpid()) : 0;
+		parent(p, j, (!p->btin || *infl != STDIN_FILENO || *outfl != STDIN_FILENO) ? pid : getpid());
 	if (*infl != STDIN_FILENO)
 		close(*infl);
 	if (*outfl != STDOUT_FILENO)
