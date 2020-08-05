@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:53:30 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/03 14:57:55 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/05 17:08:18 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,9 @@ int				fork_job(t_process *p, t_job *j, int *infl, int *outfl)
 	}
 	else
 		*outfl = j->stdout;
-	
 	pid = (!p->btin || *infl != STDIN_FILENO || *outfl != STDOUT_FILENO) ? fork() : 0;
 	if (pid == 0)
 	{
-		*outfl == STDOUT_FILENO ? close(mypipe[1]) : 0;
 		p->next ? close(mypipe[0]) : 0;
 		launch_process(p, j->pgid, (int[3]){*infl, *outfl, j->stderr}, j->fg);
 	}
