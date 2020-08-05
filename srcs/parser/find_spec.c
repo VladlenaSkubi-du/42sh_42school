@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:09:33 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/04 17:50:39 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/05 23:29:06 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ void		ft_lst_ltree_clear(t_list **begin_list)
 		*begin_list = tmp;
 	}
 	*begin_list = NULL;
-	btin_alias_init(NULL, NULL, CONTINUE);
 }
 
 int			ft_correct_after_andor_pipe(int *i)

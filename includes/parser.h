@@ -71,6 +71,7 @@ enum					e_way
 	MINUS = 5,
 	CONTINUE,
 	PRINT,
+	DEL_ALL,
 	LINE,
 	ASSIGN,
 };

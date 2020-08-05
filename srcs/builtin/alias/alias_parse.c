@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 15:08:22 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/05 20:25:04 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/06 01:06:32 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		btin_alias_save(t_list **buf, char *arg, int eq)
 	tmp = NULL;
 	name = ft_strndup(arg, eq);
 	if (btin_alias_valid_name(name))
-		ft_lstadd(buf, ft_lstnew(ft_strdup(arg), ft_strlen(arg) + 1));
+		ft_lstadd(buf, ft_lstnew(arg, ft_strlen(arg) + 1));
 	else
 	{
 		tmp = ft_strdup("`");
@@ -100,15 +100,24 @@ int		btin_alias_merge_buf(t_list **arr, t_list **buf)
 				free(dest->content);
 				dest->content = tmp->content;
 				dest->content_size = tmp->content_size;
-				ft_lstfree_current(&tmp);
+				tmp->content = NULL;
 			}
 			dest = dest->next;
 		}
-		tmp = tmp->next;
+		if (tmp->content)
+			ft_lstadd(arr, ft_lstnew(tmp->content, tmp->content_size));
+		free(tmp->content);
+		ft_lstfree_current(&tmp);
 	}
-	if (*buf)
-		ft_lstlast(buf)->next = *arr;
-	*arr = *buf ? *buf : *arr;
 	*buf = NULL;
+	return (0);
+}
+
+int		check_if_aliased(char *name)
+{
+	if (name == NULL || name[0] == '\0')
+		return (0);
+	// if (ft_strcmp(name, ...) == 0)
+	// 	return (ARG_ALIAS);
 	return (0);
 }

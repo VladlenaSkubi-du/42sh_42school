@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 16:59:53 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/05 19:50:08 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/06 00:57:25 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,10 @@ int		btin_alias_init(char **argv, char **ans, int flag)
 		}
 	else if (flag == CONTINUE)
 		btin_alias_merge_buf(&alias, &buf);
+	else if (flag == DEL_ALL)
+		btin_alias_delete_all(&alias);
 	else
-		return (btin_alias_print(&alias, argv, ans, flag));	
+		return (btin_alias_print(&alias, argv, ans, flag));
 	return (0);
 }
 
@@ -90,9 +92,8 @@ int		btin_alias_print(t_list **alias, char **argv, char **ans, int flag)
 
 	if (flag == ASSIGN)
 	{
-		if ((eq = find_in_alias(alias, argv[0])))
-			return ((*ans = ft_strdup(eq)) ? 0 : OUT);
-		return(OUT);
+		eq = find_in_alias(alias, argv[0]);
+		return ((*ans = ft_strdup(eq)) ? 0 : OUT);
 	}
 	else if (flag == PRINT)
 	{
@@ -105,5 +106,7 @@ int		btin_alias_print(t_list **alias, char **argv, char **ans, int flag)
 			start = start->next;
 		}
 	}
+	else if (flag == MINUS)
+		btin_alias_delete(alias, *argv);
 	return (0);
 }
