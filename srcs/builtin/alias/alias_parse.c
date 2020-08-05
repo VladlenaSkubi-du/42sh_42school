@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 15:08:22 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/06 01:06:32 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/06 01:16:35 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,14 @@ int		btin_alias_merge_buf(t_list **arr, t_list **buf)
 
 int		check_if_aliased(char *name)
 {
+	char	*ans;
+
 	if (name == NULL || name[0] == '\0')
 		return (0);
-	// if (ft_strcmp(name, ...) == 0)
-	// 	return (ARG_ALIAS);
+	if (btin_alias_init(&name, &ans, ASSIGN) != OUT)
+	{
+		free(ans);
+		return (ARG_ALIAS);
+	}
 	return (0);
 }
