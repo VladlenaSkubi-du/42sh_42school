@@ -70,6 +70,7 @@ enum					e_way
 	SAVE,
 	MINUS = 5,
 	CONTINUE,
+	PRINT,
 	LINE,
 	ASSIGN,
 };
