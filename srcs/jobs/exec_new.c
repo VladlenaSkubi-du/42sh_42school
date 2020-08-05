@@ -43,7 +43,7 @@ void	launch_process(t_process *p, pid_t pgid, int stream[3], int foreground)
 {
 	pid_t	pid;
 
-	if (!p->btin && g_is_interactive)
+	if (g_is_interactive && (!p->btin || stream[0] != STDIN_FILENO || stream[1] != STDOUT_FILENO || !foreground))
 	{
 		pid = getpid();
 		if (pgid == 0)
@@ -52,13 +52,14 @@ void	launch_process(t_process *p, pid_t pgid, int stream[3], int foreground)
 		signal(SIGTTOU, SIG_IGN);
 		if (foreground)
 			tcsetpgrp(STDIN_FILENO, pgid);
-		set_proc_sig();
+		!p->btin ? set_proc_sig() : 0;
 	}
 	(stream[0] != STDIN_FILENO) && setstream(stream[0], STDIN_FILENO);
 	(stream[1] != STDOUT_FILENO) && setstream(stream[1], STDOUT_FILENO);
 	(stream[2] != STDERR_FILENO) && setstream(stream[2], STDERR_FILENO);
 	p->btin ? ft_builtins_check(p, 1) : exec_vp(p);
 	exec_clean(g_path, 0, 0);
-	!p->btin ? exit(1) : 0;
+	if (!p->btin || stream[0] != STDIN_FILENO || stream[1] != STDOUT_FILENO || !foreground)
+		exit(!p->btin ? 1 : 0);
 	std_save(1);
 }

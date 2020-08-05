@@ -46,15 +46,16 @@ int		job_is_stopped(t_job *j, char verbose)
 
 int		job_is_completed(t_job *j)
 {
-	t_process		*p_last;
+	t_process		*p_iter;
 
-	p_last = j->first_process;
-	while (p_last->next)
-		p_last = p_last->next;
-	if (p_last->completed)
+	p_iter = j->first_process;
+	while (p_iter)
+	{
+		if (!p_iter->completed)
+			return (0);
+		p_iter = p_iter->next;
+	}
 		return (1);
-	else
-		return (0);
 }
 
 /*
@@ -85,7 +86,7 @@ int		free_job(t_job *j)
 	t_job		*j_next;
 	t_process	*temp;
 
-	order_sixty_six(j);
+	//order_sixty_six(j);
 	j_last = g_first_job;
 	while (j_last != j && j_last->next && j_last->next != j)
 		j_last = j_last->next;
