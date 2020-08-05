@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_new.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:11:39 by hshawand          #+#    #+#             */
-/*   Updated: 2020/07/26 16:35:32 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/05 14:17:28 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	launch_process(t_process *p, pid_t pgid, int stream[3], int foreground)
 	(stream[0] != STDIN_FILENO) && setstream(stream[0], STDIN_FILENO);
 	(stream[1] != STDOUT_FILENO) && setstream(stream[1], STDOUT_FILENO);
 	(stream[2] != STDERR_FILENO) && setstream(stream[2], STDERR_FILENO);
+	// fd_list_process(entity, 0);
 	p->btin ? ft_builtins_check(p, 1) : exec_vp(p);
 	exec_clean(g_path, 0, 0);
 	if (!p->btin || stream[0] != STDIN_FILENO || stream[1] != STDOUT_FILENO || !foreground)
