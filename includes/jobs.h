@@ -14,6 +14,7 @@ typedef struct  s_process
     char stopped;               /* true if process has stopped */
 	char btin;
     int status;                 /* reported status value */
+    t_list *fd;                
 }   t_process;
 
 /* A job is a pipeline of processes.  */
@@ -123,6 +124,6 @@ char	**path_parse(void);
 
 int		exec_clean(char *path, int exit_status, char *msg);
 int		ft_builtins_check(t_process *p, int flag);
-int		fd_list_process(t_ltree *pos, int mode);
+int		fd_list_process(t_process *pos, int mode);
 
 #endif
