@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assignment.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:36:26 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/01 16:00:09 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/06 01:21:20 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		is_it_command(int i, char **arg_tline, int eq)
 	if (eq == 0)
 		return (1);
 	else if (eq-- > 0)
-		while (eq >  0)
+		while (eq > 0)
 		{
 			if (arg_tline[i][eq] != WORD_P)
 				break ;
