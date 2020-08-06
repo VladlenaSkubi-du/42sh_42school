@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 16:59:53 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/06 00:57:25 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/06 16:32:40 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,16 @@ int		btin_alias_error_message(char *option, int error)
 	return (error);
 }
 
+/*
+** Main function to work with aliases. It uses flag to check option:
+** SAVE - init arrays
+** CONTINUE - save buf array into alias array
+** DEL_ALL - clean alias array
+** ASSIGN - get alias string in "char *ans"
+** PRINT - print all aliases from alias array in posix form
+** MINUS - del one alias by name from alias array
+*/
+
 int		btin_alias_init(char **argv, char **ans, int flag)
 {
 	static t_list	*alias;
@@ -83,6 +93,10 @@ int		btin_alias_init(char **argv, char **ans, int flag)
 		return (btin_alias_print(&alias, argv, ans, flag));
 	return (0);
 }
+
+/*
+** Continue of btin_alias_init
+*/
 
 int		btin_alias_print(t_list **alias, char **argv, char **ans, int flag)
 {
