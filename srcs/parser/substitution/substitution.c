@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:02:15 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/06 03:46:03 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/06 17:56:12 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int		insert_str_in_loc_strs(t_ltree *sub, char **insert, int *i, int flag)
 	len_ins += *i;
 	(*i)--;
 	while (++(*i) < len_ins)
-		buf[*i] = (flag == TEXT) ? flag : get_tech_num((*insert)[*i]);
+		buf[*i] = (flag == TEXT) ? flag : get_tech_num(sub->l_cmd[*i]);
 	ft_memcpy(buf + *i, sub->l_tline.line + *i - ft_strlen(*insert) + 1,
 		sub->l_tline.len - *i);
 	free(sub->l_tline.line);

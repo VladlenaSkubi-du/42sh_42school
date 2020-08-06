@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:35:34 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/06 03:54:38 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/06 18:13:15 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,18 +88,17 @@ int			ft_alias_find(t_ltree *sub)
 	char	*name;
 	char	*ans;
 	int		i;
-	int		num;
 
-	name = sub->ar_v[0];
-	i = 0;
-	if (btin_alias_init(&name, &ans, ASSIGN) != OUT)
-	{
-		name = ft_strdup(&ans[ft_strlen(name) + 1]);
-		ft_reglue(&i, ft_strlen(sub->ar_v[0]) - 1, sub);
-		insert_str_in_loc_strs(sub, &name, &i, 0);
-		ft_arrdel(sub->ar_v);
-		argv_forming(sub);
-		free(ans);
-	}
+	if ((name = sub->ar_v[0]))
+		if (btin_alias_init(&name, &ans, ASSIGN) != OUT)
+		{
+			i = ft_strstr(sub->l_cmd, name) - sub->l_cmd;
+			name = ft_strdup(&ans[ft_strlen(name) + 1]);
+			ft_reglue(&i, ft_strlen(sub->ar_v[0]) - 1, sub);
+			insert_str_in_loc_strs(sub, &name, &i, 0);
+			ft_arrdel(sub->ar_v);
+			argv_forming(sub);
+			free(ans);
+		}
 	return (0);
 }

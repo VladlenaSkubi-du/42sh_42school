@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 16:59:53 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/06 16:32:40 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/06 17:06:49 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,11 @@ int		btin_alias_init(char **argv, char **ans, int flag)
 				btin_alias_print_one(argv[i]);
 		}
 	else if (flag == CONTINUE)
-		btin_alias_merge_buf(&alias, &buf);
+		btin_alias_copy_buf(&alias, &buf);
 	else if (flag == DEL_ALL)
-		btin_alias_delete_all(&alias);
+		btin_alias_delete_all(&buf);
+	else if (flag == MINUS)
+		btin_alias_delete(&buf, *argv);
 	else
 		return (btin_alias_print(&alias, argv, ans, flag));
 	return (0);
@@ -120,7 +122,5 @@ int		btin_alias_print(t_list **alias, char **argv, char **ans, int flag)
 			start = start->next;
 		}
 	}
-	else if (flag == MINUS)
-		btin_alias_delete(alias, *argv);
 	return (0);
 }

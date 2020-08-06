@@ -73,7 +73,7 @@ int					btin_unalias_init(char **argv)
 	i = 0;
 	while (argv[i])
 	{
-		btin_alias_init(argv, argv[i], MINUS);
+		btin_alias_init(argv, &argv[i], MINUS);
 		i++;
 	}
 	return (0);

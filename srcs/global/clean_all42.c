@@ -23,6 +23,7 @@ int				clean_everything(void)
 	cd_free_static();
 	btin_hash_clean_table();
 	btin_alias_init(NULL, NULL, DEL_ALL);
+	btin_alias_init(NULL, NULL, CONTINUE);
 	ft_gnl(GNL_CLEAN, NULL);
 	return (0);
 }
