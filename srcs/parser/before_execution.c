@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:09:37 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/06 02:23:12 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/06 18:22:23 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int			before_exec(t_ltree *sub)
 	if ((err = ft_substitution(sub)) & (ERR_OUT | ERR_IN))
 		return (OUT);
 	assignment(sub);
-	ft_alias_find(sub);
+	if (*(find_env_value("42SH_NONINTERACTIVE")) == '0')
+		ft_alias_find(sub);
 	if (sub->flags & (ERR_OUT))
 	{
 	 	sub->err_i = ERR_OUT | VARIABLE_ERROR;
