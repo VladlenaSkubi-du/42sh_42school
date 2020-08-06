@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 14:41:31 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/06 16:23:05 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/06 17:22:31 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ int		btin_alias_delete(t_list **alias, char *arg)
 }
 
 /*
-** Uses to delete all aliases. Cleans alias array if exit or "unalias -a"
+** Uses to delete all aliases. Cleans alias array if part of exit
+** or "unalias -a"
 */
 
 int		btin_alias_delete_all(t_list **alias)

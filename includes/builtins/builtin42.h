@@ -190,13 +190,19 @@ int				btin_alias_print(t_list **alias, char **argv,
 					char **ans, int flag);
 
 /*
+** Folder alias, file alias_copy.c
+*/
+
+int				btin_alias_copy_buf(t_list **alias, t_list **buf);
+
+/*
 ** Folder alias, file alias_parse.c
 */
 
 char			*find_in_alias(t_list **arr, char *name);
 int				btin_alias_save(t_list **buf, char *arg, int eq);
 int				btin_alias_print_one(char *arg);
-int				btin_alias_merge_buf(t_list **arr, t_list **buf);
+int				btin_alias_merge_buf(t_list **arr, t_list *buf);
 int				check_if_aliased(char *name);
 
 /*

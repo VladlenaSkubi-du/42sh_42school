@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 15:08:22 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/06 16:26:27 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/06 16:55:34 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		btin_alias_save(t_list **buf, char *arg, int eq)
 	tmp = NULL;
 	name = ft_strndup(arg, eq);
 	if (btin_alias_valid_name(name))
-		ft_lstadd(buf, ft_lstnew(arg, ft_strlen(arg) + 1));
+		btin_alias_merge_buf(buf, ft_lstnew(arg, ft_strlen(arg) + 1));
 	else
 	{
 		tmp = ft_strdup("`");
@@ -94,32 +94,29 @@ int		btin_alias_print_one(char *arg)
 ** Uses to save buffer to alias array after jobs from string were done
 */
 
-int		btin_alias_merge_buf(t_list **arr, t_list **buf)
+int		btin_alias_merge_buf(t_list **arr, t_list *buf)
 {
 	t_list	*dest;
-	t_list	*tmp;
 
-	tmp = *buf;
-	while (tmp)
+	if (buf)
 	{
 		dest = *arr;
 		while (dest)
 		{
-			if (btin_alias_check_name(dest, tmp))
+			if (btin_alias_check_name(dest, buf))
 			{
 				free(dest->content);
-				dest->content = tmp->content;
-				dest->content_size = tmp->content_size;
-				tmp->content = NULL;
+				dest->content = buf->content;
+				dest->content_size = buf->content_size;
+				buf->content = NULL;
 			}
 			dest = dest->next;
 		}
-		if (tmp->content)
-			ft_lstadd(arr, ft_lstnew(tmp->content, tmp->content_size));
-		free(tmp->content);
-		ft_lstfree_current(&tmp);
+		if (buf->content)
+			ft_lstadd(arr, ft_lstnew(buf->content, buf->content_size));
+		free(buf->content);
+		ft_lstfree_current(&buf);
 	}
-	*buf = NULL;
 	return (0);
 }
 
