@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:35:34 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/06 18:13:15 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/06 18:43:52 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int			ft_alias_find(t_ltree *sub)
 			i = ft_strstr(sub->l_cmd, name) - sub->l_cmd;
 			name = ft_strdup(&ans[ft_strlen(name) + 1]);
 			ft_reglue(&i, ft_strlen(sub->ar_v[0]) - 1, sub);
+			free(sub->l_tline.line);
+			ft_get_techline(sub->l_cmd, &(sub->l_tline));
 			insert_str_in_loc_strs(sub, &name, &i, 0);
 			ft_arrdel(sub->ar_v);
 			argv_forming(sub);
