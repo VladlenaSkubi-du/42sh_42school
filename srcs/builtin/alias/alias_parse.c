@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 15:08:22 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/06 01:30:30 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/06 16:26:27 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 #include "builtin42.h"
 
 /*
-** In the shell command language, a word consisting solely of underscores, 
-** digits, and alphabetics from the portable character set and any of the
-** following characters: '!', '%', ',', '@'.
+** Uses to find alias by name in alias array.
 */
 
 char	*find_in_alias(t_list **arr, char *name)
@@ -40,6 +38,10 @@ char	*find_in_alias(t_list **arr, char *name)
 	return (NULL);
 }
 
+/*
+** Uses to save alias in alias array or to print error if name is invalid
+*/
+
 int		btin_alias_save(t_list **buf, char *arg, int eq)
 {
 	char	*name;
@@ -60,6 +62,10 @@ int		btin_alias_save(t_list **buf, char *arg, int eq)
 	free(name);
 	return (0);
 }
+
+/*
+** Uses to printf alias from alias array or to print error if isn't such alias
+*/
 
 int		btin_alias_print_one(char *arg)
 {
@@ -83,6 +89,10 @@ int		btin_alias_print_one(char *arg)
 	free(tmp);
 	return (0);
 }
+
+/*
+** Uses to save buffer to alias array after jobs from string were done
+*/
 
 int		btin_alias_merge_buf(t_list **arr, t_list **buf)
 {
