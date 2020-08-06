@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 15:08:22 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/06 01:16:35 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/06 01:30:30 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int		check_if_aliased(char *name)
 {
 	char	*ans;
 
+	ans = NULL;
 	if (name == NULL || name[0] == '\0')
 		return (0);
 	if (btin_alias_init(&name, &ans, ASSIGN) != OUT)

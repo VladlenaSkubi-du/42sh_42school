@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   substitution.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:02:15 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/01 18:54:34 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/06 03:46:03 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int		ft_substitution(t_ltree *sub)
 	{
 		if ((err = btin_exsign(sub)) & ERR_OUT)
 			break ;
-		//ft_alias_find ;
 		ft_find_tilda(sub, LINE);
 		ft_find_var(sub);
 		if ((err = ft_find_curv_var(sub)) & ERR_OUT)
@@ -114,7 +113,7 @@ int		insert_str_in_loc_strs(t_ltree *sub, char **insert, int *i, int flag)
 	len_ins += *i;
 	(*i)--;
 	while (++(*i) < len_ins)
-		buf[*i] = (flag == TEXT) ? flag : get_tech_num(*insert[len_ins - *i]);
+		buf[*i] = (flag == TEXT) ? flag : get_tech_num((*insert)[*i]);
 	ft_memcpy(buf + *i, sub->l_tline.line + *i - ft_strlen(*insert) + 1,
 		sub->l_tline.len - *i);
 	free(sub->l_tline.line);

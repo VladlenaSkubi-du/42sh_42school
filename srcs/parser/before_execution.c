@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   before_execution.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:09:37 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/01 15:40:29 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/06 02:23:12 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int			before_exec(t_ltree *sub)
 	if ((err = ft_substitution(sub)) & (ERR_OUT | ERR_IN))
 		return (OUT);
 	assignment(sub);
+	ft_alias_find(sub);
 	if (sub->flags & (ERR_OUT))
 	{
 	 	sub->err_i = ERR_OUT | VARIABLE_ERROR;
@@ -56,7 +57,7 @@ int			argv_forming(t_ltree *sub)
 	p = sub->start;
 	sub->ar_c = ft_count_words(&(sub->l_tline.line[0]), SPACE,
 				sub->l_tline.len);
-	sub->ar_v = (char **)ft_xmalloc(sizeof(char *) * (sub->ar_c + 1));
+	sub->ar_v = ft_xmalloc(sizeof(char *) * (sub->ar_c + 1));
 	i = 0;
 	count = 0;
 	while (count < sub->ar_c)
@@ -64,7 +65,7 @@ int			argv_forming(t_ltree *sub)
 		word = ft_give_me_word(&(sub->l_tline.line[p]), SPACE,
 			sub->l_tline.len - p);
 		word.start += p;
-		(sub->ar_v)[i] = (char *)ft_xmalloc(sizeof(char) * (word.len + 1));
+		(sub->ar_v)[i] = ft_xmalloc(sizeof(char) * (word.len + 1));
 		ft_memcpy((sub->ar_v)[i], sub->l_cmd + word.start, word.len);
 		p = word.start + word.len;
 		i++;

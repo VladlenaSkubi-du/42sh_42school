@@ -360,6 +360,7 @@ int						assignment_in_curv_var(t_ltree *sub,
 							char **line, char *oper, int *i);
 int						ft_colon_check(int *len, char **line,
 							char **oper, size_t *j);
+int						ft_alias_find(t_ltree *sub);
 
 /*
 ** File assignment.c
