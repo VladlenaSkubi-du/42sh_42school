@@ -6,12 +6,14 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:54:23 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 18:55:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/07 22:02:52 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
+
+static t_rline_questions	front_for_questions;
 
 /*
 ** In order to insert something after the cmd-line,
@@ -72,4 +74,17 @@ int					clear_whole_line(void)
 	ft_bzero(g_rline.cmd, g_rline.cmd_buff_len);
 	g_rline.cmd_len = 0;
 	return (0);
+}
+
+int					save_questions_structure(t_rline_questions new_qw)
+{
+	front_for_questions.len = new_qw.len;
+	front_for_questions.len_x = new_qw.len_x;
+	front_for_questions.pos_back = new_qw.pos_back;
+	return (0);
+}
+
+t_rline_questions	get_questions_structure(void)
+{
+	return (front_for_questions);
 }
