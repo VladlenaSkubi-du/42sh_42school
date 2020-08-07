@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alias_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 15:08:22 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/06 16:55:34 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/07 20:29:58 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		btin_alias_print_one(char *arg)
 	{
 		tmp = btin_alias_line_form(ans);
 		ft_putendl_fd(tmp, STDOUT_FILENO);
-		free(ans);		
+		free(ans);
 	}
 	else
 	{
