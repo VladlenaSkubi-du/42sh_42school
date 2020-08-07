@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   before_execution.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:09:37 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/06 18:22:23 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/07 20:25:00 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int			before_exec(t_ltree *sub)
 		ft_alias_find(sub);
 	if (sub->flags & (ERR_OUT))
 	{
-	 	sub->err_i = ERR_OUT | VARIABLE_ERROR;
+		sub->err_i = ERR_OUT | VARIABLE_ERROR;
 		ft_error_vars(sub, 0, NULL);
 		ft_lst_ltree_clear(&g_start_list);
 		return (OUT);
