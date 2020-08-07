@@ -169,7 +169,7 @@ int		        btin_bumblebee(void);
 
 int				btin_unalias(t_ltree *pos);
 int				btin_unalias_check_options(char **argv);
-int				btin_unalias_error_message(char *option, int error);
+int				btin_unalias_error(char *option, int error);
 int				btin_unalias_init(char **argv);
 int				btin_unalias_clean_commands(void);
 
