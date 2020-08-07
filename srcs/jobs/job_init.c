@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   job_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:25:17 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/05 17:42:13 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/07 22:26:33 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,5 @@ int			job_init(t_ltree *entity)
 		ret += launch_job(job);
 	}
 	tcsetpgrp((int)STDIN_FILENO, g_shell_pgid);
-	fd_list_process(entity, 1);
 	return (ret);
 }
