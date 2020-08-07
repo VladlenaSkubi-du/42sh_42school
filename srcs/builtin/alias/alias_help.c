@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alias_help.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 14:41:31 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/06 17:22:31 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/07 20:30:36 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "builtin42.h"
 
 /*
-** In the shell command language, a word consisting solely of underscores, 
+** In the shell command language, a word consisting solely of underscores,
 ** digits, and alphabetics from the portable character set and any of the
 ** following characters: '!', '%', ',', '@'. (POSIX)
 */
@@ -24,13 +24,13 @@ int		btin_alias_valid_name(char *name)
 	int	i;
 
 	i = (name) ? ft_strlen(name) - 1 : 0;
-	while(i >= 0 && name[i])
+	while (i >= 0 && name[i])
 	{
 		if (ft_isalnum(name[i]) || name[i] == '!' || name[i] == '%' ||
 			name[i] == ',' || name[i] == '@' || name[i] == '_')
 			i--;
 		else
-			break ;	
+			break ;
 	}
 	if (++i == 0 && name)
 		return (1);
@@ -68,7 +68,7 @@ int		btin_alias_check_name(t_list *arr, t_list *buf)
 	ret = ft_strcmp(als, tmp);
 	free(als);
 	free(tmp);
-	return ( ret == 0 ? 1 : 0);	
+	return (ret == 0 ? 1 : 0);
 }
 
 /*

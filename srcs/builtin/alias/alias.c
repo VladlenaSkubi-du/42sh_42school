@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alias.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 16:59:53 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/06 17:06:49 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/07 20:29:18 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int		btin_alias(t_ltree *pos)
 {
 	int	flags;
-	
+
 	flags = find_options(2, (char*[]){"", "--help"}, pos->ar_v);
 	if (flags == HELP_FLAG)
 		return (usage_btin("alias"));
