@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:17:35 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 17:17:36 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/09 19:54:06 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,16 @@ char				*get_the_answer_hist(int *len)
 
 	find = (char*)ft_xmalloc(CMD_SIZE + 1);
 	c = 0;
-	while (read(STDOUT_FILENO, &c, 1) && c != '\n')
+	while (read(STDOUT_FILENO, &c, 1) && !(c == '\n' || c == '\004'))
 	{
+		if (g_rline.flag & SIGNAL_C_QUESTION)
+			break ;
 		if (c == '\033')
 			return (free_find_hist(&find));
-		if ((c >= 0 && c < 2) || (c >= 4 && c < 32))
+		if ((c >= 0 && c < 2) || (c > 4 && c < 32))
 			continue;
 		else if (insert_valid_sy_hist(c,
-			len, &find, &len_find) == 1)
+				len, &find, &len_find) == 1)
 			return (find);
 	}
 	if (find[0] == 0)
