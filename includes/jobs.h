@@ -114,7 +114,7 @@ int		exec_internal(t_ltree *pos);
 
 char	*path_init(char **exec_av);
 char	*path_search(char *name);
-char	*locate_file(char *env_path, char *name, char **to_clean);
+char	*locate_file(char *env_path, char *name);
 char	*form_path(char *ret, char *env_path, char *name);
 char	**path_parse(void);
 
