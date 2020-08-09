@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:54:23 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/07 22:02:52 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/09 19:00:21 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ int					clean_after_line(void)
 	int				len_y_back;
 
 	pos_back = g_rline.pos;
+	if (pos_back == 0 && g_rline.cmd_len < 1)
+	{
+		tputs(g_cap.cd, 1, printc);
+		return (0);
+	}
 	position_cursor_after_line(g_rline.cmd_len);
 	front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x,
 		&g_rline.pos_y, 1);

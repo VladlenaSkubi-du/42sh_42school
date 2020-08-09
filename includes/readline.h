@@ -14,6 +14,7 @@
 # define AFTER_LINE				0x8
 # define AFTER_LINE_HIST		0x10
 # define PROMPTLEN_ZERO			0x20
+# define SIGNAL_C_QUESTION		0x40
 
 # define RED					"\033[31m"
 # define ORANGE					"\033[38;5;208m"
