@@ -41,11 +41,9 @@ typedef struct stat		t_stat;
 #  define P_TMPDIR "/tmp"
 # endif
 
-#  define L_TMPNAM 20
+# define L_TMPNAM 20
 
-#  define TMP_MAX 2000
-
-# define TMPFILE_TRY_SIZE TMP_MAX
+# define TMPFILE_TRY_SIZE 2000
 
 /*
 ** @REW, @FF - flags used in rediretion to switch direction of find WORD
