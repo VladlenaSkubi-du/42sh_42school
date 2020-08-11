@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:02:06 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/11 22:18:55 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/11 22:28:35 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		ft_param_empty(t_ltree *sub, char **find, int *i)
 	size_t	size;
 
 	size = ft_strlen(*find);
-	if ((tmp = ft_find_var_value(find)) != NULL)
+	if (size != 0 && (tmp = ft_find_var_value(find)) != NULL)
 	{
 		ft_reglue(i, size + 2, sub);
 		insert_str_in_loc_strs(sub, &tmp, i, TEXT);
