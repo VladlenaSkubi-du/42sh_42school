@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_find_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:02:06 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/01 16:07:13 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/11 22:18:55 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,9 @@ int		ft_find_curv_var(t_ltree *sub)
 			while (i + size < sub->end && sub->l_tline.line[i + size] != CBRACE)
 				size++;
 			find = ft_strndup(&sub->l_cmd[i + 2], size - 2);
-			return (ft_type_param_check(sub, &find, &i));
+			size = ft_type_param_check(sub, &find, &i);
+			free(find);
+			return (size);
 		}
 	}
 	return (0);
