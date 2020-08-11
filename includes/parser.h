@@ -111,7 +111,7 @@ typedef struct			s_ltree
 	char				**envir;
 	char				**ar_v;
 	int					ar_c;
-	int					flags;
+	size_t				flags;
 	char				*token;
 	char				*err;
 	size_t				err_i;
