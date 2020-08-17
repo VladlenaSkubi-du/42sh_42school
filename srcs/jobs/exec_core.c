@@ -17,15 +17,15 @@ int		std_save(int mode)
 	}
 	else
 	{
-		close(STDIN_FILENO);
 		dup2(save[0], STDIN_FILENO);
 		close(save[0]);
-		close(STDOUT_FILENO);
+		fcntl(STDIN_FILENO, F_SETFD, O_CLOEXEC);
 		dup2(save[1], STDOUT_FILENO);
 		close(save[1]);
-		close(STDERR_FILENO);
+		fcntl(STDOUT_FILENO, F_SETFD, O_CLOEXEC);
 		dup2(save[2], STDERR_FILENO);
 		close(save[2]);
+		fcntl(STDERR_FILENO, F_SETFD, O_CLOEXEC);
 	}
 	return (0);
 }

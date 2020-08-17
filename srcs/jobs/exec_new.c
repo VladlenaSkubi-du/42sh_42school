@@ -32,6 +32,7 @@ int		setstream(int src, int dest)
 {
 	dup2(src, dest);
 	close(src);
+	fcntl(dest, F_SETFD, O_CLOEXEC);
 	return (0);
 }
 
