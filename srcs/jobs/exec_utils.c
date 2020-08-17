@@ -75,7 +75,6 @@ int		fd_list_process(t_process *pos)
 		{
 			dup2(redir->fd_old, redir->fd_new);
 			close(redir->fd_old);
-			fcntl(redir->fd_new, F_SETFD, O_CLOEXEC);
 		}
 		else
 			close(redir->fd_new);
