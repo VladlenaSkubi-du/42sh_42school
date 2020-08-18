@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:13:51 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/18 21:41:13 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/18 22:08:12 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,7 @@ int		fd_list_process(t_process *pos)
 	{
 		redir = (t_fd_redir *)fd_list->content;
 		if (redir->fd_old != CLOSE)
-		{
 			dup2(redir->fd_old, redir->fd_new);
-			close(redir->fd_old);
-		}
 		else
 			close(redir->fd_new);
 		fd_list = fd_list->next;
