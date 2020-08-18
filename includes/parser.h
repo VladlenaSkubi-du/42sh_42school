@@ -252,7 +252,7 @@ int						ft_tmpfile(char *template, int *fd);
 ** File redirect.c
 */
 
-int						ft_find_redirection_check(t_ltree *final);
+int						ft_find_redirection_check(t_ltree *final, int *i);
 char					*ft_word_to_redir(int *i, t_ltree *final,
 							int rew_ff);
 int						ft_word_to_redir_rew(int *i, t_ltree *final,
@@ -264,7 +264,7 @@ int						ft_error_redir(t_ltree *final);
 ** File redir_types_out_check.c
 */
 
-int						ft_redir_check(t_ltree *final, int *i);
+int						ft_redir_check(t_ltree *final);
 int						ft_redir_great_check(t_ltree *final, int *i);
 int						ft_redir_dgreat_check(t_ltree *final, int *i);
 int						ft_redir_greatand_check(t_ltree *final, int *i);
@@ -297,6 +297,7 @@ int						ft_heredoc_form(t_fd_redir *fd_open, char **f_name,
 
 int						ft_redir_less_do(t_ltree *final, t_fd_redir *fd);
 int						ft_redir_lessand_do(t_ltree *final, t_fd_redir *fd);
+int						ft_redir_valid(t_ltree *final, int i);
 
 /*
 ** File fd_block.c

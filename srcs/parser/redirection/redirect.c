@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:55:32 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/03 14:31:54 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/18 21:45:00 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,32 +55,25 @@ int			ft_error_redir(t_ltree *final)
 ** Function to find redirections with grammer rules
 */
 
-int			ft_find_redirection_check(t_ltree *final)
+int			ft_find_redirection_check(t_ltree *final, int *i)
 {
-	int		i;
 	int		ret;
 
-	i = final->start;
 	ret = 0;
-	while (i <= final->end)
-	{
-		if ((ret = ft_redir_check(final, &i)) != 0)
-			break ;
-		if ((ret = ft_redir_dgreat_check(final, &i)) != 0)
-			break ;
-		if ((ret = ft_redir_greatand_check(final, &i)) != 0)
-			break ;
-		if ((ret = ft_redir_less_check(final, &i)) != 0)
-			break ;
-		if ((ret = ft_redir_dless(final, &i)) != 0)
-			break ;
-		if ((ret = ft_redir_dless_min(final, &i)) != 0)
-			break ;
-		if ((ret = ft_redir_lessand_check(final, &i)) != 0)
-			break ;
-		i++;
-	}
-	final->err_i = i;
+	if ((ret = ft_redir_great_check(final, i)) != 0)
+		return (ret);
+	if ((ret = ft_redir_dgreat_check(final, i)) != 0)
+		return (ret);
+	if ((ret = ft_redir_greatand_check(final, i)) != 0)
+		return (ret);
+	if ((ret = ft_redir_less_check(final, i)) != 0)
+		return (ret);
+	if ((ret = ft_redir_dless(final, i)) != 0)
+		return (ret);
+	if ((ret = ft_redir_dless_min(final, i)) != 0)
+		return (ret);
+	if ((ret = ft_redir_lessand_check(final, i)) != 0)
+		return (ret);
 	return (ret);
 }
 
