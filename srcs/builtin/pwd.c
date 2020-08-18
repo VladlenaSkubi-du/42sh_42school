@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:14:07 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/04 13:03:01 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/18 21:19:10 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,14 @@ int		btin_pwd_init(char **argv)
 	return (0);
 }
 
-int		btin_pwd(t_ltree *pos)
+int		btin_pwd(t_process *pos)
 {
 	int		flags;
 
-	flags = find_options(2, (char*[]){"-LP", "--help"}, pos->ar_v);
+	flags = find_options(2, (char*[]){"-LP", "--help"}, pos->argv);
 	if (flags == HELP_FLAG)
 		return (usage_btin("pwd"));
 	if (flags < 0)
 		return (btin_return_exit_status());
-	return (btin_pwd_init(pos->ar_v));
+	return (btin_pwd_init(pos->argv));
 }

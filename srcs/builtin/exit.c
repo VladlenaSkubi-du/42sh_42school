@@ -2,7 +2,7 @@
 #include "builtin42.h"
 #include "jobs.h"
 
-int				btin_exit(t_ltree *pos)
+int				btin_exit(t_process *pos)
 {
 	int			status;
 	t_job		*job_iter;
@@ -18,8 +18,8 @@ int				btin_exit(t_ltree *pos)
 		job_iter = job_iter->next;
 	}
 	ft_putendl_fd("exit", STDOUT_FILENO);
-	if (pos->ar_c > 1)
-		status = btin_exit_arguments(pos->ar_v);
+	if (pos->argc > 1)
+		status = btin_exit_arguments(pos->argv);
 	else
 		status = 0;
 	fill_hist_in_file();

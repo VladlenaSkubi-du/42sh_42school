@@ -106,14 +106,14 @@ int		btin_jobs_init(int argc, char **argv)
 	return (0);
 }
 
-int		btin_jobs(t_ltree *pos)
+int		btin_jobs(t_process *pos)
 {
 	int				flags;
 
-	flags = find_options(2, (char*[]){"-pl", "--help"}, pos->ar_v);
+	flags = find_options(2, (char*[]){"-pl", "--help"}, pos->argv);
 	if (flags == HELP_FLAG)
 		return (usage_btin("jobs"));
 	if (flags < 0)
 		return (btin_return_exit_status());
-	return (btin_jobs_init(pos->ar_c, pos->ar_v));
+	return (btin_jobs_init(pos->argc, pos->argv));
 }

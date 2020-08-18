@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:41:48 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/03 11:14:15 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/18 21:20:53 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,24 +51,24 @@ int			do_vis(char *arg)
 	return (0);
 }
 
-int			export_add_vis(t_ltree *pos)
+int			export_add_vis(char **argv)
 {
 	int		i;
 	char	*new_var;
 
 	i = 0;
-	while (pos->ar_v[++i])
+	while (argv[++i])
 	{
-		if (pos->ar_v[i][0] == '-')
+		if (argv[i][0] == '-')
 			continue ;
-		if (ft_strrchr(pos->ar_v[i], '='))
+		if (ft_strrchr(argv[i], '='))
 		{
-			new_var = ft_parsing_str(pos->ar_v[i]);
+			new_var = ft_parsing_str(argv[i]);
 			change_or_add(new_var);
 			free(new_var);
 		}
 		else
-			do_vis(pos->ar_v[i]);
+			do_vis(argv[i]);
 	}
 	return (0);
 }
@@ -95,18 +95,18 @@ int			export_p(void)
 	return (0);
 }
 
-int			btin_export(t_ltree *pos)
+int			btin_export(t_process *pos)
 {
 	int		flags;
 
-	flags = find_options(2, (char*[]){"p", "--help"}, pos->ar_v);
+	flags = find_options(2, (char*[]){"p", "--help"}, pos->argv);
 	if (flags == HELP_FLAG)
 		return (usage_btin("export"));
 	else if (flags < 0)
 		return (btin_return_exit_status());
-	if (pos->ar_c == 1 || flags == 1)
+	if (pos->argc == 1 || flags == 1)
 		return (export_p());
 	else
-		return (export_add_vis(pos));
+		return (export_add_vis(pos->argv));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:50:33 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 18:51:24 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/18 21:25:46 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,15 @@ int					readline_simple(void)
 
 int					make_sexit(void)
 {
-	t_ltree			*pos;
+	t_process		*pos;
 
 	if (g_rline.pos == 0 && g_rline.cmd_len == 0 &&
 			g_prompt.prompt_func == main_prompt)
 	{
-		pos = (t_ltree*)ft_xmalloc(sizeof(t_ltree));
-		ltree_init(pos);
-		pos->ar_v = (char**)ft_xmalloc(3 * sizeof(char*));
-		pos->ar_v[0] = ft_strdup("exit");
-		pos->ar_v[1] = ft_strdup("0");
+		pos = (t_process*)ft_xmalloc(sizeof(t_process));
+		pos->argv = (char**)ft_xmalloc(3 * sizeof(char*));
+		pos->argv[0] = ft_strdup("exit");
+		pos->argv[1] = ft_strdup("0");
 		reset_canonical_input();
 		free(g_rline.cmd);
 		btin_exit(pos);

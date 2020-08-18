@@ -229,6 +229,7 @@ void				signal_ctrl_c_parser(int sig);
 int					error_handler(int status, char *str);
 int					terminal_errors(int status, char *str);
 int					error_handler_continuation(int status, char *str);
+int					error_handler_files_and_commands(int status, char *str);
 
 /*
 ** File errors_handler_suberrors.c
@@ -257,12 +258,6 @@ void				print_techline(char *cmd,
 ** Folder SHELL_VARIABLES
 ** ____________________________________________________________________________
 */
-
-//OLD_EXEC
-
-int		exec_old_init(t_ltree *pos);
-int		exec_core_old(t_ltree *pos);
-int		ft_builtins_check_old(t_ltree *pos, int flag);
 
 /*
 ** File form_environment42.c

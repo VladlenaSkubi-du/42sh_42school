@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:57:32 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/03 10:39:07 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/18 21:21:17 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,27 +63,27 @@ int			ft_cd_helper(void)
 	return (0);
 }
 
-int			btin_cd(t_ltree *pos)
+int			btin_cd(t_process *pos)
 {
 	int		i;
 	t_cd	*flags;
 	int		flags_check;
 
-	flags_check = find_options(2, (char*[]){"LP", "--help"}, pos->ar_v);
+	flags_check = find_options(2, (char*[]){"LP", "--help"}, pos->argv);
 	if (flags_check == HELP_FLAG)
 		return (usage_btin("cd"));
 	if (flags_check < 0)
 		return (btin_return_exit_status());
 	flags = ft_xmalloc(sizeof(t_cd *));
-	i = ft_cd_flags(pos->ar_v, flags);
-	if (pos->ar_v[i] && pos->ar_v[i][0] == '-' && pos->ar_v[i][1] &&
-			i > 0 && ft_strcmp(pos->ar_v[i - 1], "--"))
+	i = ft_cd_flags(pos->argv, flags);
+	if (pos->argv[i] && pos->argv[i][0] == '-' && pos->argv[i][1] &&
+			i > 0 && ft_strcmp(pos->argv[i - 1], "--"))
 	{
 		free(flags);
 		return (ft_cd_helper());
 	}
-	if (ft_valid_cd(pos->ar_v, i) ||
-			ft_cd_pars(pos->ar_v[i], pos->envir, flags))
+	if (ft_valid_cd(pos->argv, i) ||
+			ft_cd_pars(pos->argv[i], pos->envp, flags))
 	{
 		free(flags);
 		return (1);

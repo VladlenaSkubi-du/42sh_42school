@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 19:00:03 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/09 18:44:39 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/18 21:25:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,15 @@ int		readline_choice(char sy)
 
 int		route_exit(void)
 {
-	t_ltree		*pos;
+	t_process	*pos;
 
 	check_after_line();
 	if (g_prompt.prompt_func == main_prompt)
 	{
-		pos = (t_ltree*)ft_xmalloc(sizeof(t_ltree));
-		ltree_init(pos);
-		pos->ar_v = (char**)ft_xmalloc(3 * sizeof(char*));
-		pos->ar_v[0] = ft_strdup("exit");
-		pos->ar_v[1] = ft_strdup("0");
+		pos = (t_process*)ft_xmalloc(sizeof(t_process));
+		pos->argv = (char**)ft_xmalloc(3 * sizeof(char*));
+		pos->argv[0] = ft_strdup("exit");
+		pos->argv[1] = ft_strdup("0");
 		action_alloc_management(NULL, 1);
 		reset_canonical_input();
 		free(g_rline.cmd);
