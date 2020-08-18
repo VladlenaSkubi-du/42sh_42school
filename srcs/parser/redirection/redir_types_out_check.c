@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:55:29 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/01 15:51:30 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/18 21:17:19 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int		ft_access_check(char **f_name, t_ltree *final, int type)
 	}
 	else
 		path = ft_strdup(*f_name);
-	final->err = *f_name;
+	final->err = ft_strdup(*f_name);
 	if ((st = access(path, F_OK)) == -1)
 	{
 		free(path);
