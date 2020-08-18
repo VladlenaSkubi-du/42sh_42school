@@ -177,7 +177,7 @@ SUBSTITUTION = \
 #______________________________________________________________________________
 
 READLINE_DIR = readline
-READLINE = 	$(READLINE_DIR)/colors.c \
+READLINE = 	$(READLINE_DIR)/bonuses.c \
 			$(READLINE_DIR)/ctrl_key.c \
 			$(READLINE_DIR)/cursor_positioning.c \
 			$(READLINE_DIR)/escape.c \
@@ -210,7 +210,6 @@ KEY_ACTIONS = \
 			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/ctrl_kult.c \
 			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/cut_keys.c \
 			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/cut_words_and_paste.c \
-			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/easter_egg.c \
 			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/esc_t.c \
 			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/esc_word_proc.c \
 			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/jump_around.c
@@ -233,9 +232,6 @@ HISTORY = 	$(READLINE_DIR)/$(HISTORY_DIR)/start_history.c \
 			$(READLINE_DIR)/$(HISTORY_DIR)/back_part_hist.c
 
 #______________________________________________________________________________
-
-EXEC_DELETE_DIR = exec_old
-EXEC_DELETE = $(EXEC_DELETE_DIR)/exec_init_old.c
 
 SOURCES =	main.c \
 			$(BUILTIN) \
