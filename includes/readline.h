@@ -14,6 +14,7 @@
 # define AFTER_LINE				0x8
 # define AFTER_LINE_HIST		0x10
 # define PROMPTLEN_ZERO			0x20
+# define SIGNAL_C_QUESTION		0x40
 
 # define RED					"\033[31m"
 # define ORANGE					"\033[38;5;208m"
@@ -51,6 +52,13 @@ typedef struct					s_rline
 	int							cmd_buff_len;
 	int							flag;
 }								t_rline;
+
+typedef struct					s_rline_questions
+{
+	int							len;
+	int							len_x;
+	int							pos_back;
+}								t_rline_questions;
 
 /*
 ** The main termcap codes used
@@ -247,6 +255,8 @@ int								front_write_one_char(char c, char *color);
 int								position_cursor_after_line(int len);
 int								clean_after_line(void);
 int								clear_whole_line(void);
+int								save_questions_structure(t_rline_questions new_qw);
+t_rline_questions				get_questions_structure(void);
 
 /*
 ** File colors.c

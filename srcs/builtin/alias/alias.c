@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alias.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 16:59:53 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/06 00:57:25 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/07 20:29:18 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int		btin_alias(t_ltree *pos)
 {
 	int	flags;
-	
+
 	flags = find_options(2, (char*[]){"", "--help"}, pos->ar_v);
 	if (flags == HELP_FLAG)
 		return (usage_btin("alias"));
@@ -58,6 +58,16 @@ int		btin_alias_error_message(char *option, int error)
 	return (error);
 }
 
+/*
+** Main function to work with aliases. It uses flag to check option:
+** SAVE - init arrays
+** CONTINUE - save buf array into alias array
+** DEL_ALL - clean alias array
+** ASSIGN - get alias string in "char *ans"
+** PRINT - print all aliases from alias array in posix form
+** MINUS - del one alias by name from alias array
+*/
+
 int		btin_alias_init(char **argv, char **ans, int flag)
 {
 	static t_list	*alias;
@@ -76,13 +86,19 @@ int		btin_alias_init(char **argv, char **ans, int flag)
 				btin_alias_print_one(argv[i]);
 		}
 	else if (flag == CONTINUE)
-		btin_alias_merge_buf(&alias, &buf);
+		btin_alias_copy_buf(&alias, &buf);
 	else if (flag == DEL_ALL)
-		btin_alias_delete_all(&alias);
+		btin_alias_delete_all(&buf);
+	else if (flag == MINUS)
+		btin_alias_delete(&buf, *argv);
 	else
 		return (btin_alias_print(&alias, argv, ans, flag));
 	return (0);
 }
+
+/*
+** Continue of btin_alias_init
+*/
 
 int		btin_alias_print(t_list **alias, char **argv, char **ans, int flag)
 {
@@ -106,7 +122,5 @@ int		btin_alias_print(t_list **alias, char **argv, char **ans, int flag)
 			start = start->next;
 		}
 	}
-	else if (flag == MINUS)
-		btin_alias_delete(alias, *argv);
 	return (0);
 }

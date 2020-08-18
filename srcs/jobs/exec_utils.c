@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:13:51 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/05 18:01:29 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/07 22:22:36 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,25 +62,23 @@ int		ft_builtins_check(t_process *p, int flag)
 	return (-1);
 }
 
-int		fd_list_process(t_process *pos, int mode)
+int		fd_list_process(t_process *pos)
 {
 	t_list		*fd_list;
 	t_fd_redir	*redir;
 
-	if (!mode)
+	fd_list = pos->fd;
+	while (fd_list)
 	{
-		fd_list = pos->fd;
-		while (fd_list)
+		redir = (t_fd_redir *)fd_list->content;
+		if (redir->fd_old != CLOSE)
 		{
-			redir = (t_fd_redir *)fd_list->content;
-			if (redir->fd_old != CLOSE)
-				dup2(redir->fd_old, redir->fd_new);
-			else
-				close(redir->fd_new);
-			fd_list = fd_list->next;
+			dup2(redir->fd_old, redir->fd_new);
+			close(redir->fd_old);
 		}
+		else
+			close(redir->fd_new);
+		fd_list = fd_list->next;
 	}
-	else
-		std_save(1);
 	return (0);
 }

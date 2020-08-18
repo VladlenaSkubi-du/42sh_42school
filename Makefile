@@ -29,6 +29,7 @@ BUILTIN = \
 
 ALIAS_DIR = alias
 ALIAS =		$(BUILTIN_DIR)/$(ALIAS_DIR)/alias.c \
+			$(BUILTIN_DIR)/$(ALIAS_DIR)/alias_copy.c \
 			$(BUILTIN_DIR)/$(ALIAS_DIR)/alias_parse.c \
 			$(BUILTIN_DIR)/$(ALIAS_DIR)/alias_help.c
 

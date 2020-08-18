@@ -6,12 +6,14 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:54:23 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 18:55:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/09 19:00:21 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
+
+static t_rline_questions	front_for_questions;
 
 /*
 ** In order to insert something after the cmd-line,
@@ -47,6 +49,11 @@ int					clean_after_line(void)
 	int				len_y_back;
 
 	pos_back = g_rline.pos;
+	if (pos_back == 0 && g_rline.cmd_len < 1)
+	{
+		tputs(g_cap.cd, 1, printc);
+		return (0);
+	}
 	position_cursor_after_line(g_rline.cmd_len);
 	front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x,
 		&g_rline.pos_y, 1);
@@ -72,4 +79,17 @@ int					clear_whole_line(void)
 	ft_bzero(g_rline.cmd, g_rline.cmd_buff_len);
 	g_rline.cmd_len = 0;
 	return (0);
+}
+
+int					save_questions_structure(t_rline_questions new_qw)
+{
+	front_for_questions.len = new_qw.len;
+	front_for_questions.len_x = new_qw.len_x;
+	front_for_questions.pos_back = new_qw.pos_back;
+	return (0);
+}
+
+t_rline_questions	get_questions_structure(void)
+{
+	return (front_for_questions);
 }

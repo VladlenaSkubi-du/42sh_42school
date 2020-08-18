@@ -28,18 +28,20 @@ void				signal_ctrl_c_readline(int sig)
 		return ;
 	if (g_rline.flag & AFTER_LINE_HIST)
 	{
+		// ft_putchar_fd(EOF, STDOUT_FILENO);
+		// ft_putchar_fd('\n', STDOUT_FILENO);
 		position_cursor("ch", 0, 0);
 		tputs(g_cap.cd, 1, printc);
-		g_rline.flag &= ~AFTER_LINE_HIST;
+		g_rline.flag |= SIGNAL_C_QUESTION;
 	}
 	else
 	{
 		check_after_line();
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	}
+	bzero_readline();
 	g_prompt.prompt_func = main_prompt;
 	g_prompt.prompt_func();
-	bzero_readline();
 }
 
 void				signal_screen_readline(int sig)

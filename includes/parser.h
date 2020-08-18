@@ -41,16 +41,9 @@ typedef struct stat		t_stat;
 #  define P_TMPDIR "/tmp"
 # endif
 
-# define L_TMPNAM L_tmpnam
-# ifndef L_tmpnam
-#  define L_TMPNAM 20
-# endif
+# define L_TMPNAM 20
 
-# ifndef TMP_MAX
-#  define TMP_MAX 2000
-# endif
-
-# define TMPFILE_TRY_SIZE TMP_MAX
+# define TMPFILE_TRY_SIZE 2000
 
 /*
 ** @REW, @FF - flags used in rediretion to switch direction of find WORD
@@ -93,27 +86,19 @@ typedef struct  		s_tech
    size_t				alloc_size;
 }               		t_tech;
 
-//TODO to fill
-
 /*
-** @l_cmd is
-** @l_tline is
+** @l_cmd is char line
+** @l_tline is structure of tech chars and len info
 ** @start is the index with that block in l_cmd starts
 ** @end is the index with that block in l_cmd ends
-** @fd is
+** @fd is list of fd for redirection
 ** @envir is environment for the command to be executed
 ** @ar_v is an agrument for the command to be executed
 ** @ar_c is a number of arguments for the command to be executed
-** @flags is
-** @token is
-** @err is
-** @err_i is
-** Struct to work with lextree fd[3] needs to know if it is redirection
-** FLAGS:
-** 0x01 -- PIPED_OUTPUT
-** 0x02 -- PIPED_INPUT
-** 0x04 -- REDIRECTION (It's kinda different, as we have to take fd from another place)
-** 0x08 -- IS_BG
+** @flags is int for bit masks
+** @token is string of nearest token if error detected
+** @err is string with text of error
+** @err_i is index in l_cmd where error is detected
 */
 
 typedef struct			s_ltree
@@ -126,7 +111,7 @@ typedef struct			s_ltree
 	char				**envir;
 	char				**ar_v;
 	int					ar_c;
-	int					flags;
+	size_t				flags;
 	char				*token;
 	char				*err;
 	size_t				err_i;
@@ -279,6 +264,7 @@ int						ft_error_redir(t_ltree *final);
 ** File redir_types_out_check.c
 */
 
+int						ft_redir_check(t_ltree *final, int *i);
 int						ft_redir_great_check(t_ltree *final, int *i);
 int						ft_redir_dgreat_check(t_ltree *final, int *i);
 int						ft_redir_greatand_check(t_ltree *final, int *i);
