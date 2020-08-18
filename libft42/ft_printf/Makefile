@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+         #
+#    By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/23 17:15:13 by sschmele          #+#    #+#              #
-#    Updated: 2020/06/04 18:25:17 by vladlenasku      ###   ########.fr        #
+#    Updated: 2020/08/09 17:56:14 by rbednar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,9 +45,9 @@ $(NAME):	$(OBJS)
 	@ar rc $(NAME) $(OBJS)
 	@echo "\033[32;01mLibftprintf.a is ready.\033[0m"
 
-$(OBJS):	$(DIR_O)/%.o: $(DIR_S)/%.c includes/ft_printf.h includes/libft.h
+$(OBJS):	$(DIR_O)/%.o: $(DIR_S)/%.c ../includes/ft_printf.h ../includes/libft.h
 	@mkdir -p $(DIR_O)
-	@gcc $(FLAGS) -c -I includes -o $@ $<
+	@gcc $(FLAGS) -c -I ../includes -o $@ $<
 clean:
 	@echo "\033[34mDeleting ft_print o-files\033[0m"
 	@/bin/rm -rf $(DIR_O)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_parse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:00:12 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/18 20:01:56 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/18 20:36:31 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*form_path(char *ret, char *env_path, char *name)
 	return (ret);
 }
 
-char	*locate_file(char *env_path, char *name, char **to_clean)
+char	*locate_file(char *env_path, char *name)
 {
 	struct dirent	*entity;
 	char			*ret;
@@ -80,7 +80,7 @@ char	*path_search(char *name)
 	to_clean = path_array;
 	while (*path_array)
 	{
-		ret = locate_file(*path_array, name, to_clean);
+		ret = locate_file(*path_array, name);
 		if (ret)
 			break ;
 		path_array++;
