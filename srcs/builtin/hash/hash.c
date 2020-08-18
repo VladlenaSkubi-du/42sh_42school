@@ -16,23 +16,23 @@
 //нет в хеш-таблице и нет прав - type: ls: not found
 //есть в хеш-таблице, но нет доступа - сущ-ет в хеше и путь
 
-int					btin_hash(t_ltree *pos)
+int					btin_hash(t_process *pos)
 {
 	int				flags;
 	
 	if (ft_atoi(find_env_value("42SH_NONINTERACTIVE")) == 1)
 	{
-		error_handler(NONINERACTIVE, pos->ar_v[0]);
+		error_handler(NONINERACTIVE, pos->argv[0]);
 		return (NONINERACTIVE);
 	}
-	flags = find_options(2, (char*[]){"rld", "--help"}, pos->ar_v);
+	flags = find_options(2, (char*[]){"rld", "--help"}, pos->argv);
 	if (flags == HELP_FLAG)
 		return (usage_btin("hash"));
 	if (flags < 0)
 		return (btin_return_exit_status());
-	if (pos->ar_c == 1)
+	if (pos->argc == 1)
 		return (btin_hash_list_hashtable());
-	return (btin_hash_check_options(pos->ar_v));
+	return (btin_hash_check_options(pos->argv));
 }
 
 int					btin_hash_check_options(char **argv)

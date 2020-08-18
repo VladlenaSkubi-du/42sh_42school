@@ -6,18 +6,18 @@
 ** If HISTORY_LIMIT or 32767 is reached, numeration continues with 1
 */
 
-int					btin_history(t_ltree *pos)
+int					btin_history(t_process *pos)
 {
 	int				flags;
 	
-	flags = find_options(2, (char*[]){"c", "--help"}, pos->ar_v);
+	flags = find_options(2, (char*[]){"c", "--help"}, pos->argv);
 	if (flags == HELP_FLAG)
 		return (usage_btin("history"));
 	if (flags < 0)
 		return (btin_return_exit_status());
-	if (pos->ar_c == 1 && !flags)
+	if (pos->argc == 1 && !flags)
 		return (btin_history_noargs());
-	return (btin_history_check_options(pos->ar_v));
+	return (btin_history_check_options(pos->argv));
 }
 
 int					btin_history_error_message(char *option, int error)

@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   alias.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 16:59:53 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/07 20:29:18 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/18 21:20:42 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "builtin42.h"
 
-int		btin_alias(t_ltree *pos)
+int		btin_alias(t_process *pos)
 {
 	int	flags;
 
-	flags = find_options(2, (char*[]){"", "--help"}, pos->ar_v);
+	flags = find_options(2, (char*[]){"", "--help"}, pos->argv);
 	if (flags == HELP_FLAG)
 		return (usage_btin("alias"));
 	if (flags < 0)
 		return (btin_return_exit_status());
-	if (pos->ar_c < 2)
+	if (pos->argc < 2)
 		return (btin_alias_init(NULL, NULL, PRINT));
-	return (btin_alias_check_options(pos->ar_v));
+	return (btin_alias_check_options(pos->argv));
 }
 
 int		btin_alias_check_options(char **argv)
