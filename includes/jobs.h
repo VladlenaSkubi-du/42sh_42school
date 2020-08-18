@@ -124,6 +124,6 @@ char	**path_parse(void);
 
 int		exec_clean(char *path, int exit_status, char *msg);
 int		ft_builtins_check(t_process *p, int flag);
-int		fd_list_process(t_process *pos);
+int		fd_list_process(t_process *pos, int flag);
 
 #endif

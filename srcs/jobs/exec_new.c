@@ -57,7 +57,7 @@ void	launch_process(t_process *p, pid_t pgid, int stream[3], int foreground)
 	(stream[0] != STDIN_FILENO) && setstream(stream[0], STDIN_FILENO);
 	(stream[1] != STDOUT_FILENO) && setstream(stream[1], STDOUT_FILENO);
 	(stream[2] != STDERR_FILENO) && setstream(stream[2], STDERR_FILENO);
-	fd_list_process(p);
+	fd_list_process(p, 0);
 	p->btin ? ft_builtins_check(p, 1) : exec_vp(p);
 	exec_clean(g_path, 0, 0);
 	if (!p->btin || stream[0] != STDIN_FILENO || stream[1] != STDOUT_FILENO || !foreground)
