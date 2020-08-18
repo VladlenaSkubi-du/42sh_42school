@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:36:44 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/04 00:54:21 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/18 21:21:20 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,29 @@
 ** that influence differently depending on the place
 */
 
-int					btin_fc(t_ltree *pos)
+int					btin_fc(t_process *pos)
 {
 	int				flags;
 	t_btin_fc		*fc_arg;
 
 	if (ft_atoi(find_env_value("42SH_NONINTERACTIVE")) == 1)
 	{
-		error_handler(NONINERACTIVE, pos->ar_v[0]);
+		error_handler(NONINERACTIVE, pos->argv[0]);
 		return (NONINERACTIVE);
 	}
-	flags = find_options(2, (char*[]){"elsrn", "--help"}, pos->ar_v);
+	flags = find_options(2, (char*[]){"elsrn", "--help"}, pos->argv);
 	if (flags == HELP_FLAG)
 		return (usage_btin("fc"));
 	if (flags < 0)
 		return (btin_return_exit_status());
 	fc_arg = init_btin_fc();
 	flags = 0;
-	if (btin_fc_find_mode(pos->ar_v, &fc_arg, &flags) == HIST_ERROR)
+	if (btin_fc_find_mode(pos->argv, &fc_arg, &flags) == HIST_ERROR)
 	{
 		free(fc_arg);
 		return (btin_return_exit_status());
 	}
-	btin_fc_route_execution(fc_arg, flags, pos->envir);
+	btin_fc_route_execution(fc_arg, flags, pos->envp);
 	free(fc_arg);
 	return (btin_return_exit_status());
 }

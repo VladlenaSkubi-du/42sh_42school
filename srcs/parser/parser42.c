@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser42.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 20:24:20 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/07 20:24:21 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/18 21:39:54 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include "parser.h"
 
 int		parser(char *line)
-{
+{	
+	// printf("from parser %s\n", g_envi[0]);
 	if (g_prompt.prompt_func == main_prompt
 		&& (line == NULL || line[0] == 0))
 	{

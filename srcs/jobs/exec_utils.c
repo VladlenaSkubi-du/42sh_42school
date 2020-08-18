@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:13:51 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/07 22:22:36 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/18 21:32:12 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 
 int	exec_clean(char *path, int exit_status, char *err_msg)
 {
-	if (path)
-		exit_status_variables(exit_status);
-	free(path);
+	// if (path)
+	// 	exit_status_variables(exit_status);
+	// free(path);
 	if (err_msg)
 		ft_putendl_fd(err_msg, STDERR_FILENO);
 	return (exit_status);
@@ -38,7 +38,7 @@ int	exec_clean(char *path, int exit_status, char *err_msg)
 int		ft_builtins_check(t_process *p, int flag)
 {
 	int		i;
-	t_ltree	xXx_PLACEHOLDER_xXx; // Hi, have you decided to fix norme error? Well, screw you! First of all, fix builtins and this function!
+	// t_ltree	xXx_PLACEHOLDER_xXx; // Hi, have you decided to fix norme error? Well, screw you! First of all, fix builtins and this function!
 
 	i = 0;
 	while (g_builtins[i])
@@ -47,12 +47,14 @@ int		ft_builtins_check(t_process *p, int flag)
 		{
 			if (flag)
 			{
-				xXx_PLACEHOLDER_xXx.ar_c = p->argc;
-				vec_dup(&xXx_PLACEHOLDER_xXx.ar_v, p->argv);
-				vec_dup(&xXx_PLACEHOLDER_xXx.envir, p->envp);
-				exit_status_variables(g_builtins_func[i](&xXx_PLACEHOLDER_xXx));
-				ft_arrdel(xXx_PLACEHOLDER_xXx.ar_v);
-				ft_arrdel(xXx_PLACEHOLDER_xXx.envir);
+				// xXx_PLACEHOLDER_xXx.ar_c = p->argc;
+				// vec_dup(&xXx_PLACEHOLDER_xXx.ar_v, p->argv);
+				// vec_dup(&xXx_PLACEHOLDER_xXx.envir, p->envp);
+				// exit_status_variables(g_builtins_func[i](&xXx_PLACEHOLDER_xXx));
+				g_builtins_func[i](p);
+				// exit_status_variables();
+				// ft_arrdel(xXx_PLACEHOLDER_xXx.ar_v);
+				// ft_arrdel(xXx_PLACEHOLDER_xXx.envir);
 				p->completed = 1;
 			}
 			return (i);

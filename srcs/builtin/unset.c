@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:16:37 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/04 13:08:44 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/18 21:20:41 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ int		btin_unset_init(int argc, char **argv)
 	return (0);
 }
 
-int		btin_unset(t_ltree *pos)
+int		btin_unset(t_process *pos)
 {
 	int		flags;
 
-	flags = find_options(2, (char*[]){"", "--help"}, pos->ar_v);
+	flags = find_options(2, (char*[]){"", "--help"}, pos->argv);
 	if (flags == HELP_FLAG)
 		return (usage_btin("unset"));
 	if (flags < 0)
 		return (btin_return_exit_status());
-	return (btin_unset_init(pos->ar_c, pos->ar_v));
+	return (btin_unset_init(pos->argc, pos->argv));
 }

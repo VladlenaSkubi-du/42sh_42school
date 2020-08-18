@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:17:21 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/04 13:08:06 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/18 21:19:13 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int			btin_set_init(void)
 	return (0);
 }
 
-int			btin_set(t_ltree *pos)
+int			btin_set(t_process *pos)
 {
 	int		flags;
 
-	flags = find_options(2, (char*[]){"", "--help"}, pos->ar_v);
+	flags = find_options(2, (char*[]){"", "--help"}, pos->argv);
 	if (flags == HELP_FLAG)
 		return (usage_btin("set"));
 	if (flags < 0)
