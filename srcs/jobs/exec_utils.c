@@ -64,7 +64,7 @@ int		ft_builtins_check(t_process *p, int flag)
 	return (-1);
 }
 
-int		fd_list_process(t_process *pos)
+int		fd_list_process(t_process *pos, int flag)
 {
 	t_list		*fd_list;
 	t_fd_redir	*redir;
@@ -73,7 +73,9 @@ int		fd_list_process(t_process *pos)
 	while (fd_list)
 	{
 		redir = (t_fd_redir *)fd_list->content;
-		if (redir->fd_old != CLOSE)
+		if (flag == CLOSE)
+			close(redir->fd_old);
+		else if (redir->fd_old != CLOSE)
 			dup2(redir->fd_old, redir->fd_new);
 		else
 			close(redir->fd_new);

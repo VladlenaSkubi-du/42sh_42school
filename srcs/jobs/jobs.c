@@ -73,6 +73,7 @@ int				fork_job(t_process *p, t_job *j, int *infl, int *outfl)
 		close(*infl);
 	if (*outfl != STDOUT_FILENO)
 		close(*outfl);
+	fd_list_process(p, CLOSE);
 	*infl = mypipe[0];
 	return (0);
 }
