@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_buffer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:55:16 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/04 17:15:01 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/07 20:26:59 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int		null_here_line(void)
 	ft_sub_heredoc(buf);
 	free(g_cmd);
 	g_cmd = buf->l_cmd;
-	// g_cmd_size = buf->l_tline.len;
 	buf->l_cmd = NULL;
 	ft_one_ltree_clear(buf);
 	g_prompt.prompt_func = heredoc_prompt;
@@ -82,7 +81,6 @@ int		recover_g_cmd_here(void)
 {
 	clean_parser42();
 	g_cmd = ft_strdup(g_heredoc.g_cmd_copy);
-	// g_cmd_size = g_heredoc.g_len_copy;
 	g_techline.line = ft_strdup(g_heredoc.g_cmd_copy);
 	g_techline.len = g_heredoc.g_len_copy;
 	g_techline.alloc_size = g_heredoc.g_len_copy;

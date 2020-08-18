@@ -49,6 +49,7 @@ int				btin_type_init(char **argv)
 {
 	int			i;
 	int			answer;
+	//struct stat	buff;
 
 	i = -1;
 	while (argv[++i])
@@ -61,14 +62,19 @@ int				btin_type_init(char **argv)
 							bash-3.2$ type /bin.ls
 							bash: type: /bin.ls: not found
 							*/
-			printf("проверить абсолютный путь\n");
+		{
+			//stat(argv[i], &buff);
+			//if (S_ISDIR(buff.st_mode))
+			if (!access(argv[i], 1))
+				ft_printf("%s is %s\n", argv[i], argv[i]);
+		}
 		else
 		{
 			answer = btin_check_arg_if_cmd_name(argv[i]); //лежит в builtins/init_structures.c
 			if (answer == ARG_ALIAS)
-				printf("сообщение про то, что алиас\n");
+				ft_printf("%s is alias\n", argv[i]);
 			else if (answer == ARG_BUILTIN)
-				printf("сообщение про то, что билтин\n");
+				ft_printf("%s is a shell builtin\n", argv[i]);
 			else
 				btin_type_turn_to_hash(argv[i]);
 		}
@@ -86,8 +92,8 @@ int				btin_type_turn_to_hash(char *arg)
 	if (path == NULL)
 		return (btin_type_error_message(arg, VARIABLE_ERROR));
 	if (where_from == 0)
-		printf("сообщение про путь типа chmod is /bin/chmod\n"); //используй ft_printf
+		ft_printf("%s is /bin/%s\n", arg, arg); //используй ft_printf
 	else
-		printf("сообщение про хеш типа ls is hashed (/bin/ls)\n");
+		ft_printf("%s is hashed (/bin/%s)\n", arg, arg);
 	return (0);
 }

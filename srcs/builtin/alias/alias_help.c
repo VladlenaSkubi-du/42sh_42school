@@ -3,33 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   alias_help.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 14:41:31 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/06 00:43:05 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/07 20:30:36 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "builtin42.h"
 
+/*
+** In the shell command language, a word consisting solely of underscores,
+** digits, and alphabetics from the portable character set and any of the
+** following characters: '!', '%', ',', '@'. (POSIX)
+*/
+
 int		btin_alias_valid_name(char *name)
 {
 	int	i;
 
 	i = (name) ? ft_strlen(name) - 1 : 0;
-	while(i >= 0 && name[i])
+	while (i >= 0 && name[i])
 	{
 		if (ft_isalnum(name[i]) || name[i] == '!' || name[i] == '%' ||
 			name[i] == ',' || name[i] == '@' || name[i] == '_')
 			i--;
 		else
-			break ;	
+			break ;
 	}
 	if (++i == 0 && name)
 		return (1);
 	return (0);
 }
+
+/*
+** Forming string name='command' from name=command
+*/
 
 char	*btin_alias_line_form(char *arg)
 {
@@ -43,6 +53,10 @@ char	*btin_alias_line_form(char *arg)
 	return (tmp);
 }
 
+/*
+** Uses to check if "name" in alias array is equal to new "name" in buf array
+*/
+
 int		btin_alias_check_name(t_list *arr, t_list *buf)
 {
 	char	*als;
@@ -54,8 +68,12 @@ int		btin_alias_check_name(t_list *arr, t_list *buf)
 	ret = ft_strcmp(als, tmp);
 	free(als);
 	free(tmp);
-	return ( ret == 0 ? 1 : 0);	
+	return (ret == 0 ? 1 : 0);
 }
+
+/*
+** Uses to delete one alias by name=arg
+*/
 
 int		btin_alias_delete(t_list **alias, char *arg)
 {
@@ -83,6 +101,11 @@ int		btin_alias_delete(t_list **alias, char *arg)
 	free(tmp.content);
 	return (0);
 }
+
+/*
+** Uses to delete all aliases. Cleans alias array if part of exit
+** or "unalias -a"
+*/
 
 int		btin_alias_delete_all(t_list **alias)
 {

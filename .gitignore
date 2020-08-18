@@ -8,7 +8,6 @@ minishell
 ft_select
 objs/
 .vscode/
-
 42sh
 *.txt
 .42sh_history

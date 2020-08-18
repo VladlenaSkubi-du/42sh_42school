@@ -24,7 +24,7 @@ int		exec_core_old(t_ltree *pos)
 	(pos->flags & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
 	if ((pos->flags & PIPED_OUT) && pipe(pipe_next) == -1)
 		return (exec_clean(path, -1, "e-bash: Pipe failed")); //через error_handler
-	fd_list_process(pos, 0);
+	fd_list_process(pos);
 	(pos->flags & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
 	(pos->flags & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
 	child_pid = 0;
@@ -33,7 +33,7 @@ int		exec_core_old(t_ltree *pos)
 		return (-1);
 	(pos->flags & PIPED_OUT) ? close(pipe_next[1]) : 0;
 	(pos->flags & PIPED_IN) ? close(pipe_prev) : 0;
-	fd_list_process(pos, 1);
+	fd_list_process(pos);
 	return (exec_clean(path, WIFEXITED(child_pid) ? \
 	WEXITSTATUS(child_pid) : (-1), 0));
 }

@@ -39,11 +39,13 @@ char		*hashtable_type_init(int *where, char *key)
 char		*hashtable_key_nf_type(char *key, void **hashtable,
 				int hashtable_size)
 {
+	printf("Ищу не хэшированую команду\n");
 	return (NULL);
 }
 
 int			hashtable_check_valid_type(int index, char *key,
 				void **hashtable, int hashtable_size)
 {
+	printf("Нашел в хэше, проверяю там ли она\n");
 	return (0);
 }

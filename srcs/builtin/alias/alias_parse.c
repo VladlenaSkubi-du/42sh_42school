@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alias_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 15:08:22 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/06 01:30:30 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/07 20:29:58 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 #include "builtin42.h"
 
 /*
-** In the shell command language, a word consisting solely of underscores, 
-** digits, and alphabetics from the portable character set and any of the
-** following characters: '!', '%', ',', '@'.
+** Uses to find alias by name in alias array.
 */
 
 char	*find_in_alias(t_list **arr, char *name)
@@ -40,6 +38,10 @@ char	*find_in_alias(t_list **arr, char *name)
 	return (NULL);
 }
 
+/*
+** Uses to save alias in alias array or to print error if name is invalid
+*/
+
 int		btin_alias_save(t_list **buf, char *arg, int eq)
 {
 	char	*name;
@@ -48,7 +50,7 @@ int		btin_alias_save(t_list **buf, char *arg, int eq)
 	tmp = NULL;
 	name = ft_strndup(arg, eq);
 	if (btin_alias_valid_name(name))
-		ft_lstadd(buf, ft_lstnew(arg, ft_strlen(arg) + 1));
+		btin_alias_merge_buf(buf, ft_lstnew(arg, ft_strlen(arg) + 1));
 	else
 	{
 		tmp = ft_strdup("`");
@@ -61,6 +63,10 @@ int		btin_alias_save(t_list **buf, char *arg, int eq)
 	return (0);
 }
 
+/*
+** Uses to printf alias from alias array or to print error if isn't such alias
+*/
+
 int		btin_alias_print_one(char *arg)
 {
 	char	*ans;
@@ -72,7 +78,7 @@ int		btin_alias_print_one(char *arg)
 	{
 		tmp = btin_alias_line_form(ans);
 		ft_putendl_fd(tmp, STDOUT_FILENO);
-		free(ans);		
+		free(ans);
 	}
 	else
 	{
@@ -84,32 +90,33 @@ int		btin_alias_print_one(char *arg)
 	return (0);
 }
 
-int		btin_alias_merge_buf(t_list **arr, t_list **buf)
+/*
+** Uses to save buffer to alias array after jobs from string were done
+*/
+
+int		btin_alias_merge_buf(t_list **arr, t_list *buf)
 {
 	t_list	*dest;
-	t_list	*tmp;
 
-	tmp = *buf;
-	while (tmp)
+	if (buf)
 	{
 		dest = *arr;
 		while (dest)
 		{
-			if (btin_alias_check_name(dest, tmp))
+			if (btin_alias_check_name(dest, buf))
 			{
 				free(dest->content);
-				dest->content = tmp->content;
-				dest->content_size = tmp->content_size;
-				tmp->content = NULL;
+				dest->content = buf->content;
+				dest->content_size = buf->content_size;
+				buf->content = NULL;
 			}
 			dest = dest->next;
 		}
-		if (tmp->content)
-			ft_lstadd(arr, ft_lstnew(tmp->content, tmp->content_size));
-		free(tmp->content);
-		ft_lstfree_current(&tmp);
+		if (buf->content)
+			ft_lstadd(arr, ft_lstnew(buf->content, buf->content_size));
+		free(buf->content);
+		ft_lstfree_current(&buf);
 	}
-	*buf = NULL;
 	return (0);
 }
 
