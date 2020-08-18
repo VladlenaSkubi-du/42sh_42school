@@ -83,7 +83,7 @@ int		ft_block_start(t_list **list)
 			if ((out_flag != 0 && (sub->flags & LOG_AND_IN)) ||
 				(out_flag == 0 && (sub->flags & LOG_OR_IN)))
 			{
-				start = start->next;
+				ft_block_foward(&sub, &start);
 				continue ;
 			}
 			out_flag = job_init(sub);
