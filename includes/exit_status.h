@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_status.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/06/25 20:33:35 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/08/18 20:01:23 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@
 # define	ERR_BTIN_ARG 0x2
 
 /*
-** Command errors for exit with 127
+** Command errors for exit with 126 or 127
 */
 
 # define	ERR_COMMAND 0x1
+# define	ERR_ISDIR 0x2
 
 /*
 ** Syntax errors are errors that exit with 258

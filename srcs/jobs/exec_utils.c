@@ -72,7 +72,10 @@ int		fd_list_process(t_process *pos)
 	{
 		redir = (t_fd_redir *)fd_list->content;
 		if (redir->fd_old != CLOSE)
+		{
 			dup2(redir->fd_old, redir->fd_new);
+			close(redir->fd_old);
+		}
 		else
 			close(redir->fd_new);
 		fd_list = fd_list->next;

@@ -28,11 +28,12 @@ void				signal_ctrl_c_readline(int sig)
 		return ;
 	if (g_rline.flag & AFTER_LINE_HIST)
 	{
-		// ft_putchar_fd(EOF, STDOUT_FILENO);
+		ft_putchar_fd('\033', STDIN_FILENO);
 		// ft_putchar_fd('\n', STDOUT_FILENO);
 		position_cursor("ch", 0, 0);
 		tputs(g_cap.cd, 1, printc);
 		g_rline.flag |= SIGNAL_C_QUESTION;
+		return ;
 	}
 	else
 	{
