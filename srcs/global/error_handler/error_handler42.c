@@ -26,7 +26,7 @@ int				error_handler(int status, char *str)
 	else if ((status & 0x1FF) == OPTIONS_REQUIRED)
 		options_errors(status, str);
 	else if ((status & 0xFF) == TMPFILE)
-		ft_putendl_fd("can't open a temporal file", STDERR_FILENO); //TODO check
+		ft_putendl_fd("Can't open a temporal file", STDERR_FILENO); //TODO check
 	else if ((status & 0xFF) >= PIPE_FAILED &&
 			(status & 0xFF) <= SIGNAL_ERROR)
 		ft_putendl_fd(str, STDERR_FILENO);
@@ -42,33 +42,39 @@ int				terminal_errors(int status, char *str)
 {
 	if ((status & 0x1FF) == TERMINAL_TO_CAN)
 	{
-		ft_putendl_fd("terminal can't be changed, reset the terminal",
+		ft_putendl_fd("Terminal can't be changed, reset the terminal",
 			STDERR_FILENO); //TODO check
 		return (0);
 	}
 	else if ((status & 0x1FF) == NONINERACTIVE)
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd(": can't be launched in noninteractive mode",
+		ft_putendl_fd(": Can't be launched in noninteractive mode",
 			STDERR_FILENO);
-		ft_putendl_fd("use shell in interactive mode", STDERR_FILENO);
+		ft_putendl_fd("Use shell in interactive mode", STDERR_FILENO);
 		usage_42sh();
 		return (0);
 	}
 	if ((status & 0x1FF) == TERMINAL_EXISTS)
-		ft_putendl_fd("terminal does not exist", STDERR_FILENO);
+		ft_putendl_fd("Terminal does not exist", STDERR_FILENO);
 	else if ((status & 0x1FF) == TERMINAL_TO_NON)
-		ft_putendl_fd("terminal can't be changed", STDERR_FILENO);
+		ft_putendl_fd("Terminal can't be changed", STDERR_FILENO);
 	else if ((status & 0x1FF) == TERMINAL_CHANGED)
-		ft_putendl_fd("terminal streams were changed", STDERR_FILENO);
-	ft_putendl_fd("use shell in non-interactive mode", STDERR_FILENO);
+		ft_putendl_fd("Terminal streams were changed", STDERR_FILENO);
+	ft_putendl_fd("Use shell in non-interactive mode", STDERR_FILENO);
 	usage_42sh();
 	return (0);
 }
 
 int				error_handler_continuation(int status, char *str)
 {
-	if ((status & 0x1FF) == COMMAND_NON_EXECUTABLE ||
+	if ((status & 0x1FF) == COMMAND_NON_EXECUTABLE &&
+		(status >> 9 & ERR_ISDIR))
+	{
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd(": Is a directory", STDERR_FILENO);
+	}
+	else if ((status & 0x1FF) == COMMAND_NON_EXECUTABLE ||
 		(status >> 9 & ERR_NO_ACC))
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
@@ -78,7 +84,7 @@ int				error_handler_continuation(int status, char *str)
 		(status >> 9 & ERR_COMMAND))
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd(": command not found", STDERR_FILENO);
+		ft_putendl_fd(": Command not found", STDERR_FILENO);
 	}
 	else if (((status & 0x1FF) == COMMAND_NOT_FOUND ||
 		(status & 0x1FF) == SYNTAX_ERROR) &&

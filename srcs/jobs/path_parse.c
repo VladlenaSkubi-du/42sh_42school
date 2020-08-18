@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_parse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:00:12 by hshawand          #+#    #+#             */
-/*   Updated: 2020/07/25 16:02:38 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/18 20:01:56 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,21 +95,31 @@ char	*path_search(char *name)
 
 char	*path_init(char **exec_av)
 {
-	char *ret;
+	char 		*ret;
+	struct stat	stat_buf;
+	int			flag;
 
 	if (!ft_strchr(*exec_av, '/'))
 		ret = hashtable_cmd_init(*exec_av);
 	else
 	{
+		flag = 0;
 		if (access(*exec_av, F_OK) == -1)
 		{
 			error_handler(COMMAND_NOT_FOUND |
 				(ERR_NO_FILE << 9), *exec_av);
 			return (NULL);
 		}
-		else if (access(*exec_av, X_OK) == -1)
+		if (access(*exec_av, X_OK) == -1 || stat(*exec_av, &stat_buf) != 0
+				|| (stat_buf.st_mode & (S_IXUSR | S_IXGRP | S_IXOTH)) == 0 ||
+				S_ISREG(stat_buf.st_mode) == 0)
+			flag |= COMMAND_NON_EXECUTABLE;
+		if (flag & COMMAND_NON_EXECUTABLE)
 		{
-			error_handler(COMMAND_NON_EXECUTABLE, *exec_av);
+			if (stat(*exec_av, &stat_buf) == 0 && S_ISDIR(stat_buf.st_mode))
+				error_handler(COMMAND_NON_EXECUTABLE | (ERR_ISDIR << 9), *exec_av);
+			else
+				error_handler(COMMAND_NON_EXECUTABLE, *exec_av);
 			return (NULL);
 		}
 		ret = ft_strdup(exec_av[0]);
