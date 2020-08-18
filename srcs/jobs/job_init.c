@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:25:17 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/18 21:39:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/18 23:03:04 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ int			job_init(t_ltree *entity)
 	t_job		*job;
 
 	ret = 0;
-	std_save(0);
+	if (!(entity->flags & PIPED_IN))
+		std_save(0);
 	set_globals_and_signals();
 	if (!(entity->flags & (int)PIPED_IN) || !g_first_job)
 		!(job = job_new()) ? ret++ : 0;
