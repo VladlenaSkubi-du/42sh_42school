@@ -18,8 +18,11 @@ int		std_save(int mode)
 	else
 	{
 		dup2(save[0], STDIN_FILENO);
+		close(save[0]);
 		dup2(save[1], STDOUT_FILENO);
+		close(save[1]);
 		dup2(save[2], STDERR_FILENO);
+		close(save[2]);
 	}
 	return (0);
 }

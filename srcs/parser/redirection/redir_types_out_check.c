@@ -13,6 +13,28 @@
 #include "shell42.h"
 #include "parser.h"
 
+int		ft_redir_check(t_ltree *final, int *i)
+{
+	char *line;
+
+	line = final->l_tline.line;
+	if ((line[*i] == GTHAN || line[*i] == LTHAN))
+	{
+		if ((((line[*i] == GTHAN && line[*i + 1] == GTHAN) ||
+			(line[*i] == LTHAN && line[*i + 1] == LTHAN) ||
+			(line[*i] == GTHAN && line[*i + 1] == AND) ||
+			(line[*i] == LTHAN && line[*i + 1] == AND)) &&
+			(line[*i + 2] != GTHAN && line[*i + 2] != LTHAN &&
+			line[*i + 2] != AND)) ||
+			((line[*i] == GTHAN || line[*i] == LTHAN) &&
+			(line[*i + 1] == SPACE || line[*i + 1] == WORD_P ||
+			line[*i + 1] == TEXT)))
+			return (ft_redir_great_check(final, i));
+		return (final->flags |= ERR_OUT | ERR_REDIR << 16);
+	}
+	return (0);
+}
+
 /*
 ** Function to detect "[n]>word"
 */
