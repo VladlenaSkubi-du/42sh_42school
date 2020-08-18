@@ -64,7 +64,7 @@ int			ft_find_redirection_check(t_ltree *final)
 	ret = 0;
 	while (i <= final->end)
 	{
-		if ((ret = ft_redir_great_check(final, &i)) != 0)
+		if ((ret = ft_redir_check(final, &i)) != 0)
 			break ;
 		if ((ret = ft_redir_dgreat_check(final, &i)) != 0)
 			break ;

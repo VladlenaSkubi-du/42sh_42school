@@ -264,6 +264,7 @@ int						ft_error_redir(t_ltree *final);
 ** File redir_types_out_check.c
 */
 
+int						ft_redir_check(t_ltree *final, int *i);
 int						ft_redir_great_check(t_ltree *final, int *i);
 int						ft_redir_dgreat_check(t_ltree *final, int *i);
 int						ft_redir_greatand_check(t_ltree *final, int *i);
