@@ -6,31 +6,36 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:55:29 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/18 21:17:19 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/18 21:48:25 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "parser.h"
 
-int		ft_redir_check(t_ltree *final, int *i)
+int		ft_redir_check(t_ltree *final)
 {
-	char *line;
+	int		i;
+	int		ret;
 
-	line = final->l_tline.line;
-	if ((line[*i] == GTHAN || line[*i] == LTHAN))
+	i = final->start;
+	ret = 0;
+	while (i <= final->end)
 	{
-		if ((((line[*i] == GTHAN && line[*i + 1] == GTHAN) ||
-			(line[*i] == LTHAN && line[*i + 1] == LTHAN) ||
-			(line[*i] == GTHAN && line[*i + 1] == AND) ||
-			(line[*i] == LTHAN && line[*i + 1] == AND)) &&
-			(line[*i + 2] != GTHAN && line[*i + 2] != LTHAN &&
-			line[*i + 2] != AND)) ||
-			((line[*i] == GTHAN || line[*i] == LTHAN) &&
-			(line[*i + 1] == SPACE || line[*i + 1] == WORD_P ||
-			line[*i + 1] == TEXT)))
-			return (ft_redir_great_check(final, i));
-		return (final->flags |= ERR_OUT | ERR_REDIR << 16);
+		if (final->l_tline.line[i] == GTHAN || final->l_tline.line[i] == LTHAN)
+		{
+			if (ft_redir_valid(final, i))
+			{
+				if ((ret = ft_find_redirection_check(final, &i)) != 0)
+				{
+					final->err_i = i;
+					return(ret);
+				}
+			}
+			else
+				return (final->flags |= ERR_OUT | ERR_REDIR << 16);
+		}
+		i++;
 	}
 	return (0);
 }
