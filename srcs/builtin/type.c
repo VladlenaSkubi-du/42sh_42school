@@ -1,18 +1,18 @@
 #include "shell42.h"
 #include "builtin42.h"
 
-int				btin_type(t_ltree *pos)
+int				btin_type(t_process *pos)
 {
 	int			flags;
 	
-	flags = find_options(2, (char*[]){"", "--help"}, pos->ar_v);
+	flags = find_options(2, (char*[]){"", "--help"}, pos->argv);
 	if (flags == HELP_FLAG)
 		return (usage_btin("type"));
 	if (flags < 0)
 		return (btin_return_exit_status());
-	if (pos->ar_c < 1)
+	if (pos->argc < 1)
 		return (0);
-	return (btin_type_check_options(pos->ar_v));
+	return (btin_type_check_options(pos->argv));
 }
 
 int				btin_type_error_message(char *option, int error)

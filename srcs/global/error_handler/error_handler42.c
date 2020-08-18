@@ -68,33 +68,39 @@ int				terminal_errors(int status, char *str)
 
 int				error_handler_continuation(int status, char *str)
 {
-	if ((status & 0x1FF) == COMMAND_NON_EXECUTABLE &&
-		(status >> 9 & ERR_ISDIR))
+	if ((((status & 0x1FF) == COMMAND_NON_EXECUTABLE ||
+			(status & 0x1FF) == COMMAND_NOT_FOUND) &&
+			((status >> 9 & ERR_NO_ACC) ||
+			(status >> 9 & ERR_ISDIR) ||
+			(status >> 9 & ERR_NO_FILE) ||
+			(status >> 9 & ERR_COMMAND))) ||
+			(((status & 0x1FF) == SYNTAX_ERROR) &&
+			(status >> 9 & ERR_NO_FILE)))
 	{
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd(": Is a directory", STDERR_FILENO);
-	}
-	else if ((status & 0x1FF) == COMMAND_NON_EXECUTABLE ||
-		(status >> 9 & ERR_NO_ACC))
-	{
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd(": Permission denied", STDERR_FILENO);
-	}
-	else if ((status & 0x1FF) == COMMAND_NOT_FOUND &&
-		(status >> 9 & ERR_COMMAND))
-	{
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd(": Command not found", STDERR_FILENO);
-	}
-	else if (((status & 0x1FF) == COMMAND_NOT_FOUND ||
-		(status & 0x1FF) == SYNTAX_ERROR) &&
-		status >> 9 & ERR_NO_FILE)
-	{
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
+		error_handler_files_and_commands(status, str);
+		return (0);
 	}
 	else if ((status & 0x1FF) == SYNTAX_ERROR)
 		syntax_errors(status, str);
+	return (0);
+}
+
+int				error_handler_files_and_commands(int status, char *str)
+{
+	ft_putstr_fd(str, STDERR_FILENO);
+	if ((status & 0x1FF) == COMMAND_NON_EXECUTABLE &&
+			(status >> 9 & ERR_ISDIR))
+		ft_putendl_fd(": Is a directory", STDERR_FILENO);
+	else if ((status & 0x1FF) == COMMAND_NON_EXECUTABLE ||
+			(status >> 9 & ERR_NO_ACC))
+		ft_putendl_fd(": Permission denied", STDERR_FILENO);
+	else if ((status & 0x1FF) == COMMAND_NOT_FOUND &&
+			(status >> 9 & ERR_COMMAND))
+		ft_putendl_fd(": Command not found", STDERR_FILENO);
+	else if (((status & 0x1FF) == COMMAND_NOT_FOUND ||
+			(status & 0x1FF) == SYNTAX_ERROR) &&
+			status >> 9 & ERR_NO_FILE)
+		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 	return (0);
 }
 

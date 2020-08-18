@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unalias.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 20:31:08 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/07 20:35:45 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/18 21:20:36 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@
 ** No arguments as well as 'unalias --' is no-options error command
 */
 
-int		btin_unalias(t_ltree *pos)
+int		btin_unalias(t_process *pos)
 {
 	int	flags;
 
-	flags = find_options(2, (char*[]){"-a", "--help"}, pos->ar_v);
+	flags = find_options(2, (char*[]){"-a", "--help"}, pos->argv);
 	if (flags == HELP_FLAG)
 		return (usage_btin("unalias"));
 	if (flags < 0)
 		return (btin_return_exit_status());
-	if (pos->ar_c < 2)
+	if (pos->argc < 2)
 	{
 		usage_btin("unalias");
 		return (OPTIONS_REQUIRED);
 	}
-	return (btin_unalias_check_options(pos->ar_v));
+	return (btin_unalias_check_options(pos->argv));
 }
 
 int		btin_unalias_check_options(char **argv)

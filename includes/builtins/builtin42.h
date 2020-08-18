@@ -74,21 +74,21 @@ int				check_posix_option(char *arg, char *options,
 ** File exit.c
 */
 
-int				btin_exit(t_ltree *pos);
+int				btin_exit(t_process *pos);
 int				btin_exit_arguments(char **ar_v);
 
 /*
 ** File set.c
 */
 
-int				btin_set(t_ltree *pos);
+int				btin_set(t_process *pos);
 int				btin_set_init(void);
 
 /*
 ** File type.c
 */
 
-int				btin_type(t_ltree *pos);
+int				btin_type(t_process *pos);
 int				btin_type_check_options(char **argv);
 int				btin_type_error_message(char *option, int error);
 int				btin_type_init(char **argv);
@@ -98,7 +98,7 @@ int				btin_type_turn_to_hash(char *arg);
 ** File unset.c
 */
 
-int				btin_unset(t_ltree *pos);
+int				btin_unset(t_process *pos);
 int				btin_unset_init(int argc, char **argv);
 void			btin_unset_error_message(char *find);
 
@@ -106,7 +106,7 @@ void			btin_unset_error_message(char *find);
 ** File history.c
 */
 
-int				btin_history(t_ltree *pos);
+int				btin_history(t_process *pos);
 int				btin_history_check_options(char **argv);
 int				btin_history_error_message(char *option, int error);
 int				btin_history_clear(void);
@@ -131,7 +131,7 @@ int				btin_exsign_make_substitution(t_ltree *pos,
 ** File echo.c
 */
 
-int             btin_echo(t_ltree *pos);
+int             btin_echo(t_process *pos);
 void		    write_text(char **argv, int i, t_ec *echo_flags);
 void		    write_e_echo(char **argv, int i);
 void		    write_back_sl(char c);
@@ -141,7 +141,7 @@ int			    parse_echo_flags(char **argv, t_ec *echo_flags, int i);
 ** File pwd.c
 */
 
-int             btin_pwd(t_ltree *pos);
+int             btin_pwd(t_process *pos);
 int				btin_pwd_init(char **argv);
 int             btin_pwd_valid(char **argv);
 int				btin_pwd_error_message(char *option, int error);
@@ -151,9 +151,9 @@ int				btin_pwd_error_message(char *option, int error);
 */
 
 int				export_error(char **tmp, int i);
-int				btin_export(t_ltree *pos);
+int				btin_export(t_process *pos);
 int			    export_p(void);
-int			    export_add_vis(t_ltree *pos);
+int			    export_add_vis(char **argv);
 int			    do_vis(char *arg);
 int			    change_or_add(char *arg);
 
@@ -167,7 +167,7 @@ int		        btin_bumblebee(void);
 ** File unalias.c
 */
 
-int				btin_unalias(t_ltree *pos);
+int				btin_unalias(t_process *pos);
 int				btin_unalias_check_options(char **argv);
 int				btin_unalias_error(char *option, int error);
 int				btin_unalias_init(char **argv);
@@ -182,7 +182,7 @@ int				btin_unalias_clean_commands(void);
 ** Folder alias, file alias.c
 */
 
-int				btin_alias(t_ltree *pos);
+int				btin_alias(t_process *pos);
 int				btin_alias_check_options(char **argv);
 int				btin_alias_error_message(char *option, int error);
 int				btin_alias_init(char **argv, char **ans, int flag);
@@ -219,19 +219,19 @@ int				btin_alias_delete_all(t_list **alias);
 ** Folder fc, file fc.c
 */
 
-int             btin_fc(t_ltree *pos);
+int             btin_fc(t_process *pos);
 
 /*
 ** Folder cd, file cd.c
 */
 
-int				btin_cd(t_ltree *pos);
+int				btin_cd(t_process *pos);
 
 /*
 ** Folder jobs_btin, file jobs_main_btin.c
 */
 
-int				btin_jobs(t_ltree *pos);
+int				btin_jobs(t_process *pos);
 int				btin_jobs_init(int argc, char **argv);
 int				print_job_info(t_job * j, int options);
 int				get_status(t_job	*j, char *buff, int options);
@@ -254,14 +254,14 @@ int				btin_jobs_error_message(char *option, int error);
 ** Folder bg_fg_btins, file bg.c
 */
 
-int				btin_bg(t_ltree *pos);
+int				btin_bg(t_process *pos);
 int				btin_bg_check_options(int argc, char **argv);
 
 /*
 ** Folder bg_fg_btins, file fg.c
 */
 
-int				btin_fg(t_ltree *pos);
+int				btin_fg(t_process *pos);
 int				btin_fg_check_options(int argc, char **argv);
 
 /*
@@ -278,7 +278,7 @@ int				btin_bg_fg_error_message(int where, char *option, int error);
 ** Folder hash, file hash.c
 */
 
-int             btin_hash(t_ltree *pos);
+int             btin_hash(t_process *pos);
 int				btin_hash_check_options(char **argv);
 int				btin_hash_check_flags(char *arg);
 int				btin_hash_error_message(char *option, int error);

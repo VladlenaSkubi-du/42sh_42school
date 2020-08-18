@@ -34,7 +34,8 @@ int				exit_status_variables(int status)
 	i = find_in_variable(&j, "?");
 	final = ft_strjoin("?=", tmp);
 	change_env_value(final, i);
+	// printf("first exit status change %s\n", g_envi[i]);
 	free(final);
 	free(tmp);
-	return (0);
+	return (status);
 }

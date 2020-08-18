@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:07:42 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/03 10:39:07 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/18 21:39:12 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,20 +103,21 @@ void		write_text(char **argv, int i, t_ec *echo_flags)
 		write(1, "\n", 1);
 }
 
-int			btin_echo(t_ltree *pos)
+int			btin_echo(t_process *pos)
 {
 	t_ec	*echo_flags;
 	int		i;
 	int		flags_check;
 
-	flags_check = find_options(3, (char*[]){"enE", "--help"}, pos->ar_v);
+	// printf("from echo %s\n", g_envi[0]);
+	flags_check = find_options(3, (char*[]){"enE", "--help"}, pos->argv);
 	if (flags_check == HELP_FLAG)
 		return (usage_btin("echo"));
 	else if (flags_check < 0)
 		return (btin_return_exit_status());
 	echo_flags = ft_xmalloc(sizeof(t_ec));
-	i = parse_echo_flags(pos->ar_v, echo_flags, 1);
-	write_text(pos->ar_v, i, echo_flags);
+	i = parse_echo_flags(pos->argv, echo_flags, 1);
+	write_text(pos->argv, i, echo_flags);
 	free(echo_flags);
 	return (0);
 }

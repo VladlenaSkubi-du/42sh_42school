@@ -1,16 +1,16 @@
 #include "shell42.h"
 #include "builtin42.h"
 
-int		btin_bg(t_ltree *pos)
+int		btin_bg(t_process *pos)
 {
 	int				flags;
 	
-	flags = find_options(2, (char*[]){"", "--help"}, pos->ar_v);
+	flags = find_options(2, (char*[]){"", "--help"}, pos->argv);
 	if (flags == HELP_FLAG)
 		return (usage_btin("bg"));
 	if (flags < 0)
 		return (btin_return_exit_status());
-	return (btin_bg_check_options(pos->ar_c, pos->ar_v));
+	return (btin_bg_check_options(pos->argc, pos->argv));
 }
 
 int		btin_bg_check_options(int argc, char **argv)
