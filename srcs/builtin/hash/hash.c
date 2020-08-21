@@ -94,10 +94,7 @@ int					btin_hash_clean_table()
 	hashtable_size = -1;
 	hashtable = get_hashtable_value(&hashtable_size);
 	if (hashtable_size < 0)
-	{
-		printf("can's get hashtable value\n");
 		return (0);
-	}
 	hashtable_clean(hashtable, hashtable_size);
 	return (0);
 }

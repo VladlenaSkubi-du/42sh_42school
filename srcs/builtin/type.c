@@ -92,8 +92,8 @@ int				btin_type_turn_to_hash(char *arg)
 	if (path == NULL)
 		return (btin_type_error_message(arg, VARIABLE_ERROR));
 	if (where_from == 0)
-		ft_printf("%s is /bin/%s\n", arg, arg); //используй ft_printf
+		ft_printf("%s is %s\n", arg, path); //используй ft_printf
 	else
-		ft_printf("%s is hashed (/bin/%s)\n", arg, arg);
+		ft_printf("%s is hashed (%s)\n", arg, path);
 	return (0);
 }
