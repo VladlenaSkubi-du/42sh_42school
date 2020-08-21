@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:11:39 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/07 22:31:04 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/21 19:53:48 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 int		exec_vp(t_process *p)
 {
-	if (!(g_path = path_init(p->argv)))
+	if (!(g_path))
 		return (exec_clean(g_path, -1, 0));
 	if (execve(g_path, p->argv, p->envp) == -1)
 		exit(-1);

@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:13:51 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/18 22:08:12 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/21 19:58:46 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 
 int	exec_clean(char *path, int exit_status, char *err_msg)
 {
-	// if (path)
-	// 	exit_status_variables(exit_status);
-	// free(path);
+	if (path)
+		exit_status_variables(exit_status);
+	free(path);
 	if (err_msg)
 		ft_putendl_fd(err_msg, STDERR_FILENO);
 	return (exit_status);
