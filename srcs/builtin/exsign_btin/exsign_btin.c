@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:27:40 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 20:23:28 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 20:36:21 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int					btin_exsign(t_ltree *pos)
 			break ;
 		i++;
 	}
+	ft_arrdel(arg_tline);
 	line_part = ft_strstr(pos->l_cmd, pos->ar_v[i]);
 	ft_arrdel(pos->ar_v);
 	pos->ar_v = NULL;

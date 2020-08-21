@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:44:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:44:47 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 21:18:36 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int				clean_everything(void)
 			free(g_hist.hist[g_hist.len]);
 		ft_arrdel(g_hist.hist);
 		make_ctrl_p(2, NULL);
+		btin_alias_init(NULL, NULL, DEL_ALL);
+		btin_alias_init(NULL, NULL, CONTINUE);
+		btin_hash_clean_table();
 	}
 	ft_arrdel(g_envi);
 	cd_free_static();
-	btin_hash_clean_table();
-	btin_alias_init(NULL, NULL, DEL_ALL);
-	btin_alias_init(NULL, NULL, CONTINUE);
 	ft_gnl(GNL_CLEAN, NULL);
 	return (0);
 }

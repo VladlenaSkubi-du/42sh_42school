@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:13:51 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 20:50:04 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/21 21:26:06 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		fd_list_process(t_process *pos, int flag)
 	return (0);
 }
 
-int		path_init_errors(char *exec_av)
+int		path_init_errors(char *exec_av, char *name)
 {
 	int			flag;
 	struct stat	stat_buf;
@@ -85,7 +85,7 @@ int		path_init_errors(char *exec_av)
 	if (access(exec_av, F_OK) == -1)
 	{
 		error_handler(COMMAND_NOT_FOUND |
-			(ERR_NO_FILE << 9), exec_av);
+			(ERR_COMMAND << 9), name);
 		return (-1);
 	}
 	flag = 0;
@@ -96,9 +96,9 @@ int		path_init_errors(char *exec_av)
 	if (flag & COMMAND_NON_EXECUTABLE)
 	{
 		if (stat(exec_av, &stat_buf) == 0 && S_ISDIR(stat_buf.st_mode))
-			error_handler(COMMAND_NON_EXECUTABLE | (ERR_ISDIR << 9), exec_av);
+			error_handler(COMMAND_NON_EXECUTABLE | (ERR_ISDIR << 9), name);
 		else
-			error_handler(COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9), exec_av);
+			error_handler(COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9), name);
 		return (-1);
 	}
 	return (0);
