@@ -69,6 +69,25 @@ err=$($bsh_name -c "ls nonexisten 2>&1 | cat -e 1>&2 | cat -e" 2>&1)
 suc=$($bsh_pos -c "ls nonexisten 2>&1 | cat -e 1>&2 | cat -e" 2>&1)
 my_echo "$err" "$suc"
 sleep $sl
+
+echo -n "---test &&---"
+err=$($bsh_name -c "ls sdfdsf && echo NO" 2>&1)
+suc="ls: sdfdsf: No such file or directory"
+my_echo "$err" "$suc"
+sleep $sl
+
+echo -n "---test ||---"
+err=$($bsh_name -c "ls sdfsdf || echo YES | cat -e" 2>&1)
+suc="ls: sdfsdf: No such file or directory
+YES$"
+my_echo "$err" "$suc"
+sleep $sl
+
+echo "---complex test---"
+#$err=$($bsh_name -c "FOO=123; echo \${FOO} >/dev/null && echo YES ; unset FOO" 2>&1)
+#$suc="YES"
+#my_echo "$err" "$suc"
+sleep $sl
 }
 
 
