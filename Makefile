@@ -15,7 +15,6 @@ BUILTIN = \
 			$(BUILTIN_DIR)/set.c \
 			$(BUILTIN_DIR)/unset.c \
 			$(BUILTIN_DIR)/usages.c \
-			$(BUILTIN_DIR)/exsign_btin.c \
 			$(BUILTIN_DIR)/bumblebee.c \
 			$(BUILTIN_DIR)/unalias.c \
 			$(BUILTIN_DIR)/type.c \
@@ -25,6 +24,7 @@ BUILTIN = \
 			$(JOBS_BTIN) \
 			$(EXPORT) \
 			$(HASH) \
+			$(EXSIGN) \
 			$(BG_FG)
 
 ALIAS_DIR = alias
@@ -54,6 +54,10 @@ HASH = 		$(BUILTIN_DIR)/$(HASH_DIR)/hash.c \
 			$(BUILTIN_DIR)/$(HASH_DIR)/hashtable_from_type.c \
 			$(BUILTIN_DIR)/$(HASH_DIR)/hashtable_slots.c \
 			$(BUILTIN_DIR)/$(HASH_DIR)/hashtable_values.c
+
+EXSIGN_DIR = exsign_btin
+EXSIGN =	$(BUILTIN_DIR)/$(EXSIGN_DIR)/exsign_btin.c \
+			$(BUILTIN_DIR)/$(EXSIGN_DIR)/exsign_btin_processing.c
 
 FC_DIR = fc
 FC = 		$(BUILTIN_DIR)/$(FC_DIR)/fc.c \
@@ -292,6 +296,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c $(wildcard $(BUILTIN_INCLUDE_DIR)/*.h) \
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(CD_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(EXPORT_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(HASH_DIR)
+	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(EXSIGN_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(JOBS_BTIN_DIR)
 #_____________________________________________________
 	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)
