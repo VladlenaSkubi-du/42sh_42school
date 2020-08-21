@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:35:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/04 17:15:35 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 17:25:05 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ int				add_other_prompts_history(char *cmd, int flag)
 	}
 	else
 		g_cmd = ft_strdup(g_hist.hist[g_hist.last]);
-	// g_cmd_size = ft_strlen(g_cmd);
 	ft_get_techline(g_cmd, &g_techline);
 	return (0);
 }

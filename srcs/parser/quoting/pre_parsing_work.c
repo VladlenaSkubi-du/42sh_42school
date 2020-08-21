@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_parsing_work.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:49:13 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/01 15:23:10 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/21 17:25:12 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 /*
 ** Simle to remove unused number (num_sym) of symbols by moving end of g_cmd
-** g_techline.line and resizing g_cmd_size and g_techline.len.
+** g_techline.line and resizing g_techline.len.
 */
 
 int		ft_reglue(int *i, int num, t_ltree *sub)

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:45:15 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:45:16 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 17:53:19 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ void				signal_ctrl_c_readline(int sig)
 
 void				signal_screen_readline(int sig)
 {
-	int				i;
-
 	if (sig != SIGWINCH)
 		return ;
 	check_after_line();
@@ -72,13 +70,13 @@ void				signal_screen_readline(int sig)
 	g_rline.pos_y = 0;
 	g_rline.str_num = 1;
 	g_prompt.prompt_func();
-	i = -1;
-	while (g_rline.cmd[++i])
+	if (g_rline.cmd_len >= g_screen.ws_col)
 	{
-		g_rline.pos++;
-		front_insert_one_char(g_rline.cmd[i],
-			g_rline.pos_x, 'm', NULL);
+		if (g_rline.cmd_len / g_screen.ws_col >
+				g_screen.ws_row - 1)
+			return ;
 	}
+	input_the_line_readline();
 }
 
 void				signal_ctrl_c_parser(int sig)
