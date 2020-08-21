@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:53:30 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 19:26:58 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/21 20:15:05 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,15 @@ int				launch_job(t_job *j)
 	j->clean = j->fg ? 0 : 1;
 	while (p)
 	{
+		!p->btin ? g_path = path_init(p->argv) : 0;
 		if (fork_job(p, j, &infile, &outfile) == -1)
+		{
+			free(g_path);
+			g_path = NULL;
 			return (-1);
+		}
+		free(g_path);
+		g_path = NULL;
 		p = p->next;
 	}
 	bg_fg_wait(j);

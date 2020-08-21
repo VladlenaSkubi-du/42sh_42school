@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:13:51 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 19:50:25 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 20:34:23 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 
 int	exec_clean(char *path, int exit_status, char *err_msg)
 {
-	// if (path)
-	// 	exit_status_variables(exit_status);
-	// free(path);
+	if (path)
+		exit_status_variables(exit_status);
+	free(path);
 	if (err_msg)
 		ft_putendl_fd(err_msg, STDERR_FILENO);
 	return (exit_status);
@@ -90,23 +90,23 @@ int		path_init_errors(char *exec_av)
 	int			flag;
 	struct stat	stat_buf;
 
-	if (access(*exec_av, F_OK) == -1)
+	if (access(exec_av, F_OK) == -1)
 	{
 		error_handler(COMMAND_NOT_FOUND |
-			(ERR_NO_FILE << 9), *exec_av);
+			(ERR_NO_FILE << 9), exec_av);
 		return (-1);
 	}
 	flag = 0;
-	if (access(*exec_av, X_OK) == -1 || stat(*exec_av, &stat_buf) != 0
+	if (access(exec_av, X_OK) == -1 || stat(exec_av, &stat_buf) != 0
 			|| (stat_buf.st_mode & (S_IXUSR | S_IXGRP | S_IXOTH)) == 0 ||
 			S_ISREG(stat_buf.st_mode) == 0)
 		flag |= COMMAND_NON_EXECUTABLE;
 	if (flag & COMMAND_NON_EXECUTABLE)
 	{
-		if (stat(*exec_av, &stat_buf) == 0 && S_ISDIR(stat_buf.st_mode))
-			error_handler(COMMAND_NON_EXECUTABLE | (ERR_ISDIR << 9), *exec_av);
+		if (stat(exec_av, &stat_buf) == 0 && S_ISDIR(stat_buf.st_mode))
+			error_handler(COMMAND_NON_EXECUTABLE | (ERR_ISDIR << 9), exec_av);
 		else
-			error_handler(COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9), *exec_av);
+			error_handler(COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9), exec_av);
 		return (-1);
 	}
 	return (0);
