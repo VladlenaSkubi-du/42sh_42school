@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_new_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:08:55 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/25 16:13:41 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/08/21 16:09:51 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char		*ft_new_path(char *path, char *src_path)
 		return (tmp = ft_del_slesh(path));
 	else if (path[0] == '/')
 		return (ft_strdup("/"));
-	tmp = ft_join(path, src_path);
+	tmp = ft_join_cd(path, src_path);
 	arr = ft_strsplit(tmp, '/');
 	free(arr[0]);
 	arr[0] = ft_strdup("/");

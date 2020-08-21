@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/21 16:27:36 by sschmele          #+#    #+#             */
+/*   Updated: 2020/08/21 16:41:33 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "builtin42.h"
 #include "jobs.h"
@@ -17,11 +29,13 @@ int				btin_exit(t_process *pos)
 		}
 		job_iter = job_iter->next;
 	}
+	if (pos->argc > 2)
+	{
+		error_handler(VARIABLE_ERROR | (ERR_TOO_MANY << 9), "exit");
+		exit(VARIABLE_ERROR);
+	}
 	ft_putendl_fd("exit", STDOUT_FILENO);
-	if (pos->argc > 1)
-		status = btin_exit_arguments(pos->argv);
-	else
-		status = 0;
+	status = (pos->argc > 1) ? btin_exit_arguments(pos->argv) : 0;
 	fill_hist_in_file();
 	clean_everything();
 	exit(status);

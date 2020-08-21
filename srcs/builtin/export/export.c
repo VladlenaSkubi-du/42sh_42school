@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:41:48 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/18 21:20:53 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 16:10:05 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int			export_p(void)
 			if (j && j + 1)
 				ft_printf("=\"%s\"\n", j + 1);
 			else
-				ft_putchar('\n');
+				ft_putchar_fd('\n', STDOUT_FILENO);
 		}
 		i++;
 	}

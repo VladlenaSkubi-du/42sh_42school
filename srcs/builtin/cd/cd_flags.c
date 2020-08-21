@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   cd_flags.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:04:48 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/25 16:05:24 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/08/21 16:09:48 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "builtin42.h"
 
-void	ft_swap_flags(t_cd *flags, size_t l, size_t p)
+static void	ft_swap_flags(t_cd *flags, size_t l, size_t p)
 {
 	flags->l = l;
 	flags->p = p;
 }
 
-int		ft_cd_flags(char **argv, t_cd *flags)
+int			ft_cd_flags(char **argv, t_cd *flags)
 {
 	int		i;
 	int		j;

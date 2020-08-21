@@ -6,14 +6,14 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:57:32 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/18 21:21:17 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 16:09:44 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "builtin42.h"
 
-char		*ft_join(char *path, char *src_path)
+char		*ft_join_cd(char *path, char *src_path)
 {
 	char	*tmp;
 
@@ -27,7 +27,7 @@ char		*ft_join(char *path, char *src_path)
 	return (tmp);
 }
 
-int			ft_error(char *name, int en)
+int			ft_error_cd(char *name, int en)
 {
 	char	*tmp;
 	char	*new_name;
@@ -37,15 +37,15 @@ int			ft_error(char *name, int en)
 	if (name)
 		tmp = ft_strrejoin(tmp, name);
 	if (en == 1)
-		tmp = ft_strrejoin(tmp, ": string not in pwd");
+		tmp = ft_strrejoin(tmp, ": String not in pwd");
 	else if (en == 2)
-		tmp = ft_strrejoin(tmp, ": no such file or directory");
+		tmp = ft_strrejoin(tmp, ": No such file or directory");
 	else if (en == 3)
-		tmp = ft_strrejoin(tmp, ": permission denied");
+		tmp = ft_strrejoin(tmp, ": Permission denied");
 	else if (en == 4)
-		tmp = ft_strrejoin(tmp, ": not a directory");
+		tmp = ft_strrejoin(tmp, ": Not a directory");
 	else if (en == 5)
-		tmp = ft_strrejoin(tmp, "too many arguments");
+		tmp = ft_strrejoin(tmp, "Too many arguments");
 	else if (en == 6)
 		tmp = ft_strrejoin(tmp, "OLDPWD not set");
 	else if (en == 7)

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/18 20:01:23 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 16:35:53 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define	ERR_CD 0x20
 # define	ERR_JOB_NF 0x40
 # define	ERR_HASH_NF 0x80
+# define	ERR_TOO_MANY 0x100
 
 /*
 ** Option errors are errors that exit with 2
