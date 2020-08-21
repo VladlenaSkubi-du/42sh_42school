@@ -169,7 +169,7 @@ typedef struct			s_here
 	t_stop				stop;
 	char				*g_cmd_copy;
 	char				*g_techline_copy;
-	size_t				g_len_copy;
+	size_t				g_len_copy; //нужно??
 	char				**buf;
 	int					buf_size;
 }						t_here;
@@ -179,7 +179,6 @@ typedef struct			s_here
 */
 
 char					*g_cmd;
-// size_t					g_cmd_size;
 t_tech					g_techline;
 t_here					g_heredoc;
 t_list					*g_start_list;

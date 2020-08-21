@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_control_err.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:43:52 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/01 15:55:52 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/21 17:30:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int		nullify_error(t_stack **stack)
 	if ((*stack)->data == DQUOTE || (*stack)->data == SQUOTE)
 		g_prompt.prompt_func = dquote_prompt;
 	if ((*stack)->data == OPAREN)
-		g_prompt.prompt_func = subshell_prompt;
+		g_prompt.prompt_func = other_prompt;
 	if ((*stack)->data == OBRACE)
-		g_prompt.prompt_func = cursh_prompt;
+		g_prompt.prompt_func = other_prompt;
 	if ((*stack)->data == BSLASH)
 		g_prompt.prompt_func = other_prompt;
 	if (((*stack)->data == EOF ||

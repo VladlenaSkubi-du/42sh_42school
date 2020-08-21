@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:09:03 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:09:06 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 17:49:18 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,8 +219,6 @@ int								count_prompt_len(void);
 */
 
 int								pipe_prompt(void);
-int								subshell_prompt(void);
-int								cursh_prompt(void);
 int								cmdandor_prompt(void);
 
 /*
@@ -266,8 +264,9 @@ int								front_write_one_char(char c, char *color);
 int								position_cursor_after_line(int len);
 int								clean_after_line(void);
 int								clear_whole_line(void);
-int								save_questions_structure(t_rline_questions new_qw);
-t_rline_questions				get_questions_structure(void);
+int								save_questions_structure(t_rline_questions new_qw); //DELETE
+t_rline_questions				get_questions_structure(void); //DELETE
+int								input_the_line_readline(void);
 
 /*
 ** File colors.c
