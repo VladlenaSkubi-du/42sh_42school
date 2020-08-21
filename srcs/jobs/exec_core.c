@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_core.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 20:45:28 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 20:46:39 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/21 22:32:07 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		std_save(int mode)
 	return (0);
 }
 
-int		fork_and_exec(t_ltree *pos, char *path, pid_t *child_pid)
+/*int		fork_and_exec(t_ltree *pos, char *path, pid_t *child_pid)
 {
 	*child_pid = fork();
 	if (!*child_pid)
@@ -51,4 +51,4 @@ int		fork_and_exec(t_ltree *pos, char *path, pid_t *child_pid)
 		return (exec_clean(path, -1, "e-bash: Fork failed"));
 	wait(child_pid);
 	return (0);
-}
+}*/
