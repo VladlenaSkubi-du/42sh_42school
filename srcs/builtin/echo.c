@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:07:42 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/18 21:39:12 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 09:28:40 by kfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ int			btin_echo(t_process *pos)
 	int		i;
 	int		flags_check;
 
-	// printf("from echo %s\n", g_envi[0]);
 	flags_check = find_options(3, (char*[]){"enE", "--help"}, pos->argv);
 	if (flags_check == HELP_FLAG)
 		return (usage_btin("echo"));

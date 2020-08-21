@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:00:43 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/21 16:09:54 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 10:50:52 by kfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	*ft_cdpath(char *path, char **env, char *res, int i)
 		return (NULL);
 	res = NULL;
 	arr = ft_strsplit(env[i] + j, ':');
+	i = -1;
 	while (arr[++i])
 	{
 		if (path[0] == '.' && path[1] == '.')

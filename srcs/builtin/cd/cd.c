@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:57:32 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/21 17:15:35 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 10:38:38 by kfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int			ft_error_cd(char *name, int en)
 		else if (en == 3)
 			tmp = ft_strrejoin(tmp, ": Permission denied");
 		else if (en == 6)
-			tmp = ft_strrejoin(tmp, "OLDPWD not set");
+			tmp = ft_strrejoin(tmp, ": OLDPWD not set");
 		else if (en == 7)
-			tmp = ft_strrejoin(tmp, "HOME not set");
+			tmp = ft_strrejoin(tmp, ": HOME not set");
 		error_handler(VARIABLE_ERROR | (ERR_CD << 9), tmp);
 	}
 	else if (en == 2)

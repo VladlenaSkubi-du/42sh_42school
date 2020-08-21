@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:14:07 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/18 21:19:10 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 09:30:44 by kfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ int		btin_pwd_valid(char **argv)
 		if (argv[i][0] == '-')
 		{
 			if (argv[i][1] == 'L')
-				return ((check_posix_option(argv[i], "LP", btin_pwd_error_message) != 0) ?
-					OPTIONS_REQUIRED : 0);
+				return ((check_posix_option(argv[i], "LP",
+					btin_pwd_error_message) != 0) ? OPTIONS_REQUIRED : 0);
 			else if (argv[i][1] == 'P')
-				return ((check_posix_option(argv[i], "LP", btin_pwd_error_message) != 0) ?
-					OPTIONS_REQUIRED : 0);
+				return ((check_posix_option(argv[i], "LP",
+					btin_pwd_error_message) != 0) ? OPTIONS_REQUIRED : 0);
 			else if (argv[i][1] == '-' && !argv[i][2])
 				return (0);
 		}
