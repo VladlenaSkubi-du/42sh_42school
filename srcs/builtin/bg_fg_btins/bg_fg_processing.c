@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bg_fg_processing.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/21 21:16:55 by hshawand          #+#    #+#             */
+/*   Updated: 2020/08/21 21:18:24 by hshawand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "builtin42.h"
 #include "jobs.h"
@@ -41,9 +53,9 @@ int		btin_bg_init(int argc, char **argv)
 
 	job_iter = g_first_job;
 	i = 1;
-	if (!job_iter) /* No jobs */
+	if (!job_iter)
 		return (btin_bg_fg_error_message(2, "current", VARIABLE_ERROR));
-	if (argc < 2) /* Empty fg case */
+	if (argc < 2)
 		while (job_iter->next && !is_btin_only(job_iter->next))
 			job_iter = job_iter->next;
 	else if (argv[i][0] == '%')
@@ -69,9 +81,9 @@ int		btin_fg_init(int argc, char **argv)
 
 	job_iter = g_first_job;
 	i = 1;
-	if (!job_iter) /* No jobs */
+	if (!job_iter)
 		return (btin_bg_fg_error_message(1, "current", VARIABLE_ERROR));
-	if (argc < 2) /* Empty fg case */
+	if (argc < 2)
 		while (job_iter->next && !is_btin_only(job_iter->next))
 			job_iter = job_iter->next;
 	else if (argv[i][0] == '%')

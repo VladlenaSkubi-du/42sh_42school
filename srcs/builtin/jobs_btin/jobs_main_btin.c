@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   jobs_main_btin.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/21 21:11:39 by hshawand          #+#    #+#             */
+/*   Updated: 2020/08/21 21:15:21 by hshawand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "builtin42.h"
 #include "jobs.h"
 
-int		get_status(t_job	*j, char *buff, int options)
+int		get_status(t_job *j, char *buff, int options)
 {
 	t_process	*p_iter;
 	int			signum;
@@ -24,7 +36,7 @@ int		get_status(t_job	*j, char *buff, int options)
 			ft_strcpy(buff, "stopped             ");
 	}
 	else
-			ft_strcpy(buff, "runnindg            "); //проверить
+		ft_strcpy(buff, "runnindg            ");
 	return (0);
 }
 
@@ -41,41 +53,11 @@ int		print_job_info(t_job *j, int options)
 		def = ' ';
 	if (get_status(j, status, options))
 		return (-1);
-	options != FLAG_P && ft_printf("[%d]%c ", j->jid, def); //заменить цифруб была 1
+	options != FLAG_P && ft_printf("[%d]%c ", j->jid, def);
 	ft_printf("%d", j->pgid);
-	options != FLAG_P && ft_printf(" %s %s", status, j->com); //заменить цифру, была 1
+	options != FLAG_P && ft_printf(" %s %s", status, j->com);
 	ft_printf("\n");
 	return (0);
-}
-
-int		options_parse(int argc, char **argv, int *iter) //can be deleted
-{
-	int		ret;
-	int		i;
-	int		j;
-
-	i = 0;
-	ret = 0;
-	while (++i < argc && argv[i][0] == '-')
-	{
-		j = 0;
-		if (argv[i][1] == '-' && !argv[i][2])
-		{
-			if (argv[i + 1])
-				*iter = i;
-			return (-1);
-		}
-		while (argv[i][++j])
-		{
-			if (argv[i][j] == 'p')
-				ret = 1;
-			else if (argv[i][j] == 'l')
-				ret = 2;
-			else
-				return (-1);
-		}
-	}
-	return (ret);
 }
 
 int		btin_jobs_init(int argc, char **argv)
@@ -92,14 +74,14 @@ int		btin_jobs_init(int argc, char **argv)
 	if (iter != 0)
 		argc -= iter;
 	job_iter = g_first_job;
-	if (argc >= 2 && (!job_iter || is_btin_only(job_iter))) /* Take from bg_fg_btin.c */
+	if (argc >= 2 && (!job_iter || is_btin_only(job_iter)))
 		return (btin_jobs_error_message(argv[iter + 1], VARIABLE_ERROR));
 	else if (!job_iter || is_btin_only(job_iter))
 		return (0);
 	id_chk = id_check(argc, &argv[iter]);
 	while (!id_chk && job_iter)
 	{
-		!is_btin_only(job_iter) ? print_job_info(job_iter, options) : 0; /* Take from bg_fg_btin.c */
+		!is_btin_only(job_iter) ? print_job_info(job_iter, options) : 0;
 		job_iter = job_iter->next;
 	}
 	id_chk && print_by_id(argc, &argv[iter], options);

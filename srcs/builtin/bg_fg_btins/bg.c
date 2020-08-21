@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bg.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/21 21:16:24 by hshawand          #+#    #+#             */
+/*   Updated: 2020/08/21 21:16:45 by hshawand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "builtin42.h"
 
 int		btin_bg(t_process *pos)
 {
 	int				flags;
-	
+
 	flags = find_options(2, (char*[]){"", "--help"}, pos->argv);
 	if (flags == HELP_FLAG)
 		return (usage_btin("bg"));
