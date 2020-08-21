@@ -6,7 +6,7 @@
 /*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:03:04 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 21:45:50 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/21 21:55:42 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	child_handler(int sig)
 
 	while ((child_pid = waitpid(-1, &status, WUNTRACED | WNOHANG)) > 0)
 	{
-		exit_status_variables(status);
 		j = g_first_job;
 		while (j)
 		{
