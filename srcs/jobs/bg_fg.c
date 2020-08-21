@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:07:28 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/07 22:27:10 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/21 21:41:15 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,10 @@ int		bg_fg_wait(t_job *j)
 {
 	std_save(1);
 	if (!g_is_interactive)
+	{
 		wait_for_job(j);
+		free_job(j);
+	}
 	else if (j->fg)
 		put_job_in_foreground(j, 0);
 	else
