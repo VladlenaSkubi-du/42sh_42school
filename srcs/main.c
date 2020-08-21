@@ -40,8 +40,8 @@ int				interactive_shell(void)
 	// 	kill(group_pid, SIGTTIN);
 	tmp = 0;
 	btin_alias_init(NULL, NULL, SAVE);
-	int n=5;
-	while (n--)
+	// int n=5;
+	while (1)
 	{
 		signals_reroute(1);
 		check_terminal();
