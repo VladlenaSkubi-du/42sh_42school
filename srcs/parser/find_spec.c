@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_spec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:09:33 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/05 23:29:06 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/21 20:36:15 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ int			ft_correct_after_andor_pipe(int *i)
 		g_techline.line[*i] == AST ||
 		g_techline.line[*i] == EQUAL ||
 		g_techline.line[*i] == COMENT ||
+		g_techline.line[*i] == BANG ||
 		g_techline.line[*i] == TEXT)
 		return (1);
 	return (0);
