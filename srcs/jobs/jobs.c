@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:53:30 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 21:03:56 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/21 21:55:33 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void			process_update(t_process *p, int status)
 	WIFSTOPPED(status) ? (p->stopped = 1) :
 		(p->completed = 1);
 	p->status = status;
+	exit_status_variables(WIFEXITED(status) ? WEXITSTATUS(status) : -1);
 }
 
 int				parent(t_process *p, t_job *j, pid_t pid)
