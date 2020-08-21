@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:08:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 17:23:40 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 20:25:51 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,21 +122,6 @@ int				btin_history_check_options(char **argv);
 int				btin_history_error_message(char *option, int error);
 int				btin_history_clear(void);
 int				btin_history_noargs(void);
-
-/*
-** File exsign_btin.c
-*/
-
-int				btin_exsign(t_ltree *pos);
-int				btin_exsign_start_substitution(t_ltree *pos, int i);
-int				btin_exsign_route_substitution(t_ltree *pos,
-					int start, int i);
-int				btin_exsign_stop_signs(char tech);
-int				btin_exsign_numeric(t_ltree *pos,
-					int start, int end);
-int				btin_exsign_print_message(char *arg, int end);
-int				btin_exsign_make_substitution(t_ltree *pos,
-					int start, int end, char *subst);
 
 /*
 ** File echo.c
@@ -295,10 +280,35 @@ int				btin_hash_check_flags(char *arg);
 int				btin_hash_error_message(char *option, int error);
 int				btin_hash_clean_table();
 
+/*
+** Folder hash, file hash_btin_processing.c
+*/
+
 int				btin_hash_list_hashtable(void);
 int				btin_hash_delete_elements(char **argv);
 int				btin_hash_add_to_hashtable(char **argv);
 int				btin_hash_valid_argument_add(char *key);
 int				btin_hash_valid_argument_delete(char *key);
+
+/*
+** Folder exsign_btin, file exsign_btin.c
+*/
+
+int				btin_exsign(t_ltree *pos);
+int				btin_exsign_init(t_ltree *pos, int i);
+int				btin_exsign_print_message(char *arg, int end);
+
+/*
+** Folder exsign_btin, file exsign_btin_processing.c
+*/
+
+int				btin_exsign_start_substitution(t_ltree *pos, int i);
+int				btin_exsign_route_substitution(t_ltree *pos,
+					int start, int i);
+int				btin_exsign_stop_signs(char tech);
+int				btin_exsign_numeric(t_ltree *pos,
+					int start, int end);
+int				btin_exsign_make_substitution(t_ltree *pos,
+					int start, int end, char *subst);
 
 #endif

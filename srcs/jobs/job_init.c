@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:25:17 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/18 23:03:04 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/21 19:18:08 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_job		*job_new(void)
 	t_job		*job_new;
 	t_job		*job_iter;
 
-	// printf("from jobs %s\n", g_envi[0]);
 	job_new = (t_job *)ft_xmalloc(sizeof(t_job));
 	job_new->first_process = NULL;
 	job_new->stdin = STDIN_FILENO;

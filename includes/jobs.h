@@ -93,17 +93,12 @@ void	launch_process (t_process *p, pid_t pgid, int stream[3], int foreground);
 */
 
 /*
-** File exec_init.c
-*/
-
-int		exec_init(t_ltree *pos);
-
-/*
 ** File exec_core.c
 */
 
 int		std_save(int mode);
 int		fork_and_exec(t_ltree *pos, char *path, pid_t *child_pid);
+
 int		exec_core(t_ltree *pos);
 int		exec_builtin(t_ltree *pos);
 int		exec_internal(t_ltree *pos);
@@ -123,7 +118,8 @@ char	**path_parse(void);
 */
 
 int		exec_clean(char *path, int exit_status, char *msg);
-int		ft_builtins_check(t_process *p, int flag);
+int		ft_builtins_check(t_process *p, int flag); //DELETE
 int		fd_list_process(t_process *pos, int flag);
+int		path_init_errors(char *exec_av);
 
 #endif
