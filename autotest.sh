@@ -51,31 +51,49 @@ fi
 sleep $sl
 }
 
+
+##PARSER##
+
+
 check_parser(){
 print_name "\033[45;1m____TEST PARSER____\033[0m\n"
 
 echo -n "---test non existen command---"
 err=$($bsh_name -c "ololo" 2>&1)
-suc="e-bash: ololo: command not found"
+suc="e-bash: ololo: Command not found"
+my_echo "$err" "$suc"
+sleep $sl
+
+echo -n "---test >---"
+err=$($bsh_name -c "ls nonexisten 2>&1 | cat -e 1>&2 | cat -e" 2>&1)
+suc=$($bsh_pos -c "ls nonexisten 2>&1 | cat -e 1>&2 | cat -e" 2>&1)
 my_echo "$err" "$suc"
 sleep $sl
 }
+
+
+##CD##
+
 
 check_cd(){
 print_name "\033[45;1m____TEST CD____\033[0m\n"
 
 echo -n "---test permission---"
-mkdir test1
-chmod 000 test1
-err=$($bsh_name -c "cd test1" 2>&1)
-suc="e-bash: cd: test1: permission denied"
+mkdir ~/test1
+chmod 000 ~/test1
+err=$($bsh_name -c "cd ~/test1" 2>&1)
+cd
+path=$(pwd)
+cd - 1>&-
+suc="e-bash: cd: $path/test1: Permission denied"
 my_echo "$err" "$suc"
-rm -rf test1
+chmod 777 ~/test1
+rm -rf ~/test1
 sleep $sl
 
 echo -n "---test 'no such file or directory'---"
 err=$($bsh_name -c "cd ololo" 2>&1)
-suc="e-bash: cd: ololo: no such file or directory"
+suc="e-bash: cd: ololo: No such file or directory found"
 my_echo "$err" "$suc"
 sleep $sl
 
@@ -99,13 +117,13 @@ sleep $sl
 
 echo -n "---test too many arguments---"
 err=$($bsh_name -c "cd / / / /" 2>&1)
-suc="e-bash: cd: too many arguments"
+suc="e-bash: cd: Too many arguments"
 my_echo "$err" "$suc"
 sleep $sl
 
 echo -n "---test CDPATH---"
 mkdir ~/test_cdpath
-err=$($bsh_name -c "CDPATH=~ cd test_cdpath; pwd" 2>&1)
+err=$($bsh_name -c "export CDPATH=~ ; cd test_cdpath; pwd" 2>&1)
 suc=$($bsh_pos -c "CDPATH=~ cd test_cdpath; pwd" 2>&1)
 my_echo "$err" "$suc"
 rm -rf ~/test_cdpath
@@ -113,10 +131,14 @@ sleep $sl
 
 echo -n "---test CDPATH error---"
 err=$($bsh_name -c "CDPATH=~ cd test_cdpath" 2>&1)
-suc="e-bash: cd: test_cdpath: no such file or directory"
+suc="e-bash: cd: test_cdpath: No such file or directory found"
 my_echo "$err" "$suc"
 sleep $sl
 }
+
+
+##ECHO##
+
 
 check_echo(){
 print_name "\033[45;1m____TEST ECHO____\033[0m\n"
@@ -129,7 +151,8 @@ sleep $sl
 
 echo -n "---test invalid flags---"
 err=$($bsh_name -c "echo -rt" 2>&1)
-suc=$($bsh_pos -c "echo -rt" 2>&1)
+suc="e-bash: echo: Invalid option
+echo: usage: echo [-neE] [arg ...]"
 my_echo "$err" "$suc"
 sleep $sl
 
@@ -146,6 +169,10 @@ my_echo "$err" "$suc"
 sleep $sl
 }
 
+
+##UNSET##
+
+
 check_unset(){
 print_name "\033[45;1m____TEST UNSET____\033[0m\n"
 
@@ -157,7 +184,7 @@ sleep $sl
 
 echo -n "---test readonly variable---"
 err=$($bsh_name -c "unset UID=testtest" 2>&1)
-suc="e-bash: unset: UID: readonly variable"
+suc="e-bash: unset: UID: Readonly variable"
 my_echo "$err" "$suc"
 sleep $sl
 
@@ -174,6 +201,10 @@ my_echo "$err" "$suc"
 sleep $sl
 }
 
+
+##EXPORT##
+
+
 check_export(){
 print_name "\033[45;1m____TEST EXPORT____\033[0m\n"
 
@@ -185,19 +216,26 @@ sleep $sl
 
 echo -n "---test readonly variable---"
 err=$($bsh_name -c "export UID=dfbv" 2>&1)
-suc="e-bash: export: UID: readonly variable"
+suc="e-bash: export: UID: Readonly variable"
 my_echo "$err" "$suc"
+sleep $sl
 
 echo -n "---test create empty variable---"
 err=$($bsh_name -c "export fii lii=; env | grep fii; env | grep lii" 2>&1)
 suc=$($bsh_pos -c "export fii lii=; env | grep fii; env | grep lii" 2>&1)
 my_echo "$err" "$suc"
+sleep $sl
 
 echo -n "---test invalid option---"
 err=$($bsh_name -c "export -djhb PATH=sjhvg" 2>&1)
-suc="e-bash: export: -d: invalid option export: usage: export [name[=value] ...] or export -p"
+suc="e-bash: export: Invalid option
+export: usage: export [name[=value] ...] or export -p"
 my_echo "$err" "$suc"
 }
+
+
+##LOGIC##
+
 
 arr=("check_parser" "check_cd" "check_echo" "check_unset" "check_export" "--full")
 usage="\nusage ./test.sh [options]:\n    --full             - full check\n    check_[block_name] - check needed block only

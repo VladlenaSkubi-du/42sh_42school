@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:42:44 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 17:21:10 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 09:28:03 by kfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int				btin_type(t_process *pos)
 {
 	int			flags;
-	
+
 	flags = find_options(2, (char*[]){"", "--help"}, pos->argv);
 	if (flags == HELP_FLAG)
 		return (usage_btin("type"));
@@ -61,17 +61,16 @@ int				btin_type_init(char **argv)
 {
 	int			i;
 	int			answer;
-	//struct stat	buff;
 
 	i = -1;
 	while (argv[++i])
 	{
 		if (argv[i][0] == '/')
 		{
-			//stat(argv[i], &buff);
-			//if (S_ISDIR(buff.st_mode))
 			if (!access(argv[i], 1))
 				ft_printf("%s is %s\n", argv[i], argv[i]);
+			else
+				btin_type_error_message(argv[i], VARIABLE_ERROR);
 		}
 		else
 		{
