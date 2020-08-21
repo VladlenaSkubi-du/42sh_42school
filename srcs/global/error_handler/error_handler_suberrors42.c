@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_handler_suberrors42.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/21 16:43:43 by sschmele          #+#    #+#             */
+/*   Updated: 2020/08/21 16:43:47 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 
 /*
@@ -23,6 +35,8 @@ int				variable_errors(int status, char *str)
 		ft_putendl_fd(": Parameter null or not set", STDERR_FILENO);
 	else if (status >> 9 & ERR_JOB_NF)
 		ft_putendl_fd(": No such job", STDERR_FILENO);
+	else if (status >> 9 & ERR_TOO_MANY)
+		ft_putendl_fd(": Too many arguments", STDERR_FILENO);
 	return (0);
 }
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_handler42.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/21 16:43:50 by sschmele          #+#    #+#             */
+/*   Updated: 2020/08/21 16:43:58 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 
 /*
@@ -103,20 +115,3 @@ int				error_handler_files_and_commands(int status, char *str)
 		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 	return (0);
 }
-
-/*
-** bash --posix -c "/"
-bash: /: is a directory
-bash-3.2$ echo $?
-126
-
-** bash --posix -c "!"
-bash: !: event not found
-bash-3.2$ echo $?
-0
-
-** bash --posix -c "{"
-bash: -c: line 1: syntax error: unexpected end of file
-bash-3.2$ echo $?
-2
-*/

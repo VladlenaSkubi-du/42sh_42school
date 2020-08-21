@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_structures.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/21 16:42:09 by sschmele          #+#    #+#             */
+/*   Updated: 2020/08/21 16:42:19 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "builtin42.h"
 #include "builtins_list.h"
@@ -34,9 +46,9 @@ int					btin_check_arg_if_cmd_name(char *arg)
 	if (ft_isalnum(arg[i]) || arg[i] == '_' ||
 		(arg[i] == '.' && ft_isalnum(arg[i])))
 	{
-		// answer = check_if_alias(arg);
-		// if (answer >= 0)
-		// 	return (ARG_ALIAS);
+		answer = check_if_alias(arg);
+		if (answer >= 0)
+			return (ARG_ALIAS);
 		answer = check_if_builtin(arg);
 		if (answer >= 0)
 			return (ARG_BUILTIN);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:00:43 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/25 17:05:46 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/08/21 16:09:54 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_cdpath(char *path, char **env, char *res, int i)
 	ft_arrdel(arr);
 	if (res != NULL)
 	{
-		ft_putendl(res);
+		ft_putendl_fd(res, STDOUT_FILENO);
 		return (res);
 	}
 	return (NULL);
@@ -64,9 +64,9 @@ int		ft_cd_env(char *path, char **env, t_cd *flags)
 	i = find_in_any_variable(env, &j, name);
 	free(name);
 	if (i < 0)
-		return (ft_error(NULL, (path) ? 6 : 7));
+		return (ft_error_cd(NULL, (path) ? 6 : 7));
 	if (path)
-		ft_putendl(env[i] + j);
+		ft_putendl_fd(env[i] + j, STDOUT_FILENO);
 	name = ft_strdup(env[i] + j);
 	return ((ft_change_path(name, env, flags)));
 }
@@ -81,9 +81,9 @@ int		ft_cd_pars(char *path, char **env, t_cd *flags)
 	if (ft_strcmp(path, "-") == 0 || !path)
 		return ((ft_cd_env(path, env, flags)));
 	if (stat(path, &buff) < 0)
-		return (ft_error(path, 2));
+		return (ft_error_cd(path, 2));
 	else if (!S_ISDIR(buff.st_mode))
-		return (ft_error(path, 4));
+		return (ft_error_cd(path, 4));
 	else
 		return (ft_change_path(ft_new_path(path, NULL), env, flags));
 	return (0);
