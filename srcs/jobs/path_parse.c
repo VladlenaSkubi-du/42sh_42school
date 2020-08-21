@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:00:12 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 19:31:16 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 20:51:22 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	*path_search(char *name)
 
 char	*path_init(char **exec_av)
 {
-	char 		*ret;
+	char	*ret;
 
 	if (!ft_strchr(*exec_av, '/'))
 		ret = hashtable_cmd_init(*exec_av);

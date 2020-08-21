@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:11:39 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 19:53:48 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/21 20:48:33 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	launch_process(t_process *p, pid_t pgid, int stream[3], int foreground)
 {
 	pid_t	pid;
 
-	if (g_is_interactive && (!p->btin || stream[0] != STDIN_FILENO || stream[1] != STDOUT_FILENO || !foreground))
+	if (g_is_interactive && (!p->btin || stream[0] != STDIN_FILENO ||
+		stream[1] != STDOUT_FILENO || !foreground))
 	{
 		pid = getpid();
 		if (pgid == 0)
@@ -60,6 +61,7 @@ void	launch_process(t_process *p, pid_t pgid, int stream[3], int foreground)
 	fd_list_process(p, 0);
 	p->btin ? ft_builtins_check(p, 1) : exec_vp(p);
 	exec_clean(g_path, 0, 0);
-	if (!p->btin || stream[0] != STDIN_FILENO || stream[1] != STDOUT_FILENO || !foreground)
+	if (!p->btin || stream[0] != STDIN_FILENO ||
+		stream[1] != STDOUT_FILENO || !foreground)
 		exit(!p->btin ? 1 : 0);
 }

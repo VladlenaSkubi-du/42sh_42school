@@ -6,7 +6,7 @@
 /*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:50:07 by hshawand          #+#    #+#             */
-/*   Updated: 2020/07/26 16:48:52 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/21 20:50:58 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		job_is_completed(t_job *j)
 			return (0);
 		p_iter = p_iter->next;
 	}
-		return (1);
+	return (1);
 }
 
 /*
@@ -86,7 +86,6 @@ int		free_job(t_job *j)
 	t_job		*j_next;
 	t_process	*temp;
 
-	//order_sixty_six(j);
 	j_last = g_first_job;
 	while (j_last != j && j_last->next && j_last->next != j)
 		j_last = j_last->next;
