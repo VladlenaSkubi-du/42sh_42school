@@ -6,10 +6,9 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:08:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:08:35 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 17:23:40 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef BUILTIN42_H
 # define BUILTIN42_H
@@ -18,7 +17,7 @@
 # include "cd.h"
 # include "hash.h"
 
-# define SUBOPTION_STARTS			16
+# define SUBOPTION_STARTS		16
 
 /*
 ** Flags masks used in @flags in btin_fc and btin_hash
@@ -31,9 +30,9 @@
 # define		FLAG_E 0x100
 # define		FLAG_P 0x200
 
-# define        ARG_ALIAS		-1
-# define        ARG_BUILTIN		-2
-# define		ARG_INVALID		-3
+# define        ARG_ALIAS		-10
+# define        ARG_BUILTIN		-20
+# define		ARG_INVALID		-30
 
 /*
 ** Structures

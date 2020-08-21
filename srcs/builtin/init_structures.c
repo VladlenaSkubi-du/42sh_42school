@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:42:09 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:42:19 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 17:21:19 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ int					btin_check_arg_if_cmd_name(char *arg)
 	if (ft_isalnum(arg[i]) || arg[i] == '_' ||
 		(arg[i] == '.' && ft_isalnum(arg[i])))
 	{
-		answer = check_if_alias(arg);
-		if (answer >= 0)
+		answer = check_if_aliased(arg);
+		if (answer == ARG_ALIAS)
 			return (ARG_ALIAS);
 		answer = check_if_builtin(arg);
-		if (answer >= 0)
+		if (answer == ARG_BUILTIN)
 			return (ARG_BUILTIN);
 		return (0);
 	}
@@ -65,7 +65,7 @@ int					check_if_builtin(char *cmd_name)
 	while (g_builtins[i])
 	{
 		if (!ft_strcmp(cmd_name, g_builtins[i]))
-			return (i);
+			return (ARG_BUILTIN);
 		i++;
 	}
 	return (-1);

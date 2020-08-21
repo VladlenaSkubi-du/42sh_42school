@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:43:43 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:43:47 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 17:07:21 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ int				variable_errors(int status, char *str)
 		ft_putendl_fd(": No such job", STDERR_FILENO);
 	else if (status >> 9 & ERR_TOO_MANY)
 		ft_putendl_fd(": Too many arguments", STDERR_FILENO);
+	else if (status >> 9 & ERR_CD_NO_FILE_DIR)
+		ft_putendl_fd(": No such file or directory found", STDERR_FILENO);
+	else if (status >> 9 & ERR_CD_NO_DIR)
+		ft_putendl_fd(": No such directory found", STDERR_FILENO);
 	return (0);
 }
 
