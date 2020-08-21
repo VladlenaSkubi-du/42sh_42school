@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:25:17 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 19:18:08 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 21:58:31 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,5 +134,5 @@ int			job_init(t_ltree *entity)
 		ret += launch_job(job);
 	}
 	tcsetpgrp((int)STDIN_FILENO, g_shell_pgid);
-	return (ret);
+	return (btin_return_exit_status());
 }
