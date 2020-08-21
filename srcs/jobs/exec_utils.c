@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:13:51 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/18 22:08:12 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/21 19:40:53 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int		fd_list_process(t_process *pos, int flag)
 	while (fd_list)
 	{
 		redir = (t_fd_redir *)fd_list->content;
-		if (flag == CLOSE)
+		if (flag == CLOSE && redir->fd_old != 1 && redir->fd_old != 2
+			&& redir->fd_old != 0)
 			close(redir->fd_old);
 		else if (redir->fd_old != CLOSE)
 			dup2(redir->fd_old, redir->fd_new);
