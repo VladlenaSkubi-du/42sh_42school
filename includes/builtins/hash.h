@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:08:09 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 20:51:08 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 22:27:16 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,9 @@ char			*hashtable_cmd_init_noninteractive(char *key);
 
 char			*hashtable_type_init(int *where, char *key);
 char			*hash_key_not_found_type(int *where, char *key);
+
+char			*get_command_error_name(void);
+int				get_command_error(void);
+int				save_command_error(int error, char *cmd_name);
 
 #endif

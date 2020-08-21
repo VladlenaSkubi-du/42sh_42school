@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:13:51 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 21:26:06 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 23:19:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,15 @@
 
 int		exec_clean(char *path, int exit_status, char *err_msg)
 {
-	if (path)
-		exit_status_variables(exit_status);
+	int			error;
+
+	error = get_command_error();
+	if (error != 0)
+	{
+		error_handler(error, get_command_error_name());
+	}
+	// if (path)
+	// 	exit_status_variables(exit_status);
 	free(path);
 	if (err_msg)
 		ft_putendl_fd(err_msg, STDERR_FILENO);
@@ -84,8 +91,10 @@ int		path_init_errors(char *exec_av, char *name)
 
 	if (access(exec_av, F_OK) == -1)
 	{
-		error_handler(COMMAND_NOT_FOUND |
-			(ERR_COMMAND << 9), name);
+		save_command_error(COMMAND_NOT_FOUND | (ERR_COMMAND << 9), name);
+		exit_status_variables((COMMAND_NOT_FOUND | (ERR_COMMAND << 9)) & 0x7F);
+		// error_handler(COMMAND_NOT_FOUND |
+		// 	(ERR_COMMAND << 9), name);
 		return (-1);
 	}
 	flag = 0;
@@ -96,9 +105,17 @@ int		path_init_errors(char *exec_av, char *name)
 	if (flag & COMMAND_NON_EXECUTABLE)
 	{
 		if (stat(exec_av, &stat_buf) == 0 && S_ISDIR(stat_buf.st_mode))
-			error_handler(COMMAND_NON_EXECUTABLE | (ERR_ISDIR << 9), name);
+		{
+			save_command_error(COMMAND_NON_EXECUTABLE | (ERR_ISDIR << 9), name);
+			exit_status_variables((COMMAND_NON_EXECUTABLE | (ERR_ISDIR << 9)) & 0x7F);
+			// error_handler(COMMAND_NON_EXECUTABLE | (ERR_ISDIR << 9), name);
+		}
 		else
-			error_handler(COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9), name);
+		{
+			save_command_error(COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9), name);
+			exit_status_variables((COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9)) & 0x7F);
+			// error_handler(COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9), name);
+		}
 		return (-1);
 	}
 	return (0);

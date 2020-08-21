@@ -6,12 +6,15 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:26:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 20:54:02 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 22:39:07 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "hash.h"
+
+static int		hash_command_error;
+static char		*hash_command_error_name;
 
 /*
 ** Is called form the path_init_function - needs path to be returned
@@ -55,7 +58,9 @@ char			*hash_key_not_found(char *key, void **hashtable,
 	path = hashtable_add(key, hashtable, hashtable_size, &index);
 	if (!path)
 	{
-		error_handler(COMMAND_NOT_FOUND | (ERR_COMMAND << 9), key);
+		save_command_error(COMMAND_NOT_FOUND | (ERR_COMMAND << 9), key);
+		exit_status_variables((COMMAND_NOT_FOUND | (ERR_COMMAND << 9)) & 0x7F);
+		// error_handler(COMMAND_NOT_FOUND | (ERR_COMMAND << 9), key);
 		return (NULL);
 	}
 	slot_ptr = (t_hashcmd*)hashtable[index];
@@ -64,12 +69,33 @@ char			*hash_key_not_found(char *key, void **hashtable,
 	if (slot_ptr->cmd_state == CDM_NON_EXEC)
 	{
 		free(path);
-		error_handler(COMMAND_NON_EXECUTABLE |
-			(ERR_NO_ACC << 9), slot_ptr->cmd_path);
+		save_command_error(COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9),
+			slot_ptr->cmd_path);
+		exit_status_variables((COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9)) & 0x7F);
+		// error_handler(COMMAND_NON_EXECUTABLE |
+		// 	(ERR_NO_ACC << 9), slot_ptr->cmd_path);
 		return (NULL);
 	}
 	slot_ptr->cmd_state = 0;
+	hash_command_error = 0; //переименовать
 	return (path);
+}
+
+int				save_command_error(int error, char *cmd_name)
+{
+	hash_command_error = error;
+	hash_command_error_name = cmd_name;
+	return (0);
+}
+
+int				get_command_error(void)
+{
+	return (hash_command_error);
+}
+
+char			*get_command_error_name(void)
+{
+	return (hash_command_error_name);
 }
 
 int				hashtable_find(char *key, void **hashtable,
@@ -104,10 +130,14 @@ char			*hashtable_check_valid(int index, char *key,
 					void **hashtable, int hashtable_size)
 {
 	t_hashcmd	*slot_ptr;
+	struct stat	stat_buf;
 	
 	slot_ptr = (t_hashcmd*)hashtable[index];
 	if (access(slot_ptr->cmd_path, F_OK) == -1 ||
-			access(slot_ptr->cmd_path, X_OK) == -1)
+			access(slot_ptr->cmd_path, X_OK) == -1 ||
+			stat(slot_ptr->cmd_path, &stat_buf) != 0
+			|| (stat_buf.st_mode & (S_IXUSR | S_IXGRP | S_IXOTH)) == 0 ||
+			S_ISREG(stat_buf.st_mode) == 0)
 	{
 		printf("    command saved in hashtable is invalid\n");
 		clear_hash_cell(index, hashtable, 0);
