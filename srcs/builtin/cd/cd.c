@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:57:32 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/21 16:09:44 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 17:15:35 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,27 @@ char		*ft_join_cd(char *path, char *src_path)
 int			ft_error_cd(char *name, int en)
 {
 	char	*tmp;
-	char	*new_name;
 
-	new_name = NULL;
-	tmp = ft_strdup("cd: ");
-	if (name)
-		tmp = ft_strrejoin(tmp, name);
-	if (en == 1)
-		tmp = ft_strrejoin(tmp, ": String not in pwd");
+	tmp = (name) ? ft_strjoin("cd: ", name) : ft_strdup("cd");
+	if (en == 1 || en == 3 || en == 6 || en == 7)
+	{
+		if (en == 1)
+			tmp = ft_strrejoin(tmp, ": String not in pwd");
+		else if (en == 3)
+			tmp = ft_strrejoin(tmp, ": Permission denied");
+		else if (en == 6)
+			tmp = ft_strrejoin(tmp, "OLDPWD not set");
+		else if (en == 7)
+			tmp = ft_strrejoin(tmp, "HOME not set");
+		error_handler(VARIABLE_ERROR | (ERR_CD << 9), tmp);
+	}
 	else if (en == 2)
-		tmp = ft_strrejoin(tmp, ": No such file or directory");
-	else if (en == 3)
-		tmp = ft_strrejoin(tmp, ": Permission denied");
+		error_handler(VARIABLE_ERROR | (ERR_CD_NO_FILE_DIR << 9), tmp);
 	else if (en == 4)
-		tmp = ft_strrejoin(tmp, ": Not a directory");
+		error_handler(VARIABLE_ERROR | (ERR_CD_NO_DIR << 9), tmp);
 	else if (en == 5)
-		tmp = ft_strrejoin(tmp, "Too many arguments");
-	else if (en == 6)
-		tmp = ft_strrejoin(tmp, "OLDPWD not set");
-	else if (en == 7)
-		tmp = ft_strrejoin(tmp, "HOME not set");
-	error_handler(VARIABLE_ERROR | (ERR_CD << 9), tmp);
+		error_handler(VARIABLE_ERROR | (ERR_TOO_MANY << 9), tmp);
 	free(tmp);
-	free(new_name);
 	return (1);
 }
 

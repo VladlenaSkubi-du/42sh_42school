@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:35:53 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 17:06:50 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@
 ** @ERR_JOB_NF is "job not found"
 */
 
-# define	ERR_HISTORY_NUM 0x1
-# define	ERR_HISTORY_EXEC 0x2
-# define	ERR_RDONLY 0x4
-# define	ERR_UNSET 0x8
-# define	ERR_SET 0x10
-# define	ERR_CD 0x20
-# define	ERR_JOB_NF 0x40
-# define	ERR_HASH_NF 0x80
-# define	ERR_TOO_MANY 0x100
+# define	ERR_TOO_MANY 0x1
+# define	ERR_RDONLY 0x2
+# define	ERR_HISTORY_NUM 0x4
+# define	ERR_HISTORY_EXEC 0x8
+# define	ERR_UNSET 0x10
+# define	ERR_SET 0x20
+# define	ERR_CD 0x40
+# define	ERR_JOB_NF 0x80
+# define	ERR_HASH_NF 0x100
+# define	ERR_CD_NO_FILE_DIR 0x200
+# define	ERR_CD_NO_DIR 0x400
 
 /*
 ** Option errors are errors that exit with 2

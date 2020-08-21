@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:42:44 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:42:45 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 17:21:10 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,7 @@ int				btin_type_init(char **argv)
 	i = -1;
 	while (argv[++i])
 	{
-		if (argv[i][0] == '/') /*здесь нужно проверить, что /bin/ls директория,
-							если директория, то просто распечатать ее:
-							bash-3.2$ type /bin/ls
-							/bin/ls is /bin/ls
-							если нет, то отправить в btin_type_turn_to_hash
-							bash-3.2$ type /bin.ls
-							bash: type: /bin.ls: not found
-							*/
+		if (argv[i][0] == '/')
 		{
 			//stat(argv[i], &buff);
 			//if (S_ISDIR(buff.st_mode))
@@ -82,7 +75,7 @@ int				btin_type_init(char **argv)
 		}
 		else
 		{
-			answer = btin_check_arg_if_cmd_name(argv[i]); //лежит в builtins/init_structures.c
+			answer = btin_check_arg_if_cmd_name(argv[i]);
 			if (answer == ARG_ALIAS)
 				ft_printf("%s is alias\n", argv[i]);
 			else if (answer == ARG_BUILTIN)
@@ -104,7 +97,7 @@ int				btin_type_turn_to_hash(char *arg)
 	if (path == NULL)
 		return (btin_type_error_message(arg, VARIABLE_ERROR));
 	if (where_from == 0)
-		ft_printf("%s is %s\n", arg, path); //используй ft_printf
+		ft_printf("%s is %s\n", arg, path);
 	else
 		ft_printf("%s is hashed (%s)\n", arg, path);
 	return (0);
