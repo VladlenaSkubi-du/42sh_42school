@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:00:12 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 20:51:22 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/21 21:26:17 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	*path_init(char **exec_av)
 		ret = hashtable_cmd_init(*exec_av);
 	else
 	{
-		if (path_init_errors(*exec_av) < 0)
+		if (path_init_errors(*exec_av, *exec_av) < 0)
 			return (NULL);
 		ret = ft_strdup(exec_av[0]);
 	}

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:26:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:26:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 20:54:02 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ char			*hashtable_cmd_init(char *key)
 	void		**hashtable;
 	int			hashtable_size;
 	int			index;
-	
+
+	if (ft_atoi(find_env_value("42SH_NONINTERACTIVE")) > 0)
+		return (hashtable_cmd_init_noninteractive(key));
 	hashtable_size = -1;
 	hashtable = get_hashtable_value(&hashtable_size);
 	if (hashtable_size < 0)
@@ -113,4 +115,14 @@ char			*hashtable_check_valid(int index, char *key,
 	}
 	slot_ptr->number++;
 	return (ft_strdup(slot_ptr->cmd_path));
+}
+
+char			*hashtable_cmd_init_noninteractive(char *key)
+{
+	char		*path;
+	
+	path = path_search(key);
+	if (path_init_errors(path, key) < 0)
+		return (NULL);
+	return (path);
 }

@@ -2,7 +2,6 @@
 
 int				main(int argc, char **argv)
 {
-	// g_var_size = ENV_BUFFER;
 	create_env();
 	check_42sh_options(argc, argv);
 	start_history();
@@ -60,12 +59,14 @@ int				noninteractive_shell(char **argv)
 	char		*cmd;
 	int			li;
 	int			sy;
+	int			status;
 
 	li = find_in_variable(&sy, "42SH_NONINTERACTIVE");
 	g_envi[li][sy] = '1';
 	cmd = ft_strdup(argv[0]);
 	g_prompt.prompt_func = NULL;
 	parser(cmd);
-	li = find_in_variable(&sy, "?");
-	exit(ft_atoi(&g_envi[li][sy]));
+	status = ft_atoi(find_env_value("?"));
+	clean_everything();
+	exit(status);
 }

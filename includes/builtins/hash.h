@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:08:09 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:08:15 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 20:51:08 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int				hashtable_find(char *key, void **hashtable,
 					int hashtable_size);
 char			*hashtable_check_valid(int index, char *key,
 					void **hashtable, int hashtable_size);
+char			*hashtable_cmd_init_noninteractive(char *key);
 
 /*
 ** File hashtable_from_type.c

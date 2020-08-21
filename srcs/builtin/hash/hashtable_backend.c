@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:26:38 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:26:43 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 21:11:03 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int				hashtable_clean(void **hashtable,
 int				update_hashtable_slot_filled(t_hashcmd **slot_ptr)
 {
 	int			hashtable_filled;
+	struct stat	stat_buf;
 
 	hashtable_filled = -1;
 	hashtable_filled = get_hashtable_filled();
@@ -89,7 +90,10 @@ int				update_hashtable_slot_filled(t_hashcmd **slot_ptr)
 		return (0);
 	change_hashtable_filled_value(1);
 	(*slot_ptr)->slot_state = SLOT_FILLED_HASH;
-	if (access((*slot_ptr)->cmd_path, X_OK) == -1)
+	if (access((*slot_ptr)->cmd_path, X_OK) == -1 ||
+			stat((*slot_ptr)->cmd_path, &stat_buf) != 0
+			|| (stat_buf.st_mode & (S_IXUSR | S_IXGRP | S_IXOTH)) == 0 ||
+			S_ISREG(stat_buf.st_mode) == 0)
 		(*slot_ptr)->cmd_state = CDM_NON_EXEC;
 	else
 		(*slot_ptr)->cmd_state = 0;
