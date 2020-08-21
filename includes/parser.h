@@ -297,7 +297,6 @@ int						ft_heredoc_form(t_fd_redir *fd_open, char **f_name,
 int						ft_redir_less_do(t_ltree *final, t_fd_redir *fd);
 int						ft_redir_lessand_do(t_ltree *final, t_fd_redir *fd);
 int						ft_redir_valid(t_ltree *final, int i);
-
 /*
 ** File fd_block.c
 */
