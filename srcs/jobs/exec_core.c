@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_core.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/21 20:45:28 by hshawand          #+#    #+#             */
+/*   Updated: 2020/08/21 20:46:39 by hshawand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "parser.h"
 
@@ -32,12 +44,11 @@ int		fork_and_exec(t_ltree *pos, char *path, pid_t *child_pid)
 	*child_pid = fork();
 	if (!*child_pid)
 	{
-		if (execve(path, pos->ar_v, pos->envir) == -1) //TODO испрвить на все виды очисток
+		if (execve(path, pos->ar_v, pos->envir) == -1)
 			exit(-1);
 	}
 	else if (*child_pid < 0)
-		return (exec_clean(path, -1, "e-bash: Fork failed")); //через error_handler
+		return (exec_clean(path, -1, "e-bash: Fork failed"));
 	wait(child_pid);
 	return (0);
 }
-

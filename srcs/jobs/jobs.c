@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:53:30 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 20:15:05 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/21 21:03:56 by hshawand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ int				fork_job(t_process *p, t_job *j, int *infl, int *outfl)
 			return (error_handler(PIPE_FAILED, "pipe creation failed"));
 		*outfl = mypipe[1];
 	}
-	else
-		*outfl = j->stdout;
-	pid = (!p->btin || *infl != STDIN_FILENO || *outfl != STDOUT_FILENO) ? fork() : 0;
+	pid = (!p->btin || *infl != j->stdin || *outfl != j->stdout) ? fork() : 0;
 	if (pid == 0)
 	{
 		p->next ? close(mypipe[0]) : 0;
@@ -68,11 +66,10 @@ int				fork_job(t_process *p, t_job *j, int *infl, int *outfl)
 	else if (pid < 0)
 		return (error_handler(FORK_FAILED, "fork creation failed"));
 	else
-		parent(p, j, (!p->btin || *infl != STDIN_FILENO || *outfl != STDIN_FILENO) ? pid : getpid());
-	if (*infl != STDIN_FILENO)
-		close(*infl);
-	if (*outfl != STDOUT_FILENO)
-		close(*outfl);
+		parent(p, j, (!p->btin || *infl != j->stdin ||
+			*outfl != j->stdout) ? pid : getpid());
+	*infl != STDIN_FILENO ? close(*infl) : 0;
+	*outfl != STDOUT_FILENO ? close(*outfl) : 0;
 	fd_list_process(p, CLOSE);
 	*infl = mypipe[0];
 	return (0);
@@ -89,12 +86,13 @@ int				launch_job(t_job *j)
 	int			infile;
 	int			outfile;
 
-	infile = STDIN_FILENO;
+	infile = j->stdin;
 	p = j->first_process;
 	j->clean = j->fg ? 0 : 1;
 	while (p)
 	{
 		!p->btin ? g_path = path_init(p->argv) : 0;
+		!p->next ? outfile = j->stdout : 0;
 		if (fork_job(p, j, &infile, &outfile) == -1)
 		{
 			free(g_path);
