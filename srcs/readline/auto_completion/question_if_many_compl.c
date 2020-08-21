@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:09:50 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 17:10:22 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/21 21:48:02 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ int					ask_output(int total, int buf_lines,
 	count_comment_len(&total_len, buf_lines);
 	len += total_len;
 	print_question_compl(&pos_x_com, total, buf_lines);
+	signal(SIGINT, SIG_IGN);
 	read(STDOUT_FILENO, &c, 1);
+	signals_reroute(1);
 	if (c == 'y' || c == 'Y')
 		return (clean_output_question(1, pos_back, len, len_x));
 	return (clean_output_question(0, pos_back, len, len_x));
