@@ -1,5 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hashtable_from_type.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: a18589270 <a18589270@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/21 13:21:10 by a18589270         #+#    #+#             */
+/*   Updated: 2020/08/21 13:21:28 by a18589270        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "hash.h"
+
+//поменять хедер
 
 /*
 ** Returns NULL or full path to a key (command)
@@ -12,40 +26,35 @@
 
 char		*hashtable_type_init(int *where, char *key)
 {
-	char	*path;
-	void	**hashtable;
-	int		hashtable_size;
-	int		index;
-	
-	path = NULL;
+	void		**hashtable;
+	int			hashtable_size;
+	int			index;
+	t_hashcmd	*slot_ptr;
+
 	hashtable_size = -1;
 	hashtable = get_hashtable_value(&hashtable_size);
 	if (hashtable_size < 0)
-	{
-		printf("can's get hashtable value\n");
 		return (NULL);
-	}
 	index = hashtable_find(key, hashtable, hashtable_size);
 	if (index == HASHTABLE_NF)
+		return (hash_key_not_found_type(where, key));
+	slot_ptr = (t_hashcmd*)hashtable[index];
+	if (access(slot_ptr->cmd_path, F_OK) == -1 ||
+			access(slot_ptr->cmd_path, X_OK) == -1)
 	{
-		path = hashtable_key_nf_type(key, hashtable, hashtable_size);
-		*where = 0;
-		return ((path == NULL) ? NULL : path);
+		clear_hash_cell(index, hashtable, 0);
+		return (hash_key_not_found_type(where, key));
 	}
-	hashtable_check_valid_type(index, key, hashtable, hashtable_size);
-	return (path);
+	*where = 1;
+	return (ft_strdup(slot_ptr->cmd_path));
 }
 
-char		*hashtable_key_nf_type(char *key, void **hashtable,
-				int hashtable_size)
+char		*hash_key_not_found_type(int *where, char *key)
 {
-	printf("Ищу не хэшированую команду\n");
-	return (NULL);
-}
+	char		*path;
 
-int			hashtable_check_valid_type(int index, char *key,
-				void **hashtable, int hashtable_size)
-{
-	printf("Нашел в хэше, проверяю там ли она\n");
-	return (0);
+	path = NULL;
+	path = path_search(key);
+	*where = 0;
+	return ((path == NULL) ? NULL : path);
 }

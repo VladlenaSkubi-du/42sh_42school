@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_parse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: a18589270 <a18589270@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:00:12 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/18 20:36:31 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/21 15:30:03 by a18589270        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ char	**path_parse(void)
 char	*form_path(char *ret, char *env_path, char *name)
 {
 	ft_strcpy(ret, env_path);
-	ft_strcat(ret, "/");
+	if (!(env_path[ft_strlen(env_path) - 1] == '/'))
+		ft_strcat(ret, "/");
 	ft_strcat(ret, name);
 	return (ret);
 }
@@ -119,7 +120,7 @@ char	*path_init(char **exec_av)
 			if (stat(*exec_av, &stat_buf) == 0 && S_ISDIR(stat_buf.st_mode))
 				error_handler(COMMAND_NON_EXECUTABLE | (ERR_ISDIR << 9), *exec_av);
 			else
-				error_handler(COMMAND_NON_EXECUTABLE, *exec_av);
+				error_handler(COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9), *exec_av);
 			return (NULL);
 		}
 		ret = ft_strdup(exec_av[0]);

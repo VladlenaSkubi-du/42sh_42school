@@ -11,14 +11,13 @@ int					btin_hash_list_hashtable(void)
 	hashtable_size = -1;
 	hashtable = get_hashtable_value(&hashtable_size);
 	if (hashtable_size < 0)
-	{
-		printf("    can's get hashtable value\n");
 		return (0);
-	}
 	hashtable_filled = get_hashtable_filled();
 	if (hashtable_size == 0 || hashtable_filled == 0)
+	{
+		printf("no hashtable_filled\n");
 		return (0);
-	// printf("list commands from btin\n"); //DELETE
+	}
 	ft_printf("%6s%s%s\n", "hits", "    ", "command");
 	i = -1;
 	while (++i < hashtable_size)
@@ -38,7 +37,6 @@ int					btin_hash_delete_elements(char **argv)
 	i = -1;
 	while (argv[++i])
 	{
-		// printf("    arg is: %s\n", argv[i]);
 		answer = btin_check_arg_if_cmd_name(argv[i]);
 		if (answer == ARG_INVALID || answer == ARG_ALIAS ||
 				answer == ARG_BUILTIN)
@@ -62,10 +60,7 @@ int					btin_hash_valid_argument_delete(char *key)
 	index = -1;
 	hashtable = get_hashtable_value(&hashtable_size);
 	if (hashtable_size < 0)
-	{
-		printf("    can's get hashtable value\n");
 		return (0);
-	}
 	hashtable_filled = get_hashtable_filled();
 	index = hashtable_delete(key, hashtable, hashtable_size, hashtable_filled);
 	if (index == HASHTABLE_NF)
@@ -82,7 +77,6 @@ int					btin_hash_add_to_hashtable(char **argv)
 	i = -1;
 	while (argv[++i])
 	{
-		// printf("    arg is: %s\n", argv[i]);
 		answer = btin_check_arg_if_cmd_name(argv[i]);
 		if (answer == ARG_INVALID || answer == ARG_ALIAS ||
 				answer == ARG_BUILTIN)
@@ -107,10 +101,7 @@ int					btin_hash_valid_argument_add(char *key)
 	path = NULL;
 	hashtable = get_hashtable_value(&hashtable_size);
 	if (hashtable_size < 0)
-	{
-		printf("    can's get hashtable value\n");
 		return (0);
-	}
 	index = hashtable_find(key, hashtable, hashtable_size);
 	if (index == HASHTABLE_NF)
 	{

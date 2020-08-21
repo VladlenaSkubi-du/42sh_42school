@@ -15,10 +15,7 @@ char			*hashtable_cmd_init(char *key)
 	hashtable_size = -1;
 	hashtable = get_hashtable_value(&hashtable_size);
 	if (hashtable_size < 0)
-	{
-		printf("can's get hashtable value\n");
 		return (NULL);
-	}
 	index = hashtable_find(key, hashtable, hashtable_size);
 	if (index == HASHTABLE_NF)
 		return (hash_key_not_found(key, hashtable,
@@ -53,25 +50,20 @@ char			*hash_key_not_found(char *key, void **hashtable,
 	if (slot_ptr->cmd_state == CDM_NON_EXEC)
 	{
 		free(path);
-		error_handler(COMMAND_NON_EXECUTABLE, slot_ptr->cmd_path);
+		error_handler(COMMAND_NON_EXECUTABLE |
+			(ERR_NO_ACC << 9), slot_ptr->cmd_path);
 		return (NULL);
 	}
 	slot_ptr->cmd_state = 0;
 	return (path);
 }
 
-/*
-** Read-only hashtable function - hashtable_filled is not needed
-*/
-
 int				hashtable_find(char *key, void **hashtable,
 					int hashtable_size)
 {
 	int			index;
 	t_hashcmd	*slot_ptr;
-	// int			comparison;
-	
-	// printf("searching a command in hashtable by key\n");
+
 	index = 0;
 	while (index < hashtable_size)
 	{
@@ -84,19 +76,6 @@ int				hashtable_find(char *key, void **hashtable,
 		}
 		index++;
 	}
-	
-	// index = hashfunction(key);
-	// slot_ptr = (t_hashcmd*)hashtable[index];
-	// comparison = ft_strcmp(key, slot_ptr->cmd_name);
-	// if (!comparison && slot_ptr->slot_state == SLOT_FILLED_HASH)
-	// 	return (index);
-	// else if (!comparison && slot_ptr->slot_state != SLOT_FILLED_HASH) //delete
-	// {
-	// 	printf("Forgot to change the slot state\n");
-	// 	return (index);
-	// }
-	// else if (comparison && slot_ptr->slot_state == SLOT_DELETED_HASH);
-	// 	return (collision_hastable_find(index, key));
 	return (HASHTABLE_NF);
 }
 
@@ -112,7 +91,6 @@ char			*hashtable_check_valid(int index, char *key,
 {
 	t_hashcmd	*slot_ptr;
 	
-	// printf("checking validity of the path found in the hashtable\n");
 	slot_ptr = (t_hashcmd*)hashtable[index];
 	if (access(slot_ptr->cmd_path, F_OK) == -1 ||
 			access(slot_ptr->cmd_path, X_OK) == -1)

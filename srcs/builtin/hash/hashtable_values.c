@@ -8,7 +8,6 @@ static int		hashtable_array_limit;
 
 int				hashtable_init(void)
 {
-	// printf("initialisation of the hashtable\n");
 	hashtable_array_size = HASHTABLE_LENGTH;
 	hashtable_array = (void**)ft_xmalloc(sizeof(void*) *
 		(hashtable_array_size + 1));
@@ -29,16 +28,6 @@ int				get_hashtable_filled(void)
 	return (hashtable_array_filled);
 }
 
-int				change_hastable_value(void **hastable_array_new,
-					int hashtable_array_size_new) //maybe DELETE
-{
-	hashtable_array = hastable_array_new;
-	hashtable_array_size = hashtable_array_size_new;
-	hashtable_array_limit = hashtable_array_size / 2 +
-		(hashtable_array_size / 2 / 2);
-	return (0);
-}
-
 int				change_hashtable_filled_value(int times)
 {
 	hashtable_array_filled += times;
@@ -49,7 +38,6 @@ int				change_hashtable_filled_value(int times)
 	}
 	if (times > 0)
 	{
-		// printf("comp: %d\n", hashtable_array_limit);
 		if (hashtable_array_filled / hashtable_array_size < 1 &&
 				hashtable_array_filled >= hashtable_array_limit)
 		{
