@@ -169,7 +169,7 @@ typedef struct			s_here
 	t_stop				stop;
 	char				*g_cmd_copy;
 	char				*g_techline_copy;
-	size_t				g_len_copy; //нужно??
+	size_t				len_copy;
 	char				**buf;
 	int					buf_size;
 }						t_here;
@@ -211,7 +211,8 @@ int 					ft_block_start(t_list **list);
 int						ft_block_foward(t_ltree **sub, t_list **start);
 int						ft_block_add_to_list(t_ltree *block, t_list **list);
 int     				ft_slice_fg(void);
-int     				ft_slice_bg(size_t *i, t_ltree	*block, t_list **start_list);
+int     				ft_slice_bg(size_t *i, t_ltree	*block,
+							t_list **start_list);
 
 /*
 ** File find_spec.c

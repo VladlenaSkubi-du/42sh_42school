@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:09:27 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/04 17:50:10 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/23 17:50:33 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		ft_block_add_to_list(t_ltree *block, t_list **list)
 			ft_lst_ltree_clear(list);
 			return (OUT);
 		}
-		block->flags &= ~GR_START;
+		(final->flags & PIPED_IN) ? final->flags &= ~GR_START : 0;
 		block->start = final->end + 1;
 		if (before_add(final, list) == OUT)
 			return (OUT);

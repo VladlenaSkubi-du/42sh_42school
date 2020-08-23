@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_buffer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:55:16 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/07 20:26:59 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/23 17:25:22 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ int		recover_g_cmd_here(void)
 	clean_parser42();
 	g_cmd = ft_strdup(g_heredoc.g_cmd_copy);
 	g_techline.line = ft_strdup(g_heredoc.g_cmd_copy);
-	g_techline.len = g_heredoc.g_len_copy;
-	g_techline.alloc_size = g_heredoc.g_len_copy;
+	g_techline.len = g_heredoc.len_copy;
+	g_techline.alloc_size = g_heredoc.len_copy;
 	return (0);
 }
 
