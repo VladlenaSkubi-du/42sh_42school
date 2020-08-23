@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:02:12 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/11 23:49:58 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/23 20:19:42 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int		ft_param_word_sub(t_ltree *sub, char **line, char *oper, int *i)
 
 	buf = ft_parsing_str(oper + 1);
 	ft_reglue(i, ft_strlen(*line) + 2, sub);
-	free(*line);
 	insert_str_in_loc_strs(sub, &buf, i, TEXT);
 	return (0);
 }
@@ -65,13 +64,11 @@ int		ft_param_error_msg(t_ltree *sub, char **find, char *oper)
 	else
 	{
 		sub->err_i |= ERR_OUT | VARIABLE_ERROR | ERR_SET << 9;
-		sub->err = ft_strndup(sub->err, ft_strlen(sub->err) + 2);
-		sub->err = ft_strcat(sub->err, ": ");
+		sub->err = ft_strrejoin(sub->err, ": ");
 		buf = ft_parsing_str(oper + 1);
 		sub->err = ft_strrejoin(sub->err, buf);
 		free(buf);
 	}
-	free(*find);
 	return (sub->err_i);
 }
 
