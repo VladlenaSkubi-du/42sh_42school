@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:13:51 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 23:19:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/23 17:12:19 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,12 @@ int		exec_clean(char *path, int exit_status, char *err_msg)
 {
 	int			error;
 
-	error = get_command_error();
+	error = (exit_status == -1) ? get_command_error() : exit_status;
 	if (error != 0)
 	{
 		error_handler(error, get_command_error_name());
 	}
-	// if (path)
-	// 	exit_status_variables(exit_status);
+	exit_status_variables(error & 0x7F);
 	free(path);
 	if (err_msg)
 		ft_putendl_fd(err_msg, STDERR_FILENO);
@@ -45,6 +44,7 @@ int		exec_clean(char *path, int exit_status, char *err_msg)
 int		ft_builtins_check(t_process *p, int flag)
 {
 	int		i;
+	int		ret;
 
 	i = 0;
 	while (g_builtins[i])
@@ -53,8 +53,9 @@ int		ft_builtins_check(t_process *p, int flag)
 		{
 			if (flag)
 			{
-				g_builtins_func[i](p);
+				ret = g_builtins_func[i](p);
 				p->completed = 1;
+				return(ret & 0x7F);
 			}
 			return (i);
 		}
