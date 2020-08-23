@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exsign_btin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:27:40 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 20:36:21 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/23 18:09:38 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int					btin_exsign(t_ltree *pos)
 	line_part = ft_strstr(pos->l_cmd, pos->ar_v[i]);
 	ft_arrdel(pos->ar_v);
 	pos->ar_v = NULL;
-	i = line_part - pos->l_cmd - 1;
+	i = line_part ? line_part - pos->l_cmd - 1 : pos->end;
 	return (btin_exsign_init(pos, i));
 }
 
