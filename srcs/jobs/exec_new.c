@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_new.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:11:39 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 22:55:30 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/23 13:42:45 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
-#include "builtins_list.h"
 #include "jobs.h"
 #include "parser.h"
 
@@ -43,7 +42,7 @@ void	launch_process(t_process *p, pid_t pgid, int stream[3], int foreground)
 {
 	pid_t	pid;
 
-	if (g_is_interactive && (!p->btin || stream[0] != STDIN_FILENO ||
+	if (g_is_interactive && ((!p->btin && g_path) || stream[0] != STDIN_FILENO ||
 		stream[1] != STDOUT_FILENO || !foreground))
 	{
 		pid = getpid();
@@ -60,7 +59,7 @@ void	launch_process(t_process *p, pid_t pgid, int stream[3], int foreground)
 	(stream[2] != STDERR_FILENO) && setstream(stream[2], STDERR_FILENO);
 	fd_list_process(p, 0);
 	p->btin ? ft_builtins_check(p, 1) : exec_vp(p);
-	if (!p->btin || stream[0] != STDIN_FILENO ||
+	if ((!p->btin && g_path) || stream[0] != STDIN_FILENO ||
 		stream[1] != STDOUT_FILENO || !foreground)
 		exit(!p->btin ? 1 : 0);
 }

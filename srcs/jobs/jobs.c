@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jobs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:53:30 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 21:55:33 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/23 13:16:52 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int				fork_job(t_process *p, t_job *j, int *infl, int *outfl)
 			return (error_handler(PIPE_FAILED, "pipe creation failed"));
 		*outfl = mypipe[1];
 	}
-	pid = (!p->btin || *infl != j->stdin || *outfl != j->stdout) ? fork() : 0;
+	pid = ((!p->btin && g_path) || *infl != j->stdin || *outfl != j->stdout) ? fork() : 0;
 	if (pid == 0)
 	{
 		p->next ? close(mypipe[0]) : 0;
@@ -92,7 +92,7 @@ int				launch_job(t_job *j)
 	j->clean = j->fg ? 0 : 1;
 	while (p)
 	{
-		!p->btin ? g_path = path_init(p->argv) : 0;
+		g_path = !p->btin ? path_init(p->argv) : NULL;
 		!p->next ? outfile = j->stdout : 0;
 		if (fork_job(p, j, &infile, &outfile) == -1)
 		{
