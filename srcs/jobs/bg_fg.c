@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bg_fg.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:07:28 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 21:41:15 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/23 14:34:35 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,22 @@ void	put_job_in_foreground(t_job *j, int cont)
 {
 	j->fg = 1;
 	j->clean = 0;
-	tcsetpgrp(STDIN_FILENO, j->pgid);
-	if (cont)
+	if (j->pgid != 0)
 	{
-		tcsetattr(STDIN_FILENO, TCSADRAIN, &j->tmodes);
-		if (kill(-j->pgid, SIGCONT) < 0)
-			error_handler(SIGNAL_ERROR, "failed to send SIGCONT to job");
+		tcsetpgrp(STDIN_FILENO, j->pgid);
+		if (cont)
+		{
+			tcsetattr(STDIN_FILENO, TCSADRAIN, &j->tmodes);
+			if (kill(-j->pgid, SIGCONT) < 0)
+				error_handler(SIGNAL_ERROR, "failed to send SIGCONT to job");
+		}
+		wait_for_job(j);
+		tcsetpgrp(STDIN_FILENO, g_shell_pgid);
+		tcgetattr(STDIN_FILENO, &j->tmodes);
+		tcsetattr(STDIN_FILENO, TCSADRAIN, &g_shell_tmodes);
 	}
-	wait_for_job(j);
-	tcsetpgrp(STDIN_FILENO, g_shell_pgid);
-	tcgetattr(STDIN_FILENO, &j->tmodes);
-	tcsetattr(STDIN_FILENO, TCSADRAIN, &g_shell_tmodes);
 	j->clean = 1;
-	if (job_is_completed(j))
+	if (job_is_completed(j) || j->pgid == 0)
 		free_job(j);
 }
 
