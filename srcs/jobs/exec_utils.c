@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:13:51 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/23 17:12:19 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/23 17:15:02 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		ft_builtins_check(t_process *p, int flag)
 			{
 				ret = g_builtins_func[i](p);
 				p->completed = 1;
-				return(ret & 0x7F);
+				return(ret);
 			}
 			return (i);
 		}
