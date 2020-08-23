@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:35:34 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/06 18:43:52 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/23 20:11:58 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int			assignment_in_curv_var(t_ltree *sub, char **line,
 	if ((j = find_assignment_in_vars(*line, 0, j, ft_strlen(*line))) ==
 		(ERR_OUT))
 		sub->err = ft_strndup(*line, ft_strchri(*line, '='));
-	free(*line);
 	insert_str_in_loc_strs(sub, &buf, i, TEXT);
 	return (sub->err_i |= j);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_curv_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:02:03 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/01 15:23:10 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/23 20:08:21 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,12 @@ int		ft_param_colon_dash(t_ltree *sub, char **find, char *oper, int *i)
 	{
 		if (*tmp != '\0')
 		{
-			free(*find);
 			ft_reglue(i, size + 2, sub);
 			return (insert_str_in_loc_strs(sub, &tmp, i, TEXT));
 		}
 		else if (*tmp == '\0' && !colon)
 		{
-			free(*find);
+			free(tmp);
 			return (ft_reglue(i, size + 3, sub));
 		}
 		else
@@ -103,13 +102,12 @@ int		ft_param_colon_equal(t_ltree *sub, char **find, char *oper, int *i)
 	{
 		if (*tmp != '\0')
 		{
-			free(*find);
 			ft_reglue(i, size + 2, sub);
 			return (insert_str_in_loc_strs(sub, &tmp, i, TEXT));
 		}
 		else if (*tmp == '\0' && !colon)
 		{
-			free(*find);
+			free(tmp);
 			return (ft_reglue(i, size + 3, sub));
 		}
 		else
@@ -137,13 +135,12 @@ int		ft_param_colon_qmark(t_ltree *sub, char **find, char *oper, int *i)
 	{
 		if (*tmp != '\0')
 		{
-			free(*find);
 			ft_reglue(i, size + 2, sub);
 			return (insert_str_in_loc_strs(sub, &tmp, i, TEXT));
 		}
 		else if (*tmp == '\0' && !colon)
 		{
-			free(*find);
+			free(tmp);
 			return (ft_reglue(i, size + 3, sub));
 		}
 		else
@@ -173,12 +170,11 @@ int		ft_param_colon_plus(t_ltree *sub, char **find, char *oper, int *i)
 			return (ft_param_word_sub(sub, find, oper, i));
 		else if (*tmp == '\0' && colon)
 		{
-			free(*find);
+			free(tmp);
 			return (ft_reglue(i, size + 3, sub));
 		}
 		else
 			return (ft_param_word_sub(sub, find, oper, i));
 	}
-	free(*find);
 	return (ft_reglue(i, size + 3, sub));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substring_var.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:02:09 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/01 15:23:10 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/23 20:32:50 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int		ft_substring_len(t_ltree *sub, char **line, char *oper, int *i)
 	size = ft_strlen(*line);
 	ft_reglue(i, size + 2, sub);
 	tmp = ft_strdup(oper + 1);
-	free(*line);
 	if ((tmp = ft_find_var_value(&tmp)) != NULL)
 		ret = ft_strlen(tmp);
 	else
@@ -58,15 +57,15 @@ int		ft_substring_s_l_prefix(t_ltree *sub, char **line,
 	{
 		pattern = ft_parsing_str(oper);
 		free(*line);
-		len = ft_strlen(pattern);
+		(len = ft_strlen(pattern));
 		if (!ft_strncmp(tmp, pattern, len))
 		{
 			*line = ft_strdup(tmp + len);
 			free(tmp);
-			tmp = *line;
+			(tmp = *line) && (*line = NULL);
 		}
 		free(pattern);
-		insert_str_in_loc_strs(sub, &tmp, i, TEXT);
+		insert_str_in_loc_strs(sub, &tmp, i, TEXT) && (tmp = NULL);
 	}
 	else
 		ft_reglue(i, 1, sub);
@@ -93,7 +92,6 @@ int		ft_substring_s_l_suffix(t_ltree *sub, char **line,
 	if ((tmp = ft_find_var_value(&tmp)) != NULL)
 	{
 		pattern = ft_parsing_str(oper);
-		free(*line);
 		len = ft_strlen(pattern);
 		len_tmp = ft_strlen(tmp);
 		if (!ft_strncmp(&tmp[len_tmp - len], pattern, len))
