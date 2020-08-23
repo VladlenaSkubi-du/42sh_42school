@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:02:06 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/11 23:49:40 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/23 18:19:11 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ int		ft_find_curv_var(t_ltree *sub)
 			find = ft_strndup(&sub->l_cmd[i + 2], size - 2);
 			size = ft_type_param_check(sub, &find, &i);
 			free(find);
-			return (size);
+			if (size != 0)
+				return (size);
 		}
 	}
 	return (0);
