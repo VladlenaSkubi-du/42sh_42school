@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:17:21 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/18 21:19:13 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 16:29:52 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ int			btin_set(t_process *pos)
 	if (flags == HELP_FLAG)
 		return (usage_btin("set"));
 	if (flags < 0)
-		return (btin_return_exit_status());
+		return (BTIN_ERROR);
 	return (btin_set_init());
 }

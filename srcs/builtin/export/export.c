@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:41:48 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/21 16:10:05 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 16:42:12 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int			export_add_vis(char **argv)
 {
 	int		i;
 	char	*new_var;
+	int		answer;
 
 	i = 0;
 	while (argv[++i])
@@ -64,8 +65,10 @@ int			export_add_vis(char **argv)
 		if (ft_strrchr(argv[i], '='))
 		{
 			new_var = ft_parsing_str(argv[i]);
-			change_or_add(new_var);
+			answer = change_or_add(new_var);
 			free(new_var);
+			if (answer == BTIN_ERROR)
+				return (BTIN_ERROR);
 		}
 		else
 			do_vis(argv[i]);
@@ -103,7 +106,7 @@ int			btin_export(t_process *pos)
 	if (flags == HELP_FLAG)
 		return (usage_btin("export"));
 	else if (flags < 0)
-		return (btin_return_exit_status());
+		return (BTIN_ERROR);
 	if (pos->argc == 1 || flags == 1)
 		return (export_p());
 	else

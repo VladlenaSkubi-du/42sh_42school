@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:26:25 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:26:26 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 16:36:40 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int					btin_hash_list_hashtable(void)
 	hashtable_filled = get_hashtable_filled();
 	if (hashtable_size == 0 || hashtable_filled == 0)
 	{
-		printf("no hashtable_filled\n");
+		printf("no hashtable_filled\n"); //DELETE
 		return (0);
 	}
 	ft_printf("%6s%s%s\n", "hits", "    ", "command");
@@ -52,10 +52,7 @@ int					btin_hash_delete_elements(char **argv)
 		answer = btin_check_arg_if_cmd_name(argv[i]);
 		if (answer == ARG_INVALID || answer == ARG_ALIAS ||
 				answer == ARG_BUILTIN)
-		{
-			printf("    arg is invalid\n");
 			continue;
-		}
 		btin_hash_valid_argument_delete(argv[i]);
 	}
 	return (0);
@@ -92,10 +89,7 @@ int					btin_hash_add_to_hashtable(char **argv)
 		answer = btin_check_arg_if_cmd_name(argv[i]);
 		if (answer == ARG_INVALID || answer == ARG_ALIAS ||
 				answer == ARG_BUILTIN)
-		{
-			printf("    arg is invalid\n");
 			continue;
-		}
 		btin_hash_valid_argument_add(argv[i]);
 	}
 	return (0);

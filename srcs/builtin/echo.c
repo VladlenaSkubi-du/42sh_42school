@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:07:42 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/21 09:28:40 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/08/24 14:15:36 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void		write_e_echo(char **argv, int i)
 	}
 }
 
-void		write_text(char **argv, int i, t_ec *echo_flags)
+void		write_text(char **argv, int i, t_ec *echo_flags) //сделать интовой, если возвращает ошибку, вернуть BTIN_ERROR
 {
 	if (echo_flags->e && !echo_flags->up_e)
 		write_e_echo(argv, i);
@@ -109,11 +109,11 @@ int			btin_echo(t_process *pos)
 	int		i;
 	int		flags_check;
 
-	flags_check = find_options(3, (char*[]){"enE", "--help"}, pos->argv);
+	flags_check = find_options(2, (char*[]){"enE", "--help"}, pos->argv);
 	if (flags_check == HELP_FLAG)
 		return (usage_btin("echo"));
 	else if (flags_check < 0)
-		return (btin_return_exit_status());
+		return (BTIN_ERROR);
 	echo_flags = ft_xmalloc(sizeof(t_ec));
 	i = parse_echo_flags(pos->argv, echo_flags, 1);
 	write_text(pos->argv, i, echo_flags);

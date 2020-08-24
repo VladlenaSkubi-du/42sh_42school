@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:36:44 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/18 21:21:20 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 16:37:35 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,19 @@ int					btin_fc(t_process *pos)
 	if (ft_atoi(find_env_value("42SH_NONINTERACTIVE")) == 1)
 	{
 		error_handler(NONINERACTIVE, pos->argv[0]);
-		return (NONINERACTIVE);
+		return (BTIN_ERROR);
 	}
 	flags = find_options(2, (char*[]){"elsrn", "--help"}, pos->argv);
 	if (flags == HELP_FLAG)
 		return (usage_btin("fc"));
 	if (flags < 0)
-		return (btin_return_exit_status());
+		return (BTIN_ERROR);
 	fc_arg = init_btin_fc();
 	flags = 0;
 	if (btin_fc_find_mode(pos->argv, &fc_arg, &flags) == HIST_ERROR)
 	{
 		free(fc_arg);
-		return (btin_return_exit_status());
+		return (BTIN_ERROR);
 	}
 	btin_fc_route_execution(fc_arg, flags, pos->envp);
 	free(fc_arg);

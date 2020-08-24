@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:42:04 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:42:05 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 16:32:35 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int					btin_history(t_process *pos)
 	if (flags == HELP_FLAG)
 		return (usage_btin("history"));
 	if (flags < 0)
-		return (btin_return_exit_status());
+		return (BTIN_ERROR);
 	if (pos->argc == 1 && !flags)
 		return (btin_history_noargs());
 	return (btin_history_check_options(pos->argv));
@@ -39,7 +39,7 @@ int					btin_history_error_message(char *option, int error)
 	error_message = ft_strjoin("history: ", option);
 	error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), error_message);
 	free(error_message);
-	return (error);
+	return (BTIN_ERROR);
 }
 
 int					btin_history_check_options(char **argv)
@@ -55,7 +55,7 @@ int					btin_history_check_options(char **argv)
 				return (btin_history_error_message(argv[i], OPTIONS_REQUIRED));
 			else if (argv[i][1] == 'c')
 				return ((check_posix_option(argv[i], "c", btin_history_error_message) != 0) ?
-					OPTIONS_REQUIRED : btin_history_clear());
+					BTIN_ERROR : btin_history_clear());
 			else if (argv[i][1] == '-' && !argv[i][2])
 				return (btin_history_noargs());
 		}

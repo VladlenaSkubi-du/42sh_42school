@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:12:35 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:12:45 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 16:35:56 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int					btin_hash(t_process *pos)
 	if (ft_atoi(find_env_value("42SH_NONINTERACTIVE")) == 1)
 	{
 		error_handler(NONINERACTIVE, pos->argv[0]);
-		return (NONINERACTIVE);
+		return (BTIN_ERROR);
 	}
 	flags = find_options(2, (char*[]){"rld", "--help"}, pos->argv);
 	if (flags == HELP_FLAG)
 		return (usage_btin("hash"));
 	if (flags < 0)
-		return (btin_return_exit_status());
+		return (BTIN_ERROR);
 	if (pos->argc == 1)
 		return (btin_hash_list_hashtable());
 	return (btin_hash_check_options(pos->argv));
@@ -47,7 +47,7 @@ int					btin_hash_check_options(char **argv)
 				btin_hash_check_flags(argv[i]);
 			else if (argv[i][1] == 'd')
 				return ((check_posix_option(argv[i], "rld", btin_hash_error_message) != 0) ?
-					OPTIONS_REQUIRED : btin_hash_delete_elements(&argv[++i]));
+					BTIN_ERROR : btin_hash_delete_elements(&argv[++i]));
 			else if (argv[i][1] == '-' && !argv[i][2])
 				return ((argv[i + 1]) ? btin_hash_add_to_hashtable(&argv[++i]) :
 					btin_hash_list_hashtable());
@@ -57,7 +57,6 @@ int					btin_hash_check_options(char **argv)
 		else
 			return (btin_hash_add_to_hashtable(&argv[i]));
 	}
-	printf("WARNING nothing is changed in the hashtable\n");
 	return (0);
 }
 
@@ -65,9 +64,9 @@ int					btin_hash_check_flags(char *arg)
 {
 	if (arg[1] == 'r')
 		return ((check_posix_option(arg, "rld", btin_hash_error_message) != 0) ?
-			OPTIONS_REQUIRED : btin_hash_clean_table());
+			BTIN_ERROR : btin_hash_clean_table());
 	return ((check_posix_option(arg, "rld", btin_hash_error_message) != 0) ?
-		OPTIONS_REQUIRED : btin_hash_list_hashtable());
+		BTIN_ERROR : btin_hash_list_hashtable());
 }
 
 int					btin_hash_error_message(char *option, int error)
@@ -80,7 +79,7 @@ int					btin_hash_error_message(char *option, int error)
 	else
 		error_handler(VARIABLE_ERROR | (ERR_HASH_NF << 9), error_message);
 	free(error_message);
-	return (error);
+	return (BTIN_ERROR);
 }
 
 int					btin_hash_clean_table()
