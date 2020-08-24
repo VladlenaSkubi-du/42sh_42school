@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:16:37 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/24 13:44:01 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 13:59:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,6 @@ int		btin_unset(t_process *pos)
 	if (flags == HELP_FLAG)
 		return (usage_btin("unset"));
 	if (flags < 0)
-		return (btin_return_exit_status());
+		return (BTIN_ERROR);
 	return (btin_unset_init(pos->argc, pos->argv));
 }

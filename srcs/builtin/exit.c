@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:27:36 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/24 13:29:47 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 14:31:06 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,30 @@ int				btin_exit(t_process *pos)
 		error_handler(VARIABLE_ERROR | (ERR_TOO_MANY << 9), "exit");
 		return (BTIN_ERROR);
 	}
+	status = 0;
+	if (pos->argc > 1 && (status = btin_exit_arguments(pos->argv)) == BTIN_ERROR)
+		return (BTIN_ERROR);
 	ft_putendl_fd("exit", STDOUT_FILENO);
-	status = (pos->argc > 1) ? btin_exit_arguments(pos->argv) : 0;
 	fill_hist_in_file();
 	clean_everything();
 	exit(status);
+}
+
+int				btin_exit_error(char *option)
+{
+	char	*error_message;
+
+	error_message = ft_strjoin("exit: ", option);
+	error_handler(SYNTAX_ERROR | (ERR_NUMERIC << 9), error_message);
+	usage_btin("exit");
+	free(error_message);
+	return (BTIN_ERROR);
 }
 
 int				btin_exit_arguments(char **ar_v)
 {
 	int			status;
 	int			i;
-	char		*str;
 
 	status = 0;
 	if (ft_strcmp(ar_v[1], "--help") == '0')
@@ -53,16 +65,8 @@ int				btin_exit_arguments(char **ar_v)
 	i = (ar_v[1][0] && ar_v[1][0] == '-') ? 0 : -1;
 	while (ar_v[1][++i])
 		if (!(ar_v[1][i] >= '0' && ar_v[1][i] <= '9'))
-		{
-			str = ft_strjoin(ar_v[0], ": ");
-			str = ft_strrejoin(str, ar_v[1]);
-			error_handler(SYNTAX_ERROR | (ERR_NUMERIC << 9), str);
-			usage_btin("exit");
-			free(str);
-			status = SYNTAX_ERROR;
-			break ;
-		}
-	(status != SYNTAX_ERROR) ? status = ft_atoi(ar_v[1]) : 0;
+			return (btin_exit_error(ar_v[1]));
+	status = ft_atoi(ar_v[1]);
 	(status < 0) ? status &= 0xFF : 0;
 	return (status);
 }

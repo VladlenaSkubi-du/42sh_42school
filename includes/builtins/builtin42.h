@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:08:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/24 13:44:24 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 14:28:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int				check_posix_option(char *arg, char *options,
 
 int				btin_exit(t_process *pos);
 int				btin_exit_arguments(char **ar_v);
+int				btin_exit_error(char *option);
 
 /*
 ** File set.c
