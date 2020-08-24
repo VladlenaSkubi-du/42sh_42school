@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 16:59:53 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/24 16:52:39 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 17:02:58 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int		btin_alias_error_message(char *option, int error)
 	char	*error_message;
 
 	error_message = ft_strjoin("alias: ", option);
-	error_handler(VARIABLE_ERROR, error_message);
+	if (error)
+		error_handler(VARIABLE_ERROR, error_message);
 	free(error_message);
 	return (BTIN_ERROR);
 }

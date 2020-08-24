@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:16:55 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/24 16:50:49 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 17:03:26 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ int		btin_bg_fg_error_message(int where, char *option, int error)
 	char			*error_message;
 
 	error_message = ft_strjoin(((where == 1) ? "fg: " : "bg: "), option);
-	error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), error_message);
+	if (error)
+		error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), error_message);
 	free(error_message);
 	return (BTIN_ERROR);
 }

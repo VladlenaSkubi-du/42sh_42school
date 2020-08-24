@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:42:04 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/24 16:32:35 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 17:01:38 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int					btin_history_error_message(char *option, int error)
 	char			*error_message;
 
 	error_message = ft_strjoin("history: ", option);
-	error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), error_message);
+	if (error)
+		error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), error_message);
 	free(error_message);
 	return (BTIN_ERROR);
 }
