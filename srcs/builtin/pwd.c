@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:14:07 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/24 16:30:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 17:02:27 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int		btin_pwd_error_message(char *option, int error)
 	char	*error_message;
 
 	error_message = ft_strjoin("pwd: ", option);
-	error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), error_message);
+	if (error)
+		error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), error_message);
 	free(error_message);
 	return (BTIN_ERROR);
 }
