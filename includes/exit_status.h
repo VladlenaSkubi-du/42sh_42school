@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 17:06:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 10:15:39 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ enum				e_status
 	VARIABLE_ERROR,
 	OPTIONS_REQUIRED = 2,
 	MALLOC_ERROR = 12,
+	SYNTAX_ERROR = 42,
 	TERMINAL_EXISTS = 111,
 	TERMINAL_TO_NON,
 	TERMINAL_TO_CAN,
@@ -81,8 +82,7 @@ enum				e_status
 	FORK_FAILED,
 	SIGNAL_ERROR,
 	COMMAND_NON_EXECUTABLE = 126,
-	COMMAND_NOT_FOUND,
-	SYNTAX_ERROR = 258
+	COMMAND_NOT_FOUND
 };
 
 #endif

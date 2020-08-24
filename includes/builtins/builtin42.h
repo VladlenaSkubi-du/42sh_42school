@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:08:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 20:25:51 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 13:44:24 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int				btin_type_turn_to_hash(char *arg);
 
 int				btin_unset(t_process *pos);
 int				btin_unset_init(int argc, char **argv);
-void			btin_unset_error_message(char *find);
+int				btin_unset_error_message(char *find);
 
 /*
 ** File history.c

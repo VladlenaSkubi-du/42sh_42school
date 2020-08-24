@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:42:52 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:42:53 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 13:30:46 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int				usage_btin(char *str)
 	else if (ft_strcmp(str, "unalias") == 0)
 		ft_putendl_fd("unalias [-a|alias-name ...]", STDOUT_FILENO);
 	usage_btin_other(str);
-	return (0);
+	return (BTIN_ERROR);
 }
 
 int				usage_btin_other(char *str)
