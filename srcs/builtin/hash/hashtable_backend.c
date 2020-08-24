@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hashtable_backend.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmp <tmp@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:26:38 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/24 16:09:58 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 20:35:00 by tmp              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,10 @@ char			*hashtable_add(char *key, void **hashtable,
 {
 	char		*path;
 	int			i;
-	int			hashtable_filled;
 
 	path = path_search(key);
 	if (!path)
 		return (NULL);
-	hashtable_filled = get_hashtable_filled();
 	i = 0;
 	while (i < hashtable_size)
 	{
@@ -77,7 +75,6 @@ int				hashtable_clean(void **hashtable,
 					int hashtable_size)
 {
 	int				i;
-	t_hashcmd		*hash_cell_ptr;
 	int				hashtable_filled;
 
 	i = 0;
@@ -90,10 +87,7 @@ int				hashtable_clean(void **hashtable,
 	while (i < hashtable_size)
 	{
 		if (hashtable[i] != NULL)
-		{
-			hash_cell_ptr = (t_hashcmd*)hashtable[i];
 			clear_hash_cell(i, hashtable, 0);
-		}
 		i++;
 	}
 	change_hashtable_filled_value(0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmp <tmp@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:14:07 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/24 17:02:27 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 20:35:50 by tmp              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,10 @@ int		btin_pwd_error_message(char *option, int error)
 int		btin_pwd_valid(char **argv)
 {
 	int		i;
-	int		j;
 
 	i = 1;
 	while (argv[i])
 	{
-		j = 1;
 		if (argv[i][0] == '-')
 		{
 			if (argv[i][1] == 'L')
