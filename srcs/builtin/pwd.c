@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:14:07 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/21 09:30:44 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/08/24 16:30:55 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		btin_pwd_error_message(char *option, int error)
 	error_message = ft_strjoin("pwd: ", option);
 	error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), error_message);
 	free(error_message);
-	return (error);
+	return (BTIN_ERROR);
 }
 
 int		btin_pwd_valid(char **argv)
@@ -36,10 +36,10 @@ int		btin_pwd_valid(char **argv)
 		{
 			if (argv[i][1] == 'L')
 				return ((check_posix_option(argv[i], "LP",
-					btin_pwd_error_message) != 0) ? OPTIONS_REQUIRED : 0);
+					btin_pwd_error_message) != 0) ? BTIN_ERROR : 0);
 			else if (argv[i][1] == 'P')
 				return ((check_posix_option(argv[i], "LP",
-					btin_pwd_error_message) != 0) ? OPTIONS_REQUIRED : 0);
+					btin_pwd_error_message) != 0) ? BTIN_ERROR : 0);
 			else if (argv[i][1] == '-' && !argv[i][2])
 				return (0);
 		}
@@ -56,7 +56,7 @@ int		btin_pwd_init(char **argv)
 	char	dir[MAXDIR];
 
 	if (btin_pwd_valid(argv))
-		return (OPTIONS_REQUIRED);
+		return (BTIN_ERROR);
 	flags = ft_xmalloc(sizeof(t_cd *));
 	i = ft_cd_flags(argv, flags);
 	if (flags->l)

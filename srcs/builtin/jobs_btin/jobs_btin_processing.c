@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jobs_btin_processing.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:10:14 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 21:11:17 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/24 16:34:14 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int					btin_jobs_error_message(char *option, int error)
 	else
 		error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), error_message);
 	free(error_message);
-	return (error);
+	return (BTIN_ERROR);
 }
 
 int					btin_jobs_check_options(char **argv, int *iter)
@@ -41,11 +41,11 @@ int					btin_jobs_check_options(char **argv, int *iter)
 			else if (argv[i][1] == 'p')
 				return ((check_posix_option(argv[i], "pl",
 						btin_jobs_error_message) != 0) ?
-					OPTIONS_REQUIRED : FLAG_P);
+					BTIN_ERROR : FLAG_P);
 			else if (argv[i][1] == 'l')
 				return ((check_posix_option(argv[i], "pl",
 					btin_jobs_error_message) != 0) ?
-					OPTIONS_REQUIRED : FLAG_L);
+					BTIN_ERROR : FLAG_L);
 			else if (argv[i][1] == '-' && !argv[i][2])
 			{
 				*iter = i;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jobs_main_btin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:11:39 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 21:15:21 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/24 16:33:40 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		btin_jobs_init(int argc, char **argv)
 	iter = 0;
 	options = btin_jobs_check_options(argv, &iter);
 	if (!(options == FLAG_L || options == FLAG_P || options == 0))
-		return (options);
+		return (BTIN_ERROR);
 	if (iter != 0)
 		argc -= iter;
 	job_iter = g_first_job;
@@ -96,6 +96,6 @@ int		btin_jobs(t_process *pos)
 	if (flags == HELP_FLAG)
 		return (usage_btin("jobs"));
 	if (flags < 0)
-		return (btin_return_exit_status());
+		return (BTIN_ERROR);
 	return (btin_jobs_init(pos->argc, pos->argv));
 }

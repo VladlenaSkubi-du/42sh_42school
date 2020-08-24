@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:42:44 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 09:28:03 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/08/24 16:28:02 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int				btin_type(t_process *pos)
 	if (flags == HELP_FLAG)
 		return (usage_btin("type"));
 	if (flags < 0)
-		return (btin_return_exit_status());
+		return (BTIN_ERROR);
 	if (pos->argc < 1)
 		return (0);
 	return (btin_type_check_options(pos->argv));
@@ -34,7 +34,7 @@ int				btin_type_error_message(char *option, int error)
 	error_message = ft_strjoin("type: ", option);
 	error_handler(VARIABLE_ERROR | (ERR_HASH_NF << 9), error_message);
 	free(error_message);
-	return (error);
+	return (BTIN_ERROR);
 }
 
 int				btin_type_check_options(char **argv)
@@ -70,7 +70,7 @@ int				btin_type_init(char **argv)
 			if (!access(argv[i], 1))
 				ft_printf("%s is %s\n", argv[i], argv[i]);
 			else
-				btin_type_error_message(argv[i], VARIABLE_ERROR);
+				return (btin_type_error_message(argv[i], VARIABLE_ERROR));
 		}
 		else
 		{

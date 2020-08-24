@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_helper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:01:53 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/25 18:06:39 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/08/24 16:39:07 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ int		export_error(char **tmp, int i)
 	free(error);
 	g_envi[i][0] |= ENV_VIS;
 	free(*tmp);
-	return (0);
+	return (BTIN_ERROR);
 }
