@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:08:29 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/21 16:09:40 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 16:49:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int			ft_to_dir(char *path)
 	if (chdir(path) == -1)
 	{
 		ft_error_cd(path, 3);
-		return (1);
+		return (BTIN_ERROR);
 	}
 	change_oldpwd_value(get_pwd_value());
 	return (0);
@@ -56,7 +56,7 @@ int			ft_change_path(char *path, char **env, t_cd *flags)
 	if (ft_to_dir(path))
 	{
 		free(path);
-		return (1);
+		return (BTIN_ERROR);
 	}
 	if (flags->p)
 	{

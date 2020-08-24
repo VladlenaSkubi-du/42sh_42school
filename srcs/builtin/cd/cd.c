@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:57:32 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/21 10:38:38 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/08/24 16:48:12 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int			ft_error_cd(char *name, int en)
 	else if (en == 5)
 		error_handler(VARIABLE_ERROR | (ERR_TOO_MANY << 9), tmp);
 	free(tmp);
-	return (1);
+	return (BTIN_ERROR);
 }
 
 int			ft_cd_helper(void)
@@ -71,7 +71,7 @@ int			btin_cd(t_process *pos)
 	if (flags_check == HELP_FLAG)
 		return (usage_btin("cd"));
 	if (flags_check < 0)
-		return (btin_return_exit_status());
+		return (BTIN_ERROR);
 	flags = ft_xmalloc(sizeof(t_cd *));
 	i = ft_cd_flags(pos->argv, flags);
 	if (pos->argv[i] && pos->argv[i][0] == '-' && pos->argv[i][1] &&
@@ -84,7 +84,7 @@ int			btin_cd(t_process *pos)
 			ft_cd_pars(pos->argv[i], pos->envp, flags))
 	{
 		free(flags);
-		return (1);
+		return (BTIN_ERROR);
 	}
 	free(flags);
 	return (0);

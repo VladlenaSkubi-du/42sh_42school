@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bg.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:16:24 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 21:16:45 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/24 16:50:29 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		btin_bg(t_process *pos)
 	if (flags == HELP_FLAG)
 		return (usage_btin("bg"));
 	if (flags < 0)
-		return (btin_return_exit_status());
+		return (BTIN_ERROR);
 	return (btin_bg_check_options(pos->argc, pos->argv));
 }
 
