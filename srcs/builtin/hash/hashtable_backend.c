@@ -6,12 +6,33 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:26:38 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 21:11:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 16:09:58 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "hash.h"
+
+int				hashtable_find(char *key, void **hashtable,
+					int hashtable_size)
+{
+	int			index;
+	t_hashcmd	*slot_ptr;
+
+	index = 0;
+	while (index < hashtable_size)
+	{
+		if (hashtable[index] != NULL)
+		{
+			slot_ptr = (t_hashcmd*)hashtable[index];
+			if (ft_strcmp(key, slot_ptr->cmd_name) == 0 &&
+					slot_ptr->slot_state == SLOT_FILLED_HASH)
+				return (index);
+		}
+		index++;
+	}
+	return (HASHTABLE_NF);
+}
 
 char			*hashtable_add(char *key, void **hashtable,
 					int hashtable_size, int *index)
