@@ -64,7 +64,7 @@ int					check_if_builtin(char *cmd_name)
 	int				i;
 
 	i = 1;
-	while (g_builtins[i])
+	while (g_builtins[i] && g_builtins_func[i])
 	{
 		if (!ft_strcmp(cmd_name, g_builtins[i]))
 			return (ARG_BUILTIN);

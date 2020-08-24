@@ -1,6 +1,6 @@
 NAME = 42sh
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra #-Werror
 FLAGS += -g
 
 #______________________________________________________________________________
