@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:09:17 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:09:19 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 12:34:45 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@
 */
 
 # define			OUT 42
+# define			BTIN_ERROR		-42
 
 /*
 ** Values for 42sh program and options

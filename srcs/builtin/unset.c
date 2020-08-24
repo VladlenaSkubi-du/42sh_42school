@@ -6,20 +6,23 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:16:37 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/18 21:20:41 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 13:44:01 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "builtin42.h"
 
-void	btin_unset_error_message(char *find)
+int		btin_unset_error_message(char *find)
 {
 	char	*error;
 
 	error = ft_strjoin("unset: ", find);
 	error_handler(VARIABLE_ERROR | (ERR_RDONLY << 9), error);
 	free(error);
+	free(find);
+	find = NULL;
+	return (BTIN_ERROR);
 }
 
 int		btin_unset_init(int argc, char **argv)
@@ -42,7 +45,7 @@ int		btin_unset_init(int argc, char **argv)
 			continue ;
 		}
 		if (g_envi[j][0] && (g_envi[j][0] & READONLY))
-			btin_unset_error_message(find);
+			return (btin_unset_error_message(find));
 		else
 			ft_arrshift(g_envi + j + 1, g_var_size - j, -1);
 		free(find);

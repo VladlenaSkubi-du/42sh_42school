@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:27:36 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:41:33 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 13:29:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int				btin_exit(t_process *pos)
 		if (!job_is_completed(job_iter) && !is_btin_only(job_iter))
 		{
 			ft_putendl_fd("There are still alive jobs", STDOUT_FILENO);
-			return (-1);
+			return (BTIN_ERROR);
 		}
 		job_iter = job_iter->next;
 	}
 	if (pos->argc > 2)
 	{
 		error_handler(VARIABLE_ERROR | (ERR_TOO_MANY << 9), "exit");
-		exit(VARIABLE_ERROR);
+		return (BTIN_ERROR);
 	}
 	ft_putendl_fd("exit", STDOUT_FILENO);
 	status = (pos->argc > 1) ? btin_exit_arguments(pos->argv) : 0;
