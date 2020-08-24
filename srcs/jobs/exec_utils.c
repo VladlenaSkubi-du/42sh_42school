@@ -26,11 +26,10 @@ int		exec_clean(char *path, int exit_status, char *err_msg)
 	int			error;
 
 	error = (exit_status == -1) ? get_command_error() : exit_status;
-	if (!(error == 0 || error == BTIN_ERROR))
+	if (error != 0 && error != BTIN_ERROR)
 	{
 		error_handler(error, get_command_error_name());
 	}
-	// exit_status_variables(error & 0x7F);
 	free(path);
 	if (err_msg)
 		ft_putendl_fd(err_msg, STDERR_FILENO);
