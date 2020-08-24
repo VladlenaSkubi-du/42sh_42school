@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:42:09 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/24 13:35:20 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 13:59:11 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int					btin_return_exit_status(void)
 	
 	li = find_in_variable(&sy, "?");
 	status = ft_atoi(&g_envi[li][sy]);
-	return (BTIN_ERROR);
+	return (status);
 }
 
 int					btin_check_arg_if_cmd_name(char *arg)

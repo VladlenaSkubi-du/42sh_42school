@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 20:31:08 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/18 21:20:36 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 14:14:00 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ int		btin_unalias(t_process *pos)
 	if (flags == HELP_FLAG)
 		return (usage_btin("unalias"));
 	if (flags < 0)
-		return (btin_return_exit_status());
+		return (BTIN_ERROR);
 	if (pos->argc < 2)
 	{
 		usage_btin("unalias");
-		return (OPTIONS_REQUIRED);
+		return (BTIN_ERROR);
 	}
 	return (btin_unalias_check_options(pos->argv));
 }
@@ -48,13 +48,13 @@ int		btin_unalias_check_options(char **argv)
 			else if (argv[i][1] == 'a')
 				return ((check_posix_option(argv[i], "a",
 					btin_unalias_error) != 0) ?
-					OPTIONS_REQUIRED : btin_unalias_clean_commands());
+					BTIN_ERROR : btin_unalias_clean_commands());
 			else if (argv[i][1] == '-' && !argv[i][2])
 			{
 				if (argv[i + 1])
 					return (btin_unalias_init(&argv[++i]));
 				usage_btin("unalias");
-				return (OPTIONS_REQUIRED);
+				return (BTIN_ERROR);
 			}
 		}
 		else
@@ -74,7 +74,7 @@ int		btin_unalias_error(char *option, int error)
 	else
 		error_handler(VARIABLE_ERROR, error_message);
 	free(error_message);
-	return (error);
+	return (BTIN_ERROR);
 }
 
 int		btin_unalias_init(char **argv)
