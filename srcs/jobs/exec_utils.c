@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:13:51 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/24 13:33:58 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 16:18:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ int		exec_clean(char *path, int exit_status, char *err_msg)
 	int			error;
 
 	error = (exit_status == -1) ? get_command_error() : exit_status;
-	if (!(error == 0 || error == -42))
+	if (!(error == 0 || error == BTIN_ERROR))
 	{
-		printf("here\n");
 		error_handler(error, get_command_error_name());
 	}
 	// exit_status_variables(error & 0x7F);
@@ -103,18 +102,21 @@ int		path_init_errors(char *exec_av, char *name)
 			S_ISREG(stat_buf.st_mode) == 0)
 		flag |= COMMAND_NON_EXECUTABLE;
 	if (flag & COMMAND_NON_EXECUTABLE)
-	{
-		if (stat(exec_av, &stat_buf) == 0 && S_ISDIR(stat_buf.st_mode))
-		{
-			save_command_error(COMMAND_NON_EXECUTABLE | (ERR_ISDIR << 9), name);
-			exit_status_variables((COMMAND_NON_EXECUTABLE | (ERR_ISDIR << 9)) & 0x7F);
-		}
-		else
-		{
-			save_command_error(COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9), name);
-			exit_status_variables((COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9)) & 0x7F);
-		}
-		return (-1);
-	}
+		return (path_init_nonexec_errors(exec_av, stat_buf, name));
 	return (0);
+}
+
+int		path_init_nonexec_errors(char *exec_av, struct stat	stat_buf, char *name)
+{
+	if (stat(exec_av, &stat_buf) == 0 && S_ISDIR(stat_buf.st_mode))
+	{
+		save_command_error(COMMAND_NON_EXECUTABLE | (ERR_ISDIR << 9), name);
+		exit_status_variables((COMMAND_NON_EXECUTABLE | (ERR_ISDIR << 9)) & 0x7F);
+	}
+	else
+	{
+		save_command_error(COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9), name);
+		exit_status_variables((COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9)) & 0x7F);
+	}
+	return (-1);
 }

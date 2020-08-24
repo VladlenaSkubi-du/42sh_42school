@@ -118,8 +118,9 @@ char	**path_parse(void);
 */
 
 int		exec_clean(char *path, int exit_status, char *msg);
-int		ft_builtins_check(t_process *p, int flag); //DELETE
+int		ft_builtins_check(t_process *p, int flag);
 int		fd_list_process(t_process *pos, int flag);
 int		path_init_errors(char *exec_av, char *name);
+int		path_init_nonexec_errors(char *exec_av, struct stat	stat_buf, char *name);
 
 #endif
