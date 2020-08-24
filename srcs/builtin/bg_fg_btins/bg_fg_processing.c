@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bg_fg_processing.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:16:55 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 21:18:24 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/24 16:50:49 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,5 @@ int		btin_bg_fg_error_message(int where, char *option, int error)
 	error_message = ft_strjoin(((where == 1) ? "fg: " : "bg: "), option);
 	error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), error_message);
 	free(error_message);
-	return (error);
+	return (BTIN_ERROR);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fg.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:15:37 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 21:16:19 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/24 16:51:25 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		btin_fg(t_process *pos)
 	if (flags == HELP_FLAG)
 		return (usage_btin("fg"));
 	if (flags < 0)
-		return (btin_return_exit_status());
+		return (BTIN_ERROR);
 	return (btin_fg_check_options(pos->argc, pos->argv));
 }
 

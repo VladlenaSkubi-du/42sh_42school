@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 16:59:53 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/18 21:20:42 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 16:52:39 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		btin_alias(t_process *pos)
 	if (flags == HELP_FLAG)
 		return (usage_btin("alias"));
 	if (flags < 0)
-		return (btin_return_exit_status());
+		return (BTIN_ERROR);
 	if (pos->argc < 2)
 		return (btin_alias_init(NULL, NULL, PRINT));
 	return (btin_alias_check_options(pos->argv));
@@ -44,7 +44,6 @@ int		btin_alias_check_options(char **argv)
 		else
 			return (btin_alias_init(&argv[i], NULL, LINE));
 	}
-	printf("WARNING nothing is changed in alias table\n");
 	return (0);
 }
 
@@ -55,7 +54,7 @@ int		btin_alias_error_message(char *option, int error)
 	error_message = ft_strjoin("alias: ", option);
 	error_handler(VARIABLE_ERROR, error_message);
 	free(error_message);
-	return (error);
+	return (BTIN_ERROR);
 }
 
 /*
