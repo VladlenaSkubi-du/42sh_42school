@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:46:10 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 18:46:16 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 20:21:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 ** 3) as one of the user functions beeps if the action is not possible
 */
 
-int		key_right_proc(void)
+int		arrow_right_jumpcharright(void)
 {
 	if (g_rline.pos < 0 || g_rline.pos >= g_rline.cmd_len)
 		return (incorrect_sequence());
@@ -35,7 +35,7 @@ int		key_right_proc(void)
 	return (0);
 }
 
-int		key_left_proc(void)
+int		arrow_left_jumpcharleft(void)
 {
 	if (g_rline.pos <= 0)
 		return (incorrect_sequence());
@@ -51,7 +51,7 @@ int		key_left_proc(void)
 ** one is for NULL-line and one is for the current line to be saved
 */
 
-int		key_up_proc(void)
+int		arrow_up_history(void)
 {
 	int				i;
 	int				len;
@@ -98,7 +98,7 @@ int		key_up_proc_processing(void)
 ** we reached the current cmd-line that was temporarily saved
 */
 
-int		key_down_proc(void)
+int		arrow_down_history(void)
 {
 	int				i;
 	int				len;

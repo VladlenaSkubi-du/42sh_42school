@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:52:56 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/01 17:51:39 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 20:31:13 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int					kirill_lgbt(void)
 	{
 		i = -1;
 		while (++i < 6)
-			backspace_process();
+			backspace_cutcharbefore();
 		kirill = "kirill";
 		i = -1;
 		while (++i < 6)

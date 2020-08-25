@@ -6,14 +6,14 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:46:23 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 18:46:44 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 20:27:10 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
 
-int			make_ctrl_k(void)
+int			ctrl_k_cuttillend(void)
 {
 	char			*save_yank;
 
@@ -30,7 +30,7 @@ int			make_ctrl_k(void)
 	return (0);
 }
 
-int			make_ctrl_u(void)
+int			ctrl_u_cuttillbeg(void)
 {
 	int				pos_old;
 	char			*swap;
@@ -43,7 +43,7 @@ int			make_ctrl_u(void)
 	undo(0);
 	pos_old = g_rline.pos;
 	while (g_rline.pos)
-		key_left_proc();
+		arrow_left_jumpcharleft();
 	front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
 	save_yank = (pos_old == g_rline.cmd_len) ?
 		ft_strdup(g_rline.cmd + g_rline.pos) :
@@ -59,7 +59,7 @@ int			make_ctrl_u(void)
 	return (0);
 }
 
-int			make_ctrl_l(void)
+int			ctrl_l_clearscreen(void)
 {
 	check_after_line();
 	front_set_cursor_jmp(&g_rline.pos,
@@ -73,7 +73,7 @@ int			make_ctrl_l(void)
 	return (0);
 }
 
-int			make_ctrl_t(void)
+int			ctrl_t_swapchars(void)
 {
 	check_after_line();
 	if (g_rline.cmd_len == 1 || g_rline.cmd_len < 0)

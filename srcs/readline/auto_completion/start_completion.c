@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:10:47 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 17:11:52 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 20:32:36 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 ** parsing of the g_complete string
 */
 
-int					auto_completion(void)
+int					tab_completion(void)
 {
 	int				max_len;
 	char			*tech_line;
