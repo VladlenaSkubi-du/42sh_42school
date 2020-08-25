@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:27:36 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/24 14:31:06 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:17:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int				btin_exit(t_process *pos)
 		return (BTIN_ERROR);
 	}
 	status = 0;
-	if (pos->argc > 1 && (status = btin_exit_arguments(pos->argv)) == BTIN_ERROR)
+	if (pos->argc > 1 && (status = btin_exit_args(pos->argv)) == BTIN_ERROR)
 		return (BTIN_ERROR);
 	ft_putendl_fd("exit", STDOUT_FILENO);
 	fill_hist_in_file();
@@ -54,7 +54,7 @@ int				btin_exit_error(char *option)
 	return (BTIN_ERROR);
 }
 
-int				btin_exit_arguments(char **ar_v)
+int				btin_exit_args(char **ar_v)
 {
 	int			status;
 	int			i;

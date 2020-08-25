@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:09:03 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/25 20:32:58 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:45:02 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,10 @@ int								mf_protection(void);
 int								set_noncanonical_input(void);
 int								reset_canonical_input(void);
 int								init_terminal_screen(void);
-// int								back_to_noncanonical_input(void); //DELETE
+
+/*
+** int								back_to_noncanonical_input(void);
+*/
 
 /*
 ** File termcap_usage.c - library of functions to use termcap easily
@@ -228,7 +231,8 @@ int								cmdandor_prompt(void);
 int								char_add(char c, char *color);
 int								char_add_without_undo(char c, char *color);
 int								insert_char(char c, char *color);
-int								front_insert_cmd_till_the_end(int str_num_print);
+int								front_insert_cmd_till_the_end(
+									int str_num_print);
 int								front_set_cursor_jmp(int *pos, int *pos_x,
 									int *pos_y, int flag);
 
@@ -306,7 +310,6 @@ t_action_stack					*action_new(void);
 char							*colors_process(int sequence_num);
 int								kirill_lgbt(void);
 
-
 /*
 ** Folder KEY_ACTIONS
 ** ____________________________________________________________________________
@@ -352,7 +355,6 @@ int								ctrl_p_paste(void);
 int								make_ctrl_p(int mode, char *yank);
 int								paste_insert(char *yank_str);
 
-
 /*
 ** File esc_word_proc.c
 */
@@ -367,8 +369,8 @@ char							*save_end(int pos_back);
 ** File jump_around.c
 */
 
-int             				ctrl_up_jumplineup(void);
-int             				ctrl_down_jumplinedown(void);
+int								ctrl_up_jumplineup(void);
+int								ctrl_down_jumplinedown(void);
 int								ctrl_a_jumplinebeg(void);
 int								ctrl_e_jumplineend(void);
 
@@ -384,7 +386,6 @@ int								esc_t_need_right(char *word_first, int fi,
 									char *end);
 int								esc_t_len_pos(char *word_first, int fi);
 
-
 /*
 ** Folder AUTO_COMPLETION
 ** ____________________________________________________________________________
@@ -399,8 +400,8 @@ char							**route_by_prompts(int *total, int *max_len);
 char							**route_menu_receipt(char *tech_line,
 									int tech_len, int *max_len);
 int								insert_word_compl(void);
-int								insert_word_by_cases_compl(int *delete, int flag,
-									char *menu_word, int compl_len);
+int								insert_word_by_cases_compl(int *delete,
+									int flag, char *menu_word, int compl_len);
 
 /*
 ** File completion_processing.c
@@ -408,7 +409,8 @@ int								insert_word_by_cases_compl(int *delete, int flag,
 
 int								init_completion(void);
 int								clear_completion(int flag);
-int								make_one_slash(char **final, int last_slash, char *compl);
+int								make_one_slash(char **final,
+									int last_slash, char *compl);
 
 /*
 ** File analyse_line_compl.c
@@ -419,8 +421,8 @@ int								analyse_techline_compl(char *compl,
 int								check_quoting_of_syntax(char *tech, int now);
 int								pass_symbols_compl(char *compl, char *tech,
 									int i, int *pool);
-int								check_path_pool_three_compl(char *compl, char *tech,
-									int *pool, int i);
+int								check_path_pool_three_compl(char *compl,
+									char *tech, int *pool, int i);
 int								route_to_pools(char *tech, int i,
 									int *pool);
 
@@ -448,8 +450,8 @@ int								print_menu_within_terminal(int pos_back,
 int								print_menu_more_than_terminal(int pos_back,
 									int len_x, int len_y);
 int								print_menu_buf_after_insert(int pos_back);
-int								position_cursor_after_menu_back(int len_x, int len_y,
-									int buf_lines, int pos_back);
+int								position_cursor_after_menu_back(int len_x,
+									int len_y, int buf_lines, int pos_back);
 
 /*
 ** File question_if_many_compl.c and also a small function (because of norm)
@@ -486,7 +488,7 @@ void							buf_add(char *str, int size);
 */
 
 int								start_history(void);
-void            				init_history_buffer(int size);
+void							init_history_buffer(int size);
 char							*define_history_file(void);
 int								add_to_history(char *cmd);
 int								add_other_prompts_history(char *cmd,
@@ -508,13 +510,13 @@ char							**make_hist_buffer_smaller(int size);
 int								fill_hist_in_file(void);
 int								insert_hist_in_file(int fd, int user_len);
 int								open_hist_file(int user_len, char *path);
-int                 			read_hist_from_file(int fd);
+int								read_hist_from_file(int fd);
 
 /*
 ** File history_processing.c
 */
 
-int                 			delete_last_history_element(void);
+int								delete_last_history_element(void);
 
 /*
 ** File front_part_hist.c

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:42:44 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/24 17:02:43 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:39:52 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,6 @@ int				btin_type_turn_to_hash(char *arg)
 		ft_printf("%s is %s\n", arg, path);
 	else
 		ft_printf("%s is hashed (%s)\n", arg, path);
+	free(path);
 	return (0);
 }

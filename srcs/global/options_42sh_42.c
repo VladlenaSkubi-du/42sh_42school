@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:44:53 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:44:54 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:26:09 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int				check_42sh_c_option(char **argv)
 		else if (argv[i][j] == '-' && !argv[i][j + 1])
 			break ;
 		if (j > 1 && (!(argv[i][j] == 'c' || argv[i][j] == '\0')))
-			return (invalid_option_42sh(&argv[i][j], argv[0]));	
+			return (invalid_option_42sh(&argv[i][j], argv[0]));
 	}
 	if (tmp > 0 && !argv[i])
 		return (argument_needed_42sh("-c", argv[0]));
@@ -66,7 +66,7 @@ int				check_42sh_c_option(char **argv)
 int				argument_needed_42sh(char *option, char *name)
 {
 	char		*arg;
-	
+
 	arg = ft_strjoin(name, ": ");
 	arg = ft_strrejoin(arg, option);
 	error_handler(OPTIONS_REQUIRED | (ERR_BTIN_ARG << 9), arg);

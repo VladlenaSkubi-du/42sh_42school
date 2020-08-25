@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/25 22:45:20 by sschmele          #+#    #+#             */
+/*   Updated: 2020/08/25 22:49:08 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
@@ -79,12 +90,12 @@ typedef	struct			s_word
 ** Struct to save and work with techline
 */
 
-typedef struct  		s_tech
+typedef struct			s_tech
 {
-   char					*line;
-   size_t				len;
-   size_t				alloc_size;
-}               		t_tech;
+	char				*line;
+	size_t				len;
+	size_t				alloc_size;
+}						t_tech;
 
 /*
 ** @l_cmd is char line
@@ -144,13 +155,13 @@ enum					e_redir
 ** Struct to save and work with PATH
 */
 
-typedef struct  		s_path
+typedef struct			s_path
 {
 	char				*name;
 	struct s_path		*next;
 	struct s_path		*prev;
 	char				flag;
-}               		t_path;
+}						t_path;
 
 /*
 ** Struct to save and work with here-docs
@@ -207,11 +218,11 @@ void					clear_techline(t_tech *techline);
 ** File slice_to_blocks.c
 */
 
-int 					ft_block_start(t_list **list);
+int						ft_block_start(t_list **list);
 int						ft_block_foward(t_ltree **sub, t_list **start);
 int						ft_block_add_to_list(t_ltree *block, t_list **list);
-int     				ft_slice_fg(void);
-int     				ft_slice_bg(size_t *i, t_ltree	*block,
+int						ft_slice_fg(void);
+int						ft_slice_bg(size_t *i, t_ltree	*block,
 							t_list **start_list);
 
 /*
@@ -340,7 +351,7 @@ int						here_tab_remove(char **line);
 ** File backend_variables.c
 */
 
-int             		find_assignment_in_vars(char *sub, size_t var,
+int						find_assignment_in_vars(char *sub, size_t var,
 							size_t eq, size_t val);
 int						assignment_in_curv_var(t_ltree *sub,
 							char **line, char *oper, int *i);
@@ -373,7 +384,6 @@ int						form_local_str_from_arrays(t_ltree *sub, int i,
 int						unset_from_array(char ***arr, int i);
 int						add_vars_to_genvi(t_ltree *sub, char **arg_tline);
 
-
 /*
 ** Folder SUBSTITUTION
 ** ____________________________________________________________________________
@@ -393,7 +403,7 @@ int						insert_str_in_loc_strs(t_ltree *sub,
 ** File ft_find_var.c
 */
 
-int	   					ft_find_var(t_ltree *sub);
+int						ft_find_var(t_ltree *sub);
 int						ft_find_curv_var(t_ltree *sub);
 char					*ft_find_var_value(char **find);
 int						ft_param_empty(t_ltree *sub, char **find, int *i);
@@ -432,7 +442,7 @@ int						ft_substring_s_l_suffix(t_ltree *sub,
 int						ft_param_word_sub(t_ltree *sub,
 							char **line, char *oper, int *i);
 void					ft_one_ltree_clear(t_ltree *buf);
-int     				ft_param_error_msg(t_ltree *sub, char **find,
+int						ft_param_error_msg(t_ltree *sub, char **find,
 							char *oper);
 char					*ft_parsing_str(char *str);
 
@@ -507,7 +517,8 @@ char					**ft_path_pars(char *find, char *path,
 							size_t *total, int *size_max);
 void					ft_get_path(char *name, t_path **root,
 							size_t *len, char *find);
-void					insert_in_bintree(char *dp_name, t_path **root, size_t *len);
+void					insert_in_bintree(char *dp_name,
+							t_path **root, size_t *len);
 
 /*
 ** File ft_path_help.c
@@ -518,7 +529,8 @@ int						ft_insert_prev(t_path **current,
 int						ft_insert_next(t_path **current,
 							t_path **parent, t_path **temp, size_t *len);
 int						ft_path_free(t_path **root);
-int						ft_input_builtins(t_path **root, size_t *len, char *find);
+int						ft_input_builtins(t_path **root,
+							size_t *len, char *find);
 
 /*
 ** File ft_block.c funcs to add and spend massive char **str of exe files

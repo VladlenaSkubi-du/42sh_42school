@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:11:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:11:26 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 21:32:06 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 static const char	g_letters[] =
 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-static int  ft_init_tmp(int *len, int *fd, int *try, char *tmpl)
+static int			ft_init_tmp(int *len, int *fd, int *try, char *tmpl)
 {
-    *len = ft_strlen(tmpl);
+	*len = ft_strlen(tmpl);
 	*fd = -1;
 	*try = -1;
 	if (*len < 6 || ft_strcmp(&tmpl[*len - 6], "XXXXXX"))
 		return (-1);
-    return (0);
+	return (0);
 }
 
-static int  ft_try_create_fd(char **tmp, int len, char **xxx)
+static int			ft_try_create_fd(char **tmp, int len, char **xxx)
 {
 	int		buf;
 	int		fd;
@@ -55,7 +55,7 @@ static int  ft_try_create_fd(char **tmp, int len, char **xxx)
 ** use "tmp42sh_fc_XXXXXX" like 'tmpl'
 */
 
-int			ft_tmpfile_fc(char *tmpl, char **tmp_nameto_vim)
+int					ft_tmpfile_fc(char *tmpl, char **tmp_nameto_vim)
 {
 	int		len;
 	char	*tmp;
@@ -64,17 +64,17 @@ int			ft_tmpfile_fc(char *tmpl, char **tmp_nameto_vim)
 	int		try;
 
 	if (ft_init_tmp(&len, &fd, &try, tmpl) == -1)
-        return (-1);
-	xxx = (tmp = ft_strdup(tmpl)) != NULL ? &tmp[len - 6] : NULL;
+		return (-1);
+	tmp = ft_strdup(tmpl);
+	xxx = (tmp != NULL) ? &tmp[len - 6] : NULL;
 	while (fd < 0)
 	{
 		len = -1;
 		fd = ft_try_create_fd(&tmp, len, &xxx);
 		if (++try > TMPFILE_TRY_SIZE)
 			break ;
-		
 	}
-    *tmp_nameto_vim = tmp;
+	*tmp_nameto_vim = tmp;
 	return (fd);
 }
 
@@ -125,7 +125,7 @@ int					btin_fc_read_from_tmpfile(char *tmpfile)
 {
 	char			*cmd;
 	int				fd;
-	
+
 	fd = open(tmpfile, O_RDONLY);
 	if (fd < 0)
 	{

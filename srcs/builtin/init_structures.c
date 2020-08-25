@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:42:09 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/24 13:59:11 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:13:14 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_btin_fc			*init_btin_fc(void)
 	fc = (t_btin_fc*)ft_xmalloc(sizeof(t_btin_fc));
 	fc->flag = 0;
 	fc->editor = NULL;
-    fc->first = 0;
+	fc->first = 0;
 	fc->last = 0;
 	fc->s_comp = NULL;
 	fc->s_cmd = NULL;
@@ -33,7 +33,7 @@ int					btin_return_exit_status(void)
 	int				li;
 	int				sy;
 	int				status;
-	
+
 	li = find_in_variable(&sy, "?");
 	status = ft_atoi(&g_envi[li][sy]);
 	return (status);

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:23:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:25:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 20:49:32 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int				collision_hashtable_find_hash(int index, char *key)
 int				collision_hashtable_add_hash(char *key)
 {
 	int			index;
-	
+
 	index = 0;
-	key= NULL;
+	key = NULL;
 	ft_putendl_fd("hash collision add", STDOUT_FILENO);
 	return (index);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/25 22:27:07 by sschmele          #+#    #+#             */
+/*   Updated: 2020/08/25 22:27:22 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 
 int				main(int argc, char **argv)
@@ -33,14 +45,13 @@ int				interactive_shell(void)
 	char		*termtype;
 	char		room_termtype[10];
 	int			tmp;
-	// pid_t		group_pid;
+	pid_t		group_pid;
 
-	// group_pid = getpgrp();
-	// if (tcgetpgrp(STDIN_FILENO) != group_pid) //вылетает дебаггер временно выключено
-	// 	kill(group_pid, SIGTTIN);
+	group_pid = getpgrp();
+	if (tcgetpgrp(STDIN_FILENO) != group_pid)
+		kill(group_pid, SIGTTIN);
 	tmp = 0;
 	btin_alias_init(NULL, NULL, SAVE);
-	// int n=5;
 	while (1)
 	{
 		signals_reroute(1);

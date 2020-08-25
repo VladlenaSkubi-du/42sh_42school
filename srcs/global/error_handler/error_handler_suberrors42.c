@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:43:43 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 17:07:21 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:26:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 
 int				variable_errors(int status, char *str)
 {
-	if ((status >> 9 & ERR_SET) || (status >> 9 & ERR_CD))
+	if ((status >> 9 & ERR_SET) || (status >> 9 & ERR_CD) ||
+			(status >> 9 & ERR_ECHO))
 	{
 		ft_putendl_fd(str, STDERR_FILENO);
 		return (0);
@@ -66,7 +67,8 @@ int				syntax_errors(int status, char *str)
 {
 	if (status >> 9 & ERR_SQUOTE)
 	{
-		ft_putstr_fd("Unexpected EOF while looking for matching `", STDERR_FILENO);
+		ft_putstr_fd("Unexpected EOF while looking for matching `",
+			STDERR_FILENO);
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd("'", STDERR_FILENO);
 		ft_putstr_fd(find_env_value("0"), STDERR_FILENO);

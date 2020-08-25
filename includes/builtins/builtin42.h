@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:08:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/24 14:28:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:32:14 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@
 # include "cd.h"
 # include "hash.h"
 
-# define SUBOPTION_STARTS		16
+# define SUBOPTION_STARTS 16
 
 /*
 ** Flags masks used in @flags in btin_fc and btin_hash
 */
 
-# define		FLAG_N 0x10
-# define		FLAG_R 0x20
-# define		FLAG_S 0x40
-# define		FLAG_L 0x80
-# define		FLAG_E 0x100
-# define		FLAG_P 0x200
+# define FLAG_N 0x10
+# define FLAG_R 0x20
+# define FLAG_S 0x40
+# define FLAG_L 0x80
+# define FLAG_E 0x100
+# define FLAG_P 0x200
 
-# define        ARG_ALIAS		-10
-# define        ARG_BUILTIN		-20
-# define		ARG_INVALID		-30
+# define ARG_ALIAS -10
+# define ARG_BUILTIN -20
+# define ARG_INVALID -30
 
 /*
 ** Structures
@@ -43,12 +43,12 @@
 ** Structure for btin_echo
 */
 
-typedef struct  s_ec
+typedef struct	s_ec
 {
-	int         e;
-	int         n;
-	int         up_e;
-}               t_ec;
+	int			e;
+	int			n;
+	int			up_e;
+}				t_ec;
 
 /*
 ** General functions for the builtin block
@@ -62,7 +62,7 @@ typedef struct  s_ec
 int				usage_btin(char *str);
 int				usage_btin_other(char *str);
 int				usage_btin_fc(void);
-int             usage_42sh(void);
+int				usage_42sh(void);
 int				ebash_long_options(void);
 
 /*
@@ -86,7 +86,7 @@ int				check_posix_option(char *arg, char *options,
 */
 
 int				btin_exit(t_process *pos);
-int				btin_exit_arguments(char **ar_v);
+int				btin_exit_args(char **ar_v);
 int				btin_exit_error(char *option);
 
 /*
@@ -128,19 +128,19 @@ int				btin_history_noargs(void);
 ** File echo.c
 */
 
-int             btin_echo(t_process *pos);
+int				btin_echo(t_process *pos);
 int				write_text(char **argv, int i, t_ec *echo_flags);
 int				write_e_echo(char **argv, int i);
 int				write_back_sl(char c);
-int			    parse_echo_flags(char **argv, t_ec *echo_flags, int i);
+int				parse_echo_flags(char **argv, t_ec *echo_flags, int i);
 
 /*
 ** File pwd.c
 */
 
-int             btin_pwd(t_process *pos);
+int				btin_pwd(t_process *pos);
 int				btin_pwd_init(char **argv);
-int             btin_pwd_valid(char **argv);
+int				btin_pwd_valid(char **argv);
 int				btin_pwd_error_message(char *option, int error);
 
 /*
@@ -149,16 +149,16 @@ int				btin_pwd_error_message(char *option, int error);
 
 int				export_error(char **tmp, int i);
 int				btin_export(t_process *pos);
-int			    export_p(void);
-int			    export_add_vis(char **argv);
-int			    do_vis(char *arg);
-int			    change_or_add(char *arg);
+int				export_p(void);
+int				export_add_vis(char **argv);
+int				do_vis(char *arg);
+int				change_or_add(char *arg);
 
 /*
 ** File bumblebee.c
 */
 
-int		        btin_bumblebee(void);
+int				btin_bumblebee(void);
 
 /*
 ** File unalias.c
@@ -216,7 +216,7 @@ int				btin_alias_delete_all(t_list **alias);
 ** Folder fc, file fc.c
 */
 
-int             btin_fc(t_process *pos);
+int				btin_fc(t_process *pos);
 
 /*
 ** Folder cd, file cd.c
@@ -230,8 +230,8 @@ int				btin_cd(t_process *pos);
 
 int				btin_jobs(t_process *pos);
 int				btin_jobs_init(int argc, char **argv);
-int				print_job_info(t_job * j, int options);
-int				get_status(t_job	*j, char *buff, int options);
+int				print_job_info(t_job *j, int options);
+int				get_status(t_job *j, char *buff, int options);
 
 /*
 ** Folder jobs_btin, file jobs_id_btin.c
@@ -275,7 +275,7 @@ int				btin_bg_fg_error_message(int where, char *option, int error);
 ** Folder hash, file hash.c
 */
 
-int             btin_hash(t_process *pos);
+int				btin_hash(t_process *pos);
 int				btin_hash_check_options(char **argv);
 int				btin_hash_check_flags(char *arg);
 int				btin_hash_error_message(char *option, int error);

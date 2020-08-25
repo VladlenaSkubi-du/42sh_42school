@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:08:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:08:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:33:10 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,27 @@
 ** last 16 commands should be printed
 */
 
-# define		POSIX_FC_DIFF 16
+# define POSIX_FC_DIFF 16
 
 /*
 ** For going out from functions, for convenience
 */
 
-# define		HIST_ERROR -2
-# define		HIST_EXEC -1
+# define HIST_ERROR -2
+# define HIST_EXEC -1
 
 /*
 ** Masks used in @fc_arg->flag
 */
 
-# define		ARG_FIRST 0x1
-# define		ARG_SECOND 0x2
+# define ARG_FIRST 0x1
+# define ARG_SECOND 0x2
 
 /*
 ** The starting length of the fc_arg->s_comp array
 */
 
-# define		FC_COMP_ARRAY 10
+# define FC_COMP_ARRAY 10
 
 /*
 ** @fc_arg->flag is used to show, how many numeric
@@ -97,7 +97,7 @@ int				btin_fc_list_check_line_args(char **argv, int j,
 int				btin_fc_list_check_other_args(char **argv,
 					t_btin_fc **fc_arg, int *flags);
 int				btin_fc_list_mode_num_args(char **argv, int i,
-                    t_btin_fc **fc_arg);
+					t_btin_fc **fc_arg);
 int				btin_fc_list_nums_no_error(char **argv,
 					t_btin_fc **fc_arg, int *flags);
 int				btin_fc_calculate_nums__list(int buffer, int from);
@@ -115,7 +115,6 @@ int				btin_fc_exec_mode_comp(char **argv,
 int				btin_fc_exec_check_invalid(char **argv,
 					t_btin_fc **fc_arg, int *flags);
 int				btin_fc_one_int__exec(t_btin_fc **fc_arg);
-
 
 /*
 ** File fc_mode_e.c
@@ -160,6 +159,7 @@ int				btin_fc_exec_other_flags(char argvij);
 int				btin_fc_exec_no_args(t_btin_fc **fc_arg, int *flags);
 int				btin_fc_list_mode_no_args(t_btin_fc **fc_arg, int *flags);
 int				btin_fc_edit_no_args(t_btin_fc **fc_arg, int *flags);
+int				btin_fc_error_message(void);
 
 /*
 ** File fc_exec.c
@@ -168,7 +168,8 @@ int				btin_fc_edit_no_args(t_btin_fc **fc_arg, int *flags);
 int				btin_fc_route_execution(t_btin_fc *fc_arg, int flags,
 					char **envir);
 int				btin_fc_execute_list(t_btin_fc *fc_arg, int flags, int flag);
-int				btin_fc_execute_list_reverse(t_btin_fc *fc_arg, int flags, int flag);
+int				btin_fc_execute_list_reverse(t_btin_fc *fc_arg,
+					int flags, int flag);
 int				btin_fc_execute_execution(t_btin_fc *fc_arg);
 int				btin_fc_save_parser_globals(int flag);
 
@@ -181,7 +182,7 @@ int				btin_fc_exec_mode_add_comp(t_btin_fc **fc_arg, char *comp);
 char			*make_history_assignments(t_btin_fc *fc_arg, char *cmd);
 char			*insert_history_assignment(char *buf, int *buf_len,
 					char *change, char *what);
-char			*insert_history_assignment_whole_line(char *buf, int *buf_len,
+char			*history_assign_whole_line(char *buf, int *buf_len,
 					char *change, int len_change);
 
 /*

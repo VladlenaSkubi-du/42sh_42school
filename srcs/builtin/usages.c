@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:42:52 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/24 13:30:46 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:12:19 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int				usage_btin(char *str)
 	ft_putstr_fd(": usage: ", STDOUT_FILENO);
 	if (ft_strcmp(str, "./42sh") == 0)
 		usage_42sh();
-	else if (ft_strcmp(str, "fc") == 0)  
+	else if (ft_strcmp(str, "fc") == 0)
 		usage_btin_fc();
 	else if (ft_strcmp(str, "export") == 0)
 		ft_putendl_fd("export [name[=value] ...] or export -p",
@@ -82,7 +82,7 @@ int				usage_42sh(void)
 int				ebash_long_options(void)
 {
 	char		*space;
-	
+
 	space = "     ";
 	ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
 	ft_putendl_fd(" long options:", STDOUT_FILENO);

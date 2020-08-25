@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 20:22:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 20:23:31 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:16:46 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@ int					btin_exsign_route_substitution(t_ltree *pos,
 	char			*find;
 	int				count;
 	int				len_num;
-	
+
 	if (pos->l_tline.line[start] == BANG)
+	{
 		return (btin_exsign_make_substitution(pos, start - 1, i,
 			g_hist.hist[g_hist.last]));
+	}
 	len_num = (pos->l_cmd[start] == '-') ? 1 : 0;
 	while (start + len_num < i && (pos->l_cmd[start + len_num] >= '0' &&
 			pos->l_cmd[start + len_num] <= '9'))
@@ -60,7 +62,7 @@ int					btin_exsign_numeric(t_ltree *pos,
 	int				num;
 	int				count;
 	int				temp;
-	
+
 	num = ft_atoi(pos->l_cmd + start);
 	if (num < 0)
 	{

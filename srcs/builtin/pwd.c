@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmp <tmp@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:14:07 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/24 20:35:50 by tmp              ###   ########.fr       */
+/*   Updated: 2020/08/25 22:12:42 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int		btin_pwd_error_message(char *option, int error)
 
 	error_message = ft_strjoin("pwd: ", option);
 	if (error)
-		error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), error_message);
+		error_handler(OPTIONS_REQUIRED |
+			(ERR_BTIN_INVALID << 9), error_message);
 	free(error_message);
 	return (BTIN_ERROR);
 }

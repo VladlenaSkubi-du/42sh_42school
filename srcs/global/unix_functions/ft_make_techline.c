@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:44:38 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:44:42 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:23:25 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 ** Function to check if find char is in use or just text
 */
 
-char		get_tech_num(char check) //check
+char		get_tech_num(char check)
 {
 	char	*base;
 	int		i;
 
-	base = " \\;&\"\'()[]{}$~|><*=\n#!:\t"; //24
+	base = " \\;&\"\'()[]{}$~|><*=\n#!:\t";
 	i = 0;
 	while (base[i])
 	{
@@ -29,7 +29,7 @@ char		get_tech_num(char check) //check
 		{
 			if (i == 24)
 				return (2);
-			else			
+			else
 				return (i + 2);
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 16:10:50 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/24 16:11:43 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 20:48:32 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char			*hashtable_check_valid(int index, char *key,
 {
 	t_hashcmd	*slot_ptr;
 	struct stat	stat_buf;
-	
+
 	slot_ptr = (t_hashcmd*)hashtable[index];
 	if (access(slot_ptr->cmd_path, F_OK) == -1 ||
 			access(slot_ptr->cmd_path, X_OK) == -1 ||
@@ -33,7 +33,6 @@ char			*hashtable_check_valid(int index, char *key,
 			|| (stat_buf.st_mode & (S_IXUSR | S_IXGRP | S_IXOTH)) == 0 ||
 			S_ISREG(stat_buf.st_mode) == 0)
 	{
-		printf("    command saved in hashtable is invalid\n");
 		clear_hash_cell(index, hashtable, 0);
 		return (hash_key_not_found(key, hashtable, hashtable_size, index));
 	}
@@ -44,7 +43,7 @@ char			*hashtable_check_valid(int index, char *key,
 char			*hashtable_cmd_init_noninteractive(char *key)
 {
 	char		*path;
-	
+
 	path = path_search(key);
 	if (path_init_errors(path, key) < 0)
 		return (NULL);

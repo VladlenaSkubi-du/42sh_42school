@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:12:35 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/24 16:35:56 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:01:48 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int					btin_hash(t_process *pos)
 {
 	int				flags;
-	
+
 	if (ft_atoi(find_env_value("42SH_NONINTERACTIVE")) == 1)
 	{
 		error_handler(NONINERACTIVE, pos->argv[0]);
@@ -46,7 +46,8 @@ int					btin_hash_check_options(char **argv)
 			else if (argv[i][1] == 'r' || argv[i][1] == 'l')
 				btin_hash_check_flags(argv[i]);
 			else if (argv[i][1] == 'd')
-				return ((check_posix_option(argv[i], "rld", btin_hash_error_message) != 0) ?
+				return ((check_posix_option(argv[i], "rld",
+						btin_hash_error_message) != 0) ?
 					BTIN_ERROR : btin_hash_delete_elements(&argv[++i]));
 			else if (argv[i][1] == '-' && !argv[i][2])
 				return ((argv[i + 1]) ? btin_hash_add_to_hashtable(&argv[++i]) :
@@ -63,10 +64,14 @@ int					btin_hash_check_options(char **argv)
 int					btin_hash_check_flags(char *arg)
 {
 	if (arg[1] == 'r')
-		return ((check_posix_option(arg, "rld", btin_hash_error_message) != 0) ?
+	{
+		return ((check_posix_option(arg, "rld",
+				btin_hash_error_message) != 0) ?
 			BTIN_ERROR : btin_hash_clean_table());
-	return ((check_posix_option(arg, "rld", btin_hash_error_message) != 0) ?
-		BTIN_ERROR : btin_hash_list_hashtable());
+	}
+	return ((check_posix_option(arg, "rld",
+				btin_hash_error_message) != 0) ?
+			BTIN_ERROR : btin_hash_list_hashtable());
 }
 
 int					btin_hash_error_message(char *option, int error)
@@ -75,14 +80,16 @@ int					btin_hash_error_message(char *option, int error)
 
 	error_message = ft_strjoin("hash: ", option);
 	if (error == OPTIONS_REQUIRED)
-		error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), error_message);
+		error_handler(OPTIONS_REQUIRED |
+			(ERR_BTIN_INVALID << 9), error_message);
 	else
-		error_handler(VARIABLE_ERROR | (ERR_HASH_NF << 9), error_message);
+		error_handler(VARIABLE_ERROR |
+			(ERR_HASH_NF << 9), error_message);
 	free(error_message);
 	return (BTIN_ERROR);
 }
 
-int					btin_hash_clean_table()
+int					btin_hash_clean_table(void)
 {
 	void			**hashtable;
 	int				hashtable_size;
