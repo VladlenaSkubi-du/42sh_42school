@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   undo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/25 20:36:49 by sschmele          #+#    #+#             */
+/*   Updated: 2020/08/25 20:39:10 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell42.h"
 #include "readline.h"
 #define ACTIONS_MAX 10
@@ -68,9 +80,9 @@ void			action_pull(t_action_stack **start, int *num)
 		while ((*start)->cmd_b[++i])
 			char_add_without_undo((*start)->cmd_b[i], NULL);
 		while (g_rline.pos != (*start)->pos_b)
-			key_left_proc();
+			arrow_left_jumpcharleft();
 		*start = (*start)->next;
-		*start && ((*start)->prev = 0); //change
+		*start && ((*start)->prev = 0);
 		free(temp->cmd_b);
 		free(temp);
 		(*num)--;

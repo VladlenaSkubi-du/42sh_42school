@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:09:03 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 17:49:18 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 20:32:58 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,15 +264,7 @@ int								front_write_one_char(char c, char *color);
 int								position_cursor_after_line(int len);
 int								clean_after_line(void);
 int								clear_whole_line(void);
-int								save_questions_structure(t_rline_questions new_qw); //DELETE
-t_rline_questions				get_questions_structure(void); //DELETE
 int								input_the_line_readline(void);
-
-/*
-** File colors.c
-*/
-
-char							*colors_process(int sequence_num);
 
 /*
 ** File escape.c - router to the functions performing actions with
@@ -292,7 +284,7 @@ int								ctrl_key(char sy);
 int								ctrl_process(char *ctrl_base, char sy);
 int								ctrl_call(int call_num);
 int								undo_wrap(void);
-int								make_ctrl_x(void);
+int								ctrl_x_ctrl_u_undo(void);
 
 /*
 ** File undo.c
@@ -308,6 +300,14 @@ int								action_add(t_action_stack **start,
 t_action_stack					*action_new(void);
 
 /*
+** File bonuses.c
+*/
+
+char							*colors_process(int sequence_num);
+int								kirill_lgbt(void);
+
+
+/*
 ** Folder KEY_ACTIONS
 ** ____________________________________________________________________________
 */
@@ -316,39 +316,39 @@ t_action_stack					*action_new(void);
 ** File cut_keys.c
 */
 
-int								backspace_process(void);
+int								backspace_cutcharbefore(void);
 int								backspace_newline(char *swap, int len_swap);
-int								delete_process(void);
+int								delete_cutcharunder(void);
 int								delete_till_compl(int delete);
-int								esc_r(void);
+int								esc_r_clearline(void);
 
 /*
 ** File arrow_keys.c
 */
 
-int								key_right_proc(void);
-int								key_up_proc(void);
+int								arrow_right_jumpcharright(void);
+int								arrow_up_history(void);
 int								key_up_proc_processing(void);
-int								key_left_proc(void);
-int								key_down_proc(void);
+int								arrow_left_jumpcharleft(void);
+int								arrow_down_history(void);
 
 /*
 ** File ctrl_kult.c
 */
 
-int								make_ctrl_k(void);
-int								make_ctrl_u(void);
-int								make_ctrl_l(void);
-int								make_ctrl_t(void);
+int								ctrl_k_cuttillend(void);
+int								ctrl_u_cuttillbeg(void);
+int								ctrl_l_clearscreen(void);
+int								ctrl_t_swapchars(void);
 int								make_ctrl_t_begend(int len);
 
 /*
 ** File cut_words_and_paste.c
 */
 
-int								esc_d(void);
-int								make_ctrl_w(void);
-int								make_ctrl_p_wrap(void);
+int								esc_d_cuttillwordend(void);
+int								ctrl_w_cuttillwordbeg(void);
+int								ctrl_p_paste(void);
 int								make_ctrl_p(int mode, char *yank);
 int								paste_insert(char *yank_str);
 
@@ -357,9 +357,9 @@ int								paste_insert(char *yank_str);
 ** File esc_word_proc.c
 */
 
-int								word_left_proc(void);
+int								esc_b_jumpwordleft(void);
 int								word_left_onetwo_chars(void);
-int								word_right_proc(void);
+int								esc_f_jumpwordright(void);
 char							*save_word(int *i, char *cmd, int pos);
 char							*save_end(int pos_back);
 
@@ -367,16 +367,16 @@ char							*save_end(int pos_back);
 ** File jump_around.c
 */
 
-int             				jump_up(void);
-int             				jump_down(void);
-int								make_ctrl_a(void);
-int								make_ctrl_e(void);
+int             				ctrl_up_jumplineup(void);
+int             				ctrl_down_jumplinedown(void);
+int								ctrl_a_jumplinebeg(void);
+int								ctrl_e_jumplineend(void);
 
 /*
 ** File esc_t.c - continuation in esc_word_proc.c
 */
 
-int								esc_t(void);
+int								esc_t_swapwords(void);
 int								esc_t_first_left(char flag, int pos_back);
 int								esc_t_need_left(char *word_first, int fi,
 									char *end);
@@ -384,11 +384,6 @@ int								esc_t_need_right(char *word_first, int fi,
 									char *end);
 int								esc_t_len_pos(char *word_first, int fi);
 
-/*
-** File easter_egg.c
-*/
-
-int								kirill_lgbt(void);
 
 /*
 ** Folder AUTO_COMPLETION
@@ -399,7 +394,7 @@ int								kirill_lgbt(void);
 ** File start_completion.c
 */
 
-int								auto_completion(void);
+int								tab_completion(void);
 char							**route_by_prompts(int *total, int *max_len);
 char							**route_menu_receipt(char *tech_line,
 									int tech_len, int *max_len);
@@ -525,7 +520,7 @@ int                 			delete_last_history_element(void);
 ** File front_part_hist.c
 */
 
-int								make_ctrl_r_history(void);
+int								ctrl_r_history(void);
 char							*get_the_answer_hist(int *len);
 int								insert_valid_sy_hist(char c,
 									int *len, char **find, int *len_find);

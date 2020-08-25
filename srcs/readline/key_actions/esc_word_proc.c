@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:48:16 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 18:48:26 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 20:23:08 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** starts and then to the first char in the word
 */
 
-int			word_left_proc(void)
+int			esc_b_jumpwordleft(void)
 {
 	int				i;
 	int				pos_old;
@@ -66,7 +66,7 @@ int			word_left_onetwo_chars(void)
 ** Jumps to the token after the word (alpha-numeric sequence)
 */
 
-int			word_right_proc(void)
+int			esc_f_jumpwordright(void)
 {
 	int				i;
 	int				pos_old;
@@ -119,7 +119,7 @@ char		*save_end(int pos_back)
 	end = NULL;
 	pos_now = g_rline.pos;
 	move_cursor_from_old_position(pos_back, 'r');
-	if (word_right_proc())
+	if (esc_f_jumpwordright())
 		return (end);
 	end = ft_strdup(g_rline.cmd + g_rline.pos);
 	move_cursor_from_old_position(pos_now, 'l');
