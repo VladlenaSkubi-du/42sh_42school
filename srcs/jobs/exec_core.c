@@ -38,17 +38,3 @@ int		std_save(int mode)
 	}
 	return (0);
 }
-
-/*int		fork_and_exec(t_ltree *pos, char *path, pid_t *child_pid)
-{
-	*child_pid = fork();
-	if (!*child_pid)
-	{
-		if (execve(path, pos->ar_v, pos->envir) == -1)
-			exit(-1);
-	}
-	else if (*child_pid < 0)
-		return (exec_clean(path, -1, "e-bash: Fork failed"));
-	wait(child_pid);
-	return (0);
-}*/
