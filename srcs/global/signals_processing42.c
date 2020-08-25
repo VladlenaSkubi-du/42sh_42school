@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:45:15 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 17:53:19 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:22:39 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,8 @@ void				signal_ctrl_c_readline(int sig)
 {
 	if (sig != SIGINT)
 		return ;
-	if (g_rline.flag & AFTER_LINE_HIST)
-	{
-		ft_putchar_fd('\033', STDIN_FILENO);
-		// ft_putchar_fd('\n', STDOUT_FILENO);
-		position_cursor("ch", 0, 0);
-		tputs(g_cap.cd, 1, printc);
-		g_rline.flag |= SIGNAL_C_QUESTION;
-		return ;
-	}
-	else
-	{
-		check_after_line();
-		ft_putchar_fd('\n', STDOUT_FILENO);
-	}
+	check_after_line();
+	ft_putchar_fd('\n', STDOUT_FILENO);
 	bzero_readline();
 	g_prompt.prompt_func = main_prompt;
 	g_prompt.prompt_func();

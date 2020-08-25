@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fc_exec_mode_e.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:40:37 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/26 17:41:58 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/25 21:26:41 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int					btin_fc_execute_edit_reverse(t_btin_fc *fc_arg,
 	int				tmp;
 	int				value;
 	int				to;
-	
+
 	i = 0;
 	value = (flag == 'd') ? fc_arg->first_buf : fc_arg->last_buf;
 	to = (flag == 'd') ? fc_arg->last_buf : fc_arg->first_buf;
@@ -118,7 +118,7 @@ int					btin_fc_execute_edit(t_btin_fc *fc_arg,
 		tmp = ft_strlen(g_hist.hist[value + i]);
 		if (tmp > 0 && g_hist.hist[value + i][tmp - 1] == '\n')
 			tmp -= 1;
-		ft_putnendl_fd(g_hist.hist[value + i], tmp, fd);			
+		ft_putnendl_fd(g_hist.hist[value + i], tmp, fd);
 		i++;
 	}
 	return (0);

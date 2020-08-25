@@ -6,39 +6,38 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:08:09 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 22:27:16 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:34:31 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HASH_H
 # define HASH_H
 
-# define			HASHTABLE_LENGTH	20
+# define HASHTABLE_LENGTH 20
 
 /*
 ** For going out from functions, for convenience
 ** HASHTABLE_NF - did not find cmd in hashtable
-** 
 */
 
-# define			HASHTABLE_NF		-1
-# define			HASH_INVALID		-2
+# define HASHTABLE_NF -1
+# define HASH_INVALID -2
 
-# define			HASH_ERROR			-3
+# define HASH_ERROR -3
 
-# define			SLOT_DELETED_HASH	-1
-# define			SLOT_FILLED_HASH	1
+# define SLOT_DELETED_HASH -1
+# define SLOT_FILLED_HASH 1
 
-# define			CDM_NON_EXEC		-1
+# define CDM_NON_EXEC -1
 
-typedef struct		s_hashcmd
+typedef struct	s_hashcmd
 {
-	char			*cmd_name;
-	char			*cmd_path;
-	int				number;
-	int				slot_state;
-	int				cmd_state;
-}					t_hashcmd;
+	char		*cmd_name;
+	char		*cmd_path;
+	int			number;
+	int			slot_state;
+	int			cmd_state;
+}				t_hashcmd;
 
 /*
 ** File hashtable_values.c

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:10:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:11:39 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:05:40 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 ** example, "-srn" and so on
 */
 
-int					btin_fc_exec_check_line_args(char **argv, int j,
-						t_btin_fc **fc_arg, int *flags)
+int				btin_fc_exec_check_line_args(char **argv, int j,
+					t_btin_fc **fc_arg, int *flags)
 {
-	int				i;
-	int				tmp;
+	int			i;
+	int			tmp;
 
 	i = 0;
 	if (argv[i][0] != '-' && (tmp = ft_strchri(argv[i], '=')) >= 0)
@@ -48,17 +48,18 @@ int					btin_fc_exec_check_line_args(char **argv, int j,
 ** for example, "-s" "-rn" and so on
 */
 
-int					btin_fc_exec_check_other_args(char **argv,
-						t_btin_fc **fc_arg, int *flags)
+int				btin_fc_exec_check_other_args(char **argv,
+					t_btin_fc **fc_arg, int *flags)
 {
-	int				i;
-	int				tmp;
+	int			i;
+	int			tmp;
 
 	i = -1;
 	while (argv[++i])
 	{
 		if ((ft_isdigit(argv[i][0]) || (argv[i][0] == '-' &&
-			ft_isdigit(argv[i][1]))) && ((tmp = ft_strchri(argv[i], '=')) == -1))
+				ft_isdigit(argv[i][1]))) &&
+				((tmp = ft_strchri(argv[i], '=')) == -1))
 		{
 			(*fc_arg)->flag |= ARG_FIRST;
 			(*fc_arg)->first = ft_atoi(argv[i]);
@@ -88,11 +89,11 @@ int					btin_fc_exec_check_other_args(char **argv,
 ** there is what to correct in the cmd
 */
 
-int					btin_fc_exec_mode_comp(char **argv,
+int				btin_fc_exec_mode_comp(char **argv,
 						t_btin_fc **fc_arg, int *flags)
 {
-	int				i;
-	int				tmp;
+	int			i;
+	int			tmp;
 
 	i = -1;
 	while (argv[++i])
@@ -124,17 +125,14 @@ int					btin_fc_exec_mode_comp(char **argv,
 ** After exec mode is launched, options become arguments
 */
 
-int					btin_fc_exec_check_invalid(char **argv,
-						t_btin_fc **fc_arg, int *flags)
+int				btin_fc_exec_check_invalid(char **argv,
+					t_btin_fc **fc_arg, int *flags)
 {
-	int				i;
+	int			i;
 
 	i = 0;
 	if (argv[i][0] == '-' && !argv[i][1])
-	{
-		error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
-		return (HIST_ERROR);
-	}
+		return (btin_fc_error_message());
 	if (argv[i][0] == '-' && argv[i][1] == '-' && !argv[i][2])
 		return (btin_fc_exec_mode_comp(&argv[i], fc_arg, flags));
 	return (i);
@@ -168,8 +166,9 @@ int				btin_fc_one_int__exec(t_btin_fc **fc_arg)
 		g_hist.len - 1 : g_hist.last) + 1;
 	if ((*fc_arg)->first > 0)
 	{
-		if (((*fc_arg)->first_buf = btin_fc_positive_int__exec
-				((*fc_arg)->first, temp, g_hist.last_fc, 'f')) == HIST_ERROR)
+		if (((*fc_arg)->first_buf =
+				btin_fc_positive_int__exec((*fc_arg)->first,
+				temp, g_hist.last_fc, 'f')) == HIST_ERROR)
 			return (HIST_ERROR);
 	}
 	else

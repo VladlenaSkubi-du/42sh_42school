@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:36:44 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/24 16:37:35 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:06:29 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,7 @@ int					btin_fc_find_mode(char **argv, t_btin_fc **fc_arg,
 				ft_isdigit(argv[i][1])))
 			return (btin_fc_edit_mode(&argv[i], fc_arg, flags));
 		if (argv[i][0] == '-' && !argv[i][1])
-		{
-			error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
-			return (HIST_ERROR);
-		}
+			return (btin_fc_error_message());
 		else if (argv[i][0] == '-' && argv[i][1] == '-')
 		{
 			i++;
@@ -133,10 +130,7 @@ int					btin_fc_list_mode(char **argv, int j,
 	int				i;
 
 	if (g_hist.len < 1 || g_hist.last < 0)
-	{
-		error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
-		return (HIST_ERROR);
-	}
+		return (btin_fc_error_message());
 	i = btin_fc_list_check_line_args(argv, j, fc_arg, flags);
 	if (i == HIST_ERROR)
 		return (HIST_ERROR);
@@ -162,10 +156,7 @@ int					btin_fc_exec_mode(char **argv, int j,
 	if (g_hist.len > 0)
 		delete_last_history_element();
 	if (g_hist.len < 1 || g_hist.last < 0)
-	{
-		error_handler(VARIABLE_ERROR | (ERR_HISTORY_EXEC << 9), "fc");
-		return (HIST_ERROR);
-	}
+		return (btin_fc_error_message());
 	i = btin_fc_exec_check_line_args(argv, j, fc_arg, flags);
 	if (i == HIST_ERROR)
 		return (HIST_ERROR);

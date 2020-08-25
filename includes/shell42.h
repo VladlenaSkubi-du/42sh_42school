@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:09:17 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/24 12:34:45 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 23:04:20 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,39 +51,39 @@
 ** Values used for shell history
 */
 
-# define			HISTORY_LIMIT 32767
-# define 			MAX_HISTFILE 500
-# define 			MAX_HISTBUF 500
+# define HISTORY_LIMIT 32767
+# define MAX_HISTFILE 500
+# define MAX_HISTBUF 500
 
 /*
 ** MAXDIR according to POSIX:  _POSIX_PATH_MAX
 */
 
-# define			MAXDIR 256
+# define MAXDIR 256
 
 /*
 ** Value used for function return in some special cases
 */
 
-# define			OUT 42
-# define			BTIN_ERROR		-42
+# define OUT 42
+# define BTIN_ERROR	-42
 
 /*
 ** Values for 42sh program and options
 */
 
-# define			OPTIONS_NUM		5
-# define			FLAG_42SH_C		0x1
+# define OPTIONS_NUM 5
+# define FLAG_42SH_C 0x1
 
 /*
 ** Flags for shell_variables
 */
 
-# define			ENV_VIS		0x1
-# define			SET_VIS		0x2
-# define			READONLY 	0x4
+# define ENV_VIS 0x1
+# define SET_VIS 0x2
+# define READONLY 0x4
 
-# define			HELP_FLAG	0x10000
+# define HELP_FLAG 0x10000
 
 /*
 ** Values for shell_variables:
@@ -92,8 +92,8 @@
 ** ENV_BUFFER is buffer to allocate for @g_envi
 */
 
-# define			MAX_EXIT_STATUS 10
-# define 			ENV_BUFFER 17
+# define MAX_EXIT_STATUS 10
+# define ENV_BUFFER 17
 
 /*
 ** Structures
@@ -146,7 +146,7 @@ typedef struct		s_history
 enum				e_techline
 {
 	WORD_P = 1,
-	SPACE ,
+	SPACE,
 	BSLASH,
 	SCOLON,
 	AND,

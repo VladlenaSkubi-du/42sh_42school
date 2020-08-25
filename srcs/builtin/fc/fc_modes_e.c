@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:10:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:10:23 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:04:22 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,19 @@ int					btin_fc_edit_mode(char **argv, t_btin_fc **fc_arg,
 {
 	int				li;
 	int				sy;
+	int				tmp;
 
 	if (g_hist.len > 0)
 		delete_last_history_element();
 	if (g_hist.len < 1 || g_hist.last < 0)
-	{
-		error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
-		return (HIST_ERROR);
-	}
+		return (btin_fc_error_message());
 	if ((*fc_arg)->editor == NULL)
 	{
 		li = find_in_variable(&sy, "FCEDIT");
 		if (g_envi[li][sy])
 			(*fc_arg)->editor = &g_envi[li][sy];
 		else
-			(*fc_arg)->editor = "/usr/bin/vim"; // TODO исправить после того как будет type
+			(*fc_arg)->editor = ft_strdup(hashtable_type_init(&tmp, "vim"));
 	}
 	return (btin_fc_edit_other_args(argv, fc_arg, flags));
 }
@@ -59,7 +57,7 @@ int					btin_fc_edit_other_args(char **argv,
 						t_btin_fc **fc_arg, int *flags)
 {
 	int				i;
-	
+
 	i = 0;
 	if (!argv[i])
 		return (btin_fc_edit_no_args(fc_arg, flags));
@@ -69,10 +67,7 @@ int					btin_fc_edit_other_args(char **argv,
 			HIST_ERROR : btin_fc_edit_mode_flags_off(flags));
 	}
 	else
-	{
-		error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
-		return (HIST_ERROR);
-	}
+		return (btin_fc_error_message());
 	return (0);
 }
 
@@ -90,11 +85,8 @@ int					btin_fc_edit_mode_num_args(char **argv, int i,
 		return ((btin_fc_one_int__exec(fc_arg) == HIST_ERROR) ?
 			HIST_ERROR : 0);
 	else if (!(ft_isdigit(argv[i][0]) || (argv[i][0] == '-' &&
-		ft_isdigit(argv[i][1]))))
-	{
-		error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
-		return (HIST_ERROR);
-	}
+			ft_isdigit(argv[i][1]))))
+		return (btin_fc_error_message());
 	(*fc_arg)->flag |= ARG_SECOND;
 	(*fc_arg)->last = ft_atoi(argv[i]);
 	return ((btin_fc_two_ints__edit(fc_arg) == HIST_ERROR) ?

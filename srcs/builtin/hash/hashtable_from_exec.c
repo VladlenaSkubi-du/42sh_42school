@@ -6,15 +6,15 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:26:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/24 16:11:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 20:50:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "hash.h"
 
-static int		st_hash_command_error;
-static char		*st_hash_command_error_name;
+static int		g_hash_command_error_static;
+static char		*g_hash_command_error_name_static;
 
 /*
 ** Is called form the path_init_function - needs path to be returned
@@ -35,8 +35,7 @@ char			*hashtable_cmd_init(char *key)
 		return (NULL);
 	index = hashtable_find(key, hashtable, hashtable_size);
 	if (index == HASHTABLE_NF)
-		return (hash_key_not_found(key, hashtable,
-			hashtable_size, index));
+		return (hash_key_not_found(key, hashtable, hashtable_size, index));
 	return (hashtable_check_valid(index, key, hashtable, hashtable_size));
 }
 
@@ -70,27 +69,28 @@ char			*hash_key_not_found(char *key, void **hashtable,
 		free(path);
 		save_command_error(COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9),
 			slot_ptr->cmd_path);
-		exit_status_variables((COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9)) & 0x7F);
+		exit_status_variables((COMMAND_NON_EXECUTABLE |
+			(ERR_NO_ACC << 9)) & 0x7F);
 		return (NULL);
 	}
 	slot_ptr->cmd_state = 0;
-	st_hash_command_error = 0;
+	g_hash_command_error_static = 0;
 	return (path);
 }
 
 int				save_command_error(int error, char *cmd_name)
 {
-	st_hash_command_error = error;
-	st_hash_command_error_name = cmd_name;
+	g_hash_command_error_static = error;
+	g_hash_command_error_name_static = cmd_name;
 	return (0);
 }
 
 int				get_command_error(void)
 {
-	return (st_hash_command_error);
+	return (g_hash_command_error_static);
 }
 
 char			*get_command_error_name(void)
 {
-	return (st_hash_command_error_name);
+	return (g_hash_command_error_name_static);
 }

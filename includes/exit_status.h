@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/24 10:15:39 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 23:04:54 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,43 +18,43 @@
 ** @ERR_JOB_NF is "job not found"
 */
 
-# define	ERR_TOO_MANY 0x1
-# define	ERR_RDONLY 0x2
-# define	ERR_HISTORY_NUM 0x4
-# define	ERR_HISTORY_EXEC 0x8
-# define	ERR_UNSET 0x10
-# define	ERR_SET 0x20
-# define	ERR_CD 0x40
-# define	ERR_JOB_NF 0x80
-# define	ERR_HASH_NF 0x100
-# define	ERR_CD_NO_FILE_DIR 0x200
-# define	ERR_CD_NO_DIR 0x400
-# define	ERR_ECHO 0x800 
+# define ERR_TOO_MANY 0x1
+# define ERR_RDONLY 0x2
+# define ERR_HISTORY_NUM 0x4
+# define ERR_HISTORY_EXEC 0x8
+# define ERR_UNSET 0x10
+# define ERR_SET 0x20
+# define ERR_CD 0x40
+# define ERR_JOB_NF 0x80
+# define ERR_HASH_NF 0x100
+# define ERR_CD_NO_FILE_DIR 0x200
+# define ERR_CD_NO_DIR 0x400
+# define ERR_ECHO 0x800
 
 /*
 ** Option errors are errors that exit with 2
 */
 
-# define	ERR_BTIN_INVALID 0x1
-# define	ERR_BTIN_ARG 0x2
+# define ERR_BTIN_INVALID 0x1
+# define ERR_BTIN_ARG 0x2
 
 /*
 ** Command errors for exit with 126 or 127
 */
 
-# define	ERR_COMMAND 0x1
-# define	ERR_ISDIR 0x2
+# define ERR_COMMAND 0x1
+# define ERR_ISDIR 0x2
 
 /*
 ** Syntax errors are errors that exit with 258
 */
 
-# define	ERR_SQUOTE 0x1
-# define	ERR_REDIR 0x2
-# define	ERR_BAD_FD 0x4
-# define	ERR_NO_ACC 0x8
-# define	ERR_NO_FILE 0x10
-# define	ERR_NUMERIC 0x20
+# define ERR_SQUOTE 0x1
+# define ERR_REDIR 0x2
+# define ERR_BAD_FD 0x4
+# define ERR_NO_ACC 0x8
+# define ERR_NO_FILE 0x10
+# define ERR_NUMERIC 0x20
 
 /*
 ** In reality bash returns code "2" for all the internal errors + adds mask for

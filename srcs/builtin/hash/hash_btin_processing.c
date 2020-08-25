@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:26:25 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/24 16:36:40 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 20:57:42 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ int					btin_hash_list_hashtable(void)
 		return (0);
 	hashtable_filled = get_hashtable_filled();
 	if (hashtable_size == 0 || hashtable_filled == 0)
-	{
-		printf("no hashtable_filled\n"); //DELETE
 		return (0);
-	}
 	ft_printf("%6s%s%s\n", "hits", "    ", "command");
 	i = -1;
 	while (++i < hashtable_size)
@@ -45,7 +42,7 @@ int					btin_hash_delete_elements(char **argv)
 {
 	int				i;
 	int				answer;
-	
+
 	i = -1;
 	while (argv[++i])
 	{

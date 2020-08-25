@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:27:04 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:27:08 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 21:05:05 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ void			clear_hash_cell(int index,
 	if (delete_key == SLOT_DELETED_HASH)
 	{
 		free(hash_cell->cmd_name);
-		hash_cell->cmd_name= NULL;
+		hash_cell->cmd_name = NULL;
 		free(hashtable[index]);
 		hashtable[index] = NULL;
 	}
 	else if (delete_key == SLOT_FILLED_HASH)
 	{
 		free(hash_cell->cmd_path);
-		hash_cell->cmd_path= NULL;
+		hash_cell->cmd_path = NULL;
 		hash_cell->number = 0;
 		hash_cell->cmd_state = 0;
 		hash_cell->slot_state = SLOT_DELETED_HASH;
@@ -69,9 +69,9 @@ void			clear_hash_cell_full(int index,
 
 	hash_cell = (t_hashcmd*)hashtable[index];
 	free(hash_cell->cmd_name);
-	hash_cell->cmd_name= NULL;
+	hash_cell->cmd_name = NULL;
 	free(hash_cell->cmd_path);
-	hash_cell->cmd_path= NULL;
+	hash_cell->cmd_path = NULL;
 	hash_cell->number = 0;
 	hash_cell->cmd_state = 0;
 	free(hashtable[index]);
@@ -81,7 +81,7 @@ void			clear_hash_cell_full(int index,
 int				print_hash_cell(int index, void **hashtable)
 {
 	t_hashcmd	*slot_ptr;
-	
+
 	slot_ptr = (t_hashcmd*)hashtable[index];
 	if (slot_ptr->slot_state != SLOT_FILLED_HASH)
 		return (0);

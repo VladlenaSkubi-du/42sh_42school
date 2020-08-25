@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:43:50 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 21:03:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:23:41 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int				error_handler(int status, char *str)
 	else if ((status & 0x1FF) == OPTIONS_REQUIRED)
 		options_errors(status, str);
 	else if ((status & 0xFF) == TMPFILE)
-		ft_putendl_fd("Can't open a temporal file", STDERR_FILENO); //TODO check
+		ft_putendl_fd("Can't open a temporal file", STDERR_FILENO);
 	else if ((status & 0xFF) >= PIPE_FAILED &&
 			(status & 0xFF) <= SIGNAL_ERROR)
 		ft_putendl_fd(str, STDERR_FILENO);
@@ -55,7 +55,7 @@ int				terminal_errors(int status, char *str)
 	if ((status & 0x1FF) == TERMINAL_TO_CAN)
 	{
 		ft_putendl_fd("Terminal can't be changed, reset the terminal",
-			STDERR_FILENO); //TODO check
+			STDERR_FILENO);
 		return (0);
 	}
 	else if ((status & 0x1FF) == NONINERACTIVE)

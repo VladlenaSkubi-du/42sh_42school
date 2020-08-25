@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:07:42 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/24 14:15:36 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:19:08 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int			write_e_echo(char **argv, int i)
 	return (0);
 }
 
-int			write_text(char **argv, int i, t_ec *echo_flags) //сделать интовой, если возвращает ошибку, вернуть BTIN_ERROR
+int			write_text(char **argv, int i, t_ec *echo_flags)
 {
 	if (echo_flags->e && !echo_flags->up_e)
 		write_e_echo(argv, i);
@@ -98,7 +98,7 @@ int			write_text(char **argv, int i, t_ec *echo_flags) //сделать инто
 		while (argv[i])
 		{
 			if ((write(1, argv[i], ft_strlen(argv[i]))) == -1)
-				return (-1); //bash: echo: write error: Bad file descriptor
+				return (-1);
 			i++;
 			if (argv[i])
 				write(1, " ", 1);

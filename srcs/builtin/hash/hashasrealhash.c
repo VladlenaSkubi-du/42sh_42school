@@ -6,16 +6,19 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:14:50 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:26:05 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 20:56:40 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 
-/* If the key is deleted, the slot is deleted partially (only path-value)
+/*
+** If the key is deleted, the slot is deleted partially (only path-value)
 ** int variables become default,
-** the key and flag variables are left. Flag is changed to SLOT_DELETED_HASH.
-** If we need to input a new value to the cell with the status SLOT_DELETED_HASH,
+** the key and flag variables are left.
+** Flag is changed to SLOT_DELETED_HASH.
+** If we need to input a new value to the cell with
+** the status SLOT_DELETED_HASH,
 ** we clean the cell fully and malloc for the new values
 ** when we need to clean the whole hashtable - we delete full cell if
 ** its status is SLOT_FILLED_HASH and only key-value if the status is
@@ -77,7 +80,7 @@ int				hashtable_delete_invalid_hash(int *index, char *key,
 {
 	t_hashcmd	*slot_ptr;
 	int			collision_index;
-	
+
 	ft_printf("check if deleting an element is valid\n");
 	if (*index == HASHTABLE_NF || hashtable[*index] == NULL)
 		return (HASHTABLE_NF);
@@ -114,14 +117,13 @@ int				hashtable_find(char *key, void **hashtable,
 	index = hashfunction(key);
 	slot_ptr = (t_hashcmd*)hashtable[index];
 	comparison = ft_strcmp(key, slot_ptr->cmd_name);
-	if (!comparison && slot_ptr->slot_state == SLOT_FILLED_HASH)
-		return (index);
-	else if (!comparison && slot_ptr->slot_state != SLOT_FILLED_HASH) //delete
+	if (!comparison)
 	{
-		ft_printf("Forgot to change the slot state\n");
+		if (slot_ptr->slot_state != SLOT_FILLED_HASH)
+			ft_printf("Forgot to change the slot state\n");
 		return (index);
 	}
-	else if (comparison && slot_ptr->slot_state == SLOT_DELETED_HASH);
+	else if (comparison && slot_ptr->slot_state == SLOT_DELETED_HASH)
 		return (collision_hastable_find(index, key));
 	return (HASHTABLE_NF);
 }

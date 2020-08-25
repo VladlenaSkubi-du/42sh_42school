@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:10:56 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:11:32 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 21:10:31 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@ int				btin_fc_two_ints__list(t_btin_fc **fc_arg, int temp)
 	temp += (temp < 1) ? HISTORY_LIMIT : 0;
 	if (((*fc_arg)->flag & ARG_SECOND) && (*fc_arg)->last > 0)
 	{
-		if (((*fc_arg)->last_buf = btin_fc_positive_int__list
-			((*fc_arg)->last, temp, g_hist.last_fc)) == HIST_ERROR)
+		if (((*fc_arg)->last_buf = btin_fc_positive_int__list((*fc_arg)->last,
+				temp, g_hist.last_fc)) == HIST_ERROR)
 			return (HIST_ERROR);
 	}
 	else if ((*fc_arg)->flag & ARG_SECOND)
 		(*fc_arg)->last_buf = btin_fc_negative_int__list((*fc_arg)->last);
 	if (((*fc_arg)->flag & ARG_FIRST) && (*fc_arg)->first > 0)
 	{
-		if (((*fc_arg)->first_buf = btin_fc_positive_int__list
-			((*fc_arg)->first, temp, g_hist.last_fc)) == HIST_ERROR)
+		if (((*fc_arg)->first_buf = btin_fc_positive_int__list((*fc_arg)->first,
+				temp, g_hist.last_fc)) == HIST_ERROR)
 			return (HIST_ERROR);
 	}
 	else if ((*fc_arg)->flag & ARG_FIRST)

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:42:04 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/24 17:01:38 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:14:17 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 int					btin_history(t_process *pos)
 {
 	int				flags;
-	
+
 	flags = find_options(2, (char*[]){"c", "--help"}, pos->argv);
 	if (flags == HELP_FLAG)
 		return (usage_btin("history"));
@@ -38,7 +38,8 @@ int					btin_history_error_message(char *option, int error)
 
 	error_message = ft_strjoin("history: ", option);
 	if (error)
-		error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), error_message);
+		error_handler(OPTIONS_REQUIRED |
+			(ERR_BTIN_INVALID << 9), error_message);
 	free(error_message);
 	return (BTIN_ERROR);
 }
@@ -55,7 +56,8 @@ int					btin_history_check_options(char **argv)
 			if (!argv[i][1])
 				return (btin_history_error_message(argv[i], OPTIONS_REQUIRED));
 			else if (argv[i][1] == 'c')
-				return ((check_posix_option(argv[i], "c", btin_history_error_message) != 0) ?
+				return ((check_posix_option(argv[i], "c",
+					btin_history_error_message) != 0) ?
 					BTIN_ERROR : btin_history_clear());
 			else if (argv[i][1] == '-' && !argv[i][2])
 				return (btin_history_noargs());

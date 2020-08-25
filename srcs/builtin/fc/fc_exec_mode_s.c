@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:10:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 16:10:29 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:08:39 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@ char				*btin_fc_execute_form_cmd(t_btin_fc *fc_arg)
 {
 	char			*cmd;
 	int				tmp;
-	
+
 	cmd = NULL;
 	if (fc_arg->s_cmd)
 	{
 		if ((tmp = find_in_history(fc_arg->s_cmd)) == -1)
 		{
-			error_handler(VARIABLE_ERROR | (ERR_HISTORY_EXEC << 9), fc_arg->s_cmd);
+			error_handler(VARIABLE_ERROR |
+				(ERR_HISTORY_EXEC << 9), fc_arg->s_cmd);
 			return ("error");
 		}
 		cmd = ft_strdup(g_hist.hist[tmp]);
@@ -49,7 +50,8 @@ char				*btin_fc_execute_form_cmd(t_btin_fc *fc_arg)
 ** Processing of the @fc_arg->s_comp value
 */
 
-int					btin_fc_exec_mode_add_comp(t_btin_fc **fc_arg, char *comp)
+int					btin_fc_exec_mode_add_comp(t_btin_fc **fc_arg,
+						char *comp)
 {
 	static int		i;
 
@@ -133,8 +135,7 @@ char				*insert_history_assignment(char *buf, int *buf_len,
 	len_change = ft_strlen(change);
 	len_what = ft_strlen(what);
 	if (len_what == 0)
-		return (insert_history_assignment_whole_line
-			(buf, buf_len, change, len_change));
+		return (history_assign_whole_line(buf, buf_len, change, len_change));
 	tmp = ft_strdup(buf + ptr + len_what);
 	if (len_cmd - len_what + len_change >= *buf_len)
 	{
@@ -155,7 +156,7 @@ char				*insert_history_assignment(char *buf, int *buf_len,
 ** The output is: foofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoo
 */
 
-char				*insert_history_assignment_whole_line(char *buf,
+char				*history_assign_whole_line(char *buf,
 						int *buf_len, char *change, int len_change)
 {
 	int				i;
