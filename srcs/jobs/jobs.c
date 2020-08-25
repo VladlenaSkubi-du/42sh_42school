@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jobs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:53:30 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/24 16:14:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 22:57:57 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@ void			process_update(t_process *p, int status)
 	p->status = status;
 	if (!p->next)
 		g_last_exit_status = WIFEXITED(status) ? WEXITSTATUS(status) : -1;
-	//	exit_status_variables(WIFEXITED(status) ? WEXITSTATUS(status) : -1); //исправить для правильного возврата ошибки пайпа
-	// возможно if (status != BTIN_ERROR)
-	// exit_status_variables(WIFEXITED(status) ? WEXITSTATUS(status) : btin_return_exit_status());
 }
 
 int				parent(t_process *p, t_job *j, pid_t pid)
