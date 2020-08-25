@@ -52,14 +52,14 @@ int				fork_job(t_process *p, t_job *j, int *infl, int *outfl)
 {
 	pid_t	pid;
 	int		mypipe[2];
+	char	redir;
 
+	redir = *infl != j->stdin || *outfl != j->stdout ? 1 : 0;
 	if (p->next)
-	{
 		if (pipe(mypipe) < 0)
 			return (error_handler(PIPE_FAILED, "pipe creation failed"));
-		*outfl = mypipe[1];
-	}
-	pid = ((!p->btin && g_path) || *infl != j->stdin || *outfl != j->stdout) ? fork() : 0;
+	p->next ? (*outfl = mypipe[0]) : 0;
+	pid = ((!p->btin && g_path) || redir) ? fork() : 0;
 	if (pid == 0)
 	{
 		p->next ? close(mypipe[0]) : 0;
@@ -68,8 +68,7 @@ int				fork_job(t_process *p, t_job *j, int *infl, int *outfl)
 	else if (pid < 0)
 		return (error_handler(FORK_FAILED, "fork creation failed"));
 	else
-		parent(p, j, (!p->btin || *infl != j->stdin ||
-			*outfl != j->stdout) ? pid : getpid());
+		parent(p, j, (!p->btin || redir) ? pid : getpid());
 	*infl != STDIN_FILENO ? close(*infl) : 0;
 	*outfl != STDOUT_FILENO ? close(*outfl) : 0;
 	fd_list_process(p, CLOSE);
