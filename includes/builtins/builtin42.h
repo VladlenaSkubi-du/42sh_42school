@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin42.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:08:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/24 14:28:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 21:52:28 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 # define		FLAG_E 0x100
 # define		FLAG_P 0x200
 
-# define        ARG_ALIAS		-10
-# define        ARG_BUILTIN		-20
+# define		ARG_ALIAS		-10
+# define		ARG_BUILTIN		-20
 # define		ARG_INVALID		-30
 
 /*
@@ -43,12 +43,12 @@
 ** Structure for btin_echo
 */
 
-typedef struct  s_ec
+typedef struct	s_ec
 {
-	int         e;
-	int         n;
-	int         up_e;
-}               t_ec;
+	int			e;
+	int			n;
+	int			up_e;
+}				t_ec;
 
 /*
 ** General functions for the builtin block
