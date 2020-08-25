@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:55:29 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/18 22:05:59 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/25 22:01:57 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		ft_redir_check(t_ltree *final)
 				if ((ret = ft_find_redirection_check(final, &i)) != 0)
 				{
 					final->err_i = i;
-					return(ret);
+					return (ret);
 				}
 			}
 			else
@@ -110,7 +110,7 @@ int		ft_redir_greatand_check(t_ltree *final, int *i)
 		if ((fd.name = ft_word_to_redir(i, final, FF)) != NULL)
 			add_redir_fd(final, &fd);
 		else
-			return (final->flags |=  ERR_OUT | ERR_REDIR << 16);
+			return (final->flags |= ERR_OUT | ERR_REDIR << 16);
 	}
 	free(fd.name);
 	return (0);
