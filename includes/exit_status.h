@@ -29,6 +29,7 @@
 # define	ERR_HASH_NF 0x100
 # define	ERR_CD_NO_FILE_DIR 0x200
 # define	ERR_CD_NO_DIR 0x400
+# define	ERR_ECHO 0x800 
 
 /*
 ** Option errors are errors that exit with 2
