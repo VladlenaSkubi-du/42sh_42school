@@ -73,7 +73,7 @@ int			process_new(t_job *jobs, t_ltree *entity)
 	vec_dup(&process_new->envp, entity->envir);
 	process_new->fd = entity->fd;
 	process_new->next = NULL;
-	process_new->btin = ft_builtins_check(process_new, 0) == -1 ? 0 : 1; //если команды не существует (path_init вернул NULL), она не должна форкаться
+	process_new->btin = ft_builtins_check(process_new, 0) == -1 ? 0 : 1;
 	if (!jobs->first_process)
 	{
 		jobs->com = (process_new->argv)[0];
