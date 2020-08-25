@@ -41,7 +41,7 @@ int			parse_echo_flags(char **argv, t_ec *echo_flags, int i)
 	return (i);
 }
 
-void		write_back_sl(char c)
+int			write_back_sl(char c)
 {
 	if (c == 'a')
 		write(STDOUT_FILENO, "\a", 1);
@@ -59,12 +59,15 @@ void		write_back_sl(char c)
 		write(STDOUT_FILENO, "\v", 1);
 	else if (c == 'e')
 		write(STDOUT_FILENO, "\033", 1);
+	return (0);
 }
 
-void		write_e_echo(char **argv, int i)
+int			write_e_echo(char **argv, int i)
 {
 	int		j;
 
+	if ((write(1, "", 0)) == -1)
+		return (-1);
 	while (argv[i])
 	{
 		j = 0;
@@ -83,9 +86,10 @@ void		write_e_echo(char **argv, int i)
 		if (argv[i])
 			write(1, " ", 1);
 	}
+	return (0);
 }
 
-void		write_text(char **argv, int i, t_ec *echo_flags) //сделать интовой, если возвращает ошибку, вернуть BTIN_ERROR
+int			write_text(char **argv, int i, t_ec *echo_flags) //сделать интовой, если возвращает ошибку, вернуть BTIN_ERROR
 {
 	if (echo_flags->e && !echo_flags->up_e)
 		write_e_echo(argv, i);
@@ -93,7 +97,8 @@ void		write_text(char **argv, int i, t_ec *echo_flags) //сделать инто
 	{
 		while (argv[i])
 		{
-			write(1, argv[i], ft_strlen(argv[i]));
+			if ((write(1, argv[i], ft_strlen(argv[i]))) == -1)
+				return (-1); //bash: echo: write error: Bad file descriptor
 			i++;
 			if (argv[i])
 				write(1, " ", 1);
@@ -101,6 +106,7 @@ void		write_text(char **argv, int i, t_ec *echo_flags) //сделать инто
 	}
 	if (!echo_flags->n)
 		write(1, "\n", 1);
+	return (0);
 }
 
 int			btin_echo(t_process *pos)
@@ -116,7 +122,13 @@ int			btin_echo(t_process *pos)
 		return (BTIN_ERROR);
 	echo_flags = ft_xmalloc(sizeof(t_ec));
 	i = parse_echo_flags(pos->argv, echo_flags, 1);
-	write_text(pos->argv, i, echo_flags);
+	if ((write_text(pos->argv, i, echo_flags)) == -1)
+	{
+		error_handler(VARIABLE_ERROR | (ERR_ECHO << 9),
+				"echo: write error: Bad file descriptor\n");
+		free(echo_flags);
+		return (BTIN_ERROR);
+	}
 	free(echo_flags);
 	return (0);
 }

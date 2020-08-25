@@ -129,9 +129,9 @@ int				btin_history_noargs(void);
 */
 
 int             btin_echo(t_process *pos);
-void		    write_text(char **argv, int i, t_ec *echo_flags);
-void		    write_e_echo(char **argv, int i);
-void		    write_back_sl(char c);
+int				write_text(char **argv, int i, t_ec *echo_flags);
+int				write_e_echo(char **argv, int i);
+int				write_back_sl(char c);
 int			    parse_echo_flags(char **argv, t_ec *echo_flags, int i);
 
 /*

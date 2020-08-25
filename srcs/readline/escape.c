@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:55:29 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 18:55:30 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 20:25:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,18 @@ int		sequence_process(int sequence_num)
 {
 	int		(*seq_action[ESC_NUM])(void);
 
-	seq_action[0] = key_right_proc; //rename: arrow_right_jumpcharright
-	seq_action[1] = key_up_proc; //rename: arrow_up_history
-	seq_action[2] = key_left_proc; //rename: arrow_left_jumpcharleft
-	seq_action[3] = key_down_proc; //rename: arrow_down_history
-	seq_action[4] = esc_r; //rename: esc_r_clearline
-	seq_action[5] = delete_process; //rename: delete_cutcharunder
-	seq_action[6] = word_left_proc; //rename: esc_b_jumpwordleft
-	seq_action[7] = word_right_proc; //rename: esc_f_jumpwordright
-	seq_action[8] = esc_d; //rename: esc_d_cuttillwordend
-	seq_action[9] = esc_t; //rename: esc_d_swapwords
-	seq_action[10] = jump_up; //rename: ctrl_up_jumplineup
-	seq_action[11] = jump_down; //rename: ctrl_down_jumplinedown
+	seq_action[0] = arrow_right_jumpcharright;
+	seq_action[1] = arrow_up_history;
+	seq_action[2] = arrow_left_jumpcharleft;
+	seq_action[3] = arrow_down_history;
+	seq_action[4] = esc_r_clearline;
+	seq_action[5] = delete_cutcharunder;
+	seq_action[6] = esc_b_jumpwordleft;
+	seq_action[7] = esc_f_jumpwordright;
+	seq_action[8] = esc_d_cuttillwordend;
+	seq_action[9] = esc_t_swapwords;
+	seq_action[10] = ctrl_up_jumplineup;
+	seq_action[11] = ctrl_down_jumplinedown;
 	return ((*seq_action[sequence_num])());
 }
 
