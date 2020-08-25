@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substring_var.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:02:09 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/23 20:32:50 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/25 22:00:44 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ int		ft_substring_s_l_prefix(t_ltree *sub, char **line,
 		{
 			*line = ft_strdup(tmp + len);
 			free(tmp);
-			(tmp = *line) && (*line = NULL);
+			(tmp = *line);
 		}
-		free(pattern);
+		!(*line = NULL) ? free(pattern) : 0;
 		insert_str_in_loc_strs(sub, &tmp, i, TEXT) && (tmp = NULL);
 	}
 	else
