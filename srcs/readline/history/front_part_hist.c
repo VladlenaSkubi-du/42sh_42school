@@ -6,14 +6,14 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:17:35 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/21 21:48:38 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 20:39:06 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
 
-int					make_ctrl_r_history(void)
+int					ctrl_r_history(void)
 {
 	int				len;
 	int				len_x;
@@ -28,9 +28,7 @@ int					make_ctrl_r_history(void)
 	len = 22;
 	g_rline.flag |= AFTER_LINE_HIST;
 	front_insert_by_letters("We search in history: ", &coincidence);
-	signal(SIGINT, SIG_IGN);
 	find = get_the_answer_hist(&len);
-	signals_reroute(1);
 	clean_output_question(0, pos_back, len, len_x);
 	(find && find[0] == '\0') ? free(find) : 0;
 	if (find == NULL || find[0] == '\0')
@@ -51,6 +49,7 @@ char				*get_the_answer_hist(int *len)
 
 	find = (char*)ft_xmalloc(CMD_SIZE + 1);
 	c = 0;
+	signal(SIGINT, SIG_IGN);
 	while (read(STDIN_FILENO, &c, 1) && !(c == '\n' || c == '\004'))
 	{
 		if (c == '\033')
@@ -61,6 +60,7 @@ char				*get_the_answer_hist(int *len)
 				len, &find, &len_find) == 1)
 			return (find);
 	}
+	signals_reroute(1);
 	if (find[0] == 0)
 		return (free_find_hist(&find));
 	return (find);

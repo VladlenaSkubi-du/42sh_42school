@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:47:59 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 18:48:00 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 20:24:16 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 ** wrong - you get incorrect_sequence(): bell and out;
 */
 
-int					esc_t(void)
+int					esc_t_swapwords(void)
 {
 	int				pos_back;
 	char			flag;
@@ -54,7 +54,7 @@ int					esc_t(void)
 
 int					esc_t_first_left(char flag, int pos_back)
 {
-	if (word_left_proc())
+	if (esc_b_jumpwordleft())
 		return (1);
 	if (g_rline.pos == 0 && flag == 'o')
 	{
@@ -71,7 +71,7 @@ int					esc_t_need_left(char *word_first, int fi, char *end)
 	char			delimiter;
 
 	delimiter = g_rline.cmd[g_rline.pos - 1];
-	if (word_left_proc())
+	if (esc_b_jumpwordleft())
 		return (0);
 	word_second = save_word(&se, g_rline.cmd, g_rline.pos);
 	ft_strcpy(g_rline.cmd + g_rline.pos, word_first);
@@ -94,7 +94,7 @@ int					esc_t_need_right(char *word_first, int fi, char *end)
 	char			delimiter;
 
 	pos_old = g_rline.pos;
-	if (word_right_proc())
+	if (esc_f_jumpwordright())
 		return (0);
 	delimiter = g_rline.cmd[g_rline.pos];
 	word_second = save_word(&se, g_rline.cmd, g_rline.pos + 1);
@@ -118,7 +118,7 @@ int					esc_t_len_pos(char *word_first, int fi)
 	char			delimiter;
 
 	delimiter = g_rline.cmd[g_rline.pos - 1];
-	if (word_left_proc())
+	if (esc_b_jumpwordleft())
 		return (0);
 	word_second = save_word(&se, g_rline.cmd, g_rline.pos);
 	ft_strcpy(g_rline.cmd + g_rline.pos, word_first);

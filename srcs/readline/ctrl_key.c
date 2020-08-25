@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:54:06 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 18:54:07 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 20:34:33 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 */
 
 /*
+** ctrl_action[7] is for ctrl_b
+** ctrl_action[8] is for ctrl-f
 ** ctrl_action[9] is for ctrl-d
 ** ctrl_action[10] is for backspace key
 ** ctrl_action[11] is for ctrl-h
@@ -33,23 +35,23 @@ int			ctrl_call(int call_num)
 {
 	int		(*ctrl_action[CTRL_NUM])(void);
 
-	ctrl_action[0] = make_ctrl_k; //rename: ctrl_k_cuttillend
-	ctrl_action[1] = make_ctrl_l; //rename: ctrl_l_clearscreen
-	ctrl_action[2] = make_ctrl_t; //rename: ctrl_t_swapchars
-	ctrl_action[3] = make_ctrl_u; //rename: ctrl_u_cuttillbeg
-	ctrl_action[4] = make_ctrl_w; //rename: ctrl_w_cuttillwordbeg
-	ctrl_action[5] = make_ctrl_a; //rename: ctrl_a_jumplinebeg
-	ctrl_action[6] = make_ctrl_e; //rename: ctrl_e_jumplineend
-	ctrl_action[7] = key_left_proc; //rename: ctrl_b_jumpcharleft
-	ctrl_action[8] = key_right_proc; //rename: ctrl_f_jumpcharright
-	ctrl_action[9] = delete_process; //rename: delete_cutcharunder
-	ctrl_action[10] = backspace_process; //rename: backspace_cutcharbefore
-	ctrl_action[11] = backspace_process; //rename: backspace_cutcharbefore
-	ctrl_action[12] = make_ctrl_x; //rename: ctrl_x_ctrl_u_undo
+	ctrl_action[0] = ctrl_k_cuttillend;
+	ctrl_action[1] = ctrl_l_clearscreen;
+	ctrl_action[2] = ctrl_t_swapchars;
+	ctrl_action[3] = ctrl_u_cuttillbeg;
+	ctrl_action[4] = ctrl_w_cuttillwordbeg;
+	ctrl_action[5] = ctrl_a_jumplinebeg;
+	ctrl_action[6] = ctrl_e_jumplineend;
+	ctrl_action[7] = arrow_left_jumpcharleft;
+	ctrl_action[8] = arrow_right_jumpcharright;
+	ctrl_action[9] = delete_cutcharunder;
+	ctrl_action[10] = backspace_cutcharbefore;
+	ctrl_action[11] = backspace_cutcharbefore;
+	ctrl_action[12] = ctrl_x_ctrl_u_undo;
 	ctrl_action[13] = undo_wrap;
-	ctrl_action[14] = make_ctrl_p_wrap; //rename: ctrl_p_paste
-	ctrl_action[15] = auto_completion; //rename: tab_completion
-	ctrl_action[16] = make_ctrl_r_history; //rename: ctrl_r_history
+	ctrl_action[14] = ctrl_p_paste;
+	ctrl_action[15] = tab_completion;
+	ctrl_action[16] = ctrl_r_history;
 	return ((*ctrl_action[call_num])());
 }
 
@@ -91,7 +93,7 @@ int			ctrl_process(char *ctrl_base, char sy)
 	return (0);
 }
 
-int			make_ctrl_x(void)
+int			ctrl_x_ctrl_u_undo(void)
 {
 	char			next;
 

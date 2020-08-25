@@ -6,14 +6,14 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 18:06:09 by tmp               #+#    #+#             */
-/*   Updated: 2020/07/25 18:47:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 20:31:13 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
 
-int					backspace_process(void)
+int					backspace_cutcharbefore(void)
 {
 	char			*swap;
 	int				len_swap;
@@ -33,7 +33,7 @@ int					backspace_process(void)
 	ft_bzero(g_rline.cmd + g_rline.pos - 1 + len_swap,
 		g_rline.cmd_buff_len - g_rline.cmd_len);
 	g_rline.cmd_len--;
-	key_left_proc();
+	arrow_left_jumpcharleft();
 	front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
 	tputs(g_cap.cd, 1, printc);
 	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
@@ -45,7 +45,7 @@ int					backspace_newline(char *swap, int len_swap)
 	int				pos_back;
 
 	pos_back = g_rline.pos;
-	key_left_proc();
+	arrow_left_jumpcharleft();
 	front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x,
 		&g_rline.pos_y, 1);
 	ft_strcpy(g_rline.cmd + pos_back - 1, swap);
@@ -57,7 +57,7 @@ int					backspace_newline(char *swap, int len_swap)
 	return (0);
 }
 
-int					delete_process(void)
+int					delete_cutcharunder(void)
 {
 	char			*swap;
 	int				len_swap;
@@ -102,7 +102,7 @@ int					delete_till_compl(int delete)
 		g_rline.cmd_len -= delete;
 		i = -1;
 		while (++i < delete)
-			key_left_proc();
+			arrow_left_jumpcharleft();
 		front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x,
 			&g_rline.pos_y, 1);
 		tputs(g_cap.cd, 1, printc);
@@ -113,7 +113,7 @@ int					delete_till_compl(int delete)
 	return (0);
 }
 
-int					esc_r(void)
+int					esc_r_clearline(void)
 {
 	char			*save_yank;
 
@@ -121,7 +121,7 @@ int					esc_r(void)
 	save_yank = ft_strdup(g_rline.cmd);
 	make_ctrl_p(0, save_yank);
 	while (g_rline.pos)
-		key_left_proc();
+		arrow_left_jumpcharleft();
 	tputs(g_cap.cd, 1, printc);
 	ft_bzero(g_rline.cmd, g_rline.cmd_buff_len);
 	g_rline.cmd_len = 0;

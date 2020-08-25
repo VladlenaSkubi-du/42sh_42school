@@ -6,14 +6,14 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:47:23 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 18:47:27 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 20:32:13 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell42.h"
 #include "readline.h"
 
-int			esc_d(void)
+int			esc_d_cuttillwordend(void)
 {
 	int				pos_old;
 	char			*swap;
@@ -21,7 +21,7 @@ int			esc_d(void)
 	char			*save_yank;
 
 	pos_old = g_rline.pos;
-	if (word_right_proc())
+	if (esc_f_jumpwordright())
 		return (0);
 	undo(0);
 	save_yank = (g_rline.pos == g_rline.cmd_len) ?
@@ -42,7 +42,7 @@ int			esc_d(void)
 	return (0);
 }
 
-int			make_ctrl_w(void)
+int			ctrl_w_cuttillwordbeg(void)
 {
 	int				pos_old;
 	char			*swap;
@@ -52,7 +52,7 @@ int			make_ctrl_w(void)
 	check_after_line();
 	undo(0);
 	pos_old = g_rline.pos;
-	if (word_left_proc())
+	if (esc_b_jumpwordleft())
 		return (0);
 	save_yank = (pos_old >= g_rline.cmd_len) ?
 		ft_strdup(g_rline.cmd + g_rline.pos) :
@@ -71,7 +71,7 @@ int			make_ctrl_w(void)
 	return (0);
 }
 
-int			make_ctrl_p_wrap(void)
+int			ctrl_p_paste(void)
 {
 	return (make_ctrl_p(1, NULL));
 }
