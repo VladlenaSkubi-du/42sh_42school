@@ -28,9 +28,7 @@ void			process_update(t_process *p, int status)
 	WIFSTOPPED(status) ? (p->stopped = 1) :
 		(p->completed = 1);
 	p->status = status;
-	if (!p->next)
-		g_last_exit_status = WIFEXITED(status) ? WEXITSTATUS(status) : -1;
-	//	exit_status_variables(WIFEXITED(status) ? WEXITSTATUS(status) : -1); //исправить для правильного возврата ошибки пайпа
+	exit_status_variables(WIFEXITED(status) ? WEXITSTATUS(status) : -1); //исправить для правильного возврата ошибки пайпа
 	// возможно if (status != BTIN_ERROR)
 	// exit_status_variables(WIFEXITED(status) ? WEXITSTATUS(status) : btin_return_exit_status());
 }
