@@ -132,8 +132,7 @@ int			job_init(t_ltree *entity)
 	{
 		job->fg = !(entity->flags & (int)IS_BG);
 		ret += launch_job(job);
-		exit_status_variables(g_last_exit_status);
 	}
 	tcsetpgrp((int)STDIN_FILENO, g_shell_pgid);
-	return (g_last_exit_status);
+	return (btin_return_exit_status());
 }

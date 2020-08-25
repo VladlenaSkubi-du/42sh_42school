@@ -30,8 +30,8 @@ void			process_update(t_process *p, int status)
 	p->status = status;
 	if (!p->next)
 		g_last_exit_status = WIFEXITED(status) ? WEXITSTATUS(status) : -1;
-	//	exit_status_variables(WIFEXITED(status) ? WEXITSTATUS(status) : -1); //Ğ¸ÑĞ¿Ñ€Ğ°Ğ²Ğ¸Ñ‚ÑŒ Ğ´Ğ»Ñ Ğ¿Ñ€Ğ°Ğ²Ğ¸Ğ»ÑŒĞ½Ğ¾Ğ³Ğ¾ Ğ²Ğ¾Ğ·Ğ²Ñ€Ğ°Ñ‚Ğ° Ğ¾ÑˆĞ¸Ğ±ĞºĞ¸ Ğ¿Ğ°Ğ¹Ğ¿Ğ°
-	// Ğ²Ğ¾Ğ·Ğ¼Ğ¾Ğ¶Ğ½Ğ¾ if (status != BTIN_ERROR)
+	//	exit_status_variables(WIFEXITED(status) ? WEXITSTATUS(status) : -1); //œô¨Øœô¨áœô¨ßœô¨àœô¨Ğœô¨Òœô¨Øœô¨âœô¨ì œô¨Ôœô¨Ûœô¨ï œô¨ßœô¨àœô¨Ğœô¨Òœô¨Øœô¨Ûœô¨ìœô¨İœô¨Şœô¨Óœô¨Ş œô¨Òœô¨Şœô¨×œô¨Òœô¨àœô¨Ğœô¨âœô¨Ğ œô¨Şœô¨èœô¨Øœô¨Ñœô¨Úœô¨Ø œô¨ßœô¨Ğœô¨Ùœô¨ßœô¨Ğ
+	// œô¨Òœô¨Şœô¨×œô¨Üœô¨Şœô¨Öœô¨İœô¨Ş if (status != BTIN_ERROR)
 	// exit_status_variables(WIFEXITED(status) ? WEXITSTATUS(status) : btin_return_exit_status());
 }
 
