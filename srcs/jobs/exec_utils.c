@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:13:51 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/25 23:01:08 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/24 16:18:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		exec_clean(char *path, int exit_status, char *err_msg)
 	free(path);
 	if (err_msg)
 		ft_putendl_fd(err_msg, STDERR_FILENO);
-	g_last_exit_status = error == 0 ? 0 : btin_return_exit_status();
+	g_last_exit_status = btin_return_exit_status();
 	return (exit_status);
 }
 
