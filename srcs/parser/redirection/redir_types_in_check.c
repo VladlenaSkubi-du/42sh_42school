@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:55:26 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/25 23:42:31 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/25 23:45:52 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,9 @@ int		ft_heredoc_form(t_fd_redir *fd_open, char **f_name, t_ltree *final,
 			ft_lstnew(&g_heredoc.stop, sizeof(t_stop)));
 	}
 	else if (ft_atoi(find_env_value("42SH_NONINTERACTIVE")) == 1)
+	{
+		free(*f_name);
 		return (final->flags |= ERR_OUT);
+	}
 	return (0);
 }
