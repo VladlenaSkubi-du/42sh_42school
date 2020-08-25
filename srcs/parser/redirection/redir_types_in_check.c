@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_types_in_check.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:55:26 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/01 16:13:17 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/25 23:42:31 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ int		ft_redir_lessand_check(t_ltree *final, int *i)
 int		ft_heredoc_form(t_fd_redir *fd_open, char **f_name, t_ltree *final,
 		int flag)
 {
-	if (g_prompt.prompt_func == main_prompt)
+	if (g_prompt.prompt_func == main_prompt &&
+		ft_atoi(find_env_value("42SH_NONINTERACTIVE")) == 0)
 	{
 		if (ft_tmpfile(TMPL, &fd_open->fd_old) == -1)
 			return (final->flags |= ERR_OUT | TMPFILE);
@@ -129,5 +130,7 @@ int		ft_heredoc_form(t_fd_redir *fd_open, char **f_name, t_ltree *final,
 		ft_lstadd_to_end(&(g_heredoc.list),
 			ft_lstnew(&g_heredoc.stop, sizeof(t_stop)));
 	}
+	else if (ft_atoi(find_env_value("42SH_NONINTERACTIVE")) == 1)
+		return (final->flags |= ERR_OUT);
 	return (0);
 }
