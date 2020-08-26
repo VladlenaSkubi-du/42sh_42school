@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:57:32 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/24 16:48:12 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/26 20:55:03 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ char		*ft_join_cd(char *path, char *src_path, t_cd *flags)
 
 	cur_path = NULL;
 	tmp = ft_strdup("1");
-	if (src_path == NULL && !flags->p)
+	if (src_path == NULL && flags && !flags->p)
 		tmp = ft_strrejoin(tmp, get_pwd_value());
-	else if (src_path == NULL && flags->p)
+	else if (src_path == NULL && flags && flags->p)
 		tmp = ft_strrejoin(tmp, (cur_path = getcwd(NULL, MAXDIR)));
+	else if (src_path == NULL && !flags)
+		tmp = ft_strrejoin(tmp, get_pwd_value());
 	else
 		tmp = ft_strrejoin(tmp, src_path);
 	tmp = ft_strrejoin(tmp, "/");

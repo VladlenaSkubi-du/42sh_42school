@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:08:13 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/26 17:15:47 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/26 20:30:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_path				*fill_tree_with_variables(char *complete, int *total)
 ** @compl can be a string or NULL
 */
 
-char				**get_arguments(char *full_raw_line,
+char				**get_arguments(char **full_raw_line,
 						int *total, int *max_len)
 {
 	char			*path;
@@ -61,24 +61,25 @@ char				**get_arguments(char *full_raw_line,
 	int				last_slash;
 	char			**menu;
 
-	last_slash = ft_strrchri(full_raw_line, '/');
+	last_slash = ft_strrchri(*full_raw_line, '/');
 	path = NULL;
 	compl = NULL;
 	if (last_slash < 0)
 	{
 		path = ft_strdup("./");
-		compl = (full_raw_line && full_raw_line[0]) ?
-			ft_strdup(full_raw_line) : NULL;
+		compl = ((*full_raw_line) && (*full_raw_line)[0]) ?
+			ft_strdup(*full_raw_line) : ft_xmalloc(1);
 	}
 	else
 	{
-		path = find_path_compl(full_raw_line, last_slash);
-		compl = (full_raw_line && full_raw_line[last_slash + 1]) ?
-			ft_strdup(full_raw_line + last_slash + 1) : NULL;
+		path = find_path_compl(*full_raw_line, last_slash);
+		compl = ((*full_raw_line) && (*full_raw_line)[last_slash + 1]) ?
+			ft_strdup((*full_raw_line) + last_slash + 1) : ft_xmalloc(1);
 	}
 	menu = get_arguments_by_path_compl(path, compl, total, max_len);
 	free(path);
-	free(compl);
+	free(*full_raw_line);
+	*full_raw_line = compl;
 	return (menu);
 }
 
