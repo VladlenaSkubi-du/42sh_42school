@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:08:13 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 17:08:35 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/26 17:15:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,60 +49,51 @@ t_path				*fill_tree_with_variables(char *complete, int *total)
 	return (root);
 }
 
-char				**get_arguments(char **complete,
+/*
+** @compl can be a string or NULL
+*/
+
+char				**get_arguments(char *full_raw_line,
 						int *total, int *max_len)
 {
-	char			**menu;
 	char			*path;
 	char			*compl;
-	int				tmp;
-	t_path			*root;
+	int				last_slash;
+	char			**menu;
 
-	tmp = ft_strrchri(*complete, '/');
-	path = find_path_compl(*complete, tmp);
-	compl = (tmp >= 0 && tmp < (int)ft_strlen(*complete))
-			? ft_strdup(*complete + tmp + 1) : ft_strdup(*complete);
-	if (compl != NULL)
+	last_slash = ft_strrchri(full_raw_line, '/');
+	path = NULL;
+	compl = NULL;
+	if (last_slash < 0)
 	{
-		free(*complete);
-		*complete = compl;
+		path = ft_strdup("./");
+		compl = (full_raw_line && full_raw_line[0]) ?
+			ft_strdup(full_raw_line) : NULL;
 	}
-	root = fill_tree_with_arguments(path, *complete, total);
-	if (root == NULL)
+	else
 	{
-		free(path);
-		return (NULL);
+		path = find_path_compl(full_raw_line, last_slash);
+		compl = (full_raw_line && full_raw_line[last_slash + 1]) ?
+			ft_strdup(full_raw_line + last_slash + 1) : NULL;
 	}
-	menu = ft_add_block(&root, (size_t)*total, max_len);
-	ft_path_free(&root);
+	menu = get_arguments_by_path_compl(path, compl, total, max_len);
 	free(path);
+	free(compl);
 	return (menu);
 }
 
-char				*find_path_compl(char *compl, int tmp)
+char				**get_arguments_by_path_compl(char *path, char *compl,
+						int *total, int *max_len)
 {
-	char			*path;
-	char			*temp;
+	char			**menu;
+	t_path			*root;
 
-	if (g_rline.pos <= 0)
+	root = fill_tree_with_arguments(path, compl, total);
+	if (root == NULL)
 		return (NULL);
-	if (compl && compl[0] && tmp >= 0)
-	{
-		temp = (tmp == 0) ? ft_strdup("/") : ft_strndup(compl, tmp + 1);
-		if (ft_isalnum(compl[0]))
-		{
-			path = ft_strjoin("./", temp);
-			free(temp);
-		}
-		else
-		{
-			make_one_slash(&temp, tmp, compl);
-			path = temp;
-		}
-	}
-	else
-		path = ft_strdup("./");
-	return (path);
+	menu = ft_add_block(&root, (size_t)*total, max_len);
+	ft_path_free(&root);
+	return (menu);
 }
 
 t_path				*fill_tree_with_arguments(char *path,

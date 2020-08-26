@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:08:55 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/21 16:09:51 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/26 15:39:20 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void		ft_del_dots(char **arr)
 	}
 }
 
-char		*ft_new_from_arr(char **arr)
+char		*ft_new_from_arr_cd(char **arr)
 {
 	int		i;
 	char	*tmp;
@@ -61,11 +61,10 @@ char		*ft_new_from_arr(char **arr)
 	return (tmp);
 }
 
-char		*ft_del_slesh(char *path)
+char		*ft_del_slash_cd(char *path)
 {
 	int		i;
 	int		j;
-	char	*res;
 	char	tmp[MAXDIR];
 	int		count;
 
@@ -83,17 +82,19 @@ char		*ft_del_slesh(char *path)
 		tmp[j++] = path[i];
 	}
 	tmp[j] = '\0';
-	return ((res = ft_strdup(tmp)));
+	return (ft_strdup(tmp));
 }
 
-char		*ft_new_path(char *path, char *src_path, t_cd *flags)
+char		*ft_new_path_cd(char *path, char *src_path, t_cd *flags)
 {
 	char	*new_path;
 	char	*tmp;
 	char	**arr;
 
+	if (!(path || path[0]))
+		return (NULL);
 	if (path[0] == '/' && path[1])
-		return (tmp = ft_del_slesh(path));
+		return (ft_del_slash_cd(path));
 	else if (path[0] == '/')
 		return (ft_strdup("/"));
 	tmp = ft_join_cd(path, src_path, flags);
@@ -101,7 +102,7 @@ char		*ft_new_path(char *path, char *src_path, t_cd *flags)
 	free(arr[0]);
 	arr[0] = ft_strdup("/");
 	free(tmp);
-	new_path = ft_new_from_arr(arr);
+	new_path = ft_new_from_arr_cd(arr);
 	ft_arrdel(arr);
 	return (new_path);
 }

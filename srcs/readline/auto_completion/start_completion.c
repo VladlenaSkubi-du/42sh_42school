@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:10:47 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/25 20:32:36 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/26 16:09:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ char				**route_menu_receipt(char *tech_line,
 	else if (pool == 2)
 		menu = get_variables(g_compl.to_compl, &g_compl.total, max_len);
 	else if (pool == 3)
-		menu = get_arguments(&g_compl.to_compl, &g_compl.total, max_len);
+		menu = get_arguments(g_compl.to_compl, &g_compl.total, max_len);
 	return (menu);
 }
 

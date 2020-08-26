@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:05:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 17:07:38 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/26 14:17:10 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,27 +52,4 @@ int					clear_completion(int flag)
 		g_compl.menu_buffer.buffer = NULL;
 	}
 	return ((flag == 1) ? incorrect_sequence() : 0);
-}
-
-int					make_one_slash(char **final, int last_slash, char *compl)
-{
-	int				check;
-	int				i;
-
-	check = last_slash;
-	i = check;
-	while (i >= 0)
-	{
-		if (compl[i] == '/')
-		{
-			i = check;
-			while (i >= 0 && compl[i] == '/')
-				i--;
-			if (i < check)
-				ft_strshift((*final) + check, i - check + 1);
-		}
-		i--;
-		check = i;
-	}
-	return (0);
 }

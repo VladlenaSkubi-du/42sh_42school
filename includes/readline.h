@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:09:03 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/25 22:45:02 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/26 15:51:07 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -409,8 +409,6 @@ int								insert_word_by_cases_compl(int *delete,
 
 int								init_completion(void);
 int								clear_completion(int flag);
-int								make_one_slash(char **final,
-									int last_slash, char *compl);
 
 /*
 ** File analyse_line_compl.c
@@ -434,11 +432,22 @@ char							**get_variables(char *complete,
 									int *total, int *max_len);
 t_path							*fill_tree_with_variables(char *complete,
 									int *total);
-char							**get_arguments(char **complete,
+char							**get_arguments(char *full_raw_line,
 									int *total, int *max_len);
-char							*find_path_compl(char *compl, int tmp);
+char							**get_arguments_by_path_compl(char *path, char *compl,
+									int *total, int *max_len);
 t_path							*fill_tree_with_arguments(char *path,
 									char *complete, int *total);
+
+/*
+** File menu_arguments_processing.c
+*/
+
+char							*find_path_compl(char *full_raw_line, int last_slash);
+char							*make_final_path_compl(char *path);
+int								make_one_slash(char **final,
+									int last_slash, char *compl);
+int								make_tilda_expansion(char **final, char *compl);
 
 /*
 ** File front_part_compl.c
