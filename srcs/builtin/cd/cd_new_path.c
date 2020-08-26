@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:08:55 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/26 15:39:20 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/26 20:51:10 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,11 @@ char		*ft_new_path_cd(char *path, char *src_path, t_cd *flags)
 		return (ft_strdup("/"));
 	tmp = ft_join_cd(path, src_path, flags);
 	arr = ft_strsplit(tmp, '/');
+	if (!(arr && arr[0]))
+	{
+		free(tmp);
+		return (NULL);
+	}
 	free(arr[0]);
 	arr[0] = ft_strdup("/");
 	free(tmp);
