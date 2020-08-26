@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/26 14:15:33 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/26 21:19:29 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/26 21:45:07 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char				*find_path_compl(char *full_raw_line, int last_slash)
 }
 
 char				*make_final_path_compl(char *path)
-{	
+{
 	char			*new_path;
 	char			*tmp_path;
 	char			**arr;
