@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:50:33 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/18 21:25:46 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/26 23:13:04 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int					make_sexit(void)
 		pos->argv[0] = ft_strdup("exit");
 		pos->argv[1] = ft_strdup("0");
 		reset_canonical_input();
-		free(g_rline.cmd);
 		btin_exit(pos);
 	}
 	else if (g_rline.pos == 0 && g_rline.cmd_len == 0 &&
