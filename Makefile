@@ -110,7 +110,8 @@ UNIX_FUNCS_DIR = unix_functions
 UNIX_FUNCTIONS = \
 			$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)/ft_count_words.c \
 			$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)/ft_find_token.c \
-			$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)/ft_make_techline.c
+			$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)/ft_make_techline.c \
+			$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)/ft_home_from_etcpasswd.c
 
 #______________________________________________________________________________
 
@@ -224,6 +225,7 @@ AUTO_COMPLETION = \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/front_part_compl.c \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/analyse_line_compl.c \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/menu_receipt_compl.c \
+			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/menu_arguments_processing.c \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/question_if_many_compl.c \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/completion_processing.c \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/output_buffer_compl.c

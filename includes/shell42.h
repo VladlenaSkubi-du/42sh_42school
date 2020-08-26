@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:09:17 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/25 23:04:20 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/26 14:18:00 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,5 +306,6 @@ size_t				ft_count_words(char const *s, char c, size_t len);
 char				*ft_find_token_sep(char *str);
 char				*ft_make_techline(char *cmd, int len);
 char				get_tech_num(char check);
+char				*ft_home_from_etcpasswd(void);
 
 #endif
