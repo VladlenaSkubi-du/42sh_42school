@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jobs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:53:30 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/24 16:14:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/26 21:07:57 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ void			process_update(t_process *p, int status)
 		(p->completed = 1);
 	p->status = status;
 	if (!p->next)
-		g_last_exit_status = WIFEXITED(status) ? WEXITSTATUS(status) : -1;
-	//	exit_status_variables(WIFEXITED(status) ? WEXITSTATUS(status) : -1); //исправить для правильного возврата ошибки пайпа
-	// возможно if (status != BTIN_ERROR)
-	// exit_status_variables(WIFEXITED(status) ? WEXITSTATUS(status) : btin_return_exit_status());
+		g_last_exit_status = WIFEXITED(status) ? WEXITSTATUS(status) :
+			btin_return_exit_status();
 }
 
 int				parent(t_process *p, t_job *j, pid_t pid)
@@ -56,13 +54,12 @@ int				fork_job(t_process *p, t_job *j, int *infl, int *outfl)
 	pid_t	pid;
 	int		mypipe[2];
 
+	if (p->next && pipe(mypipe) < 0)
+		return (error_handler(PIPE_FAILED, "pipe creation failed"));
 	if (p->next)
-	{
-		if (pipe(mypipe) < 0)
-			return (error_handler(PIPE_FAILED, "pipe creation failed"));
 		*outfl = mypipe[1];
-	}
-	pid = ((!p->btin && g_path) || *infl != j->stdin || *outfl != j->stdout) ? fork() : 0;
+	pid = ((!p->btin && g_path) || *infl != j->stdin ||
+		*outfl != j->stdout) ? fork() : 0;
 	if (pid == 0)
 	{
 		p->next ? close(mypipe[0]) : 0;

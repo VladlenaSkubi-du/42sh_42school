@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu_arguments_processing.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/26 14:15:33 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/26 21:01:18 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/26 21:19:29 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

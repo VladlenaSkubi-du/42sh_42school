@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:11:39 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/23 17:02:48 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/26 21:01:57 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ void	launch_process(t_process *p, pid_t pgid, int stream[3], int foreground)
 	p->btin ? exec_clean(g_path, ft_builtins_check(p, 1), NULL) : exec_vp(p);
 	if ((!p->btin && g_path) || stream[0] != STDIN_FILENO ||
 		stream[1] != STDOUT_FILENO || !foreground)
-	  exit(btin_return_exit_status());
+		exit(btin_return_exit_status());
 }

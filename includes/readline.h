@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:09:03 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/26 21:00:28 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/26 21:18:56 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -432,10 +432,10 @@ char							**get_variables(char *complete,
 									int *total, int *max_len);
 t_path							*fill_tree_with_variables(char *complete,
 									int *total);
-char							**get_arguments(char **full_raw_line,
+char							**get_arguments(char *full_raw_line,
 									int *total, int *max_len);
-char							**get_arguments_by_path_compl(char *path, char *compl,
-									int *total, int *max_len);
+char							**get_arguments_by_path_compl(char *path,
+									char *compl, int *total, int *max_len);
 t_path							*fill_tree_with_arguments(char *path,
 									char *complete, int *total);
 
@@ -443,9 +443,12 @@ t_path							*fill_tree_with_arguments(char *path,
 ** File menu_arguments_processing.c
 */
 
-char							*find_path_compl(char *full_raw_line, int last_slash);
+char							*find_path_compl(char *full_raw_line,
+									int last_slash);
 char							*make_final_path_compl(char *path);
-char							*make_temporal_path_compl(char *path);
+int								make_one_slash(char **final,
+									int last_slash, char *compl);
+int								make_tilda_expansion(char **final, char *compl);
 
 /*
 ** File front_part_compl.c

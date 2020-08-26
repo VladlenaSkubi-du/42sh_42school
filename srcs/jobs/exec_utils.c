@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:13:51 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/24 16:18:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/26 21:03:10 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		ft_builtins_check(t_process *p, int flag)
 			{
 				ret = g_builtins_func[i](p);
 				p->completed = 1;
-				return(ret);
+				return (ret);
 			}
 			return (i);
 		}
@@ -106,17 +106,20 @@ int		path_init_errors(char *exec_av, char *name)
 	return (0);
 }
 
-int		path_init_nonexec_errors(char *exec_av, struct stat	stat_buf, char *name)
+int		path_init_nonexec_errors(char *exec_av, struct stat	stat_buf,
+			char *name)
 {
 	if (stat(exec_av, &stat_buf) == 0 && S_ISDIR(stat_buf.st_mode))
 	{
 		save_command_error(COMMAND_NON_EXECUTABLE | (ERR_ISDIR << 9), name);
-		exit_status_variables((COMMAND_NON_EXECUTABLE | (ERR_ISDIR << 9)) & 0x7F);
+		exit_status_variables(
+			(COMMAND_NON_EXECUTABLE | (ERR_ISDIR << 9)) & 0x7F);
 	}
 	else
 	{
 		save_command_error(COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9), name);
-		exit_status_variables((COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9)) & 0x7F);
+		exit_status_variables(
+			(COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9)) & 0x7F);
 	}
 	return (-1);
 }
