@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:27:15 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/25 21:04:22 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/26 10:33:17 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int				change_hashtable_filled_value(int times)
 		if (g_hashtable_array_filled / g_hashtable_array_size < 1 &&
 				g_hashtable_array_filled >= g_hashtable_array_limit)
 		{
-			printf("    realloc of the hashtable\n");
 			g_hashtable_array = ft_memrealloc_array(&g_hashtable_array,
 				g_hashtable_array_size + 1,
 				g_hashtable_array_size * 2 + 1);

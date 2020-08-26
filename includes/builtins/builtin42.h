@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:08:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/25 23:14:59 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/26 12:14:05 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 # include "fc.h"
 # include "cd.h"
 # include "hash.h"
+# include "alias.h"
+# include "export.h"
+# include "exsign_btin.h"
+# include "bg_fg_btins.h"
+# include "echo.h"
+# include "jobs_btin.h"
 
 # define SUBOPTION_STARTS 16
 
@@ -33,22 +39,6 @@
 # define ARG_ALIAS -10
 # define ARG_BUILTIN -20
 # define ARG_INVALID -30
-
-/*
-** Structures
-** ____________________________________________________________________________
-*/
-
-/*
-** Structure for btin_echo
-*/
-
-typedef struct	s_ec
-{
-	int			e;
-	int			n;
-	int			up_e;
-}				t_ec;
 
 /*
 ** General functions for the builtin block
@@ -125,16 +115,6 @@ int				btin_history_clear(void);
 int				btin_history_noargs(void);
 
 /*
-** File echo.c
-*/
-
-int				btin_echo(t_process *pos);
-int				write_text(char **argv, int i, t_ec *echo_flags);
-int				write_e_echo(char **argv, int i);
-int				write_back_sl(char c);
-int				parse_echo_flags(char **argv, t_ec *echo_flags, int i);
-
-/*
 ** File pwd.c
 */
 
@@ -142,17 +122,6 @@ int				btin_pwd(t_process *pos);
 int				btin_pwd_init(char **argv);
 int				btin_pwd_valid(char **argv);
 int				btin_pwd_error_message(char *option, int error);
-
-/*
-** File export.c
-*/
-
-int				export_error(char **tmp, int i);
-int				btin_export(t_process *pos);
-int				export_p(void);
-int				export_add_vis(char **argv);
-int				do_vis(char *arg);
-int				change_or_add(char *arg);
 
 /*
 ** File bumblebee.c
@@ -171,145 +140,68 @@ int				btin_unalias_init(char **argv);
 int				btin_unalias_clean_commands(void);
 
 /*
+** File echo.c. Continuation in echo.h
+*/
+
+int				btin_echo(t_process *pos);
+
+/*
 ** Several-files builtins
 ** ____________________________________________________________________________
 */
 
 /*
-** Folder alias, file alias.c
+** Folder alias, file alias.c. Continuation in alias.h
 */
 
 int				btin_alias(t_process *pos);
-int				btin_alias_check_options(char **argv);
-int				btin_alias_error_message(char *option, int error);
-int				btin_alias_init(char **argv, char **ans, int flag);
-int				btin_alias_print(t_list **alias, char **argv,
-					char **ans, int flag);
 
 /*
-** Folder alias, file alias_copy.c
+** Folder jobs_btin, file jobs_main_btin.c. Continuation in jobs_btin.h
 */
 
-int				btin_alias_copy_buf(t_list **alias, t_list **buf);
+int				btin_jobs(t_process *pos);
 
 /*
-** Folder alias, file alias_parse.c
+** Folder bg_fg_btins, file bg.c. Continuation in bg_fg_btins.h
 */
 
-char			*find_in_alias(t_list **arr, char *name);
-int				btin_alias_save(t_list **buf, char *arg, int eq);
-int				btin_alias_print_one(char *arg);
-int				btin_alias_merge_buf(t_list **arr, t_list *buf);
-int				check_if_aliased(char *name);
+int				btin_bg(t_process *pos);
 
 /*
-** Folder alias, file alias_help.c
+** Folder bg_fg_btins, file fg.c. Continuation in bg_fg_btins.h
 */
 
-int				btin_alias_valid_name(char *name);
-char			*btin_alias_line_form(char *arg);
-int				btin_alias_check_name(t_list *arr, t_list *buf);
-int				btin_alias_delete(t_list **alias, char *arg);
-int				btin_alias_delete_all(t_list **alias);
+int				btin_fg(t_process *pos);
 
 /*
-** Folder fc, file fc.c
+** Folder hash, file hash.c. Continuation in hash.h
+*/
+
+int				btin_hash(t_process *pos);
+
+/*
+** Folder exsign_btin, file exsign_btin.c. Continuation in exsign_btin.h
+*/
+
+int				btin_exsign(t_ltree *pos);
+
+/*
+** Folder export, file export.c. Continuation in export.h
+*/
+
+int				btin_export(t_process *pos);
+
+/*
+** Folder fc, file fc.c. Continuation in fc.h
 */
 
 int				btin_fc(t_process *pos);
 
 /*
-** Folder cd, file cd.c
+** Folder cd, file cd.c. Continuation in cd.h
 */
 
 int				btin_cd(t_process *pos);
-
-/*
-** Folder jobs_btin, file jobs_main_btin.c
-*/
-
-int				btin_jobs(t_process *pos);
-int				btin_jobs_init(int argc, char **argv);
-int				print_job_info(t_job *j, int options);
-int				get_status(t_job *j, char *buff, int options);
-
-/*
-** Folder jobs_btin, file jobs_id_btin.c
-*/
-
-int				print_by_id(int argc, char **argv, int options);
-int				id_check(int argc, char **argv);
-
-/*
-** Folder jobs_btin, file jobs_btin_processing.c
-*/
-
-int				btin_jobs_check_options(char **argv, int *iter);
-int				btin_jobs_error_message(char *option, int error);
-
-/*
-** Folder bg_fg_btins, file bg.c
-*/
-
-int				btin_bg(t_process *pos);
-int				btin_bg_check_options(int argc, char **argv);
-
-/*
-** Folder bg_fg_btins, file fg.c
-*/
-
-int				btin_fg(t_process *pos);
-int				btin_fg_check_options(int argc, char **argv);
-
-/*
-** Folder bg_fg_btins, file bg_fg_processing.c
-*/
-
-int				is_btin_only(t_job *j);
-int				back_to_life(t_job *j);
-int				btin_bg_init(int argc, char **argv);
-int				btin_fg_init(int argc, char **argv);
-int				btin_bg_fg_error_message(int where, char *option, int error);
-
-/*
-** Folder hash, file hash.c
-*/
-
-int				btin_hash(t_process *pos);
-int				btin_hash_check_options(char **argv);
-int				btin_hash_check_flags(char *arg);
-int				btin_hash_error_message(char *option, int error);
-int				btin_hash_clean_table();
-
-/*
-** Folder hash, file hash_btin_processing.c
-*/
-
-int				btin_hash_list_hashtable(void);
-int				btin_hash_delete_elements(char **argv);
-int				btin_hash_add_to_hashtable(char **argv);
-int				btin_hash_valid_argument_add(char *key);
-int				btin_hash_valid_argument_delete(char *key);
-
-/*
-** Folder exsign_btin, file exsign_btin.c
-*/
-
-int				btin_exsign(t_ltree *pos);
-int				btin_exsign_init(t_ltree *pos, int i);
-int				btin_exsign_print_message(char *arg, int end);
-
-/*
-** Folder exsign_btin, file exsign_btin_processing.c
-*/
-
-int				btin_exsign_start_substitution(t_ltree *pos, int i);
-int				btin_exsign_route_substitution(t_ltree *pos,
-					int start, int i);
-int				btin_exsign_stop_signs(char tech);
-int				btin_exsign_numeric(t_ltree *pos,
-					int start, int end);
-int				btin_exsign_make_substitution(t_ltree *pos,
-					int start, int end, char *subst);
 
 #endif

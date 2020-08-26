@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:07:42 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/25 22:19:08 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/26 10:38:08 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int			btin_echo(t_process *pos)
 	if ((write_text(pos->argv, i, echo_flags)) == -1)
 	{
 		error_handler(VARIABLE_ERROR | (ERR_ECHO << 9),
-				"echo: write error: Bad file descriptor\n");
+				"echo: write error: Bad file descriptor");
 		free(echo_flags);
 		return (BTIN_ERROR);
 	}

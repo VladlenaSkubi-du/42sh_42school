@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:08:09 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/25 22:34:31 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/26 12:07:58 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,25 @@ typedef struct	s_hashcmd
 	int			slot_state;
 	int			cmd_state;
 }				t_hashcmd;
+
+/*
+** File hash.c
+*/
+
+int				btin_hash_check_options(char **argv);
+int				btin_hash_check_flags(char *arg);
+int				btin_hash_error_message(char *option, int error);
+int				btin_hash_clean_table();
+
+/*
+** Folder hash, file hash_btin_processing.c
+*/
+
+int				btin_hash_list_hashtable(void);
+int				btin_hash_delete_elements(char **argv);
+int				btin_hash_add_to_hashtable(char **argv);
+int				btin_hash_valid_argument_add(char *key);
+int				btin_hash_valid_argument_delete(char *key);
 
 /*
 ** File hashtable_values.c
