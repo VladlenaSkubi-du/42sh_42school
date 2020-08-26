@@ -13,17 +13,23 @@
 #include "shell42.h"
 #include "builtin42.h"
 
-char		*ft_join_cd(char *path, char *src_path)
+char		*ft_join_cd(char *path, char *src_path, t_cd *flags)
 {
 	char	*tmp;
+	char	*cur_path;
 
+	cur_path = NULL;
 	tmp = ft_strdup("1");
-	if (src_path == NULL)
+	if (src_path == NULL && !flags->p)
 		tmp = ft_strrejoin(tmp, get_pwd_value());
+	else if (src_path == NULL && flags->p)
+		tmp = ft_strrejoin(tmp, (cur_path = getcwd(NULL, MAXDIR)));
 	else
 		tmp = ft_strrejoin(tmp, src_path);
 	tmp = ft_strrejoin(tmp, "/");
 	tmp = ft_strrejoin(tmp, path);
+	if (cur_path)
+		free(cur_path);
 	return (tmp);
 }
 

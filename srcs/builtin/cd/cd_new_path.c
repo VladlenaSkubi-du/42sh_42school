@@ -86,7 +86,7 @@ char		*ft_del_slesh(char *path)
 	return ((res = ft_strdup(tmp)));
 }
 
-char		*ft_new_path(char *path, char *src_path)
+char		*ft_new_path(char *path, char *src_path, t_cd *flags)
 {
 	char	*new_path;
 	char	*tmp;
@@ -96,7 +96,7 @@ char		*ft_new_path(char *path, char *src_path)
 		return (tmp = ft_del_slesh(path));
 	else if (path[0] == '/')
 		return (ft_strdup("/"));
-	tmp = ft_join_cd(path, src_path);
+	tmp = ft_join_cd(path, src_path, flags);
 	arr = ft_strsplit(tmp, '/');
 	free(arr[0]);
 	arr[0] = ft_strdup("/");

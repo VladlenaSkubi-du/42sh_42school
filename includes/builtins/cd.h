@@ -24,7 +24,7 @@ typedef struct	s_cd
 */
 
 int				ft_error_cd(char *name, int en);
-char			*ft_join_cd(char *path, char *src_path);
+char			*ft_join_cd(char *path, char *src_path, t_cd *flags);
 int				ft_cd_helper(void);
 
 /*
@@ -57,7 +57,7 @@ int				ft_change_path(char *path, char **env, t_cd *flags);
 ** File cd_new_path.c
 */
 
-char			*ft_new_path(char *path, char *src_path);
+char			*ft_new_path(char *path, char *src_path, t_cd *flags);
 
 /*
 ** File cd_static.c
