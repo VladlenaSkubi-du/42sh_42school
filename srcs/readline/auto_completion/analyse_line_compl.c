@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:06:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 17:07:20 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/24 17:51:20 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,12 @@ int					check_path_pool_three_compl(char *compl, char *tech,
 	}
 	if (i >= 0 && tech[i] == BSLASH && i + 2 == start)
 		return (-1);
+	if (i >= 0 && tech[i] == TILDA)
+	{
+		*pool = 3;
+		return ((((i > 0 && (tech[i - 1] == SPACE || tech[i - 1] == ENTER))
+			|| i == 0) && compl[i + 1] && compl[i + 1] == '/') ? i : -1);
+	}
 	*pool = 3;
 	return (start);
 }
