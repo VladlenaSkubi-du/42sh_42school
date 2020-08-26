@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:57:32 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/26 20:55:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/26 21:16:04 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ char		*ft_join_cd(char *path, char *src_path, t_cd *flags)
 	if (src_path == NULL && flags && !flags->p)
 		tmp = ft_strrejoin(tmp, get_pwd_value());
 	else if (src_path == NULL && flags && flags->p)
-		tmp = ft_strrejoin(tmp, (cur_path = getcwd(NULL, MAXDIR)));
+	{
+		cur_path = getcwd(NULL, MAXDIR);
+		tmp = ft_strrejoin(tmp, cur_path);
+	}
 	else if (src_path == NULL && !flags)
 		tmp = ft_strrejoin(tmp, get_pwd_value());
 	else
