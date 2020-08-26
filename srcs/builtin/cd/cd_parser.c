@@ -40,7 +40,7 @@ char	*ft_cdpath(char *path, char **env, char *res, int i)
 	{
 		if (path[0] == '.' && path[1] == '.')
 			continue ;
-		res = ft_new_path(path, arr[i]);
+		res = ft_new_path(path, arr[i], NULL);
 		if ((ft_o_dir(res, path)) == 0)
 			break ;
 		ft_strdel(&res);
@@ -86,6 +86,6 @@ int		ft_cd_pars(char *path, char **env, t_cd *flags)
 	else if (!S_ISDIR(buff.st_mode))
 		return (ft_error_cd(path, 4));
 	else
-		return (ft_change_path(ft_new_path(path, NULL), env, flags));
+		return (ft_change_path(ft_new_path(path, NULL, flags), env, flags));
 	return (0);
 }
