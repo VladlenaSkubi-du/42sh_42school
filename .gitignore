@@ -4,6 +4,7 @@ cmake-build-debug/
 *.o
 *.out
 *.dSYM/
+*.a
 minishell
 ft_select
 objs/
