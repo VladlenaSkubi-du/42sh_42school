@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:10:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/25 22:04:22 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/27 10:15:03 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int					btin_fc_edit_mode(char **argv, t_btin_fc **fc_arg,
 	if (g_hist.len > 0)
 		delete_last_history_element();
 	if (g_hist.len < 1 || g_hist.last < 0)
-		return (btin_fc_error_message());
+		return (btin_fc_error_message(VARIABLE_ERROR, NULL));
 	if ((*fc_arg)->editor == NULL)
 	{
 		li = find_in_variable(&sy, "FCEDIT");
@@ -67,7 +67,7 @@ int					btin_fc_edit_other_args(char **argv,
 			HIST_ERROR : btin_fc_edit_mode_flags_off(flags));
 	}
 	else
-		return (btin_fc_error_message());
+		return (btin_fc_error_message(VARIABLE_ERROR, NULL));
 	return (0);
 }
 
@@ -86,7 +86,7 @@ int					btin_fc_edit_mode_num_args(char **argv, int i,
 			HIST_ERROR : 0);
 	else if (!(ft_isdigit(argv[i][0]) || (argv[i][0] == '-' &&
 			ft_isdigit(argv[i][1]))))
-		return (btin_fc_error_message());
+		return (btin_fc_error_message(VARIABLE_ERROR, NULL));
 	(*fc_arg)->flag |= ARG_SECOND;
 	(*fc_arg)->last = ft_atoi(argv[i]);
 	return ((btin_fc_two_ints__edit(fc_arg) == HIST_ERROR) ?

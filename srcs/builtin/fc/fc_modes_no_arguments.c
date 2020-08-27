@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:10:44 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/25 22:10:14 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/27 10:17:56 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,14 @@ int					btin_fc_edit_no_args(t_btin_fc **fc_arg, int *flags)
 	return (btin_fc_edit_mode_flags_off(flags));
 }
 
-int					btin_fc_error_message(void)
+int					btin_fc_error_message(int error, char *option)
 {
-	error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
+	if (error == VARIABLE_ERROR)
+		error_handler(VARIABLE_ERROR | (ERR_HISTORY_NUM << 9), "fc");
+	else if (error == NONINERACTIVE)
+	{
+		error_handler(NONINERACTIVE, option);
+		return (BTIN_ERROR);
+	}
 	return (HIST_ERROR);
 }

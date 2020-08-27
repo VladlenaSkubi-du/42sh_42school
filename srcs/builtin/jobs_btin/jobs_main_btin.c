@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:11:39 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/24 16:33:40 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/27 10:22:07 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int		btin_jobs(t_process *pos)
 {
 	int				flags;
 
-	flags = find_options(2, (char*[]){"-pl", "--help"}, pos->argv);
+	flags = find_options(2, (char*[]){"pl", "--help"}, pos->argv);
 	if (flags == HELP_FLAG)
 		return (usage_btin("jobs"));
 	if (flags < 0)

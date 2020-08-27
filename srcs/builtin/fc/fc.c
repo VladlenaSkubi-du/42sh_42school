@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:36:44 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/25 22:06:29 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/27 10:18:32 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ int					btin_fc(t_process *pos)
 	t_btin_fc		*fc_arg;
 
 	if (ft_atoi(find_env_value("42SH_NONINTERACTIVE")) == 1)
-	{
-		error_handler(NONINERACTIVE, pos->argv[0]);
-		return (BTIN_ERROR);
-	}
+		return (btin_fc_error_message(NONINERACTIVE, pos->argv[0]));
 	flags = find_options(2, (char*[]){"elsrn", "--help"}, pos->argv);
 	if (flags == HELP_FLAG)
 		return (usage_btin("fc"));
@@ -46,9 +43,13 @@ int					btin_fc(t_process *pos)
 		free(fc_arg);
 		return (BTIN_ERROR);
 	}
-	btin_fc_route_execution(fc_arg, flags, pos->envp);
+	if (btin_fc_route_execution(fc_arg, flags, pos->envp) == HIST_ERROR)
+	{
+		free(fc_arg);
+		return (BTIN_ERROR);
+	}
 	free(fc_arg);
-	return (btin_return_exit_status());
+	return (0);
 }
 
 /*
@@ -69,7 +70,7 @@ int					btin_fc_find_mode(char **argv, t_btin_fc **fc_arg,
 				ft_isdigit(argv[i][1])))
 			return (btin_fc_edit_mode(&argv[i], fc_arg, flags));
 		if (argv[i][0] == '-' && !argv[i][1])
-			return (btin_fc_error_message());
+			return (btin_fc_error_message(VARIABLE_ERROR, NULL));
 		else if (argv[i][0] == '-' && argv[i][1] == '-')
 		{
 			i++;
@@ -130,7 +131,7 @@ int					btin_fc_list_mode(char **argv, int j,
 	int				i;
 
 	if (g_hist.len < 1 || g_hist.last < 0)
-		return (btin_fc_error_message());
+		return (btin_fc_error_message(VARIABLE_ERROR, NULL));
 	i = btin_fc_list_check_line_args(argv, j, fc_arg, flags);
 	if (i == HIST_ERROR)
 		return (HIST_ERROR);
@@ -156,7 +157,7 @@ int					btin_fc_exec_mode(char **argv, int j,
 	if (g_hist.len > 0)
 		delete_last_history_element();
 	if (g_hist.len < 1 || g_hist.last < 0)
-		return (btin_fc_error_message());
+		return (btin_fc_error_message(VARIABLE_ERROR, NULL));
 	i = btin_fc_exec_check_line_args(argv, j, fc_arg, flags);
 	if (i == HIST_ERROR)
 		return (HIST_ERROR);
