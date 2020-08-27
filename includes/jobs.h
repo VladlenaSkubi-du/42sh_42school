@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jobs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 22:49:26 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/27 21:37:22 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/27 22:03:06 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int						job_is_stopped(t_job *j, char verbose);
 int						job_is_completed(t_job *j);
 t_job					*find_job (pid_t pgid);
 int						free_job(t_job *j);
-void					do_job_notification (void);
+int						free_t_process(t_process *pos);
 
 /*
 ** File bg_fg.c

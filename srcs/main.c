@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 22:27:07 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/25 22:27:22 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/27 22:28:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ int				interactive_shell(void)
 	int			tmp;
 	pid_t		group_pid;
 
-	group_pid = getpgrp();
-	if (tcgetpgrp(STDIN_FILENO) != group_pid)
-		kill(group_pid, SIGTTIN);
 	tmp = 0;
 	btin_alias_init(NULL, NULL, SAVE);
 	while (1)
 	{
+		group_pid = getpgrp();
+		if (tcgetpgrp(STDIN_FILENO) != group_pid)
+			kill(group_pid, SIGTTIN);
 		signals_reroute(1);
 		check_terminal();
 		g_prompt.prompt_func();

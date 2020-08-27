@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:11:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/25 23:31:22 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/27 23:03:39 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,6 @@ int					btin_fc_read_from_tmpfile(char *tmpfile)
 {
 	char			*cmd;
 	int				fd;
-	int				li;
-	int				sy;
 
 	fd = open(tmpfile, O_RDONLY);
 	if (fd < 0)
@@ -138,11 +136,7 @@ int					btin_fc_read_from_tmpfile(char *tmpfile)
 	while (ft_gnl(fd, &cmd))
 	{
 		ft_putendl_fd(cmd, STDOUT_FILENO);
-		li = find_in_variable(&sy, "42SH_NONINTERACTIVE");
-		g_envi[li][sy] = '1';
-		parser(cmd);
-		li = find_in_variable(&sy, "42SH_NONINTERACTIVE");
-		g_envi[li][sy] = '0';
+		fc_before_parser(cmd);
 	}
 	btin_fc_save_parser_globals(0);
 	close(fd);
