@@ -62,7 +62,6 @@ typedef struct			s_job
 	int					stdin;
 	int					stdout;
 	int					stderr;
-  int	signal;
 }						t_job;
 
 struct termios			g_shell_tmodes;
@@ -84,7 +83,7 @@ int						job_init(t_ltree *entity);
 */
 
 int						launch_job (t_job *j);
-int					process_update(t_process *p, int status);
+void					process_update(t_process *p, int status);
 t_process				*find_process(t_job *j, pid_t child_pid);
 
 /*

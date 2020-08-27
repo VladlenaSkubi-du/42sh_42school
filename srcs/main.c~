@@ -61,7 +61,6 @@ int				interactive_shell(void)
 		termtype = (termtype == NULL) ? "xterm-256color" : termtype;
 		tmp = tgetent(room_termtype, termtype);
 		start_readline42(tmp);
-		jobs_clean();
 		ft_bzero(room_termtype, 10);
 	}
 	return (0);

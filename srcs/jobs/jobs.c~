@@ -23,7 +23,7 @@ t_process		*find_process(t_job *j, pid_t child_pid)
 	return (proc);
 }
 
-int				process_update(t_process *p, int status)
+void			process_update(t_process *p, int status)
 {
 	WIFSTOPPED(status) ? (p->stopped = 1) :
 		(p->completed = 1);
@@ -31,9 +31,6 @@ int				process_update(t_process *p, int status)
 	if (!p->next)
 		g_last_exit_status = WIFEXITED(status) ? WEXITSTATUS(status) :
 			btin_return_exit_status();
-	if (WIFSIGNALED(status))
-	  return (WTERMSIG(status));
-	return (0);
 }
 
 int				parent(t_process *p, t_job *j, pid_t pid)

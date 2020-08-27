@@ -74,10 +74,7 @@ void	jobs_clean(void)
 	{
 	    temp = NULL;
 		if (job_is_completed(j))
-		{
 		  temp = j;
-		  j->signal ? ft_printf("E-bashed: %d\n", j->signal) : 0;
-		}
 		else (job_is_stopped(j, 1))
 		  ;
 		j = j->next;
