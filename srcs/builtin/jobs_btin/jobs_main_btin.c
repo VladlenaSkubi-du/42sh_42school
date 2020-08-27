@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:11:39 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/27 10:22:07 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/27 12:58:10 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		get_status(t_job *j, char *buff, int options)
 			ft_strcpy(buff, "stopped             ");
 	}
 	else
-		ft_strcpy(buff, "runnindg            ");
+		ft_strcpy(buff, "running            ");
 	return (0);
 }
 

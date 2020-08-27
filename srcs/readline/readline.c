@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 19:00:03 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/26 23:08:12 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/27 13:00:01 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ int		route_exit(void)
 		pos->argv[1] = ft_strdup("0");
 		action_alloc_management(NULL, 1);
 		reset_canonical_input();
-		btin_exit(pos);
+		if (btin_exit(pos) == BTIN_ERROR)
+			return (OUT);
 	}
 	else
 	{
