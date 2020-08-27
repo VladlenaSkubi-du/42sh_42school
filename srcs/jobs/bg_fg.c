@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bg_fg.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:07:28 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/26 22:11:55 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/27 21:43:46 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ void	put_job_in_foreground(t_job *j, int cont)
 		tcsetattr(STDIN_FILENO, TCSADRAIN, &g_shell_tmodes);
 	}
 	j->clean = 1;
-	//	if (job_is_completed(j) || j->pgid == 0)
-	//free_job(j);
 }
 
 /*
@@ -68,18 +66,18 @@ void	jobs_clean(void)
 {
 	t_job	*j;
 	t_job	*temp;
-	
+
 	j = g_first_job;
 	while (j)
 	{
-	    temp = NULL;
+		temp = NULL;
 		if (job_is_completed(j))
 		{
-		  temp = j;
-		  j->signal ? ft_printf("E-bashed: %d\n", j->signal) : 0;
+			temp = j;
+			j->signal ? ft_printf("E-bashed: %d\n", j->signal) : 0;
 		}
-		else (job_is_stopped(j, 1))
-		  ;
+		else
+			(job_is_stopped(j, 1));
 		j = j->next;
 		temp ? free_job(temp) : 0;
 	}
