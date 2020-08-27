@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:08:19 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/26 15:39:22 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/27 19:41:59 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int				ft_change_path(char *path, char **env, t_cd *flags);
 */
 
 char			*ft_new_path_cd(char *path, char *src_path, t_cd *flags);
-char			*ft_del_slash_cd(char *path);
+int				ft_del_slash_cd(char **path);
 char			*ft_new_from_arr_cd(char **arr);
 
 /*

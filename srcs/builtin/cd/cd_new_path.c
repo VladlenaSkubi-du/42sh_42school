@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:08:55 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/26 20:51:10 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/27 20:13:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char		*ft_new_from_arr_cd(char **arr)
 	return (tmp);
 }
 
-char		*ft_del_slash_cd(char *path)
+int			ft_del_slash_cd(char **path)
 {
 	int		i;
 	int		j;
@@ -71,18 +71,22 @@ char		*ft_del_slash_cd(char *path)
 	i = -1;
 	count = 0;
 	j = 0;
-	while (path[++i])
+	while ((*path)[++i])
 	{
-		if (path[i] == '/' && count > 0)
+		if ((*path)[i] == '/' && count > 0)
 			continue ;
-		else if (path[i] == '/')
+		else if ((*path)[i] == '/')
 			count++;
 		else
 			count = 0;
-		tmp[j++] = path[i];
+		tmp[j++] = (*path)[i];
+		if (j + 1 == MAXDIR)
+			break ;
 	}
 	tmp[j] = '\0';
-	return (ft_strdup(tmp));
+	free(*path);
+	*path = ft_strdup(tmp);
+	return (0);
 }
 
 char		*ft_new_path_cd(char *path, char *src_path, t_cd *flags)
@@ -93,11 +97,12 @@ char		*ft_new_path_cd(char *path, char *src_path, t_cd *flags)
 
 	if (!(path || path[0]))
 		return (NULL);
-	if (path[0] == '/' && path[1])
-		return (ft_del_slash_cd(path));
-	else if (path[0] == '/')
+	if (path[0] == '/' && !(path[1]))
 		return (ft_strdup("/"));
-	tmp = ft_join_cd(path, src_path, flags);
+	if (path[0] == '/' && path[1])
+		tmp = make_temporal_path_compl(path);
+	else
+		tmp = ft_join_cd(path, src_path, flags);
 	arr = ft_strsplit(tmp, '/');
 	if (!(arr && arr[0]))
 	{
@@ -108,6 +113,7 @@ char		*ft_new_path_cd(char *path, char *src_path, t_cd *flags)
 	arr[0] = ft_strdup("/");
 	free(tmp);
 	new_path = ft_new_from_arr_cd(arr);
+	ft_del_slash_cd(&new_path);
 	ft_arrdel(arr);
 	return (new_path);
 }
