@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jobs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 22:49:26 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/25 23:02:56 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/27 21:37:22 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct			s_job
 	int					stdin;
 	int					stdout;
 	int					stderr;
-  int	signal;
+	int					signal;
 }						t_job;
 
 struct termios			g_shell_tmodes;
@@ -84,7 +84,7 @@ int						job_init(t_ltree *entity);
 */
 
 int						launch_job (t_job *j);
-int					process_update(t_process *p, int status);
+int						process_update(t_process *p, int status);
 t_process				*find_process(t_job *j, pid_t child_pid);
 
 /*

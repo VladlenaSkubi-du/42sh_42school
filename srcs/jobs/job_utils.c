@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   job_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshawand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:50:07 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/21 20:50:58 by hshawand         ###   ########.fr       */
+/*   Updated: 2020/08/27 21:42:50 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		job_is_stopped(t_job *j, char verbose)
 	}
 	if (verbose && !j->fg && !j->notified && not_completed)
 	{
-	   	ft_printf("[%d] stopped: %s\n", j->jid, j->com);
+		ft_printf("[%d] stopped: %s\n", j->jid, j->com);
 		j->notified = 1;
 	}
 	return (1);

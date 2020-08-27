@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jobs.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:53:30 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/26 22:20:24 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/27 21:41:36 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int				process_update(t_process *p, int status)
 		g_last_exit_status = WIFEXITED(status) ? WEXITSTATUS(status) :
 			btin_return_exit_status();
 	if (WIFSIGNALED(status))
-	  return (WTERMSIG(status));
+		return (WTERMSIG(status));
 	return (0);
 }
 

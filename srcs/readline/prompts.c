@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompts.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:59:15 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 18:59:24 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/27 21:44:20 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int				main_prompt(void)
 	char		*prompt;
 
 	prompt = find_env_value("0");
-   	ft_putstr_fd("\033[1;31m", STDOUT_FILENO);
+	ft_putstr_fd("\033[1;31m", STDOUT_FILENO);
 	ft_putstr_fd(prompt, STDOUT_FILENO);
 	ft_putstr_fd("\033[0m", STDOUT_FILENO);
 	ft_putstr_fd("> ", STDOUT_FILENO);
