@@ -35,8 +35,7 @@ void	child_handler(int sig)
 			proc = j->first_process;
 			while (proc)
 			{
-			  proc->pid == child_pid ?
-				(j->signal = process_update(proc, status)) : 0;
+				proc->pid == child_pid ? process_update(proc, status) : 0;
 				proc = proc->next;
 			}
 			//j->clean && job_is_completed(j) && (temp = j);
