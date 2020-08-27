@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:10:38 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/25 22:05:26 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/27 10:15:16 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int					btin_fc_list_check_other_args(char **argv,
 	{
 		if (!(argv[i][0] == '-' || ft_isdigit(argv[i][0])
 				|| (argv[i][0] == '-' && argv[i][1])))
-			return (btin_fc_error_message());
+			return (btin_fc_error_message(VARIABLE_ERROR, NULL));
 		if (argv[i][0] == '-' && argv[i][1] == '-' && !argv[i][2])
 			return (btin_fc_list_nums_no_error(&argv[i + 1], fc_arg, flags));
 		if (ft_isdigit(argv[i][0]) ||
@@ -87,7 +87,7 @@ int					btin_fc_list_nums_no_error(char **argv,
 		return (btin_fc_list_mode_num_args(argv, 0, fc_arg) == HIST_ERROR ?
 			HIST_ERROR : btin_fc_list_mode_flags_off(flags));
 	}
-	return (btin_fc_error_message());
+	return (btin_fc_error_message(VARIABLE_ERROR, NULL));
 }
 
 /*
@@ -112,7 +112,7 @@ int					btin_fc_list_mode_num_args(char **argv, int i,
 	}
 	else if (!(ft_isdigit(argv[i][0]) || (argv[i][0] == '-' &&
 		ft_isdigit(argv[i][1]))))
-		return (btin_fc_error_message());
+		return (btin_fc_error_message(VARIABLE_ERROR, NULL));
 	(*fc_arg)->flag |= ARG_SECOND;
 	(*fc_arg)->last = ft_atoi(argv[i]);
 	return ((btin_fc_two_ints__list(fc_arg, temp) == HIST_ERROR) ?

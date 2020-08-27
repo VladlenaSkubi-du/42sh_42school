@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:10:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/25 22:05:40 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/27 10:15:19 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int				btin_fc_exec_check_invalid(char **argv,
 
 	i = 0;
 	if (argv[i][0] == '-' && !argv[i][1])
-		return (btin_fc_error_message());
+		return (btin_fc_error_message(VARIABLE_ERROR, NULL));
 	if (argv[i][0] == '-' && argv[i][1] == '-' && !argv[i][2])
 		return (btin_fc_exec_mode_comp(&argv[i], fc_arg, flags));
 	return (i);

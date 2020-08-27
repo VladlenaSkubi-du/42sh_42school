@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:08:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/25 22:33:10 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/27 10:15:01 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ int				btin_fc_exec_other_flags(char argvij);
 int				btin_fc_exec_no_args(t_btin_fc **fc_arg, int *flags);
 int				btin_fc_list_mode_no_args(t_btin_fc **fc_arg, int *flags);
 int				btin_fc_edit_no_args(t_btin_fc **fc_arg, int *flags);
-int				btin_fc_error_message(void);
+int				btin_fc_error_message(int error, char *option);
 
 /*
 ** File fc_exec.c

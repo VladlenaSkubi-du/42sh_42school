@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 20:31:08 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/24 14:14:00 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/27 10:22:03 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		btin_unalias(t_process *pos)
 {
 	int	flags;
 
-	flags = find_options(2, (char*[]){"-a", "--help"}, pos->argv);
+	flags = find_options(2, (char*[]){"a", "--help"}, pos->argv);
 	if (flags == HELP_FLAG)
 		return (usage_btin("unalias"));
 	if (flags < 0)

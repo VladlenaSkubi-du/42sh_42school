@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:26:25 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/25 20:57:42 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/27 10:26:26 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int					btin_hash_delete_elements(char **argv)
 		if (answer == ARG_INVALID || answer == ARG_ALIAS ||
 				answer == ARG_BUILTIN)
 			continue;
-		btin_hash_valid_argument_delete(argv[i]);
+		if (btin_hash_valid_argument_delete(argv[i]) == BTIN_ERROR)
+			return (BTIN_ERROR);
 	}
 	return (0);
 }
@@ -87,7 +88,8 @@ int					btin_hash_add_to_hashtable(char **argv)
 		if (answer == ARG_INVALID || answer == ARG_ALIAS ||
 				answer == ARG_BUILTIN)
 			continue;
-		btin_hash_valid_argument_add(argv[i]);
+		if (btin_hash_valid_argument_add(argv[i]) == BTIN_ERROR)
+			return (BTIN_ERROR);
 	}
 	return (0);
 }
