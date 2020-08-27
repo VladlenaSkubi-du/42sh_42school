@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   job_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:50:07 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/27 21:42:50 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/27 22:02:12 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,13 @@ int		free_job(t_job *j)
 		free(temp);
 	}
 	free(j);
+	return (0);
+}
+
+int		free_t_process(t_process *pos)
+{
+	ft_arrdel(pos->argv);
+	free(pos);
+	pos = NULL;
 	return (0);
 }

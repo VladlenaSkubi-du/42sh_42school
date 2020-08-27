@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fc_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:37:27 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/25 17:40:12 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/08/27 23:02:56 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		btin_fc_execute_execution(t_btin_fc *fc_arg)
 	cmd = (tmp > 0 && cmd[tmp - 1] == '\n') ? cmd : ft_strrejoin(cmd, "\n");
 	btin_fc_save_parser_globals(1);
 	ft_putstr_fd(cmd, STDOUT_FILENO);
-	parser(cmd);
+	fc_before_parser(cmd);
 	btin_fc_save_parser_globals(0);
 	return (0);
 }
