@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:08:55 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/27 19:45:40 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/27 20:13:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ int			ft_del_slash_cd(char **path)
 		else
 			count = 0;
 		tmp[j++] = (*path)[i];
+		if (j + 1 == MAXDIR)
+			break ;
 	}
 	tmp[j] = '\0';
 	free(*path);
