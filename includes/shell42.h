@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:09:17 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/26 14:18:00 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/28 11:29:07 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,10 +220,11 @@ int					suboptions_proc(char *arri, int num,
 ** File options_42sh_42.c
 */
 
-int					check_42sh_options(int argc, char **argv);
-int					check_42sh_c_option(char **argv);
-int					invalid_option_42sh(char *option, char *name);
-int					argument_needed_42sh(char *option, char *name);
+int					check_shell_options(char **argv);
+int					check_shell_c_option(char **argv);
+int					btin_shell_error_message(char *option, int error);
+int					check_shell_script_execution(char *file);
+int					execute_shell_file(char *file);
 
 /*
 ** File signals_processing42.c
