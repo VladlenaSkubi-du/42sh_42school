@@ -21,7 +21,10 @@
 int		exec_vp(t_process *p)
 {
 	if (!(g_path))
+	{
+		p->completed = 1;
 		return (exec_clean(g_path, -1, 0));
+	}
 	if (execve(g_path, p->argv, p->envp) == -1)
 		exit(-1);
 	return (0);
