@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:10:44 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/27 23:08:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/28 09:50:27 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,20 @@ int					btin_fc_error_message(int error, char *option)
 
 int					fc_before_parser(char *cmd)
 {
-	int				li;
-	int				sy;
-	pid_t			group_pid;
+	// int				li;
+	// int				sy;
+	// pid_t			group_pid;
 
-	li = find_in_variable(&sy, "42SH_NONINTERACTIVE");
-	g_envi[li][sy] = '1';
-	while (1)
-	{
-		group_pid = getpgrp();
-		if (tcgetpgrp(STDIN_FILENO) == group_pid)
-			break ;
-	}
+	// li = find_in_variable(&sy, "42SH_NONINTERACTIVE");
+	// g_envi[li][sy] = '1';
+	// while (1)
+	// {
+	// 	group_pid = getpgrp();
+	// 	if (tcgetpgrp(STDIN_FILENO) == group_pid)
+	// 		break ;
+	// }
 	parser(cmd);
-	li = find_in_variable(&sy, "42SH_NONINTERACTIVE");
-	g_envi[li][sy] = '0';
+	// li = find_in_variable(&sy, "42SH_NONINTERACTIVE");
+	// g_envi[li][sy] = '0';
 	return (0);
 }
