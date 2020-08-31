@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:44:53 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/28 11:29:41 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/31 11:40:40 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ int				check_shell_c_option(char **argv)
 	i = 0;
 	while (argv[++i])
 	{
-		if (argv[i][1] == '-')
+		if (argv[i][0] == '-')
 		{
 			if (!argv[i][1])
 				return (btin_shell_error_message(argv[i], OPTIONS_REQUIRED));
 			else if (argv[i][1] == 'c')
 				return ((check_posix_option(argv[i], "c",
 						btin_shell_error_message) != 0) ?
-					BTIN_ERROR : noninteractive_shell(&argv[++i]));
+					OPTIONS_REQUIRED : noninteractive_shell(&argv[++i]));
 		}
 		return (check_shell_script_execution(argv[i]));
 	}
@@ -78,25 +78,53 @@ int				check_shell_script_execution(char *file)
 	if (access(file, F_OK) == -1)
 	{
 		error_handler(VARIABLE_ERROR | (ERR_CD_NO_FILE_DIR << 9), file);
-		exit(VARIABLE_ERROR);
+		return (VARIABLE_ERROR);
 	}
 	if (access(file, R_OK) == -1 || stat(file, &stat_buf) != 0
 			|| (stat_buf.st_mode & (S_IRUSR | S_IRGRP | S_IROTH)) == 0)
 	{
 		error_handler(COMMAND_NON_EXECUTABLE | (ERR_NO_ACC << 9), file);
-		exit(COMMAND_NON_EXECUTABLE);
+		return (COMMAND_NON_EXECUTABLE);
 	}
 	if (S_ISREG(stat_buf.st_mode) == 0 || S_ISDIR(stat_buf.st_mode))
 	{
 		error_handler(COMMAND_NON_EXECUTABLE | (ERR_ISDIR << 9), file);
-		exit(COMMAND_NON_EXECUTABLE);
+		return (COMMAND_NON_EXECUTABLE);
 	}
-	execute_shell_file(file);
-	exit(0);
+	return (execute_shell_file(file));
 }
 
 int				execute_shell_file(char *file)
 {
-	printf("file execution\n");
-	return (0);
+	int		fd;
+	char	*line;
+	int		li;
+	int		sy;
+	int		status;
+
+	line = NULL;
+	status = 0;
+	if ((fd = open(file, O_RDONLY)) != -1)
+	{
+		while (ft_gnl(fd, &line) > 0)
+		{
+			if (line && line[0] && line[0] == '#')
+			{
+				free(line);
+				continue ;
+			}
+			li = find_in_variable(&sy, "42SH_NONINTERACTIVE");
+			g_envi[li][sy] = '1';
+			g_prompt.prompt_func = NULL;
+			// if (parser(line) != 0)
+			// 	exit(0);
+			line = NULL;
+			jobs_clean();
+			status = ft_atoi(find_env_value("?"));
+		}
+	}
+	clean_everything();
+	free(line);
+	close(fd);
+	return (status);
 }

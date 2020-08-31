@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser42.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 20:24:20 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/25 21:56:35 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/08/31 10:04:26 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 int		parser(char *line)
 {
-	if (g_prompt.prompt_func == main_prompt
-		&& (line == NULL || line[0] == 0))
+	if ((g_prompt.prompt_func == main_prompt ||
+			g_prompt.prompt_func == NULL) &&
+			(line == NULL || line[0] == 0))
 	{
 		free(line);
 		return (0);

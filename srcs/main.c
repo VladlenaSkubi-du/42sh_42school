@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 22:27:07 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/28 11:25:23 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/31 09:51:48 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int				main(int argc, char **argv)
 {
 	create_env();
 	if (argc > 1)
-		check_shell_options(argv);
+		return (check_shell_options(argv));
 	start_history();
 	hashtable_init();
 	init_readline();
