@@ -108,7 +108,7 @@ int				execute_shell_file(char *file)
 	{
 		while (ft_gnl(fd, &line) > 0)
 		{
-			if (line && line[0] && line[0] == '#')
+			if ((line && line[0] && line[0] == '#') || !line)
 			{
 				free(line);
 				continue ;

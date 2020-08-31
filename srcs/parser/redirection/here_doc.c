@@ -19,7 +19,8 @@
 
 int		ft_check_is_heredoc(int ret)
 {
-	if (g_heredoc.list != NULL && g_prompt.prompt_func != heredoc_prompt)
+	if (g_heredoc.list != NULL && g_prompt.prompt_func != heredoc_prompt
+		&& g_prompt.prompt_func != NULL)
 	{
 		g_prompt.prompt_func = heredoc_prompt;
 		ft_g_init_heredoc();
@@ -30,7 +31,7 @@ int		ft_check_is_heredoc(int ret)
 			return (0);
 		ft_heredoc_fill(ret);
 	}
-	if (g_prompt.prompt_func == main_prompt)
+	if (g_prompt.prompt_func == main_prompt || g_prompt.prompt_func == NULL)
 	{
 		ft_block_start(&g_start_list);
 		btin_alias_init(NULL, NULL, CONTINUE);
