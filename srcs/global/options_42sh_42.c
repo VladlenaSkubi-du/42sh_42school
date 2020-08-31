@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:44:53 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/31 11:40:40 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/31 12:30:26 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int				execute_shell_file(char *file)
 			li = find_in_variable(&sy, "42SH_NONINTERACTIVE");
 			g_envi[li][sy] = '1';
 			g_prompt.prompt_func = NULL;
+			parser(line);
 			// if (parser(line) != 0)
 			// 	exit(0);
 			line = NULL;
