@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:14:07 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/08/27 10:22:01 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/31 12:35:01 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,6 @@ int		btin_pwd(t_process *pos)
 	if (flags == HELP_FLAG)
 		return (usage_btin("pwd"));
 	if (flags < 0)
-		return (btin_return_exit_status());
+		return (BTIN_ERROR);
 	return (btin_pwd_init(pos->argv));
 }
