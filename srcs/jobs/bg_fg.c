@@ -93,7 +93,7 @@ int		bg_fg_wait(t_job *j)
 	std_save(1);
 	if (!g_is_interactive)
 	{
-		(j->pgid != 0) ? wait_for_job(j) : 0;
+		wait_for_job(j);
 		free_job(j);
 	}
 	else if (j->fg)
