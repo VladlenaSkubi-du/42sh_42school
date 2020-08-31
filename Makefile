@@ -283,7 +283,6 @@ LIBS_INCLUDED = -Llibft42 -lft42 -ltermcap
 all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJS)
-	@make -C ./libft42
 	@echo "\033[32;01mCompiling 42sh...\033[0m"
 	@gcc $(FLAGS) $(OBJS) -o $(NAME) $(LIBS_INCLUDED)
 	@echo "\033[32;01m42sh is ready\033[0m"
