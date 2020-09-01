@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 22:27:07 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/31 09:51:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/09/01 21:00:31 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ int				interactive_shell(void)
 
 	tmp = 0;
 	btin_alias_init(NULL, NULL, SAVE);
+	group_pid = getpgrp();
+	if (tcgetpgrp(STDIN_FILENO) != group_pid)
+		kill(group_pid, SIGTTIN);
 	while (1)
 	{
-		group_pid = getpgrp();
-		if (tcgetpgrp(STDIN_FILENO) != group_pid)
-			kill(group_pid, SIGTTIN);
 		signals_reroute(1);
 		check_terminal();
 		g_prompt.prompt_func();
