@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:50:31 by rbednar           #+#    #+#             */
-/*   Updated: 2020/08/01 15:23:10 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/09/01 20:54:36 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,11 @@ int		nullify_dquotes(char **ptr, t_stack **stack)
 		**ptr = TEXT;
 	else if ((*stack)->data != SQUOTE && **ptr == OPAREN)
 		ft_push_stack(stack, OPAREN);
-	else if ((*stack)->data == OPAREN && **ptr == CPAREN)
+	else if ((*stack)->data == OPAREN && (**ptr == CPAREN || **ptr == EOF))
 		ft_pop_stack(stack);
 	else if ((*stack)->data != SQUOTE && **ptr == OBRACE)
 		ft_push_stack(stack, OBRACE);
-	else if ((*stack)->data == OBRACE && **ptr == CBRACE)
+	else if ((*stack)->data == OBRACE && (**ptr == CBRACE || **ptr == EOF))
 		ft_pop_stack(stack);
 	else if ((*stack)->data == OBRACE || (*stack)->data == OPAREN)
 		**ptr = TEXT;
