@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:44:53 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/31 12:30:26 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/09/01 21:20:52 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,27 @@ int				check_shell_options(char **argv)
 	int			flags;
 	int			mask;
 	int			i;
+	int			tmp;
 
 	flags = find_options(OPTIONS_NUM,
 		(char*[]){"c", "--version", "--help", "--readline", "--simple"}, argv);
 	if (flags < 0)
 		return (btin_shell_error_message(NULL, OPTIONS_REQUIRED));
 	mask = 1;
+	tmp = 1;
 	mask = mask << SUBOPTION_STARTS;
 	i = 0;
 	while (i < OPTIONS_NUM)
 	{
 		if (flags & (mask << i))
+		{
 			print_help(i + 1);
+			tmp = 1;
+		}
 		i++;
 	}
+	if (tmp)
+		return (0);
 	return (check_shell_c_option(argv));
 }
 
@@ -68,7 +75,7 @@ int				btin_shell_error_message(char *option, int error)
 		error_handler(VARIABLE_ERROR |
 			(ERR_BTIN_INVALID << 9), error_message);
 	free(error_message);
-	exit(error);
+	return (error);
 }
 
 int				check_shell_script_execution(char *file)
@@ -98,33 +105,25 @@ int				execute_shell_file(char *file)
 {
 	int		fd;
 	char	*line;
-	int		li;
-	int		sy;
 	int		status;
 
 	line = NULL;
 	status = 0;
-	if ((fd = open(file, O_RDONLY)) != -1)
+	if ((fd = open(file, O_RDONLY)) == -1)
+		return (0);
+	while (ft_gnl(fd, &line) > 0)
 	{
-		while (ft_gnl(fd, &line) > 0)
+		if ((line && line[0] && line[0] == '#') || !line)
 		{
-			if ((line && line[0] && line[0] == '#') || !line)
-			{
-				free(line);
-				continue ;
-			}
-			li = find_in_variable(&sy, "42SH_NONINTERACTIVE");
-			g_envi[li][sy] = '1';
-			g_prompt.prompt_func = NULL;
-			parser(line);
-			// if (parser(line) != 0)
-			// 	exit(0);
-			line = NULL;
-			jobs_clean();
-			status = ft_atoi(find_env_value("?"));
+			free(line);
+			continue ;
 		}
+		preparation_noninteractive();
+		parser(line);
+		line = NULL;
+		jobs_clean();
+		status = ft_atoi(find_env_value("?"));
 	}
-	clean_everything();
 	free(line);
 	close(fd);
 	return (status);

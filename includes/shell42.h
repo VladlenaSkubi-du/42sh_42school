@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:09:17 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/28 11:29:07 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/09/01 20:58:27 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,7 @@ t_history			g_hist;
 
 int					noninteractive_shell(char **argv);
 int					interactive_shell(void);
+int					preparation_noninteractive(void);
 
 /*
 ** File options_proc42.c
