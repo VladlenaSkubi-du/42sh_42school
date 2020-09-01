@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:58:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 18:58:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/09/01 21:37:22 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void		print_help(short flag)
 	{
 		ft_putstr_fd(find_env_value("0"), STDOUT_FILENO);
 		ft_putendl_fd(", version 0.0.1", 1);
-		ebash_long_options();
+		ft_putstr_fd("Copyright (C) 2020 ", STDOUT_FILENO);
+		ft_putendl_fd("rbednar, hshawand, kfalia-f, sschmele, School 21 NPO",
+			STDOUT_FILENO);
 	}
 	if (flag == 2)
 		usage_btin("./42sh");

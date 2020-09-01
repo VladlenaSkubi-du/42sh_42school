@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 22:27:07 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/31 09:51:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/09/01 20:58:06 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,15 @@
 
 int				main(int argc, char **argv)
 {
+	int			status;
+
+	status = 0;
 	create_env();
 	if (argc > 1)
-		return (check_shell_options(argv));
+	{
+		status = check_shell_options(argv);
+		return (status);
+	}
 	start_history();
 	hashtable_init();
 	init_readline();
@@ -71,16 +77,23 @@ int				interactive_shell(void)
 int				noninteractive_shell(char **argv)
 {
 	char		*cmd;
-	int			li;
-	int			sy;
 	int			status;
 
-	li = find_in_variable(&sy, "42SH_NONINTERACTIVE");
-	g_envi[li][sy] = '1';
+	preparation_noninteractive();
 	cmd = ft_strdup(argv[0]);
-	g_prompt.prompt_func = NULL;
 	parser(cmd);
 	status = ft_atoi(find_env_value("?"));
 	clean_everything();
 	exit(status);
+}
+
+int				preparation_noninteractive(void)
+{
+	int			li;
+	int			sy;
+	
+	li = find_in_variable(&sy, "42SH_NONINTERACTIVE");
+	g_envi[li][sy] = '1';
+	g_prompt.prompt_func = NULL;
+	return (0);
 }
