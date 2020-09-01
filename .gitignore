@@ -4,8 +4,12 @@ cmake-build-debug/
 *.o
 *.out
 *.dSYM/
+*.a
 minishell
-obj/
+ft_select
+objs/
 .vscode/
-readline
 42sh
+*.txt
+.42sh_history
+.swp
