@@ -29,7 +29,7 @@ int		ft_find_tilda(t_ltree *sub, int flag)
 				sub->l_tline.line[i + 1] == ENTER ||
 				sub->l_tline.line[i + 1] == SPACE ||
 				sub->l_cmd[i + 1] == '/' ||
-				(flag == ASSIGN && sub->l_cmd[i + 1] == ':'))
+				sub->l_cmd[i + 1] == ':')
 				ft_get_home(sub, &i);
 			else
 				ft_getdir_by_name(sub, &i, flag);
