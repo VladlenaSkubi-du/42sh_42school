@@ -22,7 +22,7 @@ int				btin_exit(t_process *pos)
 	job_iter = g_first_job;
 	while (job_iter)
 	{
-		if (!job_is_completed(job_iter) && !is_self(job_iter))
+		if (!job_is_completed(job_iter) && !is_btin_only(job_iter))
 		{
 			ft_putstr_fd("There are still alive jobs\n", STDOUT_FILENO);
 			return (BTIN_ERROR);

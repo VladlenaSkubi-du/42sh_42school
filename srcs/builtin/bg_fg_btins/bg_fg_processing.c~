@@ -14,9 +14,20 @@
 #include "builtin42.h"
 #include "jobs.h"
 
-int		is_self(t_job *j)
+int		is_btin_only(t_job *j)
 {
-	return ((j->fg && j->first_process->next == NULL && j->first_process->btin) ? 1 : 0);
+	t_process *p_iter;
+
+	p_iter = j->first_process;
+	if (!p_iter)
+		return (0);
+	while (p_iter)
+	{
+		if (!p_iter->btin)
+			return (0);
+		p_iter = p_iter->next;
+	}
+	return (1);
 }
 
 int		back_to_life(t_job *j)
@@ -45,7 +56,7 @@ int		btin_bg_init(int argc, char **argv)
 	if (!job_iter)
 		return (btin_bg_fg_error_message(2, "current", VARIABLE_ERROR));
 	if (argc < 2)
-		while (job_iter->next && !is_self(job_iter->next))
+		while (job_iter->next && !is_btin_only(job_iter->next))
 			job_iter = job_iter->next;
 	else if (argv[i][0] == '%')
 	{
@@ -55,7 +66,7 @@ int		btin_bg_init(int argc, char **argv)
 		if (!job_iter)
 			return (btin_bg_fg_error_message(2, argv[i], VARIABLE_ERROR));
 	}
-	if (is_self(job_iter))
+	if (is_btin_only(job_iter))
 		return (btin_bg_fg_error_message(2, "current", VARIABLE_ERROR));
 	back_to_life(job_iter);
 	put_job_in_background(job_iter, 1);
@@ -73,7 +84,7 @@ int		btin_fg_init(int argc, char **argv)
 	if (!job_iter)
 		return (btin_bg_fg_error_message(1, "current", VARIABLE_ERROR));
 	if (argc < 2)
-		while (job_iter->next && !is_self(job_iter->next))
+		while (job_iter->next && !is_btin_only(job_iter->next))
 			job_iter = job_iter->next;
 	else if (argv[i][0] == '%')
 	{
@@ -83,7 +94,7 @@ int		btin_fg_init(int argc, char **argv)
 		if (!job_iter)
 			return (btin_bg_fg_error_message(1, argv[i], VARIABLE_ERROR));
 	}
-	if (is_self(job_iter))
+	if (is_btin_only(job_iter))
 		return (btin_bg_fg_error_message(1, "current", VARIABLE_ERROR));
 	back_to_life(job_iter);
 	put_job_in_foreground(job_iter, 1);

@@ -74,14 +74,14 @@ int		btin_jobs_init(int argc, char **argv)
 	if (iter != 0)
 		argc -= iter;
 	job_iter = g_first_job;
-	if (argc >= 2 && (!job_iter || is_self(job_iter)))
+	if (argc >= 2 && (!job_iter || is_btin_only(job_iter)))
 		return (btin_jobs_error_message(argv[iter + 1], VARIABLE_ERROR));
-	else if (!job_iter || is_self(job_iter))
+	else if (!job_iter || is_btin_only(job_iter))
 		return (0);
 	id_chk = id_check(argc, &argv[iter]);
 	while (!id_chk && job_iter)
 	{
-		!is_self(job_iter) ? print_job_info(job_iter, options) : 0;
+		!is_btin_only(job_iter) ? print_job_info(job_iter, options) : 0;
 		job_iter = job_iter->next;
 	}
 	id_chk && print_by_id(argc, &argv[iter], options);

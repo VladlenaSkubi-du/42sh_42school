@@ -55,7 +55,7 @@ void	launch_process(t_process *p, pid_t pgid, int stream[3], int foreground)
 		signal(SIGTTOU, SIG_IGN);
 		if (foreground)
 			tcsetpgrp(STDIN_FILENO, pgid);
-		!p->btin ? set_proc_sig() : 0;
+		set_proc_sig();
 	}
 	(stream[0] != STDIN_FILENO) && setstream(stream[0], STDIN_FILENO);
 	(stream[1] != STDOUT_FILENO) && setstream(stream[1], STDOUT_FILENO);

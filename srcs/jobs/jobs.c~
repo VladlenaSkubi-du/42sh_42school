@@ -72,7 +72,7 @@ int				fork_job(t_process *p, t_job *j, int *infl, int *outfl)
 		return (error_handler(FORK_FAILED, "fork creation failed"));
 	else
 		parent(p, j, (!p->btin || *infl != j->stdin ||
-			*outfl != j->stdout || !j->fg) ? pid : getpid());
+			*outfl != j->stdout) ? pid : getpid());
 	*infl != STDIN_FILENO ? close(*infl) : 0;
 	*outfl != STDOUT_FILENO ? close(*outfl) : 0;
 	fd_list_process(p, CLOSE);

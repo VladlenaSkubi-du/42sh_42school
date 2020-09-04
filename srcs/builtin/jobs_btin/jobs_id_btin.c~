@@ -43,7 +43,7 @@ int		print_by_id(int argc, char **argv, int options)
 			job_iter = g_first_job;
 			while (job_iter && job_iter->jid != id)
 				job_iter = job_iter->next;
-			is_self(job_iter) ? job_iter = 0 : 0;
+			is_btin_only(job_iter) ? job_iter = 0 : 0;
 			job_iter ? print_job_info(job_iter, options) :
 				error_handler(VARIABLE_ERROR | (ERR_JOB_NF << 9), argv[i]);
 		}

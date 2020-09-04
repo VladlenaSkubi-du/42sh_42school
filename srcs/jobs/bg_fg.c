@@ -92,10 +92,7 @@ int		bg_fg_wait(t_job *j)
 {
 	std_save(1);
 	if (!g_is_interactive)
-	{
 		wait_for_job(j);
-		free_job(j);
-	}
 	else if (j->fg)
 		put_job_in_foreground(j, 0);
 	else
