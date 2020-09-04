@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:26:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/25 20:50:47 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/09/04 20:09:15 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ char			*hash_key_not_found(char *key, void **hashtable,
 	}
 	slot_ptr = (t_hashcmd*)hashtable[index];
 	update_hashtable_slot_filled(&slot_ptr);
+	hashtable = get_hashtable_value(&hashtable_size);
 	slot_ptr->number++;
 	if (slot_ptr->cmd_state == CDM_NON_EXEC)
 	{
