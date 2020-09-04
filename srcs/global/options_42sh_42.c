@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:44:53 by sschmele          #+#    #+#             */
-/*   Updated: 2020/09/01 21:20:52 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/09/04 17:51:23 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int				check_shell_options(char **argv)
 	if (flags < 0)
 		return (btin_shell_error_message(NULL, OPTIONS_REQUIRED));
 	mask = 1;
-	tmp = 1;
+	tmp = 0;
 	mask = mask << SUBOPTION_STARTS;
 	i = 0;
 	while (i < OPTIONS_NUM)
