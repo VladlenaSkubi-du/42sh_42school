@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:14:50 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/25 20:56:40 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/27 20:42:12 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 ** but malloc a new cell and return an error.
 */
 
-char			*hashtable_add_hash(char *key, void **hashtable,
-					int hashtable_size, int *index)
+char			*hashtable_add_hash(void **hashtable,
+					int hashtable_size, int *index, char *key)
 {
 	char		*path;
 	int			i;
@@ -41,23 +41,24 @@ char			*hashtable_add_hash(char *key, void **hashtable,
 	if (!path)
 		return (NULL);
 	hashtable_filled = get_hashtable_filled();
-	i = hashfunction(key);
+	i = hashfunction_hash(key);
 	if (hashtable[i] != NULL)
-		i = collision_hashtable_add(key);
+		i = collision_hashtable_add_hash(hashtable, hashtable_size, key);
 	hashtable[i] = init_hash_cell(key, path);
 	*index = i;
 	return (path);
 }
 
-int				hashtable_delete_hash(char *key, void **hashtable,
-					int hashtable_size, int hashtable_filled)
+int				hashtable_delete_hash(void **hashtable,
+					int hashtable_size, int hashtable_filled, char *key)
 {
 	int			index;
 
 	if (hashtable_filled == 0)
 		return (HASHTABLE_NF);
-	index = hashtable_find(key, hashtable, hashtable_size);
-	if (hashtable_delete_invalid(&index, key, hashtable) == HASHTABLE_NF)
+	index = hashtable_find_hash(hashtable, hashtable_size, key);
+	if (hashtable_delete_invalid_hash(hashtable, hashtable_size,
+			&index, key) == HASHTABLE_NF)
 	{
 		ft_printf("   can not delete an element\n");
 		return (HASHTABLE_NF);
@@ -75,8 +76,8 @@ int				hashtable_delete_hash(char *key, void **hashtable,
 ** - we return the answer: HASHTABLE_NF
 */
 
-int				hashtable_delete_invalid_hash(int *index, char *key,
-					void **hashtable)
+int				hashtable_delete_invalid_hash(void **hashtable,
+					int hashtable_size, int *index, char *key)
 {
 	t_hashcmd	*slot_ptr;
 	int			collision_index;
@@ -90,7 +91,8 @@ int				hashtable_delete_invalid_hash(int *index, char *key,
 		return (HASHTABLE_NF);
 	else if (ft_strcmp(key, slot_ptr->cmd_name))
 	{
-		collision_index = collision_hashtable_find(*index, key);
+		collision_index = collision_hashtable_find_hash(hashtable,
+			hashtable_size, *index, key);
 		if (collision_index == HASHTABLE_NF ||
 				hashtable[collision_index] == NULL)
 			return (HASHTABLE_NF);
@@ -107,14 +109,14 @@ int				hashtable_delete_invalid_hash(int *index, char *key,
 ** Read-only hashtable function - hashtable_filled is not needed
 */
 
-int				hashtable_find(char *key, void **hashtable,
-					int hashtable_size)
+int				hashtable_find_hash(void **hashtable,
+					int hashtable_size, char *key)
 {
 	int			index;
 	t_hashcmd	*slot_ptr;
 	int			comparison;
 
-	index = hashfunction(key);
+	index = hashfunction_hash(key);
 	slot_ptr = (t_hashcmd*)hashtable[index];
 	comparison = ft_strcmp(key, slot_ptr->cmd_name);
 	if (!comparison)
@@ -124,6 +126,6 @@ int				hashtable_find(char *key, void **hashtable,
 		return (index);
 	}
 	else if (comparison && slot_ptr->slot_state == SLOT_DELETED_HASH)
-		return (collision_hastable_find(index, key));
+		return (collision_hastable_find_hash(hashtable, hashtable_size, index, key));
 	return (HASHTABLE_NF);
 }
