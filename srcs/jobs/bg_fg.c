@@ -75,6 +75,7 @@ void	jobs_clean(void)
 		{
 			temp = j;
 			j->signal ? ft_printf("E-bashed: %d\n", j->signal) : 0;
+			j->fg ? 0 : ft_printf("[%d] completed: %s\n", j->jid, j->com);
 		}
 		else
 			(job_is_stopped(j, 1));

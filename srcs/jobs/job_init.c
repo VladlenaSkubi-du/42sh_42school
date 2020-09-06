@@ -95,12 +95,11 @@ int			set_globals_and_signals(void)
 	int		sy;
 
 	signal(SIGCHLD, child_handler);
-	//signal(SIGTTIN, SIG_IGN); 
 	signal(SIGTTOU, SIG_IGN);
 	g_shell_tmodes = g_backup_tty;
 	li = find_in_variable(&sy, "42SH_NONINTERACTIVE");
 	g_is_interactive = !(g_envi[li][sy] - '0');
-	g_shell_pgid = getpgid(0);
+	g_shell_pgid = getpgrp();
 	return (0);
 }
 
@@ -134,6 +133,6 @@ int			job_init(t_ltree *entity)
 		ret += launch_job(job);
 		exit_status_variables(g_last_exit_status);
 	}
-	tcsetpgrp((int)STDIN_FILENO, g_shell_pgid);
+	// tcsetpgrp((int)STDIN_FILENO, g_shell_pgid);
 	return (g_last_exit_status);
 }
