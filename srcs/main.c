@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 22:27:07 by sschmele          #+#    #+#             */
-/*   Updated: 2020/09/01 21:39:13 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/09/07 21:24:30 by kfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int				preparation_noninteractive(void)
 {
 	int			li;
 	int			sy;
-	
+
 	li = find_in_variable(&sy, "42SH_NONINTERACTIVE");
 	g_envi[li][sy] = '1';
 	g_prompt.prompt_func = NULL;

@@ -6,7 +6,7 @@
 /*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:25:17 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/26 21:05:28 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/09/07 21:24:00 by kfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,5 @@ int			job_init(t_ltree *entity)
 		ret += launch_job(job);
 		exit_status_variables(g_last_exit_status);
 	}
-	// tcsetpgrp((int)STDIN_FILENO, g_shell_pgid);
 	return (g_last_exit_status);
 }

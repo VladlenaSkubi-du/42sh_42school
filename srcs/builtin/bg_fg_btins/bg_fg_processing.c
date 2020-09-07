@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:16:55 by hshawand          #+#    #+#             */
-/*   Updated: 2020/08/24 17:03:26 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/09/07 21:28:26 by kfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 
 int		is_self(t_job *j)
 {
-	return ((j->fg && j->first_process->next == NULL && j->first_process->btin) ? 1 : 0);
+	return ((j->fg && j->first_process->next == NULL
+				&& j->first_process->btin) ? 1 : 0);
 }
 
 int		back_to_life(t_job *j)

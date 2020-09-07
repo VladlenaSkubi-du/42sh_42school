@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 16:44:53 by sschmele          #+#    #+#             */
-/*   Updated: 2020/09/04 17:51:23 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/09/07 21:23:11 by kfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int				btin_shell_error_message(char *option, int error)
 int				check_shell_script_execution(char *file)
 {
 	struct stat	stat_buf;
-	
+
 	if (access(file, F_OK) == -1)
 	{
 		error_handler(VARIABLE_ERROR | (ERR_CD_NO_FILE_DIR << 9), file);
